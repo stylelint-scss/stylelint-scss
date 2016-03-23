@@ -73,6 +73,12 @@ testRule(undefined, tr => {
     }
   `, "when an ampersand is used in concatentation following an ampersand")
 
+  tr.ok(`
+    div[id="foo&bar"] {
+      &.foo {}
+    }
+  `, "when an ampersand is used in an attribute selector")
+
   tr.notOk(`
     p {
       & > a {}
