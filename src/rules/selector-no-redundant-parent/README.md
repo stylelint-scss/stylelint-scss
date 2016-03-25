@@ -1,0 +1,61 @@
+# selector-no-redundant-parent
+
+Disallow unnecessary parent selector references (`&`).
+
+```scss
+p {
+  & a {}
+  // ↑
+  // This type of selector
+}
+```
+
+The following patterns are considered warnings:
+
+```scss
+p {
+  & a {}
+}
+```
+
+```scss
+p {
+  & > a {}
+}
+```
+
+```scss
+p {
+  & .class {}
+}
+```
+
+The following patterns are *not* considered warnings:
+
+```scss
+p {
+  &.foo {}
+}
+```
+
+```scss
+p {
+  .foo > & {}
+}
+```
+
+```scss
+p {
+  &,
+  .foo,
+  .bar {
+    margin: 0;
+  }
+}
+```
+
+```scss
+p {
+  & + .foo {}
+}
+```
