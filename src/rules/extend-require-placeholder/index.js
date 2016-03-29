@@ -12,7 +12,7 @@ export default function (actual) {
     if (!validOptions) { return }
 
     root.walkAtRules("extend", atrule => {
-      const isPlaceholder = (/^%/).test(atrule.params.trim())
+      const isPlaceholder = atrule.params.trim()[0] === "%"
       const isInterpolation = (/^#{.+}/).test(atrule.params.trim())
 
       if (!isPlaceholder && !isInterpolation) {
