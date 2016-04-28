@@ -12,6 +12,7 @@
     "url": "https://github.com/kristerkari/stylelint-scss/issues"
   },
   "dependencies": {
+    "lodash": "^4.11.1",
     "stylelint": "^4.5.0"
   },
   "devDependencies": {
