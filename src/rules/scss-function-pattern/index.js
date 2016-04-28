@@ -19,11 +19,12 @@ export default function (pattern) {
       ? new RegExp(pattern)
       : pattern
 
-    root.walkAtRules(declaration => {
-      const decl = declaration
-      if (declaration.name !== "function") { return }
+    root.walkAtRules(decl => {
+      if (decl.name !== "function") { return }
+
       // Stripping the function of its arguments
-      if (regexpPattern.test(declaration.params.replace(/(\s*?)\(.*?\)/g, ""))) { return }
+      const funcName = decl.params.replace(/(\s*?)\(.*?\)/g, "")
+      if (regexpPattern.test(funcName)) { return }
 
       utils.report({
         message: messages.expected,
