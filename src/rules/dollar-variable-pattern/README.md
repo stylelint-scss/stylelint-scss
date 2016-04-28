@@ -4,7 +4,7 @@ Specify a pattern for Sass-like variables.
 
 ```css
 a { $foo: 1px; }
-/**   ↑
+/** ↑
  * The pattern of this */
 ```
 
