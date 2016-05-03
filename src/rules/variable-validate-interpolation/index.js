@@ -4,7 +4,7 @@ import valueParser from "postcss-value-parser"
 export const ruleName = "variable-validate-interpolation"
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: (n, v) => `You need to interpolate your variable ${v} when using it with ${n}`,
+  rejected: (n, v) => `Expected variable ${v} to be interpolated when using it with ${n}`,
 })
 
 // https://developer.mozilla.org/en/docs/Web/CSS/custom-ident#Lists_of_excluded_values
