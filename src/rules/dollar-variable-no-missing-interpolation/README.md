@@ -1,4 +1,4 @@
-# dollar-variable-no-invalid-interpolation
+# dollar-variable-no-missing-interpolation
 
 Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
 
