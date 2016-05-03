@@ -1,7 +1,7 @@
 import { utils } from "stylelint"
 import valueParser from "postcss-value-parser"
 
-export const ruleName = "variable-validate-interpolation"
+export const ruleName = "dollar-variable-no-invalid-interpolation"
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: (n, v) => `Expected variable ${v} to be interpolated when using it with ${n}`,
