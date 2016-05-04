@@ -1,10 +1,10 @@
 import { isRegExp, isString } from "lodash"
 import { utils } from "stylelint"
 
-export const ruleName = "scss-mixin-pattern"
+export const ruleName = "at-mixin-pattern"
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected SCSS mixin name to match specified pattern",
+  expected: "Expected @mixin name to match specified pattern",
 })
 
 export default function (pattern) {

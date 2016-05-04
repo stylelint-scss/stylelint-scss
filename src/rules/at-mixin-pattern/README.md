@@ -1,10 +1,10 @@
-# scss-function-pattern
+# at-mixin-pattern
 
-Specify a pattern for Sass/SCSS function names.
+Specify a pattern for Sass/SCSS-like mixin names.
 
 ```css
-@function grid-width($n) {
-/**       ↑
+@mixin complex-object ($items: 10) {
+/**    ↑
  * The pattern of this */
 ```
 
@@ -19,11 +19,11 @@ A string will be translated into a RegExp like so `new RegExp(yourString)` — 
 The following patterns are considered warnings:
 
 ```css
-@function boo-bar ($n) {
+@mixin boo-bar {
 ```
 
 The following patterns are *not* considered warnings:
 
 ```css
-@mixin foo-bar ($n){
+@mixin foo-bar {
 ```

@@ -1,10 +1,10 @@
 import { isRegExp, isString } from "lodash"
 import { utils } from "stylelint"
 
-export const ruleName = "scss-function-pattern"
+export const ruleName = "at-function-pattern"
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected SCSS function name to match specified pattern",
+  expected: "Expected @function name to match specified pattern",
 })
 
 export default function (pattern) {
