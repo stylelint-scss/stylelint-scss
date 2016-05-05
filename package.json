@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "lodash": "^4.11.1",
+    "postcss-value-parser": "^3.3.0",
     "stylelint": "^4.5.0"
   },
   "devDependencies": {
