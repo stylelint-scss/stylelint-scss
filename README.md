@@ -6,3 +6,5 @@
 [![v1.0.0 progress](http://progressed.io/bar/100?title=v1.0.0)](https://github.com/kristerkari/stylelint-scss/milestones/1.0.0)
 
 A collection of SCSS specific linting rules for stylelint (Work in progress - not released yet).
+
+- [TODO/Checklist for release v1.0.0](https://github.com/kristerkari/stylelint-scss/issues/14)
