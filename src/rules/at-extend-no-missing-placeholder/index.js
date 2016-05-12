@@ -1,9 +1,9 @@
 import { utils } from "stylelint"
 
-export const ruleName = "extend-require-placeholder"
+export const ruleName = "at-extend-no-missing-placeholder"
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Use a placeholder selector (e.g. %some-placeholder) with @extend",
+  rejected: "Expected a placeholder selector (e.g. %placeholder) to be used in @extend",
 })
 
 export default function (actual) {

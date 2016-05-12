@@ -48,6 +48,10 @@ Please refer to [stylelint docs](http://stylelint.io/user-guide/) for the detail
 
 Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.fi/vocabs/css/en) they apply to (just like in [stylelint](http://stylelint.io/user-guide/about-rules/)).
 
+### `@`-extend
+
+- [`at-extend-no-missing-placeholder`](../../src/rules/at-extend-no-missing-placeholder/README.md): Disallow at-extends (`@extend`) with missing placeholders.
+
 ### `@`-function
 
 - [`at-function-pattern`](../../src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
@@ -60,10 +64,6 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 - [`dollar-variable-no-missing-interpolation`](../../src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
 - [`dollar-variable-pattern`](../../src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.
-
-### Extend
-
-- [`extend-require-placeholder`](../../src/rules/extend-require-placeholder/README.md): Require placeholder selectors to be used with `@extend`.
 
 ### Selector
 
