@@ -7,10 +7,6 @@
 
 A collection of SCSS specific linting rules for [stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
 
-(Work in progress - not released yet).
-	
-[TODO/Checklist for release v1.0.0](https://github.com/kristerkari/stylelint-scss/issues/14)
-
 ## Purpose
 
 stylelint by itself supports [SCSS syntax](http://stylelint.io/user-guide/css-processors/#parsing-non-standard-syntax) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](http://stylelint.io/user-guide/rules/max-nesting-depth/), control the way [`@-rules`](http://stylelint.io/user-guide/rules/#at-rule) are written. Yet stylelint is in general focused on standard CSS.
