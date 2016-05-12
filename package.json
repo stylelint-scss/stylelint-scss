@@ -24,6 +24,7 @@
     "eslint-config-stylelint": "^1.0.0",
     "npmpub": "^3.0.3",
     "postcss-scss": "^0.1.7",
+    "rimraf": "^2.5.2",
     "stylelint-rule-tester": "^0.6.2",
     "tape": "^4.5.1"
   },
@@ -57,6 +58,7 @@
     "url": "git+https://github.com/kristerkari/stylelint-scss.git"
   },
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
     "prepublish": "npm run build",
