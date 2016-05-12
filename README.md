@@ -50,24 +50,24 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 ### `@`-extend
 
-- [`at-extend-no-missing-placeholder`](../../src/rules/at-extend-no-missing-placeholder/README.md): Disallow at-extends (`@extend`) with missing placeholders.
+- [`at-extend-no-missing-placeholder`](./src/rules/at-extend-no-missing-placeholder/README.md): Disallow at-extends (`@extend`) with missing placeholders.
 
 ### `@`-function
 
-- [`at-function-pattern`](../../src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
+- [`at-function-pattern`](./src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
 
 ### `@`-mixin
 
-- [`at-mixin-pattern`](../../src/rules/at-mixin-pattern/README.md): Specify a pattern for Sass/SCSS-like mixin names.
+- [`at-mixin-pattern`](./src/rules/at-mixin-pattern/README.md): Specify a pattern for Sass/SCSS-like mixin names.
 
 ### `$`-variable
 
-- [`dollar-variable-no-missing-interpolation`](../../src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
-- [`dollar-variable-pattern`](../../src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.
+- [`dollar-variable-no-missing-interpolation`](./src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
+- [`dollar-variable-pattern`](./src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.
 
 ### Selector
 
-- [`selector-no-redundant-nesting-selector`](../../src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
+- [`selector-no-redundant-nesting-selector`](./src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
 
 ## Help out
 
