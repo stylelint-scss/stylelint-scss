@@ -1,5 +1,7 @@
 # Head
 
+- Added: `at-mixin-no-argumentless-call-parentheses` rule.
+
 # 1.0.0
 
 - Added: `at-extend-no-missing-placeholder` rule.
