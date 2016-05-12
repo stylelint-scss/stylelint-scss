@@ -12,7 +12,7 @@ Specify a pattern for Sass/SCSS-like function names.
 
 `regex` or `string`
 
-A string will be translated into a RegExp like so `new RegExp(yourString)` — so be sure to escape properly.
+A string will be translated into a RegExp like so `new RegExp(yourString)` — so be sure to escape properly.
 
 ### E.g. `/foo-.+/`
 
@@ -25,5 +25,5 @@ The following patterns are considered warnings:
 The following patterns are *not* considered warnings:
 
 ```scss
-@mixin foo-bar ($n){
+@function foo-bar ($n){
 ```
