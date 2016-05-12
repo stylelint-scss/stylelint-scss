@@ -2,7 +2,7 @@
 
 Specify a pattern for Sass-like variables.
 
-```css
+```scss
 a { $foo: 1px; }
 /** ↑
  * The pattern of this */
@@ -18,12 +18,12 @@ A string will be translated into a RegExp like so `new RegExp(yourString)` — 
 
 The following patterns are considered warnings:
 
-```css
+```scss
 a { $boo-bar: 0; }
 ```
 
 The following patterns are *not* considered warnings:
 
-```css
+```scss
 a { $foo-bar: 0; }
 ```

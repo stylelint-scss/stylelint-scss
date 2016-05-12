@@ -2,7 +2,7 @@
 
 Specify a pattern for Sass/SCSS-like function names.
 
-```css
+```scss
 @function grid-width($n) {
 /**       ↑
  * The pattern of this */
@@ -18,12 +18,12 @@ A string will be translated into a RegExp like so `new RegExp(yourString)` — 
 
 The following patterns are considered warnings:
 
-```css
+```scss
 @function boo-bar ($n) {
 ```
 
 The following patterns are *not* considered warnings:
 
-```css
+```scss
 @mixin foo-bar ($n){
 ```

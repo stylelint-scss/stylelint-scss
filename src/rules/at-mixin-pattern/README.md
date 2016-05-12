@@ -2,7 +2,7 @@
 
 Specify a pattern for Sass/SCSS-like mixin names.
 
-```css
+```scss
 @mixin complex-object ($items: 10) {
 /**    ↑
  * The pattern of this */
@@ -18,12 +18,12 @@ A string will be translated into a RegExp like so `new RegExp(yourString)` — 
 
 The following patterns are considered warnings:
 
-```css
+```scss
 @mixin boo-bar {
 ```
 
 The following patterns are *not* considered warnings:
 
-```css
+```scss
 @mixin foo-bar {
 ```

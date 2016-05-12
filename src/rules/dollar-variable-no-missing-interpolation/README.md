@@ -16,7 +16,7 @@ Sass variables that contain a custom identifier as a string always require inter
 
 For example, your CSS animation could look like this:
 
-```css
+```scss
 animation: myAnim 5s;
 ```
 
@@ -34,7 +34,7 @@ animation: #{$myVar} 5s;
 
 If you do not interpolate the variable, Sass will compile your animation name to a string, producing invalid CSS:
 
-```css
+```scss
 animation: "myAnim" 5s;
 ```
 
