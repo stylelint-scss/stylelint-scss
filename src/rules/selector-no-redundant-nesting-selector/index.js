@@ -1,9 +1,9 @@
 import { utils } from "stylelint"
 
-export const ruleName = "selector-no-redundant-parent"
+export const ruleName = "selector-no-redundant-nesting-selector"
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unnecessary parent selector (&)",
+  rejected: "Unnecessary nesting selector (&)",
 })
 
 export default function (actual) {

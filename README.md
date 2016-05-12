@@ -36,7 +36,7 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
   ],
   "rules": {
     "scss/dollar-variable-pattern": "^foo",
-    "scss/selector-no-redundant-parent": true,
+    "scss/selector-no-redundant-nesting-selector": true,
     ...
   }
 }
@@ -67,7 +67,7 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 ### Selector
 
-- [`selector-no-redundant-parent`](../../src/rules/extend-require-placeholder/README.md): Disallow unnecessary parent selector references (`&`).
+- [`selector-no-redundant-nesting-selector`](../../src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
 
 ## Help out
 

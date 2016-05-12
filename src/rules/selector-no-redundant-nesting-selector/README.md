@@ -1,12 +1,12 @@
-# selector-no-redundant-parent
+# selector-no-redundant-nesting-selector
 
-Disallow unnecessary parent selector references (`&`).
+Disallow redundant nesting selectors (`&`).
 
 ```scss
 p {
   & a {}
-  // ↑
-  // This type of selector
+//↑
+// This type of selector
 }
 ```
 

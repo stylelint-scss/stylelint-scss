@@ -7,4 +7,4 @@
 - Added: `at-mixin-pattern` rule.
 - Added: `dollar-variable-no-missing-interpolation` rule.
 - Added: `dollar-variable-pattern` rule.
-- Added: `selector-no-redundant-parent` rule.
+- Added: `selector-no-redundant-nesting-selector` rule.
