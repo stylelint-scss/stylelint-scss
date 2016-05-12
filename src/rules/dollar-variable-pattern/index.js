@@ -21,7 +21,7 @@ export default function (pattern) {
 
     root.walkDecls(decl => {
       const { prop } = decl
-      if (prop.slice(0, 1) !== "$") { return }
+      if (prop[0] !== "$") { return }
       if (regexpPattern.test(prop.slice(1))) { return }
 
       utils.report({
