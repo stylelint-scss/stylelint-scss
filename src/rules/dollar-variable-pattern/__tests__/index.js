@@ -1,184 +1,222 @@
-import ruleTester from "stylelint-rule-tester"
-import scss from "postcss-scss"
+import testRule from "stylelint-test-rule-tape"
 import rule, { ruleName, messages } from ".."
 
-const testRule = ruleTester(rule, ruleName, {
-  postcssOptions: { syntax: scss },
+// Testing against a ragex, sequence part
+testRule(rule, {
+  ruleName,
+  config: [/foo/],
+  syntax: "scss",
+
+  accept: [ {
+    code: `
+      p {
+        $foo: 10px;
+      }
+    `,
+    description: "Regexp: sequence part. Example: full match.",
+  }, {
+    code: `
+      p {
+        $_foo: 10px;
+      }
+    `,
+    description: "Regexp: sequence part. Example: matches at the end.",
+  }, {
+    code: `
+      p {
+        $food: 10px;
+      }
+    `,
+    description: "Regexp: sequence part. Example: matches at the beginning.",
+  } ],
+
+  reject: [ {
+    code: `
+      p {
+        $floo: 10px;
+      }
+    `,
+    line: 3,
+    message: messages.expected,
+    description: "Regexp: sequence part. Example: symbol in between.",
+  }, {
+    code: `
+      p {
+        $ foo: 10px;
+      }
+    `,
+    line: 3,
+    message: messages.expected,
+    description: "Regexp: sequence part. Example: space after $.",
+  } ],
 })
 
-testRule(/foo/, tr => {
+// Testing against a string, sequence part
+testRule(rule, {
+  ruleName,
+  config: ["foo"],
+  syntax: "scss",
 
-  tr.ok(`
-    p {
-      $foo: 10px;
-    }
-  `, "Regexp: sequence part. Example: full match.")
-  
-  tr.ok(`
-    p {
-      $_foo: 10px;
-    }
-  `, "Regexp: sequence part. Example: matches at the end.")
-  
-  tr.ok(`
-    p {
-      $food: 10px;
-    }
-  `, "Regexp: sequence part. Example: matches at the beginning.")
-  
-  tr.notOk(`
-    p {
-      $floo: 10px;
-    }
-  `, {
+  accept: [ {
+    code: `
+      p {
+        $foo: 10px;
+      }
+    `,
+    description: "String: sequence part. Example: full match.",
+  }, {
+    code: `
+      p {
+        $_foo: 10px;
+      }
+    `,
+    description: "String: sequence part. Example: matches at the end.",
+  }, {
+    code: `
+      p {
+        $food: 10px;
+      }
+    `,
+    description: "String: sequence part. Example: matches at the beginning.",
+  } ],
+
+  reject: [ {
+    code: `
+      p {
+        $floo: 10px;
+      }
+    `,
     line: 3,
     message: messages.expected,
-  }, "Regexp: sequence part. Example: symbol in between.")
-
-  tr.notOk(`
-    p {
-      $ foo: 10px;
-    }
-  `, {
+    description: "String: sequence part. Example: symbol in between.",
+  }, {
+    code: `
+      p {
+        $fo: 10px;
+      }
+    `,
     line: 3,
     message: messages.expected,
-  }, "Regexp: sequence part. Example: space after $.")
-
+    description: "String: sequence part. Example: not a full sequence.",
+  } ],
 })
 
-testRule("foo", tr => {
+// Testing against a regex, full match
+testRule(rule, {
+  ruleName,
+  config: [/^foo$/],
+  syntax: "scss",
 
-  tr.ok(`
-    p {
-      $foo: 10px;
-    }
-  `, "String: sequence part. Example: full match.")
-  
-  tr.ok(`
-    p {
-      $_foo: 10px;
-    }
-  `, "String: sequence part. Example: matches at the end.")
-  
-  tr.ok(`
-    p {
-      $food: 10px;
-    }
-  `, "String: sequence part. Example: matches at the beginning.")
-  
-  tr.notOk(`
-    p {
-      $floo: 10px;
-    }
-  `, {
+  accept: [{
+    code: `
+      p {
+        $foo: 10px;
+      }
+    `,
+    description: "Regexp: strict pattern. Example: matches.",
+  }],
+
+  reject: [ {
+    code: `
+      p {
+        $_foo: 10px;
+      }
+    `,
     line: 3,
     message: messages.expected,
-  }, "String: sequence part. Example: symbol in between.")
-  
-  tr.notOk(`
-    p {
-      $fo: 10px;
-    }
-  `, {
+    description: "Regexp: strict pattern. Example: matches at the end.",
+  }, {
+    code: `
+      p {
+        $food: 10px;
+      }
+    `,
     line: 3,
     message: messages.expected,
-  }, "String: sequence part. Example: not a full sequence.")
-
+    description: "Regexp: strict pattern. Example: matches at the beginning.",
+  }, {
+    code: `
+      p {
+        $floo: 10px;
+      }
+    `,
+    line: 3,
+    message: messages.expected,
+    description: "Regexp: strict pattern. Example: symbol in between.",
+  } ],
 })
 
-testRule(/^foo$/, tr => {
+// Testing against a regex, match at the beginning
+testRule(rule, {
+  ruleName,
+  config: [/^foo/],
+  syntax: "scss",
 
-  tr.ok(`
-    p {
-      $foo: 10px;
-    }
-  `, "Regexp: strict pattern. Example: matches.")
-  
-  tr.notOk(`
-    p {
-      $_foo: 10px;
-    }
-  `, {
-    line: 3,
-    message: messages.expected,
-  }, "Regexp: strict pattern. Example: matches at the end.")
-  
-  tr.notOk(`
-    p {
-      $food: 10px;
-    }
-  `, {
-    line: 3,
-    message: messages.expected,
-  }, "Regexp: strict pattern. Example: matches at the beginning.")
-  
-  tr.notOk(`
-    p {
-      $floo: 10px;
-    }
-  `, {
-    line: 3,
-    message: messages.expected,
-  }, "Regexp: strict pattern. Example: symbol in between.")
+  accept: [ {
+    code: `
+      p {
+        $foo: 10px;
+      }
+    `,
+    description: "Regexp: pattern at the beginning. Example: matches.",
+  }, {
+    code: `
+      p {
+        $food: 10px;
+      }
+    `,
+    description: "Regexp: pattern at the beginning. Example: matches at the beginning.",
+  } ],
 
+  reject: [ {
+    code: `
+      p {
+        $_foo: 10px;
+      }
+    `,
+    line: 3,
+    message: messages.expected,
+    description: "Regexp: pattern at the beginning. Example: matches at the end.",
+  }, {
+    code: `
+      p {
+        $floo: 10px;
+      }
+    `,
+    line: 3,
+    message: messages.expected,
+    description: "Regexp: pattern at the beginning. Example: symbol in between.",
+  } ],
 })
 
-testRule(/^foo/, tr => {
+// Testing against a regex, SUIT naming
+testRule(rule, {
+  ruleName,
+  config: [/^[A-Z][a-z]+-[a-z][a-zA-Z]+$/],
+  syntax: "scss",
 
-  tr.ok(`
-    p {
-      $foo: 10px;
-    }
-  `, "Regexp: pattern at the beginning. Example: matches.")
-  
-  tr.notOk(`
-    p {
-      $_foo: 10px;
-    }
-  `, {
-    line: 3,
+  accept: [ {
+    code: "a { $Foo-bar: 0; }",
+    description: "Regexp: SUIT component. Example: comply",
+  }, {
+    code: "a { $Foo-barBaz: 0; }",
+    description: "Regexp: SUIT component. Example: comply",
+  } ],
+
+  reject: [ {
+    code: "a { $boo-Foo-bar: 0; }",
+    line: 1,
     message: messages.expected,
-  }, "Regexp: pattern at the beginning. Example: matches at the end.")
-  
-  tr.ok(`
-    p {
-      $food: 10px;
-    }
-  `, "Regexp: pattern at the beginning. Example: matches at the beginning.")
-  
-  tr.notOk(`
-    p {
-      $floo: 10px;
-    }
-  `, {
-    line: 3,
+    description: "Regexp: SUIT component. Example: starts with lowercase, two elements",
+  }, {
+    code: "a { $foo-bar: 0; }",
+    line: 1,
     message: messages.expected,
-  }, "Regexp: pattern at the beginning. Example: symbol in between.")
-
-})
-
-testRule(/^[A-Z][a-z]+-[a-z][a-zA-Z]+$/, function (tr) {
-  
-  tr.ok("a { $Foo-bar: 0; }", "Regexp: SUIT component. Example: comply")
-  
-  tr.ok("a { $Foo-barBaz: 0; }", "Regexp: SUIT component. Example: comply")
-    
-  tr.notOk(
-    "a { $boo-Foo-bar: 0; }", {
-      line: 1,
-      message: messages.expected,
-    }, "Regexp: SUIT component. Example: starts with lowercase, two elements")
-
-  tr.notOk(
-    "a { $foo-bar: 0; }", {
-      line: 1,
-      message: messages.expected,
-    }, "Regexp: SUIT component. Example: starts with lowercase")
-
-  tr.notOk(
-    "a { $Foo-Bar: 0; }", {
-      line: 1,
-      message: messages.expected,
-    }, "Regexp: SUIT component. Example: element starts with uppercase")
-
+    description: "Regexp: SUIT component. Example: starts with lowercase",
+  }, {
+    code: "a { $Foo-Bar: 0; }",
+    line: 1,
+    message: messages.expected,
+    description: "Regexp: SUIT component. Example: element starts with uppercase",
+  } ],
 })

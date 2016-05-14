@@ -25,7 +25,7 @@
     "npmpub": "^3.0.3",
     "postcss-scss": "^0.1.7",
     "rimraf": "^2.5.2",
-    "stylelint-rule-tester": "^0.6.2",
+    "stylelint-test-rule-tape": "^0.2.0",
     "tape": "^4.5.1"
   },
   "eslintConfig": {
