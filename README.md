@@ -84,6 +84,6 @@ There is also [stackoverflow](http://stackoverflow.com/questions/tagged/stylelin
 
 ## Important documents
 
-- [Changelog](https://github.com/kristerkari/stylelint-scss/blob/master/CHANGELOG.md)
-- [Contributing guidelines](https://github.com/stylelint/stylelint/blob/master/CONTRIBUTING.md)
-- [License](https://github.com/kristerkari/stylelint-scss/blob/master/LICENSE)
+- [Changelog](./CHANGELOG.md)
+- [Contributing](./CONTRIBUTING.md)
+- [License](./LICENSE)
