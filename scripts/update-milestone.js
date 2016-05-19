@@ -3,7 +3,7 @@ const semver = require("semver")
 const replace = require("replace")
 const _ = require("lodash")
 
-const badgeRegex = /\[!\[v\d\.\d\.\d\sprogress\]\(http:\/\/progressed\.io\/bar\/\d{1,3}\?title=v\d\.\d\.\d\)\]\(https:\/\/github.com\/kristerkari\/stylelint-scss\/milestones\/\d\.\d\.\d\)/
+const badgeRegex = /\[!\[v\d{1,3}\.\d{1,3}\.\d{1,3}\sprogress\]\(http:\/\/progressed\.io\/bar\/\d{1,3}\?title=v\d{1,3}\.\d{1,3}\.\d{1,3}\)\]\(https:\/\/github.com\/kristerkari\/stylelint-scss\/milestones\/\d{1,3}\.\d{1,3}\.\d{1,3}\)/
 
 const options = {
   url: "https://api.github.com/repos/kristerkari/stylelint-scss/milestones",
