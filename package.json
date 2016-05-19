@@ -24,7 +24,10 @@
     "eslint-config-stylelint": "^1.0.0",
     "npmpub": "^3.0.3",
     "postcss-scss": "^0.1.7",
+    "replace": "^0.3.0",
+    "request": "^2.72.0",
     "rimraf": "^2.5.2",
+    "semver": "^5.1.0",
     "stylelint-test-rule-tape": "^0.2.0",
     "tape": "^4.5.1"
   },
@@ -58,6 +61,7 @@
     "url": "git+https://github.com/kristerkari/stylelint-scss.git"
   },
   "scripts": {
+    "milestone": "node scripts/update-milestone.js",
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
