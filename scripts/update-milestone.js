@@ -29,7 +29,7 @@ req.get(options, (err, resp) => {
   const newestMilestone = _.find(body, (m) => m.title === newestVersion)
   const totalIssues = newestMilestone.open_issues + newestMilestone.closed_issues
   const percentage = newestMilestone.closed_issues / totalIssues * 100
-  const version = newestVersion.replace(/$v/, "")
+  const version = newestVersion.replace(/^v/, "")
 
   const badge = `[![v${version} progress](http://progressed.io/bar/${percentage}?title=v${version})](https://github.com/kristerkari/stylelint-scss/milestones/${version})`
 
