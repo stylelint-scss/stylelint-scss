@@ -1,4 +1,3 @@
-import { isBoolean } from "lodash"
 import { utils } from "stylelint"
 
 export const ruleName = "at-mixin-no-argumentless-call-parentheses"
@@ -7,12 +6,9 @@ export const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected parentheses in argumentless @mixin call",
 })
 
-export default function (value) {
+export default function (actual) {
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, {
-      actual: value,
-      possible: isBoolean,
-    })
+    const validOptions = utils.validateOptions(result, ruleName, { actual })
     if (!validOptions) { return }
 
     root.walkAtRules("include", decl => {
