@@ -52,6 +52,10 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 - [`at-function-pattern`](./src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
 
+### `@`-import
+
+- [`at-import-no-partial-leading-underscore`](./src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
+
 ### `@`-mixin
 
 - [`at-mixin-no-argumentless-call-parentheses`](./src/rules/at-mixin-no-argumentless-call-parentheses/README.md): Disallow parentheses in argumentless `@mixin` calls.
