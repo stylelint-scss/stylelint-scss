@@ -24,9 +24,13 @@ req.get(options, (err, resp) => {
 
   if (!openMilestones.length) { return }
 
-  const versions = _.map(openMilestones, (m) => m.title)
+  const validVersions = _.filter(openMilestones, (m) => semver.valid(m.title) !== null)
+
+  if (!validVersions.length) { return }
+
+  const versions = _.map(validVersions, (m) => m.title)
   const newestVersion = semver.maxSatisfying(versions, "*")
-  const newestMilestone = _.find(body, (m) => m.title === newestVersion)
+  const newestMilestone = _.find(validVersions, (m) => m.title === newestVersion)
   const totalIssues = newestMilestone.open_issues + newestMilestone.closed_issues
   const percentage = newestMilestone.closed_issues / totalIssues * 100
   const version = newestVersion.replace(/^v/, "")
