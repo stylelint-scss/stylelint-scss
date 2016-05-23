@@ -54,6 +54,7 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 ### `@`-import
 
+- [`at-import-no-partial-extension`](./src/rules/at-import-no-partial-extension/README.md): Disallow file extensions in partial names in `@import`.
 - [`at-import-no-partial-leading-underscore`](./src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
 
 ### `@`-mixin
