@@ -108,7 +108,7 @@ testRule(rule, {
 // Testing ignoring string
 testRule(rule, {
   ruleName,
-  config: [ true, { ignoreExtensions: ["scss", "less"] } ],
+  config: [ true, { ignoreExtensions: [ "scss", "less" ] } ],
   syntax: "scss",
 
   accept: [ {
@@ -128,20 +128,20 @@ testRule(rule, {
     description: "Multiple files, on of the extensions string-ignored.",
   } ],
 
-  reject: [ {
+  reject: [{
     code: `
       @import "fff.scss1";
     `,
     line: 2,
     message: messages.expected,
     description: "One file, ignored extension differs from an actual.",
-  } ],
+  }],
 })
 
 // Testing regex
 testRule(rule, {
   ruleName,
-  config: [ true, { ignoreExtensions: ["less", /^scss/] } ],
+  config: [ true, { ignoreExtensions: [ "less", /^scss/ ] } ],
   syntax: "scss",
 
   accept: [ {
@@ -168,12 +168,12 @@ testRule(rule, {
     description: "One file, starts with the ignored pattern.",
   } ],
 
-  reject: [ {
+  reject: [{
     code: `
       @import "fff.1scss";
     `,
     line: 2,
     message: messages.expected,
     description: "One file, extension differs from the pattern.",
-  } ],
+  }],
 })

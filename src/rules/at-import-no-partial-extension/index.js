@@ -1,4 +1,4 @@
-import { isRegExp, isString, isArray } from "lodash"
+import { isRegExp, isString } from "lodash"
 import { utils } from "stylelint"
 import nodeJsPath from "path"
 
@@ -11,14 +11,14 @@ export const messages = utils.ruleMessages(ruleName, {
 export default function (on, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: on
+      actual: on,
     }, {
       actual: options,
       possible: {
         // Accepting array of either strings or regular expressions
-        ignoreExtensions: str => isRegExp(str) || isString(str)
+        ignoreExtensions: str => isRegExp(str) || isString(str),
       },
-      optional: true
+      optional: true,
     })
     if (!validOptions) { return }
 
