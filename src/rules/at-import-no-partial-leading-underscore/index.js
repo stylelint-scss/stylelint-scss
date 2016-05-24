@@ -15,6 +15,9 @@ export default function (actual) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path.replace(/^\s*?("|')\s*/, "").replace(/\s*("|')\s*?$/, "")
 
+      // Searching a _ at the start of filename
+      if (pathStripped.search(/(?:^|\/|\\)_[^/]+$/) === -1) { return }
+
       // Skipping importing CSS: url(), ".css", URI with a protocol, media
       if (pathStripped.slice(0, 4) === "url(" ||
         pathStripped.slice(-4) === ".css" ||
@@ -23,8 +26,6 @@ export default function (actual) {
       ) {
         return
       }
-      // Searching a _ at the start of filename
-      if (pathStripped.search(/(?:^|\/|\\)_[^/]+$/) === -1) { return }
 
       utils.report({
         message: messages.expected,

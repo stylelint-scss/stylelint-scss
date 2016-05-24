@@ -27,6 +27,9 @@ export default function (on, options) {
       const pathStripped = path.replace(/^\s*?("|')\s*/, "").replace(/\s*("|')\s*?$/, "")
       const extension = nodeJsPath.extname(pathStripped).slice(1)
 
+      // If the extension is not empty
+      if (!extension) { return }
+
       // Skipping importing CSS: url(), ".css", URI with a protocol, media
       if (pathStripped.slice(0, 4) === "url(" ||
         pathStripped.slice(-4) === ".css" ||
@@ -35,8 +38,6 @@ export default function (on, options) {
       ) {
         return
       }
-      // If the extension is not empty
-      if (!extension) { return }
       
       if (options && options.ignoreExtensions) {
         // Return if...
