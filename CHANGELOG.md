@@ -1,6 +1,8 @@
 # Head
 
 - Added: `at-mixin-no-argumentless-call-parentheses` rule.
+- Added: `at-import-no-partial-leading-underscore` rule.
+- Added: `at-import-no-partial-extension` rule.
 
 # 1.0.0
 
