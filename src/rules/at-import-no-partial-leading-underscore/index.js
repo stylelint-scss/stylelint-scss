@@ -13,7 +13,7 @@ export default function (actual) {
 
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
-      const pathStripped = path.replace(/^\s*?("|')\s*?/, "").replace(/\s*?("|')\s*?$/, "")
+      const pathStripped = path.replace(/^\s*?("|')\s*/, "").replace(/\s*("|')\s*?$/, "")
 
       // Skipping importing CSS: url(), ".css", URI with a protocol, media
       if (pathStripped.slice(0, 4) === "url(" ||

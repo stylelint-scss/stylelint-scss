@@ -18,6 +18,11 @@ testRule(rule, {
     description: "Single file, no underscore, single quotes.",
   }, {
     code: `
+      @import ' fff ';
+    `,
+    description: "Single file, no underscore, trailing spaces inside quotes.",
+  }, {
+    code: `
       @import "fff", "score";
     `,
     description: "Two files, no underscore, double quotes.",
@@ -49,14 +54,19 @@ testRule(rule, {
     description: "Import CSS by extension.",
   }, {
     code: `
+      @import "_file.css ";
+    `,
+    description: "Import CSS by extension, trailing spaces.",
+  }, {
+    code: `
       @import "http://_file.scss";
     `,
     description: "Import CSS from the web, http://.",
   }, {
     code: `
-      @import "https://_file.scss";
+      @import " https://_file.scss ";
     `,
-    description: "Import CSS from the web, https://.",
+    description: "Import CSS from the web, https://, trailing spaces inside quotes",
   }, {
     code: `
       @import "//_file.scss";
@@ -72,6 +82,11 @@ testRule(rule, {
       @import "_file.scss"screen;
     `,
     description: "Import CSS (with media queries).",
+  }, {
+    code: `
+      @import "_file.scss "screen;
+    `,
+    description: "Import CSS (with media queries), trailing space inside quotes.",
   }, {
     code: `
       @import url(_lol.scss) screen;
@@ -96,6 +111,20 @@ testRule(rule, {
     line: 2,
     message: messages.expected,
     description: "One file, underscore at the start.",
+  }, {
+    code: `
+      @import "_fff ";
+    `,
+    line: 2,
+    message: messages.expected,
+    description: "One file, underscore at the start, trailing space at the end.",
+  }, {
+    code: `
+      @import " _fff";
+    `,
+    line: 2,
+    message: messages.expected,
+    description: "One file, underscore at the start, trailing space at the start.",
   }, {
     code: `
       @import "df/_fff";

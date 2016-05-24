@@ -19,6 +19,11 @@ testRule(rule, {
     description: "Single file, no extension, single quotes.",
   }, {
     code: `
+      @import ' fff ';
+    `,
+    description: "Single file, no extension, trailing spaces inside quotes.",
+  }, {
+    code: `
       @import "fff", "score";
     `,
     description: "Two files, no extension, double quotes.",
@@ -39,9 +44,9 @@ testRule(rule, {
     description: "Import CSS from the web, http://.",
   }, {
     code: `
-      @import "https://_file.scss";
+      @import " https://_file.scss ";
     `,
-    description: "Import CSS from the web, https://.",
+    description: "Import CSS from the web, https://, trailing spaces inside quotes",
   }, {
     code: `
       @import "//_file.scss";
@@ -57,6 +62,11 @@ testRule(rule, {
       @import "_file.scss"screen;
     `,
     description: "Import CSS (with media queries).",
+  }, {
+    code: `
+      @import "_file.scss "screen;
+    `,
+    description: "Import CSS (with media queries), trailing space inside quotes.",
   }, {
     code: `
       @import url(_lol.scss) screen;
@@ -81,6 +91,20 @@ testRule(rule, {
     line: 2,
     message: messages.expected,
     description: "One file, has extension.",
+  }, {
+    code: `
+      @import "fff.less ";
+    `,
+    line: 2,
+    message: messages.expected,
+    description: "One file, has extension, space at the end.",
+  }, {
+    code: `
+      @import " fff.less ";
+    `,
+    line: 2,
+    message: messages.expected,
+    description: "One file, has extension, trailing spaces.",
   }, {
     code: `
       @import "df/fff.scss";
@@ -123,6 +147,11 @@ testRule(rule, {
     description: "Single file, extension string-ignored.",
   }, {
     code: `
+      @import " fff.scss ";
+    `,
+    description: "Single file, extension string-ignored, trailing whitespaces.",
+  }, {
+    code: `
       @import "fff", "fff.scss";
     `,
     description: "Multiple files, one of the extensions string-ignored.",
@@ -154,6 +183,11 @@ testRule(rule, {
       @import "fff", "fff.scss";
     `,
     description: "Multiple files, one with a regex-ignored extension.",
+  }, {
+    code: `
+      @import "fff", " fff.scss ";
+    `,
+    description: "Multiple files, one with a regex-ignored extension and trailing spaces.",
   }, {
     code: `
       @import "fff.scss", 'fils.less';

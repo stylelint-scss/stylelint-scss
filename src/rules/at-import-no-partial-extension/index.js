@@ -24,7 +24,7 @@ export default function (on, options) {
 
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
-      const pathStripped = path.replace(/^\s*?("|')\s*?/, "").replace(/\s*?("|')\s*?$/, "")
+      const pathStripped = path.replace(/^\s*?("|')\s*/, "").replace(/\s*("|')\s*?$/, "")
       const extension = nodeJsPath.extname(pathStripped).slice(1)
 
       // Skipping importing CSS: url(), ".css", URI with a protocol, media
