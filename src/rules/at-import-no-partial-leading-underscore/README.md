@@ -31,7 +31,7 @@ The following patterns are considered warnings:
 ```
 
 ```scss
-`@import "df/fff", '_1.scss';`
+@import "df/fff", '_1.scss';
 ```
 
 The following patterns are *not* considered warnings:

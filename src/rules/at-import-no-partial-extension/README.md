@@ -1,4 +1,4 @@
-# at-import-no-partial-leading-underscore
+# at-import-no-partial-extension
 
 Disallow file extensions in partial names in `@import`.
 
@@ -30,7 +30,7 @@ The following patterns are considered warnings:
 ```
 
 ```scss
-`@import "df/fff", '1.scss';`
+@import "df/fff", '1.scss';
 ```
 
 The following patterns are *not* considered warnings:
@@ -63,7 +63,7 @@ The following patterns are *not* considered warnings:
 
 An array of extensions to ignore, elements *don't need the dot at the start*. If an element is a string, only extensions that match that string are ignored. If an element is a regular expression, then extensions are tested against it and ignored if the test is successful.
 
-For example, with `whitelist: [ "scss", /^my/ ] ]`, the following are no longer warnings:
+For example, with `ignoreExtensions: [ "scss", /^my/ ] ]`, the following are no longer warnings:
 
 ```scss
 @import "path/fff.scss";

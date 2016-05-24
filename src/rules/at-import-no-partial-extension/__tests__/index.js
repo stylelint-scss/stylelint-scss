@@ -125,7 +125,7 @@ testRule(rule, {
     code: `
       @import "fff", "fff.scss";
     `,
-    description: "Multiple files, on of the extensions string-ignored.",
+    description: "Multiple files, one of the extensions string-ignored.",
   } ],
 
   reject: [{
@@ -151,14 +151,14 @@ testRule(rule, {
     description: "Single file, no extension.",
   }, {
     code: `
-      @import "fff.scss", 'fils.less';
-    `,
-    description: "Single file, extension string-ignored.",
-  }, {
-    code: `
       @import "fff", "fff.scss";
     `,
-    description: "Multiple files, on of the extensions string-ignored.",
+    description: "Multiple files, one with a regex-ignored extension.",
+  }, {
+    code: `
+      @import "fff.scss", 'fils.less';
+    `,
+    description: "Multiple files with extensions, one with a regex-ignored extension, the other with a string-ignored one.",
   }, {
     code: `
       @import "fff.scss1";
