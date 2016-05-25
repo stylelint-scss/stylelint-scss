@@ -6,6 +6,7 @@ import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-cal
 import atMixinPattern from "./at-mixin-pattern"
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
 import dollarVariablePattern from "./dollar-variable-pattern"
+import percentPlaceholderPattern from "./percent-placeholder-pattern"
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector"
 
 export default {
@@ -17,5 +18,6 @@ export default {
   "at-mixin-pattern": atMixinPattern,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
+  "percent-placeholder-pattern": percentPlaceholderPattern,
   "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,
 }
