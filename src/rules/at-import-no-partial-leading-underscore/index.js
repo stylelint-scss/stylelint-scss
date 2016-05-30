@@ -1,6 +1,7 @@
 import { utils } from "stylelint"
+import { namespace } from "../../utils"
 
-export const ruleName = "at-import-no-partial-leading-underscore"
+export const ruleName = namespace("at-import-no-partial-leading-underscore")
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected leading underscore in imported partial name",

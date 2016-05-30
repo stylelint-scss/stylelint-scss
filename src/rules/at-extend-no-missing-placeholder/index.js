@@ -1,6 +1,7 @@
 import { utils } from "stylelint"
+import { namespace } from "../../utils"
 
-export const ruleName = "at-extend-no-missing-placeholder"
+export const ruleName = namespace("at-extend-no-missing-placeholder")
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Expected a placeholder selector (e.g. %placeholder) to be used in @extend",

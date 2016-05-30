@@ -1,7 +1,8 @@
 import { isRegExp, isString } from "lodash"
 import { utils } from "stylelint"
+import { namespace } from "../../utils"
 
-export const ruleName = "dollar-variable-pattern"
+export const ruleName = namespace("dollar-variable-pattern")
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected $ variable name to match specified pattern",

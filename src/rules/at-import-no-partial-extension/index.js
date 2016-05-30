@@ -1,8 +1,9 @@
 import { isRegExp, isString } from "lodash"
 import { utils } from "stylelint"
+import { namespace } from "../../utils"
 import nodeJsPath from "path"
 
-export const ruleName = "at-import-no-partial-extension"
+export const ruleName = namespace("at-import-no-partial-extension")
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected file extension in imported partial name",
@@ -38,7 +39,7 @@ export default function (on, options) {
       ) {
         return
       }
-      
+
       if (options && options.ignoreExtensions) {
         // Return if...
         if (options.ignoreExtensions.some(ignoredExt => {
