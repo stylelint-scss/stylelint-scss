@@ -1,4 +1,4 @@
-import _ from "lodash"
+import { isRegExp, isString } from "lodash"
 import resolveNestedSelector from "postcss-resolve-nested-selector"
 import { utils } from "stylelint"
 import {
@@ -18,17 +18,21 @@ export default function (pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
-      possible: [ _.isRegExp, _.isString ],
+      possible: [ isRegExp, isString ],
     })
     if (!validOptions) { return }
 
-    const placeholderPattern = (_.isString(pattern))
+    const placeholderPattern = (isString(pattern))
       ? new RegExp(pattern)
       : pattern
 
     // Checking placeholder definitions (looking among regular rules)
     root.walkRules(rule => {
       const { selector } = rule
+      // Just a shorthand for calling `parseSelector`
+      function parse(selector) {
+        parseSelector(selector, result, rule, s => checkSelector(s, rule))
+      }
 
       // If it's a custom prop or a less mixin
       if (!isStandardRule(rule)) { return }
@@ -41,11 +45,9 @@ export default function (pattern) {
 
       // Only resolve selectors that have an interpolating "&"
       if (hasInterpolatingAmpersand(selector)) {
-        resolveNestedSelector(selector, rule).forEach(selector => {
-          parseSelector(selector, result, rule, s => checkSelector(s, rule))
-        })
+        resolveNestedSelector(selector, rule).forEach(parse)
       } else {
-        parseSelector(selector, result, rule, s => checkSelector(s, rule))
+        parse(selector)
       }
     })
 
@@ -66,5 +68,7 @@ export default function (pattern) {
         })
       })
     }
+
   }
 }
+

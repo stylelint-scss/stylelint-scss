@@ -10,7 +10,7 @@ import _ from "lodash"
  * @return {boolean} If `true`, the selector has an interpolating ampersand
  */
 export default function (selector) {
-  for (let i = 0, l = selector.length; i < l; i++) {
+  for (let i = 0; i < selector.length; i++) {
     if (selector[i] !== "&") { continue }
     if (!_.isUndefined(selector[i - 1]) && !isCombinator(selector[i - 1])) { return true }
     if (!_.isUndefined(selector[i + 1]) && !isCombinator(selector[i + 1])) { return true }
