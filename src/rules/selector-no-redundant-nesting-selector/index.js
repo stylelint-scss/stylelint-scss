@@ -11,10 +11,12 @@ export default function (actual) {
     const validOptions = utils.validateOptions(result, ruleName, { actual })
     if (!validOptions) { return }
 
-    root.walkRules(rule => {
-      const unnecessaryAmpersandRegex = /^&(\s+)?>?(\s+)?(\w+|\s\.)/
+    root.walkRules(/&/, rule => {
+      const { selector } = rule
+      const combinatorRegex = /^&\s*(>|\+|~)\s*\.*[a-zA-Z]+/
+      const classOrElementRegex = /^&\s+\.*[a-zA-Z]+/
 
-      if (rule.selector.trim() === "&" || unnecessaryAmpersandRegex.test(rule.selector.trim())) {
+      if (selector === "&" || classOrElementRegex.test(selector) || combinatorRegex.test(selector)) {
         utils.report({
           ruleName,
           result,

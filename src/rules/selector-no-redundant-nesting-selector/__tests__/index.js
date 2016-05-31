@@ -45,13 +45,6 @@ testRule(rule, {
   }, {
     code: `
       p {
-        & + .foo {}
-      }
-    `,
-    description: "when an ampersand precedes a sibling operator",
-  }, {
-    code: `
-      p {
         & + &:hover {}
       }
     `,
@@ -88,6 +81,36 @@ testRule(rule, {
       }
     `,
     description: "when an ampersand is used in an attribute selector",
+  }, {
+    code: `
+      .foo {
+        &bar {
+          &baz {}
+        }
+      }
+    `,
+    description: "when an ampersand is used to combine three parts of a classname",
+  }, {
+    code: `
+      .foo {
+        &bar {}
+      }
+    `,
+    description: "when an ampersand is used to combine two parts of a classname",
+  }, {
+    code: `
+      .block {
+        &__element {}
+      }
+    `,
+    description: "when BEM syntax element is used",
+  }, {
+    code: `
+      .block {
+        &--modifier {}
+      }
+    `,
+    description: "when BEM syntax modifier is used",
   } ],
 
   reject: [ {
@@ -125,7 +148,7 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes a general child",
+    description: "when an amperand precedes an element",
   }, {
     code: `
       p {
@@ -135,6 +158,53 @@ testRule(rule, {
     line: 3,
     message: messages.rejected,
     description: "when an amperand precedes a class",
+  }, {
+    code: `
+      .foo {
+        &bar {
+          & .class {}
+        }
+      }
+    `,
+    line: 4,
+    message: messages.rejected,
+    description: "when an ampersand is used to combine two parts of a classname and an amperand precedes a class",
+  }, {
+    code: `
+      p {
+        & span .class {}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "when an amperand precedes an element and a class",
+  }, {
+    code: `
+      p {
+        & span > .class {}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "when an amperand precedes an element, a child selector and a class",
+  }, {
+    code: `
+      p {
+        & + .foo {}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "when an ampersand precedes a sibling operator",
+  }, {
+    code: `
+      p {
+        & ~ .foo {}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "when an ampersand precedes a sibling operator",
   }, {
     code: `
       p {
@@ -153,5 +223,14 @@ testRule(rule, {
     line: 3,
     message: messages.rejected,
     description: "when an ampersand is used by itself",
+  }, {
+    code: `
+      p {
+          &   {}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "when an ampersand is used by itself and there are extra spaces",
   } ],
 })
