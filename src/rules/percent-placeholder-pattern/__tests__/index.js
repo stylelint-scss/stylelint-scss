@@ -188,3 +188,18 @@ testRule(rule, {
     description: "Regexp: pattern at the beginning. Example: nesting, with nesting selector; first lv doesn't comply.",
   } ],
 })
+
+// Testing against a ragex, sequence part
+testRule(rule, {
+  ruleName,
+  config: [/foo/],
+  syntax: "less",
+
+  accept: [ {
+    code: "a { .mixin-call(); }",
+    description: "Less mixin call ignored.",
+  }, {
+    code: "a { &:extend(%class); }",
+    description: "Less extends ignored.",
+  } ],
+})
