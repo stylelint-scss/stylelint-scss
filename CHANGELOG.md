@@ -5,6 +5,7 @@
 - Added: `at-import-no-partial-extension` rule.
 - Added: `percent-placeholder-pattern` rule.
 - Fixed: `selector-no-redundant-nesting-selector` no longer warns about BEM syntax.
+- Fixed: bug causing rules to ignore severity levels `warning` / `error` and report `ignore` instead.
 
 # 1.0.0
 
