@@ -20,7 +20,7 @@ req.get(options, (err, resp) => {
 
   if (!_.isArray(body)) { return }
 
-  const openMilestones = _.filter(body, (m) => m.open_issues > 0 && m.state !== "closed")
+  const openMilestones = _.filter(body, (m) => m.state !== "closed")
 
   if (!openMilestones.length) { return }
 
