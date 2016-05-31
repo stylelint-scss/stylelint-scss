@@ -4,6 +4,7 @@
 - Added: `at-import-no-partial-leading-underscore` rule.
 - Added: `at-import-no-partial-extension` rule.
 - Added: `percent-placeholder-pattern` rule.
+- Fixed: `selector-no-redundant-nesting-selector` no longer warns about BEM syntax.
 
 # 1.0.0
 
