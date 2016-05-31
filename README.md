@@ -67,6 +67,10 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 - [`dollar-variable-no-missing-interpolation`](./src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
 - [`dollar-variable-pattern`](./src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.
 
+### `%`-placeholder
+
+- [`percent-placeholder-pattern`](./src/rules/percent-placeholder-pattern/README.md): Specify a pattern for `%`-placeholders.
+
 ### Selector
 
 - [`selector-no-redundant-nesting-selector`](./src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
