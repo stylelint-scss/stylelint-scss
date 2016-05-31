@@ -1,6 +1,7 @@
 import { utils } from "stylelint"
+import { namespace } from "../../utils"
 
-export const ruleName = "at-mixin-no-argumentless-call-parentheses"
+export const ruleName = namespace("at-mixin-no-argumentless-call-parentheses")
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected parentheses in argumentless @mixin call",

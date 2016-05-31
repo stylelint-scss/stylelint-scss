@@ -2,3 +2,4 @@ export { default as hasInterpolatingAmpersand } from "./hasInterpolatingAmpersan
 export { default as isStandardRule } from "./isStandardRule"
 export { default as isStandardSelector } from "./isStandardSelector"
 export { default as parseSelector } from "./parseSelector"
+export { default as namespace } from "./namespace"

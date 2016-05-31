@@ -1,7 +1,8 @@
 import { isRegExp, isString } from "lodash"
 import { utils } from "stylelint"
+import { namespace } from "../../utils"
 
-export const ruleName = "at-function-pattern"
+export const ruleName = namespace("at-function-pattern")
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected @function name to match specified pattern",

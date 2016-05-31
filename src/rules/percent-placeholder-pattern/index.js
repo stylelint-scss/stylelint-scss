@@ -6,9 +6,10 @@ import {
   isStandardRule,
   isStandardSelector,
   parseSelector,
+  namespace,
 } from "../../utils"
 
-export const ruleName = "percent-placeholder-pattern"
+export const ruleName = namespace("percent-placeholder-pattern")
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: placeholder => `Expected %-placeholder "%${placeholder}" to match specified pattern`,
@@ -38,7 +39,7 @@ export default function (pattern) {
       if (!isStandardRule(rule)) { return }
       // If the selector has interpolation
       if (!isStandardSelector(selector)) { return }
-      
+
       // Nested selectors are processed in steps, as nesting levels are resolved.
       // Here we skip processing intermediate parts of selectors (to process only fully resolved selectors)
       // if (rule.nodes.some(node => node.type === "rule" || node.type === "atrule")) { return }
@@ -71,4 +72,3 @@ export default function (pattern) {
 
   }
 }
-

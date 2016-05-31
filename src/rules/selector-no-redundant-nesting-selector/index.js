@@ -1,6 +1,7 @@
 import { utils } from "stylelint"
+import { namespace } from "../../utils"
 
-export const ruleName = "selector-no-redundant-nesting-selector"
+export const ruleName = namespace("selector-no-redundant-nesting-selector")
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unnecessary nesting selector (&)",

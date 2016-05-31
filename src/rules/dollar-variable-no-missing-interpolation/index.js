@@ -1,7 +1,8 @@
 import { utils } from "stylelint"
+import { namespace } from "../../utils"
 import valueParser from "postcss-value-parser"
 
-export const ruleName = "dollar-variable-no-missing-interpolation"
+export const ruleName = namespace("dollar-variable-no-missing-interpolation")
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: (n, v) => `Expected variable ${v} to be interpolated when using it with ${n}`,
