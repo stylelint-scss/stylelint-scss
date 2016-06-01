@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: newlines inside braces in `at-function-pattern`, `at-mixin-pattern`.
+
 # 1.1.0
 
 - Added: `at-mixin-no-argumentless-call-parentheses` rule.

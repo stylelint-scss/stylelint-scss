@@ -51,6 +51,14 @@ testRule(rule, {
       }
     `,
     description: "Regexp: sequence part. Example: newlines around a function name.",
+  }, {
+    code: `
+      @function
+      foo (
+        $n
+      ) {}
+    `,
+    description: "Regexp: sequence part. Example: newline after a brace.",
   } ],
   
   reject: [{

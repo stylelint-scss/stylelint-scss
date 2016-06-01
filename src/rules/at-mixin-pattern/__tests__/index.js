@@ -135,6 +135,14 @@ testRule(rule, {
       }
     `,
     description: "Regexp: strict match. Example: newlines around a mixni name.",
+  }, {
+    code: `
+      @mixin
+      foo (
+        $p
+      ) {}
+    `,
+    description: "Regexp: strict match. Example: newline after a brace.",
   } ],
 
   reject: [ {
