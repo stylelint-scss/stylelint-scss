@@ -1,4 +1,4 @@
-# HEAD
+# 1.1.1
 
 - Fixed: newlines inside braces in `at-function-pattern`, `at-mixin-pattern`.
 - Fixed: false positives and false negatives in `selector-no-redundant-nesting-selector`.
