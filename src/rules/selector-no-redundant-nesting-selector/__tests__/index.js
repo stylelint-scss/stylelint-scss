@@ -12,28 +12,28 @@ testRule(rule, {
         &.foo {}
       }
     `,
-    description: "when an amperand is chained with class",
+    description: "when an ampersand is chained with class",
   }, {
     code: `
       p {
         .foo > & {}
       }
     `,
-    description: "when an amperand follows a direct descendant operator",
+    description: "when an ampersand follows a direct descendant operator",
   }, {
     code: `
       p {
         .foo  >  & {}
       }
     `,
-    description: "when an amperand follows a direct descendant operator and there are extra spaces",
+    description: "when an ampersand follows a direct descendant operator and there are extra spaces",
   }, {
     code: `
       p {
         .foo>& {}
       }
     `,
-    description: "when an amperand follows a direct descendant operator and there are no spaces",
+    description: "when an ampersand follows a direct descendant operator and there are no spaces",
   }, {
     code: `
       p {
@@ -59,7 +59,7 @@ testRule(rule, {
         }
       }
     `,
-    description: "when an amperand is used in a comma sequence to DRY up code",
+    description: "when an ampersand is used in a comma sequence to DRY up code",
   }, {
     code: `
       .icon {
@@ -121,7 +121,7 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes a direct descendant operator",
+    description: "when an ampersand precedes a direct descendant operator",
   }, {
     code: `
       p {
@@ -130,7 +130,7 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes a direct descendant operator and there are extra spaces",
+    description: "when an ampersand precedes a direct descendant operator and there are extra spaces",
   }, {
     code: `
       p {
@@ -139,7 +139,7 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes a direct descendant operator and there are no spaces",
+    description: "when an ampersand precedes a direct descendant operator and there are no spaces",
   }, {
     code: `
       p {
@@ -148,7 +148,7 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes an element",
+    description: "when an ampersand precedes an element",
   }, {
     code: `
       p {
@@ -157,7 +157,7 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes a class",
+    description: "when an ampersand precedes a class",
   }, {
     code: `
       .foo {
@@ -168,7 +168,7 @@ testRule(rule, {
     `,
     line: 4,
     message: messages.rejected,
-    description: "when an ampersand is used to combine two parts of a classname and an amperand precedes a class",
+    description: "when an ampersand is used to combine two parts of a classname and an ampersand precedes a class",
   }, {
     code: `
       p {
@@ -177,7 +177,7 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes an element and a class",
+    description: "when an ampersand precedes an element and a class",
   }, {
     code: `
       p {
@@ -186,7 +186,7 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes an element, a child selector and a class",
+    description: "when an ampersand precedes an element, a child selector and a class",
   }, {
     code: `
       p {
@@ -213,7 +213,44 @@ testRule(rule, {
     `,
     line: 3,
     message: messages.rejected,
-    description: "when an amperand precedes a class and there are extra spaces",
+    description: "when an ampersand precedes a class and there are extra spaces",
+  }, {
+    code: `
+      p {
+        & #class {}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "ampersand followed by id",
+  }, {
+    code: `
+      p {
+        &  [class] {}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "ampersand followed by attribute selector",
+  }, {
+    code: `
+      p {
+        & %class {}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "ampersand followed by %placeholder",
+  }, {
+    code: `
+      p {
+        &
+        span{}
+      }
+    `,
+    line: 3,
+    message: messages.rejected,
+    description: "ampersand followed by newline and tag selector",
   }, {
     code: `
       p {
