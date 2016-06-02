@@ -14,10 +14,10 @@ export default function (actual) {
 
     root.walkRules(/&/, rule => {
       const { selector } = rule
-      const combinatorRegex = /^&\s*(>|\+|~)\s*\.*[a-zA-Z]+/
-      const classOrElementRegex = /^&\s+\.*[a-zA-Z]+/
+      // "Ampersand followed by a combinator followed by non-combinator non-ampersand and not the selector end"
+      const regex = /^&\s*[>+~ ]\s*[^>+~ {&]+/
 
-      if (selector === "&" || classOrElementRegex.test(selector) || combinatorRegex.test(selector)) {
+      if (selector === "&" || regex.test(selector)) {
         utils.report({
           ruleName,
           result,
