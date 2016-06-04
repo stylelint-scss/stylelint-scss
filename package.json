@@ -25,6 +25,7 @@
     "eslint": "^2.3.0",
     "eslint-config-stylelint": "^1.0.0",
     "npmpub": "^3.0.3",
+    "postcss": "^5.0.21",
     "postcss-scss": "^0.1.7",
     "replace": "^0.3.0",
     "request": "^2.72.0",
