@@ -44,11 +44,11 @@ export default function (on) {
     // Not a partial
     if (fileName[0] !== "_") { return }
 
-    root.walkAtRules("import", decl => {
+    root.walkAtRules("import", mixinCall => {
       // Check if @import is treated as CSS import; report only if not
       // Processing comma-separated lists of import paths
-      decl.params.split(",").forEach(path => {
-        checkImportForCSS(path, decl)
+      mixinCall.params.split(",").forEach(path => {
+        checkImportForCSS(path, mixinCall)
       })
     })
   }
