@@ -1,3 +1,7 @@
+# Head
+
+- Added: `partial-no-import` rule.
+
 # 1.1.1
 
 - Fixed: newlines inside braces in `at-function-pattern`, `at-mixin-pattern`.
