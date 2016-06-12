@@ -7,7 +7,7 @@ Disallow file extensions in partial names in `@import`.
 ```scss
 @import "path/to/file.scss"
 /**                  ↑
- *                   Disallow this */
+ *       Disallow this */
 ```
 
 The rule ignores [cases](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#import) when Sass considers an `@import` command just a plain CSS import:

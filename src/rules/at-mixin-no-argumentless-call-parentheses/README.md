@@ -5,7 +5,7 @@ Disallow parentheses in argumentless `@mixin` calls.
 ```scss
 @include mixin-name() {
 /**                ↑
- *                 Such mixin calls */
+ *  Such mixin calls */
 ```
 
 The following patterns are considered warnings:
