@@ -43,7 +43,7 @@ export default function (on, options) {
       if (options && options.ignoreExtensions) {
         // Return if...
         if (options.ignoreExtensions.some(ignoredExt => {
-          // the extension matches on of the ignored strings or Regexps
+          // the extension matches one of the ignored strings or Regexps
           return isString(ignoredExt) && ignoredExt === extension ||
             isRegExp(ignoredExt) && extension.search(ignoredExt) !== -1
         })) { return }
@@ -57,10 +57,10 @@ export default function (on, options) {
       })
     }
 
-    root.walkAtRules("import", decl => {
+    root.walkAtRules("import", atRule => {
       // Processing comma-separated lists of import paths
-      decl.params.split(",").forEach(path => {
-        checkPathForUnderscore(path, decl)
+      atRule.params.split(",").forEach(path => {
+        checkPathForUnderscore(path, atRule)
       })
     })
   }
