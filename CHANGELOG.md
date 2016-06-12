@@ -3,6 +3,7 @@
 - Added: `partial-no-import` rule.
 - Added: `media-feature-value-dollar-variable` rule.
 - Added: `at-import-partial-extension-blacklist` rule.
+- Added: `at-import-partial-extension-whitelist` rule.
 
 # 1.1.1
 
