@@ -1,6 +1,7 @@
 # Head
 
 - Added: `partial-no-import` rule.
+- Added: `media-query-value-dollar-variable` rule.
 
 # 1.1.1
 
