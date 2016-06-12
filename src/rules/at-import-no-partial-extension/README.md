@@ -2,6 +2,8 @@
 
 Disallow file extensions in partial names in `@import`.
 
+**Deprecated. Use [`at-import-partial-extension-blacklist`](/src/rules/at-import-partial-extension-blacklist/README.md) or [`at-import-partial-extension-whitelist`](/src/rules/at-import-partial-extension-whitelist/README.md) instead**
+
 ```scss
 @import "path/to/file.scss"
 /**                  ↑

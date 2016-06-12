@@ -23,6 +23,13 @@ export default function (on, options) {
     })
     if (!validOptions) { return }
 
+    result.warn((
+      "The 'at-import-no-partial-extension' rule has been deprecated, "
+        + "and will be removed in '2.0'. Instead, use 'at-import-partial-extension-blacklist' or 'at-import-partial-extension-whitelist' rules."
+    ), {
+      stylelintType: "deprecation",
+    })
+
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path.replace(/^\s*?("|')\s*/, "").replace(/\s*("|')\s*?$/, "")
