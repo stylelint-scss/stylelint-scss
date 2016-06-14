@@ -8,21 +8,15 @@ export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a dollar-variable (e.g. $var) to be used as a media feature value",
 })
 
-export default function (expectation, options) {
+export default function (expectation) {
   return function (root, result) {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
       possible: [ "always", "never" ],
-    }, {
-      actual: options,
-      optional: true,
-      possible: {
-        ignore: [ "calculations", "funcitons" ],
-      },
     })
     if (!validOptions) { return }
 
-    // In `(max-witdh: 10px )` find `: 10px )`
+    // In `(max-width: 10px )` find `: 10px )`
     const valueRegex = /:(?:\s*?)(\S.+?)(:?\s*?)\)/
     const valueRegexGlobal = new RegExp(valueRegex.source, "g")
 
