@@ -6,7 +6,7 @@ import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-cal
 import atMixinPattern from "./at-mixin-pattern"
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
 import dollarVariablePattern from "./dollar-variable-pattern"
-import mediaQueryValueDollarVariable from "./media-query-value-dollar-variable"
+import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable"
 import partialNoImport from "./partial-no-import"
 import percentPlaceholderPattern from "./percent-placeholder-pattern"
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector"
@@ -20,7 +20,7 @@ export default {
   "at-mixin-pattern": atMixinPattern,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
-  "media-query-value-dollar-variable": mediaQueryValueDollarVariable,
+  "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
   "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,

@@ -71,9 +71,9 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 - [`percent-placeholder-pattern`](./src/rules/percent-placeholder-pattern/README.md): Specify a pattern for `%`-placeholders.
 
-### Media query
+### Media feature
 
-- [`media-query-value-dollar-variable`](./src/rules/media-query-value-dollar-variable/README.md): Require a media query value be a `$`-variable or disallow `$`-variables in media queries values.
+- [`media-feature-value-dollar-variable`](./src/rules/media-feature-value-dollar-variable/README.md): Require a media feature value be a `$`-variable or disallow `$`-variables in media feature values.
 
 ### Partial
 

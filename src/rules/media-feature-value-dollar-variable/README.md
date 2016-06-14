@@ -1,6 +1,6 @@
-# media-query-value-dollar-variable
+# media-feature-value-dollar-variable
 
-Require a media query value be a `$`-variable or disallow `$`-variables in media queries values.
+Require a media feature value be a `$`-variable or disallow `$`-variables in media feature values.
 
 ```scss
 @media (max-width: $var) { a { color: red; } }
@@ -15,7 +15,7 @@ Require a media query value be a `$`-variable or disallow `$`-variables in media
 
 ### `"always"`
 
-A media query value *must consist* of just a single `$`-variable (possibly with inteprolation).
+A media feature value *must consist* of just a single `$`-variable (possibly with inteprolation).
 
 The following patterns are considered warnings:
 
@@ -55,7 +55,7 @@ The following patterns are *not* considered warnings:
 
 ### `"never"`
 
-There *must never* be a `$`-variable in a media query value. Even as a parameter to a function call.
+There *must never* be a `$`-variable in a media feature value. Even as a parameter to a function call.
 
 The following patterns are considered warnings:
 
