@@ -16,39 +16,45 @@ export default function (expectation) {
     })
     if (!validOptions) { return }
 
-    // In `(max-width: 10px )` find `: 10px )`
     const valueRegex = /:(?:\s*?)(\S.+?)(:?\s*?)\)/
+    // In `(max-width: 10px )` find `: 10px )`.
+    // Got to go with that (the global search doesn't remember parens' insides)
+    // and parse it again afterwards to remove trailing junk
     const valueRegexGlobal = new RegExp(valueRegex.source, "g")
+    // `$var-name_sth`
+    const variableRegex = /^\$[A-Za-z_0-9-]+$/
+    // `#{$var-name_sth}`
+    const interpolationVarRegex = /^#\{\s*?\$[A-Za-z_0-9]+\s*?\}$/
 
     root.walkAtRules("media", atRule => {
       const found = atRule.params.match(valueRegexGlobal)
+      // If there are no values
       if (!found || !found.length) { return }
       found.forEach(function (found) {
-        // ... parse it to "10px"
+        // ... parse `: 10px )` to `10px`
         const valueParsed = found.match(valueRegex)[1]
 
-        // A value should be a single variable without any appendices (math operations)
+        // Just a shorthand to stylelint.utils.report()
+        function complain(message) {
+          utils.report({
+            ruleName,
+            result,
+            node: atRule,
+            word: valueParsed,
+            message,
+          })
+        }
+
+        // A value should be a single variable
         // or it should be a single variable inside Sass interpolation
-        if (expectation === "always" && !(valueParsed[0] === "$" &&
-          valueParsed.search(/(\s|[+-/*])/) === -1 ||
-          valueParsed.search(/^#\{\s*?\$[A-Za-z_0-9]+\s*?\}$/) !== -1
+        if (expectation === "always" && 
+          !(valueParsed.search(variableRegex) !== -1 ||
+          valueParsed.search(interpolationVarRegex) !== -1
         )) {
-          utils.report({
-            ruleName,
-            result,
-            node: atRule,
-            word: valueParsed,
-            message: messages.expected,
-          })
-        } else if (expectation === "never" && valueParsed.search(/\$/) !== -1) {
+          complain(messages.expected)
+        } else if (expectation === "never" && valueParsed.indexOf("$") !== -1) {
           // "Never" means no variables at all (functions allowed)
-          utils.report({
-            ruleName,
-            result,
-            node: atRule,
-            word: valueParsed,
-            message: messages.rejected,
-          })
+          complain(messages.rejected)
         }
       })
     })
