@@ -17,7 +17,7 @@ The rule ignores [cases](http://sass-lang.com/documentation/file.SASS_REFERENCE.
 
 ## Options
 
-`array`: `"["array", "of", "extensions"]`
+`array`: `["array", "of", "extensions"]`
 
 Each value is either a string or a regexp.
 
