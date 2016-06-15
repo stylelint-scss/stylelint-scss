@@ -71,6 +71,10 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 - [`percent-placeholder-pattern`](./src/rules/percent-placeholder-pattern/README.md): Specify a pattern for `%`-placeholders.
 
+### Media feature
+
+- [`media-feature-value-dollar-variable`](./src/rules/media-feature-value-dollar-variable/README.md): Require a media feature value be a `$`-variable or disallow `$`-variables in media feature values.
+
 ### Partial
 
 - [`partial-no-import`](./src/rules/partial-no-import/README.md): Disallow non-CSS `@import`s in partial files.

@@ -1,6 +1,7 @@
 # Head
 
 - Added: `partial-no-import` rule.
+- Added: `media-feature-value-dollar-variable` rule.
 
 # 1.1.1
 
