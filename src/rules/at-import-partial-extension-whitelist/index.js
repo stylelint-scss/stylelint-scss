@@ -3,39 +3,29 @@ import { utils } from "stylelint"
 import { namespace } from "../../utils"
 import nodeJsPath from "path"
 
-export const ruleName = namespace("at-import-no-partial-extension")
+export const ruleName = namespace("at-import-partial-extension-whitelist")
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Unexpected file extension in imported partial name",
+  rejected: (ext) => `Unexpected extension ".${ext}" in imported partial name`,
 })
 
-export default function (on, options) {
+export default function (whitelistOption) {
+  const whitelist = [].concat(whitelistOption)
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: on,
-    }, {
-      actual: options,
-      possible: {
-        // Accepting array of either strings or regular expressions
-        ignoreExtensions: str => isRegExp(str) || isString(str),
-      },
-      optional: true,
+      actual: whitelistOption,
+      possible: [ isString, isRegExp ],
     })
     if (!validOptions) { return }
-
-    result.warn((
-      "The 'at-import-no-partial-extension' rule has been deprecated, "
-        + "and will be removed in '2.0'. Instead, use 'at-import-partial-extension-blacklist' or 'at-import-partial-extension-whitelist' rules."
-    ), {
-      stylelintType: "deprecation",
-    })
 
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path.replace(/^\s*?("|')\s*/, "").replace(/\s*("|')\s*?$/, "")
       const extension = nodeJsPath.extname(pathStripped).slice(1)
+      // Save this separately to be able to pass the original string to report()
+      const extensionNormalized = extension.toLowerCase()
 
-      // If the extension is not empty
+      // If the extension is empty
       if (!extension) { return }
 
       // Skipping importing CSS: url(), ".css", URI with a protocol, media
@@ -47,18 +37,15 @@ export default function (on, options) {
         return
       }
 
-      if (options && options.ignoreExtensions) {
-        // Return if...
-        if (options.ignoreExtensions.some(ignoredExt => {
-          // the extension matches one of the ignored strings or Regexps
-          return isString(ignoredExt) && ignoredExt === extension ||
-            isRegExp(ignoredExt) && extension.search(ignoredExt) !== -1
-        })) { return }
-      }
+      if (whitelist.some(ext => {
+        return isString(ext) && extensionNormalized === ext ||
+          isRegExp(ext) && extensionNormalized.search(ext) !== -1
+      })) { return }
 
       utils.report({
-        message: messages.expected,
+        message: messages.rejected(extension),
         node: decl,
+        word: extension,
         result,
         ruleName,
       })

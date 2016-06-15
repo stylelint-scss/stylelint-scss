@@ -6,9 +6,9 @@ Disallow Sass variables that are used without interpolation with CSS features th
 .class {
   $var: "my-anim";
   animation-name: $var;
-              // ↑
-              // This variable needs to be interpolated
-              // because its value is a string
+//                ↑
+// This variable needs to be interpolated
+// because its value is a string
 }
 ```
 

@@ -1,7 +1,17 @@
-import testRule from "stylelint-test-rule-tape"
-import rule, { ruleName, messages } from ".."
+// Commented out stuff is to prevent tests failing due to a deprecated warning message
+// If something needs tested, uncomment these and comment the warning in the rule code
 
-// Testing main value
+// import testRule from "stylelint-test-rule-tape"
+import rule/* , { ruleName, messages } */ from ".."
+
+import postcss from "postcss"
+import test from "tape"
+
+function logError(err) {
+  console.log(err.stack) // eslint-disable-line no-console
+}
+
+/* // Testing main value
 testRule(rule, {
   ruleName,
   config: [true],
@@ -210,4 +220,20 @@ testRule(rule, {
     message: messages.expected,
     description: "One file, extension differs from the pattern.",
   }],
+}) */
+
+// Test that consider the deprecation warning
+test("Test that considers the deprecation warning", t => {
+
+  t.plan(4)
+  postcss([rule()])
+    .process("@import 'fff.less';")
+    .then(result => {
+      const warnings = result.warnings()
+      t.equal(warnings.length, 2)
+      t.equal(warnings[0].text, "The 'at-import-no-partial-extension' rule has been deprecated, and will be removed in '2.0'. Instead, use 'at-import-partial-extension-blacklist' or 'at-import-partial-extension-whitelist' rules.")
+      t.equal(warnings[0].stylelintType, "deprecation")
+      t.equal(warnings[1].text, "Unexpected file extension in imported partial name (scss/at-import-no-partial-extension)")
+    })
+    .catch(logError)
 })

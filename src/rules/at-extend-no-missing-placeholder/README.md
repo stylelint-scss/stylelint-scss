@@ -9,8 +9,8 @@ See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-
 ```scss
 .foo {
   @extend %bar
-       // ↑
-       // This is a placeholder selector
+//        ↑
+// This is a placeholder selector
 }
 ```
 

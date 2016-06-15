@@ -1,13 +1,11 @@
-# at-import-no-partial-extension
+# at-import-partial-extension-blacklist
 
-Disallow file extensions in partial names in `@import`.
-
-**Deprecated. Use [`at-import-partial-extension-blacklist`](/src/rules/at-import-partial-extension-blacklist/README.md) or [`at-import-partial-extension-whitelist`](/src/rules/at-import-partial-extension-whitelist/README.md) instead**
+Specify blacklist of disallowed file extensions for partial names in `@import` commands.
 
 ```scss
-@import "path/to/file.scss"
-/**                  ↑
- *       Disallow this */
+@import "file.scss"
+/**           ↑
+ * Blacklist of these */
 ```
 
 The rule ignores [cases](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#import) when Sass considers an `@import` command just a plain CSS import:
@@ -16,6 +14,18 @@ The rule ignores [cases](http://sass-lang.com/documentation/file.SASS_REFERENCE.
 * If the filename begins with `http://` (or any other protocol).
 * If the filename is a `url()`.
 * If the `@import` has any media queries.
+
+## Options
+
+`array`: `["array", "of", "extensions"]`
+
+Each value is either a string or a regexp.
+
+Given:
+
+```js
+["scss", /less/]
+```
 
 The following patterns are considered warnings:
 
@@ -28,11 +38,11 @@ The following patterns are considered warnings:
 ```
 
 ```scss
-@import "path\\fff.supa";
+@import "path\\fff.ruthless";
 ```
 
 ```scss
-@import "df/fff", '1.scss';
+@import "df/fff", '1.SCSS';
 ```
 
 The following patterns are *not* considered warnings:
@@ -57,20 +67,4 @@ The following patterns are *not* considered warnings:
 
 ```scss
 @import "file.scss" screen; /* Has a media query, so doesn't count as a partial @import */
-```
-
-## Optional Options
-
-### `ignoreExtensions: [ string or regexp ]`
-
-An array of extensions to ignore, elements *don't need the dot at the start*. If an element is a string, only extensions that match that string are ignored. If an element is a regular expression, then extensions are tested against it and ignored if the test is successful.
-
-For example, with `ignoreExtensions: [ "scss", /^my/ ] ]`, the following are no longer warnings:
-
-```scss
-@import "path/fff.scss";
-```
-
-```scss
-@import "path/fff.my01";
 ```

@@ -5,7 +5,7 @@ Disallow leading underscore in partial names in `@import`.
 ```scss
 @import "path/to/_file"
 /**              ↑
- *               Disallow this */
+ *   Disallow this */
 ```
 
 The rule ignores [cases](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#import) when Sass considers an `@import` command just a plain CSS import:

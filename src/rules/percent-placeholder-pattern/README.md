@@ -3,9 +3,9 @@
 Specify a pattern for `%`-placeholders.
 
 ```scss
-     %foobar { display: flex; }
-/**  ↑
- *   The pattern of this */
+    %foobar { display: flex; }
+/** ↑
+ * The pattern of this */
 ```
 
 ## Options
