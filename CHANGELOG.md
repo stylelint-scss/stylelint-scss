@@ -5,6 +5,7 @@
 - Added: `at-import-partial-extension-blacklist` rule.
 - Added: `at-import-partial-extension-whitelist` rule.
 - Deprecated: `at-import-no-partial-extension` rule.
+- Fixed: `dollar-variable-no-missing-interpolation` was throwing an error on older Node.js versions.
 
 # 1.1.1
 
