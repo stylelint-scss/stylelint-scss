@@ -24,7 +24,7 @@ export default function (pattern) {
       if (decl.name !== "mixin") { return }
 
       // Stripping the mixin of its arguments
-      const mixinName = decl.params.replace(/(\s*?)\((?:\s|\S)*?\)/g, "")
+      const mixinName = decl.params.replace(/(\s*?)\((?:\s|\S)*\)/g, "")
       if (regexpPattern.test(mixinName)) { return }
 
       utils.report({

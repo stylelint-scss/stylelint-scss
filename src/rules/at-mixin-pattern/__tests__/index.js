@@ -123,6 +123,23 @@ testRule(rule, {
 
   accept: [ {
     code: `
+      @mixin foo ($options: ()) {}
+    `,
+    description: "Regexp: strict match. Example: mixin with params that have parens INSIDE.",
+  }, {
+    code: `
+      @mixin foo ($options: (), $lol: ()) {}
+    `,
+    description: "Regexp: strict match. Example: mixin with params that have parens INSIDE #2.",
+  }, {
+    code: `
+      @mixin foo ($a: (), $b: .1meh, $c: foo(buzzz)) {
+        color: red;
+      }
+    `,
+    description: "Regexp: strict match. Example: mixin with params that have parens INSIDE #3.",
+  }, {
+    code: `
       @mixin foo {
       }
     `,
