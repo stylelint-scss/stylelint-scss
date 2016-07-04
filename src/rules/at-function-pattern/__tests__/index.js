@@ -125,6 +125,23 @@ testRule(rule, {
 
   accept: [ {
     code: `
+      @function foo ($options: ()) {}
+    `,
+    description: "Regexp: strict match. Example: function with params that have parens INSIDE.",
+  }, {
+    code: `
+      @function foo ($options: (), $lol: ()) {}
+    `,
+    description: "Regexp: strict match. Example: function with params that have parens INSIDE #2.",
+  }, {
+    code: `
+      @function foo ($a: (), $b: .1meh, $c: foo(buzzz)) {
+        color: red;
+      }
+    `,
+    description: "Regexp: strict match. Example: function with params that have parens INSIDE #3.",
+  }, {
+    code: `
       @function foo ($p) {
       }
     `,
