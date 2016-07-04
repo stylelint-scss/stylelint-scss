@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `at-function-pattern`, `at-mixin-pattern` failing if there are parens inside a parameters list.
+
 # 1.2.0
 
 - Added: `partial-no-import` rule.
