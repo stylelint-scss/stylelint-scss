@@ -1,4 +1,4 @@
-# HEAD
+# 1.2.1
 
 - Fixed: `at-function-pattern`, `at-mixin-pattern` failing if there are parens inside a parameters list.
 
