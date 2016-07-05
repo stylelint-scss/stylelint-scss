@@ -1,3 +1,7 @@
+# HEAD
+
+- Added: `at-mixin-argumentless-call-parentheses` rule (with "always"/"never" behavior). Deprecated `at-mixin-no-argumentless-call-parentheses`.
+
 # 1.2.1
 
 - Fixed: `at-function-pattern`, `at-mixin-pattern` failing if there are parens inside a parameters list.

@@ -60,7 +60,7 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 ### `@`-mixin
 
-- [`at-mixin-no-argumentless-call-parentheses`](./src/rules/at-mixin-no-argumentless-call-parentheses/README.md): Disallow parentheses in argumentless `@mixin` calls.
+- [`at-mixin-argumentless-call-parentheses`](./src/rules/at-mixin-argumentless-call-parentheses/README.md): Require or disallow parentheses in argumentless `@mixin` calls.
 - [`at-mixin-pattern`](./src/rules/at-mixin-pattern/README.md): Specify a pattern for Sass/SCSS-like mixin names.
 
 ### `$`-variable
