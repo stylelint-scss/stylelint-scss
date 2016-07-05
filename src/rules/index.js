@@ -1,6 +1,5 @@
 import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder"
 import atFunctionPattern from "./at-function-pattern"
-import atImportNoPartialExtension from "./at-import-no-partial-extension"
 import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore"
 import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist"
 import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist"
@@ -17,7 +16,6 @@ import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-
 export default {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
   "at-function-pattern": atFunctionPattern,
-  "at-import-no-partial-extension": atImportNoPartialExtension,
   "at-import-no-partial-leading-underscore": atImportNoPartialLeadingUnderscore,
   "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
   "at-import-partial-extension-whitelist": atImportPartialExtensionWhitelist,

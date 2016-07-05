@@ -1,7 +1,11 @@
-# HEAD
+# 2.0.0
 
-- Fixed: `at-function-pattern`, `at-mixin-pattern` failing if there are parens inside a parameters list.
+- Deleted: `at-import-no-partial-extension` rule.
+
+# 1.3.0
+
 - Added: `at-mixin-argumentless-call-parentheses` rule (with "always"/"never" behavior). Deprecated `at-mixin-no-argumentless-call-parentheses`.
+- Fixed: `at-function-pattern`, `at-mixin-pattern` failing if there are parens inside a parameters list.
 
 # 1.2.0
 
