@@ -1,5 +1,7 @@
 # at-mixin-no-argumentless-call-parentheses
 
+**Deprecated. Use [`at-mixin-argumentless-call-parentheses`](../at-mixin-argumentless-call-parentheses/README.md) instead.**
+
 Disallow parentheses in argumentless `@mixin` calls.
 
 ```scss
