@@ -5,7 +5,6 @@ import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-u
 import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist"
 import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist"
 import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses"
-import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-call-parentheses"
 import atMixinPattern from "./at-mixin-pattern"
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
 import dollarVariablePattern from "./dollar-variable-pattern"
@@ -22,7 +21,6 @@ export default {
   "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
   "at-import-partial-extension-whitelist": atImportPartialExtensionWhitelist,
   "at-mixin-argumentless-call-parentheses": atMixinArgumentlessCallParentheses,
-  "at-mixin-no-argumentless-call-parentheses": atMixinNoArgumentlessCallParentheses,
   "at-mixin-pattern": atMixinPattern,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
