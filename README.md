@@ -76,6 +76,10 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 - [`media-feature-value-dollar-variable`](./src/rules/media-feature-value-dollar-variable/README.md): Require a media feature value be a `$`-variable or disallow `$`-variables in media feature values.
 
+### Operator
+
+- [`operator-no-unspaced`](./src/rules/operator-no-unspaced/README.md): Disallow unspaced operators in Sass operations.
+
 ### Partial
 
 - [`partial-no-import`](./src/rules/partial-no-import/README.md): Disallow non-CSS `@import`s in partial files.

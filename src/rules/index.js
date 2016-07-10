@@ -10,6 +10,7 @@ import atMixinPattern from "./at-mixin-pattern"
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
 import dollarVariablePattern from "./dollar-variable-pattern"
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable"
+import operatorNoUnspaced from "./operator-no-unspaced"
 import partialNoImport from "./partial-no-import"
 import percentPlaceholderPattern from "./percent-placeholder-pattern"
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector"
@@ -27,6 +28,7 @@ export default {
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
+  "operator-no-unspaced": operatorNoUnspaced,
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
   "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,
