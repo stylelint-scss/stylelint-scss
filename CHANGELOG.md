@@ -2,6 +2,7 @@
 
 - Added: `at-mixin-argumentless-call-parentheses` rule (with "always"/"never" behavior). Deprecated `at-mixin-no-argumentless-call-parentheses`.
 - Added: `operator-no-unspaced` rule.
+- Added: `operator-no-newline-before` rule.
 
 # 1.2.1
 
