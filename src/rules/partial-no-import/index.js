@@ -15,6 +15,13 @@ export default function (on) {
     })
     if (!validOptions) { return }
 
+    if (root.source.input.file === undefined || !root.source.input.file) {
+      result.warn((
+        "The 'partial-no-import' rule won't work if linting in a code string without an actual file."
+      ))
+      return
+    }
+
     const fileName = nodeJsPath.basename(root.source.input.file)
     const extName = nodeJsPath.extname(root.source.input.file)
 
