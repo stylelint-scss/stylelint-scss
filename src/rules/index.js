@@ -7,6 +7,7 @@ import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whi
 import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses"
 import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-call-parentheses"
 import atMixinPattern from "./at-mixin-pattern"
+import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after"
 import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after"
 import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before"
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
@@ -26,8 +27,9 @@ export default {
   "at-mixin-argumentless-call-parentheses": atMixinArgumentlessCallParentheses,
   "at-mixin-no-argumentless-call-parentheses": atMixinNoArgumentlessCallParentheses,
   "at-mixin-pattern": atMixinPattern,
-  "dollar-variable-colon-space-before": dollarVariableColonSpaceBefore,
+  "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
   "dollar-variable-colon-space-after": dollarVariableColonSpaceAfter,
+  "dollar-variable-colon-space-before": dollarVariableColonSpaceBefore,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
