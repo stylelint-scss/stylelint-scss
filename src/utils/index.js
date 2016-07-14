@@ -1,5 +1,7 @@
 export { default as hasInterpolatingAmpersand } from "./hasInterpolatingAmpersand"
 export { default as isStandardRule } from "./isStandardRule"
 export { default as isStandardSelector } from "./isStandardSelector"
-export { default as parseSelector } from "./parseSelector"
 export { default as namespace } from "./namespace"
+export { default as parseSelector } from "./parseSelector"
+export { default as optionsHaveException } from "./optionsHaveException"
+export { default as optionsHaveIgnored } from "./optionsHaveIgnored"
