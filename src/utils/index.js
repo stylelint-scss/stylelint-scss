@@ -1,4 +1,5 @@
 export { default as hasInterpolatingAmpersand } from "./hasInterpolatingAmpersand"
+export { default as isInlineComment } from "./isInlineComment"
 export { default as isStandardRule } from "./isStandardRule"
 export { default as isStandardSelector } from "./isStandardSelector"
 export { default as namespace } from "./namespace"
