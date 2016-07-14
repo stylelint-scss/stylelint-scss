@@ -72,6 +72,10 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 
 - [`percent-placeholder-pattern`](./src/rules/percent-placeholder-pattern/README.md): Specify a pattern for `%`-placeholders.
 
+### `//`-comment
+
+- [`double-slash-comment-empty-line-before`](./src/rules/double-slash-comment-empty-line-before/README.md): Require or disallow an empty line before `//`-comments.
+
 ### Media feature
 
 - [`media-feature-value-dollar-variable`](./src/rules/media-feature-value-dollar-variable/README.md): Require a media feature value be a `$`-variable or disallow `$`-variables in media feature values.
