@@ -75,6 +75,7 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 ### `//`-comment
 
 - [`double-slash-comment-empty-line-before`](./src/rules/double-slash-comment-empty-line-before/README.md): Require or disallow an empty line before `//`-comments.
+- [`double-slash-comment-inline`](./src/rules/double-slash-comment-inline/README.md): Require or disallow `//`-comments to be inline comments.
 
 ### Media feature
 
