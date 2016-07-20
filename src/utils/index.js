@@ -1,3 +1,4 @@
+export { default as findCommentsInRaws } from "./findCommentsInRaws"
 export { default as hasInterpolatingAmpersand } from "./hasInterpolatingAmpersand"
 export { default as isInlineComment } from "./isInlineComment"
 export { default as isStandardRule } from "./isStandardRule"
