@@ -2,6 +2,7 @@ import { utils } from "stylelint"
 import {
   atRuleParamIndex,
   declarationValueIndex,
+  findCommentsInRaws,
   findOperators,
   isWhitespace,
   namespace,
@@ -203,6 +204,30 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
             startIndex: operator.startIndex,
             endIndex: operator.endIndex,
             node: item,
+            result,
+          })
+        })
+      }
+    })
+  })
+  
+  // Checking interpolation inside comments
+  // We have to give up on PostCSS here because it skips some inline comments
+  findCommentsInRaws(root.source.input.css).forEach(comment => {
+    const startIndex = comment.start + comment.raws.startToken.length +
+      comment.raws.left.length 
+    if (comment.type !== "css") { return }
+
+    findInterpolation(comment.text).forEach(el => {
+      // Only if there are operators within a string
+      if (el.operators && el.operators.length > 0) {
+        el.operators.forEach(operator => {
+          checker({
+            string: el.source,
+            globalIndex: operator.globalIndex + startIndex,
+            startIndex: operator.startIndex,
+            endIndex: operator.endIndex,
+            node: root,
             result,
           })
         })

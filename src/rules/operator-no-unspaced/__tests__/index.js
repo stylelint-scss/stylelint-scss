@@ -1105,6 +1105,50 @@ testRule(rule, {
 })
 
 // ------------------------------------------------------------------------
+// Interpolation inside comments
+// ------------------------------------------------------------------------
+
+testRule(rule, {
+  ruleName,
+  config: [undefined],
+  syntax: "scss",
+  skipBasicChecks: true,
+  
+  accept: [ {
+    code: "/* #{10 + 1} */",
+    description: "/* #{10 + 1} */.",
+  }, {
+    code: "// #{10+ 1}",
+    description: "// #{10+ 1}.",
+  } ],
+
+  reject: [ {
+    code: "/* #{10+ 1} */",
+    description: "/* #{10+ 1} */.",
+    message: messages.expectedBefore("+"),
+    column: 8,
+  }, {
+    code: `
+      a, /* #{10+ 1} */ 
+      b
+      { width: 10px; }`,
+    description: "Comment after selector.",
+    message: messages.expectedBefore("+"),
+    line: 2,
+    column: 17,
+  }, {
+    code: `
+      a,
+      b /* #{10+ 1} */ 
+      { width: 10px; }`,
+    description: "Comment after selector #2.",
+    message: messages.expectedBefore("+"),
+    line: 3,
+    column: 16,
+  } ],
+})
+
+// ------------------------------------------------------------------------
 // These register more than one warning. 
 // ------------------------------------------------------------------------
 
