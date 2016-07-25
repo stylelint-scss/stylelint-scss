@@ -10,9 +10,11 @@
  *    • start -- 0-base index of the comment srart in the source string
  *    • end -- 0-base index of the comment end in the source string
  *    • raws
+ *      raws.startToken -- `/*`, `/**`, `/**!`, etc.
  *      raws.left -- whitespace after the comment opening marker
  *      raws.text -- the full comment, including markers (//, /*)
  *      raws.right -- whitespace before the comment closing marker
+ *      raws.endToken -- `*\/`, `**\/` for CSS comments
  *    • text -- the comment text only, excluding //, /*, trailing whitespaces
  *    • inlineAfter -- true, if there is something before the comment on
  *      the same line
@@ -117,15 +119,17 @@ export default function findCommentsInRaws(rawString) {
           comment.end = i + 1
 
           const commentRaw = rawString.substring(comment.start, comment.end + 1)
-          const matches = /^\/\*+[!#]{0,1}(\s*)(.*?)(\s*?)\*\/$/.exec(commentRaw)
+          const matches = /^(\/\*+[!#]{0,1})(\s*)(.*?)(\s*?)(\*+\/)$/.exec(commentRaw)
 
           modesEntered.pop()
           comment.raws = {
-            left: matches[1],
+            startToken: matches[1],
+            left: matches[2],
             text: commentRaw,
-            right: matches[3],
+            right: matches[4],
+            endToken: matches[5],
           }
-          comment.text = matches[2]
+          comment.text = matches[3]
           comment.inlineBefore = rawString.substring(i + 2).search(/^\s*?\S+\s*?\n/) !== -1
           result.push(Object.assign({}, comment))
           comment = {}
@@ -141,15 +145,16 @@ export default function findCommentsInRaws(rawString) {
             comment.end = i - 1
 
             const commentRaw = rawString.substring(comment.start, comment.end)
-            const matches = /^\/+(\s*)(.*?)(\s*?)$/.exec(commentRaw)
+            const matches = /^(\/+)(\s*)(.*?)(\s*?)$/.exec(commentRaw)
 
             modesEntered.pop()
             comment.raws = {
-              left: matches[1],
+              startToken: matches[1],
+              left: matches[2],
               text: commentRaw,
-              right: matches[3],
+              right: matches[4],
             }
-            comment.text = matches[2]
+            comment.text = matches[3]
             comment.inlineBefore = false
             result.push(Object.assign({}, comment))
             comment = {}
