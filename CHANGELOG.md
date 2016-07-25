@@ -8,6 +8,9 @@
 - Added: `double-slash-comment-empty-line-before` rule.
 - Added: `double-slash-comment-inline` rule.
 - Added: `double-slash-comment-whitespace-inside` rule.
+- Added: `operator-no-unspaced` rule.
+- Added: `operator-no-newline-before` rule.
+- Added: `operator-no-newline-after` rule.
 
 # 1.2.1
 

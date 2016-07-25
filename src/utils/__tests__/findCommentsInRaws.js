@@ -8,7 +8,7 @@ function logError(err) {
 }
 
 test("Various.", t => {
-  t.plan(11)
+  t.plan(13)
 
   postcss()
     .process(`
@@ -28,6 +28,8 @@ test("Various.", t => {
       
       t.equal(comments.length, 3)
       t.equal(comments[0].text, "comment")
+      t.equal(comments[0].raws.startToken, "/**!")
+      t.equal(comments[0].raws.endToken, "*/")
       t.equal(comments[0].inlineAfter, false)
       t.equal(comments[1].type, "double-slash")
       t.equal(comments[1].text, "comment 2")
@@ -75,7 +77,7 @@ test("", t => {
 })
 
 test("Triple-slash comment", t => {
-  t.plan(3)
+  t.plan(4)
 
   postcss()
     .process("a {} /// comment", { syntax: scss })
@@ -83,6 +85,7 @@ test("Triple-slash comment", t => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
       t.equal(comments.length, 1)
+      t.equal(comments[0].raws.startToken, "///")
       t.equal(comments[0].inlineAfter, true)
       t.equal(comments[0].raws.left, " ")
     })

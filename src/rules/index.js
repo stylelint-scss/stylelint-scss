@@ -16,6 +16,9 @@ import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line
 import doubleSlashCommentInline from "./double-slash-comment-inline"
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside"
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable"
+import operatorNoNewlineAfter from "./operator-no-newline-after"
+import operatorNoNewlineBefore from "./operator-no-newline-before"
+import operatorNoUnspaced from "./operator-no-unspaced"
 import partialNoImport from "./partial-no-import"
 import percentPlaceholderPattern from "./percent-placeholder-pattern"
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector"
@@ -39,6 +42,9 @@ export default {
   "double-slash-comment-inline": doubleSlashCommentInline,
   "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
+  "operator-no-newline-after": operatorNoNewlineAfter,
+  "operator-no-newline-before": operatorNoNewlineBefore,
+  "operator-no-unspaced": operatorNoUnspaced,
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
   "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,
