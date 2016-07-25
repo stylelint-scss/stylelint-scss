@@ -1,7 +1,25 @@
 import rule from ".."
+
 import postcss from "postcss"
 import path from "path"
 import test from "tape"
+
+function logError(err) {
+  console.log(err.stack) // eslint-disable-line no-console
+}
+
+test("No file specified", t => {
+  t.plan(2)
+
+  postcss([rule()])
+    .process("@import 'file.scss';")
+    .then(result => {
+      const warnings = result.warnings()
+      t.equal(warnings.length, 1, "Warning count")
+      t.equal(warnings[0].text, "The 'partial-no-import' rule won't work if linting in a code string without an actual file.", "Warning message")
+    })
+    .catch(logError)
+})
 
 test("Import a file from non-partial .scss", t => {
   t.plan(1)

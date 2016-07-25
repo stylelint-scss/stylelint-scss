@@ -9,6 +9,9 @@ import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-cal
 import atMixinPattern from "./at-mixin-pattern"
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
 import dollarVariablePattern from "./dollar-variable-pattern"
+import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before"
+import doubleSlashCommentInline from "./double-slash-comment-inline"
+import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside"
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable"
 import operatorNoNewlineAfter from "./operator-no-newline-after"
 import operatorNoNewlineBefore from "./operator-no-newline-before"
@@ -29,6 +32,9 @@ export default {
   "at-mixin-pattern": atMixinPattern,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
+  "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,
+  "double-slash-comment-inline": doubleSlashCommentInline,
+  "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "operator-no-newline-after": operatorNoNewlineAfter,
   "operator-no-newline-before": operatorNoNewlineBefore,
