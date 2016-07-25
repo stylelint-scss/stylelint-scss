@@ -63,6 +63,10 @@ p {
 The following patterns are *not* considered warnings:
 
 ```scss
+a { width: 10 * 1; }
+```
+
+```scss
 a { width: 10 +1; } // A space-delimited Sass list
 ```
 
@@ -84,7 +88,7 @@ a { width: $var-1; } // "$var-1" is a variable name
 ```
 
 ```scss
-a { width: "10*1"; }} // Inside a string, ignored
+a { width: "10*1"; } // Inside a string, ignored
 ```
 
 ```scss
