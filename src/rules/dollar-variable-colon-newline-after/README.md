@@ -1,6 +1,6 @@
 # dollar-variable-colon-newline-after
 
-Require a newline or disallow whitespace after the colon `$`-variable declarations.
+Require a newline after the colon in `$`-variable declarations.
 
 ```scss
 $box-shadow:

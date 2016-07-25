@@ -9,7 +9,6 @@ export const ruleName = namespace("dollar-variable-colon-newline-after")
 
 export const messages = utils.ruleMessages(ruleName, {
   expectedAfter: () => "Expected newline after \":\"",
-  rejectedAfter: () => "Unexpected whitespace after \":\"",
   expectedAfterMultiLine: () => "Expected newline after \":\" with a multi-line value",
 })
 
