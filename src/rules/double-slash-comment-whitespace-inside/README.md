@@ -13,7 +13,7 @@ This rule only works with SCSS-like [single-line comments](http://sass-lang.com/
 
 Any number of slases are allowed at the beginning of the comment. So `/// comment` is treated the same way as `// comment`.
 
-Note that a newlint is not possible as a whitespace in terms of this rule as `//`-comments are intended to be single-line.
+Note that a newline is not possible as a whitespace in terms of this rule as `//`-comments are intended to be single-line.
 
 ## Options
 

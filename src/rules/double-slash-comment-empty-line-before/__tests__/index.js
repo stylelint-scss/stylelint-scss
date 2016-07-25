@@ -157,7 +157,7 @@ testRule(rule, {
       // comment 3
       body { color: red; }
     `,
-    description: "Multiple comments, root level, no emply lines between.",
+    description: "Multiple comments, root level, no empty lines between.",
   }, {
     code: `
       a { color: pink;

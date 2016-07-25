@@ -15,11 +15,9 @@ test("Single-line comment, after ruleset.", t => {
       a {} // comment
     `, { syntax: scss })
     .then(result => {
-      let res = null
       result.root.walkComments(comment => {
-        res = isInlineComment(comment)
+        t.equal(isInlineComment(comment), true)
       })
-      t.equal(res, true)
     })
     .catch(logError)
 })
@@ -32,11 +30,9 @@ test("CSS comment, after ruleset.", t => {
       a {} /* comment */
     `, { syntax: scss })
     .then(result => {
-      let res = null
       result.root.walkComments(comment => {
-        res = isInlineComment(comment)
+        t.equal(isInlineComment(comment), true)
       })
-      t.equal(res, true)
     })
     .catch(logError)
 })
@@ -51,11 +47,9 @@ test("Single-line comment, after a decl.", t => {
       }
     `, { syntax: scss })
     .then(result => {
-      let res = null
       result.root.walkComments(comment => {
-        res = isInlineComment(comment)
+        t.equal(isInlineComment(comment), true)
       })
-      t.equal(res, true)
     })
     .catch(logError)
 })
@@ -70,11 +64,9 @@ test("CSS comment, before a decl.", t => {
       }
     `, { syntax: scss })
     .then(result => {
-      let res = null
       result.root.walkComments(comment => {
-        res = isInlineComment(comment)
+        t.equal(isInlineComment(comment), true)
       })
-      t.equal(res, true)
     })
     .catch(logError)
 })
@@ -89,11 +81,9 @@ test("Inline comment, after a {.", t => {
       }
     `, { syntax: scss })
     .then(result => {
-      let res = null
       result.root.walkComments(comment => {
-        res = isInlineComment(comment)
+        t.equal(isInlineComment(comment), true)
       })
-      t.equal(res, true)
     })
     .catch(logError)
 })
@@ -147,11 +137,9 @@ test("Multi-line comment, after a ruleset (new line).", t => {
       /* comment */
     `, { syntax: scss })
     .then(result => {
-      let res = null
       result.root.walkComments(comment => {
-        res = isInlineComment(comment)
+        t.equal(isInlineComment(comment), false)
       })
-      t.equal(res, false)
     })
     .catch(logError)
 })
@@ -165,11 +153,9 @@ test("Single-line comment, after a ruleset (new line).", t => {
       // comment
     `, { syntax: scss })
     .then(result => {
-      let res = null
       result.root.walkComments(comment => {
-        res = isInlineComment(comment)
+        t.equal(isInlineComment(comment), false)
       })
-      t.equal(res, false)
     })
     .catch(logError)
 })
