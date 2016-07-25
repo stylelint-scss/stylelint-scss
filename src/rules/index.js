@@ -9,6 +9,9 @@ import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-cal
 import atMixinPattern from "./at-mixin-pattern"
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
 import dollarVariablePattern from "./dollar-variable-pattern"
+import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before"
+import doubleSlashCommentInline from "./double-slash-comment-inline"
+import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside"
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable"
 import partialNoImport from "./partial-no-import"
 import percentPlaceholderPattern from "./percent-placeholder-pattern"
@@ -26,6 +29,9 @@ export default {
   "at-mixin-pattern": atMixinPattern,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
+  "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,
+  "double-slash-comment-inline": doubleSlashCommentInline,
+  "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
