@@ -205,15 +205,17 @@ export default function (targetWhitespace, expectation, messages) {
   function expectAfter(messageFunc = messages.expectedAfter) {
     const { source, index } = activeArgs
 
-    const oneCharAfter = source[index + 1]
-    const twoCharsAfter = source[index + 2]
+    const oneCharAfter = index + 1 < source.length ? source[index + 1] : ""
+    const twoCharsAfter = index + 2 < source.length ? source[index + 2] : ""
 
     if (!isValue(oneCharAfter)) { return }
 
     if (targetWhitespace === "newline") {
       // If index is followed by a Windows CR-LF ...
       if (oneCharAfter === "\r" && twoCharsAfter === "\n") {
-        if (activeArgs.onlyOneChar || !isWhitespace(source[index + 3])) { return }
+        const threeCharsAfter = index + 3 < source.length ? source[index + 3] : ""
+        
+        if (activeArgs.onlyOneChar || !isWhitespace(threeCharsAfter)) { return }
       }
 
       // If index is followed by a Unix LF ...
@@ -231,7 +233,7 @@ export default function (targetWhitespace, expectation, messages) {
 
   function rejectAfter(messageFunc = messages.rejectedAfter) {
     const { source, index } = activeArgs
-    const oneCharAfter = source[index + 1]
+    const oneCharAfter = index + 1 < source.length ? source[index + 1] : ""
 
     if (isValue(oneCharAfter) && isWhitespace(oneCharAfter)) {
       activeArgs.err(messageFunc(activeArgs.errTarget ? activeArgs.errTarget : source[index]))

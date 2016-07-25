@@ -40,13 +40,10 @@ export function variableColonSpaceChecker({ locationChecker, root, result, check
 
     if (decl.prop === undefined || decl.prop[0] !== "$") { return }
 
-    // Get the raw prop, and only the prop
+    // Get the raw $var, and only that
     const endOfPropIndex = declarationValueIndex(decl) + decl.raw("between").length - 1
-
-    // The extra characters tacked onto the end ensure that there is
-    // a character to check after the colon (like in `$var:\n10px` - there
-    // would otherwise be nothing after `$var:` on that line)
-    const propPlusColon = decl.toString().slice(0, endOfPropIndex) + "xxx"
+    // `$var:`, `$var :`
+    const propPlusColon = decl.toString().slice(0, endOfPropIndex)
 
     for (let i = 0; i < propPlusColon.length; i++) {
       if (propPlusColon[i] !== ":") { continue }
