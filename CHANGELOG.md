@@ -1,6 +1,9 @@
 # HEAD
 
 - Added: `at-mixin-argumentless-call-parentheses` rule (with "always"/"never" behavior). Deprecated `at-mixin-no-argumentless-call-parentheses`.
+- Added: `dollar-variable-colon-space-after` rule.
+- Added: `dollar-variable-colon-space-before` rule.
+- Added: `dollar-variable-colon-newline-after` rule.
 - Fixed: `partial-no-import` failing when linting a code string (not in an actual file, e.g. via stylelilnt Node API).
 - Added: `double-slash-comment-empty-line-before` rule.
 - Added: `double-slash-comment-inline` rule.
