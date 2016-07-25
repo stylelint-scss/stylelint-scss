@@ -24,8 +24,7 @@ export default function findOperators({
   isAfterColon,
   callback,
 }) {
-  // console.log("===============================================")
-  
+
   const mathOperators = [ "+", "/", "-", "*", "%" ]
   // A stack of modes activated for the current char: string, interpolation
   // Calculations inside strings are not processed, so spaces are not linted
@@ -192,8 +191,6 @@ function checkPlus(string, index, isAftercolon) {
   // The early check above helps prevent deep recursion here
   const isPrecedingOperator_ = isPrecedingOperator(string, index)
   
-  // console.log("checking plus:", string, index)
-  
   // E.g. `1+1`, `string+#fff`
   if (!isAtStart && !isWhitespaceBefore && !isAtEnd && !isWhitespaceAfter) {
     // E.g. `1-+1`
@@ -301,8 +298,6 @@ function checkMinus(string, index) {
   // The early check above helps prevent deep recursion here
   const isPrecedingOperator_ = isPrecedingOperator(string, index)
   
-  // console.log(string, index, string[index])
-
   // `10 -    11`
   if (!isAtEnd && !isAtStart && isWhitespaceBefore && isWhitespaceAfter) {
     // console.log("10px -  10px")
@@ -441,8 +436,6 @@ function checkSlash(string, index, isAftercolon) {
   const isNumberBefore_ = isNumberBefore(before)
   const isParensAfter_ = isParensAfter(after)
   const isParensBefore_ = isParensBefore(before)
-
-  // console.log(`before: "${before}", after: "${after}"`)
 
   // FIRST OFF. Interpolation on any of the sides is a NO-GO for division op
   if (isInterpolationBefore(before).is || isInterpolationAfter(after).is) {

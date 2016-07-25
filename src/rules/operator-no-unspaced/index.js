@@ -131,8 +131,6 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
   }
 
   root.walk(item => {
-    // console.log('-----------------------')
-    // console.log(item)
     let results = []
 
     // Check a value (`10px` in `width: 10px;`)
@@ -143,7 +141,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
           string: item.value,
           globalIndex: declarationValueIndex(item),
           // For Sass variable values some special rules apply
-          isAfterColon: item.prop[0] === "$" ? true : false,
+          isAfterColon: item.prop[0] === "$",
         }),
       })
     }
@@ -164,7 +162,6 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
         mediaQueryParser(item.params).walk(node => {
           const type = node.type
           if ([ "keyword", "media-type", "media-feature" ].indexOf(type) !== -1) {
-            // console.log(node.value, item.source.start.column)
             results = results.concat(findInterpolation(
               node.value,
               atRuleParamIndex(item) + node.sourceIndex)
