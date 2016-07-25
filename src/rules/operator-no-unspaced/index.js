@@ -5,8 +5,8 @@ import {
   findOperators,
   isWhitespace,
   namespace,
-  parseMedia,
 } from "../../utils"
+import mediaQueryParser from "postcss-media-query-parser"
 
 export const ruleName = namespace("operator-no-unspaced")
 
@@ -160,7 +160,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
 
       // Media queries
       if (item.name === "media" || item.name === "import") {
-        parseMedia(item.params).walk(node => {
+        mediaQueryParser(item.params).walk(node => {
           const type = node.type
           if ([ "keyword", "media-type", "media-feature" ].indexOf(type) !== -1) {
             // console.log(node.value, item.source.start.column)
