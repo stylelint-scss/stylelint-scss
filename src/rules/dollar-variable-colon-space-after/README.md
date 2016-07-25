@@ -49,7 +49,7 @@ There *must never* be whitespace after the colon.
 The following patterns are considered warnings:
 
 ```scss
-$var:10px;
+$var: 10px;
 ```
 
 ```scss
