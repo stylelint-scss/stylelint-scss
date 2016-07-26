@@ -1,17 +1,18 @@
-# HEAD
+# 1.3.0
 
-- Added: `at-mixin-argumentless-call-parentheses` rule (with "always"/"never" behavior). Deprecated `at-mixin-no-argumentless-call-parentheses`.
+- Added: `at-mixin-argumentless-call-parentheses` rule (with "always"/"never" behavior as a replacement for `at-mixin-no-argumentless-call-parentheses`).
+- Added: `dollar-variable-colon-newline-after` rule.
 - Added: `dollar-variable-colon-space-after` rule.
 - Added: `dollar-variable-colon-space-before` rule.
-- Added: `dollar-variable-colon-newline-after` rule.
-- Fixed: `partial-no-import` failing when linting a code string (not in an actual file, e.g. via stylelilnt Node API).
 - Added: `double-slash-comment-empty-line-before` rule.
 - Added: `double-slash-comment-inline` rule.
 - Added: `double-slash-comment-whitespace-inside` rule.
-- Added: `operator-no-unspaced` rule.
-- Added: `operator-no-newline-before` rule.
 - Added: `operator-no-newline-after` rule.
-- Update stylelint dependency to version 7.
+- Added: `operator-no-newline-before` rule.
+- Added: `operator-no-unspaced` rule.
+- Deprecated: `at-mixin-no-argumentless-call-parentheses`.
+- Fixed: `partial-no-import` failing when linting a code string (not in an actual file, e.g. via stylelilnt Node API).
+- Updated stylelint dependency to version 7.
 
 # 1.2.1
 
