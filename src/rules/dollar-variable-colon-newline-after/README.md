@@ -6,7 +6,7 @@ Require a newline after the colon in `$`-variable declarations.
 $box-shadow:
   0 0 0 1px #5b9dd9,
   0 0 2px 1px rgba(30, 140, 190, 0.8);
-}       /* ↑ */
+        /* ↑ */
 /**        ↑
  * The newline after this colon */
 ```
