@@ -11,6 +11,7 @@
 - Added: `operator-no-unspaced` rule.
 - Added: `operator-no-newline-before` rule.
 - Added: `operator-no-newline-after` rule.
+- Update stylelint dependency to version 7.
 
 # 1.2.1
 

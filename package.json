@@ -17,7 +17,7 @@
     "postcss-resolve-nested-selector": "^0.1.1",
     "postcss-selector-parser": "^2.0.0",
     "postcss-value-parser": "^3.3.0",
-    "stylelint": "^6.5.1"
+    "stylelint": "^7.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
