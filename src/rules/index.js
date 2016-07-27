@@ -8,6 +8,7 @@ import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-par
 import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-call-parentheses"
 import atMixinPattern from "./at-mixin-pattern"
 import declarationNestedProperties from "./declaration-nested-properties"
+import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups"
 import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after"
 import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after"
 import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before"
@@ -35,6 +36,7 @@ export default {
   "at-mixin-no-argumentless-call-parentheses": atMixinNoArgumentlessCallParentheses,
   "at-mixin-pattern": atMixinPattern,
   "declaration-nested-properties": declarationNestedProperties,
+  "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
   "dollar-variable-colon-space-after": dollarVariableColonSpaceAfter,
   "dollar-variable-colon-space-before": dollarVariableColonSpaceBefore,

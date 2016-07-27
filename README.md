@@ -84,6 +84,7 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 ### Declaration
 
 - [`declaration-nested-properties`](./src/rules/declaration-nested-properties/README.md): Require or disallow properties with `-` in their names to be in a form of a nested group.
+- [`declaration-nested-properties-no-divided-groups`](./src/rules/declaration-nested-properties-no-divided-groups/README.md): Disallow nested properties of the same "namespace" be divided into multiple groups.
 
 ### Media feature
 
