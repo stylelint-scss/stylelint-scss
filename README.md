@@ -81,6 +81,10 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 - [`double-slash-comment-inline`](./src/rules/double-slash-comment-inline/README.md): Require or disallow `//`-comments to be inline comments.
 - [`double-slash-comment-whitespace-inside`](./src/rules/double-slash-comment-whitespace-inside/README.md): Require or disallow whitespace after the `//` in `//`-comments
 
+### Declaration
+
+- [`declaration-nested-properties`](./src/rules/declaration-nested-properties/README.md): Require or disallow properties with `-` in their names to be in a form of a nested group.
+
 ### Media feature
 
 - [`media-feature-value-dollar-variable`](./src/rules/media-feature-value-dollar-variable/README.md): Require a media feature value be a `$`-variable or disallow `$`-variables in media feature values.
