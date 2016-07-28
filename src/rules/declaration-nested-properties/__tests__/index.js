@@ -18,15 +18,23 @@ testRule(rule, {
   syntax: "scss",
   skipBasicChecks: true,
 
-  accept: [{
+  accept: [ {
     code: `
       .funky {
         background: no-repeat;
         margin: 1px;
       }
     `,
-    description: "Nothing to nest",
-  }],
+    description: "{ always } Nothing to nest",
+  }, {
+    code: `
+      .funky {
+        -webkit-box-sizing: border-box;
+        -webkit-box-shadow: 1px 0 0 red;
+      }
+    `,
+    description: "{ always } Vendor prefixed rules.",
+  } ],
 })
 
 test("{ always } Simple test: background-color, background-repeat", t => {
@@ -370,5 +378,18 @@ testRule(rule, {
     message: messages.rejected("background"),
     line: 5,
     column: 13,
+  }, {
+    code: `
+      a {
+        -webkit: {
+          box-sizing: border-box;
+          box-shadow: 1px 0 0 red;
+        }
+      }
+    `,
+    description: "{ never } `-webkit: { ... }`.",
+    message: messages.rejected("-webkit"),
+    line: 3,
+    column: 9,
   } ],
 })

@@ -20,6 +20,8 @@ font: {
 
 *Every property* with a `-` in its name *must be* inside a nested property group.
 
+Property names with browser prefixes are ignored with `always`.
+
 The following patterns are considered warnings:
 
 ```scss
@@ -52,6 +54,13 @@ a {
   font: 10px/1.1 Arial {
     weight: bold;
   }
+}
+```
+
+```scss
+a {
+  -webkit-box-sizing: border-box;
+  -webkit-box-shadow: 1px 0 0 red;
 }
 ```
 
