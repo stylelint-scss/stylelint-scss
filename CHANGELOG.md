@@ -1,4 +1,4 @@
-# Head
+# 1.3.1
 
 - Fixed: `findCommentsInRaws` for multiline CSS comments and text for //-comments (`double-slash-comment-` rules and `operator-no-unspaced` rule).
 
