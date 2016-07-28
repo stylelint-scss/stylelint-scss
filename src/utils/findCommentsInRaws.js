@@ -83,7 +83,7 @@ export default function findCommentsInRaws(rawString) {
       case "/": {
         // break if the / is inside a comment because we leap over the second
         // slash in // and in */, so the / is not from a marker
-        if (mode === "comment" || mode === "string") { break }
+        if (mode === "comment") { break }
         if (nextChar === "*") {
           modesEntered.push({
             mode: "comment",
@@ -119,8 +119,7 @@ export default function findCommentsInRaws(rawString) {
           comment.end = i + 1
 
           const commentRaw = rawString.substring(comment.start, comment.end + 1)
-          const matches = /^(\/\*+[!#]{0,1})(\s*)(.*?)(\s*?)(\*+\/)$/.exec(commentRaw)
-
+          const matches = /^(\/\*+[!#]{0,1})(\s*)([\s\S]*?)(\s*?)(\*+\/)$/.exec(commentRaw)
           modesEntered.pop()
           comment.raws = {
             startToken: matches[1],
@@ -142,9 +141,9 @@ export default function findCommentsInRaws(rawString) {
         // //-comments end before newline and if the code string ends
         if (character === "\n" || i === rawString.length - 1) {
           if (mode === "comment" && modesEntered[lastModeIndex].character === "//") {
-            comment.end = i - 1
+            comment.end = character === "\n" ? i - 1 : i
 
-            const commentRaw = rawString.substring(comment.start, comment.end)
+            const commentRaw = rawString.substring(comment.start, comment.end + 1)
             const matches = /^(\/+)(\s*)(.*?)(\s*?)$/.exec(commentRaw)
 
             modesEntered.pop()

@@ -1,3 +1,7 @@
+# Head
+
+- Fixed: `findCommentsInRaws` for multiline CSS comments and text for //-comments (`double-slash-comment-` rules and `operator-no-unspaced` rule).
+
 # 1.3.0
 
 - Added: `at-mixin-argumentless-call-parentheses` rule (with "always"/"never" behavior as a replacement for `at-mixin-no-argumentless-call-parentheses`).
