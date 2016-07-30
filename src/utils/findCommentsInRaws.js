@@ -65,7 +65,7 @@ export default function findCommentsInRaws(rawString) {
       case "(": {
         if (mode === "comment" || mode === "string") { break }
         const functionName =
-          /(?:^|(?:\n)|(?:\r)|(?:\s-)|[\s,.(){}*+/%])([a-zA-Z0-9_-]*)$/
+          /(?:^|(?:\n)|(?:\r)|(?:\s-)|[:\s,.(){}*+/%])([a-zA-Z0-9_-]*)$/
             .exec(rawString.substring(0, i))[1]
         modesEntered.push({
           mode: functionName === "url" ? "url" : "parens",

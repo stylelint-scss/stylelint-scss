@@ -158,3 +158,24 @@ test("Another fancy comment", t => {
     })
     .catch(logError)
 })
+
+test("Another fancy comment", t => {
+  t.plan(1)
+
+  postcss()
+    .process(`
+      .dropdown-menu:not(.level-0) {
+        margin: 0;
+
+        a {
+          white-space: normal;
+        }
+      }
+    `, { syntax: scss })
+    .then(result => {
+      const css = result.root.source.input.css
+      const comments = findCommentsInRaws(css)
+      t.equal(comments.length, 0)
+    })
+    .catch(logError)
+})
