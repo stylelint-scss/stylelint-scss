@@ -23,6 +23,12 @@ testRule(rule, {
   }, {
     code: "/*CSS comment*/",
     description: "/*CSS comment*/ (ignored)",
+  }, {
+    code: "///",
+    description: "`///`.",
+  }, {
+    code: "/// ",
+    description: "`/// `.",
   } ],
 
   reject: [ {
@@ -59,6 +65,12 @@ testRule(rule, {
   }, {
     code: "/*   CSS comment  */",
     description: "/*   CSS comment  */ (ignored)",
+  }, {
+    code: "///",
+    description: "`///`.",
+  }, {
+    code: "/// ",
+    description: "`/// `.",
   } ],
 
   reject: [ {

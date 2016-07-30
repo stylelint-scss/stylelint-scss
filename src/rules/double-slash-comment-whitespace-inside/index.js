@@ -26,10 +26,13 @@ export default function (expectation) {
     comments.forEach(comment => {
       // Only process // comments
       if (comment.type !== "double-slash") { return }
+      // if it's `//` - no warning whatsoever; if `// ` - then trailing
+      // whitespace rule will govern this
+      if (comment.text === "") { return }
 
       let message
 
-      if (comment.raws.left !== "" && expectation === "never") {
+      if (expectation === "never" && comment.raws.left !== "") {
         message = messages.rejected
       } else if (comment.raws.left === "" && expectation === "always") {
         message = messages.expected
