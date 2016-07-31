@@ -1,4 +1,4 @@
-# Head
+# 1.3.3
 
 - Fixed: parsing `%` character by `operator-` rules.
 - Fixed: false positives on `operator-` rules.
