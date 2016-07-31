@@ -1,3 +1,7 @@
+# Head
+
+- Fixed: parsing `%` character by `operator-` rules.
+
 # 1.3.2
 
 - Fixed: `findCommentsInRaws` fail on parsing selectors like `p:not(.not-p)` (applicable to rules `double-slash-comment-inline`, `double-slash-comment-whitespace-inside`, `operator-no-unspaced`).

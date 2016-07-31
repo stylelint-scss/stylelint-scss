@@ -141,10 +141,15 @@ export function mathOperatorCharType(string, index, isAfterColon) {
   if (character === "-") {
     return checkMinus(string, index)
   }
-  
-  // ---- Processing * and % characters
-  if (character === "*" || character === "%") {
+
+  // ---- Processing * character
+  if (character === "*") {
     return "op"
+  }
+
+  // ---- Processing % character
+  if (character === "%") {
+    return checkPercent(string, index)
   }
   
   // ---- Processing / character
@@ -508,6 +513,64 @@ function checkSlash(string, index, isAftercolon) {
   }
   
   // console.log("/, default")
+  return "char"
+}
+
+/**
+ * Checks the specified `%` character: operator or part of value
+ *
+ * @param {String} string - the source string
+ * @param {Number} index - the index of the character in string to check
+ * @return {String|false}
+ *    • "op", if the character is a operator in a math/string operation
+ *    • "char" if it gets compiled as-is, e.g. `width: 10%`,
+ *    • false - if it is none from above (most likely an error)
+ */
+function checkPercent(string, index) {
+  // Trimming these, as spaces before/after a slash don't matter
+  const before = string.substring(0, index)
+  const after = string.substring(index + 1)
+  
+  // If the character is at the beginning of the input
+  const isAtStart = before.trim().length === 0
+  // If the character is at the end of the input
+  const isAtEnd = after.trim().length === 0
+  const isWhitespaceBefore = before.search(/\s$/) !== -1
+  const isWhitespaceAfter = after.search(/^\s/) !== -1
+  
+  const isParensBefore_ = isParensBefore(before)
+
+  // FIRST OFF. Interpolation on any of the sides is a NO-GO
+  if (isInterpolationBefore(before.trim()).is || isInterpolationAfter(after.trim()).is) {
+    // console.log("%, interpolation")
+    return "char"
+  }
+  
+  if (isAtStart || isAtEnd) {
+    // console.log("%, start/end")
+    return "char"
+  }
+  
+  // In `<sth> %<sth>` it's most likely an operator (except for inteprolation
+  // checked above)
+  if (isWhitespaceBefore && !isWhitespaceAfter) {
+    // console.log("%, `<sth> %<sth>`")
+    return "op"
+  }
+
+  // `$var% 1`, `$var%1`, `$var%-1`
+  if (isVariableBefore(before) || isParensBefore_) {
+    // console.log("%, after a variable, function or parens")
+    return "op"
+  }
+  
+  // in all other cases in `<sth>% <sth>` it is most likely a unit
+  if (!isWhitespaceBefore && isWhitespaceAfter) {
+    // console.log("%, `<sth>% <sth>`")
+    return "char"
+  }
+
+  // console.log("%, default")
   return "char"
 }
 

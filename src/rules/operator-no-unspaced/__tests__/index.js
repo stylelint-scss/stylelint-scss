@@ -814,11 +814,11 @@ testRule(rule, {
 })
 
 // ------------------------------------------------------------------------
-// Testing *, %
+// Testing *
 // ------------------------------------------------------------------------
 
 // If the operand is not a number, still consider it an operation
-// e.g. `width: 7%st;` makes Sass throw an error
+// e.g. `width: 7*st;` makes Sass throw an error
 testRule(rule, {
   ruleName,
   config: [undefined],
@@ -835,11 +835,135 @@ testRule(rule, {
     description: "Op: 10 *1.",
     message: messages.expectedAfter("*"),
     column: 15,
+  } ],
+})
+
+// ------------------------------------------------------------------------
+// Testing %
+// ------------------------------------------------------------------------
+
+testRule(rule, {
+  ruleName,
+  config: [undefined],
+  syntax: "scss",
+  skipBasicChecks: true,
+
+  accept: [ {
+    code: "a { width: 10%; }",
+    description: "10%.",
   }, {
-    code: "a { width: 10 %1; }",
-    description: "Op: 10 %1.",
+    code: "a { width: 10% 2; }",
+    description: "10% 2.",
+  }, {
+    code: "a { width: 10% $var; }",
+    description: "10% $var.",
+  }, {
+    code: "a { width: 10% fn(); }",
+    description: "10% fn().",
+  }, {
+    code: "a { width: 10% (1 + 3); }",
+    description: "10% (1 + 3).",
+  }, {
+    code: "a { width: #{$var}% 2; }",
+    description: "#{$var}% 2.",
+  }, {
+    code: "a { width: 10% -2; }",
+    description: "10% -2.",
+  }, {
+    code: "a { width: 10% -fn(); }",
+    description: "10% -fn().",
+  }, {
+    code: "a { width: #{$var}% -2; }",
+    description: "#{$var}% -2.",
+  }, {
+    code: "a { width: #{$var}% - 2; }",
+    description: "#{$var}% - 2.",
+  }, {
+    code: "a { width: #{$var} %2; }",
+    description: "#{$var} %2.",
+  }, {
+    code: "a { width: $var %#{2}; }",
+    description: "$var %#{2}.",
+  }, {
+    // In these the - is and op, not the %
+    code: "a { width: 10% - 2; }",
+    description: "10% - 2.",
+  }, {
+    code: "a { width: 10% - $var; }",
+    description: "10% - $var.",
+  }, {
+    code: "a { width: 10% - fn(); }",
+    description: "10% - fn().",
+  }, {
+    code: "a { width: 10% - (1 + 3); }",
+    description: "10% - (1 + 3).",
+  } ],
+
+  reject: [ {
+    code: "a { width: $var% 2; }",
+    description: "$var% 2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: fn()% 2; }",
+    description: "fn()% 2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: (10 + 1)% 2; }",
+    description: "(10 + 1)% 2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: $var% -2; }",
+    description: "$var% -2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: fn()% -2; }",
+    description: "fn()% -2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: (10 + 1)% -2; }",
+    description: "(10 + 1)% -2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: $var% - 2; }",
+    description: "$var% - 2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: fn()% - 2; }",
+    description: "fn()% - 2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: (10 + 1)% - 2; }",
+    description: "(10 + 1)% - 2.",
+    message: messages.expectedBefore("%"),
+  }, {
+    code: "a { width: 10 %2; }",
+    description: "10 %2.",
     message: messages.expectedAfter("%"),
-    column: 15,
+  }, {
+    code: "a { width: 10 %$var; }",
+    description: "10 %$var.",
+    message: messages.expectedAfter("%"),
+  }, {
+    code: "a { width: $var %2; }",
+    description: "$var %2.",
+    message: messages.expectedAfter("%"),
+  }, {
+    code: "a { width: fn() %2; }",
+    description: "fn() %2.",
+    message: messages.expectedAfter("%"),
+  }, {
+    code: "a { width: (10 + 1) %2; }",
+    description: "(10 + 1) %2.",
+    message: messages.expectedAfter("%"),
+  }, {
+    // minus is op in these:
+    code: "a { width: 10% -$var; }",
+    description: "10% -$var.",
+    message: messages.expectedAfter("-"),
+  }, {
+    code: "a { width: 10% -(1 + 3); }",
+    description: "10% -(1 + 3).",
+    message: messages.expectedAfter("-"),
   } ],
 })
 
