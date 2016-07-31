@@ -1,6 +1,7 @@
 # Head
 
 - Fixed: parsing `%` character by `operator-` rules.
+- Fixed: false positives on `operator-` rules.
 
 # 1.3.2
 

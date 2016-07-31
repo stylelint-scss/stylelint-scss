@@ -585,6 +585,15 @@ testRule(rule, {
     code: "a { nospaces9: $var-1; }",
     description: "Char (actually, part of variable name): $var-1.",
   }, {
+    code: "a { nospaces9: $var-1px; }",
+    description: "Char (actually, part of variable name): $var-1px.",
+  }, {
+    code: "a { nospaces9: #{$var-1px}; }",
+    description: "Char (actually, part of variable name): $var-1px.",
+  }, {
+    code: "a { background-image: url(if($bootstrap-sass-asset-helper, twbs-image-path(\"#{$var-1x}\"), \"#{$var-1x}\")); }",
+    description: "Char (actually, part of variable name): url(if($bootstrap-sass-asset-helper, twbs-image-path(\"#{$var-1x}\"), \"#{$var-1x}\"));.",
+  }, {
     code: "a { nospaces102: 1-fn(); }",
     description: "Char: 1-fn().",
   }, {

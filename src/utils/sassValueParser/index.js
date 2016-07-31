@@ -302,17 +302,17 @@ function checkMinus(string, index) {
   const isParensBefore_ = isParensBefore(before)
   // The early check above helps prevent deep recursion here
   const isPrecedingOperator_ = isPrecedingOperator(string, index)
-  
+
   // `10 -    11`
   if (!isAtEnd && !isAtStart && isWhitespaceBefore && isWhitespaceAfter) {
-    // console.log("10px -  10px")
+    // console.log("-, Op: 10px -  10px")
     return "op"
   }
 
   // e.g. `something -10px`
   if (!isAtEnd && !isAtStart && isWhitespaceBefore && !isWhitespaceAfter) {
     if (isParensAfter_.is && !isParensAfter_.opsBefore) {
-      // console.log("<sth> -(...)")
+      // console.log("-, Op: <sth> -(...)")
       return "op"
     }
     
@@ -322,7 +322,7 @@ function checkMinus(string, index) {
       isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween ||
       isNumberAfter_.is && !isNumberAfter_.opsBetween
     ) {
-      // console.log("-, -1px or -1")
+      // console.log("-, sign: -1px or -1")
       return "sign"
     }
     
@@ -331,7 +331,7 @@ function checkMinus(string, index) {
       isValueWithUnitAfter_.is && isValueWithUnitAfter_.opsBetween ||
       isNumberAfter_.is && isNumberAfter_.opsBetween
     ) {
-      // console.log("-, --1px or --1")
+      // console.log("-, op: --1px or --1")
       return "op"
     }
 
@@ -339,28 +339,28 @@ function checkMinus(string, index) {
     if (isStringAfter(after) || isInterpolationAfter_.is &&
       !isInterpolationAfter_.opsBefore
     ) {
-      // console.log("-#{...}")
+      // console.log("-, char: -#{...}")
       return "char"
     }
     
     // e.g. `#0af -#f0a`, and edge-cases can take a hike
     if (isHexColorAfter(after) && isHexColorBefore(before.trim())) {
-      // console.log("#fff-, -#fff")
+      // console.log("-, op: #fff-, -#fff")
       return "op"
     }
     
     // If the - is before a variable, than it's most likely an operator
     if (after[0] === "$") {
       if (isPrecedingOperator_) {
-        // console.log("-$var, another operator before")
+        // console.log("-, sign: -$var, another operator before")
         return "sign"
       }
-      // console.log("-$var, NO other operator before")
+      // console.log("-, op: -$var, NO other operator before")
       return "op"
     }
     
     // By default let's make it an sign for now
-    // console.log('-, default (sign)')
+    // console.log('-, sign: default in <sth> -<sth>')
     return "sign"
   }
   
@@ -368,15 +368,15 @@ function checkMinus(string, index) {
   // e.g. `10x- something`
   if (!isAtEnd && !isAtStart && !isWhitespaceBefore && isWhitespaceAfter) {
     if (isParensBefore_) {
-      // console.log(before, isParensBefore_, '`(...)- <sth>`')
+      // console.log('-, op: `(...)- <sth>`')
       return "op"
     }
 
     if (isNumberBefore(before) || isHexColorBefore(before)) {
-      // console.log('`10- <sth>, #aff- <sth>`')
+      // console.log('`-, op: 10- <sth>, #aff- <sth>`')
       return "op"
     }
-    // console.log('-, no whs before')
+    // console.log('-, char: default in <sth>- <sth>')
     return "char"
   }
   
@@ -390,7 +390,7 @@ function checkMinus(string, index) {
     ) {
       // `10px-1`, `1-10px`, `1-1`, `1x-1x`
       if (isValueWithUnitBefore_ || isNumberBefore_) {
-        // console.log("1-10px")
+        // console.log("-, op: 1-10px")
         return "op"
       }
 
@@ -398,7 +398,7 @@ function checkMinus(string, index) {
     }
     // `1-$var`
     if (isNumberBefore_ && after[0] === "$") {
-      // console.log("1-$var")
+      // console.log("-, op: 1-$var")
       return "op"
     }
     
@@ -407,7 +407,10 @@ function checkMinus(string, index) {
       isNumberAfter_.is && !isNumberAfter_.opsBetween ||
       isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween
     )) {
-      // console.log("fn()-10px")
+      console.log()
+      console.log(string)
+      console.log("-, op: fn()-10px")
+      console.log()
       return "op"
     }
   }
@@ -770,7 +773,7 @@ function isVariableAfter(after) {
 }
 
 function isFunctionBefore(before) {
-  return before.trim().search(/[a-zA-Z0-9_-]\(.*?\)/) !== -1
+  return before.trim().search(/[a-zA-Z0-9_-]\(.*?\)\s*$/) !== -1
 }
 
 function isFunctionAfter(after) {
