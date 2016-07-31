@@ -58,7 +58,7 @@ export default function (expectation, options) {
       utils.report({
         message,
         node: root,
-        index: comment.start,
+        index: comment.source.start,
         result,
         ruleName,
       })

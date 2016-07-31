@@ -211,7 +211,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
   // Checking interpolation inside comments
   // We have to give up on PostCSS here because it skips some inline comments
   findCommentsInRaws(root.source.input.css).forEach(comment => {
-    const startIndex = comment.start + comment.raws.startToken.length +
+    const startIndex = comment.source.start + comment.raws.startToken.length +
       comment.raws.left.length 
     if (comment.type !== "css") { return }
 

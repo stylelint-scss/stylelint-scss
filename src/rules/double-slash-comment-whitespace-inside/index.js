@@ -43,7 +43,7 @@ export default function (expectation) {
       utils.report({
         message,
         node: root,
-        index: comment.start,
+        index: comment.source.start + comment.raws.startToken.length,
         result,
         ruleName,
       })

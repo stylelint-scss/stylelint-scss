@@ -128,6 +128,8 @@ testRule(rule, {
     `,
     message: messages.rejected,
     description: "Inline comment, inside a ruleset.",
+    line: 3,
+    column: 34,
   }, {
     code: `
       a, // Inline comment, between selectors.

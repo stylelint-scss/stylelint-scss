@@ -7,8 +7,10 @@
  * @param [string] rawString -- the source raw CSS string
  * @return [array] array of objects with these props:
  *    • type -- "css" or "double-slash"
- *    • start -- 0-base index of the comment srart in the source string
- *    • end -- 0-base index of the comment end in the source string
+ *    • source: { start, end }
+ *      IMPORTANT: the function itself considers \r as a character, and counts
+ *      it for `start` and `end`. But if their values are passed to PostCSS's
+ *      result.warn(), than "\r\n" is consideren ONE CHAR (newline)!
  *    • raws
  *      raws.startToken -- `/*`, `/**`, `/**!`, etc.
  *      raws.left -- whitespace after the comment opening marker
@@ -32,6 +34,12 @@ export default function findCommentsInRaws(rawString) {
     mode: "normal",
     character: null,
   }]
+  let commentStart = null
+
+  // postcss-scss transforms //-comments into CSS comments, like so:
+  // `// comment` -> `/* comment*/`. So to have a correct intex we need to
+  // keep track on the added `*/` sequences
+  let offset = 0
   
   for (let i = 0; i < rawString.length; i++) {
     const character = rawString[i]
@@ -91,9 +99,10 @@ export default function findCommentsInRaws(rawString) {
           })
           comment = {
             type: "css",
-            start: i,
+            source: { start: i + offset },
             inlineAfter: rawString.substring(0, i).search(/\n\s*$/) === -1,
           }
+          commentStart = i
           // Skip the next loop as the * is already checked
           i++
         } else if (nextChar === "/") {
@@ -105,9 +114,10 @@ export default function findCommentsInRaws(rawString) {
           })
           comment = {
             type: "double-slash",
-            start: i,
+            source: { start: i + offset },
             inlineAfter: rawString.substring(0, i).search(/\n\s*$/) === -1,
           }
+          commentStart = i
           // Skip the next loop as the second slash in // is already checked
           i++
         }
@@ -116,9 +126,9 @@ export default function findCommentsInRaws(rawString) {
       // Might be a closing */
       case "*": {
         if (mode === "comment" && modesEntered[lastModeIndex].character === "/*" && nextChar === "/") {
-          comment.end = i + 1
+          comment.source.end = i + 1 + offset
 
-          const commentRaw = rawString.substring(comment.start, comment.end + 1)
+          const commentRaw = rawString.substring(commentStart, i + 2)
           const matches = /^(\/\*+[!#]{0,1})(\s*)([\s\S]*?)(\s*?)(\*+\/)$/.exec(commentRaw)
           modesEntered.pop()
           comment.raws = {
@@ -138,12 +148,14 @@ export default function findCommentsInRaws(rawString) {
         break
       }
       default: {
+        const isNewline = character === "\r" && rawString[i + 1] === "\n" ||
+          character === "\n" && rawString[i - 1] !== "\r"
         // //-comments end before newline and if the code string ends
-        if (character === "\n" || i === rawString.length - 1) {
+        if (isNewline || i === rawString.length - 1) {
           if (mode === "comment" && modesEntered[lastModeIndex].character === "//") {
-            comment.end = character === "\n" ? i - 1 : i
+            comment.source.end = (isNewline ? i - 1 : i) + offset
 
-            const commentRaw = rawString.substring(comment.start, comment.end + 1)
+            const commentRaw = rawString.substring(commentStart, isNewline ? i : i + 1)
             const matches = /^(\/+)(\s*)(.*?)(\s*?)$/.exec(commentRaw)
 
             modesEntered.pop()
@@ -157,6 +169,8 @@ export default function findCommentsInRaws(rawString) {
             comment.inlineBefore = false
             result.push(Object.assign({}, comment))
             comment = {}
+            // Compensate for the `*/` added by postcss-scss
+            offset += 2
           }
         }
         break
