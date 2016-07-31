@@ -1,4 +1,4 @@
-# Head
+# 1.3.2
 
 - Fixed: `findCommentsInRaws` fail on parsing selectors like `p:not(.not-p)` (applicable to rules `double-slash-comment-inline`, `double-slash-comment-whitespace-inside`, `operator-no-unspaced`).
 - Fixed: 'double-slash-comment-whitespace-inside' false positives on empty comments (e.g. `//`).
