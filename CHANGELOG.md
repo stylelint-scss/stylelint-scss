@@ -1,3 +1,7 @@
+# Head
+
+- Fixed: parsing `-` and `+` at the operation start in `operator-` rules.
+
 # 1.3.3
 
 - Fixed: parsing `%` character by `operator-` rules.

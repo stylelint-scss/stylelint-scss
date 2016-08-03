@@ -630,6 +630,19 @@ testRule(rule, {
   } ],
 })
 
+// Mixed cases
+testRule(rule, {
+  ruleName,
+  config: [undefined],
+  syntax: "scss",
+  skipBasicChecks: true,
+  
+  accept: [{
+    code: "a {transform: translate(-50%, -$no-ui-slider-height);}",
+    description: "translate(-50%, -$no-ui-slider-height).",
+  }],
+})
+
 // ------------------------------------------------------------------------
 // Testing /
 // ------------------------------------------------------------------------
@@ -1619,6 +1632,7 @@ test("5px - 8px/2`.", t => {
 // ------------------------------------------------------------------------
 // @media rules
 // ------------------------------------------------------------------------
+
 testRule(rule, {
   ruleName,
   config: [undefined],

@@ -184,9 +184,9 @@ function checkPlus(string, index, isAftercolon) {
   const after = string.substring(index + 1)
   
   // If the character is at the beginning of the input
-  const isAtStart = before.trim().length === 0
+  const isAtStart_ = isAtStart(string, index)
   // If the character is at the end of the input
-  const isAtEnd = after.trim().length === 0
+  const isAtEnd_ = isAtEnd(string, index)
   const isWhitespaceBefore = before.search(/\s$/) !== -1
   const isWhitespaceAfter = after.search(/^\s/) !== -1
   
@@ -196,8 +196,13 @@ function checkPlus(string, index, isAftercolon) {
   // The early check above helps prevent deep recursion here
   const isPrecedingOperator_ = isPrecedingOperator(string, index)
   
+  if (isAtStart_) {
+    // console.log("+, `+<sth>` or `+ <sth>`")
+    return "sign"
+  }
+  
   // E.g. `1+1`, `string+#fff`
-  if (!isAtStart && !isWhitespaceBefore && !isAtEnd && !isWhitespaceAfter) {
+  if (!isAtStart_ && !isWhitespaceBefore && !isAtEnd_ && !isWhitespaceAfter) {
     // E.g. `1-+1`
     if (isPrecedingOperator_) {
       // console.log('1+1')
@@ -207,7 +212,7 @@ function checkPlus(string, index, isAftercolon) {
     return "op"
   }
   // e.g. `something +something`
-  if (!isAtEnd && !isWhitespaceAfter) {
+  if (!isAtEnd_ && !isWhitespaceAfter) {
     // e.g. `+something`, ` ... , +something`, etc.
     if (isNoOperandBefore(string, index)) {
       // console.log("+, nothing before")
@@ -260,7 +265,7 @@ function checkPlus(string, index, isAftercolon) {
   }
   
   // If the + is after a value, e.g. `$var+`
-  if (!isAtStart && !isWhitespaceBefore) {
+  if (!isAtStart_ && !isWhitespaceBefore) {
     // It is always an operator. Prior to Sass 4, `#{...}+` was differernt,
     // but that's not logical and had been fixed.
     // console.log('1+ sth')
@@ -287,9 +292,9 @@ function checkMinus(string, index) {
   const before = string.substring(0, index)
   const after = string.substring(index + 1)
   // If the character is at the beginning of the input
-  const isAtStart = before.trim().length === 0
+  const isAtStart_ = isAtStart(string, index)
   // If the character is at the end of the input
-  const isAtEnd = after.trim().length === 0
+  const isAtEnd_ = isAtEnd(string, index)
   const isWhitespaceBefore = before.search(/\s$/) !== -1
   const isWhitespaceAfter = after.search(/^\s/) !== -1
   
@@ -302,15 +307,20 @@ function checkMinus(string, index) {
   const isParensBefore_ = isParensBefore(before)
   // The early check above helps prevent deep recursion here
   const isPrecedingOperator_ = isPrecedingOperator(string, index)
-
+  
+  if (isAtStart_) {
+    // console.log("-, -<sth> or - <sth>")
+    return "sign"
+  }
+  
   // `10 -    11`
-  if (!isAtEnd && !isAtStart && isWhitespaceBefore && isWhitespaceAfter) {
+  if (!isAtEnd_ && !isAtStart_ && isWhitespaceBefore && isWhitespaceAfter) {
     // console.log("-, Op: 10px -  10px")
     return "op"
   }
 
   // e.g. `something -10px`
-  if (!isAtEnd && !isAtStart && isWhitespaceBefore && !isWhitespaceAfter) {
+  if (!isAtEnd_ && !isAtStart_ && isWhitespaceBefore && !isWhitespaceAfter) {
     if (isParensAfter_.is && !isParensAfter_.opsBefore) {
       // console.log("-, Op: <sth> -(...)")
       return "op"
@@ -366,7 +376,7 @@ function checkMinus(string, index) {
   
   // No whitespace before,
   // e.g. `10x- something`
-  if (!isAtEnd && !isAtStart && !isWhitespaceBefore && isWhitespaceAfter) {
+  if (!isAtEnd_ && !isAtStart_ && !isWhitespaceBefore && isWhitespaceAfter) {
     if (isParensBefore_) {
       // console.log('-, op: `(...)- <sth>`')
       return "op"
@@ -382,7 +392,8 @@ function checkMinus(string, index) {
   
   // NO Whitespace,
   // e.g. `10px-1`
-  if (!isAtEnd && !isAtStart && !isWhitespaceBefore && !isWhitespaceAfter) {
+  if (!isAtEnd_ && !isAtStart_ && !isWhitespaceBefore && !isWhitespaceAfter) {
+    // console.log('no spaces')
     // `<something>-1`, `<something>-10px`
     if (
       isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween ||
@@ -407,10 +418,7 @@ function checkMinus(string, index) {
       isNumberAfter_.is && !isNumberAfter_.opsBetween ||
       isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween
     )) {
-      console.log()
-      console.log(string)
-      console.log("-, op: fn()-10px")
-      console.log()
+      // console.log("-, op: fn()-10px")
       return "op"
     }
   }
@@ -535,9 +543,9 @@ function checkPercent(string, index) {
   const after = string.substring(index + 1)
   
   // If the character is at the beginning of the input
-  const isAtStart = before.trim().length === 0
+  const isAtStart_ = isAtStart(string, index)
   // If the character is at the end of the input
-  const isAtEnd = after.trim().length === 0
+  const isAtEnd_ = isAtEnd(string, index)
   const isWhitespaceBefore = before.search(/\s$/) !== -1
   const isWhitespaceAfter = after.search(/^\s/) !== -1
   
@@ -549,7 +557,7 @@ function checkPercent(string, index) {
     return "char"
   }
   
-  if (isAtStart || isAtEnd) {
+  if (isAtStart_ || isAtEnd_) {
     // console.log("%, start/end")
     return "char"
   }
@@ -580,6 +588,16 @@ function checkPercent(string, index) {
 // --------------------------------------------------------------------------
 // Lots of elementary helpers
 // --------------------------------------------------------------------------
+
+function isAtStart(string, index) {
+  const before = string.substring(0, index).trim()
+  return before.length === 0 || before.search(/[({,]$/) !== -1
+}
+
+function isAtEnd(string, index) {
+  const after = string.substring(index + 1).trim()
+  return after.length === 0 || after.search(/^[,)}]/) !== -1
+}
 
 function isInsideParens(string, index) {
   const before = string.substring(0, index).trim()
