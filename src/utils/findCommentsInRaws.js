@@ -89,9 +89,10 @@ export default function findCommentsInRaws(rawString) {
       }
       // checking for comment
       case "/": {
-        // break if the / is inside a comment because we leap over the second
-        // slash in // and in */, so the / is not from a marker
-        if (mode === "comment") { break }
+        // Break if the / is inside a comment because we leap over the second
+        // slash in // and in */, so the / is not from a marker. Also break
+        // if inside a string
+        if (mode === "comment" || mode === "string") { break }
         if (nextChar === "*") {
           modesEntered.push({
             mode: "comment",

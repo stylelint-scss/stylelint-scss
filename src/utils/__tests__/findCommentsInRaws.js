@@ -20,6 +20,11 @@ test("Various.", t => {
       {
         width: /* comment 3 */ 100px;
         background: url(http://lol);
+        $var: "http://some-url";
+        content: ' /* Haha, this 
+          comment is ignored! */
+          // this one too
+        ';
       }
     `, { syntax: scss })
     .then(result => {
