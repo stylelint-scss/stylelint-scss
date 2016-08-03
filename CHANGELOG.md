@@ -1,4 +1,4 @@
-# Head
+# 1.3.4
 
 - Fixed: parsing `-` and `+` at the operation start in `operator-` rules.
 - Fixed: `findCommentsInRaws` false positives on comments inside strings (applicable to rules `double-slash-comment-inline`, `double-slash-comment-whitespace-inside`, `operator-no-unspaced`).
