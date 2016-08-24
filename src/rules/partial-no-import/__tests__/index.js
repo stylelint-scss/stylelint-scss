@@ -117,3 +117,27 @@ test("Import a CSS (with media) from a partial .scss", t => {
       t.equal(warnings.length, 0, "Skipping")
     })
 })
+
+test("Multiple imports in a partial.", t => {
+  t.plan(1)
+  postcss([rule()])
+    .process("@import \"_bootstrap/variables\";\n@import \"_font-awesome/variables\";", {
+      from: path.join(__dirname, "_variables.scss"),
+    })
+    .then(result => {
+      const warnings = result.warnings()
+      t.equal(warnings.length, 2, "Two warnings")
+    })
+})
+
+test("Import from a non-partial SCSS-file.", t => {
+  t.plan(1)
+  postcss([rule()])
+    .process("@import \"bootstrap/variables\";\n@import \"font-awesome/variables\";", {
+      from: path.join(__dirname, "_der\\variables.scss"),
+    })
+    .then(result => {
+      const warnings = result.warnings()
+      t.equal(warnings.length, 0, "No warnings")
+    })
+})
