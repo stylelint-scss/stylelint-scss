@@ -50,6 +50,8 @@ export default function (on) {
     if (extName === ".css") { return }
     // Not a partial
     if (fileName[0] !== "_") { return }
+    // Filename starting with "_" and including "\"
+    if (/\\/.test(fileName)) { return }
 
     root.walkAtRules("import", mixinCall => {
       // Check if @import is treated as CSS import; report only if not
