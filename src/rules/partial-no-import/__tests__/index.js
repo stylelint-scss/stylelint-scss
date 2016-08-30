@@ -134,7 +134,7 @@ test("Import from a non-partial SCSS-file.", t => {
   t.plan(1)
   postcss([rule()])
     .process("@import \"bootstrap/variables\";\n@import \"font-awesome/variables\";", {
-      from: path.join(__dirname, "_der\\variables.scss"),
+      from: path.join(__dirname, "_der", "variables.scss"),
     })
     .then(result => {
       const warnings = result.warnings()
