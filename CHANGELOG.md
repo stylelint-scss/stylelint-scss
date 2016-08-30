@@ -1,3 +1,7 @@
+# HEAD
+
+- Removed: `src` folder from `npm` package.
+
 # 1.3.4
 
 - Fixed: parsing `-` and `+` at the operation start in `operator-` rules.
