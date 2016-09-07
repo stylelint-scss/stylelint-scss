@@ -79,6 +79,8 @@
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "release": "npmpub",
-    "test": "nyc tape -r babel-register \"src/**/__tests__/*.js\" | tap-spec"
+    "test": "nyc tape -r babel-register \"src/**/__tests__/*.js\" | tap-spec",
+    "test-rule": "node ./scripts/test-rule.js",
+    "test-util": "node ./scripts/test-util.js"
   }
 }
