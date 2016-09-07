@@ -1,6 +1,8 @@
 # HEAD
 
 - Removed: `src` folder from `npm` package.
+- Added: `declaration-nested-properties` rule.
+- Added: `declaration-nested-properties-no-divided-groups` rule.
 
 # 1.3.4
 
