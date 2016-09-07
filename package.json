@@ -35,6 +35,7 @@
     "rimraf": "^2.5.2",
     "semver": "^5.1.0",
     "stylelint-test-rule-tape": "^0.2.0",
+    "tap-spec": "^4.1.1",
     "tape": "^4.6.0"
   },
   "engines": {
@@ -78,6 +79,6 @@
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "release": "npmpub",
-    "test": "nyc tape -r babel-register \"src/**/__tests__/*.js\""
+    "test": "nyc tape -r babel-register \"src/**/__tests__/*.js\" | tap-spec"
   }
 }
