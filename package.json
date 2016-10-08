@@ -35,6 +35,7 @@
     "rimraf": "^2.5.2",
     "semver": "^5.1.0",
     "stylelint-test-rule-tape": "^0.2.0",
+    "table": "3.7.9",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0"
   },
