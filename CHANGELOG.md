@@ -1,6 +1,7 @@
 # HEAD
 
 - Removed: `src` folder from `npm` package.
+- Removed: NodeJS 0.12.x support, stylelint-scss now requires NodeJS > 4.2.1 LTS or greater
 - Added: `declaration-nested-properties` rule.
 - Added: `declaration-nested-properties-no-divided-groups` rule.
 
