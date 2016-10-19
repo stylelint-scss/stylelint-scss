@@ -35,6 +35,9 @@
     "stylelint-test-rule-tape": "^0.2.0",
     "tape": "^4.5.1"
   },
+  "engines": {
+    "node": ">=4.2.1"
+  },
   "eslintConfig": {
     "extends": "stylelint",
     "rules": {
