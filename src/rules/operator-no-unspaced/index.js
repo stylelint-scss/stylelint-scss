@@ -119,7 +119,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     startIndex = !isNaN(startIndex) ? Number(startIndex) : 0
     while (match !== null) {
       results.push({
-        source: match[0], 
+        source: match[0],
         operators: findOperators({
           string: match[0],
           globalIndex: match.index + startIndex,
@@ -159,7 +159,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
 
       // Media queries
       if (item.name === "media" || item.name === "import") {
-        mediaQueryParser(item.params).walk(node => {
+        mediaQueryParser(item.params).walk("", (node) => {
           const type = node.type
           if ([ "keyword", "media-type", "media-feature" ].indexOf(type) !== -1) {
             results = results.concat(findInterpolation(
@@ -207,12 +207,12 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
       }
     })
   })
-  
+
   // Checking interpolation inside comments
   // We have to give up on PostCSS here because it skips some inline comments
   findCommentsInRaws(root.source.input.css).forEach(comment => {
     const startIndex = comment.source.start + comment.raws.startToken.length +
-      comment.raws.left.length 
+      comment.raws.left.length
     if (comment.type !== "css") { return }
 
     findInterpolation(comment.text).forEach(el => {
