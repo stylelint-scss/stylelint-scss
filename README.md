@@ -18,7 +18,11 @@ The plugin follows stylelint's guidelines (about [rule names](http://stylelint.i
 
 ## Installation and usage
 
-stylelint-scss is a plugin for [stylelint](http://stylelint.io/user-guide/), so it's meant to be used with it. First, install stylelint-scss (and stylelint, if you haven't done so yet) via NPM:
+stylelint-scss is a plugin for [stylelint](http://stylelint.io/user-guide/), so it's meant to be used with it.
+
+**Node.js v4.2.1 or newer** is required. That's because stylelint itself [doesn't support Node.js versions below 4](https://github.com/stylelint/stylelint/blob/master/package.json#L32).
+
+First, install stylelint-scss (and stylelint, if you haven't done so yet) via NPM:
 
 ```
 npm install stylelint stylelint-scss
