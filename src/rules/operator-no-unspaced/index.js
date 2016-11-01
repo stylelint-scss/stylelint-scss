@@ -159,7 +159,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
 
       // Media queries
       if (item.name === "media" || item.name === "import") {
-        mediaQueryParser(item.params).walk("", (node) => {
+        mediaQueryParser(item.params).walk(node => {
           const type = node.type
           if ([ "keyword", "media-type", "media-feature" ].indexOf(type) !== -1) {
             results = results.concat(findInterpolation(
