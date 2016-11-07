@@ -30,6 +30,12 @@ p {
 }
 ```
 
+```scss
+p {
+  & + .foo {}
+}
+```
+
 The following patterns are *not* considered warnings:
 
 ```scss
@@ -51,11 +57,5 @@ p {
   .bar {
     margin: 0;
   }
-}
-```
-
-```scss
-p {
-  & + .foo {}
 }
 ```
