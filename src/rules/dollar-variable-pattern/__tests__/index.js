@@ -220,3 +220,46 @@ testRule(rule, {
     description: "Regexp: SUIT component. Example: element starts with uppercase",
   } ],
 })
+
+// "ignore" options
+testRule(rule, {
+  ruleName,
+  config: [ /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/, { ignore: "local" } ],
+  syntax: "scss",
+
+  accept: [ {
+    code: "a { $oo-bar: 0; }",
+    description: "Ignore local variable (not matching the pattern).",
+  }, {
+    code: "$Foo-barBaz: 0;",
+    description: "Ignore local variable (passing global, matching the pattern).",
+  } ],
+
+  reject: [{
+    code: "$boo-Foo-bar: 0;",
+    line: 1,
+    message: messages.expected,
+    description: "Ignore local variable (passing global, not matching the pattern).",
+  }],
+})
+
+testRule(rule, {
+  ruleName,
+  config: [ /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/, { ignore: "global" } ],
+  syntax: "scss",
+
+  accept: [ {
+    code: "$oo-bar: 0;",
+    description: "Ignore global variable (not matching the pattern).",
+  }, {
+    code: "a { $Foo-barBaz: 0; }",
+    description: "Ignore global variable (passing local, matching the pattern).",
+  } ],
+
+  reject: [{
+    code: "a { $boo-Foo-bar: 0; }",
+    line: 1,
+    message: messages.expected,
+    description: "Ignore global variable (passing local, not matching the pattern).",
+  }],
+})
