@@ -4,6 +4,7 @@
 - Removed: NodeJS 0.12.x support, stylelint-scss now requires NodeJS > 4.2.1 LTS or greater
 - Added: `declaration-nested-properties` rule.
 - Added: `declaration-nested-properties-no-divided-groups` rule.
+- Added: `ignore: "local"|"global"` to the `dollar-variable-pattern` rule.
 
 # 1.3.4
 
