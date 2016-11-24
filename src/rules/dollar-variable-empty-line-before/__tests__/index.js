@@ -222,6 +222,11 @@ testRule(rule, {
     code: "a { $var1: 100px; }",
     description: "always, { ignore: inside-single-line-block }. $var inside single-line ruleset, alone.",
   }, {
+    code: `
+      a { $var1: 100px; }
+    `,
+    description: "always, { ignore: inside-single-line-block }. $var inside single-line ruleset with newlines around, alone.",
+  }, {
     code: "a { width: 10px; $var1: 100px; color: red; }",
     description: "always, { ignore: inside-single-line-block }. $var inside single-line ruleset, has neighbours.",
   } ],

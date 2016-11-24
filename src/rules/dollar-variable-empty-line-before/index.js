@@ -4,7 +4,7 @@ import {
   namespace,
   optionsHaveException,
   optionsHaveIgnored,
-  rawNodeString,
+  blockString,
 } from "../../utils"
 import { utils } from "stylelint"
 
@@ -50,7 +50,7 @@ export default function (expectation, options) {
       // If ignoring single-line blocks
       if (optionsHaveIgnored(options, "inside-single-line-block") &&
         decl.parent.type !== "root" &&
-        isSingleLineString(rawNodeString(decl.parent))
+        isSingleLineString(blockString(decl.parent))
       ) {
         return
       }
