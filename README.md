@@ -49,6 +49,8 @@ Please refer to [stylelint docs](http://stylelint.io/user-guide/) for the detail
 
 Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.fi/vocabs/css/en) they apply to (just like in [stylelint](http://stylelint.io/user-guide/about-rules/)).
 
+Please also see the [example configs](./docs/examples/) for special cases.
+
 ### `@`-else
 
 - [`at-else-closing-brace-newline-after`](./src/rules/at-else-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@else` statements.
