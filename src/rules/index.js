@@ -12,6 +12,7 @@ import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-pro
 import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after"
 import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after"
 import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before"
+import dollarVariableEmptyLineBefore from "./dollar-variable-empty-line-before"
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
 import dollarVariablePattern from "./dollar-variable-pattern"
 import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before"
@@ -40,6 +41,7 @@ export default {
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
   "dollar-variable-colon-space-after": dollarVariableColonSpaceAfter,
   "dollar-variable-colon-space-before": dollarVariableColonSpaceBefore,
+  "dollar-variable-empty-line-before": dollarVariableEmptyLineBefore,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
   "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,

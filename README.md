@@ -73,6 +73,7 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 - [`dollar-variable-colon-newline-after`](./src/rules/dollar-variable-colon-newline-after/README.md): Require a newline after the colon in `$`-variable declarations.
 - [`dollar-variable-colon-space-after`](./src/rules/dollar-variable-colon-space-after/README.md): Require a single space or disallow whitespace after the colon in `$`-variable declarations.
 - [`dollar-variable-colon-space-before`](./src/rules/dollar-variable-colon-space-before/README.md): Require a single space or disallow whitespace before the colon in `$`-variable declarations.
+- [`dollar-variable-empty-line-before`](./src/rules/dollar-variable-empty-line-before/README.md): Require a single empty line or disallow empty lines before `$`-variable declarations.
 - [`dollar-variable-no-missing-interpolation`](./src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
 - [`dollar-variable-pattern`](./src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.
 
