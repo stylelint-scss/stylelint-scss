@@ -49,6 +49,11 @@ Please refer to [stylelint docs](http://stylelint.io/user-guide/) for the detail
 
 Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.fi/vocabs/css/en) they apply to (just like in [stylelint](http://stylelint.io/user-guide/about-rules/)).
 
+### `@`-else
+
+- [`at-else-closing-brace-newline-after`](./src/rules/at-else-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@else` statements.
+- [`at-else-closing-brace-space-after`](./src/rules/at-else-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@else` statements.
+
 ### `@`-extend
 
 - [`at-extend-no-missing-placeholder`](./src/rules/at-extend-no-missing-placeholder/README.md): Disallow at-extends (`@extend`) with missing placeholders.
@@ -56,6 +61,11 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 ### `@`-function
 
 - [`at-function-pattern`](./src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
+
+### `@`-if
+
+- [`at-if-closing-brace-newline-after`](./src/rules/at-if-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@if` statements.
+- [`at-if-closing-brace-space-after`](./src/rules/at-if-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@if` statements.
 
 ### `@`-import
 
