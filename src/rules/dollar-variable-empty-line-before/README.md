@@ -1,4 +1,4 @@
-# dollar-variable-colon-newline-after
+# dollar-variable-colon-newline-before
 
 Require an empty line or disallow empty lines before `$`-variable declarations.
 
