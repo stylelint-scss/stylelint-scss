@@ -6,6 +6,7 @@
 - Added: `declaration-nested-properties-no-divided-groups` rule.
 - Added: `ignore: "local"|"global"` to the `dollar-variable-pattern` rule.
 - Added: `dollar-variable-empty-line-before` rule.
+- Added: `at-rule-no-unknown` rule.
 
 # 1.3.4
 
