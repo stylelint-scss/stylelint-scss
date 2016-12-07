@@ -68,6 +68,10 @@ Here are stylelint-scss' rules, grouped by the [*thing*](http://apps.workflower.
 - [`at-mixin-argumentless-call-parentheses`](./src/rules/at-mixin-argumentless-call-parentheses/README.md): Require or disallow parentheses in argumentless `@mixin` calls.
 - [`at-mixin-pattern`](./src/rules/at-mixin-pattern/README.md): Specify a pattern for Sass/SCSS-like mixin names.
 
+### `@`-rule
+
+- [`at-rule-no-unknown`](./src/rules/at-rule-no-unknown/README.md): Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](http://stylelint.io/user-guide/rules/at-rule-no-unknown/).
+
 ### `$`-variable
 
 - [`dollar-variable-colon-newline-after`](./src/rules/dollar-variable-colon-newline-after/README.md): Require a newline after the colon in `$`-variable declarations.
