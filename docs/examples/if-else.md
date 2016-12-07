@@ -28,6 +28,7 @@ A stylesheet author might want to treat `@if` and `@else` in a special manner, f
 
     "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
     "scss/at-else-closing-brace-space-after": "always-intermediate",
+    "scss/at-else-closing-brace-space-after": "always-intermediate",
     "scss/at-if-closing-brace-newline-after": "always-last-in-chain",
     "scss/at-if-closing-brace-space-after": "always-intermediate"
   }
@@ -120,12 +121,13 @@ These patterns are considered **non-valid**:
     ],
     "at-rule-name-space-after": "always",
     "block-opening-brace-space-before": "always",
-    "block-closing-brace-newline-after": "always"
+    "block-closing-brace-newline-after": "always",
+    "at-else-empty-line-before": "never"
   }
 }
 ```
 
-This code is considered **valid**
+This code is considered **valid**:
 ```scss
 @if {
   // ...
@@ -133,7 +135,10 @@ This code is considered **valid**
 @else {
   // ...
 }
+```
 
+This code is considered **non-valid**:
+```scss
 @if {
   // ...
 }

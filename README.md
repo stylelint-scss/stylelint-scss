@@ -55,6 +55,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`at-else-closing-brace-newline-after`](./src/rules/at-else-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@else` statements.
 - [`at-else-closing-brace-space-after`](./src/rules/at-else-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@else` statements.
+- [`at-else-empty-line-before`](./src/rules/at-else-empty-line-before/README.md): Require an empty line or disallow empty lines before `@`-else.
 
 ### `@`-extend
 

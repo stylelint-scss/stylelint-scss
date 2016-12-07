@@ -10,6 +10,7 @@
 - Added: `at-else-closing-brace-space-after` rule.
 - Added: `at-if-closing-brace-newline-after` rule.
 - Added: `at-if-closing-brace-space-after` rule.
+- Added: `at-else-empty-line-before` rule.
 
 # 1.3.4
 
