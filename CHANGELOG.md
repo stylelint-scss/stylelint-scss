@@ -1,16 +1,17 @@
-# HEAD
+# 1.4.0
 
-- Removed: `src` folder from `npm` package.
-- Removed: NodeJS 0.12.x support, stylelint-scss now requires NodeJS > 4.2.1 LTS or greater
-- Added: `declaration-nested-properties` rule.
-- Added: `declaration-nested-properties-no-divided-groups` rule.
-- Added: `ignore: "local"|"global"` to the `dollar-variable-pattern` rule.
-- Added: `dollar-variable-empty-line-before` rule.
 - Added: `at-else-closing-brace-newline-after` rule.
 - Added: `at-else-closing-brace-space-after` rule.
 - Added: `at-if-closing-brace-newline-after` rule.
 - Added: `at-if-closing-brace-space-after` rule.
 - Added: `at-else-empty-line-before` rule.
+- Added: `declaration-nested-properties` rule.
+- Added: `declaration-nested-properties-no-divided-groups` rule.
+- Added: `dollar-variable-empty-line-before` rule.
+- Added: `ignore: "local"|"global"` to the `dollar-variable-pattern` rule.
+- Added: `docs` folder to `npm` package.
+- Removed: `src` folder from `npm` package.
+- Removed: NodeJS 0.12.x support, stylelint-scss now requires NodeJS > 4.2.1 LTS or greater
 
 # 1.3.4
 
