@@ -1,3 +1,8 @@
+# 1.4.1
+
+- Fixed: mixed import names for `at-else-closing-brace-space-after` and `at-else-empty-line-before` rules.
+- Fixed: false positives for nested props rules (`:not()`-like selectors, strings, numbers).
+
 # 1.4.0
 
 - Added: `at-else-closing-brace-newline-after` rule.
