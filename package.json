@@ -54,6 +54,8 @@
   },
   "files": [
     "dist",
+    "docs",
+    "src/**/README.md",
     "!**/__tests__"
   ],
   "homepage": "https://github.com/kristerkari/stylelint-scss#readme",

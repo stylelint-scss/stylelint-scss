@@ -1,5 +1,10 @@
 import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder"
+import atElseClosingBraceNewlineAfter from "./at-else-closing-brace-newline-after"
+import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after"
+import atElseEmptyLineBefore from "./at-else-empty-line-before"
 import atFunctionPattern from "./at-function-pattern"
+import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after"
+import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after"
 import atImportNoPartialExtension from "./at-import-no-partial-extension"
 import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore"
 import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist"
@@ -28,7 +33,12 @@ import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-
 
 export default {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
+  "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,
+  "at-else-closing-brace-space-after": atElseEmptyLineBefore,
+  "at-else-empty-line-before": atElseClosingBraceSpaceAfter,
   "at-function-pattern": atFunctionPattern,
+  "at-if-closing-brace-newline-after": atIfClosingBraceNewlineAfter,
+  "at-if-closing-brace-space-after": atIfClosingBraceSpaceAfter,
   "at-import-no-partial-extension": atImportNoPartialExtension,
   "at-import-no-partial-leading-underscore": atImportNoPartialLeadingUnderscore,
   "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
