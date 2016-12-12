@@ -89,6 +89,14 @@ testRule(rule, {
       }
     `,
     description: "Two groups on one namespace, one nested in @media.",
+  }, {
+    code: `
+      a {
+        &:not(.other-class) { }
+        &:not(.another-class) { }
+      }
+    `,
+    description: "Two groups of &:not().",
   } ],
 })
 

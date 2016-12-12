@@ -335,6 +335,11 @@ testRule(rule, {
       }
     `,
     description: "{ never } `prop:value` -- selector.",
+  }, {
+    code: `.class {
+      &:not(.other-class) { }
+    }`,
+    description: "{ never } `.class { &:not() { ... } }` -- selector.",
   } ],
 
   reject: [ {

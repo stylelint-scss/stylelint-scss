@@ -7,6 +7,7 @@ export default function parseNestedPropRoot(propString) {
   const modesEntered = [{
     mode: "normal",
     character: null,
+    isCalculationEnabled: true,
   }]
   const result = {}
   let lastModeIndex = 0
@@ -56,9 +57,11 @@ export default function parseNestedPropRoot(propString) {
           value: propValueStr.trim(),
         }
         // It's a declaration if 1) there is a whitespace after :, or
-        // 2) the value is a number (with/without a unit),
-        // 3) the value is a variable
-        if (propValue.before === "" && !/[0-9.$]/.test(propValue.value)) {
+        // 2) the value is a number with/without a unit (starts with a number
+        // or a dot), or
+        // 3) the value is a variable (starts with $), or
+        // 4) the value a string, surprisingly
+        if (propValue.before === "" && !/^[0-9.$'"]/.test(propValue.value)) {
           return null
         }
         

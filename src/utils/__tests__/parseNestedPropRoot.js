@@ -134,6 +134,24 @@ test("Edge case: function with param `#{fn($a: 1)}:`.", t => {
   })
 })
 
+test("`input:\"prop: value\"` (value is a string).", t => {
+  t.plan(1)
+
+  const result = parseNestedPropRoot("input:\"prop: value\"")
+
+  t.deepEqual(result, {
+    propName: {
+      value: "input",
+      after: "",
+    },
+    propValue: {
+      value: "\"prop: value\"",
+      before: "",
+      sourceIndex: 6,
+    },
+  })
+})
+
 // --------------------------------------------------------------------------
 // selectors
 // --------------------------------------------------------------------------
@@ -154,10 +172,54 @@ test("`background :red` (compiles to a selector by Sass)", t => {
   t.equal(result, null)
 })
 
+test("`&:a1px` (trying to invoke false positive for a number as a value)", t => {
+  t.plan(1)
+
+  const result = parseNestedPropRoot("&:a1px")
+
+  t.equal(result, null)
+})
+
 test("`input:-moz-focusring `", t => {
   t.plan(1)
 
   const result = parseNestedPropRoot("input:-moz-focusring")
+
+  t.deepEqual(result, null)
+})
+
+test("`&:not(.other-class) `", t => {
+  t.plan(1)
+
+  const result = parseNestedPropRoot("&:not(.other-class)")
+
+  t.deepEqual(result, null)
+})
+
+test("`&:pseudo`", t => {
+  t.plan(1)
+
+  const result = parseNestedPropRoot("&:pseudo")
+
+  t.deepEqual(result, null)
+})
+
+// --------------------------------------------------------------------------
+// other something
+// --------------------------------------------------------------------------
+
+test("`\"input: prop\"` (a \"-string)", t => {
+  t.plan(1)
+
+  const result = parseNestedPropRoot("\"input: prop\"")
+
+  t.deepEqual(result, null)
+})
+
+test("`'input: prop'` (a '-string)", t => {
+  t.plan(1)
+
+  const result = parseNestedPropRoot("'input: prop'")
 
   t.deepEqual(result, null)
 })
