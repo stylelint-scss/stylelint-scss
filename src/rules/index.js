@@ -34,8 +34,8 @@ import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-
 export default {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
   "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,
-  "at-else-closing-brace-space-after": atElseEmptyLineBefore,
-  "at-else-empty-line-before": atElseClosingBraceSpaceAfter,
+  "at-else-closing-brace-space-after": atElseClosingBraceSpaceAfter,
+  "at-else-empty-line-before": atElseEmptyLineBefore,
   "at-function-pattern": atFunctionPattern,
   "at-if-closing-brace-newline-after": atIfClosingBraceNewlineAfter,
   "at-if-closing-brace-space-after": atIfClosingBraceSpaceAfter,
