@@ -265,3 +265,51 @@ test("CSS comment, Windows newlines", t => {
     })
     .catch(logError)
 })
+
+test("//-comment, backslash in identifier", t => {
+  t.plan(4)
+
+  postcss()
+    .process(`
+      $foo\bar: 1; // variable
+
+      @function baz\qux() // function
+      {}
+       
+      @mixin quux\corge() // mixin
+      {}
+    `, { syntax: scss })
+    .then(result => {
+      const css = result.root.source.input.css
+      const comments = findCommentsInRaws(css)
+      t.equal(comments.length, 3)
+      t.deepEqual(comments[0].source, { start: 20, end: 30 })
+      t.deepEqual(comments[1].source, { start: 61, end: 71 })
+      t.deepEqual(comments[2].source, { start: 118, end: 125 })
+    })
+    .catch(logError)
+})
+
+test("CSS comment, backslash in identifier", t => {
+  t.plan(4)
+
+  postcss()
+    .process(`
+      $foo\bar: 1; /* variable */
+
+      @function baz\qux() /* function */
+      {}
+       
+      @mixin quux\corge() /* mixin */
+      {}
+    `, { syntax: scss })
+    .then(result => {
+      const css = result.root.source.input.css
+      const comments = findCommentsInRaws(css)
+      t.equal(comments.length, 3)
+      t.deepEqual(comments[0].source, { start: 20, end: 33 })
+      t.deepEqual(comments[1].source, { start: 62, end: 75 })
+      t.deepEqual(comments[2].source, { start: 120, end: 130 })
+    })
+    .catch(logError)
+})
