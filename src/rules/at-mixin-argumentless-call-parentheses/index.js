@@ -4,8 +4,8 @@ import { namespace } from "../../utils"
 export const ruleName = namespace("at-mixin-no-argumentless-call-parentheses")
 
 export const messages = utils.ruleMessages(ruleName, {
-  always: "Missing parentheses in argumentless @mixin call",
-  never: "Unexpected parentheses in argumentless @mixin call",
+  expected: "Expected parentheses in @mixin call",
+  rejected: "Unexpected parentheses in argumentless @mixin call",
 })
 
 export default function (value) {
@@ -17,13 +17,13 @@ export default function (value) {
     if (!validOptions) { return }
 
     root.walkAtRules("include", mixinCall => {
-      // If is is "No parens in argumentless calls"
+      // If it is "No parens in argumentless calls"
       if (value === "never" && mixinCall.params.search(/\(\s*?\)\s*?$/) === -1) { return }
-      // If is is "Always use parens"
+      // If it is "Always use parens"
       if (value === "always" && mixinCall.params.search(/\(/) !== -1) { return }
 
       utils.report({
-        message: messages[value],
+        message: value === "never" ? messages.rejected : messages.expected,
         node: mixinCall,
         result,
         ruleName,

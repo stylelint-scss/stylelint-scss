@@ -28,21 +28,21 @@ testRule(rule, {
       @include foo () ;
     `,
     line: 2,
-    message: messages.expected,
+    message: messages.rejected,
     description: "With parens, no space between them.",
   }, {
     code: `
       @include foo ( ) ;
     `,
     line: 2,
-    message: messages.expected,
+    message: messages.rejected,
     description: "With parens, space between them",
   }, {
     code: `
       @include foo( ) ;
     `,
     line: 2,
-    message: messages.expected,
+    message: messages.rejected,
     description: "With parens, no space before and space between them",
   }, {
     code: `
@@ -50,7 +50,7 @@ testRule(rule, {
       ) ;
     `,
     line: 2,
-    message: messages.expected,
+    message: messages.rejected,
     description: "With parens, newline between them",
   } ],
 })
