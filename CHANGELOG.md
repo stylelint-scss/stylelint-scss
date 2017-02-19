@@ -1,4 +1,4 @@
-# HEAD:
+# 1.4.2:
 
 - Fixed: false positives in inline comment detecting by `findCommentsInRaws` if a comment is the first/last in a file/line
 - Fixed: `findCommentsInRaws` error in function detection
