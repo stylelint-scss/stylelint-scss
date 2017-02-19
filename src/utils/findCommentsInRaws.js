@@ -103,10 +103,11 @@ export default function findCommentsInRaws(rawString) {
           comment = {
             type: "css",
             source: { start: i + offset },
-            inlineAfter: rawString.substring(0, i).search(/\n\s*$/) === -1,
+            // If i is 0 then the file/the line starts with this comment
+            inlineAfter: i > 0 && rawString.substring(0, i).search(/\n\s*$/) === -1,
           }
           commentStart = i
-          // Skip the next loop as the * is already checked
+          // Skip the next iteration as the * is already checked
           i++
         } else if (nextChar === "/") {
           // `url(//path/to/file)` has no comment
@@ -118,15 +119,16 @@ export default function findCommentsInRaws(rawString) {
           comment = {
             type: "double-slash",
             source: { start: i + offset },
-            inlineAfter: rawString.substring(0, i).search(/\n\s*$/) === -1,
+            // If i is 0 then the file/the line starts with this comment
+            inlineAfter: i > 0 && rawString.substring(0, i).search(/\n\s*$/) === -1,
           }
           commentStart = i
-          // Skip the next loop as the second slash in // is already checked
+          // Skip the next iteration as the second slash in // is already checked
           i++
         }
         break
       }
-      // Might be a closing */
+      // Might be a closing `*/`
       case "*": {
         if (mode === "comment" && modesEntered[lastModeIndex].character === "/*" && nextChar === "/") {
           comment.source.end = i + 1 + offset

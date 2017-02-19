@@ -102,6 +102,10 @@ testRule(rule, {
     `,
     description: "Non-inline comment, outside rulesets.",
   }, {
+    code: `// comment
+    `,
+    description: "Non-inline comment, the very start of the stylesheet.",
+  }, {
     code: `
       a { color: red; }
       // Non-inline comment, outside rulesets.

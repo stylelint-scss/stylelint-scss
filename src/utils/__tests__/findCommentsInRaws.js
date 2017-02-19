@@ -7,6 +7,81 @@ function logError(err) {
   console.log(err.stack) // eslint-disable-line no-console
 }
 
+test("// is the first statement in the file", t => {
+  t.plan(5)
+
+  postcss()
+    .process("// comment", { syntax: scss })
+    .then(result => {
+      const css = result.root.source.input.css
+      const comments = findCommentsInRaws(css)
+      
+      t.equal(comments.length, 1)
+      t.equal(comments[0].text, "comment")
+      t.equal(comments[0].inlineAfter, false)
+      t.equal(comments[0].inlineBefore, false)
+      t.deepEqual(comments[0].source, { start: 0, end: 9 })
+    })
+    .catch(logError)
+})
+
+test("// is the first statement in a string, w/o pre-whs", t => {
+  t.plan(5)
+
+  postcss()
+    .process(`a { width: 10; }
+// comment`, { syntax: scss })
+    .then(result => {
+      const css = result.root.source.input.css
+      const comments = findCommentsInRaws(css)
+      
+      t.equal(comments.length, 1)
+      t.equal(comments[0].text, "comment")
+      t.equal(comments[0].inlineAfter, false)
+      t.equal(comments[0].inlineBefore, false)
+      t.deepEqual(comments[0].source, { start: 17, end: 26 })
+    })
+    .catch(logError)
+})
+
+test("CSS-comment is the first statement (and the last one) in a file", t => {
+  t.plan(5)
+
+  postcss()
+    .process("/* comment1 */", { syntax: scss })
+    .then(result => {
+      const css = result.root.source.input.css
+      const comments = findCommentsInRaws(css)
+      
+      t.equal(comments.length, 1)
+      t.equal(comments[0].text, "comment1")
+      t.equal(comments[0].inlineAfter, false)
+      t.equal(comments[0].inlineBefore, false)
+      t.deepEqual(comments[0].source, { start: 0, end: 13 })
+    })
+    .catch(logError)
+})
+
+test("CSS-comment is the first statement (and the last one) in a string", t => {
+  t.plan(5)
+
+  postcss()
+    .process(`
+/* comment1 */
+    `, { syntax: scss })
+    .then(result => {
+      const css = result.root.source.input.css
+      const comments = findCommentsInRaws(css)
+      
+      t.equal(comments.length, 1)
+      t.equal(comments[0].text, "comment1")
+      t.equal(comments[0].inlineAfter, false)
+      t.equal(comments[0].inlineBefore, false)
+      t.deepEqual(comments[0].source, { start: 1, end: 14 })
+    })
+    .catch(logError)
+})
+
 test("Various.", t => {
   t.plan(13)
 

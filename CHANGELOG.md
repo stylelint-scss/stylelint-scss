@@ -1,3 +1,7 @@
+# HEAD:
+
+- Fixed: false positives in inline comment detecting by `findCommentsInRaws` if a comment is the first/last in a file/line
+
 # 1.4.1
 
 - Fixed: mixed import names for `at-else-closing-brace-space-after` and `at-else-empty-line-before` rules.
