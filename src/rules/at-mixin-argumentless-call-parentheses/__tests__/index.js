@@ -28,21 +28,21 @@ testRule(rule, {
       @include foo () ;
     `,
     line: 2,
-    message: messages.rejected,
+    message: messages.rejected("foo"),
     description: "With parens, no space between them.",
   }, {
     code: `
       @include foo ( ) ;
     `,
     line: 2,
-    message: messages.rejected,
+    message: messages.rejected("foo"),
     description: "With parens, space between them",
   }, {
     code: `
       @include foo( ) ;
     `,
     line: 2,
-    message: messages.rejected,
+    message: messages.rejected("foo"),
     description: "With parens, no space before and space between them",
   }, {
     code: `
@@ -50,7 +50,7 @@ testRule(rule, {
       ) ;
     `,
     line: 2,
-    message: messages.rejected,
+    message: messages.rejected("foo"),
     description: "With parens, newline between them",
   } ],
 })
@@ -88,21 +88,21 @@ testRule(rule, {
       @include foo;
     `,
     line: 2,
-    message: messages.expected,
+    message: messages.expected("foo"),
     description: "No parens.",
   }, {
     code: `
       @include foo ;
     `,
     line: 2,
-    message: messages.expected,
+    message: messages.expected("foo"),
     description: "No parens; a space after mixin name in a call.",
   }, {
     code: `
       @include foo
     `,
     line: 2,
-    message: messages.expected,
+    message: messages.expected("foo"),
     description: "No parens; no trailing semicolon.",
   } ],
 })
