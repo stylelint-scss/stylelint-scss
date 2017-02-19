@@ -74,9 +74,19 @@ export default function findCommentsInRaws(rawString) {
       // Entering url, other function or parens (only url matters)
       case "(": {
         if (mode === "comment" || mode === "string") { break }
-        const functionName =
+        const functionNameRegSearch = 
           /(?:^|(?:\n)|(?:\r)|(?:\s-)|[:\s,.(){}*+/%])([a-zA-Z0-9_-]*)$/
-            .exec(rawString.substring(0, i))[1]
+          .exec(rawString.substring(0, i))
+        // A `\S(` can be in, say, `@media(`
+        if (!functionNameRegSearch) {
+          modesEntered.push({
+            mode: "parens",
+            character: "(",
+          })
+          break
+        }
+
+        const functionName = functionNameRegSearch[1]
         modesEntered.push({
           mode: functionName === "url" ? "url" : "parens",
           character: "(",

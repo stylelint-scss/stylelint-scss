@@ -340,3 +340,17 @@ test("CSS comment, Windows newlines", t => {
     })
     .catch(logError)
 })
+
+test("No comments; testing a dangerous case in function detection [`@media( ... )`]", t => {
+  t.plan(1)
+
+  postcss()
+    .process("@media(min-width: 480px) { }", { syntax: scss })
+    .then(result => {
+      const css = result.root.source.input.css
+      const comments = findCommentsInRaws(css)
+      
+      t.equal(comments.length, 0)
+    })
+    .catch(logError)
+})
