@@ -33,7 +33,7 @@ export default function (expectation) {
  * @param {String ruleName} args.ruleName - needed for `report` function
  * @param {String} args.atRuleName - the name of the at-rule to be checked, e.g. "if", "else"
  * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
- * @return {undefined} 
+ * @return {undefined}
  */
 export function sassConditionalBraceNLAfterChecker({ root, result, ruleName, atRuleName, expectation, messages }) {
   function complain(node, message, index) {
@@ -59,7 +59,7 @@ export function sassConditionalBraceNLAfterChecker({ root, result, ruleName, atR
 
     if (expectation === "always-last-in-chain") {
       // If followed by @else, no newline is needed
-      if (nextNode.type === "atrule" && nextNode.name === "else") {
+      if (nextNode.type === "atrule" && (nextNode.name === "else" || nextNode.name === "elseif")) {
         if (hasNewLinesBeforeNext) { complain(atrule, messages.rejected, reportIndex) }
       } else {
         if (!hasNewLinesBeforeNext) { complain (atrule, messages.expected, reportIndex) }

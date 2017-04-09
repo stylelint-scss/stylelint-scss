@@ -22,7 +22,7 @@ testRule(rule, {
   }, {
     code: `a {
       @if ($x == 1) {
-        
+
       } @else {}
 
       width: 10px;
@@ -30,11 +30,29 @@ testRule(rule, {
     description: "always-last-in-chain (has @else, no newline after).",
   }, {
     code: `a {
+      @if ($x == 1) {
+
+      } @elseif {
+
+      } @else {}
+
+      width: 10px;
+    }`,
+    description: "always-last-in-chain (has @else and @elseif, no newline after).",
+  }, {
+    code: `a {
       @if ($x == 1) { } @else { }
 
       width: 10px;
     }`,
     description: "always-last-in-chain (has @else, single-line, no newline after).",
+  }, {
+    code: `a {
+      @if ($x == 1) { } @elseif { } @else { }
+
+      width: 10px;
+    }`,
+    description: "always-last-in-chain (has @else and @elseif, single-line, no newline after).",
   }, {
     code: `a {
       @if ($x == 1) { }
@@ -50,7 +68,7 @@ testRule(rule, {
   reject: [ {
     code: `a {
       @if ($x == 1) {
-        
+
       } width: 10px;
     }`,
     description: "always-last-in-chain (has decl on the same line as its closing brace).",
@@ -59,7 +77,7 @@ testRule(rule, {
   }, {
     code: `a {
       @if ($x == 1) {
-        
+
       }
       @else { }
     }`,
@@ -69,7 +87,7 @@ testRule(rule, {
   }, {
     code: `a {
       @if ($x == 1) {
-        
+
       }
 
       @else { }
@@ -80,7 +98,7 @@ testRule(rule, {
   }, {
     code: `a {
       @if ($x == 1) {
-        
+
       } @include x;
     }`,
     description: "always-last-in-chain (followed by non-@else at-rule, no newline after).",
