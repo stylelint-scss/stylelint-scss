@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `at-if-closing-brace-newline-after`: support `@elseif`.
+
 # 1.4.3
 
 - Fixed: `at-mixin-no-argumentless-call-parentheses` messages
