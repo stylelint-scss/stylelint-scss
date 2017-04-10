@@ -1,4 +1,4 @@
-# HEAD
+# 1.4.4
 
 - Fixed: `at-if-closing-brace-newline-after`: support `@elseif`.
 
