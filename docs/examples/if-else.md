@@ -24,7 +24,7 @@ A stylesheet author might want to treat `@if` and `@else` in a special manner, f
       }
     ],
     "at-rule-name-space-after": "always",
-    "rule-non-nested-empty-line-before": "always",
+    "rule-empty-line-before": "always",
     "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
     "scss/at-else-closing-brace-space-after": "always-intermediate",
     "scss/at-else-empty-line-before": "never",
