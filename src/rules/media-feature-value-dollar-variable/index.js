@@ -24,7 +24,7 @@ export default function (expectation) {
     // `$var-name_sth`
     const variableRegex = /^\$[A-Za-z_0-9-]+$/
     // `#{$var-name_sth}`
-    const interpolationVarRegex = /^#\{\s*?\$[A-Za-z_0-9]+\s*?\}$/
+    const interpolationVarRegex = /^#\{\s*?\$[A-Za-z_0-9-]+\s*?\}$/
 
     root.walkAtRules("media", atRule => {
       const found = atRule.params.match(valueRegexGlobal)
