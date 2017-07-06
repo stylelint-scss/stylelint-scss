@@ -43,7 +43,7 @@ export default function (primaryOption, secondaryOptions) {
     }, (warning) => {
       root.walkAtRules((atRule) => {
         const name = atRule.name
-        if (!ignoreAtRules.includes(name)) {
+        if (ignoreAtRules.indexOf(name) < 0) {
           utils.report({
             message: messages.rejected(`@${name}`),
             ruleName,
