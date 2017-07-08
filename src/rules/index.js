@@ -12,6 +12,7 @@ import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whi
 import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses"
 import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-call-parentheses"
 import atMixinPattern from "./at-mixin-pattern"
+import atRuleNoUnknown from "./at-rule-no-unknown"
 import declarationNestedProperties from "./declaration-nested-properties"
 import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups"
 import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after"
@@ -46,6 +47,7 @@ export default {
   "at-mixin-argumentless-call-parentheses": atMixinArgumentlessCallParentheses,
   "at-mixin-no-argumentless-call-parentheses": atMixinNoArgumentlessCallParentheses,
   "at-mixin-pattern": atMixinPattern,
+  "at-rule-no-unknown": atRuleNoUnknown,
   "declaration-nested-properties": declarationNestedProperties,
   "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
