@@ -1,4 +1,4 @@
-# HEAD
+# 1.5.0
 - Added: `at-rule-no-unknown` rule.
 
 # 1.4.4
