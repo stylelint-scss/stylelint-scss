@@ -87,12 +87,12 @@
   "jest": {
     "clearMocks": true,
     "collectCoverage": false,
-    "collectCoverageFrom": ["src/*/*.js", "utils/*/*.js"],
+    "collectCoverageFrom": ["src/*/*.js", "src/utils/**/*.js"],
     "coverageDirectory": "./.coverage/",
     "coverageReporters": ["lcov", "text-summary"],
     "coverageThreshold": {
       "global": {
-        "branches": 69,
+        "branches": 75,
         "functions": 75,
         "lines": 75,
         "statements": 75
