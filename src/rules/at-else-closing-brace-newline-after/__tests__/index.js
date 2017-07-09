@@ -27,9 +27,9 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       } @else if {
-        
+
       } @else {}
 
       width: 10px;
@@ -65,9 +65,9 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       } @else {
-        
+
       } width: 10px;
     }`,
       description:
@@ -78,7 +78,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       } @else if { }
       @else { }
     }`,
@@ -89,9 +89,9 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       } @else { }
-      
+
       @else { }
     }`,
       description:
@@ -102,7 +102,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       } @else {} @include x;
     }`,
       description:

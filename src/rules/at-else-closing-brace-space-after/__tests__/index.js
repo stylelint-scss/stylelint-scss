@@ -34,7 +34,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {} @else if ($x ==2) {
-        
+
       } @else {}
 
       width: 10px;
@@ -66,7 +66,7 @@ testRule(rule, {
       // TODO: should warn on this?
       code: `a {
       @if ($x == 1) { } @else ($x ==2) {
-        
+
       } @include x;
     }`,
       description:
@@ -78,7 +78,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) { } @else ($x ==2) {
-        
+
       }@else {}
     }`,
       description:
@@ -89,7 +89,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) { } @else ($x ==2) {
-        
+
       }
       @else { }
     }`,
@@ -101,8 +101,8 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) { } @else ($x ==2) {
-        
-      } 
+
+      }
       @else { }
     }`,
       description:
@@ -113,7 +113,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) { } @else ($x ==2) {
-        
+
       }  @else { }
     }`,
       description:
@@ -156,7 +156,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {} @else ($x ==2) {
-        
+
       }@else {}
 
       width: 10px;
@@ -180,7 +180,7 @@ testRule(rule, {
       // TODO: should warn on this?
       code: `a {
       @if ($x == 1) {
-        
+
       } @else ($x ==2) {} @include x;
     }`,
       description:
@@ -192,7 +192,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {} @else ($x ==2) {
-        
+
       } @else {}
     }`,
       description:
@@ -203,7 +203,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {} @else ($x ==2) {
-        
+
       }
       @else { }
     }`,
@@ -214,8 +214,8 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {} @else ($x ==2) {
-        
-      } 
+
+      }
       @else { }
     }`,
       description:
@@ -226,7 +226,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       } @else ($x ==2) {}  @else { }
     }`,
       description:

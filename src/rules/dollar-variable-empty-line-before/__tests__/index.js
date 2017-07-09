@@ -94,7 +94,7 @@ testRule(rule, {
     },
     {
       code: `a {
-      
+
       width: 100px;
     }`,
       description: "never. Not a $-variable"
@@ -560,7 +560,7 @@ testRule(rule, {
     },
     {
       code: `
-      
+
       $var1: 1;
       $var2: 1;
     `,
@@ -569,7 +569,7 @@ testRule(rule, {
     },
     {
       code: `
-      
+
       $var1: 1;
       $var2: 1;
       $var3: 1;

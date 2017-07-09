@@ -1369,7 +1369,7 @@ a;
     {
       code: `
       a {
-        width: 1  
+        width: 1
 - 1;
       }
     `,
@@ -1382,7 +1382,7 @@ a;
       code: `
       a {
         width: 1 -
-        
+
           a+ 1;
       }
     `,
@@ -1564,7 +1564,7 @@ testRule(rule, {
     },
     {
       code: `
-      a, /* #{10+ 1} */ 
+      a, /* #{10+ 1} */
       b
       { width: 10px; }`,
       description: "Comment after selector.",
@@ -1575,7 +1575,7 @@ testRule(rule, {
     {
       code: `
       a,
-      b /* #{10+ 1} */ 
+      b /* #{10+ 1} */
       { width: 10px; }`,
       description: "Comment after selector #2.",
       message: messages.expectedBefore("+"),
@@ -1955,7 +1955,7 @@ testRule(rule, {
       message: messages.expectedAfter("+")
     },
     {
-      code: ` @media 
+      code: ` @media
       #{'scr' +'en'} and (color) {
         a {color: red;}
       }
