@@ -1,3 +1,5 @@
+"use strict"; // eslint-disable-line
+
 const _ = require("lodash");
 const stylelint = require("stylelint");
 

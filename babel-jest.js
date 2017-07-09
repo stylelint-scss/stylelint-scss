@@ -1,3 +1,5 @@
+"use strict"; // eslint-disable-line
+
 /**
                * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
                *
