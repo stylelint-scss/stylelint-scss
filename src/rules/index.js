@@ -1,36 +1,36 @@
-import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder"
-import atElseClosingBraceNewlineAfter from "./at-else-closing-brace-newline-after"
-import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after"
-import atElseEmptyLineBefore from "./at-else-empty-line-before"
-import atFunctionPattern from "./at-function-pattern"
-import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after"
-import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after"
-import atImportNoPartialExtension from "./at-import-no-partial-extension"
-import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore"
-import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist"
-import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist"
-import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses"
-import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-call-parentheses"
-import atMixinPattern from "./at-mixin-pattern"
-import atRuleNoUnknown from "./at-rule-no-unknown"
-import declarationNestedProperties from "./declaration-nested-properties"
-import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups"
-import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after"
-import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after"
-import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before"
-import dollarVariableEmptyLineBefore from "./dollar-variable-empty-line-before"
-import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation"
-import dollarVariablePattern from "./dollar-variable-pattern"
-import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before"
-import doubleSlashCommentInline from "./double-slash-comment-inline"
-import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside"
-import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable"
-import operatorNoNewlineAfter from "./operator-no-newline-after"
-import operatorNoNewlineBefore from "./operator-no-newline-before"
-import operatorNoUnspaced from "./operator-no-unspaced"
-import partialNoImport from "./partial-no-import"
-import percentPlaceholderPattern from "./percent-placeholder-pattern"
-import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector"
+import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder";
+import atElseClosingBraceNewlineAfter from "./at-else-closing-brace-newline-after";
+import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after";
+import atElseEmptyLineBefore from "./at-else-empty-line-before";
+import atFunctionPattern from "./at-function-pattern";
+import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after";
+import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after";
+import atImportNoPartialExtension from "./at-import-no-partial-extension";
+import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore";
+import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist";
+import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist";
+import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses";
+import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-call-parentheses";
+import atMixinPattern from "./at-mixin-pattern";
+import atRuleNoUnknown from "./at-rule-no-unknown";
+import declarationNestedProperties from "./declaration-nested-properties";
+import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
+import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after";
+import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after";
+import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before";
+import dollarVariableEmptyLineBefore from "./dollar-variable-empty-line-before";
+import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation";
+import dollarVariablePattern from "./dollar-variable-pattern";
+import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before";
+import doubleSlashCommentInline from "./double-slash-comment-inline";
+import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
+import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
+import operatorNoNewlineAfter from "./operator-no-newline-after";
+import operatorNoNewlineBefore from "./operator-no-newline-before";
+import operatorNoUnspaced from "./operator-no-unspaced";
+import partialNoImport from "./partial-no-import";
+import percentPlaceholderPattern from "./percent-placeholder-pattern";
+import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector";
 
 export default {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
@@ -65,5 +65,5 @@ export default {
   "operator-no-unspaced": operatorNoUnspaced,
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
-  "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,
-}
+  "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector
+};

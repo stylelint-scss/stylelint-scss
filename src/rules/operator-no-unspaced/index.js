@@ -1,20 +1,20 @@
-import { utils } from "stylelint"
+import { utils } from "stylelint";
 import {
   atRuleParamIndex,
   declarationValueIndex,
   findCommentsInRaws,
   findOperators,
   isWhitespace,
-  namespace,
-} from "../../utils"
-import mediaQueryParser from "postcss-media-query-parser"
+  namespace
+} from "../../utils";
+import mediaQueryParser from "postcss-media-query-parser";
 
-export const ruleName = namespace("operator-no-unspaced")
+export const ruleName = namespace("operator-no-unspaced");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expectedAfter: (operator) => `Expected single space after "${operator}"`,
-  expectedBefore: (operator) => `Expected single space before "${operator}"`,
-})
+  expectedAfter: operator => `Expected single space after "${operator}"`,
+  expectedBefore: operator => `Expected single space before "${operator}"`
+});
 
 /**
  * The actual check for are there (un)necessary whitespaces
@@ -25,29 +25,27 @@ function checkSpaces({
   startIndex,
   endIndex,
   node,
-  result,
+  result
 }) {
-  const symbol = string.substring(startIndex, endIndex + 1)
+  const symbol = string.substring(startIndex, endIndex + 1);
 
-  const beforeOk = (
-    (string[startIndex - 1] === " " && !isWhitespace(string[startIndex - 2]))
-    || newlineBefore(string, startIndex - 1)
-  )
+  const beforeOk =
+    (string[startIndex - 1] === " " && !isWhitespace(string[startIndex - 2])) ||
+    newlineBefore(string, startIndex - 1);
   if (!beforeOk) {
     utils.report({
       ruleName,
       result,
       node,
       message: messages.expectedBefore(symbol),
-      index: startIndex + globalIndex,
-    })
+      index: startIndex + globalIndex
+    });
   }
 
-  const afterOk = (
-    (string[endIndex + 1] === " " && !isWhitespace(string[endIndex + 2]))
-    || string[endIndex + 1] === "\n"
-    || string.substr(endIndex + 1, 2) === "\r\n"
-  )
+  const afterOk =
+    (string[endIndex + 1] === " " && !isWhitespace(string[endIndex + 2])) ||
+    string[endIndex + 1] === "\n" ||
+    string.substr(endIndex + 1, 2) === "\r\n";
 
   if (!afterOk) {
     utils.report({
@@ -55,33 +53,35 @@ function checkSpaces({
       result,
       node,
       message: messages.expectedAfter(symbol),
-      index: endIndex + globalIndex,
-    })
+      index: endIndex + globalIndex
+    });
   }
 }
 
 function newlineBefore(str, startIndex) {
-  let index = startIndex
+  let index = startIndex;
   while (index && isWhitespace(str[index])) {
-    if (str[index] === "\n") return true
-    index--
+    if (str[index] === "\n") return true;
+    index--;
   }
-  return false
+  return false;
 }
 
-export default function (expectation) {
+export default function(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation,
-    })
-    if (!validOptions) { return }
+      actual: expectation
+    });
+    if (!validOptions) {
+      return;
+    }
 
     calculationOperatorSpaceChecker({
       root,
       result,
-      checker: checkSpaces,
-    })
-  }
+      checker: checkSpaces
+    });
+  };
 }
 
 /**
@@ -111,26 +111,26 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
    *    a list of operators for each Sass interpolation occurence
    */
   function findInterpolation(string, startIndex) {
-    const interpolationRegex = /#{(.*?)}/g
-    const results = []
+    const interpolationRegex = /#{(.*?)}/g;
+    const results = [];
     // Searching for interpolation
-    let match = interpolationRegex.exec(string)
-    startIndex = !isNaN(startIndex) ? Number(startIndex) : 0
+    let match = interpolationRegex.exec(string);
+    startIndex = !isNaN(startIndex) ? Number(startIndex) : 0;
     while (match !== null) {
       results.push({
         source: match[0],
         operators: findOperators({
           string: match[0],
-          globalIndex: match.index + startIndex,
-        }),
-      })
-      match = interpolationRegex.exec(string)
+          globalIndex: match.index + startIndex
+        })
+      });
+      match = interpolationRegex.exec(string);
     }
-    return results
+    return results;
   }
 
   root.walk(item => {
-    let results = []
+    let results = [];
 
     // Check a value (`10px` in `width: 10px;`)
     if (item.value !== undefined) {
@@ -140,41 +140,43 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
           string: item.value,
           globalIndex: declarationValueIndex(item),
           // For Sass variable values some special rules apply
-          isAfterColon: item.prop[0] === "$",
-        }),
-      })
+          isAfterColon: item.prop[0] === "$"
+        })
+      });
     }
 
     // Property name
     if (item.prop !== undefined) {
-      results = results.concat(findInterpolation(item.prop))
+      results = results.concat(findInterpolation(item.prop));
     }
     // Selector
     if (item.selector !== undefined) {
-      results = results.concat(findInterpolation(item.selector))
+      results = results.concat(findInterpolation(item.selector));
     }
 
     if (item.type === "atrule") {
       // Media queries
       if (item.name === "media" || item.name === "import") {
         mediaQueryParser(item.params).walk(node => {
-          const type = node.type
-          if ([ "keyword", "media-type", "media-feature" ].indexOf(type) !== -1) {
-            results = results.concat(findInterpolation(
-              node.value,
-              atRuleParamIndex(item) + node.sourceIndex)
-            )
-          } else if ([ "value", "url" ].indexOf(type) !== -1) {
+          const type = node.type;
+          if (["keyword", "media-type", "media-feature"].indexOf(type) !== -1) {
+            results = results.concat(
+              findInterpolation(
+                node.value,
+                atRuleParamIndex(item) + node.sourceIndex
+              )
+            );
+          } else if (["value", "url"].indexOf(type) !== -1) {
             results.push({
               source: node.value,
               operators: findOperators({
                 string: node.value,
                 globalIndex: atRuleParamIndex(item) + node.sourceIndex,
-                isAfterColon: true,
-              }),
-            })
+                isAfterColon: true
+              })
+            });
           }
-        })
+        });
       } else {
         // Function and mixin definitions and other rules
         results.push({
@@ -182,9 +184,9 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
           operators: findOperators({
             string: item.params,
             globalIndex: atRuleParamIndex(item),
-            isAfterColon: true,
-          }),
-        })
+            isAfterColon: true
+          })
+        });
       }
     }
 
@@ -199,19 +201,23 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
             startIndex: operator.startIndex,
             endIndex: operator.endIndex,
             node: item,
-            result,
-          })
-        })
+            result
+          });
+        });
       }
-    })
-  })
+    });
+  });
 
   // Checking interpolation inside comments
   // We have to give up on PostCSS here because it skips some inline comments
   findCommentsInRaws(root.source.input.css).forEach(comment => {
-    const startIndex = comment.source.start + comment.raws.startToken.length +
-      comment.raws.left.length
-    if (comment.type !== "css") { return }
+    const startIndex =
+      comment.source.start +
+      comment.raws.startToken.length +
+      comment.raws.left.length;
+    if (comment.type !== "css") {
+      return;
+    }
 
     findInterpolation(comment.text).forEach(el => {
       // Only if there are operators within a string
@@ -223,10 +229,10 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
             startIndex: operator.startIndex,
             endIndex: operator.endIndex,
             node: root,
-            result,
-          })
-        })
+            result
+          });
+        });
       }
-    })
-  })
+    });
+  });
 }

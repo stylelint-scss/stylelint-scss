@@ -1,43 +1,43 @@
-import {
-  findCommentsInRaws,
-  namespace,
-} from "../../utils"
-import { utils } from "stylelint"
+import { findCommentsInRaws, namespace } from "../../utils";
+import { utils } from "stylelint";
 
-export const ruleName = namespace("double-slash-comment-whitespace-inside")
+export const ruleName = namespace("double-slash-comment-whitespace-inside");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a space after //",
-  rejected: "Unexpected space after //",
-})
+  rejected: "Unexpected space after //"
+});
 
-export default function (expectation) {
+export default function(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: [
-        "always",
-        "never",
-      ],
-    })
-    if (!validOptions) { return }
+      possible: ["always", "never"]
+    });
+    if (!validOptions) {
+      return;
+    }
 
-    const comments = findCommentsInRaws(root.source.input.css)
+    const comments = findCommentsInRaws(root.source.input.css);
     comments.forEach(comment => {
       // Only process // comments
-      if (comment.type !== "double-slash") { return }
+      if (comment.type !== "double-slash") {
+        return;
+      }
       // if it's `//` - no warning whatsoever; if `// ` - then trailing
       // whitespace rule will govern this
-      if (comment.text === "") { return }
+      if (comment.text === "") {
+        return;
+      }
 
-      let message
+      let message;
 
       if (expectation === "never" && comment.raws.left !== "") {
-        message = messages.rejected
+        message = messages.rejected;
       } else if (comment.raws.left === "" && expectation === "always") {
-        message = messages.expected
+        message = messages.expected;
       } else {
-        return
+        return;
       }
 
       utils.report({
@@ -45,8 +45,8 @@ export default function (expectation) {
         node: root,
         index: comment.source.start + comment.raws.startToken.length,
         result,
-        ruleName,
-      })
-    })
-  }
+        ruleName
+      });
+    });
+  };
 }

@@ -1,4 +1,4 @@
-import _ from "lodash"
+import _ from "lodash";
 
 /**
  * Check whether a selector has an interpolating ampersand
@@ -9,15 +9,21 @@ import _ from "lodash"
  * @param {string} selector
  * @return {boolean} If `true`, the selector has an interpolating ampersand
  */
-export default function (selector) {
+export default function(selector) {
   for (let i = 0; i < selector.length; i++) {
-    if (selector[i] !== "&") { continue }
-    if (!_.isUndefined(selector[i - 1]) && !isCombinator(selector[i - 1])) { return true }
-    if (!_.isUndefined(selector[i + 1]) && !isCombinator(selector[i + 1])) { return true }
+    if (selector[i] !== "&") {
+      continue;
+    }
+    if (!_.isUndefined(selector[i - 1]) && !isCombinator(selector[i - 1])) {
+      return true;
+    }
+    if (!_.isUndefined(selector[i + 1]) && !isCombinator(selector[i + 1])) {
+      return true;
+    }
   }
-  return false
+  return false;
 }
 
 function isCombinator(x) {
-  return /[\s+>~]/.test(x)
+  return /[\s+>~]/.test(x);
 }

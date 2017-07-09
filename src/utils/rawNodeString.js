@@ -4,11 +4,11 @@
  * @param {Node} node - Any PostCSS node
  * @return {string}
  */
-export default function (node) {
-  let result = ""
+export default function(node) {
+  let result = "";
   if (node.raws.before) {
-    result += node.raws.before
+    result += node.raws.before;
   }
-  result += node.toString()
-  return result
+  result += node.toString();
+  return result;
 }

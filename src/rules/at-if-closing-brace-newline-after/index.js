@@ -1,26 +1,32 @@
-import {
-  isSingleLineString,
-  namespace,
-} from "../../utils"
-import { utils } from "stylelint"
+import { isSingleLineString, namespace } from "../../utils";
+import { utils } from "stylelint";
 
-export const ruleName = namespace("at-if-closing-brace-newline-after")
+export const ruleName = namespace("at-if-closing-brace-newline-after");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected newline after \"}\" of @if statement",
-  rejected: "Unexpected newline after \"}\" of @if statement",
-})
+  expected: 'Expected newline after "}" of @if statement',
+  rejected: 'Unexpected newline after "}" of @if statement'
+});
 
-export default function (expectation) {
+export default function(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["always-last-in-chain"],
-    })
-    if (!validOptions) { return }
+      possible: ["always-last-in-chain"]
+    });
+    if (!validOptions) {
+      return;
+    }
 
-    sassConditionalBraceNLAfterChecker({ root, result, ruleName, atRuleName: "if", expectation, messages })
-  }
+    sassConditionalBraceNLAfterChecker({
+      root,
+      result,
+      ruleName,
+      atRuleName: "if",
+      expectation,
+      messages
+    });
+  };
 }
 
 /**
@@ -35,35 +41,53 @@ export default function (expectation) {
  * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
  * @return {undefined}
  */
-export function sassConditionalBraceNLAfterChecker({ root, result, ruleName, atRuleName, expectation, messages }) {
+export function sassConditionalBraceNLAfterChecker({
+  root,
+  result,
+  ruleName,
+  atRuleName,
+  expectation,
+  messages
+}) {
   function complain(node, message, index) {
     utils.report({
       result,
       ruleName,
       node,
       message,
-      index,
-    })
+      index
+    });
   }
 
   root.walkAtRules(atrule => {
     // Do nothing if it's not an @if
-    if (atrule.name !== atRuleName) { return }
+    if (atrule.name !== atRuleName) {
+      return;
+    }
 
-    const nextNode = atrule.next()
-    if (!nextNode) { return }
+    const nextNode = atrule.next();
+    if (!nextNode) {
+      return;
+    }
 
-    const nextBefore = nextNode.raws.before
-    const hasNewLinesBeforeNext = nextBefore && !isSingleLineString(nextBefore)
-    const reportIndex = atrule.toString().length
+    const nextBefore = nextNode.raws.before;
+    const hasNewLinesBeforeNext = nextBefore && !isSingleLineString(nextBefore);
+    const reportIndex = atrule.toString().length;
 
     if (expectation === "always-last-in-chain") {
       // If followed by @else, no newline is needed
-      if (nextNode.type === "atrule" && (nextNode.name === "else" || nextNode.name === "elseif")) {
-        if (hasNewLinesBeforeNext) { complain(atrule, messages.rejected, reportIndex) }
+      if (
+        nextNode.type === "atrule" &&
+        (nextNode.name === "else" || nextNode.name === "elseif")
+      ) {
+        if (hasNewLinesBeforeNext) {
+          complain(atrule, messages.rejected, reportIndex);
+        }
       } else {
-        if (!hasNewLinesBeforeNext) { complain (atrule, messages.expected, reportIndex) }
+        if (!hasNewLinesBeforeNext) {
+          complain(atrule, messages.expected, reportIndex);
+        }
       }
     }
-  })
+  });
 }

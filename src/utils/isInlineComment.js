@@ -8,10 +8,12 @@
  */
 
 export default function isInlineComment(comment) {
-  const nextNode = comment.next()
-  const isBeforeSomething = !!nextNode && nextNode.type !== "comment" &&
-    comment.source.end.line === nextNode.source.start.line
-  const isAfterSomething = comment.raws.before.search(/\n/) === -1
+  const nextNode = comment.next();
+  const isBeforeSomething =
+    !!nextNode &&
+    nextNode.type !== "comment" &&
+    comment.source.end.line === nextNode.source.start.line;
+  const isAfterSomething = comment.raws.before.search(/\n/) === -1;
 
-  return isAfterSomething || isBeforeSomething
+  return isAfterSomething || isBeforeSomething;
 }

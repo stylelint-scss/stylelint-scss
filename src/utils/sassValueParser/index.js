@@ -1,4 +1,3 @@
-
 /**
  * Processes a string and finds Sass operators in it
  *
@@ -22,63 +21,70 @@ export default function findOperators({
   string,
   globalIndex,
   isAfterColon,
-  callback,
+  callback
 }) {
-  const mathOperators = [ "+", "/", "-", "*", "%" ]
+  const mathOperators = ["+", "/", "-", "*", "%"];
   // A stack of modes activated for the current char: string, interpolation
   // Calculations inside strings are not processed, so spaces are not linted
-  const modesEntered = [{
-    mode: "normal",
-    isCalculationEnabled: true,
-    character: null,
-  }]
-  const result = []
-  let lastModeIndex = 0
+  const modesEntered = [
+    {
+      mode: "normal",
+      isCalculationEnabled: true,
+      character: null
+    }
+  ];
+  const result = [];
+  let lastModeIndex = 0;
 
   for (let i = 0; i < string.length; i++) {
-    const character = string[i]
-    const substringStartingWithIndex = string.substring(i)
+    const character = string[i];
+    const substringStartingWithIndex = string.substring(i);
 
     // If entering/exiting a string
-    if (character === "\"" || character === "'") {
+    if (character === '"' || character === "'") {
       if (modesEntered[lastModeIndex].isCalculationEnabled === true) {
         modesEntered.push({
           mode: "string",
           isCalculationEnabled: false,
-          character,
-        })
-        lastModeIndex++
-      } else if (modesEntered[lastModeIndex].mode === "string" &&
+          character
+        });
+        lastModeIndex++;
+      } else if (
+        modesEntered[lastModeIndex].mode === "string" &&
         modesEntered[lastModeIndex].character === character &&
         string[i - 1] !== "\\"
       ) {
-        modesEntered.pop()
-        lastModeIndex--
+        modesEntered.pop();
+        lastModeIndex--;
       }
     }
 
     // If entering/exiting interpolation (may be inside a string)
     // Comparing with length-2 because `#{` at the very end doesnt matter
-    if (character === "#" && i + 1 < string.length - 2 && string[i + 1] === "{") {
+    if (
+      character === "#" &&
+      i + 1 < string.length - 2 &&
+      string[i + 1] === "{"
+    ) {
       modesEntered.push({
         mode: "interpolation",
-        isCalculationEnabled: true,
-      })
-      lastModeIndex++
+        isCalculationEnabled: true
+      });
+      lastModeIndex++;
     } else if (character === "}") {
-      modesEntered.pop()
-      lastModeIndex--
+      modesEntered.pop();
+      lastModeIndex--;
     }
 
     // Don't lint if inside a string
     if (modesEntered[lastModeIndex].isCalculationEnabled === false) {
-      continue
+      continue;
     }
 
     // If it's a math operator
     if (
-      mathOperators.indexOf(character) !== -1 &&
-      mathOperatorCharType(string, i, isAfterColon) === "op" ||
+      (mathOperators.indexOf(character) !== -1 &&
+        mathOperatorCharType(string, i, isAfterColon) === "op") ||
       // or is "<" or ">"
       substringStartingWithIndex.search(/^[<>]([^=]|$)/) !== -1
     ) {
@@ -86,9 +92,11 @@ export default function findOperators({
         symbol: string[i],
         globalIndex,
         startIndex: i,
-        endIndex: i,
-      })
-      if (callback) { callback(string, globalIndex, i, i) }
+        endIndex: i
+      });
+      if (callback) {
+        callback(string, globalIndex, i, i);
+      }
     }
 
     // "<=", ">=", "!=", "=="
@@ -97,13 +105,15 @@ export default function findOperators({
         symbol: string[i],
         globalIndex,
         startIndex: i,
-        endIndex: i + 1,
-      })
-      if (callback) { callback(string, globalIndex, i, i + 1) }
+        endIndex: i + 1
+      });
+      if (callback) {
+        callback(string, globalIndex, i, i + 1);
+      }
     }
   }
   // result.length > 0 && console.log(string, result)
-  return result
+  return result;
 }
 
 /**
@@ -123,42 +133,42 @@ export default function findOperators({
 export function mathOperatorCharType(string, index, isAfterColon) {
   // !Checking here to prevent unnecessary calculations and deep recursion
   // when calling isPrecedingOperator()
-  if ([ "+", "/", "-", "*", "%" ].indexOf(string[index]) === -1) {
-    return "char"
+  if (["+", "/", "-", "*", "%"].indexOf(string[index]) === -1) {
+    return "char";
   }
 
-  const character = string[index]
+  const character = string[index];
   // console.log(string)
 
   // ---- Processing + characters
   if (character === "+") {
     // console.log('checking plus')
-    return checkPlus(string, index, isAfterColon)
+    return checkPlus(string, index, isAfterColon);
   }
 
   // ---- Processing - characters
   if (character === "-") {
-    return checkMinus(string, index)
+    return checkMinus(string, index);
   }
 
   // ---- Processing * character
   if (character === "*") {
-    return "op"
+    return "op";
   }
 
   // ---- Processing % character
   if (character === "%") {
-    return checkPercent(string, index)
+    return checkPercent(string, index);
   }
 
   // ---- Processing / character
   // http://sass-lang.com/documentation/file.SASS_REFERENCE.html#division-and-slash
   if (character === "/") {
-    return checkSlash(string, index, isAfterColon)
+    return checkSlash(string, index, isAfterColon);
   }
 
   // console.log("nothing applies")
-  return "char"
+  return "char";
 }
 
 // --------------------------------------------------------------------------
@@ -179,25 +189,25 @@ export function mathOperatorCharType(string, index, isAfterColon) {
  *    • false - if it is none from above (most likely an error)
  */
 function checkPlus(string, index, isAftercolon) {
-  const before = string.substring(0, index)
-  const after = string.substring(index + 1)
+  const before = string.substring(0, index);
+  const after = string.substring(index + 1);
 
   // If the character is at the beginning of the input
-  const isAtStart_ = isAtStart(string, index)
+  const isAtStart_ = isAtStart(string, index);
   // If the character is at the end of the input
-  const isAtEnd_ = isAtEnd(string, index)
-  const isWhitespaceBefore = before.search(/\s$/) !== -1
-  const isWhitespaceAfter = after.search(/^\s/) !== -1
+  const isAtEnd_ = isAtEnd(string, index);
+  const isWhitespaceBefore = before.search(/\s$/) !== -1;
+  const isWhitespaceAfter = after.search(/^\s/) !== -1;
 
-  const isValueWithUnitAfter_ = isValueWithUnitAfter(after)
-  const isNumberAfter_ = isNumberAfter(after)
-  const isInterpolationAfter_ = isInterpolationAfter(after)
+  const isValueWithUnitAfter_ = isValueWithUnitAfter(after);
+  const isNumberAfter_ = isNumberAfter(after);
+  const isInterpolationAfter_ = isInterpolationAfter(after);
   // The early check above helps prevent deep recursion here
-  const isPrecedingOperator_ = isPrecedingOperator(string, index)
+  const isPrecedingOperator_ = isPrecedingOperator(string, index);
 
   if (isAtStart_) {
     // console.log("+, `+<sth>` or `+ <sth>`")
-    return "sign"
+    return "sign";
   }
 
   // E.g. `1+1`, `string+#fff`
@@ -205,62 +215,66 @@ function checkPlus(string, index, isAftercolon) {
     // E.g. `1-+1`
     if (isPrecedingOperator_) {
       // console.log('1+1')
-      return "sign"
+      return "sign";
     }
     // console.log("+, no spaces")
-    return "op"
+    return "op";
   }
   // e.g. `something +something`
   if (!isAtEnd_ && !isWhitespaceAfter) {
     // e.g. `+something`, ` ... , +something`, etc.
     if (isNoOperandBefore(string, index)) {
       // console.log("+, nothing before")
-      return "sign"
+      return "sign";
     }
 
     // e.g. `sth +10px`, `sth +1`
     if (
-      isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween ||
-      isNumberAfter_.is && !isNumberAfter_.opsBetween
+      (isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
+      (isNumberAfter_.is && !isNumberAfter_.opsBetween)
     ) {
       if (isAftercolon === true) {
         // console.log(": 10px +1")
-        return "op"
+        return "op";
       }
 
       // e.g. `(sth +10px)`, `fun(sth +1)`
-      if (isInsideParens(string, index) ||
+      if (
+        isInsideParens(string, index) ||
         isInsideFunctionCall(string, index).is
       ) {
         // console.log("+10px or +1, inside function or parens")
-        return "op"
+        return "op";
       }
 
       // e.g. `#{10px +1}`
       if (isInsideInterpolation(string, index)) {
         // console.log('+, #{10px +1}')
-        return "op"
+        return "op";
       }
 
       // console.log('+, default')
-      return "sign"
+      return "sign";
     }
 
     // e.g. `sth +#fff`, `sth +string`, `sth +#{...}`, `sth +$var`
-    if (isStringAfter(after) || isHexColorAfter (after) || after[0] === "$" ||
-      isInterpolationAfter_.is && !isInterpolationAfter_.opsBefore
+    if (
+      isStringAfter(after) ||
+      isHexColorAfter(after) ||
+      after[0] === "$" ||
+      (isInterpolationAfter_.is && !isInterpolationAfter_.opsBefore)
     ) {
       // e.g. `sth+ +string`
       if (isPrecedingOperator_) {
         // console.log("+10px or +1, before is an operator")
-        return "sign"
+        return "sign";
       }
       // console.log("+#000, +string, +#{sth}, +$var")
-      return "op"
+      return "op";
     }
 
     // console.log('sth +sth, default')
-    return "op"
+    return "op";
   }
 
   // If the + is after a value, e.g. `$var+`
@@ -268,12 +282,12 @@ function checkPlus(string, index, isAftercolon) {
     // It is always an operator. Prior to Sass 4, `#{...}+` was differernt,
     // but that's not logical and had been fixed.
     // console.log('1+ sth')
-    return "op"
+    return "op";
   }
 
   // If it has whitespaces on both sides
   // console.log('sth + sth')
-  return "op"
+  return "op";
 }
 
 /**
@@ -288,89 +302,90 @@ function checkPlus(string, index, isAftercolon) {
  *    • false - if it is none from above (most likely an error)
  */
 function checkMinus(string, index) {
-  const before = string.substring(0, index)
-  const after = string.substring(index + 1)
+  const before = string.substring(0, index);
+  const after = string.substring(index + 1);
   // If the character is at the beginning of the input
-  const isAtStart_ = isAtStart(string, index)
+  const isAtStart_ = isAtStart(string, index);
   // If the character is at the end of the input
-  const isAtEnd_ = isAtEnd(string, index)
-  const isWhitespaceBefore = before.search(/\s$/) !== -1
-  const isWhitespaceAfter = after.search(/^\s/) !== -1
+  const isAtEnd_ = isAtEnd(string, index);
+  const isWhitespaceBefore = before.search(/\s$/) !== -1;
+  const isWhitespaceAfter = after.search(/^\s/) !== -1;
 
-  const isValueWithUnitAfter_ = isValueWithUnitAfter(after)
-  const isValueWithUnitBefore_ = isValueWithUnitBefore(before)
-  const isNumberAfter_ = isNumberAfter(after)
-  const isNumberBefore_ = isNumberBefore(before)
-  const isInterpolationAfter_ = isInterpolationAfter(after)
-  const isParensAfter_ = isParensAfter(after)
-  const isParensBefore_ = isParensBefore(before)
+  const isValueWithUnitAfter_ = isValueWithUnitAfter(after);
+  const isValueWithUnitBefore_ = isValueWithUnitBefore(before);
+  const isNumberAfter_ = isNumberAfter(after);
+  const isNumberBefore_ = isNumberBefore(before);
+  const isInterpolationAfter_ = isInterpolationAfter(after);
+  const isParensAfter_ = isParensAfter(after);
+  const isParensBefore_ = isParensBefore(before);
   // The early check above helps prevent deep recursion here
-  const isPrecedingOperator_ = isPrecedingOperator(string, index)
+  const isPrecedingOperator_ = isPrecedingOperator(string, index);
 
   if (isAtStart_) {
     // console.log("-, -<sth> or - <sth>")
-    return "sign"
+    return "sign";
   }
 
   // `10 -    11`
   if (!isAtEnd_ && !isAtStart_ && isWhitespaceBefore && isWhitespaceAfter) {
     // console.log("-, Op: 10px -  10px")
-    return "op"
+    return "op";
   }
 
   // e.g. `something -10px`
   if (!isAtEnd_ && !isAtStart_ && isWhitespaceBefore && !isWhitespaceAfter) {
     if (isParensAfter_.is && !isParensAfter_.opsBefore) {
       // console.log("-, Op: <sth> -(...)")
-      return "op"
+      return "op";
     }
 
     // e.g. `sth -1px`, `sth -1`.
     // Always a sign, even inside parens/function args
     if (
-      isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween ||
-      isNumberAfter_.is && !isNumberAfter_.opsBetween
+      (isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
+      (isNumberAfter_.is && !isNumberAfter_.opsBetween)
     ) {
       // console.log("-, sign: -1px or -1")
-      return "sign"
+      return "sign";
     }
 
     // e.g. `sth --1`, `sth +-2px`
     if (
-      isValueWithUnitAfter_.is && isValueWithUnitAfter_.opsBetween ||
-      isNumberAfter_.is && isNumberAfter_.opsBetween
+      (isValueWithUnitAfter_.is && isValueWithUnitAfter_.opsBetween) ||
+      (isNumberAfter_.is && isNumberAfter_.opsBetween)
     ) {
       // console.log("-, op: --1px or --1")
-      return "op"
+      return "op";
     }
 
     // `<sth> -string`, `<sth> -#{...}`
-    if (isStringAfter(after) || isInterpolationAfter_.is &&
-      !isInterpolationAfter_.opsBefore
+    if (
+      isStringAfter(after) ||
+      (isInterpolationAfter_.is && !isInterpolationAfter_.opsBefore)
     ) {
       // console.log("-, char: -#{...}")
-      return "char"
+      return "char";
     }
 
     // e.g. `#0af -#f0a`, and edge-cases can take a hike
     if (isHexColorAfter(after) && isHexColorBefore(before.trim())) {
       // console.log("-, op: #fff-, -#fff")
-      return "op"
+      return "op";
     }
 
     // If the - is before a variable, than it's most likely an operator
     if (after[0] === "$") {
       if (isPrecedingOperator_) {
         // console.log("-, sign: -$var, another operator before")
-        return "sign"
+        return "sign";
       }
       // console.log("-, op: -$var, NO other operator before")
-      return "op"
+      return "op";
     }
 
     // By default let's make it an sign for now
     // console.log('-, sign: default in <sth> -<sth>')
-    return "sign"
+    return "sign";
   }
 
   // No whitespace before,
@@ -378,15 +393,15 @@ function checkMinus(string, index) {
   if (!isAtEnd_ && !isAtStart_ && !isWhitespaceBefore && isWhitespaceAfter) {
     if (isParensBefore_) {
       // console.log('-, op: `(...)- <sth>`')
-      return "op"
+      return "op";
     }
 
     if (isNumberBefore(before) || isHexColorBefore(before)) {
       // console.log('`-, op: 10- <sth>, #aff- <sth>`')
-      return "op"
+      return "op";
     }
     // console.log('-, char: default in <sth>- <sth>')
-    return "char"
+    return "char";
   }
 
   // NO Whitespace,
@@ -395,13 +410,13 @@ function checkMinus(string, index) {
     // console.log('no spaces')
     // `<something>-1`, `<something>-10px`
     if (
-      isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween ||
-      isNumberAfter_.is && !isNumberAfter_.opsBetween
+      (isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
+      (isNumberAfter_.is && !isNumberAfter_.opsBetween)
     ) {
       // `10px-1`, `1-10px`, `1-1`, `1x-1x`
       if (isValueWithUnitBefore_ || isNumberBefore_) {
         // console.log("-, op: 1-10px")
-        return "op"
+        return "op";
       }
 
       // The - could be a "sign" here, but for now "char" does the job
@@ -409,22 +424,23 @@ function checkMinus(string, index) {
     // `1-$var`
     if (isNumberBefore_ && after[0] === "$") {
       // console.log("-, op: 1-$var")
-      return "op"
+      return "op";
     }
 
     // `fn()-10px`
-    if (isFunctionBefore(before) && (
-      isNumberAfter_.is && !isNumberAfter_.opsBetween ||
-      isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween
-    )) {
+    if (
+      isFunctionBefore(before) &&
+      ((isNumberAfter_.is && !isNumberAfter_.opsBetween) ||
+        (isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween))
+    ) {
       // console.log("-, op: fn()-10px")
-      return "op"
+      return "op";
     }
   }
 
   // And in all the other cases it's a characher inside a string
   // console.log("-, default: char")
-  return "char"
+  return "char";
 }
 
 /**
@@ -442,26 +458,26 @@ function checkMinus(string, index) {
  */
 function checkSlash(string, index, isAftercolon) {
   // Trimming these, as spaces before/after a slash don't matter
-  const before = string.substring(0, index).trim()
-  const after = string.substring(index + 1).trim()
+  const before = string.substring(0, index).trim();
+  const after = string.substring(index + 1).trim();
 
-  const isValueWithUnitAfter_ = isValueWithUnitAfter(after)
-  const isValueWithUnitBefore_ = isValueWithUnitBefore(before)
-  const isNumberAfter_ = isNumberAfter(after)
-  const isNumberBefore_ = isNumberBefore(before)
-  const isParensAfter_ = isParensAfter(after)
-  const isParensBefore_ = isParensBefore(before)
+  const isValueWithUnitAfter_ = isValueWithUnitAfter(after);
+  const isValueWithUnitBefore_ = isValueWithUnitBefore(before);
+  const isNumberAfter_ = isNumberAfter(after);
+  const isNumberBefore_ = isNumberBefore(before);
+  const isParensAfter_ = isParensAfter(after);
+  const isParensBefore_ = isParensBefore(before);
 
   // FIRST OFF. Interpolation on any of the sides is a NO-GO for division op
   if (isInterpolationBefore(before).is || isInterpolationAfter(after).is) {
     // console.log("/, interpolation")
-    return "char"
+    return "char";
   }
 
   // e.g. `10px/normal`
   if (isStringBefore(before).is || isStringAfter(after)) {
     // console.log("/, string")
-    return "char"
+    return "char";
   }
 
   // For all other value options (numbers, value+unit, hex color)
@@ -470,25 +486,26 @@ function checkSlash(string, index, isAftercolon) {
   // Here we don't care if there is a sign before the var
   if (isVariableBefore(before) || isVariableAfter(after).is) {
     // console.log("/, variable")
-    return "op"
+    return "op";
   }
 
   if (isFunctionBefore(before) || isFunctionAfter(after).is) {
     // console.log("/, function as operand")
-    return "op"
+    return "op";
   }
 
   if (isParensBefore_ || isParensAfter_.is) {
     // console.log("/, function as operand")
-    return "op"
+    return "op";
   }
 
   // `$var: 10px/2; // 5px`
-  if (isAftercolon === true && (
-    (isValueWithUnitAfter_.is || isNumberAfter_.is) &&
-    (isValueWithUnitBefore_ || isNumberBefore_)
-  )) {
-    return "op"
+  if (
+    isAftercolon === true &&
+    ((isValueWithUnitAfter_.is || isNumberAfter_.is) &&
+      (isValueWithUnitBefore_ || isNumberBefore_))
+  ) {
+    return "op";
   }
 
   // Quick check of the following operator symbol - if it is a math operator
@@ -497,7 +514,6 @@ function checkSlash(string, index, isAftercolon) {
     before.search(/[^{,(}\s]\s*[+*%]\s*[^(){},]+$/) !== -1 ||
     // We consider minus as op only if surrounded by whitespaces (` - `);
     before.search(/[^{,(}\s]\s+-\s+[^(){},]+$/) !== -1 ||
-
     // `10/2 * 3`, `10/2 % 3`, with or without spaces
     after.search(/^[^(){},]+[*%]/) !== -1 ||
     // `10px/2px+1`, `10px/2px+ 1`
@@ -512,18 +528,21 @@ function checkSlash(string, index, isAftercolon) {
     after.search(/^(\d*\.){0,1}\d+-\s*[^#a-zA-Z_\s]/) !== -1
   ) {
     // console.log("/, math op around")
-    return "op"
+    return "op";
   }
 
   // e.g. `(1px/1)`, `fn(7 / 15)`, but not `url(8/11)`
-  const isInsideFn = isInsideFunctionCall(string, index)
-  if (isInsideParens(string, index) || isInsideFn.is && isInsideFn.fn !== "url") {
+  const isInsideFn = isInsideFunctionCall(string, index);
+  if (
+    isInsideParens(string, index) ||
+    (isInsideFn.is && isInsideFn.fn !== "url")
+  ) {
     // console.log("/, parens or function arg")
-    return "op"
+    return "op";
   }
 
   // console.log("/, default")
-  return "char"
+  return "char";
 }
 
 /**
@@ -538,50 +557,53 @@ function checkSlash(string, index, isAftercolon) {
  */
 function checkPercent(string, index) {
   // Trimming these, as spaces before/after a slash don't matter
-  const before = string.substring(0, index)
-  const after = string.substring(index + 1)
+  const before = string.substring(0, index);
+  const after = string.substring(index + 1);
 
   // If the character is at the beginning of the input
-  const isAtStart_ = isAtStart(string, index)
+  const isAtStart_ = isAtStart(string, index);
   // If the character is at the end of the input
-  const isAtEnd_ = isAtEnd(string, index)
-  const isWhitespaceBefore = before.search(/\s$/) !== -1
-  const isWhitespaceAfter = after.search(/^\s/) !== -1
+  const isAtEnd_ = isAtEnd(string, index);
+  const isWhitespaceBefore = before.search(/\s$/) !== -1;
+  const isWhitespaceAfter = after.search(/^\s/) !== -1;
 
-  const isParensBefore_ = isParensBefore(before)
+  const isParensBefore_ = isParensBefore(before);
 
   // FIRST OFF. Interpolation on any of the sides is a NO-GO
-  if (isInterpolationBefore(before.trim()).is || isInterpolationAfter(after.trim()).is) {
+  if (
+    isInterpolationBefore(before.trim()).is ||
+    isInterpolationAfter(after.trim()).is
+  ) {
     // console.log("%, interpolation")
-    return "char"
+    return "char";
   }
 
   if (isAtStart_ || isAtEnd_) {
     // console.log("%, start/end")
-    return "char"
+    return "char";
   }
 
   // In `<sth> %<sth>` it's most likely an operator (except for inteprolation
   // checked above)
   if (isWhitespaceBefore && !isWhitespaceAfter) {
     // console.log("%, `<sth> %<sth>`")
-    return "op"
+    return "op";
   }
 
   // `$var% 1`, `$var%1`, `$var%-1`
   if (isVariableBefore(before) || isParensBefore_) {
     // console.log("%, after a variable, function or parens")
-    return "op"
+    return "op";
   }
 
   // in all other cases in `<sth>% <sth>` it is most likely a unit
   if (!isWhitespaceBefore && isWhitespaceAfter) {
     // console.log("%, `<sth>% <sth>`")
-    return "char"
+    return "char";
   }
 
   // console.log("%, default")
-  return "char"
+  return "char";
 }
 
 // --------------------------------------------------------------------------
@@ -589,35 +611,35 @@ function checkPercent(string, index) {
 // --------------------------------------------------------------------------
 
 function isAtStart(string, index) {
-  const before = string.substring(0, index).trim()
-  return before.length === 0 || before.search(/[({,]$/) !== -1
+  const before = string.substring(0, index).trim();
+  return before.length === 0 || before.search(/[({,]$/) !== -1;
 }
 
 function isAtEnd(string, index) {
-  const after = string.substring(index + 1).trim()
-  return after.length === 0 || after.search(/^[,)}]/) !== -1
+  const after = string.substring(index + 1).trim();
+  return after.length === 0 || after.search(/^[,)}]/) !== -1;
 }
 
 function isInsideParens(string, index) {
-  const before = string.substring(0, index).trim()
-  const after = string.substring(index + 1).trim()
+  const before = string.substring(0, index).trim();
+  const after = string.substring(index + 1).trim();
 
   if (
     before.search(/(?:^|[,{]|\s)\(\s*[^(){},]+$/) !== -1 &&
     after.search(/^[^(){},\s]+\s*\)/) !== -1
   ) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
 function isInsideInterpolation(string, index) {
-  const before = string.substring(0, index).trim()
+  const before = string.substring(0, index).trim();
 
   if (before.search(/#\{[^}]*$/) !== -1) {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
 /**
@@ -630,17 +652,17 @@ function isInsideInterpolation(string, index) {
  *    {String} return.fn - function name
  */
 function isInsideFunctionCall(string, index) {
-  const result = { is: false, fn: null }
-  const before = string.substring(0, index).trim()
-  const after = string.substring(index + 1).trim()
-  const beforeMatch = before.match(/([a-zA-Z_-][a-zA-Z0-9_-]*)\([^(){},]+$/)
+  const result = { is: false, fn: null };
+  const before = string.substring(0, index).trim();
+  const after = string.substring(index + 1).trim();
+  const beforeMatch = before.match(/([a-zA-Z_-][a-zA-Z0-9_-]*)\([^(){},]+$/);
 
   if (beforeMatch && beforeMatch[0] && after.search(/^[^({},]+\)/) !== -1) {
-    result.is = true
-    result.fn = beforeMatch[1]
+    result.is = true;
+    result.fn = beforeMatch[1];
   }
 
-  return result
+  return result;
 }
 
 /**
@@ -653,63 +675,77 @@ function isInsideFunctionCall(string, index) {
  *    {String} return.opsBetween - if there are operators in between
  */
 function isStringBefore(before) {
-  const result = { is: false, opsBetween: false }
-  const stringOpsClipped = before.replace(/(\s*[+/*%]|\s+-)+$/, "")
+  const result = { is: false, opsBetween: false };
+  const stringOpsClipped = before.replace(/(\s*[+/*%]|\s+-)+$/, "");
 
-  if (stringOpsClipped !== before) { result.opsBetween = true }
+  if (stringOpsClipped !== before) {
+    result.opsBetween = true;
+  }
   // If it is quoted
-  if (stringOpsClipped[stringOpsClipped.length - 1] == "\"" ||
-    stringOpsClipped[stringOpsClipped.length - 1] == "'"
+  if (
+    stringOpsClipped[stringOpsClipped.length - 1] === '"' ||
+    stringOpsClipped[stringOpsClipped.length - 1] === "'"
   ) {
-    result.is = true
+    result.is = true;
   } else if (
-    stringOpsClipped.search(/(?:^|[/(){},: ])([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)$/) !== -1
+    stringOpsClipped.search(
+      /(?:^|[/(){},: ])([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)$/
+    ) !== -1
   ) {
-    // First pattern: a1, a1a, a-1, 
-    result.is = true
+    // First pattern: a1, a1a, a-1,
+    result.is = true;
   }
 
-  return result
+  return result;
 }
 
 function isStringAfter(after) {
-  const stringTrimmed = after.trim()
+  const stringTrimmed = after.trim();
 
   // If it is quoted
-  if (stringTrimmed[0] == "\"" ||
-    stringTrimmed[0] == "'"
+  if (stringTrimmed[0] === '"' || stringTrimmed[0] === "'") return true;
+
+  // e.g. `a1`, `a1a`, `a-1`, and even `--s323`
+  if (
+    stringTrimmed.search(
+      /^([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)(?:$|[)}, ])/
+    ) !== -1
   )
-    return true
+    return true;
 
-  // e.g. `a1`, `a1a`, `a-1`, and even `--s323` 
-  if (stringTrimmed.search(/^([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)(?:$|[)}, ])/) !== -1)
-    return true
-
-  return false
+  return false;
 }
 
 function isInterpolationAfter(after) {
-  const result = { is: false, opsBetween: false }
-  const matches = after.match(/^\s*([+/*%-]\s*)*#{/)
+  const result = { is: false, opsBetween: false };
+  const matches = after.match(/^\s*([+/*%-]\s*)*#{/);
   if (matches) {
-    if (matches[0]) { result.is = true }
-    if (matches[1]) { result.opsBetween = true }
+    if (matches[0]) {
+      result.is = true;
+    }
+    if (matches[1]) {
+      result.opsBetween = true;
+    }
   }
-  return result
+  return result;
 }
 
 function isParensAfter(after) {
-  const result = { is: false, opsBetween: false }
-  const matches = after.match(/^\s*([+/*%-]\s*)*\(/)
+  const result = { is: false, opsBetween: false };
+  const matches = after.match(/^\s*([+/*%-]\s*)*\(/);
   if (matches) {
-    if (matches[0]) { result.is = true }
-    if (matches[1]) { result.opsBetween = true }
+    if (matches[0]) {
+      result.is = true;
+    }
+    if (matches[1]) {
+      result.opsBetween = true;
+    }
   }
-  return result
+  return result;
 }
 
 function isParensBefore(before) {
-  return before.search(/\)\s*$/) !== -1
+  return before.search(/\)\s*$/) !== -1;
 }
 
 /**
@@ -722,14 +758,16 @@ function isParensBefore(before) {
  *    {String} return.opsBetween - if there are operators in between
  */
 function isInterpolationBefore(before) {
-  const result = { is: false, opsBetween: false }
+  const result = { is: false, opsBetween: false };
   // Removing preceding operators if any
-  const beforeOpsClipped = before.replace(/(\s*[+/*%-])+$/, "")
-  if (beforeOpsClipped !== before) { result.opsBetween = true }
-  if (beforeOpsClipped[beforeOpsClipped.length - 1] === "}") {
-    result.is = true
+  const beforeOpsClipped = before.replace(/(\s*[+/*%-])+$/, "");
+  if (beforeOpsClipped !== before) {
+    result.opsBetween = true;
   }
-  return result
+  if (beforeOpsClipped[beforeOpsClipped.length - 1] === "}") {
+    result.is = true;
+  }
+  return result;
 }
 
 function isValueWithUnitBefore(before) {
@@ -737,73 +775,93 @@ function isValueWithUnitBefore(before) {
   // Surprisingly, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
   if (before.trim().search(/(^|[/(, ]|\.)\d[a-zA-Z_0-9-]+$/) !== -1) {
-    return true
+    return true;
   }
 
-  return false
+  return false;
 }
 
 function isValueWithUnitAfter(after) {
-  const result = { is: false, opsBetween: false }
+  const result = { is: false, opsBetween: false };
   // 1px, 0.1p-x, .2p-, 11.2pdf-dfd1f_
   // Again, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
-  const matches = after.match(/^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)[a-zA-Z_0-9-]+(?:$|[)}, ])/)
+  const matches = after.match(
+    /^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)[a-zA-Z_0-9-]+(?:$|[)}, ])/
+  );
   if (matches) {
-    if (matches[0]) { result.is = true }
-    if (matches[1]) { result.opsBetween = true }
+    if (matches[0]) {
+      result.is = true;
+    }
+    if (matches[1]) {
+      result.opsBetween = true;
+    }
   }
-  return result
+  return result;
 }
 
 function isNumberAfter(after) {
-  const result = { is: false, opsBetween: false }
-  const matches =
-    after.match(/^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)(?:$|[)}, ])/)
+  const result = { is: false, opsBetween: false };
+  const matches = after.match(
+    /^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)(?:$|[)}, ])/
+  );
   if (matches) {
-    if (matches[0]) { result.is = true }
-    if (matches[1]) { result.opsBetween = true }
+    if (matches[0]) {
+      result.is = true;
+    }
+    if (matches[1]) {
+      result.opsBetween = true;
+    }
   }
-  return result
+  return result;
 }
 
 function isNumberBefore(before) {
   if (before.trim().search(/(?:^|[/(){},\s])(\d+(\.\d+){0,1}|\.\d+)$/) !== -1) {
-    return true
+    return true;
   }
 
-  return false
+  return false;
 }
 
 function isVariableBefore(before) {
-  return before.trim().search(/\$[a-zA-Z_0-9-]+$/) !== -1
+  return before.trim().search(/\$[a-zA-Z_0-9-]+$/) !== -1;
 }
 
 function isVariableAfter(after) {
-  const result = { is: false, opsBetween: false }
-  const matches = after.match(/^\s*([+/*%-]\s*)*\$/)
+  const result = { is: false, opsBetween: false };
+  const matches = after.match(/^\s*([+/*%-]\s*)*\$/);
   if (matches) {
-    if (matches[0]) { result.is = true }
-    if (matches[1]) { result.opsBetween = true }
+    if (matches[0]) {
+      result.is = true;
+    }
+    if (matches[1]) {
+      result.opsBetween = true;
+    }
   }
-  return result
+  return result;
 }
 
 function isFunctionBefore(before) {
-  return before.trim().search(/[a-zA-Z0-9_-]\(.*?\)\s*$/) !== -1
+  return before.trim().search(/[a-zA-Z0-9_-]\(.*?\)\s*$/) !== -1;
 }
 
 function isFunctionAfter(after) {
-  const result = { is: false, opsBetween: false }
+  const result = { is: false, opsBetween: false };
   // `-fn()` is a valid function name, so if a - should be a sign/operator,
   // it must have a space after
-  const matches =
-    after.match(/^\s*(-\s+|[+/*%]\s*)*[a-zA_Z_-][a-zA-Z_0-9-]*\(/)
+  const matches = after.match(
+    /^\s*(-\s+|[+/*%]\s*)*[a-zA_Z_-][a-zA-Z_0-9-]*\(/
+  );
   if (matches) {
-    if (matches[0]) { result.is = true }
-    if (matches[1]) { result.opsBetween = true }
+    if (matches[0]) {
+      result.is = true;
+    }
+    if (matches[1]) {
+      result.opsBetween = true;
+    }
   }
-  return result
+  return result;
 }
 
 /**
@@ -813,20 +871,23 @@ function isFunctionAfter(after) {
  * @return {Boolean} true, if the input is a hex color
  */
 function isHexColor(string) {
-  return string.trim().search(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !== -1
+  return string.trim().search(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !== -1;
 }
 
 function isHexColorAfter(after) {
-  const afterTrimmed = after.match(/(.*?)(?:[)},+/*%-]|\s|$)/)[1].trim()
-  return isHexColor(afterTrimmed)
+  const afterTrimmed = after.match(/(.*?)(?:[)},+/*%-]|\s|$)/)[1].trim();
+  return isHexColor(afterTrimmed);
 }
 
 function isHexColorBefore(before) {
-  if (before.search(/(?:[/(){},+/*%-\s]|^)#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !== -1) {
-    return true
+  if (
+    before.search(/(?:[/(){},+/*%-\s]|^)#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !==
+    -1
+  ) {
+    return true;
   }
 
-  return false
+  return false;
 }
 
 /**
@@ -839,26 +900,26 @@ function isHexColorBefore(before) {
  * @return {Boolean}
  */
 function isNoOperandBefore(string, index) {
-  const before = string.substring(0, index).trim()
-  return before.length === 0 || before.search(/[({,]&/) !== -1
+  const before = string.substring(0, index).trim();
+  return before.length === 0 || before.search(/[({,]&/) !== -1;
 }
 
 function isPrecedingOperator(string, index) {
-  let prevCharIndex = -1
+  let prevCharIndex = -1;
   for (let i = index - 1; i >= 0; i--) {
     if (string[i].search(/\s/) === -1) {
-      prevCharIndex = i
-      break
+      prevCharIndex = i;
+      break;
     }
   }
 
   if (prevCharIndex === -1) {
-    return false
+    return false;
   }
 
   if (mathOperatorCharType(string, prevCharIndex) === "op") {
-    return true
+    return true;
   }
 
-  return false
+  return false;
 }
