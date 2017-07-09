@@ -23,5 +23,3 @@ before_install:
   - npm update
 after_success:
   - if [ "$CI" = "coverage" ]; then cat ./.coverage/lcov.info | ./node_modules/.bin/coveralls; fi
-
-after_success: npm run coveralls
