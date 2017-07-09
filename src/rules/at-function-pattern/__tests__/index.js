@@ -1,4 +1,3 @@
-import testRule from "stylelint-test-rule-tape";
 import rule, { ruleName, messages } from "..";
 
 // Testing against a ragex, sequence part

@@ -1,9 +1,7 @@
-import testRule from "stylelint-test-rule-tape";
 import rule, { ruleName, messages } from "..";
 
 import postcss from "postcss";
 import scss from "postcss-scss";
-import test from "tape";
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
@@ -1591,331 +1589,331 @@ testRule(rule, {
 
 // ---- just operations without whitespaces on any of the sides ----
 
-test("+ without whitespaces: `#{$var}+#ffc`.", t => {
-  t.plan(5);
+test("+ without whitespaces: `#{$var}+#ffc`.", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: #{$var}+#ffc; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("+"));
-      t.equal(warnings[0].column, 19);
-      t.equal(warnings[1].text, messages.expectedAfter("+"));
-      t.equal(warnings[1].column, 19);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
+      expect(warnings[0].column).toBe(19);
+      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
+      expect(warnings[1].column).toBe(19);
     })
     .catch(logError);
 });
 
-test("+ without whitespaces: `1+1s`.", t => {
-  t.plan(5);
+test("+ without whitespaces: `1+1s`.", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: 1+1s; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("+"));
-      t.equal(warnings[0].column, 13);
-      t.equal(warnings[1].text, messages.expectedAfter("+"));
-      t.equal(warnings[1].column, 13);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
+      expect(warnings[0].column).toBe(13);
+      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
+      expect(warnings[1].column).toBe(13);
     })
     .catch(logError);
 });
 
-test("- without whitespaces: `5px-3px`.", t => {
-  t.plan(5);
+test("- without whitespaces: `5px-3px`.", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: 5px-3px; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("-"));
-      t.equal(warnings[0].column, 15);
-      t.equal(warnings[1].text, messages.expectedAfter("-"));
-      t.equal(warnings[1].column, 15);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
+      expect(warnings[0].column).toBe(15);
+      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
+      expect(warnings[1].column).toBe(15);
     })
     .catch(logError);
 });
 
-test("- without whitespaces: `.1px-1px`.", t => {
-  t.plan(5);
+test("- without whitespaces: `.1px-1px`.", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: .1px-1px; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("-"));
-      t.equal(warnings[0].column, 16);
-      t.equal(warnings[1].text, messages.expectedAfter("-"));
-      t.equal(warnings[1].column, 16);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
+      expect(warnings[0].column).toBe(16);
+      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
+      expect(warnings[1].column).toBe(16);
     })
     .catch(logError);
 });
 
-test("- without whitespaces: `s.1px-1`.", t => {
-  t.plan(5);
+test("- without whitespaces: `s.1px-1`.", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: s.1px-1; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("-"));
-      t.equal(warnings[0].column, 17);
-      t.equal(warnings[1].text, messages.expectedAfter("-"));
-      t.equal(warnings[1].column, 17);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
+      expect(warnings[0].column).toBe(17);
+      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
+      expect(warnings[1].column).toBe(17);
     })
     .catch(logError);
 });
 
-test("fn()-1", t => {
-  t.plan(5);
+test("fn()-1", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: fn()-1; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("-"));
-      t.equal(warnings[0].column, 16);
-      t.equal(warnings[1].text, messages.expectedAfter("-"));
-      t.equal(warnings[1].column, 16);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
+      expect(warnings[0].column).toBe(16);
+      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
+      expect(warnings[1].column).toBe(16);
     })
     .catch(logError);
 });
 
-test("fn()/1", t => {
-  t.plan(5);
+test("fn()/1", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: fn()/1; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("/"));
-      t.equal(warnings[0].column, 16);
-      t.equal(warnings[1].text, messages.expectedAfter("/"));
-      t.equal(warnings[1].column, 16);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("/"));
+      expect(warnings[0].column).toBe(16);
+      expect(warnings[1].text).toBe(messages.expectedAfter("/"));
+      expect(warnings[1].column).toBe(16);
     })
     .catch(logError);
 });
 
 // ---- Equity operators ----
 
-test("$var==1", t => {
-  t.plan(5);
+test("$var==1", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: $var==1; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("=="));
-      t.equal(warnings[0].column, 16);
-      t.equal(warnings[1].text, messages.expectedAfter("=="));
-      t.equal(warnings[1].column, 17);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("=="));
+      expect(warnings[0].column).toBe(16);
+      expect(warnings[1].text).toBe(messages.expectedAfter("=="));
+      expect(warnings[1].column).toBe(17);
     })
     .catch(logError);
 });
 
-test("var==var", t => {
-  t.plan(5);
+test("var==var", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: var==var; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("=="));
-      t.equal(warnings[0].column, 15);
-      t.equal(warnings[1].text, messages.expectedAfter("=="));
-      t.equal(warnings[1].column, 16);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("=="));
+      expect(warnings[0].column).toBe(15);
+      expect(warnings[1].text).toBe(messages.expectedAfter("=="));
+      expect(warnings[1].column).toBe(16);
     })
     .catch(logError);
 });
 
 // ---- Slash, another operation after ----
 
-test("8px/2px +$var`.", t => {
-  t.plan(1);
+test("8px/2px +$var`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px +$var; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
 
-test("#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so it gives warnings).", t => {
-  t.plan(5);
+test("#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so it gives warnings).", () => {
+  expect.assertions(5);
   postcss([rule()])
     .process("a { width: #{$var}+8px/2px; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(warnings[0].text, messages.expectedBefore("+"));
-      t.equal(warnings[0].column, 19);
-      t.equal(warnings[1].text, messages.expectedAfter("+"));
-      t.equal(warnings[1].column, 19);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
+      expect(warnings[0].column).toBe(19);
+      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
+      expect(warnings[1].column).toBe(19);
     })
     .catch(logError);
 });
-test("8px/2px+ $var`.", t => {
-  t.plan(1);
+test("8px/2px+ $var`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px+ $var; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
-test("8px/2px +fn()`.", t => {
-  t.plan(1);
+test("8px/2px +fn()`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px +fn(); }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
-test("8px/2px+ fn()`.", t => {
-  t.plan(1);
+test("8px/2px+ fn()`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px+ fn(); }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
-test("8px/2px+ 5px`.", t => {
-  t.plan(1);
+test("8px/2px+ 5px`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px+ 5px; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
-test("8px/2px+ 5`.", t => {
-  t.plan(1);
+test("8px/2px+ 5`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px+ 5; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
 
-test("8px/2px -$var`.", t => {
-  t.plan(1);
+test("8px/2px -$var`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px -$var; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
-test("8px/2-$var`.", t => {
-  t.plan(1);
+test("8px/2-$var`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2-$var; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 4);
+      expect(warnings.length).toBe(4);
     })
     .catch(logError);
 });
-test("8px/2- $var`.", t => {
-  t.plan(1);
+test("8px/2- $var`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2- $var; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
-test("8px/2- 5px`.", t => {
-  t.plan(1);
+test("8px/2- 5px`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2- 5px; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3);
+      expect(warnings.length).toBe(3);
     })
     .catch(logError);
 });
-test("8px/2px-5px`.", t => {
-  t.plan(1);
+test("8px/2px-5px`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px-5px; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 4);
+      expect(warnings.length).toBe(4);
     })
     .catch(logError);
 });
-test("8px/2-5px`.", t => {
-  t.plan(1);
+test("8px/2-5px`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2-5px; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 4);
+      expect(warnings.length).toBe(4);
     })
     .catch(logError);
 });
-test("8px/2px-5`.", t => {
-  t.plan(1);
+test("8px/2px-5`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2px-5; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 4);
+      expect(warnings.length).toBe(4);
     })
     .catch(logError);
 });
-test("8px/2-5`.", t => {
-  t.plan(1);
+test("8px/2-5`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 8px/2-5; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 4);
+      expect(warnings.length).toBe(4);
     })
     .catch(logError);
 });
 
 // Slash, operation before
 
-test("5+8px/2`.", t => {
-  t.plan(1);
+test("5+8px/2`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 5+8px/2; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 4);
+      expect(warnings.length).toBe(4);
     })
     .catch(logError);
 });
-test("5px*8px/2`.", t => {
-  t.plan(1);
+test("5px*8px/2`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 5px*8px/2; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 4);
+      expect(warnings.length).toBe(4);
     })
     .catch(logError);
 });
-test("5px - 8px/2`.", t => {
-  t.plan(1);
+test("5px - 8px/2`.", () => {
+  expect.assertions(1);
   postcss([rule()])
     .process("a { width: 5px - 8px/2; }", { syntax: scss })
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
+      expect(warnings.length).toBe(2);
     })
     .catch(logError);
 });

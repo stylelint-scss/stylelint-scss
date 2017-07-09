@@ -1,14 +1,13 @@
 import { isInlineComment } from "../";
 import postcss from "postcss";
 import scss from "postcss-scss";
-import test from "tape";
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
 }
 
-test("Single-line comment, after ruleset.", t => {
-  t.plan(1);
+test("Single-line comment, after ruleset.", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -19,14 +18,14 @@ test("Single-line comment, after ruleset.", t => {
     )
     .then(result => {
       result.root.walkComments(comment => {
-        t.equal(isInlineComment(comment), true);
+        expect(isInlineComment(comment)).toBe(true);
       });
     })
     .catch(logError);
 });
 
-test("CSS comment, after ruleset.", t => {
-  t.plan(1);
+test("CSS comment, after ruleset.", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -37,14 +36,14 @@ test("CSS comment, after ruleset.", t => {
     )
     .then(result => {
       result.root.walkComments(comment => {
-        t.equal(isInlineComment(comment), true);
+        expect(isInlineComment(comment)).toBe(true);
       });
     })
     .catch(logError);
 });
 
-test("Single-line comment, after a decl.", t => {
-  t.plan(1);
+test("Single-line comment, after a decl.", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -57,14 +56,14 @@ test("Single-line comment, after a decl.", t => {
     )
     .then(result => {
       result.root.walkComments(comment => {
-        t.equal(isInlineComment(comment), true);
+        expect(isInlineComment(comment)).toBe(true);
       });
     })
     .catch(logError);
 });
 
-test("CSS comment, before a decl.", t => {
-  t.plan(1);
+test("CSS comment, before a decl.", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -77,14 +76,14 @@ test("CSS comment, before a decl.", t => {
     )
     .then(result => {
       result.root.walkComments(comment => {
-        t.equal(isInlineComment(comment), true);
+        expect(isInlineComment(comment)).toBe(true);
       });
     })
     .catch(logError);
 });
 
-test("Inline comment, after a {.", t => {
-  t.plan(1);
+test("Inline comment, after a {.", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -97,14 +96,14 @@ test("Inline comment, after a {.", t => {
     )
     .then(result => {
       result.root.walkComments(comment => {
-        t.equal(isInlineComment(comment), true);
+        expect(isInlineComment(comment)).toBe(true);
       });
     })
     .catch(logError);
 });
 
-test("Inline comment, after a selector (in a list). IGNORED.", t => {
-  t.plan(1);
+test("Inline comment, after a selector (in a list). IGNORED.", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -121,13 +120,13 @@ test("Inline comment, after a selector (in a list). IGNORED.", t => {
       result.root.walkComments(comment => {
         res = isInlineComment(comment);
       });
-      t.equal(res, null);
+      expect(res).toBe(null);
     })
     .catch(logError);
 });
 
-test("Inline comment, after a selector, comment prior. IGNORED.", t => {
-  t.plan(1);
+test("Inline comment, after a selector, comment prior. IGNORED.", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -144,13 +143,13 @@ test("Inline comment, after a selector, comment prior. IGNORED.", t => {
       result.root.walkComments(comment => {
         res = isInlineComment(comment);
       });
-      t.equal(res, null);
+      expect(res).toBe(null);
     })
     .catch(logError);
 });
 
-test("Multi-line comment, after a ruleset (new line).", t => {
-  t.plan(1);
+test("Multi-line comment, after a ruleset (new line).", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -162,14 +161,14 @@ test("Multi-line comment, after a ruleset (new line).", t => {
     )
     .then(result => {
       result.root.walkComments(comment => {
-        t.equal(isInlineComment(comment), false);
+        expect(isInlineComment(comment)).toBe(false);
       });
     })
     .catch(logError);
 });
 
-test("Single-line comment, after a ruleset (new line).", t => {
-  t.plan(1);
+test("Single-line comment, after a ruleset (new line).", () => {
+  expect.assertions(1);
 
   postcss()
     .process(
@@ -181,7 +180,7 @@ test("Single-line comment, after a ruleset (new line).", t => {
     )
     .then(result => {
       result.root.walkComments(comment => {
-        t.equal(isInlineComment(comment), false);
+        expect(isInlineComment(comment)).toBe(false);
       });
     })
     .catch(logError);

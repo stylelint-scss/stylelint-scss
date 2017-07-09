@@ -1,8 +1,6 @@
 import rule, { ruleName, messages } from "../";
-import testRule from "stylelint-test-rule-tape";
 
 import postcss from "postcss";
-import test from "tape";
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
@@ -111,8 +109,8 @@ testRule(rule, {
 
 // Warnings
 
-test("2 groups of the same namespace.", t => {
-  t.plan(6);
+test("2 groups of the same namespace.", () => {
+  expect.assertions(6);
   postcss([rule(undefined)])
     .process(
       `
@@ -128,18 +126,18 @@ test("2 groups of the same namespace.", t => {
     )
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2, "Number of props reported");
-      t.equal(warnings[0].text, messages.expected("background"), "Message");
-      t.equal(warnings[0].line, 3, "Line number");
-      t.equal(warnings[0].column, 9, "Column");
-      t.equal(warnings[1].text, messages.expected("background"), "Message");
-      t.equal(warnings[1].line, 6);
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expected("background"));
+      expect(warnings[0].line).toBe(3);
+      expect(warnings[0].column).toBe(9);
+      expect(warnings[1].text).toBe(messages.expected("background"));
+      expect(warnings[1].line).toBe(6);
     })
     .catch(logError);
 });
 
-test("3 groups, 1 and 3 has the same namespace", t => {
-  t.plan(5);
+test("3 groups, 1 and 3 has the same namespace", () => {
+  expect.assertions(5);
   postcss([rule(undefined)])
     .process(
       `
@@ -159,25 +157,17 @@ test("3 groups, 1 and 3 has the same namespace", t => {
     )
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2, "Number of props reported");
-      t.equal(
-        warnings[0].text,
-        messages.expected("background"),
-        "Message (+prop name)"
-      );
-      t.equal(warnings[0].line, 3, "Line number");
-      t.equal(warnings[1].line, 10);
-      t.equal(
-        warnings[1].text,
-        messages.expected("background"),
-        "Message (+prop name)"
-      );
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(messages.expected("background"));
+      expect(warnings[0].line).toBe(3);
+      expect(warnings[1].line).toBe(10);
+      expect(warnings[1].text).toBe(messages.expected("background"));
     })
     .catch(logError);
 });
 
-test("3 groups of the same namespace", t => {
-  t.plan(6);
+test("3 groups of the same namespace", () => {
+  expect.assertions(6);
   postcss([rule(undefined)])
     .process(
       `
@@ -197,20 +187,12 @@ test("3 groups of the same namespace", t => {
     )
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 3, "Number of props reported");
-      t.equal(
-        warnings[0].text,
-        messages.expected("background"),
-        "Message (+prop name)"
-      );
-      t.equal(warnings[0].line, 3, "Line number");
-      t.equal(
-        warnings[1].text,
-        messages.expected("background"),
-        "Message (+prop name)"
-      );
-      t.equal(warnings[1].line, 6);
-      t.equal(warnings[2].line, 10);
+      expect(warnings.length).toBe(3);
+      expect(warnings[0].text).toBe(messages.expected("background"));
+      expect(warnings[0].line).toBe(3);
+      expect(warnings[1].text).toBe(messages.expected("background"));
+      expect(warnings[1].line).toBe(6);
+      expect(warnings[2].line).toBe(10);
     })
     .catch(logError);
 });
