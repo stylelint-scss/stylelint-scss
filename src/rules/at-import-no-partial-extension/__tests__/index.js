@@ -5,7 +5,6 @@
 import rule /* , { ruleName, messages } */ from "..";
 
 import postcss from "postcss";
-import test from "tape";
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
@@ -223,20 +222,18 @@ testRule(rule, {
 }) */
 
 // Test that consider the deprecation warning
-test("Test that considers the deprecation warning", t => {
-  t.plan(4);
+test("Test that considers the deprecation warning", () => {
+  expect.assertions(4);
   postcss([rule()])
     .process("@import 'fff.less';")
     .then(result => {
       const warnings = result.warnings();
-      t.equal(warnings.length, 2);
-      t.equal(
-        warnings[0].text,
+      expect(warnings.length).toBe(2);
+      expect(warnings[0].text).toBe(
         "The 'at-import-no-partial-extension' rule has been deprecated, and will be removed in '2.0'. Instead, use 'at-import-partial-extension-blacklist' or 'at-import-partial-extension-whitelist' rules."
       );
-      t.equal(warnings[0].stylelintType, "deprecation");
-      t.equal(
-        warnings[1].text,
+      expect(warnings[0].stylelintType).toBe("deprecation");
+      expect(warnings[1].text).toBe(
         "Unexpected file extension in imported partial name (scss/at-import-no-partial-extension)"
       );
     })

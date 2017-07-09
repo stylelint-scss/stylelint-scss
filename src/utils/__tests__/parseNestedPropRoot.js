@@ -1,16 +1,15 @@
 import { parseNestedPropRoot } from "../";
-import test from "tape";
 
 // --------------------------------------------------------------------------
 // nested props
 // --------------------------------------------------------------------------
 
-test("`background:`", t => {
-  t.plan(1);
+test("`background:`", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("background:");
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "background",
       after: ""
@@ -18,12 +17,12 @@ test("`background:`", t => {
   });
 });
 
-test("`background: red`", t => {
-  t.plan(1);
+test("`background: red`", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("background: red");
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "background",
       after: ""
@@ -36,12 +35,12 @@ test("`background: red`", t => {
   });
 });
 
-test("`margin:10px`", t => {
-  t.plan(1);
+test("`margin:10px`", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("margin:10px");
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "margin",
       after: ""
@@ -54,12 +53,12 @@ test("`margin:10px`", t => {
   });
 });
 
-test("`margin:$var`", t => {
-  t.plan(1);
+test("`margin:$var`", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("margin:$var");
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "margin",
       after: ""
@@ -72,12 +71,12 @@ test("`margin:$var`", t => {
   });
 });
 
-test("`input: -moz-focusring ` -- yes, this IS parsed as 'prop: value' by Sass!", t => {
-  t.plan(1);
+test("`input: -moz-focusring ` -- yes, this IS parsed as 'prop: value' by Sass!", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("input: -moz-focusring");
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "input",
       after: ""
@@ -90,12 +89,12 @@ test("`input: -moz-focusring ` -- yes, this IS parsed as 'prop: value' by Sass!"
   });
 });
 
-test("`background  :  red`", t => {
-  t.plan(1);
+test("`background  :  red`", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("background  :  red");
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "background",
       after: "  "
@@ -108,12 +107,12 @@ test("`background  :  red`", t => {
   });
 });
 
-test("Edge case: function with param `#{fn($a:1)}:`.", t => {
-  t.plan(1);
+test("Edge case: function with param `#{fn($a:1)}:`.", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("#{fn($a:1)}:");
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "#{fn($a:1)}",
       after: ""
@@ -121,12 +120,12 @@ test("Edge case: function with param `#{fn($a:1)}:`.", t => {
   });
 });
 
-test("Edge case: function with param `#{fn($a: 1)}:`.", t => {
-  t.plan(1);
+test("Edge case: function with param `#{fn($a: 1)}:`.", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("#{fn($a: 1)}:");
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "#{fn($a: 1)}",
       after: ""
@@ -134,12 +133,12 @@ test("Edge case: function with param `#{fn($a: 1)}:`.", t => {
   });
 });
 
-test('`input:"prop: value"` (value is a string).', t => {
-  t.plan(1);
+test('`input:"prop: value"` (value is a string).', () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot('input:"prop: value"');
 
-  t.deepEqual(result, {
+  expect(result).toEqual({
     propName: {
       value: "input",
       after: ""
@@ -156,70 +155,70 @@ test('`input:"prop: value"` (value is a string).', t => {
 // selectors
 // --------------------------------------------------------------------------
 
-test("`background:red` (compiles to a selector by Sass)", t => {
-  t.plan(1);
+test("`background:red` (compiles to a selector by Sass)", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("background:red");
 
-  t.equal(result, null);
+  expect(result).toBe(null);
 });
 
-test("`background :red` (compiles to a selector by Sass)", t => {
-  t.plan(1);
+test("`background :red` (compiles to a selector by Sass)", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("background :red");
 
-  t.equal(result, null);
+  expect(result).toBe(null);
 });
 
-test("`&:a1px` (trying to invoke false positive for a number as a value)", t => {
-  t.plan(1);
+test("`&:a1px` (trying to invoke false positive for a number as a value)", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("&:a1px");
 
-  t.equal(result, null);
+  expect(result).toBe(null);
 });
 
-test("`input:-moz-focusring `", t => {
-  t.plan(1);
+test("`input:-moz-focusring `", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("input:-moz-focusring");
 
-  t.deepEqual(result, null);
+  expect(result).toEqual(null);
 });
 
-test("`&:not(.other-class) `", t => {
-  t.plan(1);
+test("`&:not(.other-class) `", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("&:not(.other-class)");
 
-  t.deepEqual(result, null);
+  expect(result).toEqual(null);
 });
 
-test("`&:pseudo`", t => {
-  t.plan(1);
+test("`&:pseudo`", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("&:pseudo");
 
-  t.deepEqual(result, null);
+  expect(result).toEqual(null);
 });
 
 // --------------------------------------------------------------------------
 // other something
 // --------------------------------------------------------------------------
 
-test('`"input: prop"` (a "-string)', t => {
-  t.plan(1);
+test('`"input: prop"` (a "-string)', () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot('"input: prop"');
 
-  t.deepEqual(result, null);
+  expect(result).toEqual(null);
 });
 
-test("`'input: prop'` (a '-string)", t => {
-  t.plan(1);
+test("`'input: prop'` (a '-string)", () => {
+  expect.assertions(1);
 
   const result = parseNestedPropRoot("'input: prop'");
 
-  t.deepEqual(result, null);
+  expect(result).toEqual(null);
 });

@@ -1,5 +1,4 @@
 import rule, { ruleName, messages } from "..";
-import testRule from "stylelint-test-rule-tape";
 
 testRule(rule, {
   ruleName,

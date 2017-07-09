@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
+    "babel-jest": "^20.0.3",
     "babel-preset-es2015": "^6.14.0",
     "babel-register": "^6.14.0",
     "coveralls": "^2.11.14",
@@ -27,19 +28,15 @@
     "eslint-plugin-sort-requires": "^2.1.0",
     "husky": "^0.14.3",
     "lint-staged": "^4.0.1",
+    "jest": "^20.0.4",
     "npmpub": "^3.0.3",
-    "nyc": "^11.0.3",
     "postcss": "^6.0.6",
     "postcss-scss": "^1.0.2",
     "prettier": "^1.5.2",
     "replace": "^0.3.0",
     "request": "^2.72.0",
     "rimraf": "^2.5.2",
-    "semver": "^5.1.0",
-    "stylelint-test-rule-tape": "^0.2.0",
-    "table": "^4.0.1",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.6.0"
+    "semver": "^5.1.0"
   },
   "engines": {
     "node": ">=4.2.1"
@@ -56,6 +53,9 @@
       "node": true
     },
     "plugins": ["sort-requires"],
+    "globals": {
+      "testRule": true
+    },
     "rules": {
       "eqeqeq": "error",
       "no-use-before-define": ["error", "nofunc"],
@@ -84,6 +84,28 @@
     "type": "git",
     "url": "git+https://github.com/kristerkari/stylelint-scss.git"
   },
+  "jest": {
+    "clearMocks": true,
+    "collectCoverage": false,
+    "collectCoverageFrom": ["src/**/*.js"],
+    "coverageDirectory": "./.coverage/",
+    "coverageReporters": ["lcov", "text-summary"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    },
+    "setupFiles": ["./jest-setup.js"],
+    "testEnvironment": "node",
+    "roots": ["src"],
+    "testRegex": ".*\\.test\\.js$|src/.*/__tests__/.*\\.js$",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
   "scripts": {
     "precommit": "lint-staged",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
@@ -95,9 +117,10 @@
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "release": "npmpub",
-    "test": "nyc tape -r babel-register \"src/**/__tests__/*.js\" | tap-spec",
-    "test-rule": "node ./scripts/test-rule.js",
-    "test-util": "node ./scripts/test-util.js"
+    "test": "jest",
+    "watch": "jest --watch",
+    "test-rule": "jest",
+    "test-util": "jest"
   },
   "lint-staged": {
     "**/*.{js,json}": ["prettier --write", "git add"]
