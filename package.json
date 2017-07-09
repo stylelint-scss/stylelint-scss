@@ -87,12 +87,12 @@
   "jest": {
     "clearMocks": true,
     "collectCoverage": false,
-    "collectCoverageFrom": ["src/**/*.js"],
+    "collectCoverageFrom": ["src/*/*.js", "utils/*/*.js"],
     "coverageDirectory": "./.coverage/",
     "coverageReporters": ["lcov", "text-summary"],
     "coverageThreshold": {
       "global": {
-        "branches": 75,
+        "branches": 69,
         "functions": 75,
         "lines": 75,
         "statements": 75
@@ -117,7 +117,8 @@
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "release": "npmpub",
-    "test": "jest",
+    "jest": "jest",
+    "test": "jest --coverage",
     "watch": "jest --watch",
     "test-rule": "jest",
     "test-util": "jest"
