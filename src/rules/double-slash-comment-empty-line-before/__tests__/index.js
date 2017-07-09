@@ -26,7 +26,7 @@ const alwaysGeneralTests = {
     {
       code: `
       a {}
-      
+
       // comment with empty line before it
     `,
       description: "Proper empty line, root scope."
@@ -42,7 +42,7 @@ const alwaysGeneralTests = {
     {
       code: `
       a { color: pink;
-      
+
       // comment with proper empty line
       top: 0; }
     `,
@@ -93,7 +93,7 @@ testRule(rule, {
   accept: alwaysGeneralTests.accept.concat([
     {
       code: `a {
-      
+
       // First-nested, empty line before
       color: pink;
     }`,
@@ -137,7 +137,7 @@ testRule(rule, {
     {
       code: `
       a {
-      
+
       // First-nested, with empty line (rejected).
       color: pink;
     }`,
@@ -160,7 +160,7 @@ testRule(rule, {
       code: `
       a {
         color: pink;
-        // stylelint-disable something 
+        // stylelint-disable something
         top: 0;
       }
     `,
@@ -180,7 +180,7 @@ testRule(rule, {
     {
       code: `
       // comment 1
-      // comment 2 
+      // comment 2
       // comment 3
       body { color: red; }
     `,
@@ -189,7 +189,7 @@ testRule(rule, {
     {
       code: `
       a { color: pink;
-      
+
       /// comment 1
       /// comment 2
       top: 0;
@@ -200,7 +200,7 @@ testRule(rule, {
     {
       code: `
       a { color: pink;
-      
+
       /* comment 1 */
       /// comment 2
       top: 0;
@@ -211,7 +211,7 @@ testRule(rule, {
     {
       code: `
       a { color: pink;
-      
+
       /// comment 1
       /* comment 2 */
       top: 0;
@@ -250,7 +250,7 @@ testRule(rule, {
   accept: [
     {
       code: `
-      
+
       // comment
     `,
       description: "First nested, empty line, ignored."
@@ -277,7 +277,7 @@ testRule(rule, {
       code: `a {
       color: pink;
       // comment
-      
+
       top: 0;
     }
   `
@@ -314,7 +314,7 @@ testRule(rule, {
       code: `
       a {
         color: pink;
-        
+
         // comment
         top: 0;
       }

@@ -24,7 +24,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       } @else {}
 
       width: 10px;
@@ -55,7 +55,7 @@ testRule(rule, {
       // TODO: should warn on this?
       code: `a {
       @if ($x == 1) {
-        
+
       } @include x;
     }`,
       description:
@@ -67,7 +67,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       }@else {}
     }`,
       description: "always-intermediate (has @else, no space after).",
@@ -77,7 +77,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       }
       @else { }
     }`,
@@ -88,8 +88,8 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
-      } 
+
+      }
       @else { }
     }`,
       description:
@@ -100,7 +100,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       }  @else { }
     }`,
       description: "always-intermediate (has @else, multiple spaces after).",
@@ -139,7 +139,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       }@else {}
 
       width: 10px;
@@ -163,7 +163,7 @@ testRule(rule, {
       // TODO: should warn on this?
       code: `a {
       @if ($x == 1) {
-        
+
       } @include x;
     }`,
       description:
@@ -175,7 +175,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       } @else {}
     }`,
       description: "never-intermediate (has @else, has space after).",
@@ -185,7 +185,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       }
       @else { }
     }`,
@@ -196,8 +196,8 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
-      } 
+
+      }
       @else { }
     }`,
       description:
@@ -208,7 +208,7 @@ testRule(rule, {
     {
       code: `a {
       @if ($x == 1) {
-        
+
       }  @else { }
     }`,
       description: "never-intermediate (has @else, multiple spaces after).",

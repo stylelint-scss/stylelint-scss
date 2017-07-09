@@ -59,7 +59,7 @@ testRule(rule, {
       // 1. Address appearance set to searchfield in Safari and Chrome.
       // 2. Address box-sizing set to border-box in Safari and Chrome.
       //
-      
+
       input[type="search"] {
         -webkit-appearance: textfield; // 1
         box-sizing: content-box; //2
@@ -72,9 +72,9 @@ testRule(rule, {
     },
     {
       code: `
-      
+
       input[type="search"] {
-        
+
         -webkit-appearance: textfield; // 1
         box-sizing: content-box; //2
       }
@@ -152,9 +152,9 @@ testRule(rule, {
     {
       /* eslint-disable no-multiple-empty-lines */
       code: `
-    
-    
-    
+
+
+
       /// 3-slash comment with space
     `,
       /* eslint-disable no-multiple-empty-lines */

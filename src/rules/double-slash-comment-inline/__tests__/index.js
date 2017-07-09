@@ -88,7 +88,7 @@ testRule(rule, {
       code: `
       a {
         color: pink;
-        // stylelint-disable something 
+        // stylelint-disable something
         top: 0;
       }
     `,
@@ -178,7 +178,7 @@ testRule(rule, {
     {
       code: `
       a {
-        color: pink; // stylelint-disable something 
+        color: pink; // stylelint-disable something
         top: 0;
       }
     `,
