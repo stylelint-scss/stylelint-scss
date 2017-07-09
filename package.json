@@ -4,9 +4,7 @@
   "version": "1.5.1",
   "author": "Krister Kari",
   "babel": {
-    "presets": [
-      "es2015"
-    ]
+    "presets": ["es2015"]
   },
   "bugs": {
     "url": "https://github.com/kristerkari/stylelint-scss/issues"
@@ -26,10 +24,14 @@
     "coveralls": "^2.11.14",
     "eslint": "^4.2.0",
     "eslint-config-stylelint": "^6.0.0",
+    "eslint-plugin-sort-requires": "^2.1.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.1",
     "npmpub": "^3.0.3",
     "nyc": "^11.0.3",
     "postcss": "^6.0.6",
     "postcss-scss": "^1.0.2",
+    "prettier": "^1.5.2",
     "replace": "^0.3.0",
     "request": "^2.72.0",
     "rimraf": "^2.5.2",
@@ -43,24 +45,30 @@
     "node": ">=4.2.1"
   },
   "eslintConfig": {
-    "extends": "stylelint",
+    "extends": "eslint:recommended",
     "parserOptions": {
-      "sourceType": "module"
+      "sourceType": "module",
+      "ecmaVersion": 6
     },
+    "env": {
+      "es6": true,
+      "jest": true,
+      "node": true
+    },
+    "plugins": ["sort-requires"],
     "rules": {
-      "arrow-spacing": 2,
-      "no-var": 2,
-      "object-shorthand": 2,
-      "prefer-const": 2,
-      "template-curly-spacing": 2
+      "eqeqeq": "error",
+      "no-use-before-define": ["error", "nofunc"],
+      "sort-requires/sort-requires": "error",
+      "strict": ["error", "global"],
+      "arrow-spacing": "error",
+      "no-var": "error",
+      "object-shorthand": "error",
+      "prefer-const": "error",
+      "template-curly-spacing": "error"
     }
   },
-  "files": [
-    "dist",
-    "docs",
-    "src/**/README.md",
-    "!**/__tests__"
-  ],
+  "files": ["dist", "docs", "src/**/README.md", "!**/__tests__"],
   "homepage": "https://github.com/kristerkari/stylelint-scss#readme",
   "keywords": [
     "css",
@@ -77,16 +85,21 @@
     "url": "git+https://github.com/kristerkari/stylelint-scss.git"
   },
   "scripts": {
+    "precommit": "lint-staged",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "milestone": "node scripts/update-milestone.js",
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
+    "prettify": "prettier --write 'src/**/*.js'",
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "release": "npmpub",
     "test": "nyc tape -r babel-register \"src/**/__tests__/*.js\" | tap-spec",
     "test-rule": "node ./scripts/test-rule.js",
     "test-util": "node ./scripts/test-util.js"
+  },
+  "lint-staged": {
+    "**/*.{js,json}": ["prettier --write", "git add"]
   }
 }
