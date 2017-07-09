@@ -66,6 +66,8 @@ testRule(rule, {
     code: "@if ($i) {}",
   }, {
     code: "@if ($i) {} @else {}",
+  }, {
+    code: "@if ($i) {} @else if {} @else {}",
   } ],
 
   reject: [{
