@@ -15,7 +15,7 @@ test("// is the first statement in the file", t => {
     .then(result => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
-      
+
       t.equal(comments.length, 1)
       t.equal(comments[0].text, "comment")
       t.equal(comments[0].inlineAfter, false)
@@ -34,7 +34,7 @@ test("// is the first statement in a string, w/o pre-whs", t => {
     .then(result => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
-      
+
       t.equal(comments.length, 1)
       t.equal(comments[0].text, "comment")
       t.equal(comments[0].inlineAfter, false)
@@ -52,7 +52,7 @@ test("CSS-comment is the first statement (and the last one) in a file", t => {
     .then(result => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
-      
+
       t.equal(comments.length, 1)
       t.equal(comments[0].text, "comment1")
       t.equal(comments[0].inlineAfter, false)
@@ -72,7 +72,7 @@ test("CSS-comment is the first statement (and the last one) in a string", t => {
     .then(result => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
-      
+
       t.equal(comments.length, 1)
       t.equal(comments[0].text, "comment1")
       t.equal(comments[0].inlineAfter, false)
@@ -105,7 +105,7 @@ test("Various.", t => {
     .then(result => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
-      
+
       t.equal(comments.length, 3)
       t.equal(comments[0].text, "comment")
       t.equal(comments[0].raws.startToken, "/**!")
@@ -135,7 +135,7 @@ test("//", t => {
     .then(result => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
-      
+
       t.equal(comments.length, 1)
       t.equal(comments[0].text, "")
       t.equal(comments[0].inlineAfter, false)
@@ -156,7 +156,7 @@ test("// Inline comment, after {.", t => {
     .then(result => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
-      
+
       t.equal(comments.length, 1)
       t.equal(comments[0].text, "Inline comment, after {.")
       t.equal(comments[0].inlineAfter, true)
@@ -349,7 +349,7 @@ test("No comments; testing a dangerous case in function detection [`@media( ... 
     .then(result => {
       const css = result.root.source.input.css
       const comments = findCommentsInRaws(css)
-      
+
       t.equal(comments.length, 0)
     })
     .catch(logError)

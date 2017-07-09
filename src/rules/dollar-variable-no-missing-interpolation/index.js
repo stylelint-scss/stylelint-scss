@@ -124,6 +124,5 @@ export default function (actual) {
     root.walkAtRules(toRegex(customIdentAtRules), atRule => {
       walkValues(atRule, atRule.params)
     })
-
   }
 }

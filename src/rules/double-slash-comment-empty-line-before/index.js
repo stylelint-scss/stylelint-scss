@@ -37,10 +37,9 @@ export default function (expectation, options) {
     if (!validOptions) { return }
 
     root.walkComments(comment => {
-
       // Only process // comments
       if (!comment.raws.inline && !comment.inline) { return }
-      
+
       if (isInlineComment(comment)) { return }
 
       // Ignore the first node

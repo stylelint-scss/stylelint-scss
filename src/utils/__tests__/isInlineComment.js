@@ -98,7 +98,7 @@ test("Inline comment, after a selector (in a list). IGNORED.", t => {
         width: 10px;
       }
     `, { syntax: scss })
-    .then(result => {      
+    .then(result => {
       let res = null
       result.root.walkComments(comment => {
         res = isInlineComment(comment)

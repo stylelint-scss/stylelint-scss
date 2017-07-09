@@ -58,7 +58,7 @@ testRule(rule, {
     `,
     description: "Regexp: sequence part. Example: newlines around a mixin name.",
   } ],
-  
+
   reject: [{
     code: `
       @mixin floo ($n) {

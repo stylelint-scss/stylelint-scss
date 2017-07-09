@@ -377,7 +377,7 @@ testRule(rule, {
     code: "a { c4: -ss; }",
     description: "Char: -ss.",
   } ],
-  
+
   reject: [ {
     code: "a { c5: ss+ -c; }",
     description: "+ is an op, - is not: ss+ -c.",
@@ -574,7 +574,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   accept: [ {
     code: "a { nospaces3: px-1px; }",
     description: "Char: px-1px.",
@@ -614,7 +614,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   reject: [ {
     code: "a { width: 10px -(1 + 1)};",
     description: "10px -(1 + 1).",
@@ -636,7 +636,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   accept: [{
     code: "a {transform: translate(-50%, -$no-ui-slider-height);}",
     description: "translate(-50%, -$no-ui-slider-height).",
@@ -805,7 +805,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   accept: [ {
     code: "a { width: (10px) /#{(1 + 1)}};",
     description: "Has parens, but also interpolation; ignored: (10px) /#{(1 + 1)}.",
@@ -819,7 +819,7 @@ testRule(rule, {
     code: "a { width: inherit /(1.1); }",
     description: "Has parens, but also a string; ignored: inherit /(1.1).",
   } ],
-  
+
   reject: [ {
     code: "a { width: 10px /(1 + 1)};",
     description: "10px /(1 + 1).",
@@ -1009,7 +1009,7 @@ testRule(rule, {
     code: "a { width: \"10 \\\" 10*1\"; }",
     description: "A string: \"10 \\\" 10*1\".",
   } ],
-  
+
   reject: [{
     code: "a { width: \"#{10 %1}\"; }",
     description: "Op (interpolation inside a string): \"#{10 %1}\".",
@@ -1045,30 +1045,30 @@ testRule(rule, {
   } ],
 
   // reject: [ {
-    // code: "a { width: 1 --1; }",
-    // description: "Should be op: 1 --1.",
+  // code: "a { width: 1 --1; }",
+  // description: "Should be op: 1 --1.",
   // }, {
-    // code: "a { width: 1-- 1; }",
-    // description: "Should be op: 1-- 1.",
+  // code: "a { width: 1-- 1; }",
+  // description: "Should be op: 1-- 1.",
   // }, {
-    // code: "a { width: 1px --1px; }",
-    // description: "Should be op: 1px --1px.",
+  // code: "a { width: 1px --1px; }",
+  // description: "Should be op: 1px --1px.",
   // } ],
 })
 
 // test("1--1", t => {
-  // t.plan(5)
-  // postcss([rule()])
-    // .process("a { width: 1-- 1; }", { syntax: scss })
-    // .then(result => {
-      // const warnings = result.warnings()
-      // t.equal(warnings.length, 2)
-      // t.equal(warnings[0].text, messages.expectedBefore("-"))
-      // t.equal(warnings[0].column, 13)
-      // t.equal(warnings[1].text, messages.expectedAfter("-"))
-      // t.equal(warnings[1].column, 13)
-    // })
-    // .catch(logError)
+// t.plan(5)
+// postcss([rule()])
+// .process("a { width: 1-- 1; }", { syntax: scss })
+// .then(result => {
+// const warnings = result.warnings()
+// t.equal(warnings.length, 2)
+// t.equal(warnings[0].text, messages.expectedBefore("-"))
+// t.equal(warnings[0].column, 13)
+// t.equal(warnings[1].text, messages.expectedAfter("-"))
+// t.equal(warnings[1].column, 13)
+// })
+// .catch(logError)
 // })
 
 // Newlines, multiple spaces
@@ -1119,7 +1119,7 @@ a;
     `,
     description: "Multiple spaces-newline-operator (ignored): 1  \\n- 1.",
   } ],
-  
+
   reject: [ {
     code: `
       a {
@@ -1168,7 +1168,7 @@ testRule(rule, {
     code: ".class#{1 + 1}name { color: red; }",
     description: "Interpolation in selector (proper spaces): .class#{1 + 1}name.",
   } ],
-  
+
   reject: [ {
     code: ".class#{1 +1}name { color: red; }",
     description: "Interpolation in a selector: .class#{1 +1}name.",
@@ -1259,7 +1259,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   accept: [ {
     code: "/* #{10 + 1} */",
     description: "/* #{10 + 1} */.",
@@ -1638,7 +1638,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   accept: [{
     code: `
       @media (max-width: 100px + 1) {
@@ -1727,7 +1727,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   accept: [{
     code: `
       $var: 10px/st;
@@ -1768,7 +1768,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   accept: [ ],
 
   reject: [ {
@@ -1804,7 +1804,7 @@ testRule(rule, {
   config: [undefined],
   syntax: "scss",
   skipBasicChecks: true,
-  
+
   reject: [ {
     code: "@import url(10px +2);",
     description: "Import w/o a media query: @import url(10px +2).",

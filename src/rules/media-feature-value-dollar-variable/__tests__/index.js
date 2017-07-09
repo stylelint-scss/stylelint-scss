@@ -187,7 +187,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
-  
+
   accept: [ {
     code: `
       @media screen and (min-width: 100px + 10px){

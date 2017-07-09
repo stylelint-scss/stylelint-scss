@@ -8,21 +8,21 @@ import _ from "lodash"
  *
  * @param [string] rawString -- the source raw CSS string
  * @return [array] array of objects with these props:
- *    • type -- "css" or "double-slash"
- *    • source: { start, end }
+ *    ï¿½ type -- "css" or "double-slash"
+ *    ï¿½ source: { start, end }
  *      IMPORTANT: the function itself considers \r as a character, and counts
  *      it for `start` and `end`. But if their values are passed to PostCSS's
  *      result.warn(), than "\r\n" is consideren ONE CHAR (newline)!
- *    • raws
+ *    ï¿½ raws
  *      raws.startToken -- `/*`, `/**`, `/**!`, etc.
  *      raws.left -- whitespace after the comment opening marker
  *      raws.text -- the full comment, including markers (//, /*)
  *      raws.right -- whitespace before the comment closing marker
  *      raws.endToken -- `*\/`, `**\/` for CSS comments
- *    • text -- the comment text only, excluding //, /*, trailing whitespaces
- *    • inlineAfter -- true, if there is something before the comment on
+ *    ï¿½ text -- the comment text only, excluding //, /*, trailing whitespaces
+ *    ï¿½ inlineAfter -- true, if there is something before the comment on
  *      the same line
- *    • inlineBefore -- true, if there is something after the comment on
+ *    ï¿½ inlineBefore -- true, if there is something after the comment on
  *      the same line
  */
 
@@ -42,7 +42,7 @@ export default function findCommentsInRaws(rawString) {
   // `// comment` -> `/* comment*/`. So to have a correct intex we need to
   // keep track on the added `*/` sequences
   let offset = 0
-  
+
   for (let i = 0; i < rawString.length; i++) {
     const character = rawString[i]
     const prevChar = i > 0 ? rawString[i - 1] : null
@@ -50,7 +50,7 @@ export default function findCommentsInRaws(rawString) {
 
     const lastModeIndex = modesEntered.length - 1
     const mode = modesEntered[lastModeIndex].mode
-    
+
     switch (character) {
       // If entering/exiting a string
       case "\"":
@@ -74,9 +74,9 @@ export default function findCommentsInRaws(rawString) {
       // Entering url, other function or parens (only url matters)
       case "(": {
         if (mode === "comment" || mode === "string") { break }
-        const functionNameRegSearch = 
+        const functionNameRegSearch =
           /(?:^|(?:\n)|(?:\r)|(?:\s-)|[:\s,.(){}*+/%])([a-zA-Z0-9_-]*)$/
-          .exec(rawString.substring(0, i))
+            .exec(rawString.substring(0, i))
         // A `\S(` can be in, say, `@media(`
         if (!functionNameRegSearch) {
           modesEntered.push({
@@ -191,7 +191,6 @@ export default function findCommentsInRaws(rawString) {
         break
       }
     }
-    
   }
 
   return result

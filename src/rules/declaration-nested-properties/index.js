@@ -32,7 +32,7 @@ export default function (expectation, options) {
         if (item.type !== "rule" && item.type !== "atrule") { return }
 
         const warningCandidates = {}
-        
+
         item.each(decl => {
           const { prop, type, selector } = decl
 
@@ -40,7 +40,7 @@ export default function (expectation, options) {
           // Namespaced prop is basically a prop with a `-` in a name, e.g. `margin-top`
           if (type === "decl") {
             if (!isStandardSyntaxProperty(prop)) { return }
-            
+
             // Add simple namespaced prop decls to warningCandidates.ns
             // (prop names with browser prefixes are ignored)
             const seekNamespace = /^([a-zA-Z0-9]+)-/.exec(prop)
@@ -52,7 +52,7 @@ export default function (expectation, options) {
               warningCandidates[ns].push({ node: decl })
             }
           }
-          
+
           // Nested props, `prop: [value] { <nested decls> }`
           if (type === "rule") {
             // `background:red {` - selector;

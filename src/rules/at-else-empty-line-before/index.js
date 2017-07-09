@@ -19,7 +19,6 @@ export default function (expectation) {
     if (!validOptions) { return }
 
     root.walkAtRules(atrule => {
-
       if (atrule.name !== "else") { return }
 
       // Don't need to ignore "the first rule in a stylesheet", etc, cases

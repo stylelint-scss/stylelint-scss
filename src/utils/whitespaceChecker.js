@@ -32,7 +32,6 @@ import configurationError from "./configurationError"
  * @return {object} The checker, with its exposed checking functions
  */
 export default function (targetWhitespace, expectation, messages) {
-
   // Keep track of active arguments in order to avoid passing
   // too much stuff around, making signatures long and confusing.
   // This variable gets reset anytime a checking function is called.
@@ -214,7 +213,7 @@ export default function (targetWhitespace, expectation, messages) {
       // If index is followed by a Windows CR-LF ...
       if (oneCharAfter === "\r" && twoCharsAfter === "\n") {
         const threeCharsAfter = index + 3 < source.length ? source[index + 3] : ""
-        
+
         if (activeArgs.onlyOneChar || !isWhitespace(threeCharsAfter)) { return }
       }
 
