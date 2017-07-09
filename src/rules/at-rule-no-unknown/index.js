@@ -25,7 +25,7 @@ const sassAtRules = [
 
 const ruleToCheckAgainst = "at-rule-no-unknown"
 
-const ruleName = namespace(ruleToCheckAgainst)
+export const ruleName = namespace(ruleToCheckAgainst)
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: rules[ruleToCheckAgainst].messages.rejected,

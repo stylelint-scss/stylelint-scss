@@ -1,5 +1,6 @@
 # HEAD
 
+- Fixed: `at-rule-no-unknown` add missing export to `ruleName`.
 - Fixed: `at-rule-no-unknown` add options validation.
 
 # 1.5.0
