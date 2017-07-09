@@ -1,3 +1,4 @@
+import { isRegExp, isString } from "lodash"
 import { rules, utils } from "stylelint"
 import { namespace } from "../../utils"
 
@@ -32,6 +33,17 @@ export const messages = utils.ruleMessages(ruleName, {
 
 export default function (primaryOption, secondaryOptions) {
   return (root, result) => {
+    const validOptions = utils.validateOptions(result, ruleName, {
+      actual: primaryOption,
+    }, {
+      actual: secondaryOptions,
+      possible: {
+        ignoreAtRules: [ isRegExp, isString ],
+      },
+      optional: true,
+    })
+    if (!validOptions) { return }
+
     const optionsAtRules = secondaryOptions && secondaryOptions.ignoreAtRules
     const ignoreAtRules = sassAtRules.concat(optionsAtRules || [])
     const defaultedOptions = Object.assign({}, secondaryOptions, { ignoreAtRules })
