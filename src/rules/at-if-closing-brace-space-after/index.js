@@ -1,23 +1,32 @@
-import { namespace } from "../../utils"
-import { utils } from "stylelint"
+import { namespace } from "../../utils";
+import { utils } from "stylelint";
 
-export const ruleName = namespace("at-if-closing-brace-space-after")
+export const ruleName = namespace("at-if-closing-brace-space-after");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected single space after \"}\" of @if statement",
-  rejected: "Unexpected space after \"}\" of @if statement",
-})
+  expected: 'Expected single space after "}" of @if statement',
+  rejected: 'Unexpected space after "}" of @if statement'
+});
 
-export default function (expectation) {
+export default function(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: [ "always-intermediate", "never-intermediate" ],
-    })
-    if (!validOptions) { return }
+      possible: ["always-intermediate", "never-intermediate"]
+    });
+    if (!validOptions) {
+      return;
+    }
 
-    sassConditionalBraceSpaceAfterChecker({ root, result, ruleName, atRuleName: "if", expectation, messages })
-  }
+    sassConditionalBraceSpaceAfterChecker({
+      root,
+      result,
+      ruleName,
+      atRuleName: "if",
+      expectation,
+      messages
+    });
+  };
 }
 
 /**
@@ -32,35 +41,44 @@ export default function (expectation) {
  * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
  * @return {undefined} 
  */
-export function sassConditionalBraceSpaceAfterChecker({ root, result, ruleName, atRuleName, expectation, messages }) {
+export function sassConditionalBraceSpaceAfterChecker({
+  root,
+  result,
+  ruleName,
+  atRuleName,
+  expectation,
+  messages
+}) {
   function complain(node, message, index) {
     utils.report({
       result,
       ruleName,
       node,
       message,
-      index,
-    })
+      index
+    });
   }
 
   root.walkAtRules(atrule => {
     // Do nothing if it's not an @if
-    if (atrule.name !== atRuleName) { return }
+    if (atrule.name !== atRuleName) {
+      return;
+    }
 
-    const nextNode = atrule.next()
-    const hasSpaceAfter = nextNode && nextNode.raws.before === " "
-    const hasWhiteSpaceAfter = nextNode && nextNode.raws.before !== ""
-    const reportIndex = atrule.toString().length
+    const nextNode = atrule.next();
+    const hasSpaceAfter = nextNode && nextNode.raws.before === " ";
+    const hasWhiteSpaceAfter = nextNode && nextNode.raws.before !== "";
+    const reportIndex = atrule.toString().length;
 
     // When followed by an @else
     if (nextNode && nextNode.type === "atrule" && nextNode.name === "else") {
       // A single space is needed
       if (expectation === "always-intermediate" && !hasSpaceAfter) {
-        complain(atrule, messages.expected, reportIndex)
+        complain(atrule, messages.expected, reportIndex);
       } else if (expectation === "never-intermediate" && hasWhiteSpaceAfter) {
         // No whitespace is needed
-        complain(atrule, messages.rejected, reportIndex)
+        complain(atrule, messages.rejected, reportIndex);
       }
     }
-  })
+  });
 }

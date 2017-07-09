@@ -10,24 +10,27 @@
  * @param {boolean} [options.noRawBefore] - Leave out the `before` string
  * @return {string}
  */
-export default function (statement, { noRawBefore } = {}) {
-  let result = ""
-  if (statement.type !== "rule" && statement.type !== "atrule") { return result }
+export default function(statement, { noRawBefore } = {}) {
+  let result = "";
+  if (statement.type !== "rule" && statement.type !== "atrule") {
+    return result;
+  }
 
   if (!noRawBefore) {
-    result += statement.raws.before
+    result += statement.raws.before;
   }
   if (statement.type === "rule") {
-    result += statement.selector
+    result += statement.selector;
   } else {
-    result += "@" + statement.name + statement.raws.afterName + statement.params
+    result +=
+      "@" + statement.name + statement.raws.afterName + statement.params;
   }
 
-  const between = statement.raws.between
+  const between = statement.raws.between;
 
   if (between !== undefined) {
-    result += between
+    result += between;
   }
 
-  return result
+  return result;
 }

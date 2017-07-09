@@ -7,10 +7,8 @@
  * @param {string} exceptionName
  * @return {boolean}
  */
-export default function (options, exceptionName) {
+export default function(options, exceptionName) {
   return (
-    options
-    && options.except
-    && options.except.indexOf(exceptionName) !== -1
-  )
+    options && options.except && options.except.indexOf(exceptionName) !== -1
+  );
 }

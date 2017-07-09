@@ -1,108 +1,126 @@
-import testRule from "stylelint-test-rule-tape"
-import rule, { ruleName, messages } from ".."
+import testRule from "stylelint-test-rule-tape";
+import rule, { ruleName, messages } from "..";
 
 testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
 
-  accept: [ {
-    code: `
+  accept: [
+    {
+      code: `
       @include foo ;
     `,
-    description: "No parens; space after mixin name in a call.",
-  }, {
-    code: `
+      description: "No parens; space after mixin name in a call."
+    },
+    {
+      code: `
       @include foo;
     `,
-    description: "No parens; no space after mixin name in a call.",
-  }, {
-    code: `
+      description: "No parens; no space after mixin name in a call."
+    },
+    {
+      code: `
       @include foo ("()") ;
     `,
-    description: "With parens and arguments, '()' as ans argument.",
-  } ],
+      description: "With parens and arguments, '()' as ans argument."
+    }
+  ],
 
-  reject: [ {
-    code: `
+  reject: [
+    {
+      code: `
       @include foo () ;
     `,
-    line: 2,
-    message: messages.rejected("foo"),
-    description: "With parens, no space between them.",
-  }, {
-    code: `
+      line: 2,
+      message: messages.rejected("foo"),
+      description: "With parens, no space between them."
+    },
+    {
+      code: `
       @include foo ( ) ;
     `,
-    line: 2,
-    message: messages.rejected("foo"),
-    description: "With parens, space between them",
-  }, {
-    code: `
+      line: 2,
+      message: messages.rejected("foo"),
+      description: "With parens, space between them"
+    },
+    {
+      code: `
       @include foo( ) ;
     `,
-    line: 2,
-    message: messages.rejected("foo"),
-    description: "With parens, no space before and space between them",
-  }, {
-    code: `
+      line: 2,
+      message: messages.rejected("foo"),
+      description: "With parens, no space before and space between them"
+    },
+    {
+      code: `
       @include foo(
       ) ;
     `,
-    line: 2,
-    message: messages.rejected("foo"),
-    description: "With parens, newline between them",
-  } ],
-})
+      line: 2,
+      message: messages.rejected("foo"),
+      description: "With parens, newline between them"
+    }
+  ]
+});
 
 testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
 
-  accept: [ {
-    code: `
+  accept: [
+    {
+      code: `
       @include foo ();
     `,
-    description: "With parens, no space between them.",
-  }, {
-    code: `
+      description: "With parens, no space between them."
+    },
+    {
+      code: `
       @include foo ( );
     `,
-    description: "With parens, space between them",
-  }, {
-    code: `
+      description: "With parens, space between them"
+    },
+    {
+      code: `
       @include foo( 10)
     `,
-    description: "With parens, no space before and space between them",
-  }, {
-    code: `
+      description: "With parens, no space before and space between them"
+    },
+    {
+      code: `
       @include foo
       (10)
     `,
-    description: "With parens, newline between them",
-  } ],
+      description: "With parens, newline between them"
+    }
+  ],
 
-  reject: [ {
-    code: `
+  reject: [
+    {
+      code: `
       @include foo;
     `,
-    line: 2,
-    message: messages.expected("foo"),
-    description: "No parens.",
-  }, {
-    code: `
+      line: 2,
+      message: messages.expected("foo"),
+      description: "No parens."
+    },
+    {
+      code: `
       @include foo ;
     `,
-    line: 2,
-    message: messages.expected("foo"),
-    description: "No parens; a space after mixin name in a call.",
-  }, {
-    code: `
+      line: 2,
+      message: messages.expected("foo"),
+      description: "No parens; a space after mixin name in a call."
+    },
+    {
+      code: `
       @include foo
     `,
-    line: 2,
-    message: messages.expected("foo"),
-    description: "No parens; no trailing semicolon.",
-  } ],
-})
+      line: 2,
+      message: messages.expected("foo"),
+      description: "No parens; no trailing semicolon."
+    }
+  ]
+});

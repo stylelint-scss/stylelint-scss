@@ -1,13 +1,14 @@
-import { includes } from "lodash"
-import { utils } from "stylelint"
-import { namespace } from "../../utils"
-import valueParser from "postcss-value-parser"
+import { includes } from "lodash";
+import { utils } from "stylelint";
+import { namespace } from "../../utils";
+import valueParser from "postcss-value-parser";
 
-export const ruleName = namespace("dollar-variable-no-missing-interpolation")
+export const ruleName = namespace("dollar-variable-no-missing-interpolation");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: (n, v) => `Expected variable ${v} to be interpolated when using it with ${n}`,
-})
+  rejected: (n, v) =>
+    `Expected variable ${v} to be interpolated when using it with ${n}`
+});
 
 // https://developer.mozilla.org/en/docs/Web/CSS/custom-ident#Lists_of_excluded_values
 const customIdentProps = [
@@ -16,113 +17,115 @@ const customIdentProps = [
   "counter-reset",
   "counter-increment",
   "list-style-type",
-  "will-change",
-]
+  "will-change"
+];
 
 // https://developer.mozilla.org/en/docs/Web/CSS/At-rule
-const customIdentAtRules = [
-  "counter-style",
-  "keyframes",
-  "supports",
-]
+const customIdentAtRules = ["counter-style", "keyframes", "supports"];
 
 function isAtRule(type) {
-  return type === "atrule"
+  return type === "atrule";
 }
 
 function isCustomIdentAtRule(node) {
-  return isAtRule(node.type) && includes(customIdentAtRules, node.name)
+  return isAtRule(node.type) && includes(customIdentAtRules, node.name);
 }
 
 function isCustomIdentProp(node) {
-  return includes(customIdentProps, node.prop)
+  return includes(customIdentProps, node.prop);
 }
 
 function isAtSupports(node) {
-  return isAtRule(node.type) && node.name === "supports"
+  return isAtRule(node.type) && node.name === "supports";
 }
 
 function isSassVar(value) {
-  return value[0] === "$"
+  return value[0] === "$";
 }
 
 function isStringVal(value) {
-  return (/^("|').*("|')$/).test(value)
+  return /^("|').*("|')$/.test(value);
 }
 
 function toRegex(arr) {
-  return new RegExp(`(${arr.join("|")})`)
+  return new RegExp(`(${arr.join("|")})`);
 }
 
-export default function (actual) {
-  return function (root, result) {
-    const validOptions = utils.validateOptions(result, ruleName, { actual })
-    if (!validOptions) { return }
+export default function(actual) {
+  return function(root, result) {
+    const validOptions = utils.validateOptions(result, ruleName, { actual });
+    if (!validOptions) {
+      return;
+    }
 
-    const stringVars = []
-    const vars = []
+    const stringVars = [];
+    const vars = [];
 
     function findVars(node) {
       node.walkDecls(decl => {
-        const { prop, value } = decl
+        const { prop, value } = decl;
 
         if (!isSassVar(prop) || includes(vars, prop)) {
-          return
+          return;
         }
 
         if (isStringVal(value)) {
-          stringVars.push(prop)
+          stringVars.push(prop);
         }
 
-        vars.push(prop)
-      })
+        vars.push(prop);
+      });
     }
 
-    findVars(root)
-    root.walkRules(findVars)
+    findVars(root);
+    root.walkRules(findVars);
 
-    if (!vars.length) { return }
+    if (!vars.length) {
+      return;
+    }
 
     function shouldReport(node, value) {
       if (isAtSupports(node) || isCustomIdentProp(node)) {
-        return includes(stringVars, value)
+        return includes(stringVars, value);
       }
       if (isCustomIdentAtRule(node)) {
-        return includes(vars, value)
+        return includes(vars, value);
       }
-      return false
+      return false;
     }
 
     function report(node, value) {
-      const { name, prop, type } = node
-      const nodeName = isAtRule(type) ? "@" + name : prop
+      const { name, prop, type } = node;
+      const nodeName = isAtRule(type) ? "@" + name : prop;
 
       utils.report({
         ruleName,
         result,
         node,
-        message: messages.rejected(nodeName, value),
-      })
+        message: messages.rejected(nodeName, value)
+      });
     }
 
     function exitEarly(node) {
-      return node.type !== "word" || !node.value
+      return node.type !== "word" || !node.value;
     }
 
     function walkValues(node, value) {
       valueParser(value).walk(valNode => {
-        const { value } = valNode
-        if (exitEarly(valNode) || !shouldReport(node, value)) { return }
-        report(node, value)
-      })
+        const { value } = valNode;
+        if (exitEarly(valNode) || !shouldReport(node, value)) {
+          return;
+        }
+        report(node, value);
+      });
     }
 
     root.walkDecls(toRegex(customIdentProps), decl => {
-      walkValues(decl, decl.value)
-    })
+      walkValues(decl, decl.value);
+    });
 
     root.walkAtRules(toRegex(customIdentAtRules), atRule => {
-      walkValues(atRule, atRule.params)
-    })
-  }
+      walkValues(atRule, atRule.params);
+    });
+  };
 }
