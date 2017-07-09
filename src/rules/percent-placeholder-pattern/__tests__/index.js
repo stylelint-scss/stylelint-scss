@@ -26,7 +26,7 @@ testRule(rule, {
     code: "%clou#{dstri}fe { top: 1em; }",
     description: "Regexp: sequence part. Example: interpolation; skipping.",
   } ],
-  
+
   reject: [{
     code: "%floo { top: 1em; }",
     line: 1,

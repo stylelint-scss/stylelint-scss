@@ -37,7 +37,6 @@ export default function (expectation) {
 
 export function variableColonSpaceChecker({ locationChecker, root, result, checkedRuleName }) {
   root.walkDecls(decl => {
-
     if (decl.prop === undefined || decl.prop[0] !== "$") { return }
 
     // Get the raw $var, and only that

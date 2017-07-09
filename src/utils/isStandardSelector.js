@@ -5,7 +5,6 @@
  * @return {boolean} If `true`, the selector is standard
  */
 export default function (selector) {
-
   // SCSS or Less interpolation
   if (/#{.+?}|@{.+?}|\$\(.+?\)/.test(selector)) { return false }
 

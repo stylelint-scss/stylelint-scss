@@ -103,7 +103,6 @@ export default function (expectation) {
  *    {PostCSS Result} cbArgs.result -- for stylelint.utils.report
  */
 export function calculationOperatorSpaceChecker({ root, result, checker }) {
-
   /**
    * Takes a string, finds all occurencies of Sass interpolaion in it, then
    * finds all operators inside that interpolation
@@ -156,7 +155,6 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     }
 
     if (item.type === "atrule") {
-
       // Media queries
       if (item.name === "media" || item.name === "import") {
         mediaQueryParser(item.params).walk(node => {

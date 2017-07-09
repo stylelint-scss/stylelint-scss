@@ -224,7 +224,6 @@ testRule(rule, {
 
 // Test that consider the deprecation warning
 test("Test that considers the deprecation warning", t => {
-
   t.plan(4)
   postcss([rule()])
     .process("@import 'fff.less';")

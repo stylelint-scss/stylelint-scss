@@ -26,8 +26,8 @@ export default function (expectation) {
 
     root.walkDecls(decl => {
       if (!decl.prop || decl.prop[0] !== "$") { return }
-  
-        // Get the raw $var, and only that
+
+      // Get the raw $var, and only that
       const endOfPropIndex = declarationValueIndex(decl) + decl.raw("between").length - 1
       // `$var:`, `$var :`
       const propPlusColon = decl.toString().slice(0, endOfPropIndex)

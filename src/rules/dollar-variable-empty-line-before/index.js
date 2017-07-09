@@ -34,7 +34,6 @@ export default function (expectation, options) {
     if (!validOptions) { return }
 
     root.walkDecls(decl => {
-
       if (!isDollarVar(decl)) { return }
 
       // Always ignore the first $var in a stylesheet

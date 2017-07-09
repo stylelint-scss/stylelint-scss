@@ -33,7 +33,7 @@ function checkNewlineBefore({
       break
     }
     index--
-  }  
+  }
 
   if (newLineBefore) {
     utils.report({

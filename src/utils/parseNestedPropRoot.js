@@ -64,7 +64,7 @@ export default function parseNestedPropRoot(propString) {
         if (propValue.before === "" && !/^[0-9.$'"]/.test(propValue.value)) {
           return null
         }
-        
+
         // +1 for the colon
         propValue.sourceIndex =
           propValue.before.length + i + 1

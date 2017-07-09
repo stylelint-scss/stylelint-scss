@@ -1,6 +1,6 @@
 import {
   findCommentsInRaws,
-  namespace,  
+  namespace,
   optionsHaveIgnored,
 } from "../../utils"
 import { utils } from "stylelint"
@@ -37,13 +37,13 @@ export default function (expectation, options) {
     comments.forEach(comment => {
       // Only process // comments
       if (comment.type !== "double-slash") { return }
-      
+
       // Optionally ignore stylelint commands
       if (
         comment.text.indexOf(stylelintCommandPrefix) === 0
         && optionsHaveIgnored(options, "stylelint-commands")
       ) { return }
-      
+
       const isInline = comment.inlineAfter || comment.inlineBefore
       let message
 

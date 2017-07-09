@@ -60,7 +60,7 @@ testRule(rule, {
     `,
     description: "Regexp: sequence part. Example: newline after a brace.",
   } ],
-  
+
   reject: [{
     code: `
       @function floo ($n) {

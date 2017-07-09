@@ -47,10 +47,10 @@ export default function (expectation) {
 
         // A value should be a single variable
         // or it should be a single variable inside Sass interpolation
-        if (expectation === "always" && 
+        if (expectation === "always" &&
           !(valueParsed.search(variableRegex) !== -1 ||
           valueParsed.search(interpolationVarRegex) !== -1
-        )) {
+          )) {
           complain(messages.expected)
         } else if (expectation === "never" && valueParsed.indexOf("$") !== -1) {
           // "Never" means no variables at all (functions allowed)
