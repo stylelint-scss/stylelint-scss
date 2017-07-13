@@ -2,6 +2,7 @@ import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder";
 import atElseClosingBraceNewlineAfter from "./at-else-closing-brace-newline-after";
 import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after";
 import atElseEmptyLineBefore from "./at-else-empty-line-before";
+import atFunctionParenthesesSpaceBefore from "./at-function-parentheses-space-before";
 import atFunctionPattern from "./at-function-pattern";
 import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after";
 import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after";
@@ -37,6 +38,7 @@ export default {
   "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,
   "at-else-closing-brace-space-after": atElseClosingBraceSpaceAfter,
   "at-else-empty-line-before": atElseEmptyLineBefore,
+  "at-function-parentheses-space-before": atFunctionParenthesesSpaceBefore,
   "at-function-pattern": atFunctionPattern,
   "at-if-closing-brace-newline-after": atIfClosingBraceNewlineAfter,
   "at-if-closing-brace-space-after": atIfClosingBraceSpaceAfter,

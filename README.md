@@ -63,6 +63,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `@`-function
 
+- [`at-function-parentheses-space-before`](./src/rules/at-function-parentheses-space-before/README.md): Require or disallow a space before function parentheses
 - [`at-function-pattern`](./src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
 
 ### `@`-if
