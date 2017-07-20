@@ -71,7 +71,7 @@ testRule(rule, {
     `,
       line: 2,
       message: messages.expected,
-      description: "Too many spaces before parentheses."
+      description: "Extra spaces after @function."
     }
   ]
 });

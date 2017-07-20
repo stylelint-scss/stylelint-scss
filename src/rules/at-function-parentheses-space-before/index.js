@@ -18,11 +18,7 @@ export default function(value) {
       return;
     }
 
-    root.walkAtRules(decl => {
-      if (decl.name !== "function") {
-        return;
-      }
-
+    root.walkAtRules("function", decl => {
       if (value === "never" && /^[^ ]+\(/.exec(decl.params)) {
         return;
       }
