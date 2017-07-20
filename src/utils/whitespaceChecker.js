@@ -21,7 +21,7 @@ import configurationError from "./configurationError";
  * @param {object} messages - An object of message functions;
  *   calling `before*()` or `after*()` and the `expectation` that is passed
  *   determines which message functions are required
- * @param {function} [messages.exectedBefore]
+ * @param {function} [messages.expectedBefore]
  * @param {function} [messages.rejectedBefore]
  * @param {function} [messages.expectedAfter]
  * @param {function} [messages.rejectedAfter]

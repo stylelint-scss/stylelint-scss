@@ -1,11 +1,13 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, whitespaceChecker } from "../../utils";
 
 export const ruleName = namespace("at-function-parentheses-space-before");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected whitespace before parentheses in function declaration",
-  expected: "Expected a single space before parentheses in function declaration"
+  rejectedBefore: () =>
+    "Unexpected whitespace before parentheses in function declaration",
+  expectedBefore: () =>
+    "Expected a single space before parentheses in function declaration"
 });
 
 export default function(value) {
@@ -18,20 +20,12 @@ export default function(value) {
       return;
     }
 
+    const checker = whitespaceChecker("space", value, messages).before;
     root.walkAtRules("function", decl => {
-      if (value === "never" && /^[^ ]+\(/.exec(decl.params)) {
-        return;
-      }
-
-      if (value === "always" && /^[^ ]+ \(/.exec(decl.params)) {
-        return;
-      }
-
-      utils.report({
-        message: messages[value === "never" ? "rejected" : "expected"],
-        node: decl,
-        result,
-        ruleName
+      checker({
+        source: decl.params,
+        index: decl.params.indexOf("("),
+        err: message => utils.report({ message, node: decl, result, ruleName })
       });
     });
   };

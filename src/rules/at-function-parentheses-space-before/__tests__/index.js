@@ -52,7 +52,7 @@ testRule(rule, {
       }
     `,
       line: 2,
-      message: messages.expected,
+      message: messages.expectedBefore(),
       description: "Newline after function name"
     },
     {
@@ -61,7 +61,7 @@ testRule(rule, {
       }
     `,
       line: 2,
-      message: messages.expected,
+      message: messages.expectedBefore(),
       description: "No space before parentheses."
     },
     {
@@ -70,7 +70,7 @@ testRule(rule, {
       }
     `,
       line: 2,
-      message: messages.expected,
+      message: messages.expectedBefore(),
       description: "Extra spaces after @function."
     }
   ]
@@ -128,7 +128,7 @@ testRule(rule, {
       }
     `,
       line: 2,
-      message: messages.rejected,
+      message: messages.rejectedBefore(),
       description: "Newline after function name"
     },
     {
@@ -137,7 +137,7 @@ testRule(rule, {
       }
     `,
       line: 2,
-      message: messages.rejected,
+      message: messages.rejectedBefore(),
       description: "Single space before parentheses."
     },
     {
@@ -146,7 +146,7 @@ testRule(rule, {
       }
     `,
       line: 2,
-      message: messages.rejected,
+      message: messages.rejectedBefore(),
       description: "Multiple spaces before parentheses."
     }
   ]
