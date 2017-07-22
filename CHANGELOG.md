@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `declaration-nested-properties` support escaped selectors.
+
 # 1.5.1
 
 - Fixed: `at-rule-no-unknown` add missing export to `ruleName`.
