@@ -1,7 +1,10 @@
 language: node_js
 sudo: false
+git:
+  depth: 1
 cache:
   directories:
+    - $HOME/.npm
     - node_modules
 matrix:
   include:
@@ -19,7 +22,6 @@ matrix:
       env: CI=tests 4
       sudo: required
 before_install:
-  - npm prune
-  - npm update
+  - npm install -g npm@latest
 after_success:
   - if [ "$CI" = "coverage" ]; then cat ./.coverage/lcov.info | ./node_modules/.bin/coveralls; fi
