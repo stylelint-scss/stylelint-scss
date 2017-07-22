@@ -138,36 +138,36 @@ export function mathOperatorCharType(string, index, isAfterColon) {
   }
 
   const character = string[index];
-  // console.log(string)
+  const prevCharacter = string[index - 1];
 
-  // ---- Processing + characters
-  if (character === "+") {
-    // console.log('checking plus')
-    return checkPlus(string, index, isAfterColon);
+  if (prevCharacter !== "\\") {
+    // ---- Processing + characters
+    if (character === "+") {
+      return checkPlus(string, index, isAfterColon);
+    }
+
+    // ---- Processing - characters
+    if (character === "-") {
+      return checkMinus(string, index);
+    }
+
+    // ---- Processing * character
+    if (character === "*") {
+      return "op";
+    }
+
+    // ---- Processing % character
+    if (character === "%") {
+      return checkPercent(string, index);
+    }
+
+    // ---- Processing / character
+    // http://sass-lang.com/documentation/file.SASS_REFERENCE.html#division-and-slash
+    if (character === "/") {
+      return checkSlash(string, index, isAfterColon);
+    }
   }
 
-  // ---- Processing - characters
-  if (character === "-") {
-    return checkMinus(string, index);
-  }
-
-  // ---- Processing * character
-  if (character === "*") {
-    return "op";
-  }
-
-  // ---- Processing % character
-  if (character === "%") {
-    return checkPercent(string, index);
-  }
-
-  // ---- Processing / character
-  // http://sass-lang.com/documentation/file.SASS_REFERENCE.html#division-and-slash
-  if (character === "/") {
-    return checkSlash(string, index, isAfterColon);
-  }
-
-  // console.log("nothing applies")
   return "char";
 }
 
