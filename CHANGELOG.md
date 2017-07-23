@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `declaration-nested-properties` support escaped selectors by checking for escaped characters in `parseNestedPropRoot`.
+
 # 1.5.1
 
 - Fixed: `at-rule-no-unknown` add missing export to `ruleName`.
