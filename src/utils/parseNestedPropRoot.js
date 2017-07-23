@@ -17,6 +17,7 @@ export default function parseNestedPropRoot(propString) {
 
   for (let i = 0; i < propString.length; i++) {
     const character = propString[i];
+    const prevCharacter = propString[i - 1];
 
     // If entering/exiting a string
     if (character === '"' || character === "'") {
@@ -30,7 +31,7 @@ export default function parseNestedPropRoot(propString) {
       } else if (
         modesEntered[lastModeIndex].mode === "string" &&
         modesEntered[lastModeIndex].character === character &&
-        propString[i - 1] !== "\\"
+        prevCharacter !== "\\"
       ) {
         modesEntered.pop();
         lastModeIndex--;
@@ -51,7 +52,11 @@ export default function parseNestedPropRoot(propString) {
 
     // Check for : outside fn call, string or interpolation. It must be at the
     // end of a string or have a whitespace between it and following value
-    if (modesEntered[lastModeIndex].mode === "normal" && character === ":") {
+    if (
+      modesEntered[lastModeIndex].mode === "normal" &&
+      character === ":" &&
+      prevCharacter !== "\\"
+    ) {
       const propValueStr = propString.substring(i + 1);
 
       if (propValueStr.length) {
