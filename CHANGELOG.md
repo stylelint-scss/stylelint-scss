@@ -1,6 +1,6 @@
 # HEAD
 
-- Fixed: `declaration-nested-properties` support escaped selectors.
+- Fixed: `declaration-nested-properties` support escaped selectors by checking for escaped characters in `parseNestedPropRoot`.
 
 # 1.5.1
 
