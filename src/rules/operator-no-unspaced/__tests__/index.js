@@ -2025,6 +2025,40 @@ testRule(rule, {
   ]
 });
 
+// ------------------------------------------------------------------------
+// Escaped characters
+// ------------------------------------------------------------------------
+
+testRule(rule, {
+  ruleName,
+  config: [undefined],
+  syntax: "scss",
+  skipBasicChecks: true,
+
+  accept: [
+    {
+      code: `
+      $test: (
+        \\+:   10px,
+        \\+\\+: 20px,
+      );
+      `,
+      description: "Map with escaped chars"
+    },
+    {
+      code: `
+      .h-trans--all\\+ {
+        color: red;
+      }
+      .test {
+        @extend .h-trans--all\\+;
+      }
+      `,
+      description: "@extend with escaped char"
+    }
+  ]
+});
+
 // Variables
 testRule(rule, {
   ruleName,
