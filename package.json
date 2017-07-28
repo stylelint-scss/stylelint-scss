@@ -14,8 +14,7 @@
     "postcss-media-query-parser": "^0.2.3",
     "postcss-resolve-nested-selector": "^0.1.1",
     "postcss-selector-parser": "^2.0.0",
-    "postcss-value-parser": "^3.3.0",
-    "stylelint": "^7.0.3"
+    "postcss-value-parser": "^3.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
@@ -25,7 +24,7 @@
     "babel-preset-jest": "^20.0.3",
     "coveralls": "^2.11.14",
     "eslint": "^4.2.0",
-    "eslint-config-stylelint": "^6.0.0",
+    "eslint-config-stylelint": "^7.0.0",
     "eslint-plugin-sort-requires": "^2.1.0",
     "husky": "^0.14.3",
     "jest": "^20.0.4",
@@ -34,10 +33,13 @@
     "postcss": "^6.0.6",
     "postcss-scss": "^1.0.2",
     "prettier": "^1.5.2",
-    "replace": "^0.3.0",
     "request": "^2.72.0",
     "rimraf": "^2.5.2",
-    "semver": "^5.1.0"
+    "semver": "^5.1.0",
+    "stylelint": "^8.0.0"
+  },
+  "peerDependencies": {
+    "stylelint": "^8.0.0"
   },
   "engines": {
     "node": ">=4.2.1"
