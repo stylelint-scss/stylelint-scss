@@ -27,7 +27,7 @@ The following patterns are *not* considered warnings:
 ```
 
 ```css
-@While ($i == 1) {}
+@while ($i == 1) {}
 ```
 
 ```css
@@ -45,7 +45,7 @@ The following patterns are *not* considered warnings:
 Given:
 
 ```js
-["/^my-/", "custom"]
+["/^my-/i", "custom"]
 ```
 
 The following patterns are *not* considered warnings:
@@ -56,6 +56,10 @@ The following patterns are *not* considered warnings:
 
 ```css
 @my-other-at-rule {}
+```
+
+```css
+@MY-OTHER-AT-RULE {}
 ```
 
 ```css

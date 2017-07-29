@@ -1,4 +1,4 @@
-import _ from "lodash";
+import isStandardSyntaxRule from "stylelint/lib/utils/isStandardSyntaxRule";
 
 /**
  * Check whether a rule is standard
@@ -7,23 +7,5 @@ import _ from "lodash";
  * @return {boolean} If `true`, the rule is standard
  */
 export default function(rule) {
-  // Get full selector
-  const selector = _.get(rule, "raws.selector.raw", rule.selector);
-
-  // Custom property set (e.g. --custom-property-set: {})
-  if (_.endsWith(selector, ":")) {
-    return false;
-  }
-
-  // Called Less mixin (e.g. a { .mixin() })
-  if (rule.ruleWithoutBody) {
-    return false;
-  }
-
-  // Non-outputting Less mixin definition (e.g. .mixin() {})
-  if (_.endsWith(selector, ")") && !_.includes(selector, ":")) {
-    return false;
-  }
-
-  return true;
+  return isStandardSyntaxRule(rule);
 }

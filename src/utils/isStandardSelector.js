@@ -1,3 +1,5 @@
+import isStandardSyntaxSelector from "stylelint/lib/utils/isStandardSyntaxSelector";
+import hasInterpolation from "stylelint/lib/utils/hasInterpolation";
 /**
  * Check whether a selector is standard
  *
@@ -5,10 +7,14 @@
  * @return {boolean} If `true`, the selector is standard
  */
 export default function(selector) {
-  // SCSS or Less interpolation
-  if (/#{.+?}|@{.+?}|\$\(.+?\)/.test(selector)) {
-    return false;
+  const standardSyntaxSelector = isStandardSyntaxSelector(selector);
+
+  // SCSS placeholder selectors
+  if (!standardSyntaxSelector) {
+    if (selector.indexOf("%") === 0 && !hasInterpolation(selector)) {
+      return true;
+    }
   }
 
-  return true;
+  return standardSyntaxSelector;
 }
