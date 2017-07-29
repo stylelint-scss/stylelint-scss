@@ -1,4 +1,4 @@
-# HEAD
+# 1.5.2
 
 - Fixed: `operator-no-unspaced` support escaped operators by handling them in `sassValueParser`.
 - Fixed: `declaration-nested-properties` support escaped selectors by checking for escaped characters in `parseNestedPropRoot`.
