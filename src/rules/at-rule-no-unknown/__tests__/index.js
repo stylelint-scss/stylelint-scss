@@ -89,13 +89,7 @@ testRule(rule, {
       code: "@function foo () {}"
     },
     {
-      code: "@Function foo () { @return 1; }"
-    },
-    {
       code: "@extend %p"
-    },
-    {
-      code: "@While ($i == 1) {}"
     },
     {
       code: "@if ($i) {}"
@@ -116,6 +110,22 @@ testRule(rule, {
       line: 2,
       description: "",
       message: messages.rejected("@funciton")
+    },
+    {
+      code: `
+      @Function foo () { @return 1; }
+    `,
+      line: 2,
+      description: "",
+      message: messages.rejected("@Function")
+    },
+    {
+      code: `
+      @While ($i == 1) {}
+    `,
+      line: 2,
+      description: "",
+      message: messages.rejected("@While")
     }
   ]
 });
@@ -125,7 +135,7 @@ testRule(rule, {
   config: [
     true,
     {
-      ignoreAtRules: ["unknown", "/^my-/"]
+      ignoreAtRules: ["unknown", "/^my-/i"]
     }
   ],
   skipBasicChecks: true,
@@ -133,15 +143,6 @@ testRule(rule, {
   accept: [
     {
       code: "@unknown { }"
-    },
-    {
-      code: "@Unknown { }"
-    },
-    {
-      code: "@uNkNoWn { }"
-    },
-    {
-      code: "@UNKNOWN { }"
     },
     {
       code: "@my-at-rule { }"
@@ -168,6 +169,24 @@ testRule(rule, {
       line: 1,
       column: 1,
       message: messages.rejected("@not-my-at-rule")
+    },
+    {
+      code: "@Unknown { }",
+      line: 1,
+      column: 1,
+      message: messages.rejected("@Unknown")
+    },
+    {
+      code: "@uNkNoWn { }",
+      line: 1,
+      column: 1,
+      message: messages.rejected("@uNkNoWn")
+    },
+    {
+      code: "@UNKNOWN { }",
+      line: 1,
+      column: 1,
+      message: messages.rejected("@UNKNOWN")
     }
   ]
 });
