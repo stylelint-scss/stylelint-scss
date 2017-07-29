@@ -1,3 +1,15 @@
+# 2.0.0
+
+This version updates stylelint to version 8 and removes 2 rules that were deprecated in earlier versions.
+
+- Breaking changes:
+  - Updated: stylelint dependency from version 7 to version 8.
+  - Changed: stylelint is now listed in `peerDependencies` instead of `dependencies`. This means that you need to have `stylelint` installed in your project before using `stylelint-scss`.
+  - Changed: white/blacklists and ignore* options to be case sensitive by default. See https://github.com/stylelint/stylelint/pull/2709
+  - Removed: 2 deprecated rules
+    - `at-import-no-partial-extension`
+    - `at-mixin-no-argumentless-call-parentheses`
+
 # 1.5.2
 
 - Fixed: `operator-no-unspaced` support escaped operators by handling them in `sassValueParser`.
