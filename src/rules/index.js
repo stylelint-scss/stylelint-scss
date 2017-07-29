@@ -5,12 +5,10 @@ import atElseEmptyLineBefore from "./at-else-empty-line-before";
 import atFunctionPattern from "./at-function-pattern";
 import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after";
 import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after";
-import atImportNoPartialExtension from "./at-import-no-partial-extension";
 import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore";
 import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist";
 import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist";
 import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses";
-import atMixinNoArgumentlessCallParentheses from "./at-mixin-no-argumentless-call-parentheses";
 import atMixinPattern from "./at-mixin-pattern";
 import atRuleNoUnknown from "./at-rule-no-unknown";
 import declarationNestedProperties from "./declaration-nested-properties";
@@ -40,12 +38,10 @@ export default {
   "at-function-pattern": atFunctionPattern,
   "at-if-closing-brace-newline-after": atIfClosingBraceNewlineAfter,
   "at-if-closing-brace-space-after": atIfClosingBraceSpaceAfter,
-  "at-import-no-partial-extension": atImportNoPartialExtension,
   "at-import-no-partial-leading-underscore": atImportNoPartialLeadingUnderscore,
   "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
   "at-import-partial-extension-whitelist": atImportPartialExtensionWhitelist,
   "at-mixin-argumentless-call-parentheses": atMixinArgumentlessCallParentheses,
-  "at-mixin-no-argumentless-call-parentheses": atMixinNoArgumentlessCallParentheses,
   "at-mixin-pattern": atMixinPattern,
   "at-rule-no-unknown": atRuleNoUnknown,
   "declaration-nested-properties": declarationNestedProperties,
