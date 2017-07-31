@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, parseSelector } from "../../utils";
 
 export const ruleName = namespace("selector-no-redundant-nesting-selector");
 
@@ -15,18 +15,43 @@ export default function(actual) {
     }
 
     root.walkRules(/&/, rule => {
-      const { selector } = rule;
-      // "Ampersand followed by a combinator followed by non-combinator non-ampersand and not the selector end"
-      const regex = /^&\s*[>+~ ]\s*[^>+~ {&]+/;
+      parseSelector(rule.selector, result, rule, fullSelector => {
+        // "Ampersand followed by a combinator followed by non-combinator non-ampersand and not the selector end"
+        fullSelector.walkNesting(node => {
+          const prev = node.prev();
 
-      if (selector === "&" || regex.test(selector)) {
-        utils.report({
-          ruleName,
-          result,
-          node: rule,
-          message: messages.rejected
+          if (prev) {
+            return;
+          }
+
+          const next = node.next();
+
+          if (!next && node.parent.parent.nodes.length > 1) {
+            return;
+          }
+
+          if (next && next.type !== "combinator") {
+            return;
+          }
+
+          const nextNext = next ? next.next() : null;
+
+          if (
+            nextNext &&
+            (nextNext.type === "combinator" || nextNext.type === "nesting")
+          ) {
+            return;
+          }
+
+          utils.report({
+            ruleName,
+            result,
+            node: rule,
+            message: messages.rejected,
+            index: node.sourceIndex
+          });
         });
-      }
+      });
     });
   };
 }

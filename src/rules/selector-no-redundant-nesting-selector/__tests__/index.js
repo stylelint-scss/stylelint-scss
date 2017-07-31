@@ -81,6 +81,14 @@ testRule(rule, {
     {
       code: `
       .icon {
+        & & {}
+      }
+    `,
+      description: "when an ampersand following an ampersand"
+    },
+    {
+      code: `
+      .icon {
         & &-small {}
       }
     `,
@@ -312,6 +320,17 @@ testRule(rule, {
       message: messages.rejected,
       description:
         "when an ampersand is used by itself and there are extra spaces"
+    },
+    {
+      code: `
+      .a {
+        .b .c,
+        & .d {}
+      }
+    `,
+      line: 4,
+      message: messages.rejected,
+      description: "multiple nested selectors"
     }
   ]
 });
