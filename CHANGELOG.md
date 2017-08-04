@@ -1,3 +1,7 @@
+# 2.0.1
+
+- Fixed: `selector-no-redundant-nesting-selector` now handles multiple nested selectors.
+
 # 2.0.0
 
 This version updates stylelint to version 8 and removes 2 rules that were deprecated in earlier versions.
