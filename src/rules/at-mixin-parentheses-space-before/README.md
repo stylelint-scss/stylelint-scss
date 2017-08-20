@@ -4,7 +4,7 @@ Require or disallow a space before `@mixin` parentheses
 
 ```scss
 @mixin foo ($arg) { }
-/**                 ↑
+/**        ↑
  * The space before this parenthesis */
 ```
 
