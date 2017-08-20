@@ -21,7 +21,7 @@ export default function(value) {
     }
 
     const checker = whitespaceChecker("space", value, messages).before;
-    root.walkAtRules(decl => {
+    root.walkAtRules("mixin", decl => {
       checker({
         source: decl.params,
         index: decl.params.indexOf("("),
