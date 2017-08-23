@@ -1,6 +1,6 @@
 # at-mixin-parentheses-space-before
 
-Require or disallow a space before `@else if` parentheses
+Require or disallow a space before `@else if` parentheses.
 
 ```scss
 @else if ($condition) { }
@@ -16,7 +16,7 @@ Require or disallow a space before `@else if` parentheses
 
 There *must always* be exactly one space between the `@else if` and the condition opening parenthesis. 
 
-*Note: This rule does not enforce parentheses to be present*
+*Note: This rule does not enforce parentheses to be present.*
 
 The following patterns are considered warnings:
 

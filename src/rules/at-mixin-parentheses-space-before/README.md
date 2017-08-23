@@ -1,6 +1,6 @@
 # at-mixin-parentheses-space-before
 
-Require or disallow a space before `@mixin` parentheses
+Require or disallow a space before `@mixin` parentheses.
 
 ```scss
 @mixin foo ($arg) { }
@@ -16,7 +16,7 @@ Require or disallow a space before `@mixin` parentheses
 
 There *must always* be exactly one space between the mixin name and the opening parenthesis. 
 
-*Note: This rule does not enforce parentheses to be present in a declaration without arguments*
+*Note: This rule does not enforce parentheses to be present in a declaration without arguments.*
 
 The following patterns are considered warnings:
 
@@ -38,7 +38,7 @@ The following patterns are *not* considered warnings:
 
 ### `"never"`
 
-There *must never* be any whitespace between the mixin name and the opening parenthesis
+There *must never* be any whitespace between the mixin name and the opening parenthesis.
 
 The following patterns are considered warnings:
 

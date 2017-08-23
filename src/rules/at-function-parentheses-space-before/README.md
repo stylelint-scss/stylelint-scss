@@ -1,10 +1,10 @@
 # at-function-parentheses-space-before
 
-Require or disallow a space before `@function` parentheses
+Require or disallow a space before `@function` parentheses.
 
 ```scss
 @function foo ($arg) { }
-/**                 ↑
+/**           ↑
  * The space before this parenthesis */
 ```
 
@@ -14,7 +14,7 @@ Require or disallow a space before `@function` parentheses
 
 ### `"always"`
 
-There *must always* be exactly one space between the function name and the opening parenthesis
+There *must always* be exactly one space between the function name and the opening parenthesis.
 
 The following patterns are considered warnings:
 
@@ -33,7 +33,7 @@ The following patterns are *not* considered warnings:
 
 ### `"never"`
 
-There *must never* be any whitespace between the function name and the opening parenthesis
+There *must never* be any whitespace between the function name and the opening parenthesis.
 
 The following patterns are considered warnings:
 
