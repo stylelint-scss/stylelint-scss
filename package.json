@@ -1,7 +1,7 @@
 {
   "name": "stylelint-scss",
   "description": "A collection of SCSS specific rules for stylelint",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "author": "Krister Kari",
   "babel": {
     "presets": ["es2015"]
