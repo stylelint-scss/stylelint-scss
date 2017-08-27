@@ -1,4 +1,4 @@
-# HEAD
+# 2.1.0
 
 - Added: `at-else-if-parentheses-space-before` rule.
 - Added: `at-function-parentheses-space-before` rule.
