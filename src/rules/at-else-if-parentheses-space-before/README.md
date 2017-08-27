@@ -1,4 +1,4 @@
-# at-mixin-parentheses-space-before
+# at-else-if-parentheses-space-before
 
 Require or disallow a space before `@else if` parentheses.
 
