@@ -55,6 +55,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`at-else-closing-brace-newline-after`](./src/rules/at-else-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@else` statements.
 - [`at-else-closing-brace-space-after`](./src/rules/at-else-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@else` statements.
 - [`at-else-empty-line-before`](./src/rules/at-else-empty-line-before/README.md): Require an empty line or disallow empty lines before `@`-else.
+- [`at-else-if-parentheses-space-before`](./src/rules/at-else-if-parentheses-space-before/README.md): Require or disallow a space before `@else if` parentheses.
 
 ### `@`-extend
 
@@ -62,6 +63,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `@`-function
 
+- [`at-function-parentheses-space-before`](./src/rules/at-function-parentheses-space-before/README.md): Require or disallow a space before `@function` parentheses.
 - [`at-function-pattern`](./src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
 
 ### `@`-if
@@ -78,6 +80,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### `@`-mixin
 
 - [`at-mixin-argumentless-call-parentheses`](./src/rules/at-mixin-argumentless-call-parentheses/README.md): Require or disallow parentheses in argumentless `@mixin` calls.
+- [`at-mixin-parentheses-space-before`](./src/rules/at-mixin-parentheses-space-before/README.md): Require or disallow a space before `@mixin` parentheses.
 - [`at-mixin-pattern`](./src/rules/at-mixin-pattern/README.md): Specify a pattern for Sass/SCSS-like mixin names.
 
 ### `@`-rule

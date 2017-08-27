@@ -2,6 +2,8 @@ import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder";
 import atElseClosingBraceNewlineAfter from "./at-else-closing-brace-newline-after";
 import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after";
 import atElseEmptyLineBefore from "./at-else-empty-line-before";
+import atElseIfParenthesesSpaceBefore from "./at-else-if-parentheses-space-before";
+import atFunctionParenthesesSpaceBefore from "./at-function-parentheses-space-before";
 import atFunctionPattern from "./at-function-pattern";
 import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after";
 import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after";
@@ -9,6 +11,7 @@ import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-u
 import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist";
 import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist";
 import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses";
+import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
 import atRuleNoUnknown from "./at-rule-no-unknown";
 import declarationNestedProperties from "./declaration-nested-properties";
@@ -35,6 +38,8 @@ export default {
   "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,
   "at-else-closing-brace-space-after": atElseClosingBraceSpaceAfter,
   "at-else-empty-line-before": atElseEmptyLineBefore,
+  "at-else-if-parentheses-space-before": atElseIfParenthesesSpaceBefore,
+  "at-function-parentheses-space-before": atFunctionParenthesesSpaceBefore,
   "at-function-pattern": atFunctionPattern,
   "at-if-closing-brace-newline-after": atIfClosingBraceNewlineAfter,
   "at-if-closing-brace-space-after": atIfClosingBraceSpaceAfter,
@@ -42,6 +47,7 @@ export default {
   "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
   "at-import-partial-extension-whitelist": atImportPartialExtensionWhitelist,
   "at-mixin-argumentless-call-parentheses": atMixinArgumentlessCallParentheses,
+  "at-mixin-parentheses-space-before": atMixinParenthesesSpaceBefore,
   "at-mixin-pattern": atMixinPattern,
   "at-rule-no-unknown": atRuleNoUnknown,
   "declaration-nested-properties": declarationNestedProperties,
