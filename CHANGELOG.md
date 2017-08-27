@@ -1,3 +1,9 @@
+# HEAD
+
+- Added: `at-else-if-parentheses-space-before` rule.
+- Added: `at-function-parentheses-space-before` rule.
+- Added: `at-mixin-parentheses-space-before` rule.
+
 # 2.0.1
 
 - Fixed: `selector-no-redundant-nesting-selector` now handles multiple nested selectors.
