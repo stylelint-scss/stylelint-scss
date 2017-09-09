@@ -331,6 +331,20 @@ testRule(rule, {
       line: 4,
       message: messages.rejected,
       description: "multiple nested selectors"
+    },
+    {
+      code: `
+      .foo {
+        &,
+        & .bar {
+          color: #f00;
+        }
+      }
+    `,
+      line: 4,
+      message: messages.rejected,
+      description:
+        "when an ampersand is used in a comma sequence followed by a class"
     }
   ]
 });
