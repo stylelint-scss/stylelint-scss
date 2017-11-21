@@ -37,7 +37,7 @@ export default function(expectation) {
       valueParser(decl.value).walk(node => {
         if (
           node.type !== "function" ||
-          cssFunctions.includes(node.value.toLowerCase())
+          cssFunctions.indexOf(node.value.toLowerCase()) !== -1
         ) {
           return;
         }
