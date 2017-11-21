@@ -10,6 +10,9 @@ export const messages = utils.ruleMessages(ruleName, {
     "Unexpected a named parameter in single argument at-include call"
 });
 
+const hasArgumentsRegExp = /\((.*)\)$/;
+const isScssVarRegExp = /^\$\S*/;
+
 export default function(expectation) {
   return function(root, result) {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -19,9 +22,6 @@ export default function(expectation) {
     if (!validOptions) {
       return;
     }
-
-    const hasArgumentsRegExp = /\((.*)\)$/;
-    const isScssVarRegExp = /^\$\S*/;
 
     root.walkAtRules("include", atRule => {
       const argsString = atRule.params

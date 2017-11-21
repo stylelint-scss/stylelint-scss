@@ -13,8 +13,7 @@
     "lodash": "^4.11.1",
     "postcss-media-query-parser": "^0.2.3",
     "postcss-resolve-nested-selector": "^0.1.1",
-    "postcss-selector-parser": "^3.0.0",
-    "postcss-value-parser": "^3.3.0"
+    "postcss-selector-parser": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
@@ -33,6 +32,7 @@
     "npmpub": "^3.0.3",
     "postcss": "^6.0.6",
     "postcss-scss": "^1.0.2",
+    "postcss-value-parser": "^3.3.0",
     "prettier": "^1.5.2",
     "request": "^2.72.0",
     "rimraf": "^2.5.2",

@@ -10,18 +10,19 @@ testRule(rule, {
     {
       code: `
       .b {
-        border: reset;
+        border: reset();
       }
       `,
-      description: "Always. Example: no arguments."
+      description: "Always. Example: no arguments with parenthesis."
     },
     {
       code: `
       .b {
         border: reset();
+        text-align: center;
       }
       `,
-      description: "Always. Example: no arguments with parenthesis."
+      description: "Always. Example: no arguments with other declarations."
     },
     {
       code: `
@@ -91,6 +92,14 @@ testRule(rule, {
       code: `
       .b {
         animation: anim($iteration: infinite);
+      }
+      `,
+      description: "Always. Example: single argument is an unquoted string."
+    },
+    {
+      code: `
+      .b {
+        font-size: calc(10px * 2em);
       }
       `,
       description: "Always. Example: single argument is an unquoted string."
@@ -192,14 +201,6 @@ testRule(rule, {
   syntax: "scss",
 
   accept: [
-    {
-      code: `
-      .b {
-        border: reset;
-      }
-      `,
-      description: "Always. Example: no arguments."
-    },
     {
       code: `
       .b {
@@ -409,14 +410,6 @@ testRule(rule, {
   syntax: "scss",
 
   accept: [
-    {
-      code: `
-      .b {
-        border: reset;
-      }
-      `,
-      description: "Always. Example: no arguments."
-    },
     {
       code: `
       .b {
