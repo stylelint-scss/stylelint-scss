@@ -34,10 +34,34 @@ testRule(rule, {
     {
       code: `
       .b {
+        @include reset(
+          $value: 40px
+        );
+      }
+      `,
+      description:
+        "Always. Example: single argument is named in multiline mixin call."
+    },
+    {
+      code: `
+      .b {
         @include reset($value: 40px, $second-value: 10px, $color: 'black');
       }
       `,
       description: "Always. Example: all arguments are named."
+    },
+    {
+      code: `
+      .b {
+        @include reset(
+          $value: 40px,
+          $second-value: 10px,
+          $color: 'black'
+        );
+      }
+      `,
+      description:
+        "Always. Example: all arguments are named in multiline mixin call."
     },
     {
       code: `
@@ -101,6 +125,21 @@ testRule(rule, {
       column: 9,
       message: messages.expected,
       description: "Always. Example: first argument is not named."
+    },
+    {
+      code: `
+      .b {
+        @include reset(
+          40px,
+          10px
+        );
+      }
+    `,
+      line: 3,
+      column: 9,
+      message: messages.expected,
+      description:
+        "Always. Example: first argument is not named in multiline mixin call."
     },
     {
       code: `
@@ -210,6 +249,18 @@ testRule(rule, {
       }
     `,
       description: "Never. Example: multiple arguments that are not named."
+    },
+    {
+      code: `
+      .b {
+        @include reset(
+          40px,
+          10px
+        );
+      }
+    `,
+      description:
+        "Never. Example: multiple arguments that are not named in multiline mixin call."
     },
     {
       code: `
@@ -362,6 +413,22 @@ testRule(rule, {
     {
       code: `
       .b {
+        @include reset(
+          $value: 40px,
+          $second-value: 10px,
+          $color: 'black'
+        );
+      }
+      `,
+      line: 3,
+      column: 9,
+      message: messages.expected,
+      description:
+        "Never. Example: all arguments are named in multiline mixin call."
+    },
+    {
+      code: `
+      .b {
         @include reset($value: 40px, 10px);
       }
     `,
@@ -407,16 +474,6 @@ testRule(rule, {
       `,
       description: "Always. Example: no arguments with parenthesis."
     },
-    // {
-    //   code: `
-    //   .b {
-    //     @include reset(
-    //       40px;
-    //     );
-    //   }
-    //   `,
-    //   description: "Always. Example: single argument with spaces."
-    // },
     {
       code: `
       .b {
@@ -452,6 +509,19 @@ testRule(rule, {
       `,
       description:
         "Always multiple arguments. Example: all arguments are named."
+    },
+    {
+      code: `
+      .b {
+        @include reset(
+          $value: 40px,
+          $second-value: 10px,
+          $color: 'black'
+        );
+      }
+      `,
+      description:
+        "Always multiple arguments. Example: all arguments are named in multiline mixin call."
     },
     {
       code: `
@@ -565,6 +635,21 @@ testRule(rule, {
       message: messages.expected,
       description:
         "Always multiple arguments. Example: first argument is named but remaining are not."
+    },
+    {
+      code: `
+      .b {
+        @include reset(
+          $value: 40px,
+          10px
+        );
+      }
+    `,
+      line: 3,
+      column: 9,
+      message: messages.expected,
+      description:
+        "Always multiple arguments. Example: first argument is named but remaining are not in multiline mixin call."
     },
     {
       code: `
