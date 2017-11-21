@@ -4,9 +4,10 @@ import { namespace } from "../../utils";
 export const ruleName = namespace("at-mixin-named-arguments");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected dollar-variable as a media feature value",
-  expected:
-    "Expected a dollar-variable (e.g. $var) to be used as a media feature value"
+  expected: "Expected a named parameter to be used in at-include call",
+  rejected: "Unexpected a named parameter in at-include call",
+  rejectedSingle:
+    "Unexpected a named parameter in single argument at-include call"
 });
 
 export default function(expectation) {
@@ -61,7 +62,7 @@ export default function(expectation) {
             }
 
             utils.report({
-              message: messages.expected,
+              message: messages.rejected,
               node: atRule,
               result,
               ruleName
@@ -89,6 +90,16 @@ export default function(expectation) {
               (args.length === 1 && !arg.key)
             ) {
               return;
+            }
+
+            // Create report when the single argument is a named parameter.
+            if (args.length === 1 && arg.key) {
+              utils.report({
+                message: messages.rejectedSingle,
+                node: atRule,
+                result,
+                ruleName
+              });
             }
 
             utils.report({

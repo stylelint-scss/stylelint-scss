@@ -332,7 +332,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: single argument is named."
     },
     {
@@ -343,7 +343,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: single argument is a variable."
     },
     {
@@ -354,7 +354,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: single argument is an interpolated value."
     },
     {
@@ -365,7 +365,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: single argument is a calculated value."
     },
     {
@@ -376,7 +376,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: single argument is a quoted string."
     },
     {
@@ -387,7 +387,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: single argument is an unquoted string."
     },
     {
@@ -396,7 +396,7 @@ testRule(rule, {
       `,
       line: 2,
       column: 7,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: standalone mixin."
     },
     {
@@ -407,7 +407,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: all arguments are named."
     },
     {
@@ -422,7 +422,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description:
         "Never. Example: all arguments are named in multiline mixin call."
     },
@@ -434,7 +434,7 @@ testRule(rule, {
     `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description:
         "Never. Example: first argument is named but remaining are not."
     },
@@ -446,7 +446,7 @@ testRule(rule, {
     `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpected,
       description: "Never. Example: mixed named arguments."
     }
   ]
@@ -541,7 +541,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpectedSingle,
       description:
         "Always multiple arguments. Example: single argument is named."
     },
@@ -553,7 +553,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpectedSingle,
       description:
         "Always multiple arguments. Example: single named argument is a variable."
     },
@@ -565,7 +565,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpectedSingle,
       description:
         "Always multiple arguments. Example: single named argument is an interpolated value."
     },
@@ -577,7 +577,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpectedSingle,
       description:
         "Always multiple arguments. Example: single named argument is a calculated value."
     },
@@ -589,7 +589,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpectedSingle,
       description:
         "Always multiple arguments. Example: single named argument is a quoted string."
     },
@@ -601,7 +601,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.expected,
+      message: messages.unexpectedSingle,
       description:
         "Always multiple arguments. Example: single argument is an unquoted string."
     },
@@ -611,7 +611,7 @@ testRule(rule, {
       `,
       line: 2,
       column: 7,
-      message: messages.expected,
+      message: messages.unexpectedSingle,
       description: "Always multiple arguments. Example: standalone mixin."
     },
     {
