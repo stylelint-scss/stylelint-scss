@@ -10,6 +10,22 @@ testRule(rule, {
     {
       code: `
       .b {
+        @include reset;
+      }
+      `,
+      description: "Always. Example: no arguments."
+    },
+    {
+      code: `
+      .b {
+        @include reset();
+      }
+      `,
+      description: "Always. Example: no arguments with parenthesis."
+    },
+    {
+      code: `
+      .b {
         @include reset($value: 40px);
       }
       `,
@@ -71,7 +87,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 22,
+      column: 9,
       message: messages.expected,
       description: "Always. Example: single argument that is not named."
     },
@@ -82,7 +98,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 28,
+      column: 9,
       message: messages.expected,
       description: "Always. Example: first argument is not named."
     },
@@ -93,7 +109,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 28,
+      column: 9,
       message: messages.expected,
       description:
         "Always. Example: single argument is a variable but is not named."
@@ -105,7 +121,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 28,
+      column: 9,
       message: messages.expected,
       description:
         "Always. Example: single argument is a calculated value but is not named."
@@ -117,7 +133,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description:
         "Always. Example: first argument is named but remaining are not."
@@ -129,7 +145,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 22,
+      column: 9,
       message: messages.expected,
       description: "Always. Example: mixed named arguments."
     },
@@ -138,7 +154,7 @@ testRule(rule, {
       @include reset(40px);
     `,
       line: 2,
-      column: 28,
+      column: 7,
       message: messages.expected,
       description:
         "Always. Example: single argument is not named in standalone mixin."
@@ -148,7 +164,7 @@ testRule(rule, {
       @include reset(40px, 10px);
     `,
       line: 2,
-      column: 28,
+      column: 7,
       message: messages.expected,
       description:
         "Always. Example: first argument is not named in standalone mixin."
@@ -163,6 +179,22 @@ testRule(rule, {
   syntax: "scss",
 
   accept: [
+    {
+      code: `
+      .b {
+        @include reset;
+      }
+      `,
+      description: "Always. Example: no arguments."
+    },
+    {
+      code: `
+      .b {
+        @include reset();
+      }
+      `,
+      description: "Always. Example: no arguments with parenthesis."
+    },
     {
       code: `
       .b {
@@ -248,7 +280,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 24,
+      column: 9,
       message: messages.expected,
       description: "Never. Example: single argument is named."
     },
@@ -259,7 +291,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 24,
+      column: 9,
       message: messages.expected,
       description: "Never. Example: single argument is a variable."
     },
@@ -270,7 +302,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description: "Never. Example: single argument is an interpolated value."
     },
@@ -281,7 +313,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description: "Never. Example: single argument is a calculated value."
     },
@@ -292,7 +324,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description: "Never. Example: single argument is a quoted string."
     },
@@ -303,7 +335,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description: "Never. Example: single argument is an unquoted string."
     },
@@ -311,8 +343,8 @@ testRule(rule, {
       code: `
       @include reset($value: 40px);
       `,
-      line: 3,
-      column: 35,
+      line: 2,
+      column: 7,
       message: messages.expected,
       description: "Never. Example: standalone mixin."
     },
@@ -323,7 +355,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 24,
+      column: 9,
       message: messages.expected,
       description: "Never. Example: all arguments are named."
     },
@@ -334,7 +366,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description:
         "Never. Example: first argument is named but remaining are not."
@@ -346,7 +378,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 22,
+      column: 9,
       message: messages.expected,
       description: "Never. Example: mixed named arguments."
     }
@@ -359,6 +391,32 @@ testRule(rule, {
   syntax: "scss",
 
   accept: [
+    {
+      code: `
+      .b {
+        @include reset;
+      }
+      `,
+      description: "Always. Example: no arguments."
+    },
+    {
+      code: `
+      .b {
+        @include reset();
+      }
+      `,
+      description: "Always. Example: no arguments with parenthesis."
+    },
+    // {
+    //   code: `
+    //   .b {
+    //     @include reset(
+    //       40px;
+    //     );
+    //   }
+    //   `,
+    //   description: "Always. Example: single argument with spaces."
+    // },
     {
       code: `
       .b {
@@ -412,7 +470,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 24,
+      column: 9,
       message: messages.expected,
       description:
         "Always multiple arguments. Example: single argument is named."
@@ -424,10 +482,10 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 24,
+      column: 9,
       message: messages.expected,
       description:
-        "Always multiple arguments. Example: single argument is a variable."
+        "Always multiple arguments. Example: single named argument is a variable."
     },
     {
       code: `
@@ -436,10 +494,10 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description:
-        "Always multiple arguments. Example: single argument is an interpolated value."
+        "Always multiple arguments. Example: single named argument is an interpolated value."
     },
     {
       code: `
@@ -448,10 +506,10 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description:
-        "Always multiple arguments. Example: single argument is a calculated value."
+        "Always multiple arguments. Example: single named argument is a calculated value."
     },
     {
       code: `
@@ -460,10 +518,10 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description:
-        "Always multiple arguments. Example: single argument is a quoted string."
+        "Always multiple arguments. Example: single named argument is a quoted string."
     },
     {
       code: `
@@ -472,7 +530,7 @@ testRule(rule, {
       }
       `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description:
         "Always multiple arguments. Example: single argument is an unquoted string."
@@ -481,8 +539,8 @@ testRule(rule, {
       code: `
       @include reset($value: 40px);
       `,
-      line: 3,
-      column: 35,
+      line: 2,
+      column: 7,
       message: messages.expected,
       description: "Always multiple arguments. Example: standalone mixin."
     },
@@ -491,7 +549,7 @@ testRule(rule, {
       @include reset(40px, 10px);
     `,
       line: 2,
-      column: 28,
+      column: 7,
       message: messages.expected,
       description:
         "Always multiple arguments. Example: first argument is not named in standalone mixin."
@@ -503,7 +561,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description:
         "Always multiple arguments. Example: first argument is named but remaining are not."
@@ -515,7 +573,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 22,
+      column: 9,
       message: messages.expected,
       description: "Always multiple arguments. Example: mixed named arguments."
     },
@@ -526,7 +584,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 35,
+      column: 9,
       message: messages.expected,
       description:
         "Always multiple arguments. Example: first argument is named but remaining are not."
@@ -538,7 +596,7 @@ testRule(rule, {
       }
     `,
       line: 3,
-      column: 22,
+      column: 9,
       message: messages.expected,
       description: "Always multiple arguments. Example: mixed named arguments."
     }

@@ -11,6 +11,7 @@ import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-u
 import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist";
 import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist";
 import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses";
+import atMixinNamedArguments from "./at-mixin-named-arguments";
 import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
 import atRuleNoUnknown from "./at-rule-no-unknown";
@@ -47,6 +48,7 @@ export default {
   "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
   "at-import-partial-extension-whitelist": atImportPartialExtensionWhitelist,
   "at-mixin-argumentless-call-parentheses": atMixinArgumentlessCallParentheses,
+  "at-mixin-named-arguments": atMixinNamedArguments,
   "at-mixin-parentheses-space-before": atMixinParenthesesSpaceBefore,
   "at-mixin-pattern": atMixinPattern,
   "at-rule-no-unknown": atRuleNoUnknown,
