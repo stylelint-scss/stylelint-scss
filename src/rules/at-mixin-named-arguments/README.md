@@ -1,6 +1,6 @@
 # at-mixin-named-arguments
 
-Require named parameters in at-include rule.
+Require named parameters in at-mixin call rule.
 
 ```scss
 @include animation($duration: 250ms) {
@@ -34,10 +34,6 @@ The following patterns are considered warnings:
 }
 ```
 
-```scss
-@include reset($value: 20, 'bar', $color: #FFF);
-```
-
 The following patterns are *not* considered warnings:
 
 ```scss
@@ -50,10 +46,6 @@ The following patterns are *not* considered warnings:
 .foo {
   @include animation($duration: 250ms, $delay: 100ms, $direction: infinite);
 }
-```
-
-```scss
-@include reset($value: 20, $string: 'bar', $color: #FFF);
 ```
 
 ### `never`
