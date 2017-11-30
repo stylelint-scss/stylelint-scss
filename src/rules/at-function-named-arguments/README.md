@@ -4,7 +4,7 @@ Require named parameters in SCSS function call rule.
 
 ```scss
 animation: animation($duration: 250ms) {
-//                 ↑
+//                   ↑
 // Require or disallow this
 ```
 
