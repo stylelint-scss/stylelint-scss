@@ -79,6 +79,7 @@ The following patterns are *not* considered warnings:
 ```
 
 ## Optional secondary options
+
 ### `"ignore": ["single-argument"]`
 
 Given:
