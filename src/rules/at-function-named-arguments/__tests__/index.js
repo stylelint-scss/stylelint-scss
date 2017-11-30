@@ -35,6 +35,15 @@ testRule(rule, {
     {
       code: `
       .b {
+        transform: translateX(40px) translatey(10px);
+      }
+      `,
+      description:
+        "Always. Example: native CSS camel-casing function is ignored."
+    },
+    {
+      code: `
+      .b {
         border: reset($value: 40px);
       }
       `,
@@ -209,6 +218,23 @@ testRule(rule, {
   syntax: "scss",
 
   accept: [
+    {
+      code: `
+      .b {
+        background-image: linear-gradient(0deg, blue, green 40%, red);
+      }
+      `,
+      description: "Never. Example: native CSS function is ignored."
+    },
+    {
+      code: `
+      .b {
+        transform: translateX(40px) translatey(10px);
+      }
+      `,
+      description:
+        "Never. Example: native CSS camel-casing function is ignored."
+    },
     {
       code: `
       .b {
@@ -421,6 +447,24 @@ testRule(rule, {
     {
       code: `
       .b {
+        background-image: linear-gradient(0deg, blue, green 40%, red);
+      }
+      `,
+      description:
+        "Always and ignore single argument. Example: native CSS function is ignored."
+    },
+    {
+      code: `
+      .b {
+        transform: translateX(40px) translatey(10px);
+      }
+      `,
+      description:
+        "Always and ignore single argument. Example: native CSS camel-casing function is ignored."
+    },
+    {
+      code: `
+      .b {
         border: reset();
       }
       `,
@@ -593,6 +637,24 @@ testRule(rule, {
   syntax: "scss",
 
   accept: [
+    {
+      code: `
+      .b {
+        background-image: linear-gradient(0deg, blue, green 40%, red);
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: native CSS function is ignored."
+    },
+    {
+      code: `
+      .b {
+        transform: translateX(40px) translatey(10px);
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: native CSS camel-casing function is ignored."
+    },
     {
       code: `
       .b {
