@@ -10,7 +10,7 @@ Require named parameters in at-mixin call rule.
 
 ## Options
 
-`string`: `"always"|"never"|"always-multiple-arguments"`
+`string`: `"always"|"never"`
 
 ### `always`
 
@@ -78,33 +78,19 @@ The following patterns are *not* considered warnings:
 } 
 ```
 
-### `always-multiple-arguments`
+## Optional secondary options
+### `"ignore": ["single-argument"]`
 
-The following patterns are considered warnings:
-
-```scss
-.foo {
-  @include animation(250ms, 100ms, infinite);
-}
-```
-
-```scss
-.foo {
-  @include reset($value: 20, 'bar', $color: #FFF);
-}
-```
-
-```scss
-.foo {
-  @include animation($duration: 250ms);
-}
+Given:
+```json
+{ "ignore": ["single-argument"] }
 ```
 
 The following patterns are *not* considered warnings:
 
 ```scss
 .foo {
-  @include animation($duration: 250ms, $delay: 100ms, $direction: infinite);
+  @include animation($duration: 250ms);
 }
 ```
 
