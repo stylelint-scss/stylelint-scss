@@ -27,6 +27,14 @@ testRule(rule, {
     {
       code: `
       .b {
+        background-image: linear-gradient(0deg, blue, green 40%, red);
+      }
+      `,
+      description: "Always. Example: native CSS function is ignored."
+    },
+    {
+      code: `
+      .b {
         border: reset($value: 40px);
       }
       `,

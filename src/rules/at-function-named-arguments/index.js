@@ -1,5 +1,9 @@
 import { utils } from "stylelint";
-import { namespace, optionsHaveIgnored } from "../../utils";
+import {
+  namespace,
+  optionsHaveIgnored,
+  isNativeCssFunction
+} from "../../utils";
 import valueParser from "postcss-value-parser";
 
 export const ruleName = namespace("at-function-named-arguments");
@@ -10,15 +14,6 @@ export const messages = utils.ruleMessages(ruleName, {
   rejectedSingle:
     "Unexpected a named parameter in single argument function call"
 });
-
-const cssFunctions = [
-  "attr",
-  "calc",
-  "linear-gradient",
-  "radial-gradient",
-  "repeating-linear-gradient",
-  "repeating-radial-gradient"
-];
 
 const hasArgumentsRegExp = /\((.*)\)$/;
 const isScssVarRegExp = /^\$\S*/;
@@ -51,10 +46,7 @@ export default function(expectation, options) {
 
     root.walkDecls(decl => {
       valueParser(decl.value).walk(node => {
-        if (
-          node.type !== "function" ||
-          cssFunctions.indexOf(node.value.toLowerCase()) !== -1
-        ) {
+        if (node.type !== "function" || isNativeCssFunction(node.value)) {
           return;
         }
 
