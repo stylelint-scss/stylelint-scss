@@ -10,7 +10,7 @@ animation: animation($duration: 250ms) {
 
 ## Options
 
-`string`: `"always"|"never"|"always-multiple-arguments"`
+`string`: `"always"|"never"`
 
 ### `always`
 
@@ -78,38 +78,24 @@ The following patterns are *not* considered warnings:
 } 
 ```
 
-### `always-multiple-arguments`
+## Optional secondary options
+### `"ignore": ["single-argument"]`
 
-The following patterns are considered warnings:
-
-```scss
-.foo {
-  animation: animation(250ms, 100ms, infinite);
-}
-```
-
-```scss
-.foo {
-  border: reset($value: 20, 'bar', $color: #FFF);
-}
-```
-
-```scss
-.foo {
-  animation: animation($duration: 250ms);
-}
+Given:
+```json
+{ "ignore": ["single-argument"] }
 ```
 
 The following patterns are *not* considered warnings:
 
 ```scss
 .foo {
-  animation: animation($duration: 250ms, $delay: 100ms, $direction: infinite);
+  @include animation($duration: 250ms);
 }
 ```
 
 ```scss
 .foo {
-  border: reset(20);
+  @include reset(20);
 }
 ```

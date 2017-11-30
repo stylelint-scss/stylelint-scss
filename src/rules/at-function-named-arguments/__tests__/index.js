@@ -207,7 +207,7 @@ testRule(rule, {
         border: reset();
       }
       `,
-      description: "Always. Example: no arguments with parenthesis."
+      description: "Never. Example: no arguments with parenthesis."
     },
     {
       code: `
@@ -406,7 +406,7 @@ testRule(rule, {
 
 testRule(rule, {
   ruleName,
-  config: ["always-multiple-arguments"],
+  config: ["always", { ignore: "single-argument" }],
   syntax: "scss",
 
   accept: [
@@ -416,7 +416,8 @@ testRule(rule, {
         border: reset();
       }
       `,
-      description: "Always. Example: no arguments with parenthesis."
+      description:
+        "Always and ignore single argument. Example: no arguments with parenthesis."
     },
     {
       code: `
@@ -425,7 +426,7 @@ testRule(rule, {
       }
     `,
       description:
-        "Always multiple arguments. Example: single argument that is not named."
+        "Always and ignore single argument. Example: single argument that is not named."
     },
     {
       code: `
@@ -434,7 +435,7 @@ testRule(rule, {
       }
     `,
       description:
-        "Always multiple arguments. Example: single argument is a variable and is not named."
+        "Always and ignore single argument. Example: single argument is a variable and is not named."
     },
     {
       code: `
@@ -443,7 +444,7 @@ testRule(rule, {
       }
     `,
       description:
-        "Always multiple arguments. Example: single argument is a calculated value and is not named."
+        "Always and ignore single argument. Example: single argument is a calculated value and is not named."
     },
     {
       code: `
@@ -452,7 +453,61 @@ testRule(rule, {
       }
       `,
       description:
-        "Always multiple arguments. Example: all arguments are named."
+        "Always and ignore single argument. Example: all arguments are named."
+    },
+    {
+      code: `
+      .b {
+        border: reset($value: 40px);
+      }
+      `,
+      description:
+        "Always and ignore single argument. Example: single argument is named."
+    },
+    {
+      code: `
+      .b {
+        border: reset($value: $other-value);
+      }
+      `,
+      description:
+        "Always and ignore single argument. Example: single named argument is a variable."
+    },
+    {
+      code: `
+      .b {
+        border: reset($value: #{$other-value});
+      }
+      `,
+      description:
+        "Always and ignore single argument. Example: single named argument is an interpolated value."
+    },
+    {
+      code: `
+      .b {
+        animation: anim($duration: 30 * 25ms);
+      }
+      `,
+      description:
+        "Always and ignore single argument. Example: single named argument is a calculated value."
+    },
+    {
+      code: `
+      .b {
+        border: reset($color: 'black');
+      }
+      `,
+      description:
+        "Always and ignore single argument. Example: single named argument is a quoted string."
+    },
+    {
+      code: `
+      .b {
+        animation: anim($iteration: infinite);
+      }
+      `,
+      description:
+        "Always and ignore single argument. Example: single argument is an unquoted string."
     },
     {
       code: `
@@ -465,95 +520,11 @@ testRule(rule, {
       }
       `,
       description:
-        "Always multiple arguments. Example: all arguments are named in multiline function call."
+        "Always and ignore single argument. Example: all arguments are named in multiline function call."
     }
   ],
 
   reject: [
-    {
-      code: `
-      .b {
-        border: reset($value: 40px);
-      }
-      `,
-      line: 3,
-      column: 9,
-      message: messages.unexpectedSingle,
-      description:
-        "Always multiple arguments. Example: single argument is named."
-    },
-    {
-      code: `
-      .b {
-        border: reset($value: $other-value);
-      }
-      `,
-      line: 3,
-      column: 9,
-      message: messages.unexpectedSingle,
-      description:
-        "Always multiple arguments. Example: single named argument is a variable."
-    },
-    {
-      code: `
-      .b {
-        border: reset($value: #{$other-value});
-      }
-      `,
-      line: 3,
-      column: 9,
-      message: messages.unexpectedSingle,
-      description:
-        "Always multiple arguments. Example: single named argument is an interpolated value."
-    },
-    {
-      code: `
-      .b {
-        animation: anim($duration: 30 * 25ms);
-      }
-      `,
-      line: 3,
-      column: 9,
-      message: messages.unexpectedSingle,
-      description:
-        "Always multiple arguments. Example: single named argument is a calculated value."
-    },
-    {
-      code: `
-      .b {
-        border: reset($color: 'black');
-      }
-      `,
-      line: 3,
-      column: 9,
-      message: messages.unexpectedSingle,
-      description:
-        "Always multiple arguments. Example: single named argument is a quoted string."
-    },
-    {
-      code: `
-      .b {
-        animation: anim($iteration: infinite);
-      }
-      `,
-      line: 3,
-      column: 9,
-      message: messages.unexpectedSingle,
-      description:
-        "Always multiple arguments. Example: single argument is an unquoted string."
-    },
-    {
-      code: `
-      .b {
-        border: reset($value: 40px, 10px);
-      }
-    `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
-      description:
-        "Always multiple arguments. Example: first argument is named but remaining are not."
-    },
     {
       code: `
       .b {
@@ -567,7 +538,7 @@ testRule(rule, {
       column: 9,
       message: messages.expected,
       description:
-        "Always multiple arguments. Example: first argument is named but remaining are not in multiline function call."
+        "Always and ignore single argument. Example: first argument is named but remaining are not in multiline function call."
     },
     {
       code: `
@@ -578,7 +549,8 @@ testRule(rule, {
       line: 3,
       column: 9,
       message: messages.expected,
-      description: "Always multiple arguments. Example: mixed named arguments."
+      description:
+        "Always and ignore single argument. Example: mixed named arguments."
     },
     {
       code: `
@@ -590,7 +562,7 @@ testRule(rule, {
       column: 9,
       message: messages.expected,
       description:
-        "Always multiple arguments. Example: first argument is named but remaining are not."
+        "Always and ignore single argument. Example: first argument is named but remaining are not."
     },
     {
       code: `
@@ -601,7 +573,210 @@ testRule(rule, {
       line: 3,
       column: 9,
       message: messages.expected,
-      description: "Always multiple arguments. Example: mixed named arguments."
+      description:
+        "Always and ignore single argument. Example: mixed named arguments."
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
+  config: ["never", { ignore: ["single-argument"] }],
+  syntax: "scss",
+
+  accept: [
+    {
+      code: `
+      .b {
+        border: reset();
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: no arguments with parenthesis."
+    },
+    {
+      code: `
+      .b {
+        border: reset(40px);
+      }
+    `,
+      description:
+        "Never and ignore single argument. Example: single argument that is not named."
+    },
+    {
+      code: `
+      .b {
+        border: reset(40px, 10px);
+      }
+    `,
+      description:
+        "Never and ignore single argument. Example: multiple arguments that are not named."
+    },
+    {
+      code: `
+      .b {
+        border: reset(
+          40px,
+          10px
+        );
+      }
+    `,
+      description:
+        "Never and ignore single argument. Example: multiple arguments that are not named in multiline function call."
+    },
+    {
+      code: `
+      .b {
+        border: reset($duration);
+      }
+    `,
+      description:
+        "Never and ignore single argument. Example: single argument is a variable and are not named."
+    },
+    {
+      code: `
+      .b {
+        border: reset(30 * 25ms);
+      }
+    `,
+      description:
+        "Never and ignore single argument. Example: single argument is a calculated value and not named."
+    },
+    {
+      code: `
+      .b {
+        border: reset('black');
+      }
+    `,
+      description:
+        "Never and ignore single argument. Example: single argument is a quoted string and not named."
+    },
+    {
+      code: `
+      .b {
+        border: reset(black);
+      }
+    `,
+      description:
+        "Never and ignore single argument. Example: single argument is an unquoted string and not named."
+    },
+    {
+      code: `
+      .b {
+        border: reset(#{$value});
+      }
+    `,
+      description:
+        "Never and ignore single argument. Example: single argument is an interpolated value and not named."
+    },
+    {
+      code: `
+      .b {
+        border: reset($value: 40px);
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: single argument is named."
+    },
+    {
+      code: `
+      .b {
+        border: reset($value: $other-value);
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: single argument is a variable."
+    },
+    {
+      code: `
+      .b {
+        border: reset($value: #{$other-value});
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: single argument is an interpolated value."
+    },
+    {
+      code: `
+      .b {
+        animation: anim($duration: 30 * 25ms);
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: single argument is a calculated value."
+    },
+    {
+      code: `
+      .b {
+        border: reset($color: 'black');
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: single argument is a quoted string."
+    },
+    {
+      code: `
+      .b {
+        animation: anim($iteration: infinite);
+      }
+      `,
+      description:
+        "Never and ignore single argument. Example: single argument is an unquoted string."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      .b {
+        border: reset($value: 40px, $second-value: 10px, $color: 'black');
+      }
+      `,
+      line: 3,
+      column: 9,
+      message: messages.unexpected,
+      description:
+        "Never and ignore single argument. Example: all arguments are named."
+    },
+    {
+      code: `
+      .b {
+        border: reset(
+          $value: 40px,
+          $second-value: 10px,
+          $color: 'black'
+        );
+      }
+      `,
+      line: 3,
+      column: 9,
+      message: messages.unexpected,
+      description:
+        "Never and ignore single argument. Example: all arguments are named in multiline function call."
+    },
+    {
+      code: `
+      .b {
+        border: reset($value: 40px, 10px);
+      }
+    `,
+      line: 3,
+      column: 9,
+      message: messages.unexpected,
+      description:
+        "Never and ignore single argument. Example: first argument is named but remaining are not."
+    },
+    {
+      code: `
+      .b {
+        border: reset(40px, $value: 10px, 'black');
+      }
+    `,
+      line: 3,
+      column: 9,
+      message: messages.unexpected,
+      description:
+        "Never and ignore single argument. Example: mixed named arguments."
     }
   ]
 });

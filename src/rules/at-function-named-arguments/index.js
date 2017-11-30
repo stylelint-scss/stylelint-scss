@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, optionsHaveIgnored } from "../../utils";
 import valueParser from "postcss-value-parser";
 
 export const ruleName = namespace("at-function-named-arguments");
@@ -23,15 +23,31 @@ const cssFunctions = [
 const hasArgumentsRegExp = /\((.*)\)$/;
 const isScssVarRegExp = /^\$\S*/;
 
-export default function(expectation) {
+export default function(expectation, options) {
   return function(root, result) {
-    const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation,
-      possible: ["always", "never", "always-multiple-arguments"]
-    });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      {
+        actual: expectation,
+        possible: ["always", "never", "always-multiple-arguments"]
+      },
+      {
+        actual: options,
+        possible: {
+          ignore: ["single-argument"]
+        },
+        optional: true
+      }
+    );
     if (!validOptions) {
       return;
     }
+
+    const shouldIgnoreSingleArgument = optionsHaveIgnored(
+      options,
+      "single-argument"
+    );
 
     root.walkDecls(decl => {
       valueParser(decl.value).walk(node => {
@@ -74,6 +90,12 @@ export default function(expectation) {
             return [...resultArray, pair];
           }, []);
 
+        const isSingleArgument = args.length === 1;
+
+        if (isSingleArgument && shouldIgnoreSingleArgument) {
+          return;
+        }
+
         args.forEach(arg => {
           switch (expectation) {
             case "never": {
@@ -93,33 +115,6 @@ export default function(expectation) {
             case "always": {
               if (arg.key && isScssVarRegExp.test(arg.key)) {
                 return;
-              }
-
-              utils.report({
-                message: messages.expected,
-                node: decl,
-                result,
-                ruleName
-              });
-              break;
-            }
-
-            case "always-multiple-arguments": {
-              if (
-                (args.length > 1 && arg.key && isScssVarRegExp.test(arg.key)) ||
-                (args.length === 1 && !arg.key)
-              ) {
-                return;
-              }
-
-              // Create report when the single argument is a named parameter.
-              if (args.length === 1 && arg.key) {
-                utils.report({
-                  message: messages.rejectedSingle,
-                  node: decl,
-                  result,
-                  ruleName
-                });
               }
 
               utils.report({

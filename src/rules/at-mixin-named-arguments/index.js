@@ -72,11 +72,11 @@ export default function(expectation, options) {
 
       const isSingleArgument = args.length === 1;
 
-      args.forEach(arg => {
-        if (isSingleArgument && shouldIgnoreSingleArgument) {
-          return;
-        }
+      if (isSingleArgument && shouldIgnoreSingleArgument) {
+        return;
+      }
 
+      args.forEach(arg => {
         switch (expectation) {
           case "never": {
             if (!arg.key) {
