@@ -30,7 +30,7 @@ export default function(expectation, options) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never", "always-multiple-arguments"]
+        possible: ["always", "never"]
       },
       {
         actual: options,
