@@ -9,6 +9,7 @@ export {
 export { default as hasBlock } from "./hasBlock";
 export { default as hasEmptyLine } from "./hasEmptyLine";
 export { default as isInlineComment } from "./isInlineComment";
+export { default as isNativeCssFunction } from "./isNativeCssFunction";
 export { default as isSingleLineString } from "./isSingleLineString";
 export { default as isStandardRule } from "./isStandardRule";
 export { default as isStandardSelector } from "./isStandardSelector";
