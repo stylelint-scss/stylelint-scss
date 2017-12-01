@@ -10,9 +10,7 @@ export const ruleName = namespace("at-function-named-arguments");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a named parameter to be used in function call",
-  rejected: "Unexpected a named parameter in function call",
-  rejectedSingle:
-    "Unexpected a named parameter in single argument function call"
+  rejected: "Unexpected a named parameter in function call"
 });
 
 const hasArgumentsRegExp = /\((.*)\)$/;

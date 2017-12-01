@@ -5,9 +5,7 @@ export const ruleName = namespace("at-mixin-named-arguments");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a named parameter to be used in at-include call",
-  rejected: "Unexpected a named parameter in at-include call",
-  rejectedSingle:
-    "Unexpected a named parameter in single argument at-include call"
+  rejected: "Unexpected a named parameter in at-include call"
 });
 
 const hasArgumentsRegExp = /\((.*)\)$/;

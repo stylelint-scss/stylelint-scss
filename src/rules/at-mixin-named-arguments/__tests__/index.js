@@ -332,7 +332,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: single argument is named."
     },
     {
@@ -343,7 +343,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: single argument is a variable."
     },
     {
@@ -354,7 +354,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: single argument is an interpolated value."
     },
     {
@@ -365,7 +365,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: single argument is a calculated value."
     },
     {
@@ -376,7 +376,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: single argument is a quoted string."
     },
     {
@@ -387,7 +387,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: single argument is an unquoted string."
     },
     {
@@ -396,7 +396,7 @@ testRule(rule, {
       `,
       line: 2,
       column: 7,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: standalone mixin."
     },
     {
@@ -407,7 +407,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: all arguments are named."
     },
     {
@@ -422,7 +422,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description:
         "Never. Example: all arguments are named in multiline mixin call."
     },
@@ -434,7 +434,7 @@ testRule(rule, {
     `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description:
         "Never. Example: first argument is named but remaining are not."
     },
@@ -446,7 +446,7 @@ testRule(rule, {
     `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description: "Never. Example: mixed named arguments."
     }
   ]
@@ -837,7 +837,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description:
         "Never and ignore single argument. Example: all arguments are named."
     },
@@ -853,7 +853,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description:
         "Never and ignore single argument. Example: all arguments are named in multiline mixin call."
     },
@@ -865,7 +865,7 @@ testRule(rule, {
     `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description:
         "Never and ignore single argument. Example: first argument is named but remaining are not."
     },
@@ -877,7 +877,7 @@ testRule(rule, {
     `,
       line: 3,
       column: 9,
-      message: messages.unexpected,
+      message: messages.rejected,
       description:
         "Never and ignore single argument. Example: mixed named arguments."
     }
