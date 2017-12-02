@@ -1,3 +1,8 @@
+# HEAD
+
+- Added: `at-function-named-arguments` rule.
+- Added: `at-mixin-named-arguments` rule.
+
 # 2.1.0
 
 - Added: `at-else-if-parentheses-space-before` rule.
