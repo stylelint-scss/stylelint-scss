@@ -39,7 +39,7 @@ export default function(expectation) {
  * @param {String ruleName} args.ruleName - needed for `report` function
  * @param {String} args.atRuleName - the name of the at-rule to be checked, e.g. "if", "else"
  * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
- * @return {undefined} 
+ * @return {undefined}
  */
 export function sassConditionalBraceSpaceAfterChecker({
   root,
