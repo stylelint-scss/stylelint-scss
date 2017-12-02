@@ -1,4 +1,4 @@
-# HEAD
+# 2.2.0
 
 - Added: `at-function-named-arguments` rule.
 - Added: `at-mixin-named-arguments` rule.
