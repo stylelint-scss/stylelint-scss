@@ -65,6 +65,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `@`-function
 
+- [`at-function-named-arguments`](./src/rules/at-function-named-arguments/README.md): Require named parameters in SCSS function call rule.
 - [`at-function-parentheses-space-before`](./src/rules/at-function-parentheses-space-before/README.md): Require or disallow a space before `@function` parentheses.
 - [`at-function-pattern`](./src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
 
@@ -82,6 +83,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### `@`-mixin
 
 - [`at-mixin-argumentless-call-parentheses`](./src/rules/at-mixin-argumentless-call-parentheses/README.md): Require or disallow parentheses in argumentless `@mixin` calls.
+- [`at-mixin-named-arguments`](./src/rules/at-mixin-named-arguments/README.md): Require named parameters in at-mixin call rule.
 - [`at-mixin-parentheses-space-before`](./src/rules/at-mixin-parentheses-space-before/README.md): Require or disallow a space before `@mixin` parentheses.
 - [`at-mixin-pattern`](./src/rules/at-mixin-pattern/README.md): Specify a pattern for Sass/SCSS-like mixin names.
 
