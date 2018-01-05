@@ -43,7 +43,7 @@
     "stylelint": "^8.0.0"
   },
   "engines": {
-    "node": ">=4.2.1"
+    "node": ">=6"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
