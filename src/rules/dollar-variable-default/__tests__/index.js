@@ -28,17 +28,35 @@ testRule(rule, {
     {
       code: "$var: 10px",
       message: messages.expected("$var"),
-      description: "Global variable without !default"
+      description: "Global variable without !default",
+      line: 1,
+      column: 1
     },
     {
-      code: "a { $var: 10px }",
-      message: messages.expected("$var"),
-      description: "Local variable without !default"
+      code: `
+        $global: 10px !default;
+        a {
+          $local-var: 10px;
+        }
+      `,
+      message: messages.expected("$local-var"),
+      description: "Local variable without !default",
+      line: 4,
+      column: 11
     },
     {
-      code: ".class { a { $var: 10px } }",
-      message: messages.expected("$var"),
-      description: "Nested local variable without !default"
+      code: `
+        $global: 10px !default;
+        .class {
+          a {
+            $nested-var: 10px;
+          }
+        }
+      `,
+      message: messages.expected("$nested-var"),
+      description: "Nested local variable without !default",
+      line: 5,
+      column: 13
     }
   ]
 });
@@ -81,7 +99,9 @@ testRule(rule, {
       code: "$var: 10px",
       message: messages.expected("$var"),
       description:
-        "Ignore local variable, fail global variable without !default"
+        "Ignore local variable, fail global variable without !default",
+      line: 1,
+      column: 1
     }
   ]
 });
