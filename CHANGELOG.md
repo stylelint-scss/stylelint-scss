@@ -1,7 +1,3 @@
-# HEAD
-
-- Removed: Node.JS 4.x support. Node.js 6.x or greater is now required (https://github.com/stylelint/stylelint/pull/3075).
-
 # 2.2.0
 
 - Added: `at-function-named-arguments` rule.
