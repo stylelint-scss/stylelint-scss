@@ -19,12 +19,12 @@ testRule(rule, {
   reject: [
     {
       code: "$var: 10px",
-      message: messages.expected,
+      message: messages.expected("$var"),
       description: "Global variable without !default"
     },
     {
       code: "a { $var: 10px }",
-      message: messages.expected,
+      message: messages.expected("$var"),
       description: "Local variable without !default"
     }
   ]
@@ -50,7 +50,7 @@ testRule(rule, {
   reject: [
     {
       code: "$var: 10px",
-      message: messages.expected,
+      message: messages.expected("$var"),
       description:
         "Ignore local variable, fail global variable without !default"
     }

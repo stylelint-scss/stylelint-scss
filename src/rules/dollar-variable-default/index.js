@@ -4,7 +4,7 @@ import { namespace, optionsHaveIgnored } from "../../utils";
 export const ruleName = namespace("dollar-variable-default");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected !default flag for $variable"
+  expected: variable => `Expected !default flag for "${variable}"`
 });
 
 export default function(primaryOption, secondaryOptions) {
@@ -47,7 +47,7 @@ export default function(primaryOption, secondaryOptions) {
       }
 
       utils.report({
-        message: messages.expected,
+        message: messages.expected(decl.prop),
         node: decl,
         result,
         ruleName
