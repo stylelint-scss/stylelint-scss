@@ -1,4 +1,4 @@
-# HEAD
+# 2.3.0
 
 - Added: `dollar-variable-default` rule.
 
