@@ -1,3 +1,7 @@
+# HEAD
+
+- Added: `dollar-variable-default` rule.
+
 # 2.2.0
 
 - Added: `at-function-named-arguments` rule.
