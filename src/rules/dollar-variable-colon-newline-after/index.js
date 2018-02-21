@@ -1,5 +1,6 @@
 import {
   declarationValueIndex,
+  isSingleLineString,
   namespace,
   whitespaceChecker
 } from "../../utils";
@@ -27,6 +28,18 @@ export default function(expectation) {
     root.walkDecls(decl => {
       if (!decl.prop || decl.prop[0] !== "$") {
         return;
+      }
+
+      if (expectation === "always") {
+        const value = decl.value.trim();
+        const isMultilineVar =
+          value[0] === "(" &&
+          value[value.length - 1] === ")" &&
+          !isSingleLineString(value);
+
+        if (isMultilineVar) {
+          return;
+        }
       }
 
       // Get the raw $var, and only that

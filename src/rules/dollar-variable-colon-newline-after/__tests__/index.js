@@ -26,12 +26,39 @@ testRule(rule, {
       description: "a { $var1\\r\\n:\\r\\n100px }"
     },
     {
+      code: "a { $var1\n:\n(100px) }",
+      description: "always: should allow variable using parens with newline"
+    },
+    {
+      code: "a { $var1\r\n:\r\n(100px) }",
+      description: "always: should allow variable using parens with newline"
+    },
+    {
       code: "a { width: 100px; }",
       description: "a { width: 100px; }"
     },
     {
       code: "$background:\n  url(data:application/font-woff;...);",
       description: "$background:\\n  url(data:application/font-woff;...);"
+    },
+    {
+      code: `
+      $map: (
+        foo: 1,
+        bar: 2,
+      );
+      `,
+      description: "always: should ignore Sass maps"
+    },
+    {
+      code: `
+      $var: (
+        1 +
+        2 +
+        3
+      );
+      `,
+      description: "always: should ignore multiline variables"
     }
   ],
 
@@ -91,6 +118,13 @@ testRule(rule, {
       message: messages.expectedAfter(),
       line: 1,
       column: 7
+    },
+    {
+      code: "$var1 : (100px);",
+      description: "always: should report variable with parens without newline",
+      message: messages.expectedAfter(),
+      line: 1,
+      column: 7
     }
   ]
 });
@@ -119,6 +153,11 @@ testRule(rule, {
       description: "a { $var1:100px }"
     },
     {
+      code: "a { $var1: (100px) }",
+      description:
+        "always-multi-line: should accept single line variable with parens"
+    },
+    {
       code: "a { $var1 :\t100px }",
       description: "a { $var1 :\\t100px }"
     },
@@ -145,6 +184,27 @@ testRule(rule, {
       description:
         "a{\n" +
         "  box-shadow: 0 0 0 1px #5b9dd9,\\n  0 0 2px 1px rgb(30, 140, 190); }"
+    },
+    {
+      code: `
+      $map:\n(
+        foo: 1,
+        bar: 2,
+      );
+      `,
+      description:
+        "always-multi-line: should allow Sass map using newline after colon"
+    },
+    {
+      code: `
+      $var:\r\n(
+        1 +
+        2 +
+        3
+      );
+      `,
+      description:
+        "always-multi-line: should allow multiline variable using newline after colon"
     }
   ],
 
@@ -170,6 +230,33 @@ testRule(rule, {
       message: messages.expectedAfterMultiLine(),
       line: 1,
       column: 14
+    },
+    {
+      code: `
+      $map: (
+        foo: 1,
+        bar: 2,
+      );
+      `,
+      description:
+        "always-multi-line: should report when using Sass map without a newline",
+      message: messages.expectedAfterMultiLine(),
+      line: 2,
+      column: 11
+    },
+    {
+      code: `
+      $var: (
+        1 +
+        2 +
+        3
+      );
+      `,
+      description:
+        "always-multi-line: should report when using multiline variable without a newline",
+      message: messages.expectedAfterMultiLine(),
+      line: 2,
+      column: 11
     }
   ]
 });
