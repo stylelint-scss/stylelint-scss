@@ -1,5 +1,6 @@
 # HEAD
 
+- Added: support for stylelint version 9.
 - Fixed: `dollar-variable-colon-newline-after` now allows multiline variables when `always` option is used.
 
 # 2.3.0
