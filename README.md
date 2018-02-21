@@ -6,6 +6,7 @@
 [![Build Status](https://travis-ci.org/kristerkari/stylelint-scss.svg?branch=master)](https://travis-ci.org/kristerkari/stylelint-scss)
 [![Build status](https://ci.appveyor.com/api/projects/status/xa12kju6qmvmqs1n/branch/master?svg=true)](https://ci.appveyor.com/project/kristerkari/stylelint-scss/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/kristerkari/stylelint-scss/badge.svg?branch=master)](https://coveralls.io/github/kristerkari/stylelint-scss?branch=master)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 
 A collection of SCSS specific linting rules for [stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
 
