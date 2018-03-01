@@ -161,6 +161,9 @@ export default function(targetWhitespace, expectation, messages) {
         }
         rejectAfter(messages.rejectedAfterMultiLine);
         break;
+      case "at-least-one-space":
+        expectAfter(messages.expectedAfterAtLeast);
+        break;
       default:
         throw configurationError(`Unknown expectation "${expectation}"`);
     }
@@ -281,7 +284,10 @@ export default function(targetWhitespace, expectation, messages) {
     }
 
     if (targetWhitespace === "space" && oneCharAfter === " ") {
-      if (activeArgs.onlyOneChar || !isWhitespace(twoCharsAfter)) {
+      if (
+        expectation === "at-least-one-space" ||
+        (activeArgs.onlyOneChar || !isWhitespace(twoCharsAfter))
+      ) {
         return;
       }
     }

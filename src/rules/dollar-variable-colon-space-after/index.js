@@ -11,7 +11,8 @@ export const messages = utils.ruleMessages(ruleName, {
   expectedAfter: () => 'Expected single space after ":"',
   rejectedAfter: () => 'Unexpected whitespace after ":"',
   expectedAfterSingleLine: () =>
-    'Expected single space after ":" with a single-line value'
+    'Expected single space after ":" with a single-line value',
+  expectedAfterAtLeast: () => 'Expected at least one space after ":"'
 });
 
 export default function(expectation) {
