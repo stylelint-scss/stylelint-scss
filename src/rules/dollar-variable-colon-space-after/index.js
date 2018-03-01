@@ -19,7 +19,7 @@ export default function(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["always", "never", "always-single-line"]
+      possible: ["always", "never", "always-single-line", "at-least-one-space"]
     });
     if (!validOptions) {
       return;
