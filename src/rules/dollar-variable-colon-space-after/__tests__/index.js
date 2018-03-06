@@ -273,3 +273,77 @@ testRule(rule, {
     }
   ]
 });
+
+testRule(rule, {
+  ruleName,
+  config: ["at-least-one-space"],
+  syntax: "scss",
+
+  accept: [
+    {
+      code: "a { width:10px }",
+      description: "Not an SCSS var, ignored: a { width:10px }"
+    },
+    {
+      code: "a { $var: 10px }",
+      description: "a { $var: 10px }"
+    },
+    {
+      code: "a { $var : 10px }",
+      description: "a { $var : 10px }"
+    },
+    {
+      code: "a { $var\n: 10px }",
+      description: "a { $var\n: 10px }"
+    },
+    {
+      code: "a { $var\r\n: 10px }",
+      description: "a { $var\r\n: 10px }"
+    },
+    {
+      code: "$var: 10px;",
+      description: "$var: 10px;"
+    },
+    {
+      code: "$var : 10px",
+      description: "$var : 10px"
+    },
+    {
+      code: "$var: url(data:application/font-woff;...);",
+      description: "Data URI: $var: url(data:application/font-woff;...);"
+    },
+    {
+      code: "@function ($a:10) {}",
+      description:
+        "Default in a function definition, ignored: @function ($a: 10)"
+    },
+    {
+      code: "$var:    10px",
+      description: "$var:    10px"
+    }
+  ],
+
+  reject: [
+    {
+      code: "a { $var :10px; }",
+      description: "a { $var :10px; }",
+      message: messages.expectedAfterAtLeast(),
+      line: 1,
+      column: 10
+    },
+    {
+      code: "$var :10px;",
+      description: "$var :10px;",
+      message: messages.expectedAfterAtLeast(),
+      line: 1,
+      column: 6
+    },
+    {
+      code: "$var:10px;",
+      description: "$var:10px;",
+      message: messages.expectedAfterAtLeast(),
+      line: 1,
+      column: 5
+    }
+  ]
+});

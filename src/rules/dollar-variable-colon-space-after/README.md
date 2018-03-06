@@ -1,6 +1,6 @@
 # dollar-variable-colon-space-after
 
-Require a single space or disallow whitespace after the colon in `$`-variable declarations.
+Require or disallow whitespace after the colon in `$`-variable declarations.
 
 ```scss
 $variable: 10px;
@@ -10,7 +10,7 @@ $variable: 10px;
 
 ## Options
 
-`string`: `"always"|"never"|"always-single-line"`
+`string`: `"always"|"never"|"always-single-line"|"at-least-one-space"`
 
 ### `"always"`
 
@@ -100,4 +100,38 @@ a {
   $box-shadow:0 0 0 1px #5b9dd9,
     0 0 2px 1px rgba(30, 140, 190, 0.8);
 }
+```
+
+### `"at-least-one-space"`
+
+There must always be *at least* a single space after the colon.
+
+The following patterns are considered warnings:
+
+```scss
+a { $var :10px }
+```
+
+```scss
+$var:10px;
+```
+
+```scss
+$var:
+  10px;
+// a newline is not a space
+```
+
+The following patterns are *not* considered warnings:
+
+```scss
+a { $var : 10px }
+```
+
+```scss
+$var: 10px;
+```
+
+```scss
+$var:    10px;
 ```
