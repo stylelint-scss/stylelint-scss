@@ -30,16 +30,14 @@ export default function(expectation) {
         return;
       }
 
-      if (expectation === "always") {
-        const value = decl.value.trim();
-        const isMultilineVar =
-          value[0] === "(" &&
-          value[value.length - 1] === ")" &&
-          !isSingleLineString(value);
+      const value = decl.value.trim();
+      const isMultilineVarWithParens =
+        value[0] === "(" &&
+        value[value.length - 1] === ")" &&
+        !isSingleLineString(value);
 
-        if (isMultilineVar) {
-          return;
-        }
+      if (isMultilineVarWithParens) {
+        return;
       }
 
       // Get the raw $var, and only that
