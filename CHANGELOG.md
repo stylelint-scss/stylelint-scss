@@ -1,3 +1,8 @@
+# 2.5.0
+
+- Added: `at-least-one-space` option to `dollar-variable-colon-space-after` rule.
+- Fixed: `dollar-variable-colon-newline-after` now does not require a newline for Sass maps and multiline variables with parentheses when `always-multi-line` option is used.
+
 # 2.4.0
 
 - Added: support for stylelint version 9.
