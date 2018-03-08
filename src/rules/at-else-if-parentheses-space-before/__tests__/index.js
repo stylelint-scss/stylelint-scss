@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -65,6 +66,11 @@ testRule(rule, {
       ($foo) {
       }
     `,
+      fixed: `
+      @else
+      if ($foo) {
+      }
+    `,
       line: 2,
       message: messages.expectedBefore(),
       description: "Newline after if"
@@ -72,6 +78,10 @@ testRule(rule, {
     {
       code: `
       @else if($foo) {
+      }
+    `,
+      fixed: `
+      @else if ($foo) {
       }
     `,
       line: 2,
@@ -83,6 +93,10 @@ testRule(rule, {
       @else if  ($foo) {
       }
     `,
+      fixed: `
+      @else if ($foo) {
+      }
+    `,
       line: 2,
       message: messages.expectedBefore(),
       description: "Extra spaces after if."
@@ -90,6 +104,10 @@ testRule(rule, {
     {
       code: `
       @else if($bar == 0 or ($bar > 5 and $bar < 10)) {
+      }
+    `,
+      fixed: `
+      @else if ($bar == 0 or ($bar > 5 and $bar < 10)) {
       }
     `,
       line: 2,
@@ -103,6 +121,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -164,6 +183,11 @@ testRule(rule, {
       ($foo) {
       }
     `,
+      fixed: `
+      @else
+      if($foo) {
+      }
+    `,
       line: 2,
       message: messages.rejectedBefore(),
       description: "Newline after if"
@@ -171,6 +195,10 @@ testRule(rule, {
     {
       code: `
       @else if ($foo) {
+      }
+    `,
+      fixed: `
+      @else if($foo) {
       }
     `,
       line: 2,
@@ -182,6 +210,10 @@ testRule(rule, {
       @else if ($bar == 0 or ($bar > 5 and $bar < 10)) {
       }
     `,
+      fixed: `
+      @else if($bar == 0 or ($bar > 5 and $bar < 10)) {
+      }
+    `,
       line: 2,
       message: messages.rejectedBefore(),
       description: "Single space before parentheses. Complex condition."
@@ -191,6 +223,10 @@ testRule(rule, {
       @else if  ($foo) {
       }
     `,
+      fixed: `
+      @else if($foo) {
+      }
+    `,
       line: 2,
       message: messages.rejectedBefore(),
       description: "Multiple spaces before parentheses. Simple condition."
@@ -198,6 +234,10 @@ testRule(rule, {
     {
       code: `
       @else if  ($bar == 0 or ($bar > 5 and $bar < 10)) {
+      }
+    `,
+      fixed: `
+      @else if($bar == 0 or ($bar > 5 and $bar < 10)) {
       }
     `,
       line: 2,
