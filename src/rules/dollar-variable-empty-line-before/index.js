@@ -15,7 +15,7 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unxpected empty line before $-variable"
 });
 
-export default function(expectation, options) {
+export default function(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -93,8 +93,31 @@ export default function(expectation, options) {
         expectHasEmptyLineBefore = !expectHasEmptyLineBefore;
       }
 
-      if (expectHasEmptyLineBefore === hasEmptyLine(decl.raws.before)) {
+      const before = decl.raws.before;
+
+      if (expectHasEmptyLineBefore === hasEmptyLine(before)) {
         return;
+      }
+
+      if (context.fix) {
+        if (expectHasEmptyLineBefore && !hasEmptyLine(before)) {
+          if (/^\n\s*?$/.test(before)) {
+            decl.raws.before = before.replace(/^\n/, "\n\n");
+          } else if (/^\r\n\s*?$/.test(before)) {
+            decl.raws.before = before.replace(/^\r\n/, "\r\n\r\n");
+          }
+          return;
+        }
+        if (!expectHasEmptyLineBefore && hasEmptyLine(before)) {
+          if (/^\n\n\s*?$/.test(before)) {
+            decl.raws.before = before.replace(/^\n\n/, "\n");
+          } else if (/^\n\r\n\s*?$/.test(before)) {
+            decl.raws.before = before.replace(/^\n\r\n/, "\r\n");
+          } else if (/^\r\n\r\n\s*?$/.test(before)) {
+            decl.raws.before = before.replace(/^\r\n\r\n/, "\r\n");
+          }
+          return;
+        }
       }
 
       utils.report({

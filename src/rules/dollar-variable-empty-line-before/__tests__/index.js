@@ -7,6 +7,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -52,6 +53,10 @@ testRule(rule, {
       code: `a {
       $var1: 100px;
     }`,
+      fixed: `a {
+
+      $var1: 100px;
+    }`,
       description: "always. $var inside a rule, no emptyline before.",
       message: messages.expected,
       line: 2
@@ -59,6 +64,11 @@ testRule(rule, {
     {
       code: `
       $var1: 100px;
+      $var1: 100px;
+    `,
+      fixed: `
+      $var1: 100px;
+
       $var1: 100px;
     `,
       description:
@@ -76,6 +86,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -106,6 +117,9 @@ testRule(rule, {
 
       $var1: 100px;
     }`,
+      fixed: `a {
+      $var1: 100px;
+    }`,
       description: "never. $var inside a rule, emptyline before.",
       message: messages.rejected,
       line: 3
@@ -116,24 +130,31 @@ testRule(rule, {
 
       $var1: 100px;
     `,
+      fixed: `
+      // comment
+      $var1: 100px;
+    `,
       description: "never. $var in root, after comment, has empty line.",
       message: messages.rejected,
       line: 4
     },
     {
       code: "a {\n\n$var1: 100px; }",
+      fixed: "a {\n$var1: 100px; }",
       description: "never. Unix newline",
       message: messages.rejected,
       line: 3
     },
     {
       code: "a {\r\n\r\n$var1: 100px; }",
+      fixed: "a {\r\n$var1: 100px; }",
       description: "never. Windows newline",
       message: messages.rejected,
       line: 3
     },
     {
       code: "a {\n\r\n$var1: 100px; }",
+      fixed: "a {\r\n$var1: 100px; }",
       description: "never. Mixed newline",
       message: messages.rejected,
       line: 3
@@ -148,6 +169,7 @@ testRule(rule, {
   ruleName,
   config: ["always", { ignore: "after-comment" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -191,6 +213,11 @@ testRule(rule, {
       width: 1;
       $var2: 2;
     `,
+      fixed: `
+      width: 1;
+
+      $var2: 2;
+    `,
       description:
         "always, { ignore: after-comment }. No comment directly before $var, no empty line.",
       message: messages.expected,
@@ -203,6 +230,7 @@ testRule(rule, {
   ruleName,
   config: ["never", { ignore: "after-comment" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -245,6 +273,10 @@ testRule(rule, {
       code: `
       width: 1;
 
+      $var2: 2;
+    `,
+      fixed: `
+      width: 1;
       $var2: 2;
     `,
       description:
