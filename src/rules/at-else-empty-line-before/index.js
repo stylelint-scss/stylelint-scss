@@ -7,7 +7,7 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unxpected empty line before @else"
 });
 
-export default function(expectation) {
+export default function(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -26,6 +26,11 @@ export default function(expectation) {
       // because @else should always go after @if
 
       if (!hasEmptyLine(atrule.raws.before)) {
+        return;
+      }
+
+      if (context.fix) {
+        atrule.raws.before = " ";
         return;
       }
 
