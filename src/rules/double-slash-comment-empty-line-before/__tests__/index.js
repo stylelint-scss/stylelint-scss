@@ -55,10 +55,16 @@ const alwaysGeneralTests = {
       // comment 1
       // comment 2
     `,
+      fixed: `
+      // comment 1
+
+      // comment 2
+    `,
       message: messages.expected
     },
     {
       code: "// comment\r\n// comment",
+      fixed: "// comment\r\n\r\n// comment",
       description: "One windows newline between comments.",
       message: messages.expected
     },
@@ -68,11 +74,19 @@ const alwaysGeneralTests = {
       // comment w/o empty line
       top: 0; }
     `,
+      fixed: `
+      a { color: pink;
+
+      // comment w/o empty line
+      top: 0; }
+    `,
       message: messages.expected
     },
     {
       code:
         "a { color: pink;\r\n// comment w/o empty lines, Win style\r\ntop: 0; }",
+      fixed:
+        "a { color: pink;\r\n\r\n// comment w/o empty lines, Win style\r\ntop: 0; }",
       description: "One Windows newline before comment.",
       message: messages.expected
     }
@@ -88,6 +102,7 @@ testRule(rule, {
   config: ["always"],
   syntax: "scss",
   skipBasicChecks: true,
+  fix: true,
 
   accept: alwaysGeneralTests.accept.concat([
     {
@@ -106,6 +121,11 @@ testRule(rule, {
       // First-nested, no empty line before.
       color: pink;
     }`,
+      fixed: `a {
+
+      // First-nested, no empty line before.
+      color: pink;
+    }`,
       description: "First-nested, no empty line before.",
       message: messages.expected,
       line: 2,
@@ -119,16 +139,17 @@ testRule(rule, {
   config: ["always", { except: ["first-nested"] }],
   syntax: "scss",
   skipBasicChecks: true,
+  fix: true,
 
   accept: alwaysGeneralTests.accept.concat([
     {
       code: `
       a {
-        // First nested, now empty line.
+        // First nested, no empty line.
         color: pink;
       }
     `,
-      description: "First nested, now empty line."
+      description: "First nested, no empty line."
     }
   ]),
 
@@ -137,6 +158,11 @@ testRule(rule, {
       code: `
       a {
 
+      // First-nested, with empty line (rejected).
+      color: pink;
+    }`,
+      fixed: `
+      a {
       // First-nested, with empty line (rejected).
       color: pink;
     }`,
@@ -174,6 +200,7 @@ testRule(rule, {
   config: ["always", { ignore: ["between-comments"] }],
   syntax: "scss",
   skipBasicChecks: true,
+  fix: true,
 
   accept: [
     {
@@ -225,6 +252,15 @@ testRule(rule, {
       code: `
       a {
         color: pink;
+        /// comment
+        /// comment
+        top: 0;
+      }
+    `,
+      fixed: `
+      a {
+        color: pink;
+
         /// comment
         /// comment
         top: 0;
