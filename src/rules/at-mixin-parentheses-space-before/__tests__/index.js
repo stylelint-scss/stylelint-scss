@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -58,6 +59,11 @@ testRule(rule, {
       ($n) {
       }
     `,
+      fixed: `
+      @mixin
+      foo ($n) {
+      }
+    `,
       line: 2,
       message: messages.expectedBefore(),
       description: "Newline after mixin name"
@@ -67,6 +73,10 @@ testRule(rule, {
       @mixin foo($n) {
       }
     `,
+      fixed: `
+      @mixin foo ($n) {
+      }
+    `,
       line: 2,
       message: messages.expectedBefore(),
       description: "No space before parentheses."
@@ -74,6 +84,10 @@ testRule(rule, {
     {
       code: `
       @mixin  foo($n) {
+      }
+    `,
+      fixed: `
+      @mixin  foo ($n) {
       }
     `,
       line: 2,
@@ -87,6 +101,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -141,6 +156,11 @@ testRule(rule, {
       ($n) {
       }
     `,
+      fixed: `
+      @mixin
+      foo($n) {
+      }
+    `,
       line: 2,
       message: messages.rejectedBefore(),
       description: "Newline after mixin name"
@@ -150,6 +170,10 @@ testRule(rule, {
       @mixin foo ($n) {
       }
     `,
+      fixed: `
+      @mixin foo($n) {
+      }
+    `,
       line: 2,
       message: messages.rejectedBefore(),
       description: "Single space before parentheses."
@@ -157,6 +181,10 @@ testRule(rule, {
     {
       code: `
       @mixin foo  ($n) {
+      }
+    `,
+      fixed: `
+      @mixin foo($n) {
       }
     `,
       line: 2,
