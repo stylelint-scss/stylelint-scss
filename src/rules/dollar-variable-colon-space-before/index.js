@@ -9,7 +9,7 @@ export const messages = utils.ruleMessages(ruleName, {
   rejectedBefore: () => 'Unexpected whitespace before ":"'
 });
 
-export default function(expectation) {
+export default function(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -24,7 +24,10 @@ export default function(expectation) {
       root,
       result,
       locationChecker: checker.before,
-      checkedRuleName: ruleName
+      checkedRuleName: ruleName,
+      position: "before",
+      expectation,
+      context
     });
   };
 }

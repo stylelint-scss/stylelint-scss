@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -48,6 +49,7 @@ testRule(rule, {
   reject: [
     {
       code: "a { $var :10px; }",
+      fixed: "a { $var : 10px; }",
       description: "a { $var :10px; }",
       message: messages.expectedAfter(),
       line: 1,
@@ -55,6 +57,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :  10px; }",
+      fixed: "a { $var : 10px; }",
       description: "a { $var :  10px; }",
       message: messages.expectedAfter(),
       line: 1,
@@ -62,6 +65,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\t10px; }",
+      fixed: "a { $var : 10px; }",
       description: "Tab after: a { $var :\t10px; }",
       message: messages.expectedAfter(),
       line: 1,
@@ -69,6 +73,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\n10px; }",
+      fixed: "a { $var : 10px; }",
       description: "Newline after: a { $var :\n10px; }",
       message: messages.expectedAfter(),
       line: 1,
@@ -76,6 +81,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\r\n10px; }",
+      fixed: "a { $var : 10px; }",
       description: "Windows newline after: a { $var :\r\n10px; }",
       message: messages.expectedAfter(),
       line: 1,
@@ -83,6 +89,7 @@ testRule(rule, {
     },
     {
       code: "a { $var:10px; }",
+      fixed: "a { $var: 10px; }",
       description: "a { $var:10px; }",
       message: messages.expectedAfter(),
       line: 1,
@@ -90,6 +97,7 @@ testRule(rule, {
     },
     {
       code: "$var :10px;",
+      fixed: "$var : 10px;",
       description: "$var :10px;",
       message: messages.expectedAfter(),
       line: 1,
@@ -97,6 +105,7 @@ testRule(rule, {
     },
     {
       code: "$var :  10px;",
+      fixed: "$var : 10px;",
       description: "$var :  10px;",
       message: messages.expectedAfter(),
       line: 1,
@@ -104,6 +113,7 @@ testRule(rule, {
     },
     {
       code: "$var :\t10px;",
+      fixed: "$var : 10px;",
       description: "$var :\t10px;",
       message: messages.expectedAfter(),
       line: 1,
@@ -111,6 +121,7 @@ testRule(rule, {
     },
     {
       code: "$var :\n10px;",
+      fixed: "$var : 10px;",
       description: "$var :\n10px;",
       message: messages.expectedAfter(),
       line: 1,
@@ -118,6 +129,7 @@ testRule(rule, {
     },
     {
       code: "$var :\r\n10px;",
+      fixed: "$var : 10px;",
       description: "$var :\r\n10px;",
       message: messages.expectedAfter(),
       line: 1,
@@ -125,6 +137,7 @@ testRule(rule, {
     },
     {
       code: "$var:10px;",
+      fixed: "$var: 10px;",
       description: "$var:10px;",
       message: messages.expectedAfter(),
       line: 1,
@@ -137,6 +150,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -164,6 +178,7 @@ testRule(rule, {
   reject: [
     {
       code: "a { $var : 10px; }",
+      fixed: "a { $var :10px; }",
       description: "a { $var : 10px; }",
       message: messages.rejectedAfter(),
       line: 1,
@@ -171,6 +186,7 @@ testRule(rule, {
     },
     {
       code: "a { $var:  10px; }",
+      fixed: "a { $var:10px; }",
       description: "a { $var:  10px; }",
       message: messages.rejectedAfter(),
       line: 1,
@@ -178,6 +194,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\t10px; }",
+      fixed: "a { $var :10px; }",
       description: "a { $var :\t10px; }",
       message: messages.rejectedAfter(),
       line: 1,
@@ -185,6 +202,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\n10px; }",
+      fixed: "a { $var :10px; }",
       description: "a { $var :\n10px; }",
       message: messages.rejectedAfter(),
       line: 1,
@@ -192,6 +210,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\r\n10px; }",
+      fixed: "a { $var :10px; }",
       description: "a { $var :\r\n10px; }",
       message: messages.rejectedAfter(),
       line: 1,
@@ -204,6 +223,7 @@ testRule(rule, {
   ruleName,
   config: ["always-single-line"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -231,6 +251,7 @@ testRule(rule, {
   reject: [
     {
       code: "a { $var :10px; }",
+      fixed: "a { $var : 10px; }",
       description: "a { $var :10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
@@ -238,6 +259,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :  10px; }",
+      fixed: "a { $var : 10px; }",
       description: "a { $var :  10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
@@ -245,6 +267,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\t10px; }",
+      fixed: "a { $var : 10px; }",
       description: "a { $var :\t10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
@@ -252,6 +275,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\n10px; }",
+      fixed: "a { $var : 10px; }",
       description: "a { $var :\n10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
@@ -259,6 +283,7 @@ testRule(rule, {
     },
     {
       code: "a { $var :\r\n10px; }",
+      fixed: "a { $var : 10px; }",
       description: "a { $var :\r\n10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
@@ -266,6 +291,7 @@ testRule(rule, {
     },
     {
       code: "a { $var:10px; }",
+      fixed: "a { $var: 10px; }",
       description: "a { $var:10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
@@ -278,6 +304,7 @@ testRule(rule, {
   ruleName,
   config: ["at-least-one-space"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -326,6 +353,7 @@ testRule(rule, {
   reject: [
     {
       code: "a { $var :10px; }",
+      fixed: "a { $var : 10px; }",
       description: "a { $var :10px; }",
       message: messages.expectedAfterAtLeast(),
       line: 1,
@@ -333,6 +361,7 @@ testRule(rule, {
     },
     {
       code: "$var :10px;",
+      fixed: "$var : 10px;",
       description: "$var :10px;",
       message: messages.expectedAfterAtLeast(),
       line: 1,
@@ -340,6 +369,7 @@ testRule(rule, {
     },
     {
       code: "$var:10px;",
+      fixed: "$var: 10px;",
       description: "$var:10px;",
       message: messages.expectedAfterAtLeast(),
       line: 1,
