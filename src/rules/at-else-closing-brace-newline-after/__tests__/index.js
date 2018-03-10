@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: ["always-last-in-chain"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -69,6 +70,14 @@ testRule(rule, {
 
       } width: 10px;
     }`,
+      fixed: `a {
+      @if ($x == 1) {
+
+      } @else {
+
+      }
+      width: 10px;
+    }`,
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
       message: messages.expected,
@@ -80,6 +89,11 @@ testRule(rule, {
 
       } @else if { }
       @else { }
+    }`,
+      fixed: `a {
+      @if ($x == 1) {
+
+      } @else if { }@else { }
     }`,
       description: "always-last-in-chain (has following @else, newline after).",
       message: messages.rejected,
@@ -93,6 +107,11 @@ testRule(rule, {
 
       @else { }
     }`,
+      fixed: `a {
+      @if ($x == 1) {
+
+      } @else { }@else { }
+    }`,
       description:
         "always-last-in-chain (has following @else, empty line after).",
       message: messages.rejected,
@@ -103,6 +122,12 @@ testRule(rule, {
       @if ($x == 1) {
 
       } @else {} @include x;
+    }`,
+      fixed: `a {
+      @if ($x == 1) {
+
+      } @else {}
+      @include x;
     }`,
       description:
         "always-last-in-chain (followed by non-@else at-rule, no newline after).",

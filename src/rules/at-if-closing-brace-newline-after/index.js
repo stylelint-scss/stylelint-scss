@@ -8,7 +8,7 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: 'Unexpected newline after "}" of @if statement'
 });
 
-export default function(expectation) {
+export default function(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -24,7 +24,8 @@ export default function(expectation) {
       ruleName,
       atRuleName: "if",
       expectation,
-      messages
+      messages,
+      context
     });
   };
 }
@@ -47,9 +48,15 @@ export function sassConditionalBraceNLAfterChecker({
   ruleName,
   atRuleName,
   expectation,
-  messages
+  messages,
+  context
 }) {
-  function complain(node, message, index) {
+  function complain(node, message, index, fixValue) {
+    if (context.fix) {
+      node.next().raws.before = fixValue;
+      return;
+    }
+
     utils.report({
       result,
       ruleName,
@@ -81,11 +88,11 @@ export function sassConditionalBraceNLAfterChecker({
         (nextNode.name === "else" || nextNode.name === "elseif")
       ) {
         if (hasNewLinesBeforeNext) {
-          complain(atrule, messages.rejected, reportIndex);
+          complain(atrule, messages.rejected, reportIndex, "");
         }
       } else {
         if (!hasNewLinesBeforeNext) {
-          complain(atrule, messages.expected, reportIndex);
+          complain(atrule, messages.expected, reportIndex, context.newLine);
         }
       }
     }

@@ -10,7 +10,7 @@ export const messages = utils.ruleMessages(ruleName, {
 
 import { sassConditionalBraceNLAfterChecker } from "../at-if-closing-brace-newline-after";
 
-export default function(expectation) {
+export default function(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -26,7 +26,8 @@ export default function(expectation) {
       ruleName,
       atRuleName: "else",
       expectation,
-      messages
+      messages,
+      context
     });
   };
 }
