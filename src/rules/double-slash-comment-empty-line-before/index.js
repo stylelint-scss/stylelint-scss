@@ -37,6 +37,17 @@ export default function(expectation, options, context) {
       return;
     }
 
+    const fix = (comment, match, replace) => {
+      const escapedMatch = match.replace(
+        /(\r)?\n/g,
+        (_, r) => (r ? "\\r\\n" : "\\n")
+      );
+      comment.raws.before = comment.raws.before.replace(
+        new RegExp(`^${escapedMatch}`),
+        replace
+      );
+    };
+
     root.walkComments(comment => {
       // Only process // comments
       if (!comment.raws.inline && !comment.inline) {
@@ -91,17 +102,6 @@ export default function(expectation, options, context) {
       }
 
       if (context.fix) {
-        const fix = (comment, match, replace) => {
-          const escapedMatch = match.replace(
-            /(\r)?\n/g,
-            (_, r) => (r ? "\\r\\n" : "\\n")
-          );
-          comment.raws.before = before.replace(
-            new RegExp(`^${escapedMatch}`),
-            replace
-          );
-        };
-
         if (expectEmptyLineBefore && !hasEmptyLineBefore) {
           fix(comment, context.newline, context.newline + context.newline);
           return;
