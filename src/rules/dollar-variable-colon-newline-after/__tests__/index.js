@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -64,67 +65,149 @@ testRule(rule, {
 
   reject: [
     {
-      code: "a { $var1 :100px; }",
-      description: "a { $var1 :100px; }",
+      code: `
+      a {
+        $var1 :100px;
+      }`,
+      fixed: `
+      a {
+        $var1 :
+        100px;
+      }`,
+      description: `
+      a {
+        $var1 :100px;
+      }`,
       message: messages.expectedAfter(),
-      line: 1,
-      column: 11
+      line: 3,
+      column: 15
     },
     {
-      code: "a { $var1 :  100px; }",
-      description: "a { $var1 :  100px; }",
+      code: `
+      a {
+        $var1 :  100px;
+      }`,
+      fixed: `
+      a {
+        $var1 :
+        100px;
+      }`,
+      description: `
+      a {
+        $var1 :  100px;
+      }`,
       message: messages.expectedAfter(),
-      line: 1,
-      column: 11
+      line: 3,
+      column: 15
     },
     {
-      code: "a { $var1 :\\t100px; }",
-      description: "a { $var1 :\\t100px; }",
+      code: `
+      a {
+        $var1 :\t100px;
+      }`,
+      fixed: `
+      a {
+        $var1 :
+        100px;
+      }`,
+      description: `
+      a {
+        $var1 :\t100px;
+      }`,
       message: messages.expectedAfter(),
-      line: 1,
-      column: 11
+      line: 3,
+      column: 15
     },
     {
-      code: "a { $var1 : 100px; }",
-      description: "a { $var1 : 100px; }",
+      code: `
+      a {
+        $var1 : 100px;
+      }`,
+      fixed: `
+      a {
+        $var1 :
+        100px;
+      }`,
+      description: `
+      a {
+        $var1 : 100px;
+      }`,
       message: messages.expectedAfter(),
-      line: 1,
-      column: 11
+      line: 3,
+      column: 15
     },
     {
-      code: "$var1 :100px;",
-      description: "$var1 :100px;",
+      code: `
+      $var1 :100px;
+      `,
+      fixed: `
+      $var1 :
+      100px;
+      `,
+      description: `
+      $var1 :100px;
+      `,
       message: messages.expectedAfter(),
-      line: 1,
-      column: 7
+      line: 2,
+      column: 13
     },
     {
-      code: "$var1 :  100px;",
-      description: "$var1 :  100px;",
+      code: `
+      $var1 :  100px;
+      `,
+      fixed: `
+      $var1 :
+      100px;
+      `,
+      description: `
+      $var1 :  100px;
+      `,
       message: messages.expectedAfter(),
-      line: 1,
-      column: 7
+      line: 2,
+      column: 13
     },
     {
-      code: "$var1 :\\t100px;",
-      description: "$var1 :\\t100px;",
+      code: `
+      $var1 :\t100px;
+      `,
+      fixed: `
+      $var1 :
+      100px;
+      `,
+      description: `
+      $var1 :\t100px;
+      `,
       message: messages.expectedAfter(),
-      line: 1,
-      column: 7
+      line: 2,
+      column: 13
     },
     {
-      code: "$var1 : 100px;",
-      description: "$var1 : 100px;",
+      code: `
+      $var1 : 100px;
+      `,
+      fixed: `
+      $var1 :
+      100px;
+      `,
+      description: `
+      $var1 : 100px;
+      `,
       message: messages.expectedAfter(),
-      line: 1,
-      column: 7
+      line: 2,
+      column: 13
     },
     {
-      code: "$var1 : (100px);",
+      code: `
+      $var1 : (100px);
+      `,
+      fixed: `
+      $var1 :
+      (100px);
+      `,
       description: "always: should report variable with parens without newline",
       message: messages.expectedAfter(),
-      line: 1,
-      column: 7
+      line: 2,
+      column: 13
     }
   ]
 });
@@ -132,6 +215,7 @@ testRule(rule, {
 testRule(rule, {
   ruleName,
   config: ["always-multi-line"],
+  fix: true,
 
   accept: [
     {
@@ -250,6 +334,10 @@ testRule(rule, {
       code:
         "  $box-shadow: 0 0 0 1px #5b9dd9,\n" +
         "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
+      fixed:
+        "  $box-shadow:\n" +
+        "    0 0 0 1px #5b9dd9,\n" +
+        "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
       description:
         "  $box-shadow: 0 0 0 1px #5b9dd9,\\n" +
         "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
@@ -260,6 +348,10 @@ testRule(rule, {
     {
       code:
         "  $box-shadow:0 0 0 1px #5b9dd9,\n" +
+        "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
+      fixed:
+        "  $box-shadow:\n" +
+        "    0 0 0 1px #5b9dd9,\n" +
         "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
       description:
         "  $box-shadow:0 0 0 1px #5b9dd9,\\n" +
