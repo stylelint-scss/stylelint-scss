@@ -15,7 +15,7 @@ export const messages = utils.ruleMessages(ruleName, {
 
 const stylelintCommandPrefix = "stylelint-";
 
-export default function(expectation, options) {
+export default function(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -88,6 +88,28 @@ export default function(expectation, options) {
       // Return if the expectation is met
       if (expectEmptyLineBefore === hasEmptyLineBefore) {
         return;
+      }
+
+      if (context.fix) {
+        const fix = (comment, match, replace) => {
+          const escapedMatch = match.replace(
+            /(\r)?\n/g,
+            (_, r) => (r ? "\\r\\n" : "\\n")
+          );
+          comment.raws.before = before.replace(
+            new RegExp(`^${escapedMatch}`),
+            replace
+          );
+        };
+
+        if (expectEmptyLineBefore && !hasEmptyLineBefore) {
+          fix(comment, context.newline, context.newline + context.newline);
+          return;
+        }
+        if (!expectEmptyLineBefore && hasEmptyLineBefore) {
+          fix(comment, context.newline + context.newline, context.newline);
+          return;
+        }
       }
 
       const message = expectEmptyLineBefore
