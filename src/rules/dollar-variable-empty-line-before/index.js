@@ -101,20 +101,28 @@ export default function(expectation, options, context) {
 
       if (context.fix) {
         if (expectHasEmptyLineBefore && !hasEmptyLine(before)) {
-          if (/^\n\s*?$/.test(before)) {
-            decl.raws.before = before.replace(/^\n/, "\n\n");
-          } else if (/^\r\n\s*?$/.test(before)) {
-            decl.raws.before = before.replace(/^\r\n/, "\r\n\r\n");
+          if (optionsHaveException(options, "first-nested")) {
+            decl.raws.before = before.replace(
+              /^\s+/,
+              context.newline + context.newline
+            );
+          }
+          if (/^\n\s*?$/.test(before) || /^\r\n\s*?$/.test(before)) {
+            decl.raws.before = before.replace(
+              context.newline,
+              context.newline + context.newline
+            );
           }
           return;
         }
         if (!expectHasEmptyLineBefore && hasEmptyLine(before)) {
-          if (/^\n\n\s*?$/.test(before)) {
-            decl.raws.before = before.replace(/^\n\n/, "\n");
+          if (/^\n\n\s*?$/.test(before) || /^\r\n\r\n\s*?$/.test(before)) {
+            decl.raws.before = before.replace(
+              context.newline + context.newline,
+              context.newline
+            );
           } else if (/^\n\r\n\s*?$/.test(before)) {
             decl.raws.before = before.replace(/^\n\r\n/, "\r\n");
-          } else if (/^\r\n\r\n\s*?$/.test(before)) {
-            decl.raws.before = before.replace(/^\r\n\r\n/, "\r\n");
           }
           return;
         }
