@@ -88,11 +88,11 @@ export function sassConditionalBraceNLAfterChecker({
         (nextNode.name === "else" || nextNode.name === "elseif")
       ) {
         if (hasNewLinesBeforeNext) {
-          complain(atrule, messages.rejected, reportIndex, "");
+          complain(atrule, messages.rejected, reportIndex, " ");
         }
       } else {
         if (!hasNewLinesBeforeNext) {
-          complain(atrule, messages.expected, reportIndex, context.newLine);
+          complain(atrule, messages.expected, reportIndex, context.newline);
         }
       }
     }

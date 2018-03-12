@@ -89,7 +89,7 @@ testRule(rule, {
       @if ($x == 1) {
 
       }
-      width: 10px;
+width: 10px;
     }`,
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
@@ -106,7 +106,7 @@ testRule(rule, {
       fixed: `a {
       @if ($x == 1) {
 
-      }@else { }
+      } @else { }
     }`,
       description: "always-last-in-chain (has @else, newline after).",
       message: messages.rejected,
@@ -123,7 +123,7 @@ testRule(rule, {
       fixed: `a {
       @if ($x == 1) {
 
-      }@else { }
+      } @else { }
     }`,
       description: "always-last-in-chain (has @else, empty line after).",
       message: messages.rejected,
@@ -139,7 +139,7 @@ testRule(rule, {
       @if ($x == 1) {
 
       }
-      @include x;
+@include x;
     }`,
       description:
         "always-last-in-chain (followed by non-@else at-rule, no newline after).",
