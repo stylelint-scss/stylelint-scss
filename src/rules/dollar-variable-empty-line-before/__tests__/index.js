@@ -452,6 +452,70 @@ testRule(rule, {
   ]
 });
 
+// Except: first-nested with `disableFix: true`
+// --------------------------------------------------------------------------
+
+testRule(rule, {
+  ruleName,
+  config: [
+    "always",
+    {
+      except: "first-nested",
+      disableFix: true
+    }
+  ],
+  syntax: "scss",
+  fix: true,
+
+  accept: [
+    {
+      code: `a {
+      $var1: 100px;
+      color: red;
+    }`,
+      description:
+        "always, { except: first-nested }. $var is the 1st inside ruleset, no empty line."
+    },
+    {
+      code: `@mixin name {
+      $var1: 100px;
+      color: red;
+    }`,
+      description:
+        "always, { except: first-nested }. $var is the 1st inside mixin, no empty line."
+    }
+  ],
+
+  reject: [
+    {
+      code: `a {
+      width: 1; $var2: 2;
+    }`,
+      fixed: `a {
+      width: 1; $var2: 2;
+    }`,
+      description:
+        "always, { except: first-nested }. $var is not the 1st in a ruleset, no epmty line.",
+      message: messages.expected,
+      line: 2
+    },
+    {
+      code: `a {
+
+      $var2: 2;
+    }`,
+      fixed: `a {
+
+      $var2: 2;
+    }`,
+      description:
+        "always, { except: first-nested }. $var is the 1st in a ruleset, has epmty line.",
+      message: messages.rejected,
+      line: 3
+    }
+  ]
+});
+
 // Except: after-comment
 // --------------------------------------------------------------------------
 

@@ -7,6 +7,7 @@ import {
   blockString
 } from "../../utils";
 import { utils } from "stylelint";
+import { isBoolean } from "lodash";
 
 export const ruleName = namespace("dollar-variable-empty-line-before");
 
@@ -28,7 +29,8 @@ export default function(expectation, options, context) {
         actual: options,
         possible: {
           except: ["first-nested", "after-comment", "after-dollar-variable"],
-          ignore: ["after-comment", "inside-single-line-block"]
+          ignore: ["after-comment", "inside-single-line-block"],
+          disableFix: isBoolean
         },
         optional: true
       }
@@ -99,7 +101,9 @@ export default function(expectation, options, context) {
         return;
       }
 
-      if (context.fix) {
+      const isFixDisabled = options && options.disableFix === true;
+
+      if (context.fix && !isFixDisabled) {
         if (expectHasEmptyLineBefore && !hasEmptyLine(before)) {
           if (optionsHaveException(options, "first-nested")) {
             decl.raws.before = before.replace(
