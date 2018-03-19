@@ -46,7 +46,7 @@ export default function(expectation, options, context) {
       );
     };
 
-    const hasNewline = str => new RegExp(context.newline).test(str);
+    const hasNewline = str => str.indexOf(context.newline) > -1;
 
     root.walkDecls(decl => {
       if (!isDollarVar(decl)) {
