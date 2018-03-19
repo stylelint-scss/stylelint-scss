@@ -39,6 +39,15 @@ export default function(expectation, options, context) {
       return;
     }
 
+    const fix = (decl, match, replace) => {
+      decl.raws.before = decl.raws.before.replace(
+        new RegExp(`^${match}`),
+        replace
+      );
+    };
+
+    const hasNewline = str => new RegExp(context.newline).test(str);
+
     root.walkDecls(decl => {
       if (!isDollarVar(decl)) {
         return;
@@ -105,29 +114,18 @@ export default function(expectation, options, context) {
 
       if (context.fix && !isFixDisabled) {
         if (expectHasEmptyLineBefore && !hasEmptyLine(before)) {
-          if (optionsHaveException(options, "first-nested")) {
-            decl.raws.before = before.replace(
-              /^\s+/,
-              context.newline + context.newline
-            );
-          }
-          if (/^\n\s*?$/.test(before) || /^\r\n\s*?$/.test(before)) {
-            decl.raws.before = before.replace(
-              context.newline,
-              context.newline + context.newline
-            );
+          fix(decl, context.newline, context.newline + context.newline);
+          if (
+            optionsHaveException(options, "first-nested") &&
+            !hasNewline(before)
+          ) {
+            fix(decl, "\\s+", context.newline + context.newline);
           }
           return;
         }
         if (!expectHasEmptyLineBefore && hasEmptyLine(before)) {
-          if (/^\n\n\s*?$/.test(before) || /^\r\n\r\n\s*?$/.test(before)) {
-            decl.raws.before = before.replace(
-              context.newline + context.newline,
-              context.newline
-            );
-          } else if (/^\n\r\n\s*?$/.test(before)) {
-            decl.raws.before = before.replace(/^\n\r\n/, "\r\n");
-          }
+          fix(decl, "\\n\\r\\n", "\r\n");
+          fix(decl, context.newline + context.newline, context.newline);
           return;
         }
       }
