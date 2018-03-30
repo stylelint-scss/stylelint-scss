@@ -1,5 +1,6 @@
 import { isSingleLineString, namespace } from "../../utils";
 import { utils } from "stylelint";
+import { isBoolean } from "lodash";
 
 export const ruleName = namespace("at-if-closing-brace-newline-after");
 
@@ -8,12 +9,23 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: 'Unexpected newline after "}" of @if statement'
 });
 
-export default function(expectation, _, context) {
+export default function(expectation, options, context) {
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation,
-      possible: ["always-last-in-chain"]
-    });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      {
+        actual: expectation,
+        possible: ["always-last-in-chain"]
+      },
+      {
+        actual: options,
+        possible: {
+          disableFix: isBoolean
+        },
+        optional: true
+      }
+    );
     if (!validOptions) {
       return;
     }
@@ -25,7 +37,8 @@ export default function(expectation, _, context) {
       atRuleName: "if",
       expectation,
       messages,
-      context
+      context,
+      options
     });
   };
 }
@@ -49,10 +62,12 @@ export function sassConditionalBraceNLAfterChecker({
   atRuleName,
   expectation,
   messages,
-  context
+  context,
+  options
 }) {
+  const shouldFix = context.fix && (!options || options.disableFix !== true);
   function complain(node, message, index, fixValue) {
-    if (context.fix) {
+    if (shouldFix) {
       node.next().raws.before = fixValue;
       return;
     }
