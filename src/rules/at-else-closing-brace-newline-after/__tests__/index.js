@@ -76,7 +76,7 @@ testRule(rule, {
       } @else {
 
       }
- width: 10px;
+width: 10px;
     }`,
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
