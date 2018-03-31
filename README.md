@@ -56,10 +56,10 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `@`-else
 
-- [`at-else-closing-brace-newline-after`](./src/rules/at-else-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@else` statements.
-- [`at-else-closing-brace-space-after`](./src/rules/at-else-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@else` statements.
-- [`at-else-empty-line-before`](./src/rules/at-else-empty-line-before/README.md): Require an empty line or disallow empty lines before `@`-else.
-- [`at-else-if-parentheses-space-before`](./src/rules/at-else-if-parentheses-space-before/README.md): Require or disallow a space before `@else if` parentheses.
+- [`at-else-closing-brace-newline-after`](./src/rules/at-else-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@else` statements (Autofixable).
+- [`at-else-closing-brace-space-after`](./src/rules/at-else-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@else` statements (Autofixable).
+- [`at-else-empty-line-before`](./src/rules/at-else-empty-line-before/README.md): Require an empty line or disallow empty lines before `@`-else (Autofixable).
+- [`at-else-if-parentheses-space-before`](./src/rules/at-else-if-parentheses-space-before/README.md): Require or disallow a space before `@else if` parentheses (Autofixable).
 
 ### `@`-extend
 
@@ -68,13 +68,13 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### `@`-function
 
 - [`at-function-named-arguments`](./src/rules/at-function-named-arguments/README.md): Require named parameters in SCSS function call rule.
-- [`at-function-parentheses-space-before`](./src/rules/at-function-parentheses-space-before/README.md): Require or disallow a space before `@function` parentheses.
+- [`at-function-parentheses-space-before`](./src/rules/at-function-parentheses-space-before/README.md): Require or disallow a space before `@function` parentheses (Autofixable).
 - [`at-function-pattern`](./src/rules/at-function-pattern/README.md): Specify a pattern for Sass/SCSS-like function names.
 
 ### `@`-if
 
-- [`at-if-closing-brace-newline-after`](./src/rules/at-if-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@if` statements.
-- [`at-if-closing-brace-space-after`](./src/rules/at-if-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@if` statements.
+- [`at-if-closing-brace-newline-after`](./src/rules/at-if-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@if` statements (Autofixable).
+- [`at-if-closing-brace-space-after`](./src/rules/at-if-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@if` statements (Autofixable).
 
 ### `@`-import
 
@@ -86,7 +86,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`at-mixin-argumentless-call-parentheses`](./src/rules/at-mixin-argumentless-call-parentheses/README.md): Require or disallow parentheses in argumentless `@mixin` calls.
 - [`at-mixin-named-arguments`](./src/rules/at-mixin-named-arguments/README.md): Require named parameters in at-mixin call rule.
-- [`at-mixin-parentheses-space-before`](./src/rules/at-mixin-parentheses-space-before/README.md): Require or disallow a space before `@mixin` parentheses.
+- [`at-mixin-parentheses-space-before`](./src/rules/at-mixin-parentheses-space-before/README.md): Require or disallow a space before `@mixin` parentheses (Autofixable).
 - [`at-mixin-pattern`](./src/rules/at-mixin-pattern/README.md): Specify a pattern for Sass/SCSS-like mixin names.
 
 ### `@`-rule
@@ -95,11 +95,11 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `$`-variable
 
-- [`dollar-variable-colon-newline-after`](./src/rules/dollar-variable-colon-newline-after/README.md): Require a newline after the colon in `$`-variable declarations.
-- [`dollar-variable-colon-space-after`](./src/rules/dollar-variable-colon-space-after/README.md): Require or disallow whitespace after the colon in `$`-variable declarations.
-- [`dollar-variable-colon-space-before`](./src/rules/dollar-variable-colon-space-before/README.md): Require a single space or disallow whitespace before the colon in `$`-variable declarations.
+- [`dollar-variable-colon-newline-after`](./src/rules/dollar-variable-colon-newline-after/README.md): Require a newline after the colon in `$`-variable declarations (Autofixable).
+- [`dollar-variable-colon-space-after`](./src/rules/dollar-variable-colon-space-after/README.md): Require or disallow whitespace after the colon in `$`-variable declarations (Autofixable).
+- [`dollar-variable-colon-space-before`](./src/rules/dollar-variable-colon-space-before/README.md): Require a single space or disallow whitespace before the colon in `$`-variable declarations (Autofixable).
 - [`dollar-variable-default`](./src/rules/dollar-variable-default/README.md): Require `!default` flag for `$`-variable declarations.
-- [`dollar-variable-empty-line-before`](./src/rules/dollar-variable-empty-line-before/README.md): Require a single empty line or disallow empty lines before `$`-variable declarations.
+- [`dollar-variable-empty-line-before`](./src/rules/dollar-variable-empty-line-before/README.md): Require a single empty line or disallow empty lines before `$`-variable declarations (Autofixable).
 - [`dollar-variable-no-missing-interpolation`](./src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
 - [`dollar-variable-pattern`](./src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.
 
@@ -109,7 +109,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `//`-comment
 
-- [`double-slash-comment-empty-line-before`](./src/rules/double-slash-comment-empty-line-before/README.md): Require or disallow an empty line before `//`-comments.
+- [`double-slash-comment-empty-line-before`](./src/rules/double-slash-comment-empty-line-before/README.md): Require or disallow an empty line before `//`-comments (Autofixable).
 - [`double-slash-comment-inline`](./src/rules/double-slash-comment-inline/README.md): Require or disallow `//`-comments to be inline comments.
 - [`double-slash-comment-whitespace-inside`](./src/rules/double-slash-comment-whitespace-inside/README.md): Require or disallow whitespace after the `//` in `//`-comments
 

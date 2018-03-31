@@ -11,6 +11,8 @@ $box-shadow:
  * The newline after this colon */
 ```
 
+The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
+
 ## Options
 
 `string`: `"always"|"always-multi-line"`
@@ -75,3 +77,9 @@ $box-shadow:
 ```scss
 $var: 100px;
 ```
+
+## Optional secondary options
+
+### `disableFix: true`
+
+Disables autofixing for this rule.

@@ -8,6 +8,8 @@ Require or disallow a space before `@mixin` parentheses.
  * The space before this parenthesis */
 ```
 
+The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
+
 ## Options
 
 `string`: `"always"|"never"`
