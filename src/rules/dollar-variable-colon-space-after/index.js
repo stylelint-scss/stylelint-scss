@@ -1,6 +1,7 @@
 import {
   declarationValueIndex,
   namespace,
+  isSingleLineString,
   whitespaceChecker
 } from "../../utils";
 import { utils } from "stylelint";
@@ -15,7 +16,7 @@ export const messages = utils.ruleMessages(ruleName, {
   expectedAfterAtLeast: () => 'Expected at least one space after ":"'
 });
 
-export default function(expectation) {
+export default function(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -30,7 +31,10 @@ export default function(expectation) {
       root,
       result,
       locationChecker: checker.after,
-      checkedRuleName: ruleName
+      checkedRuleName: ruleName,
+      position: "after",
+      expectation,
+      context
     });
   };
 }
@@ -39,10 +43,33 @@ export function variableColonSpaceChecker({
   locationChecker,
   root,
   result,
-  checkedRuleName
+  checkedRuleName,
+  position,
+  expectation,
+  context
 }) {
   root.walkDecls(decl => {
     if (decl.prop === undefined || decl.prop[0] !== "$") {
+      return;
+    }
+
+    if (context && context.fix) {
+      if (
+        expectation === "always-single-line" &&
+        !isSingleLineString(decl.value)
+      ) {
+        return;
+      }
+
+      if (position === "before") {
+        const replacement = expectation === "never" ? ":" : " :";
+        decl.raws.between = decl.raws.between.replace(/\s*:/, replacement);
+      } else if (position === "after") {
+        const match = expectation === "at-least-one-space" ? /:(?! )/ : /:\s*/;
+        const replacement = expectation === "never" ? ":" : ": ";
+        decl.raws.between = decl.raws.between.replace(match, replacement);
+      }
+
       return;
     }
 

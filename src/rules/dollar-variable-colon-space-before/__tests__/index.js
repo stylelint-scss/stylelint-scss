@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -40,6 +41,7 @@ testRule(rule, {
   reject: [
     {
       code: "a { $var1: 200px; }",
+      fixed: "a { $var1 : 200px; }",
       description: "a { $var1: 200px; }",
       message: messages.expectedBefore(),
       line: 1,
@@ -47,6 +49,7 @@ testRule(rule, {
     },
     {
       code: "a { $var1  : 200px; }",
+      fixed: "a { $var1 : 200px; }",
       description: "a { $var1  : 200px; }",
       message: messages.expectedBefore(),
       line: 1,
@@ -54,6 +57,7 @@ testRule(rule, {
     },
     {
       code: "a { $var1\t: 200px; }",
+      fixed: "a { $var1 : 200px; }",
       description: "Tab before: a { $var1\\t: 200px; }",
       message: messages.expectedBefore(),
       line: 1,
@@ -61,6 +65,7 @@ testRule(rule, {
     },
     {
       code: "a { $var1\n: 200px; }",
+      fixed: "a { $var1 : 200px; }",
       description: "Newline before: a { $var1\\n: 200px; }",
       message: messages.expectedBefore(),
       line: 2,
@@ -68,6 +73,7 @@ testRule(rule, {
     },
     {
       code: "a { $var1\r\n: 200px; }",
+      fixed: "a { $var1 : 200px; }",
       description: "CRLF before: a { $var1\\r\\n: 200px; }",
       message: messages.expectedBefore(),
       line: 2,
@@ -80,6 +86,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -107,6 +114,7 @@ testRule(rule, {
   reject: [
     {
       code: "a { $var1 : 200px; }",
+      fixed: "a { $var1: 200px; }",
       description: "a { $var1 : 200px; }",
       message: messages.rejectedBefore(),
       line: 1,
@@ -114,6 +122,7 @@ testRule(rule, {
     },
     {
       code: "a { $var1  : 200px; }",
+      fixed: "a { $var1: 200px; }",
       description: "a { $var1  : 200px; }",
       message: messages.rejectedBefore(),
       line: 1,
@@ -121,6 +130,7 @@ testRule(rule, {
     },
     {
       code: "a { $var1\t: 200px; }",
+      fixed: "a { $var1: 200px; }",
       description: "a { $var1\\t: 200px; }",
       message: messages.rejectedBefore(),
       line: 1,
@@ -128,6 +138,7 @@ testRule(rule, {
     },
     {
       code: "a { $var1\n: 200px; }",
+      fixed: "a { $var1: 200px; }",
       description: "a { $var1\\n: 200px; }",
       message: messages.rejectedBefore(),
       line: 2,
@@ -135,6 +146,7 @@ testRule(rule, {
     },
     {
       code: "a { $var1\r\n: 200px; }",
+      fixed: "a { $var1: 200px; }",
       description: "a { $var1\\r\\n: 200px; }",
       message: messages.rejectedBefore(),
       line: 2,
