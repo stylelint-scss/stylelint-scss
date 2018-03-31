@@ -7,6 +7,7 @@ import {
   blockString
 } from "../../utils";
 import { utils } from "stylelint";
+import { isBoolean } from "lodash";
 
 export const ruleName = namespace("dollar-variable-empty-line-before");
 
@@ -15,7 +16,7 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unxpected empty line before $-variable"
 });
 
-export default function(expectation, options) {
+export default function(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -28,7 +29,8 @@ export default function(expectation, options) {
         actual: options,
         possible: {
           except: ["first-nested", "after-comment", "after-dollar-variable"],
-          ignore: ["after-comment", "inside-single-line-block"]
+          ignore: ["after-comment", "inside-single-line-block"],
+          disableFix: isBoolean
         },
         optional: true
       }
@@ -36,6 +38,15 @@ export default function(expectation, options) {
     if (!validOptions) {
       return;
     }
+
+    const fix = (decl, match, replace) => {
+      decl.raws.before = decl.raws.before.replace(
+        new RegExp(`^${match}`),
+        replace
+      );
+    };
+
+    const hasNewline = str => str.indexOf(context.newline) > -1;
 
     root.walkDecls(decl => {
       if (!isDollarVar(decl)) {
@@ -93,8 +104,30 @@ export default function(expectation, options) {
         expectHasEmptyLineBefore = !expectHasEmptyLineBefore;
       }
 
-      if (expectHasEmptyLineBefore === hasEmptyLine(decl.raws.before)) {
+      const before = decl.raws.before;
+
+      if (expectHasEmptyLineBefore === hasEmptyLine(before)) {
         return;
+      }
+
+      const isFixDisabled = options && options.disableFix === true;
+
+      if (context.fix && !isFixDisabled) {
+        if (expectHasEmptyLineBefore && !hasEmptyLine(before)) {
+          fix(decl, context.newline, context.newline + context.newline);
+          if (
+            optionsHaveException(options, "first-nested") &&
+            !hasNewline(before)
+          ) {
+            fix(decl, "\\s+", context.newline + context.newline);
+          }
+          return;
+        }
+        if (!expectHasEmptyLineBefore && hasEmptyLine(before)) {
+          fix(decl, "\\n\\r\\n", "\r\n");
+          fix(decl, context.newline + context.newline, context.newline);
+          return;
+        }
       }
 
       utils.report({

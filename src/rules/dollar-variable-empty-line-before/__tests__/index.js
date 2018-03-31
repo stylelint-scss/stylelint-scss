@@ -7,6 +7,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -52,6 +53,10 @@ testRule(rule, {
       code: `a {
       $var1: 100px;
     }`,
+      fixed: `a {
+
+      $var1: 100px;
+    }`,
       description: "always. $var inside a rule, no emptyline before.",
       message: messages.expected,
       line: 2
@@ -59,6 +64,11 @@ testRule(rule, {
     {
       code: `
       $var1: 100px;
+      $var1: 100px;
+    `,
+      fixed: `
+      $var1: 100px;
+
       $var1: 100px;
     `,
       description:
@@ -76,6 +86,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -106,6 +117,9 @@ testRule(rule, {
 
       $var1: 100px;
     }`,
+      fixed: `a {
+      $var1: 100px;
+    }`,
       description: "never. $var inside a rule, emptyline before.",
       message: messages.rejected,
       line: 3
@@ -116,24 +130,31 @@ testRule(rule, {
 
       $var1: 100px;
     `,
+      fixed: `
+      // comment
+      $var1: 100px;
+    `,
       description: "never. $var in root, after comment, has empty line.",
       message: messages.rejected,
       line: 4
     },
     {
       code: "a {\n\n$var1: 100px; }",
+      fixed: "a {\n$var1: 100px; }",
       description: "never. Unix newline",
       message: messages.rejected,
       line: 3
     },
     {
       code: "a {\r\n\r\n$var1: 100px; }",
+      fixed: "a {\r\n$var1: 100px; }",
       description: "never. Windows newline",
       message: messages.rejected,
       line: 3
     },
     {
       code: "a {\n\r\n$var1: 100px; }",
+      fixed: "a {\r\n$var1: 100px; }",
       description: "never. Mixed newline",
       message: messages.rejected,
       line: 3
@@ -148,6 +169,7 @@ testRule(rule, {
   ruleName,
   config: ["always", { ignore: "after-comment" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -191,6 +213,11 @@ testRule(rule, {
       width: 1;
       $var2: 2;
     `,
+      fixed: `
+      width: 1;
+
+      $var2: 2;
+    `,
       description:
         "always, { ignore: after-comment }. No comment directly before $var, no empty line.",
       message: messages.expected,
@@ -203,6 +230,7 @@ testRule(rule, {
   ruleName,
   config: ["never", { ignore: "after-comment" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -245,6 +273,10 @@ testRule(rule, {
       code: `
       width: 1;
 
+      $var2: 2;
+    `,
+      fixed: `
+      width: 1;
       $var2: 2;
     `,
       description:
@@ -310,6 +342,7 @@ testRule(rule, {
   ruleName,
   config: ["always", { except: "first-nested" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -335,6 +368,11 @@ testRule(rule, {
       code: `a {
       width: 1; $var2: 2;
     }`,
+      fixed: `a {
+      width: 1;
+
+$var2: 2;
+    }`,
       description:
         "always, { except: first-nested }. $var is not the 1st in a ruleset, no epmty line.",
       message: messages.expected,
@@ -343,6 +381,9 @@ testRule(rule, {
     {
       code: `a {
 
+      $var2: 2;
+    }`,
+      fixed: `a {
       $var2: 2;
     }`,
       description:
@@ -357,6 +398,7 @@ testRule(rule, {
   ruleName,
   config: ["never", { except: "first-nested" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -383,6 +425,10 @@ testRule(rule, {
       code: `a {
       $var2: 2;
     }`,
+      fixed: `a {
+
+      $var2: 2;
+    }`,
       description:
         "never, { except: first-nested }. $var is the 1st in a ruleset, no epmty line.",
       message: messages.expected,
@@ -394,10 +440,78 @@ testRule(rule, {
 
       $var2: 2;
     }`,
+      fixed: `a {
+      color: red;
+      $var2: 2;
+    }`,
       description:
         "never, { except: first-nested }. $var isn't the 1st in a ruleset, has epmty line.",
       message: messages.rejected,
       line: 4
+    }
+  ]
+});
+
+// Except: first-nested with `disableFix: true`
+// --------------------------------------------------------------------------
+
+testRule(rule, {
+  ruleName,
+  config: [
+    "always",
+    {
+      except: "first-nested",
+      disableFix: true
+    }
+  ],
+  syntax: "scss",
+  fix: true,
+
+  accept: [
+    {
+      code: `a {
+      $var1: 100px;
+      color: red;
+    }`,
+      description:
+        "always, { except: first-nested }. $var is the 1st inside ruleset, no empty line."
+    },
+    {
+      code: `@mixin name {
+      $var1: 100px;
+      color: red;
+    }`,
+      description:
+        "always, { except: first-nested }. $var is the 1st inside mixin, no empty line."
+    }
+  ],
+
+  reject: [
+    {
+      code: `a {
+      width: 1; $var2: 2;
+    }`,
+      fixed: `a {
+      width: 1; $var2: 2;
+    }`,
+      description:
+        "always, { except: first-nested }. $var is not the 1st in a ruleset, no epmty line.",
+      message: messages.expected,
+      line: 2
+    },
+    {
+      code: `a {
+
+      $var2: 2;
+    }`,
+      fixed: `a {
+
+      $var2: 2;
+    }`,
+      description:
+        "always, { except: first-nested }. $var is the 1st in a ruleset, has epmty line.",
+      message: messages.rejected,
+      line: 3
     }
   ]
 });
@@ -409,6 +523,7 @@ testRule(rule, {
   ruleName,
   config: ["always", { except: "after-comment" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -442,6 +557,10 @@ testRule(rule, {
 
       $var1: 100px;
     `,
+      fixed: `
+      // comment
+      $var1: 100px;
+    `,
       description:
         "always, { except: after-comment }. $var after //-comment, has empty line.",
       message: messages.rejected,
@@ -453,6 +572,10 @@ testRule(rule, {
 
       $var1: 100px;
     `,
+      fixed: `
+      /* comment */
+      $var1: 100px;
+    `,
       description:
         "always, { except: after-comment }. $var after CSS-comment, has empty line.",
       message: messages.rejected,
@@ -461,6 +584,11 @@ testRule(rule, {
     {
       code: `a {
       color: red;
+      $var1: 100px;
+    }`,
+      fixed: `a {
+      color: red;
+
       $var1: 100px;
     }`,
       description:
@@ -475,6 +603,7 @@ testRule(rule, {
   ruleName,
   config: ["never", { except: "after-comment" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -511,6 +640,11 @@ testRule(rule, {
       // comment
       $var1: 100px;
     `,
+      fixed: `
+      // comment
+
+      $var1: 100px;
+    `,
       description:
         "never, { except: after-comment }. $var after //-comment, no empty line.",
       message: messages.expected,
@@ -519,6 +653,11 @@ testRule(rule, {
     {
       code: `
       /* comment */
+      $var1: 100px;
+    `,
+      fixed: `
+      /* comment */
+
       $var1: 100px;
     `,
       description:
@@ -530,6 +669,10 @@ testRule(rule, {
       code: `a {
       color: red;
 
+      $var1: 100px;
+    }`,
+      fixed: `a {
+      color: red;
       $var1: 100px;
     }`,
       description:
@@ -547,6 +690,7 @@ testRule(rule, {
   ruleName,
   config: ["always", { except: "after-dollar-variable" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -585,6 +729,10 @@ testRule(rule, {
 
       $var2: 1;
     `,
+      fixed: `
+      $var1: 1;
+      $var2: 1;
+    `,
       description:
         "always, { except: after-dollar-variable }. $var1 and $var2 have empty lines.",
       message: messages.rejected,
@@ -597,6 +745,7 @@ testRule(rule, {
   ruleName,
   config: ["never", { except: "after-dollar-variable" }],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -623,6 +772,11 @@ testRule(rule, {
     {
       code: `a {
       $var1: 1;
+      $var2: 1;
+    }`,
+      fixed: `a {
+      $var1: 1;
+
       $var2: 1;
     }`,
       description:
