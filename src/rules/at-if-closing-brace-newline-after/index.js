@@ -1,5 +1,6 @@
 import { isSingleLineString, namespace } from "../../utils";
 import { utils } from "stylelint";
+import { isBoolean } from "lodash";
 
 export const ruleName = namespace("at-if-closing-brace-newline-after");
 
@@ -8,12 +9,23 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: 'Unexpected newline after "}" of @if statement'
 });
 
-export default function(expectation) {
+export default function(expectation, options, context) {
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation,
-      possible: ["always-last-in-chain"]
-    });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      {
+        actual: expectation,
+        possible: ["always-last-in-chain"]
+      },
+      {
+        actual: options,
+        possible: {
+          disableFix: isBoolean
+        },
+        optional: true
+      }
+    );
     if (!validOptions) {
       return;
     }
@@ -24,7 +36,9 @@ export default function(expectation) {
       ruleName,
       atRuleName: "if",
       expectation,
-      messages
+      messages,
+      context,
+      options
     });
   };
 }
@@ -47,9 +61,17 @@ export function sassConditionalBraceNLAfterChecker({
   ruleName,
   atRuleName,
   expectation,
-  messages
+  messages,
+  context,
+  options
 }) {
-  function complain(node, message, index) {
+  const shouldFix = context.fix && (!options || options.disableFix !== true);
+  function complain(node, message, index, fixValue) {
+    if (shouldFix) {
+      node.next().raws.before = fixValue;
+      return;
+    }
+
     utils.report({
       result,
       ruleName,
@@ -81,11 +103,11 @@ export function sassConditionalBraceNLAfterChecker({
         (nextNode.name === "else" || nextNode.name === "elseif")
       ) {
         if (hasNewLinesBeforeNext) {
-          complain(atrule, messages.rejected, reportIndex);
+          complain(atrule, messages.rejected, reportIndex, " ");
         }
       } else {
         if (!hasNewLinesBeforeNext) {
-          complain(atrule, messages.expected, reportIndex);
+          complain(atrule, messages.expected, reportIndex, context.newline);
         }
       }
     }
