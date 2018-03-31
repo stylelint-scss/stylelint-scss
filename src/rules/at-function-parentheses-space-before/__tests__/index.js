@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -51,6 +52,11 @@ testRule(rule, {
       ($n) {
       }
     `,
+      fixed: `
+      @function
+      foo ($n) {
+      }
+    `,
       line: 2,
       message: messages.expectedBefore(),
       description: "Newline after function name"
@@ -60,6 +66,10 @@ testRule(rule, {
       @function foo($n) {
       }
     `,
+      fixed: `
+      @function foo ($n) {
+      }
+    `,
       line: 2,
       message: messages.expectedBefore(),
       description: "No space before parentheses."
@@ -67,6 +77,10 @@ testRule(rule, {
     {
       code: `
       @function  foo($n) {
+      }
+    `,
+      fixed: `
+      @function  foo ($n) {
       }
     `,
       line: 2,
@@ -80,6 +94,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -127,6 +142,11 @@ testRule(rule, {
       ($n) {
       }
     `,
+      fixed: `
+      @function
+      foo($n) {
+      }
+    `,
       line: 2,
       message: messages.rejectedBefore(),
       description: "Newline after function name"
@@ -136,6 +156,10 @@ testRule(rule, {
       @function foo ($n) {
       }
     `,
+      fixed: `
+      @function foo($n) {
+      }
+    `,
       line: 2,
       message: messages.rejectedBefore(),
       description: "Single space before parentheses."
@@ -143,6 +167,10 @@ testRule(rule, {
     {
       code: `
       @function foo  ($n) {
+      }
+    `,
+      fixed: `
+      @function foo($n) {
       }
     `,
       line: 2,
