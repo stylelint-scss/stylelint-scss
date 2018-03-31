@@ -10,6 +10,8 @@ Require a single space or disallow whitespace after the closing brace of `@else`
  * The space after this brace */
 ```
 
+The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
+
 This rule might have conflicts with stylelint's core [`block-closing-brace-space-after`](http://stylelint.io/user-guide/rules/block-closing-brace-space-after/) rule if the latter is set up in your `.stylelintrc` config file.
 
 ## Options

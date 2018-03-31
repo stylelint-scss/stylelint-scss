@@ -1,6 +1,19 @@
-# HEAD
+# 3.0.0
 
-- Removed: Node.JS 4.x support. Node.js 6.x or greater is now required (https://github.com/stylelint/stylelint/pull/3075).
+- Removed: Node.JS 4.x support. Node.js 6.x or greater is now required (#213).
+- Added: `at-else-empty-line-before` autofix (#221).
+- Added: `at-else-if-parentheses-space-before` autofix (#222).
+- Added: `at-function-parentheses-space-before` autofix (#223).
+- Added: `at-mixin-parentheses-space-before` autofix (#224).
+- Added: `dollar-variable-empty-line-before` autofix (#226).
+- Added: `dollar-variable-colon-space-after` autofix (#227).
+- Added: `dollar-variable-colon-space-before` autofix (#227).
+- Added: `at-else-closing-brace-space-after` autofix (#228).
+- Added: `at-if-else-closing-brace-space-after` autofix (#228).
+- Added: `at-else-closing-brace-newline-after` autofix (#229).
+- Added: `at-if-closing-brace-newline-after` autofix (#229).
+- Added: `double-slash-comment-empty-line-before` autofix (#230).
+- Added: `dollar-variable-colon-newline-after` autofix (#231).
 
 # 2.5.0
 
