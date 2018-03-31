@@ -8,7 +8,7 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: 'Unexpected space after "}" of @if statement'
 });
 
-export default function(expectation) {
+export default function(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -24,7 +24,8 @@ export default function(expectation) {
       ruleName,
       atRuleName: "if",
       expectation,
-      messages
+      messages,
+      context
     });
   };
 }
@@ -47,9 +48,15 @@ export function sassConditionalBraceSpaceAfterChecker({
   ruleName,
   atRuleName,
   expectation,
-  messages
+  messages,
+  context
 }) {
-  function complain(node, message, index) {
+  function complain(node, message, index, fixValue) {
+    if (context.fix) {
+      node.next().raws.before = fixValue;
+      return;
+    }
+
     utils.report({
       result,
       ruleName,
@@ -74,10 +81,10 @@ export function sassConditionalBraceSpaceAfterChecker({
     if (nextNode && nextNode.type === "atrule" && nextNode.name === "else") {
       // A single space is needed
       if (expectation === "always-intermediate" && !hasSpaceAfter) {
-        complain(atrule, messages.expected, reportIndex);
+        complain(atrule, messages.expected, reportIndex, " ");
       } else if (expectation === "never-intermediate" && hasWhiteSpaceAfter) {
         // No whitespace is needed
-        complain(atrule, messages.rejected, reportIndex);
+        complain(atrule, messages.rejected, reportIndex, "");
       }
     }
   });

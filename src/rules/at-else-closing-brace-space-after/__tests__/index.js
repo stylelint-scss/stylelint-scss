@@ -5,6 +5,7 @@ testRule(rule, {
   ruleName,
   config: ["always-intermediate"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -80,6 +81,11 @@ testRule(rule, {
 
       }@else {}
     }`,
+      fixed: `a {
+      @if ($x == 1) { } @else ($x ==2) {
+
+      } @else {}
+    }`,
       description:
         "always-intermediate (an intermediate @else, no space after).",
       message: messages.expected,
@@ -91,6 +97,11 @@ testRule(rule, {
 
       }
       @else { }
+    }`,
+      fixed: `a {
+      @if ($x == 1) { } @else ($x ==2) {
+
+      } @else { }
     }`,
       description:
         "always-intermediate (an intermediate @else, newline after).",
@@ -104,6 +115,11 @@ testRule(rule, {
       }
       @else { }
     }`,
+      fixed: `a {
+      @if ($x == 1) { } @else ($x ==2) {
+
+      } @else { }
+    }`,
       description:
         "always-intermediate (an intermediate @else, a space and an newline after).",
       message: messages.expected,
@@ -114,6 +130,11 @@ testRule(rule, {
       @if ($x == 1) { } @else ($x ==2) {
 
       }  @else { }
+    }`,
+      fixed: `a {
+      @if ($x == 1) { } @else ($x ==2) {
+
+      } @else { }
     }`,
       description:
         "always-intermediate (an intermediate @else, multiple spaces after).",
@@ -128,6 +149,7 @@ testRule(rule, {
   ruleName,
   config: ["never-intermediate"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -194,6 +216,11 @@ testRule(rule, {
 
       } @else {}
     }`,
+      fixed: `a {
+      @if ($x == 1) {} @else ($x ==2) {
+
+      }@else {}
+    }`,
       description:
         "never-intermediate (an intermediate @else, has space after).",
       message: messages.rejected,
@@ -206,6 +233,11 @@ testRule(rule, {
       }
       @else { }
     }`,
+      fixed: `a {
+      @if ($x == 1) {} @else ($x ==2) {
+
+      }@else { }
+    }`,
       description: "never-intermediate (an intermediate @else, newline after).",
       message: messages.rejected,
       line: 4
@@ -217,6 +249,11 @@ testRule(rule, {
       }
       @else { }
     }`,
+      fixed: `a {
+      @if ($x == 1) {} @else ($x ==2) {
+
+      }@else { }
+    }`,
       description:
         "never-intermediate (an intermediate @else, a space and a newline after).",
       message: messages.rejected,
@@ -227,6 +264,11 @@ testRule(rule, {
       @if ($x == 1) {
 
       } @else ($x ==2) {}  @else { }
+    }`,
+      fixed: `a {
+      @if ($x == 1) {
+
+      } @else ($x ==2) {}@else { }
     }`,
       description:
         "never-intermediate (an intermediate @else, multiple spaces after).",
