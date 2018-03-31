@@ -5,6 +5,7 @@ import {
   whitespaceChecker
 } from "../../utils";
 import { utils } from "stylelint";
+import { isBoolean } from "lodash";
 
 export const ruleName = namespace("dollar-variable-colon-newline-after");
 
@@ -14,16 +15,29 @@ export const messages = utils.ruleMessages(ruleName, {
     'Expected newline after ":" with a multi-line value'
 });
 
-export default function(expectation) {
+export default function(expectation, options, context) {
   const checker = whitespaceChecker("newline", expectation, messages);
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation,
-      possible: ["always", "always-multi-line"]
-    });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      {
+        actual: expectation,
+        possible: ["always", "always-multi-line"]
+      },
+      {
+        actual: options,
+        possible: {
+          disableFix: isBoolean
+        },
+        optional: true
+      }
+    );
     if (!validOptions) {
       return;
     }
+
+    const shouldFix = context.fix && (!options || options.disableFix !== true);
 
     root.walkDecls(decl => {
       if (!decl.prop || decl.prop[0] !== "$") {
@@ -60,6 +74,21 @@ export default function(expectation) {
           index: indexToCheck,
           lineCheckStr: decl.value,
           err: m => {
+            if (shouldFix) {
+              const nextLinePrefix =
+                expectation === "always"
+                  ? decl.raws.before.replace(context.newline, "")
+                  : decl.value
+                      .split(context.newline)[1]
+                      .replace(/^(\s+).*$/, (_, whitespace) => whitespace);
+
+              decl.raws.between = decl.raws.between.replace(
+                /:(.*)$/,
+                `:${context.newline}${nextLinePrefix}`
+              );
+              return;
+            }
+
             utils.report({
               message: m,
               node: decl,
