@@ -10,7 +10,7 @@ export const messages = utils.ruleMessages(ruleName, {
     "Expected a single space before parentheses in mixin declaration"
 });
 
-export default function(value) {
+export default function(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -20,8 +20,16 @@ export default function(value) {
       return;
     }
 
+    const match = /^(\w+)\s*?\(/;
+    const replacement = value === "always" ? "$1 (" : "$1(";
+
     const checker = whitespaceChecker("space", value, messages).before;
     root.walkAtRules("mixin", decl => {
+      if (context.fix) {
+        decl.params = decl.params.replace(match, replacement);
+        return;
+      }
+
       checker({
         source: decl.params,
         index: decl.params.indexOf("("),
