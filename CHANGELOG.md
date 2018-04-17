@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `at-function-named-arguments` now ignores Sass maps.
+
 # 3.0.0
 
 - Removed: Node.JS 4.x support. Node.js 6.x or greater is now required (#213).
