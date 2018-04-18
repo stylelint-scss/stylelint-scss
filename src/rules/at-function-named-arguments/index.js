@@ -44,7 +44,11 @@ export default function(expectation, options) {
 
     root.walkDecls(decl => {
       valueParser(decl.value).walk(node => {
-        if (node.type !== "function" || isNativeCssFunction(node.value)) {
+        if (
+          node.type !== "function" ||
+          isNativeCssFunction(node.value) ||
+          node.value === ""
+        ) {
           return;
         }
 

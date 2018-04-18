@@ -120,6 +120,30 @@ testRule(rule, {
       }
       `,
       description: "Always. Example: single argument is an unquoted string."
+    },
+    {
+      code: `
+      $space-values: (
+        tiny: $horizontal-list-spacing-tiny,
+        small: $horizontal-list-spacing-small,
+        medium: $horizontal-list-spacing-medium,
+        large: $horizontal-list-spacing-large,
+        huge: $horizontal-list-spacing-huge
+      );
+      `,
+      description: "Always. Should ignore Sass maps."
+    },
+    {
+      code: `
+      $space-values:   (
+        tiny: $horizontal-list-spacing-tiny,
+        small: $horizontal-list-spacing-small,
+        medium: $horizontal-list-spacing-medium,
+        large: $horizontal-list-spacing-large,
+        huge: $horizontal-list-spacing-huge
+      ) !default;
+      `,
+      description: "Always. Should ignore Sass maps with default."
     }
   ],
 
