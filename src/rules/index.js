@@ -29,6 +29,7 @@ import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line
 import doubleSlashCommentInline from "./double-slash-comment-inline";
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
+import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
 import operatorNoNewlineBefore from "./operator-no-newline-before";
 import operatorNoUnspaced from "./operator-no-unspaced";
@@ -68,6 +69,7 @@ export default {
   "double-slash-comment-inline": doubleSlashCommentInline,
   "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
+  "no-duplicate-dollar-variables": noDuplicateDollarVariables,
   "operator-no-newline-after": operatorNoNewlineAfter,
   "operator-no-newline-before": operatorNoNewlineBefore,
   "operator-no-unspaced": operatorNoUnspaced,

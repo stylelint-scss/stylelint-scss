@@ -135,6 +135,10 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`selector-no-redundant-nesting-selector`](./src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
 
+#### General / Sheet
+
+- [`no-duplicate-dollar-variables`](./src/rules/no-duplicate-dollar-variables/README.md): Disallow duplicate dollar variables within a stylesheet.
+
 ## Help out
 
 There work on the plugin's rules is still in progress, so if you feel like it, you're welcome to help out in any of these (the plugin follows stylelint guidelines so most part of this is based on its docs):
