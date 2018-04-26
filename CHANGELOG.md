@@ -1,3 +1,7 @@
+# HEAD
+
+- Added: `no-duplicate-dollar-variables` rule.
+
 # 3.0.1
 
 - Fixed: `at-function-named-arguments` now ignores Sass maps.
