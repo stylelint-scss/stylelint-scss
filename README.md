@@ -135,7 +135,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`selector-no-redundant-nesting-selector`](./src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
 
-#### General / Sheet
+### General / Sheet
 
 - [`no-duplicate-dollar-variables`](./src/rules/no-duplicate-dollar-variables/README.md): Disallow duplicate dollar variables within a stylesheet.
 
