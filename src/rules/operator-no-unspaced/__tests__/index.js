@@ -2179,3 +2179,43 @@ testRule(rule, {
     }
   ]
 });
+
+testRule(rule, {
+  ruleName,
+  config: [undefined],
+  syntax: "html",
+  skipBasicChecks: true,
+
+  accept: [
+    {
+      code: `
+a {
+  width: #{$var} + 1;
+}
+<style type="text/scss">
+a {
+  width: #{$var} + 1;
+}
+</style>
+`
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+a { 
+  width: 1 +$var; 
+}
+<style type="text/scss">
+a { 
+  width: 1 +$var; 
+}
+</style>
+`,
+      message: messages.rejected,
+      line: 7,
+      column: 12
+    }
+  ]
+});

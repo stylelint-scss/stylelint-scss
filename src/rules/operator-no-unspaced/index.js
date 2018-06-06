@@ -2,6 +2,7 @@ import { utils } from "stylelint";
 import {
   atRuleParamIndex,
   declarationValueIndex,
+  eachRoot,
   findCommentsInRaws,
   findOperators,
   isWhitespace,
@@ -76,11 +77,19 @@ export default function(expectation) {
       return;
     }
 
-    calculationOperatorSpaceChecker({
-      root,
-      result,
-      checker: checkSpaces
-    });
+    eachRoot(root, checkRoot);
+
+    function checkRoot(root) {
+      const rootString = root.source.input.css;
+      if (rootString.trim() === "") {
+        return;
+      }
+      calculationOperatorSpaceChecker({
+        root,
+        result,
+        checker: checkSpaces
+      });
+    }
   };
 }
 

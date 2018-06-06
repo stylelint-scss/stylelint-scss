@@ -2,6 +2,8 @@ export { default as atRuleParamIndex } from "./atRuleParamIndex";
 export { default as beforeBlockString } from "./beforeBlockString";
 export { default as blockString } from "./blockString";
 export { default as declarationValueIndex } from "./declarationValueIndex";
+// Todo should be deleted after upgrade `stylelint` to `10`
+export { default as eachRoot } from "./eachRoot";
 export { default as findCommentsInRaws } from "./findCommentsInRaws";
 export {
   default as hasInterpolatingAmpersand

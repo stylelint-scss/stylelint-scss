@@ -86,6 +86,39 @@ testRule(rule, {
   ]
 });
 
+testRule(rule, {
+  ruleName,
+  config: ["always"],
+  syntax: "html",
+
+  accept: [
+    {
+      code: `
+//Just text
+<style type="text/scss">
+// Comment with one space
+</style>
+//Just text
+`
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+//Just text
+<style type="text/scss">
+//Comment with no whitespace
+</style>
+//Just text
+`,
+      message: messages.expected,
+      line: 4,
+      column: 3
+    }
+  ]
+});
+
 // -------------------------------------------------------------------------
 // "never"
 // -------------------------------------------------------------------------
@@ -161,6 +194,39 @@ testRule(rule, {
       message: messages.rejected,
       line: 5,
       column: 10
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
+  config: ["never"],
+  syntax: "html",
+
+  accept: [
+    {
+      code: `
+// Just text
+<style type="text/scss">
+//Comment with one space
+</style>
+// Just text
+`
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+// Just text
+<style type="text/scss">
+// Comment with no whitespace
+</style>
+// Just text
+`,
+      message: messages.rejected,
+      line: 4,
+      column: 3
     }
   ]
 });

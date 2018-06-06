@@ -78,6 +78,42 @@ testRule(rule, {
 
 testRule(rule, {
   ruleName,
+  config: ["always"],
+  syntax: "html",
+
+  accept: [
+    {
+      code: `
+// Just text
+<style type="text/scss">
+a {} // Inline comment, outside a ruleset.
+</style>
+// Just text
+`
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+// Just text
+<style type="text/scss">
+a {
+  // Non-inline comment (before a decl)
+  width: 10px;
+}
+</style>
+// Just text
+`,
+      message: messages.expected,
+      line: 5,
+      column: 3
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
   config: ["always", { ignore: ["stylelint-commands"] }],
   syntax: "scss",
   skipBasicChecks: true,
@@ -163,6 +199,39 @@ testRule(rule, {
       description: "Inline comment, between selectors.",
       line: 2,
       column: 10
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
+  config: ["never"],
+  syntax: "html",
+
+  accept: [
+    {
+      code: `
+// Just text
+<style type="text/scss">
+// comment
+</style>
+// Just text
+`
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+// Just text
+<style type="text/scss">
+a {} // comment
+</style>
+// Just text
+`,
+      message: messages.rejected,
+      line: 4,
+      column: 6
     }
   ]
 });

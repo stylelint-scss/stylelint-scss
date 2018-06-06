@@ -1,4 +1,9 @@
-import { findCommentsInRaws, namespace, optionsHaveIgnored } from "../../utils";
+import {
+  eachRoot,
+  findCommentsInRaws,
+  namespace,
+  optionsHaveIgnored
+} from "../../utils";
 import { utils } from "stylelint";
 
 export const ruleName = namespace("double-slash-comment-inline");
@@ -31,39 +36,47 @@ export default function(expectation, options) {
       return;
     }
 
-    const comments = findCommentsInRaws(root.source.input.css);
-    comments.forEach(comment => {
-      // Only process // comments
-      if (comment.type !== "double-slash") {
+    eachRoot(root, checkRoot);
+
+    function checkRoot(root) {
+      const rootString = root.source.input.css;
+      if (rootString.trim() === "") {
         return;
       }
+      const comments = findCommentsInRaws(rootString);
+      comments.forEach(comment => {
+        // Only process // comments
+        if (comment.type !== "double-slash") {
+          return;
+        }
 
-      // Optionally ignore stylelint commands
-      if (
-        comment.text.indexOf(stylelintCommandPrefix) === 0 &&
-        optionsHaveIgnored(options, "stylelint-commands")
-      ) {
-        return;
-      }
+        // Optionally ignore stylelint commands
+        if (
+          comment.text.indexOf(stylelintCommandPrefix) === 0 &&
+          optionsHaveIgnored(options, "stylelint-commands")
+        ) {
+          return;
+        }
 
-      const isInline = comment.inlineAfter || comment.inlineBefore;
-      let message;
+        const isInline = comment.inlineAfter || comment.inlineBefore;
+        let message;
 
-      if (isInline && expectation === "never") {
-        message = messages.rejected;
-      } else if (!isInline && expectation === "always") {
-        message = messages.expected;
-      } else {
-        return;
-      }
+        if (isInline && expectation === "never") {
+          message = messages.rejected;
+        } else if (!isInline && expectation === "always") {
+          message = messages.expected;
+        } else {
+          return;
+        }
 
-      utils.report({
-        message,
-        node: root,
-        index: comment.source.start,
-        result,
-        ruleName
+        utils.report({
+          message,
+          node: root,
+          index: comment.source.start,
+          result,
+          ruleName
+        });
       });
-    });
+    }
   };
 }
