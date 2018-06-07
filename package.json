@@ -32,7 +32,7 @@
     "jest": "^22.0.4",
     "jest-cli": "^22.0.4",
     "lint-staged": "^7.0.1",
-    "npmpub": "^3.1.0",
+    "npmpub": "^4.0.0",
     "postcss": "^6.0.14",
     "postcss-scss": "^1.0.2",
     "prettier": "^1.8.2",
