@@ -8,7 +8,16 @@ Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no
  * At-rules like this */
 ```
 
-This rule is basically a wrapper around the mentioned core rule, but with added SCSS-specific `@`-directives. So if you use the core rule, `@if`, `@extend` and other Sass-y things will get warnings.
+This rule is basically a wrapper around the mentioned core rule, but with added SCSS-specific `@`-directives. So if you use the core rule, `@if`, `@extend` and other Sass-y things will get warnings. You must to disable core rule to make this rule work:
+
+```json
+{
+  "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true
+  }
+}
+```
 
 ## Options
 
