@@ -1592,7 +1592,7 @@ testRule(rule, {
 test("+ without whitespaces: `#{$var}+#ffc`.", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: #{$var}+#ffc; }", { syntax: scss })
+    .process("a { width: #{$var}+#ffc; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1607,7 +1607,7 @@ test("+ without whitespaces: `#{$var}+#ffc`.", () => {
 test("+ without whitespaces: `1+1s`.", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: 1+1s; }", { syntax: scss })
+    .process("a { width: 1+1s; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1622,7 +1622,7 @@ test("+ without whitespaces: `1+1s`.", () => {
 test("- without whitespaces: `5px-3px`.", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: 5px-3px; }", { syntax: scss })
+    .process("a { width: 5px-3px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1637,7 +1637,7 @@ test("- without whitespaces: `5px-3px`.", () => {
 test("- without whitespaces: `.1px-1px`.", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: .1px-1px; }", { syntax: scss })
+    .process("a { width: .1px-1px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1652,7 +1652,7 @@ test("- without whitespaces: `.1px-1px`.", () => {
 test("- without whitespaces: `s.1px-1`.", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: s.1px-1; }", { syntax: scss })
+    .process("a { width: s.1px-1; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1667,7 +1667,7 @@ test("- without whitespaces: `s.1px-1`.", () => {
 test("fn()-1", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: fn()-1; }", { syntax: scss })
+    .process("a { width: fn()-1; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1682,7 +1682,7 @@ test("fn()-1", () => {
 test("fn()/1", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: fn()/1; }", { syntax: scss })
+    .process("a { width: fn()/1; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1699,7 +1699,7 @@ test("fn()/1", () => {
 test("$var==1", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: $var==1; }", { syntax: scss })
+    .process("a { width: $var==1; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1714,7 +1714,7 @@ test("$var==1", () => {
 test("var==var", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: var==var; }", { syntax: scss })
+    .process("a { width: var==var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1731,7 +1731,7 @@ test("var==var", () => {
 test("8px/2px +$var`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px +$var; }", { syntax: scss })
+    .process("a { width: 8px/2px +$var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1742,7 +1742,7 @@ test("8px/2px +$var`.", () => {
 test("#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so it gives warnings).", () => {
   expect.assertions(5);
   postcss([rule()])
-    .process("a { width: #{$var}+8px/2px; }", { syntax: scss })
+    .process("a { width: #{$var}+8px/2px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
@@ -1756,7 +1756,7 @@ test("#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so 
 test("8px/2px+ $var`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px+ $var; }", { syntax: scss })
+    .process("a { width: 8px/2px+ $var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1766,7 +1766,7 @@ test("8px/2px+ $var`.", () => {
 test("8px/2px +fn()`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px +fn(); }", { syntax: scss })
+    .process("a { width: 8px/2px +fn(); }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1776,7 +1776,7 @@ test("8px/2px +fn()`.", () => {
 test("8px/2px+ fn()`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px+ fn(); }", { syntax: scss })
+    .process("a { width: 8px/2px+ fn(); }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1786,7 +1786,7 @@ test("8px/2px+ fn()`.", () => {
 test("8px/2px+ 5px`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px+ 5px; }", { syntax: scss })
+    .process("a { width: 8px/2px+ 5px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1796,7 +1796,7 @@ test("8px/2px+ 5px`.", () => {
 test("8px/2px+ 5`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px+ 5; }", { syntax: scss })
+    .process("a { width: 8px/2px+ 5; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1807,7 +1807,7 @@ test("8px/2px+ 5`.", () => {
 test("8px/2px -$var`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px -$var; }", { syntax: scss })
+    .process("a { width: 8px/2px -$var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1817,7 +1817,7 @@ test("8px/2px -$var`.", () => {
 test("8px/2-$var`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2-$var; }", { syntax: scss })
+    .process("a { width: 8px/2-$var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(4);
@@ -1827,7 +1827,7 @@ test("8px/2-$var`.", () => {
 test("8px/2- $var`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2- $var; }", { syntax: scss })
+    .process("a { width: 8px/2- $var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1837,7 +1837,7 @@ test("8px/2- $var`.", () => {
 test("8px/2- 5px`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2- 5px; }", { syntax: scss })
+    .process("a { width: 8px/2- 5px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(3);
@@ -1847,7 +1847,7 @@ test("8px/2- 5px`.", () => {
 test("8px/2px-5px`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px-5px; }", { syntax: scss })
+    .process("a { width: 8px/2px-5px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(4);
@@ -1857,7 +1857,7 @@ test("8px/2px-5px`.", () => {
 test("8px/2-5px`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2-5px; }", { syntax: scss })
+    .process("a { width: 8px/2-5px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(4);
@@ -1867,7 +1867,7 @@ test("8px/2-5px`.", () => {
 test("8px/2px-5`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2px-5; }", { syntax: scss })
+    .process("a { width: 8px/2px-5; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(4);
@@ -1877,7 +1877,7 @@ test("8px/2px-5`.", () => {
 test("8px/2-5`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 8px/2-5; }", { syntax: scss })
+    .process("a { width: 8px/2-5; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(4);
@@ -1890,7 +1890,7 @@ test("8px/2-5`.", () => {
 test("5+8px/2`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 5+8px/2; }", { syntax: scss })
+    .process("a { width: 5+8px/2; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(4);
@@ -1900,7 +1900,7 @@ test("5+8px/2`.", () => {
 test("5px*8px/2`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 5px*8px/2; }", { syntax: scss })
+    .process("a { width: 5px*8px/2; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(4);
@@ -1910,7 +1910,7 @@ test("5px*8px/2`.", () => {
 test("5px - 8px/2`.", () => {
   expect.assertions(1);
   postcss([rule()])
-    .process("a { width: 5px - 8px/2; }", { syntax: scss })
+    .process("a { width: 5px - 8px/2; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(2);
