@@ -47,7 +47,8 @@ test("{ always } Simple test: background-color, background-repeat", () => {
         background-color: red;
         background-repeat: no-repeat;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -70,7 +71,8 @@ test("{ always } background-color, background-repeat separated by at-rule", () =
         @media (color) { background-image: url(img.png); }
         background-repeat: no-repeat;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -96,7 +98,8 @@ test("{ always } one `background` in nested form", () => {
           color: red
         };
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -116,7 +119,8 @@ test("{ always } nested `background` and background-position", () => {
         };
         background-position: center;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -136,7 +140,8 @@ test("{ always } `prop:    value {nested} prop-v: value`.", () => {
         };
         background-position: center;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -156,7 +161,8 @@ test("{ always } `prop  :  value {nested} prop-v: value`.", () => {
         };
         background-position: center;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -178,7 +184,8 @@ test("{ always, except: only-of-namespace } background-color only", () => {
         position: absolute;
         background-color: red;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -197,7 +204,8 @@ test("{ always, except: only-of-namespace } background-color, background-repeat 
         @media (color) { background-image: url(img.png); }
         background-repeat: no-repeat;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -223,7 +231,8 @@ test("{ always, except: only-of-namespace } `background:red`, one rule inside", 
         }
         background-position: center;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -243,7 +252,8 @@ test("{ always, except: only-of-namespace } background, two rules inside", () =>
           repeat: no-repeat;
         }
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -264,7 +274,8 @@ test("{ always, except: only-of-namespace } `background:red`, one rule inside", 
         }
         background-position: center;
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -284,7 +295,8 @@ test("{ always, except: only-of-namespace } `prop: value`, one rule inside", () 
           origin: padding-box;
         }
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -307,7 +319,8 @@ test("{ always, except: only-of-namespace } `prop:`, one rule X2", () => {
           color: red;
         }
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();

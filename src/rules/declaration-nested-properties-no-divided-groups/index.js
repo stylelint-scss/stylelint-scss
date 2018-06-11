@@ -7,9 +7,7 @@ export const ruleName = namespace(
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: prop =>
-    `Expected all nested properties of "${
-      prop
-    }" namespace to be in one nested group`
+    `Expected all nested properties of "${prop}" namespace to be in one nested group`
 });
 
 export default function(expectation) {

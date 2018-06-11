@@ -122,7 +122,8 @@ test("2 groups of the same namespace.", () => {
           repeat: no-repeat;
         }
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -148,12 +149,13 @@ test("3 groups, 1 and 3 has the same namespace", () => {
         margin: 10px {
           left: 1px;
         }
-        
+
         background: linear-gradient(to bottom, red 0%, blue 10%) {
           position: center;
         }
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();
@@ -178,12 +180,13 @@ test("3 groups of the same namespace", () => {
         background: red {
           repeat: no-repeat;
         }
-        
+
         background: linear-gradient(to bottom, red 0%, blue 10%) {
           position: center;
         }
       }
-    `
+    `,
+      { from: undefined }
     )
     .then(result => {
       const warnings = result.warnings();

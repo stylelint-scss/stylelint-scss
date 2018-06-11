@@ -11,7 +11,7 @@ test("No file specified", () => {
   expect.assertions(2);
 
   postcss([rule()])
-    .process("@import 'file.scss';")
+    .process("@import 'file.scss';", { from: undefined })
     .then(result => {
       const warnings = result.warnings();
       expect(warnings.length).toBe(1);
