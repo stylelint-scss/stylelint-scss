@@ -39,10 +39,11 @@ export default function findOperators({
   for (let i = 0; i < string.length; i++) {
     const character = string[i];
     const substringStartingWithIndex = string.substring(i);
+    const lastMode = modesEntered[lastModeIndex];
 
     // If entering/exiting a string
     if (character === '"' || character === "'") {
-      if (modesEntered[lastModeIndex].isCalculationEnabled === true) {
+      if (lastMode && lastMode.isCalculationEnabled === true) {
         modesEntered.push({
           mode: "string",
           isCalculationEnabled: false,
@@ -50,8 +51,9 @@ export default function findOperators({
         });
         lastModeIndex++;
       } else if (
-        modesEntered[lastModeIndex].mode === "string" &&
-        modesEntered[lastModeIndex].character === character &&
+        lastMode &&
+        lastMode.mode === "string" &&
+        lastMode.character === character &&
         string[i - 1] !== "\\"
       ) {
         modesEntered.pop();
@@ -77,7 +79,7 @@ export default function findOperators({
     }
 
     // Don't lint if inside a string
-    if (modesEntered[lastModeIndex].isCalculationEnabled === false) {
+    if (lastMode && lastMode.isCalculationEnabled === false) {
       continue;
     }
 

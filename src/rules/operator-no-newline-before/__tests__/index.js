@@ -47,6 +47,14 @@ testRule(rule, {
       }
     `,
       description: "Newline before the preceding op: 10px +\\n          1"
+    },
+    {
+      code: `
+        :root {
+          --foo: '{{}}';
+        }
+      `,
+      description: "Custom property"
     }
   ],
 
