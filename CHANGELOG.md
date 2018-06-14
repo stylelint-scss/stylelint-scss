@@ -1,3 +1,7 @@
+# 3.1.1
+
+- Fixed: `operator-no-newline-before` and `operator-no-unspaced` rules were throwing an error when using CSS custom properties.
+
 # 3.1.0
 
 - Added: `no-duplicate-dollar-variables` rule.
@@ -59,7 +63,7 @@ This version updates stylelint to version 8 and removes 2 rules that were deprec
 - Breaking changes:
   - Updated: stylelint dependency from version 7 to version 8.
   - Changed: stylelint is now listed in `peerDependencies` instead of `dependencies`. This means that you need to have `stylelint` installed in your project before using `stylelint-scss`.
-  - Changed: white/blacklists and ignore* options to be case sensitive by default. See https://github.com/stylelint/stylelint/pull/2709
+  - Changed: white/blacklists and ignore\* options to be case sensitive by default. See https://github.com/stylelint/stylelint/pull/2709
   - Removed: 2 deprecated rules
     - `at-import-no-partial-extension`
     - `at-mixin-no-argumentless-call-parentheses`
