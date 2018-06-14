@@ -42,6 +42,10 @@ testRule(rule, {
     {
       code: "a { width: #{$var} +1; }",
       description: "List. width: #{$var} +1."
+    },
+    {
+      code: ":root { --foo: '{{}}'; }",
+      description: "Custom property"
     }
   ],
 
