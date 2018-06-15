@@ -174,7 +174,7 @@ export function mathOperatorCharType(string, index, isAfterColon) {
 }
 
 // --------------------------------------------------------------------------
-// Functions for checking particular characterd (+, -, /)
+// Functions for checking particular characters (+, -, /)
 // --------------------------------------------------------------------------
 
 /**
@@ -458,7 +458,7 @@ function checkMinus(string, index) {
  *    • "char" if it gets compiled as-is, e.g. `font: 10px/1.2;`,
  *    • false - if it is none from above (most likely an error)
  */
-function checkSlash(string, index, isAftercolon) {
+function checkSlash(string, index, isAfterColon) {
   // Trimming these, as spaces before/after a slash don't matter
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
@@ -503,7 +503,7 @@ function checkSlash(string, index, isAftercolon) {
 
   // `$var: 10px/2; // 5px`
   if (
-    isAftercolon === true &&
+    isAfterColon === true &&
     ((isValueWithUnitAfter_.is || isNumberAfter_.is) &&
       (isValueWithUnitBefore_ || isNumberBefore_))
   ) {
