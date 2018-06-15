@@ -1,3 +1,7 @@
+# 3.1.2
+
+- Fixed: compatibility with non css syntaxes.
+
 # 3.1.1
 
 - Fixed: `operator-no-newline-before` and `operator-no-unspaced` rules were throwing an error when using CSS custom properties.
