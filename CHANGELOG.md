@@ -1,3 +1,7 @@
+# 3.1.3
+
+- Fixed: compatibility with non css syntaxes for `operator-no-newline-after` and `operator-no-newline-before` rules.
+
 # 3.1.2
 
 - Fixed: compatibility with non css syntaxes.
