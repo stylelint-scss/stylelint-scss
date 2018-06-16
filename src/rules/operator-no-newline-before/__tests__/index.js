@@ -85,3 +85,47 @@ testRule(rule, {
     }
   ]
 });
+
+testRule(rule, {
+  ruleName,
+  config: [undefined],
+  syntax: "html",
+  skipBasicChecks: true,
+
+  accept: [
+    {
+      code: `
+a {
+  width: 10px 
+    + 1;
+}
+<style type="text/scss">
+a {
+  width: 10px +
+    1;
+}
+</style>
+`
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+a {
+  width: 10px
+    + 1;
+}
+<style type="text/scss">
+ a {
+  width: 10px
+    + 1;
+}
+</style>
+`,
+      message: messages.rejected("+"),
+      line: 9,
+      column: 5
+    }
+  ]
+});

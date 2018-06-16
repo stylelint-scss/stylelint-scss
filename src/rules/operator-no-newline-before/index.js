@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace, isWhitespace } from "../../utils";
+import { eachRoot, namespace, isWhitespace } from "../../utils";
 
 export const ruleName = namespace("operator-no-newline-before");
 
@@ -52,10 +52,14 @@ export default function(expectation) {
       return;
     }
 
-    calculationOperatorSpaceChecker({
-      root,
-      result,
-      checker: checkNewlineBefore
-    });
+    eachRoot(root, checkRoot);
+
+    function checkRoot(root) {
+      calculationOperatorSpaceChecker({
+        root,
+        result,
+        checker: checkNewlineBefore
+      });
+    }
   };
 }
