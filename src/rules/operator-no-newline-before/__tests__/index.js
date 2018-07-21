@@ -55,6 +55,16 @@ testRule(rule, {
         }
       `,
       description: "Custom property"
+    },
+    {
+      code: `
+      @font-face {
+        font-family: 'Ampersand';
+        src: local('Times New Roman');
+        unicode-range: U+26;
+      }
+      `,
+      description: "unicode-range"
     }
   ],
 
@@ -96,7 +106,7 @@ testRule(rule, {
     {
       code: `
 a {
-  width: 10px 
+  width: 10px
     + 1;
 }
 <style type="text/scss">
