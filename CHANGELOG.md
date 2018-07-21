@@ -1,3 +1,9 @@
+# 3.2.0
+
+- Added: `no-dollar-variables` rule.
+- Added: `ignoreInside` and `ignoreInsideAtRules` options to `no-duplicate-dollar-variables` rule.
+- Fixed: `operator-no-unspaced` no longer warns for `unicode-range` property.
+
 # 3.1.3
 
 - Fixed: compatibility with non css syntaxes for `operator-no-newline-after` and `operator-no-newline-before` rules.
