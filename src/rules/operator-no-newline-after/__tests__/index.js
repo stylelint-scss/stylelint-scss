@@ -47,6 +47,16 @@ testRule(rule, {
       }
     `,
       description: "Newline after the following op: 10px + 1\\n         + 1"
+    },
+    {
+      code: `
+      @font-face {
+        font-family: 'Ampersand';
+        src: local('Times New Roman');
+        unicode-range: U+26;
+      }
+      `,
+      description: "unicode-range"
     }
   ],
 
@@ -93,7 +103,7 @@ a {
 }
 <style type="text/scss">
 a {
-  width: 10px 
+  width: 10px
     + 1;
 }
 </style>
@@ -110,7 +120,7 @@ a {
 }
 <style type="text/scss">
  a {
-  width: 10px + 
+  width: 10px +
     1;
 }
 </style>

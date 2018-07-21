@@ -139,6 +139,10 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
   }
 
   root.walk(item => {
+    if (item.prop === "unicode-range") {
+      return;
+    }
+
     let results = [];
 
     // Check a value (`10px` in `width: 10px;`)

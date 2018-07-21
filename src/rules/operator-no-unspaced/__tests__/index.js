@@ -46,6 +46,16 @@ testRule(rule, {
     {
       code: ":root { --foo: '{{}}'; }",
       description: "Custom property"
+    },
+    {
+      code: `
+      @font-face {
+        font-family: 'Ampersand';
+        src: local('Times New Roman');
+        unicode-range: U+26;
+      }
+      `,
+      description: "unicode-range"
     }
   ],
 
@@ -2204,12 +2214,12 @@ a {
   reject: [
     {
       code: `
-a { 
-  width: 1 +$var; 
+a {
+  width: 1 +$var;
 }
 <style type="text/scss">
-a { 
-  width: 1 +$var; 
+a {
+  width: 1 +$var;
 }
 </style>
 `,
