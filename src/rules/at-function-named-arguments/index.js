@@ -2,7 +2,8 @@ import { utils } from "stylelint";
 import {
   namespace,
   optionsHaveIgnored,
-  isNativeCssFunction
+  isNativeCssFunction,
+  parseFunctionArguments
 } from "../../utils";
 import valueParser from "postcss-value-parser";
 
@@ -13,7 +14,6 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected a named parameter in function call"
 });
 
-const hasArgumentsRegExp = /\((.*)\)$/;
 const isScssVarRegExp = /^\$\S*/;
 
 export default function(expectation, options) {
@@ -52,38 +52,7 @@ export default function(expectation, options) {
           return;
         }
 
-        const argsString = decl.value
-          .replace(/\n/g, " ")
-          .match(hasArgumentsRegExp);
-
-        // Ignore @include that does not contain arguments.
-        if (
-          !argsString ||
-          argsString.index === -1 ||
-          argsString[0].length === 2
-        ) {
-          return;
-        }
-
-        const args = argsString[1]
-          // Create array of arguments.
-          .split(",")
-          // Create a key-value array for every argument.
-          .map(argsString =>
-            argsString
-              .split(":")
-              .map(argsKeyValuePair => argsKeyValuePair.trim())
-          )
-          .reduce((resultArray, keyValuePair) => {
-            const pair = { value: keyValuePair[1] || keyValuePair[0] };
-
-            if (keyValuePair[1]) {
-              pair.key = keyValuePair[0];
-            }
-
-            return [...resultArray, pair];
-          }, []);
-
+        const args = parseFunctionArguments(decl.value);
         const isSingleArgument = args.length === 1;
 
         if (isSingleArgument && shouldIgnoreSingleArgument) {

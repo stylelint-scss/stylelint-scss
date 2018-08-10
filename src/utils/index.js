@@ -27,3 +27,4 @@ export { default as parseSelector } from "./parseSelector";
 export { default as findOperators } from "./sassValueParser";
 export { default as rawNodeString } from "./rawNodeString";
 export { default as whitespaceChecker } from "./whitespaceChecker";
+export { parseFunctionArguments } from "./parseFunctionArguments";

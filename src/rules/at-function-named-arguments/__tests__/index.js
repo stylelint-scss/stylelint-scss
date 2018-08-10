@@ -34,6 +34,15 @@ testRule(rule, {
     },
     {
       code: `
+      .c {
+        background-image: test($value: url("data:image/svg+xml;charset=utf8,%3C"));
+      }
+      `,
+      description:
+        "Always. Example: native CSS function is ignored inside a function call."
+    },
+    {
+      code: `
       .b {
         transform: translateX(40px) translatey(10px);
       }
@@ -231,6 +240,17 @@ testRule(rule, {
       column: 9,
       message: messages.expected,
       description: "Always. Example: mixed named arguments."
+    },
+    {
+      code: `
+      .c {
+        background-image: test(url("data:image/svg+xml;charset=utf8,%3C"));
+      }
+      `,
+      line: 3,
+      column: 9,
+      description:
+        "Always. Example: native CSS function inside a function call."
     }
   ]
 });
@@ -339,6 +359,15 @@ testRule(rule, {
     `,
       description:
         "Never. Example: single argument is an interpolated value and not named."
+    },
+    {
+      code: `
+      .c {
+        background-image: test(url("data:image/svg+xml;charset=utf8,%3C"));
+      }
+      `,
+      description:
+        "Always. Example: native CSS function is ignored inside a function call."
     }
   ],
 
@@ -458,6 +487,18 @@ testRule(rule, {
       column: 9,
       message: messages.rejected,
       description: "Never. Example: mixed named arguments."
+    },
+    {
+      code: `
+      .c {
+        background-image: test($value: url("data:image/svg+xml;charset=utf8,%3C"));
+      }
+      `,
+      line: 3,
+      column: 9,
+      message: messages.rejected,
+      description:
+        "Always. Example: native CSS function inside a function call."
     }
   ]
 });
