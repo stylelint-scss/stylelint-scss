@@ -1,5 +1,6 @@
 # HEAD
 
+- Added: `at-function-named-arguments` add `ignoreFunctions` option.
 - Fixed: `at-function-named-arguments` correctly parse data uris as function parameters.
 
 # 3.2.0

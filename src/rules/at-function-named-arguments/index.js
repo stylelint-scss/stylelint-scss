@@ -5,6 +5,7 @@ import {
   isNativeCssFunction,
   parseFunctionArguments
 } from "../../utils";
+import { isString } from "lodash";
 import valueParser from "postcss-value-parser";
 
 export const ruleName = namespace("at-function-named-arguments");
@@ -28,7 +29,8 @@ export default function(expectation, options) {
       {
         actual: options,
         possible: {
-          ignore: ["single-argument"]
+          ignore: ["single-argument"],
+          ignoreFunctions: [isString]
         },
         optional: true
       }
@@ -49,6 +51,20 @@ export default function(expectation, options) {
           isNativeCssFunction(node.value) ||
           node.value === ""
         ) {
+          return;
+        }
+
+        const hasFuncIgnored =
+          options &&
+          options.ignoreFunctions &&
+          options.ignoreFunctions.some(f => {
+            const parts = f.split("/");
+            return new RegExp(parts[0] || parts[1], parts[2] || "").test(
+              node.value
+            );
+          });
+
+        if (hasFuncIgnored) {
           return;
         }
 
