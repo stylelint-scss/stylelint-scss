@@ -1,13 +1,13 @@
 import {
-  groupByKeyVal,
+  groupByKeyValue,
   mapToKeyValue,
   parseFunctionArguments
 } from "../parseFunctionArguments";
 
-describe("groupByKeyVal", () => {
+describe("groupByKeyValue", () => {
   it("should group key with values", () => {
     expect(
-      groupByKeyVal([
+      groupByKeyValue([
         { type: "word", sourceIndex: 6, value: "$value" },
         {
           type: "div",
@@ -35,7 +35,7 @@ describe("groupByKeyVal", () => {
       [{ sourceIndex: 20, type: "word", value: "10px" }]
     ]);
     expect(
-      groupByKeyVal([
+      groupByKeyValue([
         { type: "word", sourceIndex: 6, value: "$value" },
         {
           type: "div",
