@@ -915,3 +915,155 @@ testRule(rule, {
     }
   ]
 });
+
+testRule(rule, {
+  ruleName,
+  config: ["always", { ignoreFunctions: ["map-get", "/^my-/i", "/funct$/"] }],
+  syntax: "scss",
+
+  accept: [
+    {
+      code: `
+      .b {
+        border: reset($value: 40px);
+      }
+      `,
+      description:
+        "Always and ignore function. Example: single argument is named."
+    },
+    {
+      code: `
+      .b {
+        content: map-get($map, key);
+      }
+      `,
+      description: "Always and ignore function: ignored function."
+    },
+    {
+      code: `
+      .b {
+        content: my-func($map, key);
+      }
+      `,
+      description: "Always and ignore function: ignored function."
+    },
+    {
+      code: `
+      .b {
+        content: MY-FUNC($map, key);
+      }
+      `,
+      description: "Always and ignore function: ignored function."
+    },
+    {
+      code: `
+      .b {
+        content: ffunct($map, key);
+      }
+      `,
+      description: "Always and ignore function: ignored function."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      .b {
+        border: reset(40px);
+      }
+    `,
+      line: 3,
+      column: 9,
+      message: messages.expected,
+      description:
+        "Always and ignore function. Example: single argument that is not named."
+    },
+    {
+      code: `
+      .b {
+        content: FFUNCT($map, key);
+      }
+    `,
+      line: 3,
+      column: 9,
+      message: messages.expected,
+      description:
+        "Always and ignore function. Example: function name's case does not match regex."
+    },
+    {
+      code: `
+      .b {
+        content: fmap-get($map, key);
+      }
+    `,
+      line: 3,
+      column: 9,
+      message: messages.expected,
+      description:
+        "Always and ignore function. Example: function name does not match string or regex."
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
+  config: ["never", { ignoreFunctions: ["somefunc", "/^my-/", "/funct$/"] }],
+  syntax: "scss",
+
+  accept: [
+    {
+      code: `
+      .b {
+        border: reset(40px);
+      }
+    `,
+      description: "Never. Example: single argument that is not named."
+    },
+    {
+      code: `
+      .b {
+        border: reset(40px, 10px);
+      }
+    `,
+      description: "Never. Example: multiple arguments that are not named."
+    },
+    {
+      code: `
+      .b {
+        content: somefunc($key: 1, $key2: 2);
+      }
+      `,
+      description: "Never and ignore function: ignored function."
+    },
+    {
+      code: `
+      .b {
+        content: my-func($key: 1, $key2: 2);
+      }
+      `,
+      description: "Never and ignore function: ignored function."
+    },
+    {
+      code: `
+      .b {
+        content: ffunct($key: 1, $key2: 2);
+      }
+      `,
+      description: "Never and ignore function: ignored function."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      .b {
+        border: reset($value: 40px);
+      }
+      `,
+      line: 3,
+      column: 9,
+      message: messages.rejected,
+      description: "Never. Example: single argument is named."
+    }
+  ]
+});

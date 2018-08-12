@@ -19,22 +19,22 @@ The following patterns are considered warnings:
 ```scss
 .foo {
   animation: animation(250ms, 100ms, infinite);
-} 
+}
 ```
 
 ```scss
 .foo {
   animation: animation(250ms);
-} 
+}
 ```
 
 ```scss
 .foo {
-  border: reset($value: 20, 'bar', $color: #FFF);
+  border: reset($value: 20, "bar", $color: #fff);
 }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 .foo {
@@ -66,16 +66,16 @@ The following patterns are considered warnings:
 
 ```scss
 .foo {
-  border: reset($value: 20, 'bar', $color: #FFF);
+  border: reset($value: 20, "bar", $color: #fff);
 }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 .foo {
   animation: animation(250ms, 100ms, infinite);
-} 
+}
 ```
 
 ## Optional secondary options
@@ -83,11 +83,12 @@ The following patterns are *not* considered warnings:
 ### `"ignore": ["single-argument"]`
 
 Given:
+
 ```json
 { "ignore": ["single-argument"] }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 .foo {
@@ -98,5 +99,33 @@ The following patterns are *not* considered warnings:
 ```scss
 .foo {
   @include reset(20);
+}
+```
+
+### `ignoreFunctions: ["/regex/", "string"]`
+
+Given:
+
+```js
+["always", { ignoreFunctions: ["/^my-/i", "custom"] }];
+```
+
+The following patterns are _not_ considered warnings:
+
+```scss
+.foo {
+  border: custom(20, 30);
+}
+```
+
+```scss
+.foo {
+  border: my-func(20, 30);
+}
+```
+
+```scss
+.foo {
+  border: MY-FUNC(20, 30);
 }
 ```
