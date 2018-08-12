@@ -1,5 +1,6 @@
 import {
   groupByKeyVal,
+  mapToKeyValue,
   parseFunctionArguments
 } from "../parseFunctionArguments";
 
@@ -95,6 +96,19 @@ describe("groupByKeyVal", () => {
       ]
     ]);
   });
+});
+
+describe("mapToKeyValue", () => {
+  expect(
+    mapToKeyValue([
+      { sourceIndex: 6, type: "word", value: "$value" },
+      { after: " ", before: "", sourceIndex: 12, type: "div", value: ":" },
+      { sourceIndex: 14, type: "word", value: "40px" }
+    ])
+  ).toEqual({ key: "$value", value: "40px" });
+  expect(
+    mapToKeyValue([{ sourceIndex: 20, type: "word", value: "10px" }])
+  ).toEqual({ value: "10px" });
 });
 
 describe("parseFunctionArguments", () => {

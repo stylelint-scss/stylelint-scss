@@ -21,22 +21,27 @@ export function groupByKeyVal(nodes) {
   }, []);
 }
 
-function mapToKeyValue(nodes) {
-  const mapped = nodes.map((_, i) => {
+export function mapToKeyValue(nodes) {
+  const keyVal = nodes.reduce((acc, curr, i) => {
+    if (acc.length === 1) {
+      return acc;
+    }
     const nextNode = nodes[i + 1];
     const isNextNodeColon =
       nextNode && nextNode.type === "div" && nextNode.value === ":";
     if (isNextNodeColon) {
-      return {
+      acc.push({
         key: valueParser.stringify(nodes[i]),
         value: valueParser.stringify(nodes.slice(2))
-      };
+      });
+      return acc;
     }
-    return {
+    acc.push({
       value: valueParser.stringify(nodes)
-    };
-  });
-  return first(mapped);
+    });
+    return acc;
+  }, []);
+  return first(keyVal);
 }
 
 export function parseFunctionArguments(value) {
