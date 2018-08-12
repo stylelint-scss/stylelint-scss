@@ -65,9 +65,7 @@ export default function(expectation, options) {
             }
 
             const parts = f.split("/");
-            return new RegExp(parts[0] || parts[1], parts[2] || "").test(
-              node.value
-            );
+            return new RegExp(parts[1], parts[2] || "").test(node.value);
           });
 
         if (hasFuncIgnored) {
