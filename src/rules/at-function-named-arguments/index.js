@@ -58,6 +58,12 @@ export default function(expectation, options) {
           options &&
           options.ignoreFunctions &&
           options.ignoreFunctions.some(f => {
+            const isRegex = /^\/.*\//.test(f);
+
+            if (!isRegex) {
+              return f === node.value;
+            }
+
             const parts = f.split("/");
             return new RegExp(parts[0] || parts[1], parts[2] || "").test(
               node.value

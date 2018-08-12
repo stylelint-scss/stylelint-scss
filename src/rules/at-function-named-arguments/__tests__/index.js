@@ -989,6 +989,18 @@ testRule(rule, {
       message: messages.expected,
       description:
         "Always and ignore function. Example: function name's case does not match regex."
+    },
+    {
+      code: `
+      .b {
+        content: fmap-get($map, key);
+      }
+    `,
+      line: 3,
+      column: 9,
+      message: messages.expected,
+      description:
+        "Always and ignore function. Example: function name does not match string or regex."
     }
   ]
 });
