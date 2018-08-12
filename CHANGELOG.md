@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `at-function-named-arguments` correctly parse data uris as function parameters.
+
 # 3.2.0
 
 - Added: `no-dollar-variables` rule.
