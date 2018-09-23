@@ -6,16 +6,22 @@ export function groupByKeyValue(nodes) {
     return [];
   }
 
-  let i = 0;
+  let groupIndex = 0;
 
-  return nodes.reduce((acc, node) => {
+  return nodes.reduce((acc, node, nodeIndex) => {
     const isComma = node.type === "div" && node.value === ",";
-    if (isComma) {
-      i++;
+    const skipTrailingComma = isComma && nodeIndex === nodes.length - 1;
+
+    if (skipTrailingComma) {
+      return acc;
     }
-    acc[i] = acc[i] || [];
+
+    if (isComma) {
+      groupIndex++;
+    }
+    acc[groupIndex] = acc[groupIndex] || [];
     if (!isComma) {
-      acc[i].push(node);
+      acc[groupIndex].push(node);
     }
     return acc;
   }, []);

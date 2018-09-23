@@ -72,6 +72,16 @@ testRule(rule, {
     {
       code: `
       .b {
+        border: reset(
+          $value: 40px,
+        );
+      }
+      `,
+      description: "Always. Example: trailing comma after last argument."
+    },
+    {
+      code: `
+      .b {
         border: reset($value: 40px, $second-value: 10px, $color: 'black');
       }
       `,

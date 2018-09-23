@@ -95,6 +95,53 @@ describe("groupByKeyValue", () => {
         { quote: "'", sourceIndex: 49, type: "string", value: "black" }
       ]
     ]);
+    expect(
+      groupByKeyValue([
+        { type: "word", sourceIndex: 6, value: "$value" },
+        {
+          type: "div",
+          sourceIndex: 12,
+          value: ":",
+          before: "",
+          after: " "
+        },
+        { type: "word", sourceIndex: 14, value: "40px" },
+        {
+          type: "div",
+          sourceIndex: 18,
+          value: ",",
+          before: "",
+          after: " "
+        },
+        { type: "word", sourceIndex: 20, value: "$second-value" },
+        {
+          type: "div",
+          sourceIndex: 33,
+          value: ":",
+          before: "",
+          after: " "
+        },
+        { type: "word", sourceIndex: 35, value: "10px" },
+        {
+          type: "div",
+          sourceIndex: 39,
+          value: ",",
+          before: "",
+          after: " "
+        }
+      ])
+    ).toEqual([
+      [
+        { sourceIndex: 6, type: "word", value: "$value" },
+        { after: " ", before: "", sourceIndex: 12, type: "div", value: ":" },
+        { sourceIndex: 14, type: "word", value: "40px" }
+      ],
+      [
+        { sourceIndex: 20, type: "word", value: "$second-value" },
+        { after: " ", before: "", sourceIndex: 33, type: "div", value: ":" },
+        { sourceIndex: 35, type: "word", value: "10px" }
+      ]
+    ]);
   });
 });
 
@@ -142,6 +189,17 @@ describe("parseFunctionArguments", () => {
 
   it("parses multiple args", () => {
     expect(parseFunctionArguments("func(1, 2)")).toEqual([
+      {
+        value: "1"
+      },
+      {
+        value: "2"
+      }
+    ]);
+  });
+
+  it("parses trailing commas", () => {
+    expect(parseFunctionArguments("func(1, 2,)")).toEqual([
       {
         value: "1"
       },
