@@ -1,3 +1,7 @@
+# 3.3.1
+
+- Fixed: `at-function-named-arguments` correctly parse function arguments with trailing commas.
+
 # 3.3.0
 
 - Added: `at-function-named-arguments` add `ignoreFunctions` option.
