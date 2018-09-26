@@ -28,7 +28,7 @@
     "eslint": "^5.0.1",
     "eslint-config-stylelint": "^8.1.0",
     "eslint-plugin-sort-requires": "^2.1.0",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0",
     "jest": "^23.1.0",
     "jest-cli": "^23.1.0",
     "lint-staged": "^7.2.0",
