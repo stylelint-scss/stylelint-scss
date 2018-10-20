@@ -26,7 +26,7 @@
     "babel-preset-jest": "^23.0.1",
     "coveralls": "^3.0.1",
     "eslint": "^5.0.1",
-    "eslint-config-stylelint": "^8.1.0",
+    "eslint-config-stylelint": "^9.0.0",
     "eslint-plugin-sort-requires": "^2.1.0",
     "husky": "^0.14.3",
     "jest": "^23.1.0",
