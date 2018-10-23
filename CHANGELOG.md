@@ -1,3 +1,7 @@
+# 3.3.2
+
+- Fixed: Account for hyphens in function names (`at-function-parentheses-space-before`) and mixin (`at-mixin-parentheses-space-before`) names.
+
 # 3.3.1
 
 - Fixed: `at-function-named-arguments` correctly parse function arguments with trailing commas.
