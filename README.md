@@ -164,12 +164,12 @@ Thanks goes to these wonderful people:
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><a href="https://github.com/dryoma"><img alt="dryoma" src="https://avatars2.githubusercontent.com/u/11942776?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/kristerkari"><img alt="kristerkari" src="https://avatars0.githubusercontent.com/u/993108?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/evilebottnawi"><img alt="evilebottnawi" src="https://avatars3.githubusercontent.com/u/4567934?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/OriR"><img alt="OriR" src="https://avatars3.githubusercontent.com/u/2384068?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/ntwb"><img alt="ntwb" src="https://avatars2.githubusercontent.com/u/1016458?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/thibaudcolas"><img alt="thibaudcolas" src="https://avatars1.githubusercontent.com/u/877585?v=4&s=50" width="50"></a></th>
+<th style="text-align:center"><a href="https://github.com/dryoma"><img alt="dryoma" src="https://avatars2.githubusercontent.com/u/11942776?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/kristerkari"><img alt="kristerkari" src="https://avatars0.githubusercontent.com/u/993108?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/evilebottnawi"><img alt="evilebottnawi" src="https://avatars3.githubusercontent.com/u/4567934?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/OriR"><img alt="OriR" src="https://avatars3.githubusercontent.com/u/2384068?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/ntwb"><img alt="ntwb" src="https://avatars2.githubusercontent.com/u/1016458?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/thibaudcolas"><img alt="thibaudcolas" src="https://avatars1.githubusercontent.com/u/877585?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody>
@@ -180,19 +180,18 @@ Thanks goes to these wonderful people:
 <td style="text-align:center"><a href="https://github.com/OriR">OriR</a></td>
 <td style="text-align:center"><a href="https://github.com/ntwb">ntwb</a></td>
 <td style="text-align:center"><a href="https://github.com/thibaudcolas">thibaudcolas</a></td>
-<td></td>
 </tr>
 </tbody>
 </table>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><a href="https://github.com/AndyOGo"><img alt="AndyOGo" src="https://avatars1.githubusercontent.com/u/914443?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars0.githubusercontent.com/u/5973294?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/lithiumlron"><img alt="lithiumlron" src="https://avatars3.githubusercontent.com/u/8573405?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/jeddy3"><img alt="jeddy3" src="https://avatars0.githubusercontent.com/u/808227?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/stormwarning"><img alt="stormwarning" src="https://avatars1.githubusercontent.com/u/999825?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/keegan-lillo"><img alt="keegan-lillo" src="https://avatars0.githubusercontent.com/u/3537963?v=4&s=50" width="50"></a></th>
+<th style="text-align:center"><a href="https://github.com/AndyOGo"><img alt="AndyOGo" src="https://avatars1.githubusercontent.com/u/914443?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars0.githubusercontent.com/u/5973294?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/lithiumlron"><img alt="lithiumlron" src="https://avatars3.githubusercontent.com/u/8573405?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/jeddy3"><img alt="jeddy3" src="https://avatars0.githubusercontent.com/u/808227?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/stormwarning"><img alt="stormwarning" src="https://avatars1.githubusercontent.com/u/999825?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/keegan-lillo"><img alt="keegan-lillo" src="https://avatars0.githubusercontent.com/u/3537963?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody>
@@ -203,19 +202,18 @@ Thanks goes to these wonderful people:
 <td style="text-align:center"><a href="https://github.com/jeddy3">jeddy3</a></td>
 <td style="text-align:center"><a href="https://github.com/stormwarning">stormwarning</a></td>
 <td style="text-align:center"><a href="https://github.com/keegan-lillo">keegan-lillo</a></td>
-<td></td>
 </tr>
 </tbody>
 </table>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><a href="https://github.com/mbarzda"><img alt="mbarzda" src="https://avatars1.githubusercontent.com/u/2003850?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/manovotny"><img alt="manovotny" src="https://avatars2.githubusercontent.com/u/446260?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/YozhikM"><img alt="YozhikM" src="https://avatars0.githubusercontent.com/u/27273025?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/YodaDaCoda"><img alt="YodaDaCoda" src="https://avatars0.githubusercontent.com/u/365349?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/freezy-sk"><img alt="freezy-sk" src="https://avatars0.githubusercontent.com/u/661637?v=4&s=50" width="50"></a></th>
-<th style="text-align:center"><a href="https://github.com/niksy"><img alt="niksy" src="https://avatars3.githubusercontent.com/u/389286?v=4&s=50" width="50"></a></th>
+<th style="text-align:center"><a href="https://github.com/mbarzda"><img alt="mbarzda" src="https://avatars1.githubusercontent.com/u/2003850?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/manovotny"><img alt="manovotny" src="https://avatars2.githubusercontent.com/u/446260?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/YozhikM"><img alt="YozhikM" src="https://avatars0.githubusercontent.com/u/27273025?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/YodaDaCoda"><img alt="YodaDaCoda" src="https://avatars0.githubusercontent.com/u/365349?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/freezy-sk"><img alt="freezy-sk" src="https://avatars0.githubusercontent.com/u/661637?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/niksy"><img alt="niksy" src="https://avatars3.githubusercontent.com/u/389286?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody>
@@ -226,7 +224,6 @@ Thanks goes to these wonderful people:
 <td style="text-align:center"><a href="https://github.com/YodaDaCoda">YodaDaCoda</a></td>
 <td style="text-align:center"><a href="https://github.com/freezy-sk">freezy-sk</a></td>
 <td style="text-align:center"><a href="https://github.com/niksy">niksy</a></td>
-<td></td>
 </tr>
 </tbody>
 </table>
