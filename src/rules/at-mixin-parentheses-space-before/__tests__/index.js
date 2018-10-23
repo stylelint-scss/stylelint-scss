@@ -48,6 +48,13 @@ testRule(rule, {
       }
     `,
       description: "Not a SCSS mixin, skipping."
+    },
+    {
+      code: `
+      @mixin foo-bar () {
+      }
+    `,
+      description: "No params with parentheses, hyphenated name."
     }
   ],
 
@@ -93,6 +100,19 @@ testRule(rule, {
       line: 2,
       message: messages.expectedBefore(),
       description: "Extra spaces after @mixin."
+    },
+    {
+      code: `
+      @mixin foo-bar($n) {
+      }
+    `,
+      fixed: `
+      @mixin foo-bar ($n) {
+      }
+    `,
+      line: 2,
+      message: messages.expectedBefore(),
+      description: "No space before parentheses, hyphenated name."
     }
   ]
 });
@@ -145,6 +165,13 @@ testRule(rule, {
       }
     `,
       description: "Not a SCSS mixin, skipping."
+    },
+    {
+      code: `
+      @mixin foo-bar() {
+      }
+    `,
+      description: "No params with parentheses, hyphenated name."
     }
   ],
 
@@ -190,6 +217,19 @@ testRule(rule, {
       line: 2,
       message: messages.rejectedBefore(),
       description: "Multiple spaces before parentheses."
+    },
+    {
+      code: `
+      @mixin foo-bar ($n) {
+      }
+    `,
+      fixed: `
+      @mixin foo-bar($n) {
+      }
+    `,
+      line: 2,
+      message: messages.rejectedBefore(),
+      description: "Single space before parentheses, hyphenated name."
     }
   ]
 });
