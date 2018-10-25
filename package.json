@@ -148,7 +148,6 @@
   "scripts": {
     "precommit": "lint-staged",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "milestone": "node scripts/update-milestone.js",
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
