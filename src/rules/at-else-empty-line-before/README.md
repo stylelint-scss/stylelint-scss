@@ -63,3 +63,7 @@ a {
   }
 }
 ```
+
+## Caveats
+
+If you use autofix, this rule could clash with [`at-mixin-parentheses-space-before`](https://github.com/kristerkari/stylelint-scss/tree/master/src/rules/at-mixin-parentheses-space-before) rule.

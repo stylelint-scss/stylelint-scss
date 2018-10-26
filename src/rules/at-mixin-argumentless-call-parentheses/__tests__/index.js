@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: ["never"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -31,6 +32,9 @@ testRule(rule, {
       code: `
       @include foo () ;
     `,
+      fixed: `
+      @include foo ;
+    `,
       line: 2,
       message: messages.rejected("foo"),
       description: "With parens, no space between them."
@@ -38,6 +42,9 @@ testRule(rule, {
     {
       code: `
       @include foo ( ) ;
+    `,
+      fixed: `
+      @include foo ;
     `,
       line: 2,
       message: messages.rejected("foo"),
@@ -47,6 +54,9 @@ testRule(rule, {
       code: `
       @include foo( ) ;
     `,
+      fixed: `
+      @include foo ;
+    `,
       line: 2,
       message: messages.rejected("foo"),
       description: "With parens, no space before and space between them"
@@ -55,6 +65,9 @@ testRule(rule, {
       code: `
       @include foo(
       ) ;
+    `,
+      fixed: `
+      @include foo ;
     `,
       line: 2,
       message: messages.rejected("foo"),
@@ -67,6 +80,7 @@ testRule(rule, {
   ruleName,
   config: ["always"],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -101,6 +115,9 @@ testRule(rule, {
       code: `
       @include foo;
     `,
+      fixed: `
+      @include foo ();
+    `,
       line: 2,
       message: messages.expected("foo"),
       description: "No parens."
@@ -109,6 +126,9 @@ testRule(rule, {
       code: `
       @include foo ;
     `,
+      fixed: `
+      @include foo () ;
+    `,
       line: 2,
       message: messages.expected("foo"),
       description: "No parens; a space after mixin name in a call."
@@ -116,6 +136,9 @@ testRule(rule, {
     {
       code: `
       @include foo
+    `,
+      fixed: `
+      @include foo ()
     `,
       line: 2,
       message: messages.expected("foo"),

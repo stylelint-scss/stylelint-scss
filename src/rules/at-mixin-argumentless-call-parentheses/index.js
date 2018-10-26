@@ -9,7 +9,7 @@ export const messages = utils.ruleMessages(ruleName, {
     `Unexpected parentheses in argumentless mixin "${mixin}" call`
 });
 
-export default function(value) {
+export default function(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -29,6 +29,15 @@ export default function(value) {
       }
       // If it is "Always use parens"
       if (value === "always" && mixinCall.params.search(/\(/) !== -1) {
+        return;
+      }
+
+      if (context.fix) {
+        if (value === "always") {
+          mixinCall.params = `${mixinCall.params} ()`;
+        } else {
+          mixinCall.params = mixinCall.params.replace(/\s*\([\s\S]*?\)$/, "");
+        }
         return;
       }
 
