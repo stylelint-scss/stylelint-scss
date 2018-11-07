@@ -227,6 +227,22 @@ test("Import a local file and a CSS file (font URL with https) from a partial .s
     });
 });
 
+test("Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import)", done => {
+  expect.assertions(1);
+  postcss([rule()])
+    .process(
+      '@import "https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700", "file";',
+      {
+        from: path.join(__dirname, "_test.scss")
+      }
+    )
+    .then(result => {
+      const warnings = result.warnings();
+      expect(warnings.length).toBe(1);
+      done();
+    });
+});
+
 test("Import a CSS (with media) from a partial .scss", done => {
   expect.assertions(1);
   postcss([rule()])
