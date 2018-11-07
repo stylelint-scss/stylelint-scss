@@ -1,3 +1,8 @@
+# 3.4.0
+
+- Added: `at-mixin-argumentless-call-parentheses` autofix (#280).
+- Fixed: `partial-no-import` correctly handle import parameters with urls (#283).
+
 # 3.3.2
 
 - Fixed: Account for hyphens in function names (`at-function-parentheses-space-before`) and mixin (`at-mixin-parentheses-space-before`) names.
