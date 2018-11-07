@@ -38,9 +38,8 @@ export default function(expectation, options, context) {
     }
 
     const fix = (comment, match, replace) => {
-      const escapedMatch = match.replace(
-        /(\r)?\n/g,
-        (_, r) => (r ? "\\r\\n" : "\\n")
+      const escapedMatch = match.replace(/(\r)?\n/g, (_, r) =>
+        r ? "\\r\\n" : "\\n"
       );
       comment.raws.before = comment.raws.before.replace(
         new RegExp(`^${escapedMatch}`),
