@@ -74,7 +74,7 @@ test("Ignores empty imports (Sass will throw an error instead)", done => {
     });
 });
 
-test("Ignoresd empty imports (Sass will throw an error instead)", done => {
+test("Ignores empty imports (Sass will throw an error instead)", done => {
   expect.assertions(1);
   postcss([rule()])
     .process('@import " ";', {
