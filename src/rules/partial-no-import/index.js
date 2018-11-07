@@ -1,6 +1,6 @@
+import nodeJsPath from "path";
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
-import nodeJsPath from "path";
 
 export const ruleName = namespace("partial-no-import");
 
@@ -33,8 +33,9 @@ export default function(on) {
         .replace(/^\s*?("|')\s*/, "")
         .replace(/\s*("|')\s*?$/, "");
 
-      // Skipping importing CSS: url(), ".css", URI with a protocol, media
+      // Skipping importing empty import, CSS: url(), ".css", URI with a protocol, media
       if (
+        pathStripped.trim() === "" ||
         pathStripped.slice(0, 4) === "url(" ||
         pathStripped.slice(-4) === ".css" ||
         pathStripped.search("//") !== -1 ||
@@ -46,6 +47,7 @@ export default function(on) {
       utils.report({
         message: messages.expected,
         node: decl,
+        index: decl.params.indexOf(path),
         result,
         ruleName
       });
@@ -63,7 +65,7 @@ export default function(on) {
     root.walkAtRules("import", mixinCall => {
       // Check if @import is treated as CSS import; report only if not
       // Processing comma-separated lists of import paths
-      mixinCall.params.split(",").forEach(path => {
+      mixinCall.params.split(/["']\s*,/).forEach(path => {
         checkImportForCSS(path, mixinCall);
       });
     });
