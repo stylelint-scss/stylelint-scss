@@ -24,11 +24,13 @@ function checkNewlineBefore({
   let newLineBefore = false;
 
   let index = startIndex - 1;
+
   while (index && isWhitespace(string[index])) {
     if (string[index] === "\n") {
       newLineBefore = true;
       break;
     }
+
     index--;
   }
 
@@ -48,6 +50,7 @@ export default function(expectation) {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
     });
+
     if (!validOptions) {
       return;
     }

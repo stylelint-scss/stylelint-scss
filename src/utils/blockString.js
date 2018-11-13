@@ -15,5 +15,6 @@ export default function(statement) {
   if (!hasBlock(statement)) {
     return;
   }
+
   return rawNodeString(statement).slice(beforeBlockString(statement).length);
 }

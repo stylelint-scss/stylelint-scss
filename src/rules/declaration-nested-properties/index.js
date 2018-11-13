@@ -30,6 +30,7 @@ export default function(expectation, options) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -55,11 +56,14 @@ export default function(expectation, options) {
             // Add simple namespaced prop decls to warningCandidates.ns
             // (prop names with browser prefixes are ignored)
             const seekNamespace = /^([a-zA-Z0-9]+)-/.exec(prop);
+
             if (seekNamespace && seekNamespace[1]) {
               const ns = seekNamespace[1];
+
               if (!warningCandidates.hasOwnProperty(ns)) {
                 warningCandidates[ns] = [];
               }
+
               warningCandidates[ns].push({ node: decl });
             }
           }
@@ -72,9 +76,11 @@ export default function(expectation, options) {
 
             if (testForProp && testForProp.propName !== undefined) {
               const ns = testForProp.propName.value;
+
               if (!warningCandidates.hasOwnProperty(ns)) {
                 warningCandidates[ns] = [];
               }
+
               warningCandidates[ns].push({
                 node: decl,
                 nested: true

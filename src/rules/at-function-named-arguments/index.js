@@ -35,6 +35,7 @@ export default function(expectation, options) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -65,6 +66,7 @@ export default function(expectation, options) {
             }
 
             const parts = f.split("/");
+
             return new RegExp(parts[1], parts[2] || "").test(node.value);
           });
 

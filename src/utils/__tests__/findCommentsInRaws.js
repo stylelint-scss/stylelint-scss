@@ -15,7 +15,7 @@ test("// is the first statement in the file", () => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
-      expect(comments.length).toBe(1);
+      expect(comments).toHaveLength(1);
       expect(comments[0].text).toBe("comment");
       expect(comments[0].inlineAfter).toBe(false);
       expect(comments[0].inlineBefore).toBe(false);
@@ -37,7 +37,7 @@ test("// is the first statement in a string, w/o pre-whs", () => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
-      expect(comments.length).toBe(1);
+      expect(comments).toHaveLength(1);
       expect(comments[0].text).toBe("comment");
       expect(comments[0].inlineAfter).toBe(false);
       expect(comments[0].inlineBefore).toBe(false);
@@ -55,7 +55,7 @@ test("CSS-comment is the first statement (and the last one) in a file", () => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
-      expect(comments.length).toBe(1);
+      expect(comments).toHaveLength(1);
       expect(comments[0].text).toBe("comment1");
       expect(comments[0].inlineAfter).toBe(false);
       expect(comments[0].inlineBefore).toBe(false);
@@ -78,7 +78,7 @@ test("CSS-comment is the first statement (and the last one) in a string", () => 
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
-      expect(comments.length).toBe(1);
+      expect(comments).toHaveLength(1);
       expect(comments[0].text).toBe("comment1");
       expect(comments[0].inlineAfter).toBe(false);
       expect(comments[0].inlineBefore).toBe(false);
@@ -114,7 +114,7 @@ test("Various.", () => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
-      expect(comments.length).toBe(3);
+      expect(comments).toHaveLength(3);
       expect(comments[0].text).toBe("comment");
       expect(comments[0].raws.startToken).toBe("/**!");
       expect(comments[0].raws.endToken).toBe("*/");
@@ -147,7 +147,7 @@ test("//", () => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
-      expect(comments.length).toBe(1);
+      expect(comments).toHaveLength(1);
       expect(comments[0].text).toBe("");
       expect(comments[0].inlineAfter).toBe(false);
       expect(comments[0].source).toEqual({ start: 7, end: 8 });
@@ -171,7 +171,7 @@ test("// Inline comment, after {.", () => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
-      expect(comments.length).toBe(1);
+      expect(comments).toHaveLength(1);
       expect(comments[0].text).toBe("Inline comment, after {.");
       expect(comments[0].inlineAfter).toBe(true);
     })
@@ -191,7 +191,8 @@ test("} // comment", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(1);
+
+      expect(comments).toHaveLength(1);
       expect(comments[0].inlineAfter).toBe(true);
     })
     .catch(logError);
@@ -205,7 +206,8 @@ test("Triple-slash comment", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(1);
+
+      expect(comments).toHaveLength(1);
       expect(comments[0].text).toBe("comment");
       expect(comments[0].raws.startToken).toBe("///");
       expect(comments[0].inlineAfter).toBe(true);
@@ -230,7 +232,8 @@ test("Some fancy comment", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(1);
+
+      expect(comments).toHaveLength(1);
       expect(comments[0].raws.startToken).toBe("/*!");
       expect(comments[0].inlineAfter).toBe(false);
       expect(comments[0].raws.left).toBe(
@@ -257,7 +260,8 @@ test("Another fancy comment", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(1);
+
+      expect(comments).toHaveLength(1);
       expect(comments[0].raws.startToken).toBe("/*");
       expect(comments[0].inlineAfter).toBe(false);
       expect(comments[0].raws.left).toBe(" ");
@@ -283,7 +287,8 @@ test("Comments inside comments", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(3);
+
+      expect(comments).toHaveLength(3);
       expect(comments[0].text).toBe("Text.. /* is that a new comment?");
       expect(comments[0].source).toEqual({ start: 7, end: 44 });
       expect(comments[1].text).toBe("And /* this */ ?");
@@ -313,7 +318,8 @@ test("No comments, but parsing a selector with ().", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(0);
+
+      expect(comments).toHaveLength(0);
     })
     .catch(logError);
 });
@@ -326,7 +332,8 @@ test("//-comment, Unix newlines", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(1);
+
+      expect(comments).toHaveLength(1);
       expect(comments[0].source).toEqual({ start: 4, end: 14 });
     })
     .catch(logError);
@@ -340,7 +347,8 @@ test("CSS comment, Unix newlines", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(1);
+
+      expect(comments).toHaveLength(1);
       expect(comments[0].source).toEqual({ start: 4, end: 23 });
     })
     .catch(logError);
@@ -354,7 +362,8 @@ test("//-comment, Windows-newline", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(1);
+
+      expect(comments).toHaveLength(1);
       expect(comments[0].source).toEqual({ start: 5, end: 15 });
     })
     .catch(logError);
@@ -371,7 +380,8 @@ test("CSS comment, Windows newlines", () => {
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
-      expect(comments.length).toBe(1);
+
+      expect(comments).toHaveLength(1);
       expect(comments[0].source).toEqual({ start: 5, end: 25 });
     })
     .catch(logError);
@@ -386,7 +396,7 @@ test("No comments; testing a dangerous case in function detection [`@media( ... 
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
-      expect(comments.length).toBe(0);
+      expect(comments).toHaveLength(0);
     })
     .catch(logError);
 });

@@ -14,13 +14,16 @@ export default function(selector) {
     if (selector[i] !== "&") {
       continue;
     }
+
     if (!_.isUndefined(selector[i - 1]) && !isCombinator(selector[i - 1])) {
       return true;
     }
+
     if (!_.isUndefined(selector[i + 1]) && !isCombinator(selector[i + 1])) {
       return true;
     }
   }
+
   return false;
 }
 

@@ -15,6 +15,7 @@ export default function(expectation) {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
     });
+
     if (!validOptions) {
       return;
     }
@@ -31,13 +32,16 @@ export default function(expectation) {
         if (decl.type !== "rule") {
           return;
         }
+
         const testForProp = parseNestedPropRoot(decl.selector);
 
         if (testForProp && testForProp.propName !== undefined) {
           const ns = testForProp.propName.value;
+
           if (!nestedGroups.hasOwnProperty(ns)) {
             nestedGroups[ns] = [];
           }
+
           nestedGroups[ns].push(decl);
         }
       });
@@ -47,6 +51,7 @@ export default function(expectation) {
         if (nestedGroups[namespace].length === 1) {
           return;
         }
+
         nestedGroups[namespace].forEach(group => {
           utils.report({
             message: messages.expected(namespace),

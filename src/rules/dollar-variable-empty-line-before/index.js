@@ -35,6 +35,7 @@ export default function(expectation, options, context) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -115,17 +116,21 @@ export default function(expectation, options, context) {
       if (context.fix && !isFixDisabled) {
         if (expectHasEmptyLineBefore && !hasEmptyLine(before)) {
           fix(decl, context.newline, context.newline + context.newline);
+
           if (
             optionsHaveException(options, "first-nested") &&
             !hasNewline(before)
           ) {
             fix(decl, "\\s+", context.newline + context.newline);
           }
+
           return;
         }
+
         if (!expectHasEmptyLineBefore && hasEmptyLine(before)) {
           fix(decl, "\\n\\r\\n", "\r\n");
           fix(decl, context.newline + context.newline, context.newline);
+
           return;
         }
       }

@@ -13,6 +13,7 @@ export default function(expectation, _, context) {
       actual: expectation,
       possible: ["never"]
     });
+
     if (!validOptions) {
       return;
     }
@@ -31,6 +32,7 @@ export default function(expectation, _, context) {
 
       if (context.fix) {
         atrule.raws.before = " ";
+
         return;
       }
 

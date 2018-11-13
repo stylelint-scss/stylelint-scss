@@ -60,6 +60,7 @@ export default function findCommentsInRaws(rawString) {
         if (mode === "comment") {
           break;
         }
+
         if (
           mode === "string" &&
           modesEntered[lastModeIndex].character === character &&
@@ -74,6 +75,7 @@ export default function findCommentsInRaws(rawString) {
             character
           });
         }
+
         break;
       }
       // Entering url, other function or parens (only url matters)
@@ -81,9 +83,11 @@ export default function findCommentsInRaws(rawString) {
         if (mode === "comment" || mode === "string") {
           break;
         }
+
         const functionNameRegSearch = /(?:^|(?:\n)|(?:\r)|(?:\s-)|[:\s,.(){}*+/%])([a-zA-Z0-9_-]*)$/.exec(
           rawString.substring(0, i)
         );
+
         // A `\S(` can be in, say, `@media(`
         if (!functionNameRegSearch) {
           modesEntered.push({
@@ -94,6 +98,7 @@ export default function findCommentsInRaws(rawString) {
         }
 
         const functionName = functionNameRegSearch[1];
+
         modesEntered.push({
           mode: functionName === "url" ? "url" : "parens",
           character: "("
@@ -105,6 +110,7 @@ export default function findCommentsInRaws(rawString) {
         if (mode === "comment" || mode === "string") {
           break;
         }
+
         modesEntered.pop();
         break;
       }
@@ -116,6 +122,7 @@ export default function findCommentsInRaws(rawString) {
         if (mode === "comment" || mode === "string") {
           break;
         }
+
         if (nextChar === "*") {
           modesEntered.push({
             mode: "comment",
@@ -136,6 +143,7 @@ export default function findCommentsInRaws(rawString) {
           if (mode === "url") {
             break;
           }
+
           modesEntered.push({
             mode: "comment",
             character: "//"
@@ -151,6 +159,7 @@ export default function findCommentsInRaws(rawString) {
           // Skip the next iteration as the second slash in // is already checked
           i++;
         }
+
         break;
       }
       // Might be a closing `*/`
@@ -166,6 +175,7 @@ export default function findCommentsInRaws(rawString) {
           const matches = /^(\/\*+[!#]{0,1})(\s*)([\s\S]*?)(\s*?)(\*+\/)$/.exec(
             commentRaw
           );
+
           modesEntered.pop();
           comment.raws = {
             startToken: matches[1],
@@ -182,12 +192,14 @@ export default function findCommentsInRaws(rawString) {
           // Skip the next loop as the / in */ is already checked
           i++;
         }
+
         break;
       }
       default: {
         const isNewline =
           (character === "\r" && rawString[i + 1] === "\n") ||
           (character === "\n" && rawString[i - 1] !== "\r");
+
         // //-comments end before newline and if the code string ends
         if (isNewline || i === rawString.length - 1) {
           if (
@@ -217,6 +229,7 @@ export default function findCommentsInRaws(rawString) {
             offset += 2;
           }
         }
+
         break;
       }
     }

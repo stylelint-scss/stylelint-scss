@@ -1810,12 +1810,13 @@ escodegen@^1.9.0:
   optionalDependencies:
     source-map "~0.5.6"
 
-eslint-config-stylelint@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-stylelint/-/eslint-config-stylelint-9.0.0.tgz#46a154c9a57d3b0b64e37949b735e8098454a7c7"
+eslint-config-stylelint@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-stylelint/-/eslint-config-stylelint-10.0.0.tgz#33cff198f4c3ad1e9e75c0285945dd61800c59c5"
+  integrity sha512-hbE+gecvP+O3g+HaA7yoj7VPwKCbU2ySojSBytbkaY3+WvYsvk2VDPXBZ5K4x8agpDj0/6i7oJZ8oHaK055jUA==
   dependencies:
-    eslint-plugin-jest "^21.25.1"
-    eslint-plugin-node "^7.0.0"
+    eslint-plugin-jest "^22.0.0"
+    eslint-plugin-node "^8.0.0"
     eslint-plugin-sort-requires "^2.1.0"
 
 eslint-plugin-es@^1.3.1:
@@ -1825,9 +1826,10 @@ eslint-plugin-es@^1.3.1:
     eslint-utils "^1.3.0"
     regexpp "^2.0.0"
 
-eslint-plugin-jest@^21.25.1:
-  version "21.26.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.26.1.tgz#73c5d6838d384fe6a9644077c27011bd99665ff2"
+eslint-plugin-jest@^22.0.0:
+  version "22.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.0.0.tgz#87dc52bbdd47f37f23bf2b10bb8469458bb3ed68"
+  integrity sha512-YOj8cYI5ZXEZUrX2kUBLachR1ffjQiicIMBoivN7bXXHnxi8RcwNvmVzwlu3nTmjlvk5AP3kIpC5i8HcinmhPA==
 
 eslint-plugin-lodash@^3.1.0:
   version "3.1.0"
@@ -1835,13 +1837,14 @@ eslint-plugin-lodash@^3.1.0:
   dependencies:
     lodash "4.17.10"
 
-eslint-plugin-node@^7.0.0:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-node/-/eslint-plugin-node-7.0.1.tgz#a6e054e50199b2edd85518b89b4e7b323c9f36db"
+eslint-plugin-node@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-node/-/eslint-plugin-node-8.0.0.tgz#fb9e8911f4543514f154bb6a5924b599aa645568"
+  integrity sha512-Y+ln8iQ52scz9+rSPnSWRaAxeWaoJZ4wIveDR0vLHkuSZGe44Vk1J4HX7WvEP5Cm+iXPE8ixo7OM7gAO3/OKpQ==
   dependencies:
     eslint-plugin-es "^1.3.1"
     eslint-utils "^1.3.1"
-    ignore "^4.0.2"
+    ignore "^5.0.2"
     minimatch "^3.0.4"
     resolve "^1.8.1"
     semver "^5.5.0"
@@ -2735,9 +2738,14 @@ ignore@^3.3.5:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"
 
-ignore@^4.0.0, ignore@^4.0.2, ignore@^4.0.6:
+ignore@^4.0.0, ignore@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
+
+ignore@^5.0.2:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.0.4.tgz#33168af4a21e99b00c5d41cbadb6a6cb49903a45"
+  integrity sha512-WLsTMEhsQuXpCiG173+f3aymI43SXa+fB1rSfbzyP4GkPP+ZFVuO0/3sFUGNBtifisPeDcl/uD/Y2NxZ7xFq4g==
 
 import-lazy@^3.1.0:
   version "3.1.0"

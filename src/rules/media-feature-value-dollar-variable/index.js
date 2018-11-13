@@ -15,6 +15,7 @@ export default function(expectation) {
       actual: expectation,
       possible: ["always", "never"]
     });
+
     if (!validOptions) {
       return;
     }
@@ -31,10 +32,12 @@ export default function(expectation) {
 
     root.walkAtRules("media", atRule => {
       const found = atRule.params.match(valueRegexGlobal);
+
       // If there are no values
       if (!found || !found.length) {
         return;
       }
+
       found.forEach(function(found) {
         // ... parse `: 10px )` to `10px`
         const valueParsed = found.match(valueRegex)[1];

@@ -11,11 +11,13 @@ export const messages = utils.ruleMessages(ruleName, {
 
 export default function(blacklistOption) {
   const blacklist = [].concat(blacklistOption);
+
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: blacklistOption,
       possible: [isString, isRegExp]
     });
+
     if (!validOptions) {
       return;
     }

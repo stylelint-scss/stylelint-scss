@@ -32,6 +32,7 @@ export default function(expectation, options) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -40,10 +41,13 @@ export default function(expectation, options) {
 
     function checkRoot(root) {
       const rootString = root.source.input.css;
+
       if (rootString.trim() === "") {
         return;
       }
+
       const comments = findCommentsInRaws(rootString);
+
       comments.forEach(comment => {
         // Only process // comments
         if (comment.type !== "double-slash") {

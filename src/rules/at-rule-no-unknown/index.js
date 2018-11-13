@@ -47,6 +47,7 @@ export default function(primaryOption, secondaryOptions) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -66,6 +67,7 @@ export default function(primaryOption, secondaryOptions) {
       warning => {
         root.walkAtRules(atRule => {
           const name = atRule.name;
+
           if (ignoreAtRules.indexOf(name) < 0) {
             utils.report({
               message: messages.rejected(`@${name}`),

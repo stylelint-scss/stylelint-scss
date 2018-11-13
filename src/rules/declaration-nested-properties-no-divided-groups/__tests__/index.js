@@ -127,7 +127,8 @@ test("2 groups of the same namespace.", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expected("background"));
       expect(warnings[0].line).toBe(3);
       expect(warnings[0].column).toBe(9);
@@ -159,7 +160,8 @@ test("3 groups, 1 and 3 has the same namespace", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expected("background"));
       expect(warnings[0].line).toBe(3);
       expect(warnings[1].line).toBe(10);
@@ -190,7 +192,8 @@ test("3 groups of the same namespace", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
       expect(warnings[0].text).toBe(messages.expected("background"));
       expect(warnings[0].line).toBe(3);
       expect(warnings[1].text).toBe(messages.expected("background"));

@@ -11,11 +11,13 @@ export const messages = utils.ruleMessages(ruleName, {
 
 export default function(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
+
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
       possible: ["always", "never"]
     });
+
     if (!validOptions) {
       return;
     }

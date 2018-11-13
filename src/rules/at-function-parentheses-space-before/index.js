@@ -16,6 +16,7 @@ export default function(value, _, context) {
       actual: value,
       possible: ["always", "never"]
     });
+
     if (!validOptions) {
       return;
     }
@@ -24,9 +25,11 @@ export default function(value, _, context) {
     const replacement = value === "always" ? "$1 (" : "$1(";
 
     const checker = whitespaceChecker("space", value, messages).before;
+
     root.walkAtRules("function", decl => {
       if (context.fix) {
         decl.params = decl.params.replace(match, replacement);
+
         return;
       }
 

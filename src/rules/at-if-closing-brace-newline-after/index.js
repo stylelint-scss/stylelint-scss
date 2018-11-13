@@ -26,6 +26,7 @@ export default function(expectation, options, context) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -66,9 +67,11 @@ export function sassConditionalBraceNLAfterChecker({
   options
 }) {
   const shouldFix = context.fix && (!options || options.disableFix !== true);
+
   function complain(node, message, index, fixValue) {
     if (shouldFix) {
       node.next().raws.before = fixValue;
+
       return;
     }
 
@@ -88,6 +91,7 @@ export function sassConditionalBraceNLAfterChecker({
     }
 
     const nextNode = atrule.next();
+
     if (!nextNode) {
       return;
     }

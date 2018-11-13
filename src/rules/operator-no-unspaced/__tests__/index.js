@@ -1609,7 +1609,8 @@ test("+ without whitespaces: `#{$var}+#ffc`.", () => {
     .process("a { width: #{$var}+#ffc; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("+"));
       expect(warnings[0].column).toBe(19);
       expect(warnings[1].text).toBe(messages.expectedAfter("+"));
@@ -1624,7 +1625,8 @@ test("+ without whitespaces: `1+1s`.", () => {
     .process("a { width: 1+1s; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("+"));
       expect(warnings[0].column).toBe(13);
       expect(warnings[1].text).toBe(messages.expectedAfter("+"));
@@ -1639,7 +1641,8 @@ test("- without whitespaces: `5px-3px`.", () => {
     .process("a { width: 5px-3px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("-"));
       expect(warnings[0].column).toBe(15);
       expect(warnings[1].text).toBe(messages.expectedAfter("-"));
@@ -1654,7 +1657,8 @@ test("- without whitespaces: `.1px-1px`.", () => {
     .process("a { width: .1px-1px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("-"));
       expect(warnings[0].column).toBe(16);
       expect(warnings[1].text).toBe(messages.expectedAfter("-"));
@@ -1669,7 +1673,8 @@ test("- without whitespaces: `s.1px-1`.", () => {
     .process("a { width: s.1px-1; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("-"));
       expect(warnings[0].column).toBe(17);
       expect(warnings[1].text).toBe(messages.expectedAfter("-"));
@@ -1684,7 +1689,8 @@ test("fn()-1", () => {
     .process("a { width: fn()-1; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("-"));
       expect(warnings[0].column).toBe(16);
       expect(warnings[1].text).toBe(messages.expectedAfter("-"));
@@ -1699,7 +1705,8 @@ test("fn()/1", () => {
     .process("a { width: fn()/1; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("/"));
       expect(warnings[0].column).toBe(16);
       expect(warnings[1].text).toBe(messages.expectedAfter("/"));
@@ -1716,7 +1723,8 @@ test("$var==1", () => {
     .process("a { width: $var==1; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("=="));
       expect(warnings[0].column).toBe(16);
       expect(warnings[1].text).toBe(messages.expectedAfter("=="));
@@ -1731,7 +1739,8 @@ test("var==var", () => {
     .process("a { width: var==var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("=="));
       expect(warnings[0].column).toBe(15);
       expect(warnings[1].text).toBe(messages.expectedAfter("=="));
@@ -1748,7 +1757,8 @@ test("8px/2px +$var`.", () => {
     .process("a { width: 8px/2px +$var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1759,7 +1769,8 @@ test("#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so 
     .process("a { width: #{$var}+8px/2px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expectedBefore("+"));
       expect(warnings[0].column).toBe(19);
       expect(warnings[1].text).toBe(messages.expectedAfter("+"));
@@ -1773,7 +1784,8 @@ test("8px/2px+ $var`.", () => {
     .process("a { width: 8px/2px+ $var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1783,7 +1795,8 @@ test("8px/2px +fn()`.", () => {
     .process("a { width: 8px/2px +fn(); }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1793,7 +1806,8 @@ test("8px/2px+ fn()`.", () => {
     .process("a { width: 8px/2px+ fn(); }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1803,7 +1817,8 @@ test("8px/2px+ 5px`.", () => {
     .process("a { width: 8px/2px+ 5px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1813,7 +1828,8 @@ test("8px/2px+ 5`.", () => {
     .process("a { width: 8px/2px+ 5; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1824,7 +1840,8 @@ test("8px/2px -$var`.", () => {
     .process("a { width: 8px/2px -$var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1834,7 +1851,8 @@ test("8px/2-$var`.", () => {
     .process("a { width: 8px/2-$var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(4);
+
+      expect(warnings).toHaveLength(4);
     })
     .catch(logError);
 });
@@ -1844,7 +1862,8 @@ test("8px/2- $var`.", () => {
     .process("a { width: 8px/2- $var; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1854,7 +1873,8 @@ test("8px/2- 5px`.", () => {
     .process("a { width: 8px/2- 5px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
     })
     .catch(logError);
 });
@@ -1864,7 +1884,8 @@ test("8px/2px-5px`.", () => {
     .process("a { width: 8px/2px-5px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(4);
+
+      expect(warnings).toHaveLength(4);
     })
     .catch(logError);
 });
@@ -1874,7 +1895,8 @@ test("8px/2-5px`.", () => {
     .process("a { width: 8px/2-5px; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(4);
+
+      expect(warnings).toHaveLength(4);
     })
     .catch(logError);
 });
@@ -1884,7 +1906,8 @@ test("8px/2px-5`.", () => {
     .process("a { width: 8px/2px-5; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(4);
+
+      expect(warnings).toHaveLength(4);
     })
     .catch(logError);
 });
@@ -1894,7 +1917,8 @@ test("8px/2-5`.", () => {
     .process("a { width: 8px/2-5; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(4);
+
+      expect(warnings).toHaveLength(4);
     })
     .catch(logError);
 });
@@ -1907,7 +1931,8 @@ test("5+8px/2`.", () => {
     .process("a { width: 5+8px/2; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(4);
+
+      expect(warnings).toHaveLength(4);
     })
     .catch(logError);
 });
@@ -1917,7 +1942,8 @@ test("5px*8px/2`.", () => {
     .process("a { width: 5px*8px/2; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(4);
+
+      expect(warnings).toHaveLength(4);
     })
     .catch(logError);
 });
@@ -1927,7 +1953,8 @@ test("5px - 8px/2`.", () => {
     .process("a { width: 5px - 8px/2; }", { syntax: scss, from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
     })
     .catch(logError);
 });

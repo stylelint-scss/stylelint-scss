@@ -12,6 +12,7 @@
  */
 export default function(statement, { noRawBefore } = {}) {
   let result = "";
+
   if (statement.type !== "rule" && statement.type !== "atrule") {
     return result;
   }
@@ -19,6 +20,7 @@ export default function(statement, { noRawBefore } = {}) {
   if (!noRawBefore) {
     result += statement.raws.before;
   }
+
   if (statement.type === "rule") {
     result += statement.selector;
   } else {

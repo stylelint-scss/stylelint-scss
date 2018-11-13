@@ -33,6 +33,7 @@ function checkSpaces({
   const beforeOk =
     (string[startIndex - 1] === " " && !isWhitespace(string[startIndex - 2])) ||
     newlineBefore(string, startIndex - 1);
+
   if (!beforeOk) {
     utils.report({
       ruleName,
@@ -61,10 +62,13 @@ function checkSpaces({
 
 function newlineBefore(str, startIndex) {
   let index = startIndex;
+
   while (index && isWhitespace(str[index])) {
     if (str[index] === "\n") return true;
+
     index--;
   }
+
   return false;
 }
 
@@ -73,6 +77,7 @@ export default function(expectation) {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
     });
+
     if (!validOptions) {
       return;
     }
@@ -81,9 +86,11 @@ export default function(expectation) {
 
     function checkRoot(root) {
       const rootString = root.source.input.css;
+
       if (rootString.trim() === "") {
         return;
       }
+
       calculationOperatorSpaceChecker({
         root,
         result,
@@ -124,6 +131,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     const results = [];
     // Searching for interpolation
     let match = interpolationRegex.exec(string);
+
     startIndex = !isNaN(startIndex) ? Number(startIndex) : 0;
     while (match !== null) {
       results.push({
@@ -135,6 +143,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
       });
       match = interpolationRegex.exec(string);
     }
+
     return results;
   }
 
@@ -162,6 +171,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     if (item.prop !== undefined) {
       results = results.concat(findInterpolation(item.prop));
     }
+
     // Selector
     if (item.selector !== undefined) {
       results = results.concat(findInterpolation(item.selector));
@@ -172,6 +182,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
       if (item.name === "media" || item.name === "import") {
         mediaQueryParser(item.params).walk(node => {
           const type = node.type;
+
           if (["keyword", "media-type", "media-feature"].indexOf(type) !== -1) {
             results = results.concat(
               findInterpolation(
@@ -228,6 +239,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
       comment.source.start +
       comment.raws.startToken.length +
       comment.raws.left.length;
+
     if (comment.type !== "css") {
       return;
     }

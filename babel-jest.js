@@ -1,14 +1,14 @@
-"use strict"; // eslint-disable-line
+"use strict"; // eslint-disable-line strict
 
 /**
-               * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
-               *
-               * This source code is licensed under the BSD-style license found in the
-               * LICENSE file in the root directory of this source tree. An additional grant
-               * of patent rights can be found in the PATENTS file in the same directory.
-               *
-               * 
-               */
+ * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ *
+ */
 
 const crypto = require("crypto");
 const fs = require("fs");
@@ -29,6 +29,7 @@ const createTransformer = options => {
   const getBabelRC = filename => {
     const paths = [];
     let directory = filename;
+
     while (directory !== (directory = path.dirname(directory))) {
       if (cache[directory]) {
         break;
@@ -36,20 +37,26 @@ const createTransformer = options => {
 
       paths.push(directory);
       const configFilePath = path.join(directory, BABELRC_FILENAME);
+
       if (fs.existsSync(configFilePath)) {
         cache[directory] = fs.readFileSync(configFilePath, "utf8");
         break;
       }
+
       const configJsFilePath = path.join(directory, BABELRC_JS_FILENAME);
+
       if (fs.existsSync(configJsFilePath)) {
         // $FlowFixMe
         cache[directory] = JSON.stringify(require(configJsFilePath));
         break;
       }
+
       const packageJsonFilePath = path.join(directory, PACKAGE_JSON);
+
       if (fs.existsSync(packageJsonFilePath)) {
         // $FlowFixMe
         const packageJsonFileContents = require(packageJsonFilePath);
+
         if (packageJsonFileContents[BABEL_CONFIG_KEY]) {
           cache[directory] = JSON.stringify(
             packageJsonFileContents[BABEL_CONFIG_KEY]
@@ -60,6 +67,7 @@ const createTransformer = options => {
       }
     }
     paths.forEach(directoryPath => (cache[directoryPath] = cache[directory]));
+
     return cache[directory] || "";
   };
 
@@ -76,6 +84,7 @@ const createTransformer = options => {
     canInstrument: true,
     getCacheKey(fileData, filename, configString, _ref) {
       const instrument = _ref.instrument;
+
       return crypto
         .createHash("md5")
         .update(THIS_FILE)
@@ -99,6 +108,7 @@ const createTransformer = options => {
       }
 
       const theseOptions = Object.assign({ filename }, options);
+
       if (transformOptions && transformOptions.instrument) {
         // theseOptions.auxiliaryCommentBefore = ' istanbul ignore next ';
         // Copied from jest-runtime transform.js

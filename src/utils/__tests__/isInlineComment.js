@@ -117,10 +117,11 @@ test("Inline comment, after a selector (in a list). IGNORED.", () => {
     )
     .then(result => {
       let res = null;
+
       result.root.walkComments(comment => {
         res = isInlineComment(comment);
       });
-      expect(res).toBe(null);
+      expect(res).toBeNull();
     })
     .catch(logError);
 });
@@ -140,10 +141,11 @@ test("Inline comment, after a selector, comment prior. IGNORED.", () => {
     )
     .then(result => {
       let res = null;
+
       result.root.walkComments(comment => {
         res = isInlineComment(comment);
       });
-      expect(res).toBe(null);
+      expect(res).toBeNull();
     })
     .catch(logError);
 });

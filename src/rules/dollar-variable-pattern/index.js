@@ -25,6 +25,7 @@ export default function(pattern, options) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -37,6 +38,7 @@ export default function(pattern, options) {
       if (prop[0] !== "$") {
         return;
       }
+
       // If local or global variables need to be ignored
       if (
         (optionsHaveIgnored(options, "global") &&
@@ -45,6 +47,7 @@ export default function(pattern, options) {
       ) {
         return;
       }
+
       if (regexpPattern.test(prop.slice(1))) {
         return;
       }

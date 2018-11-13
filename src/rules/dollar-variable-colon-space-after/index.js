@@ -18,11 +18,13 @@ export const messages = utils.ruleMessages(ruleName, {
 
 export default function(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
+
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
       possible: ["always", "never", "always-single-line", "at-least-one-space"]
     });
+
     if (!validOptions) {
       return;
     }
@@ -63,10 +65,12 @@ export function variableColonSpaceChecker({
 
       if (position === "before") {
         const replacement = expectation === "never" ? ":" : " :";
+
         decl.raws.between = decl.raws.between.replace(/\s*:/, replacement);
       } else if (position === "after") {
         const match = expectation === "at-least-one-space" ? /:(?! )/ : /:\s*/;
         const replacement = expectation === "never" ? ":" : ": ";
+
         decl.raws.between = decl.raws.between.replace(match, replacement);
       }
 
@@ -83,6 +87,7 @@ export function variableColonSpaceChecker({
       if (propPlusColon[i] !== ":") {
         continue;
       }
+
       locationChecker({
         source: propPlusColon,
         index: i,
