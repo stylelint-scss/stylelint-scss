@@ -1,4 +1,4 @@
-"use strict"; // eslint-disable-line
+"use strict"; // eslint-disable-line strict
 
 const _ = require("lodash");
 const stylelint = require("stylelint");
@@ -20,7 +20,7 @@ global.testRule = (rule, schema) => {
     }
   });
 
-  describe(schema.ruleName, () => {
+  describe(`${schema.ruleName}`, () => {
     const stylelintConfig = {
       plugins: ["./src"],
       rules: {
@@ -42,6 +42,7 @@ global.testRule = (rule, schema) => {
 
             return stylelint.lint(options).then(output => {
               expect(output.results[0].warnings).toEqual([]);
+
               if (!schema.fix) {
                 return;
               }
@@ -152,7 +153,7 @@ global.testConfig = input => {
         const invalidOptionWarnings = data.results[0].invalidOptionWarnings;
 
         if (input.valid) {
-          expect(invalidOptionWarnings.length).toBe(0);
+          expect(invalidOptionWarnings).toHaveLength(0);
         } else {
           expect(invalidOptionWarnings[0].text).toBe(input.message);
         }

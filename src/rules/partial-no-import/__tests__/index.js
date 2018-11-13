@@ -13,7 +13,8 @@ test("No file specified", done => {
     .process("@import 'file.scss';", { from: undefined })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       expect(warnings[0].text).toBe(
         "The 'partial-no-import' rule won't work if linting in a code string without an actual file."
       );
@@ -30,7 +31,8 @@ test("Import a file from non-partial .scss", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
@@ -43,12 +45,13 @@ test("Import a file from a partial .scss", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       done();
     });
 });
 
-test("Import a file from a partial .scss", done => {
+test("Import a file from a partial .scss 2", done => {
   expect.assertions(1);
   postcss([rule()])
     .process('@import "file.scss";', {
@@ -56,7 +59,8 @@ test("Import a file from a partial .scss", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       done();
     });
 });
@@ -69,12 +73,13 @@ test("Ignores empty imports (Sass will throw an error instead)", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
 
-test("Ignores empty imports (Sass will throw an error instead)", done => {
+test("Ignores empty imports (Sass will throw an error instead) 2", done => {
   expect.assertions(1);
   postcss([rule()])
     .process('@import " ";', {
@@ -82,7 +87,8 @@ test("Ignores empty imports (Sass will throw an error instead)", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
@@ -95,7 +101,8 @@ test("Import a file from a partial .scss; omitting extension", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       done();
     });
 });
@@ -108,12 +115,13 @@ test("Import comma separated files from a partial .scss; omitting extension", do
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       done();
     });
 });
 
-test("Import comma separated files from a partial .scss; omitting extension", done => {
+test("Import comma separated files from a partial .scss; omitting extension 2", done => {
   expect.assertions(1);
   postcss([rule()])
     .process('@import "file" , "file2";', {
@@ -121,7 +129,8 @@ test("Import comma separated files from a partial .scss; omitting extension", do
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       done();
     });
 });
@@ -135,7 +144,8 @@ test("Import a file from CSS", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
@@ -148,7 +158,8 @@ test("Import a CSS from a partial .scss", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
@@ -161,7 +172,8 @@ test("Import a CSS (url) from a partial .scss", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
@@ -174,7 +186,8 @@ test("Import a CSS (with protocol) from a partial .scss", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
@@ -190,7 +203,8 @@ test("Import a CSS file (font URL with https) from a partial .scss", done => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
@@ -206,12 +220,13 @@ test("Import a local file and a CSS file (font URL with https) from a partial .s
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       done();
     });
 });
 
-test("Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import)", done => {
+test("Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import) 2", done => {
   expect.assertions(1);
   postcss([rule()])
     .process(
@@ -222,12 +237,13 @@ test("Import a local file and a CSS file (font URL with https) from a partial .s
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       done();
     });
 });
 
-test("Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import)", done => {
+test("Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import) 3", done => {
   expect.assertions(1);
   postcss([rule()])
     .process(
@@ -238,7 +254,8 @@ test("Import a local file and a CSS file (font URL with https) from a partial .s
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       done();
     });
 });
@@ -251,7 +268,8 @@ test("Import a CSS (with media) from a partial .scss", done => {
     })
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });
@@ -267,7 +285,8 @@ test("Multiple imports in a partial.", done => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       done();
     });
 });
@@ -283,7 +302,8 @@ test("Import from a non-partial SCSS-file.", done => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
       done();
     });
 });

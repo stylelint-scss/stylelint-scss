@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 // -------------------------------------------------------------------------
 // "always"
@@ -189,7 +189,7 @@ testRule(rule, {
 
       /// 3-slash comment with space
     `,
-      /* eslint-disable no-multiple-empty-lines */
+      /* eslint-enable no-multiple-empty-lines */
       description: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space.",
       message: messages.rejected,
       line: 5,

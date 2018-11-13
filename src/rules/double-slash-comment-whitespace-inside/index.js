@@ -14,6 +14,7 @@ export default function(expectation) {
       actual: expectation,
       possible: ["always", "never"]
     });
+
     if (!validOptions) {
       return;
     }
@@ -22,15 +23,19 @@ export default function(expectation) {
 
     function checkRoot(root) {
       const rootString = root.source.input.css;
+
       if (rootString.trim() === "") {
         return;
       }
+
       const comments = findCommentsInRaws(rootString);
+
       comments.forEach(comment => {
         // Only process // comments
         if (comment.type !== "double-slash") {
           return;
         }
+
         // if it's `//` - no warning whatsoever; if `// ` - then trailing
         // whitespace rule will govern this
         if (comment.text === "") {

@@ -160,7 +160,7 @@ test("`background:red` (compiles to a selector by Sass)", () => {
 
   const result = parseNestedPropRoot("background:red");
 
-  expect(result).toBe(null);
+  expect(result).toBeNull();
 });
 
 test("`background :red` (compiles to a selector by Sass)", () => {
@@ -168,7 +168,7 @@ test("`background :red` (compiles to a selector by Sass)", () => {
 
   const result = parseNestedPropRoot("background :red");
 
-  expect(result).toBe(null);
+  expect(result).toBeNull();
 });
 
 test("`&:a1px` (trying to invoke false positive for a number as a value)", () => {
@@ -176,7 +176,7 @@ test("`&:a1px` (trying to invoke false positive for a number as a value)", () =>
 
   const result = parseNestedPropRoot("&:a1px");
 
-  expect(result).toBe(null);
+  expect(result).toBeNull();
 });
 
 test("`input:-moz-focusring `", () => {
@@ -184,7 +184,7 @@ test("`input:-moz-focusring `", () => {
 
   const result = parseNestedPropRoot("input:-moz-focusring");
 
-  expect(result).toEqual(null);
+  expect(result).toBeNull();
 });
 
 test("`&:not(.other-class) `", () => {
@@ -192,7 +192,7 @@ test("`&:not(.other-class) `", () => {
 
   const result = parseNestedPropRoot("&:not(.other-class)");
 
-  expect(result).toEqual(null);
+  expect(result).toBeNull();
 });
 
 test("`&:pseudo`", () => {
@@ -200,7 +200,7 @@ test("`&:pseudo`", () => {
 
   const result = parseNestedPropRoot("&:pseudo");
 
-  expect(result).toEqual(null);
+  expect(result).toBeNull();
 });
 
 // --------------------------------------------------------------------------
@@ -212,7 +212,7 @@ test('`"input: prop"` (a "-string)', () => {
 
   const result = parseNestedPropRoot('"input: prop"');
 
-  expect(result).toEqual(null);
+  expect(result).toBeNull();
 });
 
 test("`'input: prop'` (a '-string)", () => {
@@ -220,5 +220,5 @@ test("`'input: prop'` (a '-string)", () => {
 
   const result = parseNestedPropRoot("'input: prop'");
 
-  expect(result).toEqual(null);
+  expect(result).toBeNull();
 });

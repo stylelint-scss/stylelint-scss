@@ -16,6 +16,7 @@ export default function(value, _, context) {
       actual: value,
       possible: ["always", "never"]
     });
+
     if (!validOptions) {
       return;
     }
@@ -24,6 +25,7 @@ export default function(value, _, context) {
     const replacement = value === "always" ? "if (" : "if(";
 
     const checker = whitespaceChecker("space", value, messages).before;
+
     root.walkAtRules("else", decl => {
       // return early if the else-if statement is not surrounded by parentheses
       if (!match.test(decl.params)) {

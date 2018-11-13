@@ -79,6 +79,7 @@ export default function(targetWhitespace, expectation, messages) {
       onlyOneChar,
       allowIndentation
     };
+
     switch (expectation) {
       case "always":
         expectBefore();
@@ -90,24 +91,28 @@ export default function(targetWhitespace, expectation, messages) {
         if (!isSingleLineString(lineCheckStr || source)) {
           return;
         }
+
         expectBefore(messages.expectedBeforeSingleLine);
         break;
       case "never-single-line":
         if (!isSingleLineString(lineCheckStr || source)) {
           return;
         }
+
         rejectBefore(messages.rejectedBeforeSingleLine);
         break;
       case "always-multi-line":
         if (isSingleLineString(lineCheckStr || source)) {
           return;
         }
+
         expectBefore(messages.expectedBeforeMultiLine);
         break;
       case "never-multi-line":
         if (isSingleLineString(lineCheckStr || source)) {
           return;
         }
+
         rejectBefore(messages.rejectedBeforeMultiLine);
         break;
       default:
@@ -130,6 +135,7 @@ export default function(targetWhitespace, expectation, messages) {
     onlyOneChar = false
   }) {
     activeArgs = { source, index, err, errTarget, onlyOneChar };
+
     switch (expectation) {
       case "always":
         expectAfter();
@@ -141,24 +147,28 @@ export default function(targetWhitespace, expectation, messages) {
         if (!isSingleLineString(lineCheckStr || source)) {
           return;
         }
+
         expectAfter(messages.expectedAfterSingleLine);
         break;
       case "never-single-line":
         if (!isSingleLineString(lineCheckStr || source)) {
           return;
         }
+
         rejectAfter(messages.rejectedAfterSingleLine);
         break;
       case "always-multi-line":
         if (isSingleLineString(lineCheckStr || source)) {
           return;
         }
+
         expectAfter(messages.expectedAfterMultiLine);
         break;
       case "never-multi-line":
         if (isSingleLineString(lineCheckStr || source)) {
           return;
         }
+
         rejectAfter(messages.rejectedAfterMultiLine);
         break;
       case "at-least-one-space":
@@ -176,6 +186,7 @@ export default function(targetWhitespace, expectation, messages) {
   function expectBefore(messageFunc = messages.expectedBefore) {
     if (activeArgs.allowIndentation) {
       expectBeforeAllowingIndentation(messageFunc);
+
       return;
     }
 
@@ -222,19 +233,23 @@ export default function(targetWhitespace, expectation, messages) {
       if (targetWhitespace === "newline") {
         return "\n";
       }
+
       if (targetWhitespace === "space") {
         return " ";
       }
     })();
     let i = index - 1;
+
     while (source[i] !== expectedChar) {
       if (source[i] === "\t" || source[i] === " ") {
         i--;
         continue;
       }
+
       err(
         messageFunc(activeArgs.errTarget ? activeArgs.errTarget : source[index])
       );
+
       return;
     }
   }

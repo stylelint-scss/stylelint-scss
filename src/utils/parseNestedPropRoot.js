@@ -64,6 +64,7 @@ export default function parseNestedPropRoot(propString) {
           before: /^(\s*)/.exec(propValueStr)[1],
           value: propValueStr.trim()
         };
+
         // It's a declaration if 1) there is a whitespace after :, or
         // 2) the value is a number with/without a unit (starts with a number
         // or a dot), or

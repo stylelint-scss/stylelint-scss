@@ -33,6 +33,7 @@ export default function(expectation, options, context) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -41,6 +42,7 @@ export default function(expectation, options, context) {
       const escapedMatch = match.replace(/(\r)?\n/g, (_, r) =>
         r ? "\\r\\n" : "\\n"
       );
+
       comment.raws.before = comment.raws.before.replace(
         new RegExp(`^${escapedMatch}`),
         replace
@@ -72,6 +74,7 @@ export default function(expectation, options, context) {
 
       // Optionally ignore newlines between comments
       const prev = comment.prev();
+
       if (
         prev &&
         prev.type === "comment" &&
@@ -90,6 +93,7 @@ export default function(expectation, options, context) {
         ) {
           return false;
         }
+
         return expectation === "always";
       })();
 
@@ -103,10 +107,13 @@ export default function(expectation, options, context) {
       if (context.fix) {
         if (expectEmptyLineBefore && !hasEmptyLineBefore) {
           fix(comment, context.newline, context.newline + context.newline);
+
           return;
         }
+
         if (!expectEmptyLineBefore && hasEmptyLineBefore) {
           fix(comment, context.newline + context.newline, context.newline);
+
           return;
         }
       }

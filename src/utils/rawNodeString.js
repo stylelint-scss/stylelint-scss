@@ -6,9 +6,12 @@
  */
 export default function(node) {
   let result = "";
+
   if (node.raws.before) {
     result += node.raws.before;
   }
+
   result += node.toString();
+
   return result;
 }

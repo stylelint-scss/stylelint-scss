@@ -1,6 +1,5 @@
-import rule, { ruleName, messages } from "../";
-
 import postcss from "postcss";
+import rule, { messages, ruleName } from "../";
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
@@ -52,7 +51,8 @@ test("{ always } Simple test: background-color, background-repeat", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expected("background-color"));
       expect(warnings[0].line).toBe(3);
       expect(warnings[0].column).toBe(9);
@@ -76,7 +76,8 @@ test("{ always } background-color, background-repeat separated by at-rule", () =
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(3);
+
+      expect(warnings).toHaveLength(3);
       expect(warnings[0].text).toBe(messages.expected("background-color"));
       expect(warnings[0].line).toBe(3);
       expect(warnings[0].column).toBe(9);
@@ -103,7 +104,8 @@ test("{ always } one `background` in nested form", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
     })
     .catch(logError);
 });
@@ -124,7 +126,8 @@ test("{ always } nested `background` and background-position", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
     })
     .catch(logError);
 });
@@ -145,7 +148,8 @@ test("{ always } `prop:    value {nested} prop-v: value`.", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
     })
     .catch(logError);
 });
@@ -166,7 +170,8 @@ test("{ always } `prop  :  value {nested} prop-v: value`.", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
     })
     .catch(logError);
 });
@@ -189,7 +194,8 @@ test("{ always, except: only-of-namespace } background-color only", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
     })
     .catch(logError);
 });
@@ -209,7 +215,8 @@ test("{ always, except: only-of-namespace } background-color, background-repeat 
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.expected("background-color"));
       expect(warnings[0].line).toBe(3);
       expect(warnings[0].column).toBe(9);
@@ -236,7 +243,8 @@ test("{ always, except: only-of-namespace } `background:red`, one rule inside", 
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
     })
     .catch(logError);
 });
@@ -257,12 +265,13 @@ test("{ always, except: only-of-namespace } background, two rules inside", () =>
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(0);
+
+      expect(warnings).toHaveLength(0);
     })
     .catch(logError);
 });
 
-test("{ always, except: only-of-namespace } `background:red`, one rule inside", () => {
+test("{ always, except: only-of-namespace } `background:red`, one rule inside 2", () => {
   expect.assertions(2);
   postcss([rule("always", { except: "only-of-namespace" })])
     .process(
@@ -279,7 +288,8 @@ test("{ always, except: only-of-namespace } `background:red`, one rule inside", 
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       expect(warnings[0].line).toBe(7);
     })
     .catch(logError);
@@ -300,7 +310,8 @@ test("{ always, except: only-of-namespace } `prop: value`, one rule inside", () 
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(1);
+
+      expect(warnings).toHaveLength(1);
       expect(warnings[0].text).toBe(messages.rejected("background"));
     })
     .catch(logError);
@@ -324,7 +335,8 @@ test("{ always, except: only-of-namespace } `prop:`, one rule X2", () => {
     )
     .then(result => {
       const warnings = result.warnings();
-      expect(warnings.length).toBe(2);
+
+      expect(warnings).toHaveLength(2);
       expect(warnings[0].text).toBe(messages.rejected("background"));
       expect(warnings[0].line).toBe(3);
       expect(warnings[1].text).toBe(messages.rejected("background"));

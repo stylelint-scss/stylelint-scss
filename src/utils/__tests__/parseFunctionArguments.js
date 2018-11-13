@@ -262,7 +262,7 @@ describe("parseFunctionArguments", () => {
     ]);
   });
 
-  it("parses 2 key value parameters", () => {
+  it("parses 2 key value parameters 2", () => {
     expect(
       parseFunctionArguments(
         "reset($value: 40px, $second-value: 10px, $color: 'black')"

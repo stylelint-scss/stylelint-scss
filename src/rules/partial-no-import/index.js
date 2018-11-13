@@ -13,6 +13,7 @@ export default function(on) {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: on
     });
+
     if (!validOptions) {
       return;
     }
@@ -21,6 +22,7 @@ export default function(on) {
       result.warn(
         "The 'partial-no-import' rule won't work if linting in a code string without an actual file."
       );
+
       return;
     }
 
@@ -57,6 +59,7 @@ export default function(on) {
     if (extName === ".css") {
       return;
     }
+
     // Not a partial
     if (fileName[0] !== "_") {
       return;

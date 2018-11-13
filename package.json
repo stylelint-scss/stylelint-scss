@@ -26,7 +26,7 @@
     "babel-preset-jest": "^23.2.0",
     "coveralls": "^3.0.2",
     "eslint": "^5.8.0",
-    "eslint-config-stylelint": "^9.0.0",
+    "eslint-config-stylelint": "^10.0.0",
     "eslint-plugin-lodash": "^3.1.0",
     "eslint-plugin-sort-requires": "^2.1.0",
     "husky": "^1.1.3",
@@ -49,7 +49,7 @@
     "node": ">=6"
   },
   "eslintConfig": {
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "stylelint"],
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": 6
@@ -89,7 +89,11 @@
       "lodash/no-extra-args": "error",
       "lodash/no-unbound-this": "error",
       "lodash/unwrap": "error",
-      "lodash/preferred-alias": "error"
+      "lodash/preferred-alias": "error",
+      "node/no-unsupported-features/es-syntax": ["error", {
+        "version": ">=6.0.0",
+        "ignores": ["modules"]
+      }]
     }
   },
   "files": [

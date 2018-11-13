@@ -11,11 +11,13 @@ export const messages = utils.ruleMessages(ruleName, {
 
 export default function(whitelistOption) {
   const whitelist = [].concat(whitelistOption);
+
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: whitelistOption,
       possible: [isString, isRegExp]
     });
+
     if (!validOptions) {
       return;
     }

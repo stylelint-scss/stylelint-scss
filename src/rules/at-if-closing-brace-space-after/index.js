@@ -14,6 +14,7 @@ export default function(expectation, _, context) {
       actual: expectation,
       possible: ["always-intermediate", "never-intermediate"]
     });
+
     if (!validOptions) {
       return;
     }
@@ -54,6 +55,7 @@ export function sassConditionalBraceSpaceAfterChecker({
   function complain(node, message, index, fixValue) {
     if (context.fix) {
       node.next().raws.before = fixValue;
+
       return;
     }
 

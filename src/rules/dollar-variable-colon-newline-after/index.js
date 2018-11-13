@@ -17,6 +17,7 @@ export const messages = utils.ruleMessages(ruleName, {
 
 export default function(expectation, options, context) {
   const checker = whitespaceChecker("newline", expectation, messages);
+
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -33,6 +34,7 @@ export default function(expectation, options, context) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
@@ -64,6 +66,7 @@ export default function(expectation, options, context) {
         if (propPlusColon[i] !== ":") {
           continue;
         }
+
         const indexToCheck =
           propPlusColon.substr(propPlusColon[i], 3) === "/*"
             ? propPlusColon.indexOf("*/", i) + 1
@@ -86,6 +89,7 @@ export default function(expectation, options, context) {
                 /:(.*)$/,
                 `:${context.newline}${nextLinePrefix}`
               );
+
               return;
             }
 

@@ -54,6 +54,7 @@ function toRegex(arr) {
 export default function(actual) {
   return function(root, result) {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
+
     if (!validOptions) {
       return;
     }
@@ -88,9 +89,11 @@ export default function(actual) {
       if (isAtSupports(node) || isCustomIdentProp(node)) {
         return includes(stringVars, value);
       }
+
       if (isCustomIdentAtRule(node)) {
         return includes(vars, value);
       }
+
       return false;
     }
 
@@ -113,9 +116,11 @@ export default function(actual) {
     function walkValues(node, value) {
       valueParser(value).walk(valNode => {
         const { value } = valNode;
+
         if (exitEarly(valNode) || !shouldReport(node, value)) {
           return;
         }
+
         report(node, value);
       });
     }

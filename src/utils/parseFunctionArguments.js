@@ -19,10 +19,13 @@ export function groupByKeyValue(nodes) {
     if (isComma) {
       groupIndex++;
     }
+
     acc[groupIndex] = acc[groupIndex] || [];
+
     if (!isComma) {
       acc[groupIndex].push(node);
     }
+
     return acc;
   }, []);
 }
@@ -32,21 +35,27 @@ export function mapToKeyValue(nodes) {
     if (acc.length === 1) {
       return acc;
     }
+
     const nextNode = nodes[i + 1];
     const isNextNodeColon =
       nextNode && nextNode.type === "div" && nextNode.value === ":";
+
     if (isNextNodeColon) {
       acc.push({
         key: valueParser.stringify(nodes[i]),
         value: valueParser.stringify(nodes.slice(2))
       });
+
       return acc;
     }
+
     acc.push({
       value: valueParser.stringify(nodes)
     });
+
     return acc;
   }, []);
+
   return head(keyVal);
 }
 

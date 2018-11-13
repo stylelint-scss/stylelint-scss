@@ -15,6 +15,7 @@ export default function(value, _, context) {
       actual: value,
       possible: ["always", "never"]
     });
+
     if (!validOptions) {
       return;
     }
@@ -27,6 +28,7 @@ export default function(value, _, context) {
       ) {
         return;
       }
+
       // If it is "Always use parens"
       if (value === "always" && mixinCall.params.search(/\(/) !== -1) {
         return;
@@ -38,6 +40,7 @@ export default function(value, _, context) {
         } else {
           mixinCall.params = mixinCall.params.replace(/\s*\([\s\S]*?\)$/, "");
         }
+
         return;
       }
 

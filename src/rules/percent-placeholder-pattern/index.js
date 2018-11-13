@@ -22,6 +22,7 @@ export default function(pattern) {
       actual: pattern,
       possible: [isRegExp, isString]
     });
+
     if (!validOptions) {
       return;
     }
@@ -33,6 +34,7 @@ export default function(pattern) {
     // Checking placeholder definitions (looking among regular rules)
     root.walkRules(rule => {
       const { selector } = rule;
+
       // Just a shorthand for calling `parseSelector`
       function parse(selector) {
         parseSelector(selector, result, rule, s => checkSelector(s, rule));
@@ -42,6 +44,7 @@ export default function(pattern) {
       if (!isStandardRule(rule)) {
         return;
       }
+
       // If the selector has interpolation
       if (!isStandardSelector(selector)) {
         return;
@@ -63,14 +66,17 @@ export default function(pattern) {
       // postcss-selector-parser gives %placeholders' nodes a "tag" type
       fullSelector.walkTags(compoundSelector => {
         const { value, sourceIndex } = compoundSelector;
+
         if (value[0] !== "%") {
           return;
         }
+
         const placeholder = value.slice(1);
 
         if (placeholderPattern.test(placeholder)) {
           return;
         }
+
         utils.report({
           result,
           ruleName,

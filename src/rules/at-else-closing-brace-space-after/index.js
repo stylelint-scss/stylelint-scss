@@ -15,6 +15,7 @@ export default function(expectation, _, context) {
       actual: expectation,
       possible: ["always-intermediate", "never-intermediate"]
     });
+
     if (!validOptions) {
       return;
     }

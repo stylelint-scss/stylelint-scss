@@ -28,6 +28,7 @@ export default function(expectation, options, context) {
         optional: true
       }
     );
+
     if (!validOptions) {
       return;
     }
