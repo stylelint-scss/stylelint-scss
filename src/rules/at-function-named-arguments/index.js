@@ -1,12 +1,12 @@
-import { utils } from "stylelint";
-import {
-  namespace,
-  optionsHaveIgnored,
-  isNativeCssFunction,
-  parseFunctionArguments
-} from "../../utils";
 import { isString } from "lodash";
 import valueParser from "postcss-value-parser";
+import { utils } from "stylelint";
+import {
+  isNativeCssFunction,
+  namespace,
+  optionsHaveIgnored,
+  parseFunctionArguments
+} from "../../utils";
 
 export const ruleName = namespace("at-function-named-arguments");
 
@@ -74,7 +74,7 @@ export default function(expectation, options) {
           return;
         }
 
-        const args = parseFunctionArguments(decl.value);
+        const args = parseFunctionArguments(valueParser.stringify(node));
         const isSingleArgument = args.length === 1;
 
         if (isSingleArgument && shouldIgnoreSingleArgument) {

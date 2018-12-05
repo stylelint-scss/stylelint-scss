@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 // Required ("always")
 testRule(rule, {
@@ -377,7 +377,19 @@ testRule(rule, {
       }
       `,
       description:
-        "Always. Example: native CSS function is ignored inside a function call."
+        "Never. Example: native CSS function is ignored inside a function call."
+    },
+    {
+      code: `
+      $color: #123456;
+
+      $rgb: (
+        "r": red($color),
+        "g": green($color),
+        "b": blue($color)
+      );
+      `,
+      description: "Never. function call inside a map."
     }
   ],
 
