@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `at-function-named-arguments` was not correctly handling functions inside Sass maps.
+
 # 3.4.0
 
 - Added: `at-mixin-argumentless-call-parentheses` autofix (#280).

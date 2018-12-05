@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 // Required ("always")
 testRule(rule, {
@@ -163,6 +163,18 @@ testRule(rule, {
       ) !default;
       `,
       description: "Always. Should ignore Sass maps with default."
+    },
+    {
+      code: `
+      $color: #123456;
+
+      $rgb: (
+        "r": red($red: $color),
+        "g": green($green: $color),
+        "b": blue($blue: $color)
+      );
+      `,
+      description: "Always. function call inside a map."
     }
   ],
 
@@ -261,6 +273,18 @@ testRule(rule, {
       column: 9,
       description:
         "Always. Example: native CSS function inside a function call."
+    },
+    {
+      code: `
+      $color: #123456;
+
+      $rgb: (
+        "r": red($color),
+        "g": green($color),
+        "b": blue($color)
+      );
+      `,
+      description: "Always. function call inside a map."
     }
   ]
 });
@@ -377,7 +401,19 @@ testRule(rule, {
       }
       `,
       description:
-        "Always. Example: native CSS function is ignored inside a function call."
+        "Never. Example: native CSS function is ignored inside a function call."
+    },
+    {
+      code: `
+      $color: #123456;
+
+      $rgb: (
+        "r": red($color),
+        "g": green($color),
+        "b": blue($color)
+      );
+      `,
+      description: "Never. function call inside a map."
     }
   ],
 
@@ -507,8 +543,19 @@ testRule(rule, {
       line: 3,
       column: 9,
       message: messages.rejected,
-      description:
-        "Always. Example: native CSS function inside a function call."
+      description: "Never. Example: native CSS function inside a function call."
+    },
+    {
+      code: `
+      $color: #123456;
+
+      $rgb: (
+        "r": red($red: $color),
+        "g": green($green: $color),
+        "b": blue($green: $color)
+      );
+      `,
+      description: "Never. function call inside a map."
     }
   ]
 });
