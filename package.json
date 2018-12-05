@@ -1,7 +1,7 @@
 {
   "name": "stylelint-scss",
   "description": "A collection of SCSS specific rules for stylelint",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "author": "Krister Kari",
   "babel": {
     "presets": [
@@ -49,7 +49,10 @@
     "node": ">=6"
   },
   "eslintConfig": {
-    "extends": ["eslint:recommended", "stylelint"],
+    "extends": [
+      "eslint:recommended",
+      "stylelint"
+    ],
     "parserOptions": {
       "sourceType": "module",
       "ecmaVersion": 6
@@ -90,10 +93,15 @@
       "lodash/no-unbound-this": "error",
       "lodash/unwrap": "error",
       "lodash/preferred-alias": "error",
-      "node/no-unsupported-features/es-syntax": ["error", {
-        "version": ">=6.0.0",
-        "ignores": ["modules"]
-      }]
+      "node/no-unsupported-features/es-syntax": [
+        "error",
+        {
+          "version": ">=6.0.0",
+          "ignores": [
+            "modules"
+          ]
+        }
+      ]
     }
   },
   "files": [

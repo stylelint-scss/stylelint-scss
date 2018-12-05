@@ -1,4 +1,4 @@
-# HEAD
+# 3.4.1
 
 - Fixed: `at-function-named-arguments` was not correctly handling functions inside Sass maps.
 
