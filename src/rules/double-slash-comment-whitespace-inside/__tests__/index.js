@@ -182,14 +182,12 @@ testRule(rule, {
       column: 6
     },
     {
-      /* eslint-disable no-multiple-empty-lines */
       code: `
 
 
 
       /// 3-slash comment with space
     `,
-      /* eslint-enable no-multiple-empty-lines */
       description: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space.",
       message: messages.rejected,
       line: 5,
