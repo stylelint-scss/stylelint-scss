@@ -485,6 +485,10 @@ function checkSlash(string, index, isAfterColon) {
     return "char";
   }
 
+  if (isDotBefore(before)) {
+    return "char";
+  }
+
   // e.g. `10px/normal`
   if (isStringBefore(before).is || isStringAfter(after)) {
     // console.log("/, string")
@@ -875,6 +879,10 @@ function isVariableAfter(after) {
   }
 
   return result;
+}
+
+function isDotBefore(before) {
+  return before.slice(-1) === ".";
 }
 
 function isFunctionBefore(before) {

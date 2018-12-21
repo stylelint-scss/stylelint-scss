@@ -1,7 +1,6 @@
-import rule, { ruleName, messages } from "..";
-
 import postcss from "postcss";
 import scss from "postcss-scss";
+import rule, { messages, ruleName } from "..";
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
@@ -56,6 +55,16 @@ testRule(rule, {
       }
       `,
       description: "unicode-range"
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(../../img/build/svg/arrow-#{$i + 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "background-image with relative path inside url function and interpolation."
     }
   ],
 
@@ -83,6 +92,19 @@ testRule(rule, {
       message: messages.expectedAfter("+"),
       line: 1,
       column: 17
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(../../img/build/svg/arrow-#{$i +2}-down-dark.svg);
+      }
+      `,
+      description:
+        "background-image with relative path inside url function and interpolation.",
+      message: messages.expectedAfter("+"),
+      line: 4,
+      column: 62
     }
   ]
 });
@@ -950,6 +972,33 @@ testRule(rule, {
     {
       code: "a { width: (8px/2px- 5); }",
       description: "width: (8px/2px- 5)."
+    },
+    {
+      code: `
+      .thing {
+        background-image: url(../../img/build/svg/arrow-11-down-dark.svg);
+      }
+      `,
+      description: "background image with relative path inside url function."
+    },
+    {
+      code: `
+      .thing {
+        background-image: url(../../img/build/svg/arrow-11-down-dark.svg), url(../../img/build/svg/arrow-11-down-dark.svg);
+      }
+      `,
+      description:
+        "multiple background images with relative path inside url function."
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(../../img/build/svg/arrow-#{$i / 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "background-image with relative path inside url function and interpolation."
     }
   ],
 
@@ -998,6 +1047,19 @@ testRule(rule, {
         "- does concatenate, so warning. But it's not a math op, so doesn't /: 8px/2- ss.",
       message: messages.expectedBefore("-"),
       column: 17
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(../../img/build/svg/arrow-#{$i /2}-down-dark.svg);
+      }
+      `,
+      description:
+        "background-image with relative path inside url function and interpolation.",
+      message: messages.expectedAfter("/"),
+      line: 4,
+      column: 62
     }
   ]
 });
