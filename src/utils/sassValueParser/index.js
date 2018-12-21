@@ -485,6 +485,12 @@ function checkSlash(string, index, isAfterColon) {
     return "char";
   }
 
+  // having a dot before propbably means a relative path.
+  // e.g. url(../../image.png)
+  if (isDotBefore(before)) {
+    return "char";
+  }
+
   // e.g. `10px/normal`
   if (isStringBefore(before).is || isStringAfter(after)) {
     // console.log("/, string")
@@ -875,6 +881,10 @@ function isVariableAfter(after) {
   }
 
   return result;
+}
+
+function isDotBefore(before) {
+  return before.slice(-1) === ".";
 }
 
 function isFunctionBefore(before) {
