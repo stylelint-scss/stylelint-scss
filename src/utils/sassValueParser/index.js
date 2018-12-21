@@ -485,6 +485,8 @@ function checkSlash(string, index, isAfterColon) {
     return "char";
   }
 
+  // having a dot before propbably means a relative path.
+  // e.g. url(../../image.png)
   if (isDotBefore(before)) {
     return "char";
   }
