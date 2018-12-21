@@ -1,4 +1,4 @@
-# HEAD
+# 3.4.2
 
 - Fixed: `operator-no-unspaced` no longer warns for relative url paths.
 
