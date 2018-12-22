@@ -1,3 +1,7 @@
+# 3.4.3
+
+- Fixed: `double-slash-comment-whitespace-inside` fix error being thrown when using two backslashes inside a string.
+
 # 3.4.2
 
 - Fixed: `operator-no-unspaced` no longer warns for relative url paths.
