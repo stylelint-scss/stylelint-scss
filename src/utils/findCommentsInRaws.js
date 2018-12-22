@@ -51,7 +51,8 @@ export default function findCommentsInRaws(rawString) {
     const nextChar = i + 1 < rawString.length ? rawString[i + 1] : null;
 
     const lastModeIndex = modesEntered.length - 1;
-    const mode = modesEntered[lastModeIndex].mode;
+    const mode =
+      modesEntered[lastModeIndex] && modesEntered[lastModeIndex].mode;
 
     switch (character) {
       // If entering/exiting a string

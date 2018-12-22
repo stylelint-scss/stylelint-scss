@@ -34,6 +34,13 @@ testRule(rule, {
     {
       code: "/// ",
       description: "{always} `/// `."
+    },
+    {
+      code: `
+      $breadcrumbs-item-separator-item-rtl: '\\\\';
+      $button-background: background('');
+      `,
+      description: "should not throw an error (issue #294)"
     }
   ],
 
