@@ -324,6 +324,26 @@ test("No comments, but parsing a selector with ().", () => {
     .catch(logError);
 });
 
+test("Double backslash inside a string (issue #294)", () => {
+  expect.assertions(1);
+
+  postcss()
+    .process(
+      `
+      $breadcrumbs-item-separator-item-rtl: '\\\\';
+      $button-background: background('');
+    `,
+      { syntax: scss, from: undefined }
+    )
+    .then(result => {
+      const css = result.root.source.input.css;
+      const comments = findCommentsInRaws(css);
+
+      expect(comments).toHaveLength(0);
+    })
+    .catch(logError);
+});
+
 test("//-comment, Unix newlines", () => {
   expect.assertions(2);
 
