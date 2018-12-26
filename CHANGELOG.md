@@ -1,3 +1,7 @@
+# 3.4.4
+
+- Updated: `postcss-selector-parser` dependency to 5.0.0 (major version bump) with a memory leak fix and other bug fixes.
+
 # 3.4.3
 
 - Fixed: `double-slash-comment-whitespace-inside` fix error being thrown when using two backslashes inside a string.
