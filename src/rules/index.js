@@ -36,6 +36,7 @@ import operatorNoNewlineBefore from "./operator-no-newline-before";
 import operatorNoUnspaced from "./operator-no-unspaced";
 import partialNoImport from "./partial-no-import";
 import percentPlaceholderPattern from "./percent-placeholder-pattern";
+import selectorNestCombinators from "./selector-nest-combinators";
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector";
 
 export default {
@@ -77,5 +78,6 @@ export default {
   "operator-no-unspaced": operatorNoUnspaced,
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
+  "selector-nest-combinators": selectorNestCombinators,
   "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector
 };
