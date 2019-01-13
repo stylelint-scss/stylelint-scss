@@ -1,3 +1,7 @@
+# 3.5.0
+
+- Added: `selector-nest-combinators` rule.
+
 # 3.4.4
 
 - Updated: `postcss-selector-parser` dependency to 5.0.0 (major version bump) with a memory leak fix and other bug fixes.
