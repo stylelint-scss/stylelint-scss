@@ -133,6 +133,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### Selector
 
+- [`selector-nest-combinators`](./src/rules/selector-nest-combinators/README.md): Require or disallow nesting of combinators in selectors.
 - [`selector-no-redundant-nesting-selector`](./src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
 
 ### General / Sheet
