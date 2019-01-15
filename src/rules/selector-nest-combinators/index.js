@@ -4,8 +4,9 @@ import { namespace, parseSelector } from "../../utils";
 export const ruleName = namespace("selector-nest-combinators");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: prop => `Expected selector "${prop}" to be in a nested form`,
-  rejected: prop => `Unexpected "${prop}" found in selector`
+  expected: (combinator, type) =>
+    `Expected combinator "${combinator}" of type "${type}" to be in a nested form`,
+  rejected: () => `Unexpected nesting found in selector`
 });
 
 export default function(expectation) {
@@ -31,6 +32,8 @@ export default function(expectation) {
           "universal"
         ];
 
+        let message;
+
         fullSelector.walk(node => {
           if (expectation === "always") {
             if (node.type === "selector") {
@@ -54,40 +57,46 @@ export default function(expectation) {
               return;
             }
 
-            if (!chainingTypes.includes(node.type)) {
-              return;
-            }
-
-            if (node.prev().type === "combinator") {
-              if (!node.prev().prev()) {
+            if (node.type === "combinator") {
+              if (!chainingTypes.includes(node.next().type)) {
                 return;
               }
 
-              if (!chainingTypes.includes(node.prev().prev().type)) {
+              if (!chainingTypes.includes(node.prev().type)) {
                 return;
               }
             }
 
             if (
-              node.prev().type !== "combinator" &&
               chainingTypes.includes(node.type) &&
               !chainingTypes.includes(node.prev().type)
             ) {
               return;
             }
+
+            if (
+              node.type !== "combinator" &&
+              !chainingTypes.includes(node.type)
+            ) {
+              return;
+            }
+
+            message = messages.expected(node.value, node.type);
           }
 
           if (expectation === "never") {
             if (rule.parent.type === "root" || rule.parent.type === "atrule") {
               return;
             }
+
+            message = messages.rejected;
           }
 
           utils.report({
             ruleName,
             result,
             node: rule,
-            message: messages.rejected,
+            message,
             index: node.sourceIndex
           });
 

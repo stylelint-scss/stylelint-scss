@@ -25,7 +25,7 @@ testRule(rule, {
     {
       code: `
       .foo {
-        & > bar {}
+        & > .bar {}
       }
       `,
       description: "when direct descendant combinators are nested"
@@ -95,16 +95,16 @@ testRule(rule, {
       .foo .bar {}
       `,
       description: "when a child combinator is used instead of nesting",
-      messages: messages.rejected("child combinator"),
+      messages: messages.expected(" ", "combinator"),
       line: 2,
-      column: 12
+      column: 11
     },
     {
       code: `
       .foo.bar {}
       `,
       description: "when a selector is chained with another",
-      messages: messages.rejected("chaining"),
+      messages: messages.expected(".bar", "class"),
       line: 2,
       column: 11
     },
@@ -114,16 +114,16 @@ testRule(rule, {
       `,
       description:
         "when a direct descendant combinator is used without nesting",
-      messages: messages.rejected("direct descendant"),
+      messages: messages.expected(">", "combinator"),
       line: 2,
-      column: 14
+      column: 12
     },
     {
       code: `
       .foo:hover {}
       `,
       description: "when pseudo classes are used without nesting",
-      messages: messages.rejected("pseudo class"),
+      messages: messages.expected(":hover", "pseudo"),
       line: 2,
       column: 11
     },
@@ -132,16 +132,16 @@ testRule(rule, {
       * + li {}
       `,
       description: "when universal selectors are used with a combinator",
-      messages: messages.rejected("direct sibling"),
+      messages: messages.expected("+", "combinator"),
       line: 2,
-      column: 11
+      column: 9
     },
     {
       code: `
       :nth-child(2n - 1):last-child {}
       `,
       description: "when pseudo selectors only are chained",
-      messages: messages.rejected("pseudo class"),
+      messages: messages.expected(":last-child", "pseudo"),
       line: 2,
       column: 25
     }
@@ -226,7 +226,7 @@ testRule(rule, {
       }
       `,
       description: "when child combinators are nested",
-      messages: messages.rejected("nesting"),
+      messages: messages.rejected,
       line: 3,
       column: 9
     },
@@ -237,7 +237,7 @@ testRule(rule, {
       }
       `,
       description: "when chained combinators are nested",
-      messages: messages.rejected("nesting"),
+      messages: messages.rejected,
       line: 3,
       column: 9
     },
@@ -248,7 +248,7 @@ testRule(rule, {
       }
       `,
       description: "when direct descendant combinators are nested",
-      messages: messages.rejected("nesting"),
+      messages: messages.rejected,
       line: 3,
       column: 9
     },
@@ -261,7 +261,7 @@ testRule(rule, {
       }
       `,
       description: "when parent selectors are used for concatenation",
-      messages: messages.rejected("nesting"),
+      messages: messages.rejected,
       line: 3,
       column: 9
     },
@@ -274,7 +274,7 @@ testRule(rule, {
       }
       `,
       description: "when parent selectors are used for BEM style concatenation",
-      messages: messages.rejected("nesting"),
+      messages: messages.rejected,
       line: 3,
       column: 9
     },
@@ -285,7 +285,7 @@ testRule(rule, {
       }
       `,
       description: "when pseudo classes are nested",
-      messages: messages.rejected("nesting"),
+      messages: messages.rejected,
       line: 3,
       column: 9
     }
