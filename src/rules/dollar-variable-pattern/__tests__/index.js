@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 // Testing against a ragex, sequence part
 testRule(rule, {
@@ -43,16 +43,6 @@ testRule(rule, {
       line: 3,
       message: messages.expected,
       description: "Regexp: sequence part. Example: symbol in between."
-    },
-    {
-      code: `
-      p {
-        $ foo: 10px;
-      }
-    `,
-      line: 3,
-      message: messages.expected,
-      description: "Regexp: sequence part. Example: space after $."
     }
   ]
 });
