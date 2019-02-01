@@ -33,20 +33,20 @@ export default function(expectation) {
       return false;
     }
 
+    // attribute, class, combinator, comment, id, nesting, pseudo, root, selector, string, tag, or universal
+    const chainingTypes = [
+      "attribute",
+      "class",
+      "id",
+      "pseudo",
+      "tag",
+      "universal"
+    ];
+
+    const interpolationRe = /#{.+}$/;
+
     root.walkRules(rule => {
       parseSelector(rule.selector, result, rule, fullSelector => {
-        // attribute, class, combinator, comment, id, nesting, pseudo, root, selector, string, tag, or universal
-        const chainingTypes = [
-          "attribute",
-          "class",
-          "id",
-          "pseudo",
-          "tag",
-          "universal"
-        ];
-
-        const interpolationRe = /#{.+}$/;
-
         let message;
 
         fullSelector.walk(node => {
