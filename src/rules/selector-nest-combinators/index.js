@@ -43,7 +43,7 @@ export default function(expectation) {
       "universal"
     ];
 
-    const interpolationRe = /#{.+}$/;
+    const interpolationRe = /#{.+?}$/;
 
     root.walkRules(rule => {
       parseSelector(rule.selector, result, rule, fullSelector => {
