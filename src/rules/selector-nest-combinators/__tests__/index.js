@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 testRule(rule, {
   ruleName,
@@ -86,6 +86,16 @@ testRule(rule, {
       :not([class]:last-child) {}
       `,
       description: "when selectors are chained within a not selector"
+    },
+    {
+      code: `
+      .class-name {
+	      #{if(&, "&", "")} {
+
+	      }
+      }
+      `,
+      description: "should support interpolation"
     }
   ],
 
@@ -144,6 +154,15 @@ testRule(rule, {
       messages: messages.expected(":last-child", "pseudo"),
       line: 2,
       column: 25
+    },
+    {
+      code: `
+      .class-name #{if(&, "&", "")} {}
+      `,
+      description: "when interpolation is used",
+      messages: messages.expectedInterpolation,
+      line: 2,
+      column: 18
     }
   ]
 });
@@ -215,6 +234,12 @@ testRule(rule, {
       #foo:not([class]:last-child) {}
       `,
       description: "when using a not selector"
+    },
+    {
+      code: `
+      .class-name #{if(&, "&", "")} {}
+      `,
+      description: "should support interpolation"
     }
   ],
 
@@ -288,6 +313,19 @@ testRule(rule, {
       messages: messages.rejected,
       line: 3,
       column: 9
+    },
+    {
+      code: `
+      .class-name {
+	      #{if(&, "&", "")} {
+
+	      }
+      }
+      `,
+      description: "when interpolation is used",
+      messages: messages.rejected,
+      line: 3,
+      column: 8
     }
   ]
 });

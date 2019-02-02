@@ -4,9 +4,10 @@ import { namespace, parseSelector } from "../../utils";
 export const ruleName = namespace("selector-nest-combinators");
 
 export const messages = utils.ruleMessages(ruleName, {
+  expectedInterpolation: `Expected interpolation to be in a nested form`,
   expected: (combinator, type) =>
     `Expected combinator "${combinator}" of type "${type}" to be in a nested form`,
-  rejected: () => `Unexpected nesting found in selector`
+  rejected: `Unexpected nesting found in selector`
 });
 
 export default function(expectation) {
@@ -20,21 +21,39 @@ export default function(expectation) {
       return;
     }
 
+    function precedesParentSelector(current) {
+      do {
+        current = current.next();
+
+        if (current.type === "nesting") {
+          return true;
+        }
+      } while (current.next());
+
+      return false;
+    }
+
+    // attribute, class, combinator, comment, id, nesting, pseudo, root, selector, string, tag, or universal
+    const chainingTypes = [
+      "attribute",
+      "class",
+      "id",
+      "pseudo",
+      "tag",
+      "universal"
+    ];
+
+    const interpolationRe = /#{.+?}$/;
+
     root.walkRules(rule => {
       parseSelector(rule.selector, result, rule, fullSelector => {
-        // attribute, class, combinator, comment, id, nesting, pseudo, root, selector, string, tag, or universal
-        const chainingTypes = [
-          "attribute",
-          "class",
-          "id",
-          "pseudo",
-          "tag",
-          "universal"
-        ];
-
         let message;
 
         fullSelector.walk(node => {
+          if (node.value === "}") {
+            return;
+          }
+
           if (expectation === "always") {
             if (node.type === "selector") {
               return;
@@ -81,7 +100,17 @@ export default function(expectation) {
               return;
             }
 
-            message = messages.expected(node.value, node.type);
+            const hasInterpolation = interpolationRe.test(rule.selector);
+
+            if (node.type !== "combinator" && hasInterpolation) {
+              return;
+            }
+
+            if (hasInterpolation) {
+              message = messages.expectedInterpolation;
+            } else {
+              message = messages.expected(node.value, node.type);
+            }
           }
 
           if (expectation === "never") {
@@ -99,18 +128,6 @@ export default function(expectation) {
             message,
             index: node.sourceIndex
           });
-
-          function precedesParentSelector(current) {
-            do {
-              current = current.next();
-
-              if (current.type === "nesting") {
-                return true;
-              }
-            } while (current.next());
-
-            return false;
-          }
         });
       });
     });
