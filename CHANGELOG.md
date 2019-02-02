@@ -1,3 +1,7 @@
+# 3.5.2
+
+- Fixed: handle SCSS interpolation in `selector-nest-combinators` rule.
+
 # 3.5.1
 
 - Fixed: error messages for `selector-nest-combinators` rule.
