@@ -65,6 +65,22 @@ testRule(rule, {
       `,
       description:
         "background-image with relative path inside url function and interpolation."
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i + 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op +: background-image with absolute path inside url function and interpolation."
+    },
+    {
+      code: `
+      div { background-image: url(https://99-0a.x.y.rackcdn.com/z.jpg); }
+      `,
+      description: "Op +: background-image with url that has a hyphen"
     }
   ],
 
@@ -105,6 +121,19 @@ testRule(rule, {
       message: messages.expectedAfter("+"),
       line: 4,
       column: 62
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i +2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op +: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedAfter("+"),
+      line: 4,
+      column: 86
     }
   ]
 });
@@ -146,6 +175,19 @@ testRule(rule, {
       description: "Op (ss+). b4: ss+ +#{1 + 2}.",
       message: messages.expectedBefore("+"),
       column: 11
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i+ 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op +: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedBefore("+"),
+      line: 4,
+      column: 85
     }
   ]
 });
@@ -450,6 +492,16 @@ testRule(rule, {
     {
       code: "a { b3: ss- -#{$var}; }",
       description: "Sign: ss- -#{$var}."
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i - 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op -: background-image with absolute path inside url function and interpolation."
     }
   ],
 
@@ -465,6 +517,19 @@ testRule(rule, {
       description: "Op (ss+): ss+ -#{1 + 2}.",
       message: messages.expectedBefore("+"),
       column: 11
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i- 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op -: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedBefore("-"),
+      line: 4,
+      column: 85
     }
   ]
 });
@@ -645,6 +710,19 @@ testRule(rule, {
     {
       code: "a { minusafter15: 1- #{$var}; }",
       description: "Op (though concatenated): 1- #{$var}."
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i -2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op -: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedAfter("-"),
+      line: 4,
+      column: 86
     }
   ]
 });
@@ -999,6 +1077,16 @@ testRule(rule, {
       `,
       description:
         "background-image with relative path inside url function and interpolation."
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i / 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op /: background-image with absolute path inside url function and interpolation."
     }
   ],
 
@@ -1060,6 +1148,32 @@ testRule(rule, {
       message: messages.expectedAfter("/"),
       line: 4,
       column: 62
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i /2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op /: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedAfter("/"),
+      line: 4,
+      column: 86
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i/ 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op /: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedBefore("/"),
+      line: 4,
+      column: 85
     }
   ]
 });
@@ -1121,6 +1235,19 @@ testRule(rule, {
   syntax: "scss",
   skipBasicChecks: true,
 
+  accept: [
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i * 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op *: background-image with absolute path inside url function and interpolation."
+    }
+  ],
+
   reject: [
     {
       code: "a { width: 10* 1; }",
@@ -1133,6 +1260,32 @@ testRule(rule, {
       description: "Op: 10 *1.",
       message: messages.expectedAfter("*"),
       column: 15
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i *2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op *: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedAfter("*"),
+      line: 4,
+      column: 86
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i* 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op *: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedBefore("*"),
+      line: 4,
+      column: 85
     }
   ]
 });
@@ -1212,6 +1365,16 @@ testRule(rule, {
     {
       code: "a { width: 10% - (1 + 3); }",
       description: "10% - (1 + 3)."
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i % 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op %: background-image with absolute path inside url function and interpolation."
     }
   ],
 
@@ -1296,6 +1459,32 @@ testRule(rule, {
       code: "a { width: 10% -(1 + 3); }",
       description: "10% -(1 + 3).",
       message: messages.expectedAfter("-")
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i %2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op %: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedAfter("%"),
+      line: 4,
+      column: 86
+    },
+    {
+      code: `
+      $i: 10;
+      .thing {
+        background-image: url(https://99-0a.x.y.rackcdn.com/img/build/svg/arrow-#{$i% 2}-down-dark.svg);
+      }
+      `,
+      description:
+        "Op %: background-image with relative path inside url function and interpolation.",
+      message: messages.expectedBefore("%"),
+      line: 4,
+      column: 85
     }
   ]
 });

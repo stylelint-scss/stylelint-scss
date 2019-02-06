@@ -347,6 +347,11 @@ function checkMinus(string, index) {
       return "op";
     }
 
+    // e.g. `#{10px -1}`
+    if (isInsideInterpolation(string, index)) {
+      return "op";
+    }
+
     // e.g. `sth -1px`, `sth -1`.
     // Always a sign, even inside parens/function args
     if (
@@ -402,6 +407,11 @@ function checkMinus(string, index) {
   if (!isAtEnd_ && !isAtStart_ && !isWhitespaceBefore && isWhitespaceAfter) {
     if (isParensBefore_) {
       // console.log('-, op: `(...)- <sth>`')
+      return "op";
+    }
+
+    // e.g. `#{10px- 1}`
+    if (isInsideInterpolation(string, index)) {
       return "op";
     }
 
@@ -491,6 +501,13 @@ function checkSlash(string, index, isAfterColon) {
     return "char";
   }
 
+  // e.g. `(1px/1)`, `fn(7 / 15)`, but not `url(8/11)`
+  const isInsideFn = isInsideFunctionCall(string, index);
+
+  if (isInsideFn.is && isInsideFn.fn === "url" && isProtocolBefore(before)) {
+    return "char";
+  }
+
   // e.g. `10px/normal`
   if (isStringBefore(before).is || isStringAfter(after)) {
     // console.log("/, string")
@@ -547,9 +564,6 @@ function checkSlash(string, index, isAfterColon) {
     // console.log("/, math op around")
     return "op";
   }
-
-  // e.g. `(1px/1)`, `fn(7 / 15)`, but not `url(8/11)`
-  const isInsideFn = isInsideFunctionCall(string, index);
 
   if (
     isInsideParens(string, index) ||
@@ -679,7 +693,7 @@ function isInsideFunctionCall(string, index) {
   const after = string.substring(index + 1).trim();
   const beforeMatch = before.match(/([a-zA-Z_-][a-zA-Z0-9_-]*)\([^(){},]+$/);
 
-  if (beforeMatch && beforeMatch[0] && after.search(/^[^({},]+\)/) !== -1) {
+  if (beforeMatch && beforeMatch[0] && after.search(/^[^(,]+\)/) !== -1) {
     result.is = true;
     result.fn = beforeMatch[1];
   }
@@ -885,6 +899,10 @@ function isVariableAfter(after) {
 
 function isDotBefore(before) {
   return before.slice(-1) === ".";
+}
+
+function isProtocolBefore(before) {
+  return before.search(/https?:/) !== -1;
 }
 
 function isFunctionBefore(before) {
