@@ -902,7 +902,7 @@ function isDotBefore(before) {
 }
 
 function isProtocolBefore(before) {
-  return before.search(/https?:/) !== 1;
+  return before.search(/https?:/) !== -1;
 }
 
 function isFunctionBefore(before) {
