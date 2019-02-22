@@ -1,3 +1,7 @@
+# 3.5.4
+
+- Fixed: `dollar-variable-colon-newline-after` no longer warns for multiline variables that use `!default`.
+
 # 3.5.3
 
 - Fixed: `operator-no-unspaced` no longer warns for valid absolute urls and urls with interpolation.
