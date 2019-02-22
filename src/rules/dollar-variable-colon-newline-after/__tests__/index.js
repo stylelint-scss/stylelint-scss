@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 testRule(rule, {
   ruleName,
@@ -53,6 +53,24 @@ testRule(rule, {
     },
     {
       code: `
+      $map: (
+        foo: 1,
+        bar: 2,
+      ) !default;
+      `,
+      description: "always: should ignore Sass maps that use !default"
+    },
+    {
+      code: `
+      $map: (
+        foo: 1,
+        bar: 2,
+      )!default;
+      `,
+      description: "always: should ignore Sass maps that use !default"
+    },
+    {
+      code: `
       $var: (
         1 +
         2 +
@@ -60,6 +78,16 @@ testRule(rule, {
       );
       `,
       description: "always: should ignore multiline variables"
+    },
+    {
+      code: `
+      $var: (
+        1 +
+        2 +
+        3
+      ) !default;
+      `,
+      description: "always: should ignore multiline variables that use !default"
     }
   ],
 
@@ -281,6 +309,16 @@ testRule(rule, {
     },
     {
       code: `
+      $map:\n(
+        foo: 1,
+        bar: 2,
+      ) !default;
+      `,
+      description:
+        "always-multi-line: should allow Sass map that use !default using newline after colon"
+    },
+    {
+      code: `
       $var:\r\n(
         1 +
         2 +
@@ -299,6 +337,16 @@ testRule(rule, {
       `,
       description:
         "always-multi-line: should allow using Sass map without a newline"
+    },
+    {
+      code: `
+      $map: (
+        foo: 1,
+        bar: 2,
+      ) !default;
+      `,
+      description:
+        "always-multi-line: should allow using Sass map that use !default without a newline"
     },
     {
       code: `

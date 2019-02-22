@@ -1,11 +1,11 @@
+import { isBoolean } from "lodash";
+import { utils } from "stylelint";
 import {
   declarationValueIndex,
   isSingleLineString,
   namespace,
   whitespaceChecker
 } from "../../utils";
-import { utils } from "stylelint";
-import { isBoolean } from "lodash";
 
 export const ruleName = namespace("dollar-variable-colon-newline-after");
 
@@ -47,9 +47,12 @@ export default function(expectation, options, context) {
       }
 
       const value = decl.value.trim();
+      const startsWithParen = value[0] === "(";
+      const endsWithParen = value[value.length - 1] === ")";
+      const endsWithDefault = /\)\s*!default$/.test(value);
       const isMultilineVarWithParens =
-        value[0] === "(" &&
-        value[value.length - 1] === ")" &&
+        startsWithParen &&
+        (endsWithParen || endsWithDefault) &&
         !isSingleLineString(value);
 
       if (isMultilineVarWithParens) {
