@@ -40,7 +40,7 @@
     "prettier": "^1.16.0",
     "request": "^2.88.0",
     "rimraf": "^2.6.3",
-    "semver": "^5.6.0",
+    "semver": "^6.0.0",
     "stylelint": "^9.10.1"
   },
   "peerDependencies": {
