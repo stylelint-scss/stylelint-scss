@@ -21,33 +21,33 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-plugin-istanbul": "^5.1.0",
+    "babel-plugin-istanbul": "^5.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-jest": "^23.2.0",
-    "coveralls": "^3.0.2",
-    "eslint": "^5.12.1",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
     "eslint-config-stylelint": "^11.0.0",
     "eslint-plugin-lodash": "^5.1.0",
     "eslint-plugin-sort-requires": "^2.1.0",
     "github-contributors-list": "^1.2.3",
     "husky": "^1.3.1",
-    "jest": "^23.6.0",
-    "jest-cli": "^23.6.0",
-    "lint-staged": "^8.1.0",
+    "jest": "^24.7.1",
+    "jest-cli": "^24.7.1",
+    "lint-staged": "^8.1.5",
     "npmpub": "^4.1.0",
-    "postcss": "^7.0.13",
+    "postcss": "^7.0.14",
     "postcss-scss": "^2.0.0",
-    "prettier": "^1.16.0",
+    "prettier": "^1.17.0",
     "request": "^2.88.0",
     "rimraf": "^2.6.3",
-    "semver": "^5.6.0",
-    "stylelint": "^9.10.1"
+    "semver": "^6.0.0",
+    "stylelint": "^10.0.1"
   },
   "peerDependencies": {
-    "stylelint": "^8.0.0 || ^9.0.0"
+    "stylelint": "^10.0.0"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "eslintConfig": {
     "extends": [
@@ -97,7 +97,7 @@
       "node/no-unsupported-features/es-syntax": [
         "error",
         {
-          "version": ">=6.0.0",
+          "version": ">=8.0.0",
           "ignores": [
             "modules"
           ]
