@@ -44,7 +44,7 @@
     "stylelint": "^10.0.1"
   },
   "peerDependencies": {
-    "stylelint": "^10.0.0"
+    "stylelint": "^8.0.0 || ^9.0.0 || ^10.0.0"
   },
   "engines": {
     "node": ">=8"
