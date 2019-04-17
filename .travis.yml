@@ -14,12 +14,9 @@ matrix:
     - node_js: '8'
       script: npm run jest -- --runInBand  --coverage
       env: CI=coverage
-    - node_js: '9'
+    - node_js: '10'
       script: npm run jest -- --runInBand
-      env: CI=tests 9
-    - node_js: '6'
-      script: npm run jest -- --runInBand
-      env: CI=tests 6
+      env: CI=tests 10
 before_install:
   - npm install -g npm@latest
 after_success:
