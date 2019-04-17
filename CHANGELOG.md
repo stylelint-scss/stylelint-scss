@@ -1,3 +1,7 @@
+# 3.6.0
+
+- Added: support for stylelint version 10.
+
 # 3.5.4
 
 - Fixed: `dollar-variable-colon-newline-after` no longer warns for multiline variables that use `!default`.
