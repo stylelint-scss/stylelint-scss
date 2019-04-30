@@ -1,3 +1,7 @@
+# 3.6.1
+
+- Fixed: `double-slash-comment-empty-line-before` autofix not working in certain situations.
+
 # 3.6.0
 
 - Added: support for stylelint version 10.
