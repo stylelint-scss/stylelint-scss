@@ -281,6 +281,7 @@ testRule(rule, {
   config: ["never"],
   syntax: "scss",
   skipBasicChecks: true,
+  fix: true,
 
   accept: [
     {
@@ -330,6 +331,10 @@ testRule(rule, {
 
       /// comment
     `,
+      fixed: `
+      // comment
+      /// comment
+    `,
       message: messages.rejected
     },
     {
@@ -338,10 +343,41 @@ testRule(rule, {
 
       // comment
     `,
+      fixed: `
+      a {}
+      // comment
+    `,
+      message: messages.rejected
+    },
+    {
+      code: `
+      a {}
+
+
+      // comment
+    `,
+      fixed: `
+      a {}
+      // comment
+    `,
+      description: "multiple lines",
+      message: messages.rejected
+    },
+    {
+      code: "a {}\n\n\n\n\n\n// comment",
+      fixed: "a {}\n// comment",
+      description: "multiple lines",
+      message: messages.rejected
+    },
+    {
+      code: "a {}\r\n\r\n// comment",
+      fixed: "a {}\r\n// comment",
+      description: "CRLF",
       message: messages.rejected
     },
     {
       code: "a {}\r\n\r\n\r\n// comment",
+      fixed: "a {}\r\n// comment",
       description: "CRLF",
       message: messages.rejected
     },
@@ -354,6 +390,41 @@ testRule(rule, {
         top: 0;
       }
     `,
+      fixed: `
+      a {
+        color: pink;
+        // comment
+        top: 0;
+      }
+    `,
+      message: messages.rejected
+    },
+    {
+      code: `
+      h3 {
+
+        // font-family: $fontStack;
+        color: $textBlack;
+        font-weight: 400;
+        font-size: 24px;
+
+        // font-weight: 700;
+        line-height: 35px;
+
+      }
+    `,
+      fixed: `
+      h3 {
+        // font-family: $fontStack;
+        color: $textBlack;
+        font-weight: 400;
+        font-size: 24px;
+        // font-weight: 700;
+        line-height: 35px;
+
+      }
+    `,
+      description: "issue #321",
       message: messages.rejected
     }
   ]

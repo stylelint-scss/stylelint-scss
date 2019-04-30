@@ -1,10 +1,12 @@
+import { utils } from "stylelint";
 import {
+  addEmptyLineBefore,
   isInlineComment,
   namespace,
   optionsHaveException,
-  optionsHaveIgnored
+  optionsHaveIgnored,
+  removeEmptyLinesBefore
 } from "../../utils";
-import { utils } from "stylelint";
 
 export const ruleName = namespace("double-slash-comment-empty-line-before");
 
@@ -37,17 +39,6 @@ export default function(expectation, options, context) {
     if (!validOptions) {
       return;
     }
-
-    const fix = (comment, match, replace) => {
-      const escapedMatch = match.replace(/(\r)?\n/g, (_, r) =>
-        r ? "\\r\\n" : "\\n"
-      );
-
-      comment.raws.before = comment.raws.before.replace(
-        new RegExp(`^${escapedMatch}`),
-        replace
-      );
-    };
 
     root.walkComments(comment => {
       // Only process // comments
@@ -106,13 +97,13 @@ export default function(expectation, options, context) {
 
       if (context.fix) {
         if (expectEmptyLineBefore && !hasEmptyLineBefore) {
-          fix(comment, context.newline, context.newline + context.newline);
+          addEmptyLineBefore(comment, context.newline);
 
           return;
         }
 
         if (!expectEmptyLineBefore && hasEmptyLineBefore) {
-          fix(comment, context.newline + context.newline, context.newline);
+          removeEmptyLinesBefore(comment, context.newline);
 
           return;
         }
