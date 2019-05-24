@@ -1,7 +1,6 @@
 import { utils } from "stylelint";
 import { namespace, isNativeCssFunction } from "../../utils";
 import valueParser from "postcss-value-parser";
-import { isContext } from "vm";
 
 export const ruleName = namespace("no-quoted-strings-inside-quote-function");
 
@@ -38,7 +37,8 @@ function rule(primary, _, context) {
         // Report error if first character is a quote.
         if (node.nodes[0].quote) {
           if (context.fix) {
-            var contents = /quote\((.*)\)/.exec(decl.value);
+            const contents = /quote\((.*)\)/.exec(decl.value);
+
             decl.value = contents[1];
           } else {
             utils.report({
