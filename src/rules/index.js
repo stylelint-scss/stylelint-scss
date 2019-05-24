@@ -28,6 +28,7 @@ import dollarVariablePattern from "./dollar-variable-pattern";
 import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before";
 import doubleSlashCommentInline from "./double-slash-comment-inline";
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
+import eachKeyValue from "./each-key-value-single-line";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
@@ -70,6 +71,7 @@ export default {
   "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,
   "double-slash-comment-inline": doubleSlashCommentInline,
   "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
+  "each-key-value-single-line": eachKeyValue,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
