@@ -19,11 +19,13 @@ function rule(primary, _, context) {
     }
 
     // Setup variable naming.
-    let vars = {};
+    const vars = {};
+
     root.walkDecls(decl => {
       if (decl.prop[0] !== "$") {
         return;
       }
+
       valueParser(decl.value).walk(node => {
         vars[decl.prop] = node.type;
       });
@@ -47,7 +49,6 @@ function rule(primary, _, context) {
 
         // Report error if first character is a quote.
         // postcss-value-parser represents quoted strings as type 'string' (as opposed to word)
-        console.log("test");
         if (node.nodes[0].quote || vars[node.nodes[0].value] === "string") {
           if (context.fix) {
             const contents = /quote\((.*)\)/.exec(decl.value);
