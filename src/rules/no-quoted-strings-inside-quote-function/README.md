@@ -23,10 +23,24 @@ a {
 }
 ```
 
+```scss
+$font: "Helvetica";
+p {
+  font-family: quote($font);
+}
+```
+
 The following patterns are *not* considered violations:
 
 ```scss
 a {
   color: quote(blue);
+}
+```
+
+```scss
+$font: Helvetica;
+p {
+  font-family: quote($font);
 }
 ```
