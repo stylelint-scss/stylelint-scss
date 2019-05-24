@@ -9,5 +9,7 @@ export const messages = utils.ruleMessages(ruleName, {
 });
 
 export default function(on) {
-  return (root, result) => {};
+  return (root, result) => {
+    root.walkAtRules("each", rule => {});
+  };
 }
