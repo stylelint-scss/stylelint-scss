@@ -5,6 +5,7 @@ testRule(rule, {
   ruleName,
   config: [true],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -21,12 +22,17 @@ testRule(rule, {
     {
       code: `
         p {
-         font-family: quote("Helvetica");
+          font-family: quote("Helvetica");
         }
       `,
       description: "does not accept strings with quotes",
       message: messages.rejected,
-      line: 3
+      line: 3,
+      fixed: `
+        p {
+          font-family: "Helvetica";
+        }
+      `
     }
   ]
 });
