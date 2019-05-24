@@ -36,7 +36,7 @@ import operatorNoNewlineBefore from "./operator-no-newline-before";
 import operatorNoUnspaced from "./operator-no-unspaced";
 import partialNoImport from "./partial-no-import";
 import percentPlaceholderPattern from "./percent-placeholder-pattern";
-import quoteNoQuotedString from "./quoteNoQuotedString";
+import quoteNoQuotedString from "./quote-not-used-with-quoted-string";
 import selectorNestCombinators from "./selector-nest-combinators";
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector";
 

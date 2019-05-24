@@ -3,23 +3,30 @@ import rule, { ruleName, messages } from "..";
 // always-intermediate
 testRule(rule, {
   ruleName,
-  config: ["never"],
+  config: [true],
   syntax: "scss",
-  fix: false,
 
   accept: [
     {
-      code: `quote(Helvetica);`,
+      code: `
+        p {
+          font-family: quote(Helvetica);
+        }
+      `,
       description: "accepts strings without quotes"
     }
   ],
 
   reject: [
     {
-      code: `quote("Helvetica");`,
+      code: `
+        p {
+         font-family: quote("Helvetica");
+        }
+      `,
       description: "does not accept strings with quotes",
       message: messages.rejected,
-      line: 1
+      line: 3
     }
   ]
 });
