@@ -22,7 +22,7 @@ export default function(primary) {
       const parts = separateEachParams(rule.params);
 
       // If loop is fetching both key + value, return
-      if (parts[0].length == 2) {
+      if (parts[0].length === 2) {
         return;
       }
 
@@ -37,7 +37,6 @@ export default function(primary) {
         if (innerDecl.prop[0] !== "$") {
           return;
         }
-        console.log("test");
 
         if (!didCallMapGet(innerDecl.value)) {
           return;
@@ -71,6 +70,7 @@ export default function(primary) {
 // Returns: [[key variable, value variable], map_decl] (all Strings)
 function separateEachParams(paramString) {
   const parts = paramString.split("in");
+
   return [parts[0].split(",").map(s => s.trim()), parts[1].trim()];
 }
 
@@ -95,5 +95,6 @@ function mapName(map_decl) {
 // Returns [map variable, key_variable]
 function mapGetParameters(mapGetDecl) {
   const parts = mapGetDecl.match(/map-get\((.*), ?(.*)\)/);
+
   return [parts[1], parts[2]];
 }
