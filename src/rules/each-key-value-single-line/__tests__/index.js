@@ -32,7 +32,7 @@ testRule(rule, {
       `,
       description: "Loop that gets keys + then grabs values inside the map",
       message: messages.rejected,
-      line: 4
+      line: 3
     }
   ]
 });
