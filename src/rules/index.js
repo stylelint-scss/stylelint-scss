@@ -31,12 +31,12 @@ import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespac
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
+import noQuotedStrings from "./no-quoted-strings-inside-quote-function";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
 import operatorNoNewlineBefore from "./operator-no-newline-before";
 import operatorNoUnspaced from "./operator-no-unspaced";
 import partialNoImport from "./partial-no-import";
 import percentPlaceholderPattern from "./percent-placeholder-pattern";
-import quoteNoQuotedString from "./quote-not-used-with-quoted-string";
 import selectorNestCombinators from "./selector-nest-combinators";
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector";
 
@@ -74,12 +74,12 @@ export default {
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
+  "no-quoted-strings-inside-quote-function": noQuotedStrings,
   "operator-no-newline-after": operatorNoNewlineAfter,
   "operator-no-newline-before": operatorNoNewlineBefore,
   "operator-no-unspaced": operatorNoUnspaced,
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
-  "quote-not-used-with-quoted-string": quoteNoQuotedString,
   "selector-nest-combinators": selectorNestCombinators,
   "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector
 };
