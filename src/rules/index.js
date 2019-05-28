@@ -15,6 +15,7 @@ import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-par
 import atMixinNamedArguments from "./at-mixin-named-arguments";
 import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
+import atRuleEachKeyValue from "./at-rule-each-key-value-single-line";
 import atRuleNoUnknown from "./at-rule-no-unknown";
 import declarationNestedProperties from "./declaration-nested-properties";
 import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
@@ -28,7 +29,6 @@ import dollarVariablePattern from "./dollar-variable-pattern";
 import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before";
 import doubleSlashCommentInline from "./double-slash-comment-inline";
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
-import eachKeyValue from "./each-key-value-single-line";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
@@ -58,6 +58,7 @@ export default {
   "at-mixin-named-arguments": atMixinNamedArguments,
   "at-mixin-parentheses-space-before": atMixinParenthesesSpaceBefore,
   "at-mixin-pattern": atMixinPattern,
+  "at-rule-each-key-value-single-line": atRuleEachKeyValue,
   "at-rule-no-unknown": atRuleNoUnknown,
   "declaration-nested-properties": declarationNestedProperties,
   "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
@@ -71,7 +72,6 @@ export default {
   "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,
   "double-slash-comment-inline": doubleSlashCommentInline,
   "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
-  "each-key-value-single-line": eachKeyValue,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
