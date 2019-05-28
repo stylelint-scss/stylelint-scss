@@ -1,4 +1,4 @@
-# no-quoted-strings-inside-quote-function
+# function-quote-no-quoted-strings-inside
 
 Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote)
 

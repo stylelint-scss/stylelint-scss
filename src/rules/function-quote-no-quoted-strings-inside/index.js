@@ -2,7 +2,7 @@ import { utils } from "stylelint";
 import { namespace, isNativeCssFunction } from "../../utils";
 import valueParser from "postcss-value-parser";
 
-export const ruleName = namespace("no-quoted-strings-inside-quote-function");
+export const ruleName = namespace("function-quote-no-quoted-strings-inside");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Quote function used with an already-quoted string"
