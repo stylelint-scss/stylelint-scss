@@ -1,6 +1,6 @@
 # no-quoted-strings-inside-quote-function
 
-Disallow quoted strings inside the quote function.
+Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote)
 
 ```scss
   p {

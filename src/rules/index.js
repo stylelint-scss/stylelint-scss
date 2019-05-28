@@ -28,10 +28,10 @@ import dollarVariablePattern from "./dollar-variable-pattern";
 import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before";
 import doubleSlashCommentInline from "./double-slash-comment-inline";
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
+import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
-import noQuotedStrings from "./no-quoted-strings-inside-quote-function";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
 import operatorNoNewlineBefore from "./operator-no-newline-before";
 import operatorNoUnspaced from "./operator-no-unspaced";
@@ -74,7 +74,7 @@ export default {
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
-  "no-quoted-strings-inside-quote-function": noQuotedStrings,
+  "no-quoted-strings-inside-quote-function": functionNoQuotedStrings,
   "operator-no-newline-after": operatorNoNewlineAfter,
   "operator-no-newline-before": operatorNoNewlineBefore,
   "operator-no-unspaced": operatorNoUnspaced,
