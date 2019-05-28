@@ -1,4 +1,4 @@
-# each-key-value-single-line
+# at-rule-each-key-value-single-line
 
  Disallow situations where users loop over map-keys and fetch the value inside the loop.
 
