@@ -1,6 +1,9 @@
 # at-rule-each-key-value-single-line
 
- Disallow situations where users loop over map-keys and fetch the value inside the loop.
+This is a rule that checks for situations where users have:
+
+ - Done a loop using map-keys
+ - Grabbed the value for that key inside of the loop.
 
  ```scss
  $font-weights: ("regular": 400, "medium": 500, "bold": 700);
@@ -8,8 +11,8 @@
    $value: map-get($font-weights, $key);
 /**        ↑
  * This call should be consolidated into the @each call.
+**/
  }
-  }
  ```
 
  ## Options
