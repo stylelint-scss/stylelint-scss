@@ -123,7 +123,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### Function
 
-- [`function-quote-no-quoted-strings-inside`](./src/rules/function-quote-no-quoted-strings-inside/README.md): Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote).
+- [`function-quote-no-quoted-strings-inside`](./src/rules/function-quote-no-quoted-strings-inside/README.md): Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote) (Autofixable).
 
 ### Media feature
 
