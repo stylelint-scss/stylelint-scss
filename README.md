@@ -53,6 +53,10 @@ Here are stylelint-scss' rules, grouped by the [_thing_](http://apps.workflower.
 
 Please also see the [example configs](./docs/examples/) for special cases.
 
+### `@`-each
+
+- [`at-each-key-value-single-line`](./src/rules/at-each-key-value-single-line/README.md): This is a rule that checks for situations where users have done a loop using map-keys and grabbed the value for that key inside of the loop.
+
 ### `@`-else
 
 - [`at-else-closing-brace-newline-after`](./src/rules/at-else-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@else` statements (Autofixable).
@@ -116,6 +120,10 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`declaration-nested-properties`](./src/rules/declaration-nested-properties/README.md): Require or disallow properties with `-` in their names to be in a form of a nested group.
 - [`declaration-nested-properties-no-divided-groups`](./src/rules/declaration-nested-properties-no-divided-groups/README.md): Disallow nested properties of the same "namespace" be divided into multiple groups.
+
+### Function
+
+- [`function-quote-no-quoted-strings-inside`](./src/rules/function-quote-no-quoted-strings-inside/README.md): Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote).
 
 ### Media feature
 
