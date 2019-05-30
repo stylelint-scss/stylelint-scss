@@ -1,7 +1,7 @@
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
 
-export const ruleName = namespace("at-rule-each-key-value-single-line");
+export const ruleName = namespace("at-each-key-value-single-line");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected:
