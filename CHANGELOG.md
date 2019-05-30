@@ -1,3 +1,8 @@
+# 3.7.0
+
+- Added: `at-each-key-value-single-line` rule.
+- Added: `function-quote-no-quoted-strings-inside` rule.
+
 # 3.6.1
 
 - Fixed: `double-slash-comment-empty-line-before` autofix not working in certain situations.
