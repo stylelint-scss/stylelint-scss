@@ -15,6 +15,7 @@ import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-par
 import atMixinNamedArguments from "./at-mixin-named-arguments";
 import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
+import atRuleEachKeyValue from "./at-rule-each-key-value-single-line";
 import atRuleNoUnknown from "./at-rule-no-unknown";
 import declarationNestedProperties from "./declaration-nested-properties";
 import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
@@ -58,6 +59,7 @@ export default {
   "at-mixin-named-arguments": atMixinNamedArguments,
   "at-mixin-parentheses-space-before": atMixinParenthesesSpaceBefore,
   "at-mixin-pattern": atMixinPattern,
+  "at-rule-each-key-value-single-line": atRuleEachKeyValue,
   "at-rule-no-unknown": atRuleNoUnknown,
   "declaration-nested-properties": declarationNestedProperties,
   "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
