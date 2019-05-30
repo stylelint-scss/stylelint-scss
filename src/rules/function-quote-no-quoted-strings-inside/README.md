@@ -3,12 +3,12 @@
 Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote)
 
 ```scss
-  p {
-    font-family: quote("Helvetica");
-/**                    ↑         ↑
- * These quotes are unnecessary
-  }
-
+p {
+  font-family: quote("Helvetica");
+  /**                ↑         ↑
+   * These quotes are unnecessary
+   */
+}
 ```
 
 ## Options
@@ -30,7 +30,7 @@ p {
 }
 ```
 
-The following patterns are *not* considered violations:
+The following patterns are _not_ considered violations:
 
 ```scss
 a {
