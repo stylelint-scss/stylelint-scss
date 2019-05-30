@@ -14,8 +14,8 @@ $font-weights: (
 @each $key in map-keys($font-weights) {
   $value: map-get($font-weights, $key);
   /**        ↑
-* This call should be consolidated into the @each call.
-**/
+   * This call should be consolidated into the @each call.
+   **/
 }
 ```
 
