@@ -1,4 +1,4 @@
-# HEAD
+# 3.8.0
 
 - Added: `function-unquote-no-unquoted-strings-inside` rule.
 - Fixed: wrong message name for `at-each-key-value-single-line` rule.
