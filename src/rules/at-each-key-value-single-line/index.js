@@ -56,7 +56,7 @@ export default function(primary) {
         }
 
         utils.report({
-          message: messages.rejected,
+          message: messages.expected,
           node: rule,
           result,
           ruleName
