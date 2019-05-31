@@ -26,7 +26,7 @@ a {
 ```scss
 $font: Helvetica;
 p {
-  font-family: quote($font);
+  font-family: unquote($font);
 }
 ```
 
