@@ -45,15 +45,18 @@ function rule(primary, _, context) {
         }
 
         // Verify we're only looking at quote() calls.
-        if (node.value !== "quote") {
+        if (node.value !== "unquote") {
           return;
         }
 
         // Report error if first character is a quote.
         // postcss-value-parser represents quoted strings as type 'string' (as opposed to word)
-        if (node.nodes[0].quote || vars[node.nodes[0].value] === "string") {
+        if (
+          (!node.nodes[0].quote && node.nodes[0].value[0] !== "$") ||
+          vars[node.nodes[0].value] === "word"
+        ) {
           if (context.fix) {
-            const contents = /quote\((.*)\)/.exec(decl.value);
+            const contents = /unquote\((.*)\)/.exec(decl.value);
 
             decl.value = contents[1];
           } else {
