@@ -11,19 +11,19 @@ testRule(rule, {
     {
       code: `
         p {
-          font-family: quote(Helvetica);
+          font-family: unquote("Helvetica");
         }
       `,
-      description: "accepts strings without quotes"
+      description: "accepts strings with quotes"
     },
     {
       code: `
-        $font: Helvetica;
+        $font: "Helvetica";
         p {
-          font-family: quote($font);
+          font-family: unquote($font);
         }
       `,
-      description: "accepts variables representing strings that are unquoted."
+      description: "accepts variables representing strings that are quoted."
     }
   ],
 
@@ -31,30 +31,30 @@ testRule(rule, {
     {
       code: `
         p {
-          font-family: quote("Helvetica");
+          font-family: unquote(Helvetica);
         }
       `,
-      description: "does not accept strings with quotes",
+      description: "does not accept strings without quotes",
       message: messages.rejected,
       line: 3,
       fixed: `
         p {
-          font-family: "Helvetica";
+          font-family: Helvetica;
         }
       `
     },
     {
       code: `
-        $font: "Helvetica";
+        $font: Helvetica;
         p {
-          font-family: quote($font);
+          font-family: unquote($font);
         }
       `,
       description:
         "does not accept variables representing strings that are quoted.",
       line: 4,
       fixed: `
-        $font: "Helvetica";
+        $font: Helvetica;
         p {
           font-family: $font;
         }

@@ -1,12 +1,12 @@
-# function-quote-no-quoted-strings-inside
+# function-unquote-no-unquoted-strings-inside
 
-Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote)
+Disallow unquoted strings inside the [unquote function](https://sass-lang.com/documentation/functions/string#unquote)
 
 ```scss
 p {
-  font-family: quote("Helvetica");
-  /**                ↑         ↑
-   * These quotes are unnecessary
+  font-family: unquote(Helvetica);
+  /**          ↑     ↑
+   * This function call is unnecessary
    */
 }
 ```
@@ -19,12 +19,12 @@ The following patterns are considered violations:
 
 ```scss
 a {
-  font-family: quote("Helvetica");
+  font-family: unquote(Helvetica);
 }
 ```
 
 ```scss
-$font: "Helvetica";
+$font: Helvetica;
 p {
   font-family: quote($font);
 }
@@ -34,13 +34,13 @@ The following patterns are _not_ considered violations:
 
 ```scss
 a {
-  color: quote(blue);
+  color: unquote("blue");
 }
 ```
 
 ```scss
-$font: Helvetica;
+$font: "Helvetica";
 p {
-  font-family: quote($font);
+  font-family: unquote($font);
 }
 ```
