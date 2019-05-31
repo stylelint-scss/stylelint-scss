@@ -34,6 +34,7 @@ import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-in
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
+import noLoudComments from "./no-loud-comments";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
 import operatorNoNewlineBefore from "./operator-no-newline-before";
 import operatorNoUnspaced from "./operator-no-unspaced";
@@ -79,6 +80,7 @@ export default {
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
+  "no-loud-comments": noLoudComments,
   "operator-no-newline-after": operatorNoNewlineAfter,
   "operator-no-newline-before": operatorNoNewlineBefore,
   "operator-no-unspaced": operatorNoUnspaced,
