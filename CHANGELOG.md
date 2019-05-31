@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: wrong message name for `at-each-key-value-single-line` rule.
+
 # 3.7.0
 
 - Added: `at-each-key-value-single-line` rule.
