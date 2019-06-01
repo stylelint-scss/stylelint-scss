@@ -1,0 +1,83 @@
+import { utils } from "stylelint";
+import { namespace } from "../../utils";
+import valueParser from "postcss-value-parser";
+
+export const ruleName = namespace("map-keys-always-quoted");
+
+export const messages = utils.ruleMessages(ruleName, {
+  rejected: "Quote function used with an already-quoted string"
+});
+
+function rule(primary) {
+  return (root, result) => {
+    const validOptions = utils.validateOptions(result, ruleName, {
+      actual: primary
+    });
+
+    if (!validOptions) {
+      return;
+    }
+
+    root.walkDecls(decl => {
+      if (decl.prop[0] !== "$") {
+        return;
+      }
+
+      valueParser(decl.value).walk(node => {
+        if (
+          node.type === "function" &&
+          node.value === "" &&
+          isMap(node.nodes)
+        ) {
+          // Identify all of the map-keys and see if they're strings (not words).
+          const mapKeys = returnMapKeys(node.nodes);
+
+          mapKeys.forEach(map_key => {
+            if (map_key.type === "word") {
+              utils.report({
+                message: messages.rejected,
+                node: decl,
+                result,
+                ruleName
+              });
+            }
+          });
+        }
+      });
+    });
+  };
+}
+
+// Takes in a list of map nodes and identifies if they are a map.
+// A map is identified by the pattern: [string/word colon(div) anything comma(div) ...]
+function isMap(nodes) {
+  if (nodes.length < 4) {
+    return false;
+  }
+
+  if (nodes[0].type !== "word" && nodes[0].type !== "string") {
+    return false;
+  }
+
+  if (nodes[1].value !== ":") {
+    return false;
+  }
+
+  if (nodes[3].value !== ",") {
+    return false;
+  }
+
+  return true;
+}
+
+function returnMapKeys(array) {
+  const new_array = [];
+
+  for (let i = 0; i < array.length; i += 4) {
+    new_array.push(array[i]);
+  }
+
+  return new_array;
+}
+
+export default rule;
