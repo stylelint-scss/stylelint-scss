@@ -16,7 +16,7 @@
     "postcss-media-query-parser": "^0.2.3",
     "postcss-resolve-nested-selector": "^0.1.1",
     "postcss-selector-parser": "^6.0.2",
-    "postcss-value-parser": "^3.3.1"
+    "postcss-value-parser": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
