@@ -4,7 +4,7 @@ import { utils } from "stylelint";
 export const ruleName = namespace("at-else-empty-line-before");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unxpected empty line before @else"
+  rejected: "Unexpected empty line before @else"
 });
 
 export default function(expectation, _, context) {

@@ -13,7 +13,7 @@ export const ruleName = namespace("dollar-variable-empty-line-before");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected an empty line before $-variable",
-  rejected: "Unxpected empty line before $-variable"
+  rejected: "Unexpected empty line before $-variable"
 });
 
 export default function(expectation, options, context) {
