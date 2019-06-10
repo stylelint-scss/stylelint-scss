@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: typo in error message for `at-else-empty-line-before` and `dollar-variable-empty-line-before` rules.
+
 # 3.8.0
 
 - Added: `function-unquote-no-unquoted-strings-inside` rule.
