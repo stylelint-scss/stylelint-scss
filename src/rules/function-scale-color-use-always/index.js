@@ -2,10 +2,10 @@ import { utils } from "stylelint";
 import { namespace } from "../../utils";
 import valueParser from "postcss-value-parser";
 
-export const ruleName = namespace("function-scalar-color-use-always");
+export const ruleName = namespace("function-scale-color-use-always");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Use the scalar function."
+  rejected: "Use the scale-color function."
 });
 
 const function_names = [
