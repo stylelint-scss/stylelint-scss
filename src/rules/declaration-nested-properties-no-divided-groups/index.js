@@ -1,5 +1,7 @@
-import { namespace, parseNestedPropRoot } from "../../utils";
 import { utils } from "stylelint";
+import { namespace, parseNestedPropRoot } from "../../utils";
+
+const hasOwnProp = Object.prototype.hasOwnProperty;
 
 export const ruleName = namespace(
   "declaration-nested-properties-no-divided-groups"
@@ -38,7 +40,7 @@ export default function(expectation) {
         if (testForProp && testForProp.propName !== undefined) {
           const ns = testForProp.propName.value;
 
-          if (!nestedGroups.hasOwnProperty(ns)) {
+          if (!hasOwnProp.call(nestedGroups, ns)) {
             nestedGroups[ns] = [];
           }
 
