@@ -1,10 +1,12 @@
+import { utils } from "stylelint";
 import {
   isStandardSyntaxProperty,
   namespace,
   optionsHaveException,
   parseNestedPropRoot
 } from "../../utils";
-import { utils } from "stylelint";
+
+const hasOwnProp = Object.prototype.hasOwnProperty;
 
 export const ruleName = namespace("declaration-nested-properties");
 
@@ -60,7 +62,7 @@ export default function(expectation, options) {
             if (seekNamespace && seekNamespace[1]) {
               const ns = seekNamespace[1];
 
-              if (!warningCandidates.hasOwnProperty(ns)) {
+              if (!hasOwnProp.call(warningCandidates, ns)) {
                 warningCandidates[ns] = [];
               }
 
@@ -77,7 +79,7 @@ export default function(expectation, options) {
             if (testForProp && testForProp.propName !== undefined) {
               const ns = testForProp.propName.value;
 
-              if (!warningCandidates.hasOwnProperty(ns)) {
+              if (!hasOwnProp.call(warningCandidates, ns)) {
                 warningCandidates[ns] = [];
               }
 
