@@ -100,7 +100,7 @@ const createTransformer = options => {
     },
     process(src, filename, config, transformOptions) {
       if (!babel) {
-        babel = require("babel-core");
+        babel = require("@babel/core");
       }
 
       if (babel.util && !babel.util.canCompile(filename)) {
