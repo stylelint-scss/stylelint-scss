@@ -1,6 +1,6 @@
 # selector-no-union-class-name
 
-Disallow union class name with using `&`.
+Disallow union class names with the parent selector (`&`).
 
 ```scss
 .class {
