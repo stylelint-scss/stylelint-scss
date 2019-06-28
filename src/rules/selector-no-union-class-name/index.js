@@ -5,7 +5,7 @@ import { isClassName, isCombinator } from "postcss-selector-parser";
 export const ruleName = namespace("selector-no-union-class-name");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Union class name detected"
+  rejected: "Unexpected union class name with the parent selector (&)"
 });
 
 export default function(actual) {
