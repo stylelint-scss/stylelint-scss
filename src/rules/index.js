@@ -41,6 +41,7 @@ import partialNoImport from "./partial-no-import";
 import percentPlaceholderPattern from "./percent-placeholder-pattern";
 import selectorNestCombinators from "./selector-nest-combinators";
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector";
+import selectorNoUnionClassName from "./selector-no-union-class-name";
 
 export default {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
@@ -85,5 +86,6 @@ export default {
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
   "selector-nest-combinators": selectorNestCombinators,
-  "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector
+  "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,
+  "selector-no-union-class-name": selectorNoUnionClassName
 };
