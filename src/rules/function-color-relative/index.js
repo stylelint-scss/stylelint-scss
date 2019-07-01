@@ -2,7 +2,7 @@ import { utils } from "stylelint";
 import { namespace } from "../../utils";
 import valueParser from "postcss-value-parser";
 
-export const ruleName = namespace("function-scale-color-use-always");
+export const ruleName = namespace("function-color-relative");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Expected the scale-color function to be used"

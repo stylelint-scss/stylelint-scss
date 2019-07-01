@@ -1,4 +1,4 @@
-# function-scale-color-use-always
+# function-color-relative
 
 Encourage the use of the [scale-color](https://sass-lang.com/documentation/functions/color#scale-color) over:
 
