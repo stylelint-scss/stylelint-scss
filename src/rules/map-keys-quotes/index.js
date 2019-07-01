@@ -5,7 +5,7 @@ import valueParser from "postcss-value-parser";
 export const ruleName = namespace("map-keys-quotes");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Quote function used with an already-quoted string"
+  expected: "Expected keys in map to be quoted."
 });
 
 function rule(primary) {
@@ -35,7 +35,7 @@ function rule(primary) {
           mapKeys.forEach(map_key => {
             if (map_key.type === "word") {
               utils.report({
-                message: messages.rejected,
+                message: messages.expected,
                 node: decl,
                 result,
                 ruleName

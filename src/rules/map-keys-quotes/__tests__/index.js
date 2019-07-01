@@ -19,7 +19,7 @@ testRule(rule, {
       code: `
         $test: (Helvetica: 25px, Arial: 50px)
       `,
-      message: messages.rejected,
+      message: messages.expected,
       description:
         "does not accept variables representing strings that are quoted.",
       location: 1
