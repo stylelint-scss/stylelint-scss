@@ -5,7 +5,7 @@ import valueParser from "postcss-value-parser";
 export const ruleName = namespace("function-scale-color-use-always");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Use the scale-color function."
+  rejected: "Expected the scale-color function to be used"
 });
 
 const function_names = [
