@@ -1,4 +1,4 @@
-# no-loud-comments
+# comment-no-loud
 
 Disallow `/*`-comments.
 

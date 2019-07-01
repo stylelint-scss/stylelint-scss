@@ -1,7 +1,7 @@
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
 
-export const ruleName = namespace("no-loud-comments");
+export const ruleName = namespace("comment-no-loud");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Use // for comments instead of /*"

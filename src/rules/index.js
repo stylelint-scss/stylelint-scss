@@ -17,6 +17,7 @@ import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
 import atEachKeyValue from "./at-each-key-value-single-line";
 import atRuleNoUnknown from "./at-rule-no-unknown";
+import commentNoLoud from "./comment-no-loud";
 import declarationNestedProperties from "./declaration-nested-properties";
 import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
 import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after";
@@ -34,7 +35,6 @@ import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-in
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
-import noLoudComments from "./no-loud-comments";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
 import operatorNoNewlineBefore from "./operator-no-newline-before";
 import operatorNoUnspaced from "./operator-no-unspaced";
@@ -63,6 +63,7 @@ export default {
   "at-mixin-pattern": atMixinPattern,
   "at-each-key-value-single-line": atEachKeyValue,
   "at-rule-no-unknown": atRuleNoUnknown,
+  "comment-no-loud": commentNoLoud,
   "declaration-nested-properties": declarationNestedProperties,
   "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
@@ -80,7 +81,6 @@ export default {
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
-  "no-loud-comments": noLoudComments,
   "operator-no-newline-after": operatorNoNewlineAfter,
   "operator-no-newline-before": operatorNoNewlineBefore,
   "operator-no-unspaced": operatorNoUnspaced,
