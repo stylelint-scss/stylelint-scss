@@ -1,4 +1,4 @@
-# map-keys-always-quoted
+# map-keys-quotes
 
 All map keys should be quoted.
 

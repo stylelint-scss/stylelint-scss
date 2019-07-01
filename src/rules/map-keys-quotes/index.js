@@ -2,7 +2,7 @@ import { utils } from "stylelint";
 import { namespace } from "../../utils";
 import valueParser from "postcss-value-parser";
 
-export const ruleName = namespace("map-keys-always-quoted");
+export const ruleName = namespace("map-keys-quotes");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Quote function used with an already-quoted string"
