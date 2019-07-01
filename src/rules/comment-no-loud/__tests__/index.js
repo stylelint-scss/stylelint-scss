@@ -9,6 +9,10 @@ testRule(rule, {
     {
       code: "// comment",
       description: "Double slash comments"
+    },
+    {
+      code: "//* comment",
+      description: "Double slash comments with first character as asterix"
     }
   ],
   reject: [

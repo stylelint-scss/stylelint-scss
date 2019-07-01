@@ -31,7 +31,9 @@ function rule(primary) {
 }
 
 function isLoudComment(comment) {
-  return comment.source.input.css.includes("/*");
+  const regex = new RegExp(/^[ \t\n]*\/\*/);
+
+  return regex.test(comment.source.input.css);
 }
 
 export default rule;
