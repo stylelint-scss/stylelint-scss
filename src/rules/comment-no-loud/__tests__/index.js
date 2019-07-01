@@ -29,7 +29,7 @@ testRule(rule, {
         /* comment line 1
            comment line 2 
     `,
-      description: "Multliine comment with no ending",
+      description: "Multline comment with no ending",
       message: messages.expected
     },
     {
@@ -38,7 +38,7 @@ testRule(rule, {
            comment line 2 
         */
     `,
-      description: "Multliine comment with optional ending on next line",
+      description: "Multline comment with optional ending on next line",
       message: messages.expected
     }
   ]

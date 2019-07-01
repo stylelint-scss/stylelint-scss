@@ -20,6 +20,12 @@ The following patterns are considered violations:
 /* comment */
 ```
 
+```scss
+/*
+ * comment
+*/
+```
+
 The following patterns are *not* considered warnings:
 
 ```scss

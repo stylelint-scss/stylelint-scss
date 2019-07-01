@@ -4,7 +4,7 @@ import { namespace } from "../../utils";
 export const ruleName = namespace("comment-no-loud");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Use // for comments instead of /*"
+  expected: "Expected // for comments instead of /*"
 });
 
 function rule(primary) {
@@ -20,7 +20,7 @@ function rule(primary) {
     root.walkComments(comment => {
       if (isLoudComment(comment)) {
         utils.report({
-          message: messages.rejected,
+          message: messages.expected,
           node: comment,
           result,
           ruleName
