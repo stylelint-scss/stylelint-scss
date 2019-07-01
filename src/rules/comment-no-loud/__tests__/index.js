@@ -20,19 +20,6 @@ testRule(rule, {
       message: messages.expected
     },
     {
-      code: "/* comment",
-      description: "One line with no ending",
-      message: messages.expected
-    },
-    {
-      code: `
-        /* comment line 1
-           comment line 2 
-    `,
-      description: "Multline comment with no ending",
-      message: messages.expected
-    },
-    {
       code: `
         /* comment line 1
            comment line 2 
