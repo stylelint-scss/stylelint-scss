@@ -2,7 +2,7 @@ import rule, { ruleName, messages } from "..";
 
 testRule(rule, {
   ruleName,
-  config: [true],
+  config: ["always"],
   syntax: "scss",
 
   accept: [

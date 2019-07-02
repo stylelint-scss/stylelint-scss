@@ -11,7 +11,8 @@ export const messages = utils.ruleMessages(ruleName, {
 function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary
+      actual: primary,
+      possible: ["always"]
     });
 
     if (!validOptions) {

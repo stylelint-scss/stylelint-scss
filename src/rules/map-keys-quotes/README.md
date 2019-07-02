@@ -11,7 +11,7 @@ $test: (Helvetica: 14px, Arial: 25px);
 
 ## Options
 
-### `true`
+### `always`
 
 The following patterns are considered violations:
 
