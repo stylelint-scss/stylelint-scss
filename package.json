@@ -33,7 +33,7 @@
     "husky": "^2.5.0",
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
-    "lint-staged": "^8.2.1",
+    "lint-staged": "^9.0.0",
     "npmpub": "^4.1.0",
     "postcss": "^7.0.17",
     "postcss-scss": "^2.0.0",
