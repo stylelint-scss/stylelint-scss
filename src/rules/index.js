@@ -33,6 +33,7 @@ import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
 import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-inside";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
+import mapKeysQuotes from "./map-keys-quotes";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
 import operatorNoNewlineBefore from "./operator-no-newline-before";
@@ -77,6 +78,7 @@ export default {
   "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
   "function-quote-no-quoted-strings-inside": functionNoQuotedStrings,
   "function-unquote-no-unquoted-strings-inside": functionNoUnquotedStrings,
+  "map-keys-quotes": mapKeysQuotes,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
