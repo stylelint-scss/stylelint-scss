@@ -116,6 +116,10 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`double-slash-comment-inline`](./src/rules/double-slash-comment-inline/README.md): Require or disallow `//`-comments to be inline comments.
 - [`double-slash-comment-whitespace-inside`](./src/rules/double-slash-comment-whitespace-inside/README.md): Require or disallow whitespace after the `//` in `//`-comments
 
+### Comment
+
+- [`comment-no-loud`](./src/rules/comment-no-loud/README.md): Disallow `/*`-comments.
+
 ### Declaration
 
 - [`declaration-nested-properties`](./src/rules/declaration-nested-properties/README.md): Require or disallow properties with `-` in their names to be in a form of a nested group.
@@ -123,8 +127,13 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### Function
 
+- [`function-color-relative`](./src/rules/function-color-relative/README.md): Encourage the use of the [scale-color](https://sass-lang.com/documentation/functions/color#scale-color) function over regular color functions.
 - [`function-quote-no-quoted-strings-inside`](./src/rules/function-quote-no-quoted-strings-inside/README.md): Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote) (Autofixable).
 - [`function-unquote-no-unquoted-strings-inside`](./src/rules/function-unquote-no-unquoted-strings-inside/README.md): Disallow unquoted strings inside the [unquote function](https://sass-lang.com/documentation/functions/string#unquote) (Autofixable).
+
+### Map
+
+- [`map-keys-quotes`](./src/rules/map-keys-quotes/README.md): Require quoted keys in Sass maps.
 
 ### Media feature
 

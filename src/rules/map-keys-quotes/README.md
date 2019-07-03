@@ -1,6 +1,6 @@
 # map-keys-quotes
 
-All map keys should be quoted.
+Require quoted keys in Sass maps.
 
 ```scss
 $test: (Helvetica: 14px, Arial: 25px);
