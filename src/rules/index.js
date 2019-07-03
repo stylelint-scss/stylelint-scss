@@ -17,6 +17,7 @@ import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
 import atEachKeyValue from "./at-each-key-value-single-line";
 import atRuleNoUnknown from "./at-rule-no-unknown";
+import commentNoLoud from "./comment-no-loud";
 import declarationNestedProperties from "./declaration-nested-properties";
 import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
 import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after";
@@ -64,6 +65,7 @@ export default {
   "at-mixin-pattern": atMixinPattern,
   "at-each-key-value-single-line": atEachKeyValue,
   "at-rule-no-unknown": atRuleNoUnknown,
+  "comment-no-loud": commentNoLoud,
   "declaration-nested-properties": declarationNestedProperties,
   "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
