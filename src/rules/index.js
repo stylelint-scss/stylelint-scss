@@ -17,6 +17,7 @@ import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
 import atEachKeyValue from "./at-each-key-value-single-line";
 import atRuleNoUnknown from "./at-rule-no-unknown";
+import commentNoLoud from "./comment-no-loud";
 import declarationNestedProperties from "./declaration-nested-properties";
 import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
 import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after";
@@ -34,6 +35,7 @@ import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-in
 import functionColorRelative from "./function-color-relative";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
+import mapKeysQuotes from "./map-keys-quotes";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
 import operatorNoNewlineBefore from "./operator-no-newline-before";
@@ -42,6 +44,7 @@ import partialNoImport from "./partial-no-import";
 import percentPlaceholderPattern from "./percent-placeholder-pattern";
 import selectorNestCombinators from "./selector-nest-combinators";
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector";
+import selectorNoUnionClassName from "./selector-no-union-class-name";
 
 export default {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
@@ -63,6 +66,7 @@ export default {
   "at-mixin-pattern": atMixinPattern,
   "at-each-key-value-single-line": atEachKeyValue,
   "at-rule-no-unknown": atRuleNoUnknown,
+  "comment-no-loud": commentNoLoud,
   "declaration-nested-properties": declarationNestedProperties,
   "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
@@ -78,6 +82,7 @@ export default {
   "function-quote-no-quoted-strings-inside": functionNoQuotedStrings,
   "function-unquote-no-unquoted-strings-inside": functionNoUnquotedStrings,
   "function-color-relative": functionColorRelative,
+  "map-keys-quotes": mapKeysQuotes,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
@@ -87,5 +92,6 @@ export default {
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "partial-no-import": partialNoImport,
   "selector-nest-combinators": selectorNestCombinators,
-  "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector
+  "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,
+  "selector-no-union-class-name": selectorNoUnionClassName
 };
