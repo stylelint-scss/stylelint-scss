@@ -1,5 +1,9 @@
-# HEAD
+# 3.9.0
 
+- Added: `selector-no-union-class-name` rule.
+- Added: `function-color-relative` rule.
+- Added: `comment-no-loud` rule.
+- Added: `map-keys-quotes` rule.
 - Fixed: typo in error message for `at-else-empty-line-before` and `dollar-variable-empty-line-before` rules.
 
 # 3.8.0
