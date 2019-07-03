@@ -32,6 +32,7 @@ import doubleSlashCommentInline from "./double-slash-comment-inline";
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
 import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
 import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-inside";
+import functionColorRelative from "./function-color-relative";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
 import mapKeysQuotes from "./map-keys-quotes";
@@ -80,6 +81,7 @@ export default {
   "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
   "function-quote-no-quoted-strings-inside": functionNoQuotedStrings,
   "function-unquote-no-unquoted-strings-inside": functionNoUnquotedStrings,
+  "function-color-relative": functionColorRelative,
   "map-keys-quotes": mapKeysQuotes,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
