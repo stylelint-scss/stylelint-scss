@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 testRule(rule, {
   ruleName,
@@ -28,7 +28,73 @@ testRule(rule, {
         & span {}
       }
     `,
-      description: "when an ampersand is chained with conbinator"
+      description: "when an ampersand is chained with combinator"
+    },
+    {
+      code: `
+      .class {
+        & + span {}
+      }
+    `,
+      description:
+        "when an ampersand is chained with the adjacent sibling combinator"
+    },
+    {
+      code: `
+      .class {
+        & ~ span {}
+      }
+    `,
+      description:
+        "when an ampersand is chained with the general sibling combinator"
+    },
+    {
+      code: `
+      .class {
+        & > span {}
+      }
+    `,
+      description: "when an ampersand is chained with the child combinator "
+    },
+    {
+      code: `
+      .class {
+        &:last-child {
+          margin-left: 0.75rem;
+        }
+      }
+      `,
+      description: "ignores an ampersand chained with a pseudo-class"
+    },
+    {
+      code: `
+      .class {
+        &::after {
+          margin-left: 0.75rem;
+        }
+      }
+      `,
+      description: "ignores an ampersand chained with a pseudo-element"
+    },
+    {
+      code: `
+      .class {
+        &#divID {
+          margin-left: 0.75rem;
+        }
+      }
+      `,
+      description: "ignores an ampersand chained with an ID"
+    },
+    {
+      code: `
+      .class {
+        &[title] {
+          margin-left: 0.75rem;
+        }
+      }
+      `,
+      description: "ignores an ampersand chained with an attribute"
     }
   ],
 
