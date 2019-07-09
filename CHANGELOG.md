@@ -1,3 +1,7 @@
+# 3.9.1
+
+- Fixed: `selector-no-union-class-name` false positives for id, attribute, and pseudo selectors.
+
 # 3.9.0
 
 - Added: `selector-no-union-class-name` rule.
