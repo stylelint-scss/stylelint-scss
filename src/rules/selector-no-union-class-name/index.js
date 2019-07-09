@@ -1,12 +1,28 @@
+import {
+  isAttribute,
+  isClassName,
+  isCombinator,
+  isIdentifier,
+  isPseudoClass,
+  isPseudoElement
+} from "postcss-selector-parser";
 import { utils } from "stylelint";
 import { namespace, parseSelector } from "../../utils";
-import { isClassName, isCombinator } from "postcss-selector-parser";
 
 export const ruleName = namespace("selector-no-union-class-name");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected union class name with the parent selector (&)"
 });
+
+const validNestingTypes = [
+  isClassName,
+  isCombinator,
+  isAttribute,
+  isIdentifier,
+  isPseudoClass,
+  isPseudoElement
+];
 
 export default function(actual) {
   return function(root, result) {
@@ -33,9 +49,7 @@ export default function(actual) {
 
           if (!next) return;
 
-          if (isCombinator(next)) return;
-
-          if (isClassName(next)) return;
+          if (validNestingTypes.some(isType => isType(next))) return;
 
           utils.report({
             ruleName,
