@@ -9,28 +9,32 @@ testRule(rule, {
   accept: [
     {
       code: `a {
-      @if ($x == 1) {}
-      width: 10px;
+      @if ($x) {}
     }`,
-      description: "always-last-in-chain (no @else, has newline after)."
+      description: "does not use the != null format"
+    },
+    {
+      code: `a {
+      @if not ($x) {}
+    }`,
+      description: "does not use the == null format"
     }
   ],
 
   reject: [
     {
       code: `a {
-      @if ($x == 1) {
-
-      } width: 10px;
+      @if ($x == null) {}
     }`,
-      fixed: `a {
-      @if ($x == 1) {
-
-      }
-width: 10px;
+      description: "uses the == null format",
+      message: messages.expected,
+      line: 4
+    },
+    {
+      code: `a {
+      @if ($x != null) {}
     }`,
-      description:
-        "always-last-in-chain (has decl on the same line as its closing brace).",
+      description: "uses the != null format",
       message: messages.expected,
       line: 4
     }
