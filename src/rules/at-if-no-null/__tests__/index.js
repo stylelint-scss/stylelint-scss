@@ -4,7 +4,6 @@ testRule(rule, {
   ruleName,
   config: [true],
   syntax: "scss",
-  fix: true,
 
   accept: [
     {
@@ -28,7 +27,7 @@ testRule(rule, {
     }`,
       description: "uses the == null format",
       message: messages.equals_null,
-      line: 4
+      line: 2
     },
     {
       code: `a {
@@ -36,7 +35,7 @@ testRule(rule, {
     }`,
       description: "uses the != null format",
       message: messages.not_equals_null,
-      line: 4
+      line: 2
     }
   ]
 });

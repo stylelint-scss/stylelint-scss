@@ -1,6 +1,5 @@
-import { isSingleLineString, namespace } from "../../utils";
+import { namespace } from "../../utils";
 import { utils } from "stylelint";
-import { isBoolean } from "lodash";
 
 export const ruleName = namespace("at-if-no-null");
 
@@ -9,7 +8,7 @@ export const messages = utils.ruleMessages(ruleName, {
   not_equals_null: "Expected @if(!statement) rather than @if(statement != null)"
 });
 
-export default function(expectation, _, context) {
+export default function(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -25,14 +24,14 @@ export default function(expectation, _, context) {
         return;
       }
 
-      if (atrule.params.match(/\(.* == null\)/)) {
+      if (atrule.params.match(/\([ \t]*.* == null[ \t]*\)/)) {
         utils.report({
           message: messages.equals_null,
           node: atrule,
           result,
           ruleName
         });
-      } else if (atrule.params.match(/\(.* != null \)/)) {
+      } else if (atrule.params.match(/\([ \t]*.* != null[ \t]*\)/)) {
         utils.report({
           message: messages.not_equals_null,
           node: atrule,
