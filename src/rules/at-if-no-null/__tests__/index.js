@@ -2,7 +2,7 @@ import rule, { ruleName, messages } from "..";
 
 testRule(rule, {
   ruleName,
-  config: ["always-last-in-chain"],
+  config: [true],
   syntax: "scss",
   fix: true,
 
@@ -27,7 +27,7 @@ testRule(rule, {
       @if ($x == null) {}
     }`,
       description: "uses the == null format",
-      message: messages.expected,
+      message: messages.equals_null,
       line: 4
     },
     {
@@ -35,7 +35,7 @@ testRule(rule, {
       @if ($x != null) {}
     }`,
       description: "uses the != null format",
-      message: messages.expected,
+      message: messages.not_equals_null,
       line: 4
     }
   ]

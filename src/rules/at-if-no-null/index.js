@@ -18,5 +18,28 @@ export default function(expectation, _, context) {
     if (!validOptions) {
       return;
     }
+
+    root.walkAtRules(atrule => {
+      // Do nothing if it's not an @if
+      if (atrule.name !== "if") {
+        return;
+      }
+
+      if (atrule.params.match(/\(.* == null\)/)) {
+        utils.report({
+          message: messages.equals_null,
+          node: atrule,
+          result,
+          ruleName
+        });
+      } else if (atrule.params.match(/\(.* != null \)/)) {
+        utils.report({
+          message: messages.not_equals_null,
+          node: atrule,
+          result,
+          ruleName
+        });
+      }
+    });
   };
 }
