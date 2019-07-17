@@ -35,9 +35,13 @@ export default function(actual) {
     root.walkRules(/&/, rule => {
       const parentNodes = [];
 
-      parseSelector(rule.parent.selector, result, rule, fullSelector => {
-        fullSelector.walk(node => parentNodes.push(node));
-      });
+      if (rule.parent && rule.parent.selector) {
+        parseSelector(rule.parent.selector, result, rule, fullSelector => {
+          fullSelector.walk(node => parentNodes.push(node));
+        });
+      }
+
+      if (parentNodes.length === 0) return;
 
       const lastParentNode = parentNodes[parentNodes.length - 1];
 
