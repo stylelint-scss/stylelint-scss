@@ -1,3 +1,7 @@
+# 3.9.2
+
+- Fixed: `selector-no-union-class-name` throwing an error when using nested `@`-rules.
+
 # 3.9.1
 
 - Fixed: `selector-no-union-class-name` false positives for id, attribute, and pseudo selectors.
