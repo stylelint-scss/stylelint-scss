@@ -95,6 +95,20 @@ testRule(rule, {
       }
       `,
       description: "ignores an ampersand chained with an attribute"
+    },
+    {
+      code: `
+      @mixin demo() {
+        @content;
+      }
+      .a-selector {
+        @include demo() {
+          button:hover & {
+  	        background:purple
+          }
+        }
+      }`,
+      description: "should not throw an error when using nesting (issue #345)"
     }
   ],
 
