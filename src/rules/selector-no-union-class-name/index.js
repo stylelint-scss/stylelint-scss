@@ -35,8 +35,10 @@ export default function(actual) {
     root.walkRules(/&/, rule => {
       const parentNodes = [];
 
-      if (rule.parent && rule.parent.selector) {
-        parseSelector(rule.parent.selector, result, rule, fullSelector => {
+      const selector = getSelectorFromRule(rule.parent);
+
+      if (selector) {
+        parseSelector(selector, result, rule, fullSelector => {
           fullSelector.walk(node => parentNodes.push(node));
         });
       }
@@ -66,4 +68,22 @@ export default function(actual) {
       });
     });
   };
+}
+
+/**
+ * Searches for the closest rule which
+ * has a selector and returns the selector
+ * @returns {string|undefined}
+ */
+function getSelectorFromRule(rule) {
+  // All non at-rules have their own selector
+  if (rule.selector !== undefined) {
+    return rule.selector;
+  }
+
+  // At-rules like @mixin don't have a selector themself
+  // but their parents might have one
+  if (rule.parent) {
+    return getSelectorFromRule(rule.parent);
+  }
 }
