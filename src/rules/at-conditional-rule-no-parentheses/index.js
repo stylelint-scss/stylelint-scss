@@ -7,7 +7,17 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Do not use () to surround statements for @-rules"
 });
 
-const conditional_rules = ["if", "while", "else if"];
+// postcss picks up else-if as else.
+const conditional_rules = ["if", "while", "else"];
+
+function report(atrule, result) {
+  utils.report({
+    message: messages.rejected,
+    node: atrule,
+    result,
+    ruleName
+  });
+}
 
 export default function(primary) {
   return (root, result) => {
@@ -25,13 +35,17 @@ export default function(primary) {
         return;
       }
 
-      if (atrule.params.match(/ ?\(.*\) ?/)) {
-        utils.report({
-          message: messages.rejected,
-          node: atrule,
-          result,
-          ruleName
-        });
+      // Else uses a different regex
+      // params are of format "`if (cond)` or `if cond`
+      // instead of `(cond)` or `cond`"
+      if (atrule.name === "else") {
+        if (atrule.params.match(/ ?if ?\(.*\) ?/)) {
+          report(atrule, result);
+        }
+      } else {
+        if (atrule.params.match(/ ?\(.*\) ?/)) {
+          report(atrule, result);
+        }
       }
     });
   };

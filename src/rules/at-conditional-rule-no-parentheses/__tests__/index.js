@@ -29,7 +29,7 @@ testRule(rule, {
       description: "does not accept @if with parentheses"
     },
     {
-      code: "@while true {}",
+      code: "@while(true){}",
       fixed: "@while true {}",
       message: messages.rejected,
       description: "does not accept @while with parentheses"

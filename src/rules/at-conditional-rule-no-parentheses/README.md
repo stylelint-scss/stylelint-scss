@@ -8,6 +8,8 @@ Disallow parentheses in conditional @ rules (if, elsif, while)
  * Get rid of parentheses like this. */
 ```
 
+
+
 ## Options
 
 ### `true`
