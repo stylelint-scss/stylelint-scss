@@ -1,3 +1,4 @@
+import atConditionalRuleNoParen from "./at-conditional-rule-no-parentheses";
 import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder";
 import atElseClosingBraceNewlineAfter from "./at-else-closing-brace-newline-after";
 import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after";
@@ -47,6 +48,7 @@ import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-
 import selectorNoUnionClassName from "./selector-no-union-class-name";
 
 export default {
+  "at-conditional-rule-no-parentheses": atConditionalRuleNoParen,
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
   "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,
   "at-else-closing-brace-space-after": atElseClosingBraceSpaceAfter,
