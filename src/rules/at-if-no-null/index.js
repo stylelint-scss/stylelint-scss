@@ -24,14 +24,14 @@ export default function(expectation) {
         return;
       }
 
-      if (atrule.params.match(/\([ \t]*.* == null[ \t]*\)/)) {
+      if (atrule.params.match(/\(?[ \t]*.* == null[ \t]*\)?/)) {
         utils.report({
           message: messages.equals_null,
           node: atrule,
           result,
           ruleName
         });
-      } else if (atrule.params.match(/\([ \t]*.* != null[ \t]*\)/)) {
+      } else if (atrule.params.match(/\(?[ \t]*.* != null[ \t]*\)?/)) {
         utils.report({
           message: messages.not_equals_null,
           node: atrule,
