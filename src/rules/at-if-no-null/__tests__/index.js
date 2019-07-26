@@ -8,13 +8,13 @@ testRule(rule, {
   accept: [
     {
       code: `a {
-      @if ($x) {}
+      @if $x {}
     }`,
       description: "does not use the != null format"
     },
     {
       code: `a {
-      @if not ($x) {}
+      @if not $x {}
     }`,
       description: "does not use the == null format"
     }
@@ -23,7 +23,7 @@ testRule(rule, {
   reject: [
     {
       code: `a {
-      @if ($x == null) {}
+      @if $x == null {}
     }`,
       description: "uses the == null format",
       message: messages.equals_null,
@@ -31,7 +31,7 @@ testRule(rule, {
     },
     {
       code: `a {
-      @if ($x != null) {}
+      @if $x != null {}
     }`,
       description: "uses the != null format",
       message: messages.not_equals_null,

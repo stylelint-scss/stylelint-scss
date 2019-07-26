@@ -4,7 +4,7 @@ Check for equality to null is unnecessarily explicit since `null` is falsey in S
 
 ```scss
 a {
-    @if ($x == null) {}
+    @if $x == null {}
 /**         ↑     ↑
  * == or != null is unncessary */
 }
@@ -12,20 +12,20 @@ a {
 
 ## Options
 
-always
+true
 
-### `always`
+### `true`
 
 The following patterns are considered warnings:
 ```scss
 a {
-    @if ($x == null) {}
+    @if $x == null {}
 }
 ```
 
 ```scss
 a {
-    @if ($x != null) {}
+    @if $x != null {}
 }
 ```
 
@@ -33,12 +33,12 @@ The following patterns are *not* considered warnings:
 
 ```scss
 a {
-    @if ($x) {}
+    @if $x {}
 }
 ```
 
 ```scss
 a {
-    @if not ($x) {}
+    @if not $x {}
 }
 ```
