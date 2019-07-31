@@ -1,6 +1,6 @@
+import valueParser from "postcss-value-parser";
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
-import valueParser from "postcss-value-parser";
 
 export const ruleName = namespace("map-keys-quotes");
 
@@ -34,7 +34,7 @@ function rule(primary) {
           const mapKeys = returnMapKeys(node.nodes);
 
           mapKeys.forEach(map_key => {
-            if (map_key.type === "word") {
+            if (map_key.type === "word" && isNaN(map_key.value)) {
               utils.report({
                 message: messages.expected,
                 node: decl,
