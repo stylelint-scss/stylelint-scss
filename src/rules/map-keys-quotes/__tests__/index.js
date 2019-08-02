@@ -16,7 +16,7 @@ testRule(rule, {
       code: `
         $test: ('foo': 14px, 'bar': 25px);
       `,
-      description: "accepts strings without quotes"
+      description: "accepts strings with quotes"
     },
     {
       code: `
