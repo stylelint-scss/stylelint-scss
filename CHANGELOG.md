@@ -1,4 +1,4 @@
-# HEAD
+# 3.9.3
 
 - Fixed: `map-keys-quotes` warning for unquoted numeric keys.
 
