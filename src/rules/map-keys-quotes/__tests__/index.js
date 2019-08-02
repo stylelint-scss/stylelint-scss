@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 testRule(rule, {
   ruleName,
@@ -11,6 +11,40 @@ testRule(rule, {
         $test: ("foo": 14px, "bar": 25px);
       `,
       description: "accepts strings without quotes"
+    },
+    {
+      code: `
+        $test: ('foo': 14px, 'bar': 25px);
+      `,
+      description: "accepts strings with quotes"
+    },
+    {
+      code: `
+      $colors: (
+        250: #eef9ff,
+        300: #bbe7ff,
+        350: #b7d3e6,
+        500: #1388db,
+        750: #0f6bac,
+        900: #2e4662
+      );
+      `,
+      description: "accepts numbers"
+    },
+    {
+      code: `
+      $colors: (
+        'primary': (
+          250: #eef9ff,
+          300: #bbe7ff,
+          350: #b7d3e6,
+          500: #1388db,
+          750: #0f6bac,
+          900: #2e4662,
+        )
+      );
+      `,
+      description: "accepts numbers (nested)"
     }
   ],
 

@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `map-keys-quotes` warning for unquoted numeric keys.
+
 # 3.9.2
 
 - Fixed: `selector-no-union-class-name` throwing an error when using nested `@`-rules.
