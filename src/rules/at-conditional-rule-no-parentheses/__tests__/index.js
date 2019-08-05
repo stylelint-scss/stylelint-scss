@@ -4,6 +4,7 @@ testRule(rule, {
   ruleName,
   config: [true],
   syntax: "scss",
+  fix: true,
 
   accept: [
     {
@@ -18,6 +19,12 @@ testRule(rule, {
       code: `@if true {}
       @else if true {}`,
       description: "accepts @else if with no parentheses"
+    },
+    {
+      code: `@if true {}
+      @else if true {}
+      @else {}`,
+      description: "accepts @else unconditionally"
     }
   ],
 
@@ -29,24 +36,18 @@ testRule(rule, {
       description: "does not accept @if with parentheses"
     },
     {
-      code: "@while(true){}",
+      code: "@while(true) {}",
       fixed: "@while true {}",
       message: messages.rejected,
       description: "does not accept @while with parentheses"
     },
     {
       code: `@if true {}
-      @else if(true){}`,
+      @else if(true) {}`,
       fixed: `@if true {}
       @else if true {}`,
       message: messages.rejected,
       description: "does not accept @else if with parentheses"
-    },
-    {
-      code: "@if (true) {}",
-      fixed: "@if true {}",
-      message: messages.rejected,
-      description: "doesn't allow parentheses even if there's spaces"
     }
   ]
 });

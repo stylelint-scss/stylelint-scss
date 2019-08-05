@@ -19,7 +19,16 @@ function report(atrule, result) {
   });
 }
 
-export default function(primary) {
+function fix(atrule) {
+  const regex = /(if)? ?\((.*)\)/;
+
+  // 2 regex groups: 'if ' and cond.
+  const groups = atrule.params.match(regex).slice(1);
+
+  atrule.params = Array.from(new Set(groups)).join(" ");
+}
+
+export default function(primary, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -40,11 +49,19 @@ export default function(primary) {
       // instead of `(cond)` or `cond`"
       if (atrule.name === "else") {
         if (atrule.params.match(/ ?if ?\(.*\) ?/)) {
-          report(atrule, result);
+          if (context.fix) {
+            fix(atrule);
+          } else {
+            report(atrule, result);
+          }
         }
       } else {
         if (atrule.params.match(/ ?\(.*\) ?/)) {
-          report(atrule, result);
+          if (context.fix) {
+            fix(atrule);
+          } else {
+            report(atrule, result);
+          }
         }
       }
     });
