@@ -17,6 +17,12 @@ testRule(rule, {
       @if not $x {}
     }`,
       description: "does not use the == null format"
+    },
+    {
+      code: `a {
+      @if $x != null and $x > 1 {}
+    }`,
+      description: "does not use the == null format"
     }
   ],
 

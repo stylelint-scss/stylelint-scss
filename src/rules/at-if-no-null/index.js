@@ -24,6 +24,11 @@ export default function(expectation) {
         return;
       }
 
+      // If rule != null and (expr), skip
+      if (atrule.params.match(/\(?[ \t]*.* != null and .*\)?/)) {
+        return;
+      }
+
       if (atrule.params.match(/\(?[ \t]*.* == null[ \t]*\)?/)) {
         utils.report({
           message: messages.equals_null,
