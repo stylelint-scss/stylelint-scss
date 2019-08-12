@@ -1,10 +1,11 @@
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
+import _ from "lodash";
 
 export const ruleName = namespace("at-conditional-rule-no-parentheses");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Do not use () to surround statements for @-rules"
+  rejected: "Unexpected () used to surround statements for @-rules"
 });
 
 // postcss picks up else-if as else.
@@ -25,7 +26,7 @@ function fix(atrule) {
   // 2 regex groups: 'if ' and cond.
   const groups = atrule.params.match(regex).slice(1);
 
-  atrule.params = Array.from(new Set(groups)).join(" ");
+  atrule.params = _.uniq(groups).join(" ");
 }
 
 export default function(primary, _, context) {
