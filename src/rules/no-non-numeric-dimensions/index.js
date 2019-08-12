@@ -109,7 +109,7 @@ function isInterpolated(value) {
   let boolean = false;
 
   units.forEach(unit => {
-    const regex = new RegExp("#{[$a-z_-]*}" + unit);
+    const regex = new RegExp("^#{[$a-z_0-9 +-]*}" + unit + ";?$");
 
     if (value.match(regex)) {
       boolean = true;

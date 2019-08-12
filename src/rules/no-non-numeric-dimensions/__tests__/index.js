@@ -11,7 +11,16 @@ testRule(rule, {
     }
     `,
     description: "Accepts proper value interpolation with %unit%"
-  }),
+  }).concat([
+    {
+      code: "$pad: 2; $doublePad: px#{$pad}px;",
+      description: "does not report when a unit is preceded by another string"
+    },
+    {
+      code: "$pad: 2; $doublePad: #{$pad}pxx;",
+      description: "does not report lint when no understood units are used"
+    }
+  ]),
   reject: loopOverUnits({
     code: `
       p {
@@ -20,7 +29,13 @@ testRule(rule, {
       `,
     messages: messages.rejected,
     description: "Rejects interpolation with %unit%"
-  })
+  }).concat([
+    {
+      code: "$pad: 2; $padAndMore: #{$pad + 5}px;",
+      description: "reports lint when expression used in interpolation",
+      messages: messages.rejected("px")
+    }
+  ])
 });
 
 function loopOverUnits(codeBlock) {
