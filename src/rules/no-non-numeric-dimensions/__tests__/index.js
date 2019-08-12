@@ -4,28 +4,7 @@ testRule(rule, {
   ruleName,
   config: [true],
   syntax: "scss",
-  accept: [
-    {
-      code: `
-    p {
-      padding: "1" * 1em;
-    }
-    `,
-      description: "Accepts proper value interpolation with em"
-    }
-  ],
-  reject: [
-    {
-      code: `
-      p {
-        padding: #{value}em;
-      }
-      `,
-      messages: messages.rejected,
-      description: "Rejects interpolation with em"
-    }
-  ],
-  acceptBlah: loopOverUnits({
+  accept: loopOverUnits({
     code: `
     p {
       padding: "1" * 1%unit%;
@@ -33,7 +12,7 @@ testRule(rule, {
     `,
     description: "Accepts proper value interpolation with %unit%"
   }),
-  rejectBlah: loopOverUnits({
+  reject: loopOverUnits({
     code: `
       p {
         padding: #{value}%unit%;
@@ -45,11 +24,16 @@ testRule(rule, {
 });
 
 function loopOverUnits(codeBlock) {
-  units.map(unit => {
-    return {
+  return units.map(unit => {
+    const block = {
       code: codeBlock.code.replace("%unit%", unit),
-      description: codeBlock.description.replace("%unit%", unit),
-      messages: codeBlock.messages
+      description: codeBlock.description.replace("%unit%", unit)
     };
+
+    if (codeBlock.messages) {
+      block["messages"] = codeBlock.messages.call(unit);
+    }
+
+    return block;
   });
 }

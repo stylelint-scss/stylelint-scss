@@ -5,7 +5,7 @@ import valueParser from "postcss-value-parser";
 export const ruleName = namespace("no-non-numeric-dimensions");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Expected `$value * 1px` instead of `#{value}px"
+  rejected: unit => `Expected "$value * 1${unit}" instead of "#{value}${unit}"`
 });
 
 export const units = [
