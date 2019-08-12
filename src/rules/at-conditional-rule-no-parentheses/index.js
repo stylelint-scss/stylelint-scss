@@ -49,7 +49,7 @@ export default function(primary, _, context) {
       // params are of format "`if (cond)` or `if cond`
       // instead of `(cond)` or `cond`"
       if (atrule.name === "else") {
-        if (atrule.params.match(/ ?if ?\(.*\) ?/)) {
+        if (atrule.params.match(/ ?if ?\(.*\) ?$/)) {
           if (context.fix) {
             fix(atrule);
           } else {
@@ -57,7 +57,7 @@ export default function(primary, _, context) {
           }
         }
       } else {
-        if (atrule.params.match(/ ?\(.*\) ?/)) {
+        if (atrule.params.match(/ ?\(.*\) ?$/)) {
           if (context.fix) {
             fix(atrule);
           } else {

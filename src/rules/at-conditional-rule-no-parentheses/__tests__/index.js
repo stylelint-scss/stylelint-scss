@@ -12,6 +12,10 @@ testRule(rule, {
       description: "accepts @if with no parentheses"
     },
     {
+      code: "@if (1 + 1) == 2 {}",
+      description: "accepts parentheses statement where () used for math"
+    },
+    {
       code: "@while true {}",
       description: "accepts @while with no parentheses"
     },
