@@ -15,7 +15,7 @@ testRule(rule, {
   reject: loopOverUnits({
     code: `
       p {
-        padding: #{value}%unit%;
+        padding: #{$value}%unit%;
       }
       `,
     messages: messages.rejected,
