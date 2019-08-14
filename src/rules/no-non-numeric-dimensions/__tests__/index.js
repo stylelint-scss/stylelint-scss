@@ -23,7 +23,7 @@ testRule(rule, {
     {
       code: `$pad: "2";
       $string: "#{$pad}px";`,
-      description: "does not report lint when no understood units are used"
+      description: "does not report lint when string is quoted"
     }
   ]),
   reject: loopOverUnits({
