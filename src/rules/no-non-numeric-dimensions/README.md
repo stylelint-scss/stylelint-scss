@@ -91,6 +91,3 @@ Resolution units ([link](https://www.w3.org/TR/css-values-4/#resolution))
 
 Flexible lengths ([link](https://www.w3.org/TR/css-grid-1/#fr-unit))
 * fr
-
-Percentage ([link](https://www.w3.org/TR/css-values-4/#percentages))
-* %

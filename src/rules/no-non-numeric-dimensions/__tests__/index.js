@@ -7,7 +7,7 @@ testRule(rule, {
   accept: loopOverUnits({
     code: `
     p {
-      padding: "1" * 1%unit%;
+      padding: 1 * 1%unit%;
     }
     `,
     description: "Accepts proper value interpolation with %unit%"

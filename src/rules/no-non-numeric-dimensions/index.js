@@ -5,7 +5,8 @@ import valueParser from "postcss-value-parser";
 export const ruleName = namespace("no-non-numeric-dimensions");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: unit => `Expected "$value * 1${unit}" instead of "#{value}${unit}"`
+  rejected: unit =>
+    `Expected "$value * 1${unit}" instead of "#{value}${unit}". Consider writing "value" in terms of ${unit} originally.`
 });
 
 export const units = [
@@ -65,11 +66,7 @@ export const units = [
 
   // Flexible lengths:
   // https://www.w3.org/TR/css-grid-1/#fr-unit
-  "fr",
-
-  // Percentage:
-  // https://www.w3.org/TR/css-values-4/#percentages
-  "%"
+  "fr"
 ];
 
 export default function rule(primary) {
