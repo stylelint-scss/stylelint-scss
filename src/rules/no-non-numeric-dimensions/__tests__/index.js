@@ -19,6 +19,11 @@ testRule(rule, {
     {
       code: "$pad: 2; $doublePad: #{$pad}pxx;",
       description: "does not report lint when no understood units are used"
+    },
+    {
+      code: `$pad: "2";
+      $string: "#{$pad}px";`,
+      description: "does not report lint when no understood units are used"
     }
   ]),
   reject: loopOverUnits({
