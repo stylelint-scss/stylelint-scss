@@ -33,6 +33,17 @@ testRule(rule, {
       }
     `,
       description: "{ always } Vendor prefixed rules."
+    },
+    {
+      code: `
+      a {
+        font: {
+          size: 10px;
+          weight: 400;
+        }
+      }
+      `,
+      description: "nested properties"
     }
   ]
 });

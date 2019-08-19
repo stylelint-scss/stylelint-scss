@@ -96,6 +96,17 @@ testRule(rule, {
       }
       `,
       description: "should support interpolation"
+    },
+    {
+      code: `
+      a {
+        font: {
+          size: 10px;
+          weight: 400;
+        }
+      }
+      `,
+      description: "ignores nested properties"
     }
   ],
 
@@ -240,6 +251,17 @@ testRule(rule, {
       .class-name #{if(&, "&", "")} {}
       `,
       description: "should support interpolation"
+    },
+    {
+      code: `
+      a {
+        font: {
+          size: 10px;
+          weight: 400;
+        }
+      }
+      `,
+      description: "ignores nested properties"
     }
   ],
 
