@@ -1,3 +1,7 @@
+# 3.9.4
+
+- Fixed: `selector-nest-combinators` rule throwing an error when using nested props.
+
 # 3.9.3
 
 - Fixed: `map-keys-quotes` warning for unquoted numeric keys.
