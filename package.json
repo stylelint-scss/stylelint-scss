@@ -39,7 +39,7 @@
     "postcss-scss": "^2.0.0",
     "prettier": "^1.18.2",
     "request": "^2.88.0",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.0",
     "semver": "^6.3.0",
     "stylelint": "^10.1.0"
   },
