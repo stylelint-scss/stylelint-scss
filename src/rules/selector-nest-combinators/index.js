@@ -46,6 +46,14 @@ export default function(expectation) {
     const interpolationRe = /#{.+?}$/;
 
     root.walkRules(rule => {
+      if (typeof rule.selector === "string") {
+        const isNestedProperty = rule.selector.slice(-1) === ":";
+
+        if (isNestedProperty) {
+          return;
+        }
+      }
+
       parseSelector(rule.selector, result, rule, fullSelector => {
         let message;
 
