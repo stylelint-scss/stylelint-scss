@@ -1,3 +1,10 @@
+# 3.10.0
+
+- Added: `at-if-no-null`rule.
+- Added: `at-import-partial-extension` rule.
+- Added: `at-rule-conditional-no-parentheses` rule.
+- Added: `dimension-no-non-numeric-values` rule.
+
 # 3.9.4
 
 - Fixed: `selector-nest-combinators` rule throwing an error when using nested props.
