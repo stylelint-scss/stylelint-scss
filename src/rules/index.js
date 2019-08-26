@@ -17,6 +17,7 @@ import atMixinNamedArguments from "./at-mixin-named-arguments";
 import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
 import atEachKeyValue from "./at-each-key-value-single-line";
+import atRuleConditionalNoParen from "./at-rule-conditional-no-parentheses";
 import atRuleNoUnknown from "./at-rule-no-unknown";
 import commentNoLoud from "./comment-no-loud";
 import declarationNestedProperties from "./declaration-nested-properties";
@@ -67,6 +68,7 @@ export default {
   "at-mixin-parentheses-space-before": atMixinParenthesesSpaceBefore,
   "at-mixin-pattern": atMixinPattern,
   "at-each-key-value-single-line": atEachKeyValue,
+  "at-rule-conditional-no-parentheses": atRuleConditionalNoParen,
   "at-rule-no-unknown": atRuleNoUnknown,
   "comment-no-loud": commentNoLoud,
   "declaration-nested-properties": declarationNestedProperties,
