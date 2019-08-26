@@ -22,6 +22,7 @@ import atRuleNoUnknown from "./at-rule-no-unknown";
 import commentNoLoud from "./comment-no-loud";
 import declarationNestedProperties from "./declaration-nested-properties";
 import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
+import dimensionNoNonNumeric from "./dimension-no-non-numeric-values";
 import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after";
 import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after";
 import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before";
@@ -73,6 +74,7 @@ export default {
   "comment-no-loud": commentNoLoud,
   "declaration-nested-properties": declarationNestedProperties,
   "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
+  "dimension-no-non-numeric-values": dimensionNoNonNumeric,
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
   "dollar-variable-colon-space-after": dollarVariableColonSpaceAfter,
   "dollar-variable-colon-space-before": dollarVariableColonSpaceBefore,
