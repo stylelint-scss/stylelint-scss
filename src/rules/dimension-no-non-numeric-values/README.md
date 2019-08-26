@@ -1,4 +1,4 @@
-# at-non-numeric-dimensions
+# dimension-no-non-numeric-values
 
 Interpolating a value with a unit (e.g. `#{$value}px`) results in a
 _string_ value, not as numeric value. This value then cannot be used in

@@ -2,7 +2,7 @@ import { utils } from "stylelint";
 import { namespace } from "../../utils";
 import valueParser from "postcss-value-parser";
 
-export const ruleName = namespace("no-non-numeric-dimensions");
+export const ruleName = namespace("dimension-no-non-numeric-values");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: unit =>

@@ -19,6 +19,7 @@ import atEachKeyValue from "./at-each-key-value-single-line";
 import atRuleNoUnknown from "./at-rule-no-unknown";
 import declarationNestedProperties from "./declaration-nested-properties";
 import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
+import dimensionNoNonNumeric from "./dimension-no-non-numeric-values";
 import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after";
 import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after";
 import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before";
@@ -33,7 +34,6 @@ import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
-import noNonNumericDimensions from "./no-non-numeric-dimensions";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
 import operatorNoNewlineBefore from "./operator-no-newline-before";
 import operatorNoUnspaced from "./operator-no-unspaced";
@@ -64,6 +64,7 @@ export default {
   "at-rule-no-unknown": atRuleNoUnknown,
   "declaration-nested-properties": declarationNestedProperties,
   "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
+  "dimension-no-non-numeric-values": dimensionNoNonNumeric,
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
   "dollar-variable-colon-space-after": dollarVariableColonSpaceAfter,
   "dollar-variable-colon-space-before": dollarVariableColonSpaceBefore,
@@ -78,7 +79,6 @@ export default {
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
-  "no-non-numeric-dimensions": noNonNumericDimensions,
   "operator-no-newline-after": operatorNoNewlineAfter,
   "operator-no-newline-before": operatorNoNewlineBefore,
   "operator-no-unspaced": operatorNoUnspaced,
