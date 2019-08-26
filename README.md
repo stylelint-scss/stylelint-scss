@@ -78,10 +78,12 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`at-if-closing-brace-newline-after`](./src/rules/at-if-closing-brace-newline-after/README.md): Require or disallow a newline after the closing brace of `@if` statements (Autofixable).
 - [`at-if-closing-brace-space-after`](./src/rules/at-if-closing-brace-space-after/README.md): Require a single space or disallow whitespace after the closing brace of `@if` statements (Autofixable).
+- [`at-if-no-null`](./src/rules/at-if-no-null/README.md): Disallow `null` in `@if` statements.
 
 ### `@`-import
 
 - [`at-import-no-partial-leading-underscore`](./src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
+- [`at-import-partial-extension`](./src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands.
 - [`at-import-partial-extension-blacklist`](./src/rules/at-import-partial-extension-blacklist/README.md): Specify blacklist of disallowed file extensions for partial names in `@import` commands.
 - [`at-import-partial-extension-whitelist`](./src/rules/at-import-partial-extension-whitelist/README.md): Specify whitelist of allowed file extensions for partial names in `@import` commands.
 
@@ -94,6 +96,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `@`-rule
 
+- [`at-rule-conditional-no-parentheses`](./src/rules/at-rule-conditional-no-parentheses/README.md): Disallow parentheses in conditional @ rules (if, elsif, while).
 - [`at-rule-no-unknown`](./src/rules/at-rule-no-unknown/README.md): Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](http://stylelint.io/user-guide/rules/at-rule-no-unknown/).
 
 ### `$`-variable
@@ -124,6 +127,10 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`declaration-nested-properties`](./src/rules/declaration-nested-properties/README.md): Require or disallow properties with `-` in their names to be in a form of a nested group.
 - [`declaration-nested-properties-no-divided-groups`](./src/rules/declaration-nested-properties-no-divided-groups/README.md): Disallow nested properties of the same "namespace" be divided into multiple groups.
+
+### Dimension
+
+- [`dimension-no-non-numeric-values`](./src/rules/dimension-no-non-numeric-values/README.md): Disallow non-numeric values when interpolating a value with a unit.
 
 ### Function
 
