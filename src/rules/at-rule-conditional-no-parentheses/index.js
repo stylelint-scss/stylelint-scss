@@ -29,7 +29,7 @@ function fix(atrule) {
   atrule.params = _.uniq(groups).join(" ");
 }
 
-export default function(primary, _, context) {
+export default function(primary, _unused, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -41,7 +41,7 @@ export default function(primary, _, context) {
 
     root.walkAtRules(atrule => {
       // Check if this is a conditional rule.
-      if (!conditional_rules.includes(atrule.name)) {
+      if (!_.includes(conditional_rules, atrule.name)) {
         return;
       }
 
