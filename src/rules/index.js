@@ -1,4 +1,3 @@
-import atConditionalRuleNoParen from "./at-conditional-rule-no-parentheses";
 import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder";
 import atElseClosingBraceNewlineAfter from "./at-else-closing-brace-newline-after";
 import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after";
@@ -17,6 +16,7 @@ import atMixinNamedArguments from "./at-mixin-named-arguments";
 import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
 import atMixinPattern from "./at-mixin-pattern";
 import atEachKeyValue from "./at-each-key-value-single-line";
+import atRuleConditionalNoParen from "./at-rule-conditional-no-parentheses";
 import atRuleNoUnknown from "./at-rule-no-unknown";
 import commentNoLoud from "./comment-no-loud";
 import declarationNestedProperties from "./declaration-nested-properties";
@@ -48,7 +48,6 @@ import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-
 import selectorNoUnionClassName from "./selector-no-union-class-name";
 
 export default {
-  "at-conditional-rule-no-parentheses": atConditionalRuleNoParen,
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
   "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,
   "at-else-closing-brace-space-after": atElseClosingBraceSpaceAfter,
@@ -67,6 +66,7 @@ export default {
   "at-mixin-parentheses-space-before": atMixinParenthesesSpaceBefore,
   "at-mixin-pattern": atMixinPattern,
   "at-each-key-value-single-line": atEachKeyValue,
+  "at-rule-conditional-no-parentheses": atRuleConditionalNoParen,
   "at-rule-no-unknown": atRuleNoUnknown,
   "comment-no-loud": commentNoLoud,
   "declaration-nested-properties": declarationNestedProperties,

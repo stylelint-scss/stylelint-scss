@@ -2,7 +2,7 @@ import { utils } from "stylelint";
 import { namespace } from "../../utils";
 import _ from "lodash";
 
-export const ruleName = namespace("at-conditional-rule-no-parentheses");
+export const ruleName = namespace("at-rule-conditional-no-parentheses");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected () used to surround statements for @-rules"

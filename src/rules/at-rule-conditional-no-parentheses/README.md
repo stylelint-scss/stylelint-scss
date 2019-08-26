@@ -1,4 +1,4 @@
-# at-conditional-rule-no-parentheses
+# at-rule-conditional-no-parentheses
 
 Disallow parentheses in conditional @ rules (if, elsif, while)
 
