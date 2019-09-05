@@ -1,12 +1,12 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
 import valueParser from "postcss-value-parser";
+import { utils } from "stylelint";
+import { declarationValueIndex, namespace } from "../../utils";
 
 export const ruleName = namespace("dimension-no-non-numeric-values");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: unit =>
-    `Expected "$value * 1${unit}" instead of "#{value}${unit}". Consider writing "value" in terms of ${unit} originally.`
+    `Expected "$value * 1${unit}" instead of "#{$value}${unit}". Consider writing "value" in terms of ${unit} originally.`
 });
 
 export const units = [
@@ -91,10 +91,18 @@ export default function rule(primary) {
           return;
         }
 
+        const regex = new RegExp(
+          "#{[$a-z_0-9 +-]*}(" + units.join("|") + ");?"
+        );
+        const matchUnit = decl.value.match(regex);
+        const unit = matchUnit[1];
+        const offset = decl.value.indexOf(unit);
+
         utils.report({
           ruleName,
           result,
-          message: messages.rejected,
+          message: messages.rejected(unit),
+          index: declarationValueIndex(decl) + offset,
           node: decl
         });
       });
