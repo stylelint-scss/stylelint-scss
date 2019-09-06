@@ -1,4 +1,4 @@
-import rule, { ruleName, messages, units } from "..";
+import rule, { messages, ruleName, units } from "..";
 
 testRule(rule, {
   ruleName,
@@ -32,13 +32,61 @@ testRule(rule, {
         padding: #{$value}%unit%;
       }
       `,
-    messages: messages.rejected,
+    message: messages.rejected("%unit%"),
+    line: 3,
+    column: 27,
     description: "Rejects interpolation with %unit%"
   }).concat([
     {
       code: "$pad: 2; $padAndMore: #{$pad + 5}px;",
       description: "reports lint when expression used in interpolation",
-      messages: messages.rejected("px")
+      line: 1,
+      column: 34,
+      message: messages.rejected("px")
+    },
+    {
+      code: `
+      p {
+        padding: ($foo * 1rem) #{$foo}px;
+      }
+      `,
+      description: "reports lint when mixing accepted and rejected syntax",
+      line: 3,
+      column: 39,
+      message: messages.rejected("px")
+    },
+    {
+      code: `
+      p {
+        padding: ($foo * 1rem) #{$foo}px 4vmin;
+      }
+      `,
+      description: "reports lint when mixing accepted and rejected syntax",
+      line: 3,
+      column: 39,
+      message: messages.rejected("px")
+    },
+    {
+      code: `
+      p {
+        padding: 1em #{$foo}vmin;
+      }
+      `,
+      description: "reports lint when mixing normal unit and rejected syntax",
+      line: 3,
+      column: 29,
+      message: messages.rejected("vmin")
+    },
+    {
+      code: `
+      p {
+        padding: 1em #{$foo}vmin 2rem;
+      }
+      `,
+      description: "reports lint when mixing normal unit and rejected syntax",
+      line: 3,
+      column: 29,
+      message: messages.rejected("vmin")
     }
   ])
 });
@@ -46,12 +94,20 @@ testRule(rule, {
 function loopOverUnits(codeBlock) {
   return units.map(unit => {
     const block = {
-      code: codeBlock.code.replace("%unit%", unit),
-      description: codeBlock.description.replace("%unit%", unit)
+      code: codeBlock.code.replace(/%unit%/g, unit),
+      description: codeBlock.description.replace(/%unit%/g, unit)
     };
 
-    if (codeBlock.messages) {
-      block["messages"] = codeBlock.messages.call(unit);
+    if (codeBlock.message) {
+      block.message = codeBlock.message.replace(/%unit%/g, unit);
+    }
+
+    if (codeBlock.line) {
+      block.line = codeBlock.line;
+    }
+
+    if (codeBlock.column) {
+      block.column = codeBlock.column;
     }
 
     return block;
