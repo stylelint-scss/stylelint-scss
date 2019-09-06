@@ -1,3 +1,7 @@
+# 3.10.1
+
+- Fixed: broken linting reporting for `dimension-no-non-numeric-values` rule.
+
 # 3.10.0
 
 - Added: `at-if-no-null`rule.
