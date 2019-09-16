@@ -1,3 +1,7 @@
+# 3.11.0
+
+- Added: support for stylelint version 11.
+
 # 3.10.1
 
 - Fixed: broken linting reporting for `dimension-no-non-numeric-values` rule.
