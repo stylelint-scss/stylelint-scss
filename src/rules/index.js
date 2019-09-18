@@ -29,6 +29,7 @@ import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after";
 import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before";
 import dollarVariableDefault from "./dollar-variable-default";
 import dollarVariableEmptyLineBefore from "./dollar-variable-empty-line-before";
+import dollarVariableFirstInBlock from "./dollar-variable-first-in-block";
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation";
 import dollarVariablePattern from "./dollar-variable-pattern";
 import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before";
@@ -82,6 +83,7 @@ export default {
   "dollar-variable-colon-space-before": dollarVariableColonSpaceBefore,
   "dollar-variable-default": dollarVariableDefault,
   "dollar-variable-empty-line-before": dollarVariableEmptyLineBefore,
+  "dollar-variable-first-in-block": dollarVariableFirstInBlock,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
   "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,
