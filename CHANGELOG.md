@@ -1,3 +1,7 @@
+# 3.11.1
+
+- Fixed: `selector-nest-combinators` warning for `@keyframes`.
+
 # 3.11.0
 
 - Added: support for stylelint version 11.
