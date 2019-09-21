@@ -107,6 +107,19 @@ testRule(rule, {
       }
       `,
       description: "ignores nested properties"
+    },
+    {
+      code: `
+      @keyframes foo {
+	      0% {
+		      color: blue;
+        }
+        50.5% {
+          color: red;
+        }
+      }
+      `,
+      description: "ignores @keyframes"
     }
   ],
 
@@ -262,6 +275,19 @@ testRule(rule, {
       }
       `,
       description: "ignores nested properties"
+    },
+    {
+      code: `
+      @keyframes foo {
+	      0% {
+		      color: blue;
+        }
+        50.5% {
+          color: red;
+        }
+      }
+      `,
+      description: "ignores @keyframes"
     }
   ],
 

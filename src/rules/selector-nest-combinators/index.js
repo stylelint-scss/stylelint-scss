@@ -46,6 +46,14 @@ export default function(expectation) {
     const interpolationRe = /#{.+?}$/;
 
     root.walkRules(rule => {
+      if (
+        rule.parent &&
+        rule.parent.type === "atrule" &&
+        rule.parent.name === "keyframes"
+      ) {
+        return;
+      }
+
       if (typeof rule.selector === "string") {
         const isNestedProperty = rule.selector.slice(-1) === ":";
 
