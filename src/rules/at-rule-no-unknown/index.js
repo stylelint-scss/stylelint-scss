@@ -11,6 +11,7 @@ const sassAtRules = [
   "else if",
   "error",
   "extend",
+  "font-face",
   "for",
   "function",
   "if",
@@ -19,6 +20,7 @@ const sassAtRules = [
   "media",
   "mixin",
   "return",
+  "use",
   "warn",
   "while"
 ];
