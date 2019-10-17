@@ -17,6 +17,23 @@ function rule(primary, _, context) {
     if (!validOptions) {
       return;
     }
+
+    let forwardRules = [];
+
+    root.walkAtRules(/forward|use/, decl => {
+      if (decl.name == "forward") {
+        forwardRules.push(decl.params.replace('"', ""));
+      } else {
+        if (!forwardRules.includes(decl.params.replace('"', ""))) {
+          utils.report({
+            message: messages.rejected,
+            node: decl,
+            result,
+            ruleName
+          });
+        }
+      }
+    });
   };
 }
 

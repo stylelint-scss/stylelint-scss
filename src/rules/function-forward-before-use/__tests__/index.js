@@ -25,7 +25,7 @@ testRule(rule, {
       description:
         "does not accept use statements that are before forward statements",
       message: messages.rejected,
-      line: 1
+      line: 2
     }
   ]
 });
