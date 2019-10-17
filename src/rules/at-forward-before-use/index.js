@@ -1,6 +1,5 @@
 import { utils } from "stylelint";
-import { namespace, isNativeCssFunction } from "../../utils";
-import valueParser from "postcss-value-parser";
+import { namespace } from "../../utils";
 
 export const ruleName = namespace("at-forward-before-use");
 
@@ -8,7 +7,7 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Forward function should be used before use function"
 });
 
-function rule(primary, _, context) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -18,10 +17,10 @@ function rule(primary, _, context) {
       return;
     }
 
-    let forwardRules = [];
+    const forwardRules = [];
 
     root.walkAtRules(/forward|use/, decl => {
-      if (decl.name == "forward") {
+      if (decl.name === "forward") {
         forwardRules.push(decl.params.replace('"', ""));
       } else {
         if (!forwardRules.includes(decl.params.replace('"', ""))) {
