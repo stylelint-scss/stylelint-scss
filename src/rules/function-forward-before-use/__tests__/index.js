@@ -5,60 +5,27 @@ testRule(rule, {
   ruleName,
   config: [true],
   syntax: "scss",
-  fix: true,
 
   accept: [
     {
       code: `
-        p {
-          font-family: quote(Helvetica);
-        }
+        @forward "src/list";
+        @use "src/list"
       `,
-      description: "accepts strings without quotes"
-    },
-    {
-      code: `
-        $font: Helvetica;
-        p {
-          font-family: quote($font);
-        }
-      `,
-      description: "accepts variables representing strings that are unquoted."
+      description: "accepts forward statements that are before use statements"
     }
   ],
 
   reject: [
     {
       code: `
-        p {
-          font-family: quote("Helvetica");
-        }
-      `,
-      description: "does not accept strings with quotes",
-      message: messages.rejected,
-      line: 3,
-      fixed: `
-        p {
-          font-family: "Helvetica";
-        }
-      `
-    },
-    {
-      code: `
-        $font: "Helvetica";
-        p {
-          font-family: quote($font);
-        }
+        @use "src/list"
+        @forward "src/list"
       `,
       description:
-        "does not accept variables representing strings that are quoted.",
-      line: 4,
-      fixed: `
-        $font: "Helvetica";
-        p {
-          font-family: $font;
-        }
-      `
+        "does not accept use statements that are before forward statements",
+      message: messages.rejected,
+      line: 1
     }
   ]
 });
