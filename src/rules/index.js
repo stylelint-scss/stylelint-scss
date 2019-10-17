@@ -35,6 +35,7 @@ import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line
 import doubleSlashCommentInline from "./double-slash-comment-inline";
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
 import functionColorRelative from "./function-color-relative";
+import functionForwardBeforeUse from "./function-forward-before-use";
 import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
 import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-inside";
 import mapKeysQuotes from "./map-keys-quotes";
@@ -88,6 +89,7 @@ export default {
   "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,
   "double-slash-comment-inline": doubleSlashCommentInline,
   "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
+  "function-forward-before-use": functionForwardBeforeUse,
   "function-quote-no-quoted-strings-inside": functionNoQuotedStrings,
   "function-unquote-no-unquoted-strings-inside": functionNoUnquotedStrings,
   "function-color-relative": functionColorRelative,
