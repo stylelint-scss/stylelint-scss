@@ -4,6 +4,7 @@ import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after";
 import atElseEmptyLineBefore from "./at-else-empty-line-before";
 import atElseIfParenthesesSpaceBefore from "./at-else-if-parentheses-space-before";
 import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder";
+import atForwardBeforeUse from "./at-forward-before-use";
 import atFunctionNamedArguments from "./at-function-named-arguments";
 import atFunctionParenthesesSpaceBefore from "./at-function-parentheses-space-before";
 import atFunctionPattern from "./at-function-pattern";
@@ -35,7 +36,6 @@ import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line
 import doubleSlashCommentInline from "./double-slash-comment-inline";
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
 import functionColorRelative from "./function-color-relative";
-import functionForwardBeforeUse from "./function-forward-before-use";
 import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
 import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-inside";
 import mapKeysQuotes from "./map-keys-quotes";
@@ -58,6 +58,7 @@ export default {
   "at-else-closing-brace-space-after": atElseClosingBraceSpaceAfter,
   "at-else-empty-line-before": atElseEmptyLineBefore,
   "at-else-if-parentheses-space-before": atElseIfParenthesesSpaceBefore,
+  "at-forward-before-use": atForwardBeforeUse,
   "at-function-named-arguments": atFunctionNamedArguments,
   "at-function-parentheses-space-before": atFunctionParenthesesSpaceBefore,
   "at-function-pattern": atFunctionPattern,
@@ -89,7 +90,6 @@ export default {
   "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,
   "double-slash-comment-inline": doubleSlashCommentInline,
   "double-slash-comment-whitespace-inside": doubleSlashCommentWhitespaceInside,
-  "function-forward-before-use": functionForwardBeforeUse,
   "function-quote-no-quoted-strings-inside": functionNoQuotedStrings,
   "function-unquote-no-unquoted-strings-inside": functionNoUnquotedStrings,
   "function-color-relative": functionColorRelative,

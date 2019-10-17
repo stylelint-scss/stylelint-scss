@@ -1,6 +1,6 @@
-# function-forward-before-use
+# at-forward-before-use
 
-The @forward function should be used before the @use function. 
+The @forward at-rule should be used before the @use at-rule. 
 
 ```scss
 @use "src/list"

@@ -2,7 +2,7 @@ import { utils } from "stylelint";
 import { namespace, isNativeCssFunction } from "../../utils";
 import valueParser from "postcss-value-parser";
 
-export const ruleName = namespace("function-forward-before-use");
+export const ruleName = namespace("at-forward-before-use");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Forward function should be used before use function"
