@@ -86,6 +86,9 @@ testRule(rule, {
       code: ".foo { color: red; @nest .parent & { color: blue; } }"
     },
     {
+      code: '@forward "functions";'
+    },
+    {
       code: "@function foo () {}"
     },
     {
@@ -99,6 +102,9 @@ testRule(rule, {
     },
     {
       code: "@if ($i) {} @else if {} @else {}"
+    },
+    {
+      code: '@use "bootstrap";'
     }
   ],
 

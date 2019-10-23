@@ -12,6 +12,7 @@ const sassAtRules = [
   "error",
   "extend",
   "for",
+  "forward",
   "function",
   "if",
   "import",
@@ -19,6 +20,7 @@ const sassAtRules = [
   "media",
   "mixin",
   "return",
+  "use",
   "warn",
   "while"
 ];
