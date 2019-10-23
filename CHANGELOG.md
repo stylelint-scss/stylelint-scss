@@ -1,3 +1,8 @@
+# 3.12.0
+
+- Added: `no-duplicate-mixins` rule.
+- Added: `at-rule-no-unknown` support for Sass' `@forward` and `@use`.
+
 # 3.11.1
 
 - Fixed: `selector-nest-combinators` warning for `@keyframes`.
