@@ -216,49 +216,50 @@ Thanks goes to these wonderful people:
 <tr>
 <th style="text-align:center"><a href="https://github.com/ntwb"><img alt="ntwb" src="https://avatars2.githubusercontent.com/u/1016458?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/ricardogobbosouza"><img alt="ricardogobbosouza" src="https://avatars3.githubusercontent.com/u/13064722?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/bjankord"><img alt="bjankord" src="https://avatars1.githubusercontent.com/u/633148?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/thibaudcolas"><img alt="thibaudcolas" src="https://avatars1.githubusercontent.com/u/877585?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/AndyOGo"><img alt="AndyOGo" src="https://avatars1.githubusercontent.com/u/914443?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/niksy"><img alt="niksy" src="https://avatars3.githubusercontent.com/u/389286?v=4&s=80" width="80"></a></th>
-<th style="text-align:center"><a href="https://github.com/lxsymington"><img alt="lxsymington" src="https://avatars3.githubusercontent.com/u/15095115?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><a href="https://github.com/ntwb">ntwb</a></td>
 <td style="text-align:center"><a href="https://github.com/ricardogobbosouza">ricardogobbosouza</a></td>
+<td style="text-align:center"><a href="https://github.com/bjankord">bjankord</a></td>
 <td style="text-align:center"><a href="https://github.com/thibaudcolas">thibaudcolas</a></td>
 <td style="text-align:center"><a href="https://github.com/AndyOGo">AndyOGo</a></td>
 <td style="text-align:center"><a href="https://github.com/niksy">niksy</a></td>
-<td style="text-align:center"><a href="https://github.com/lxsymington">lxsymington</a></td>
 </tr>
 </tbody>
 </table>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><a href="https://github.com/keegan-lillo"><img alt="keegan-lillo" src="https://avatars0.githubusercontent.com/u/3537963?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/lxsymington"><img alt="lxsymington" src="https://avatars3.githubusercontent.com/u/15095115?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/manovotny"><img alt="manovotny" src="https://avatars2.githubusercontent.com/u/446260?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/Deimos"><img alt="Deimos" src="https://avatars0.githubusercontent.com/u/9033?v=4&s=80" width="80"></a></th>
-<th style="text-align:center"><a href="https://github.com/lithiumlron"><img alt="lithiumlron" src="https://avatars1.githubusercontent.com/u/50785103?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/jantimon"><img alt="jantimon" src="https://avatars2.githubusercontent.com/u/4113649?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/stormwarning"><img alt="stormwarning" src="https://avatars1.githubusercontent.com/u/999825?v=4&s=80" width="80"></a></th>
-<th style="text-align:center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars0.githubusercontent.com/u/5973294?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/keegan-lillo"><img alt="keegan-lillo" src="https://avatars0.githubusercontent.com/u/3537963?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><a href="https://github.com/keegan-lillo">keegan-lillo</a></td>
+<td style="text-align:center"><a href="https://github.com/lxsymington">lxsymington</a></td>
+<td style="text-align:center"><a href="https://github.com/manovotny">manovotny</a></td>
 <td style="text-align:center"><a href="https://github.com/Deimos">Deimos</a></td>
-<td style="text-align:center"><a href="https://github.com/lithiumlron">lithiumlron</a></td>
 <td style="text-align:center"><a href="https://github.com/jantimon">jantimon</a></td>
 <td style="text-align:center"><a href="https://github.com/stormwarning">stormwarning</a></td>
-<td style="text-align:center"><a href="https://github.com/diego-codes">diego-codes</a></td>
+<td style="text-align:center"><a href="https://github.com/keegan-lillo">keegan-lillo</a></td>
 </tr>
 </tbody>
 </table>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><a href="https://github.com/manovotny"><img alt="manovotny" src="https://avatars2.githubusercontent.com/u/446260?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars0.githubusercontent.com/u/5973294?v=4&s=80" width="80"></a></th>
+<th style="text-align:center"><a href="https://github.com/paulgv"><img alt="paulgv" src="https://avatars0.githubusercontent.com/u/4895885?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/YozhikM"><img alt="YozhikM" src="https://avatars0.githubusercontent.com/u/27273025?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/YodaDaCoda"><img alt="YodaDaCoda" src="https://avatars0.githubusercontent.com/u/365349?v=4&s=80" width="80"></a></th>
 <th style="text-align:center"><a href="https://github.com/freezy-sk"><img alt="freezy-sk" src="https://avatars0.githubusercontent.com/u/661637?v=4&s=80" width="80"></a></th>
@@ -267,7 +268,8 @@ Thanks goes to these wonderful people:
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><a href="https://github.com/manovotny">manovotny</a></td>
+<td style="text-align:center"><a href="https://github.com/diego-codes">diego-codes</a></td>
+<td style="text-align:center"><a href="https://github.com/paulgv">paulgv</a></td>
 <td style="text-align:center"><a href="https://github.com/YozhikM">YozhikM</a></td>
 <td style="text-align:center"><a href="https://github.com/YodaDaCoda">YodaDaCoda</a></td>
 <td style="text-align:center"><a href="https://github.com/freezy-sk">freezy-sk</a></td>
