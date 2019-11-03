@@ -1,5 +1,6 @@
 # HEAD
 
+- Fixed: `map-keys-quotes` ignore math operators inside map values.
 - Fixed: `operator-no-unspaced` was looking for operators inside `@forward` and `@use`.
 
 # 3.12.0

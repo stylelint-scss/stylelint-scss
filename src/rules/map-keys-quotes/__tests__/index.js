@@ -45,6 +45,69 @@ testRule(rule, {
       );
       `,
       description: "accepts numbers (nested)"
+    },
+    {
+      code: `
+      $map: (
+        "key-one": 0,
+        "key-two": $variable * 2,
+      );
+      `,
+      description: "accepts * operator inside a value"
+    },
+    {
+      code: `
+      $map: (
+        "key-one": 0,
+        "key-two": $variable*2,
+      );
+      `,
+      description: "accepts * operator without spaces inside a value"
+    },
+    {
+      code: `
+      $map: (
+        "key-one": 0,
+        "key-two": $variable - 2,
+      );
+      `,
+      description: "accepts - operator inside a value"
+    },
+    {
+      code: `
+      $map: (
+        "key-one": 0,
+        "key-two": $variable + 2,
+      );
+      `,
+      description: "accepts + operator inside a value"
+    },
+    {
+      code: `
+      $map: (
+        "key-one": 0,
+        "key-two": $variable / 2,
+      );
+      `,
+      description: "accepts / operator inside a value"
+    },
+    {
+      code: `
+      $map: (
+        "key-one": 0,
+        "key-two": $variable % 2,
+      );
+      `,
+      description: "accepts % operator inside a value"
+    },
+    {
+      code: `
+      $map: (
+        "key-one": 0,
+        "key-two": (1+2),
+      );
+      `,
+      description: "accepts parens inside a value"
     }
   ],
 

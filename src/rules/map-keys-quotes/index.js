@@ -8,6 +8,8 @@ export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected keys in map to be quoted."
 });
 
+const mathOperators = ["+", "/", "-", "*", "%"];
+
 function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -34,6 +36,10 @@ function rule(primary) {
           const mapKeys = returnMapKeys(node.nodes);
 
           mapKeys.forEach(map_key => {
+            if (mathOperators.indexOf(map_key.value) > -1) {
+              return;
+            }
+
             if (map_key.type === "word" && isNaN(map_key.value)) {
               utils.report({
                 message: messages.expected,
