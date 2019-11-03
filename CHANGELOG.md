@@ -1,4 +1,4 @@
-# HEAD
+# 3.12.1
 
 - Fixed: `at-rule-conditional-no-parentheses` don't warn for function calls.
 - Fixed: `map-keys-quotes` ignore math operators inside map values.
