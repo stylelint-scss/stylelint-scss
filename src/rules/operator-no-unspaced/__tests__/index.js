@@ -1249,6 +1249,10 @@ testRule(rule, {
       `,
       description:
         "Op *: background-image with absolute path inside url function and interpolation."
+    },
+    {
+      code: '@use "src/corners" as *;',
+      description: "ignores @use"
     }
   ],
 
