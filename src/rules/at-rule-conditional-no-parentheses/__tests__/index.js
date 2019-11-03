@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 testRule(rule, {
   ruleName,
@@ -29,6 +29,33 @@ testRule(rule, {
       @else if true {}
       @else {}`,
       description: "accepts @else unconditionally"
+    },
+    {
+      code: `
+      @function strip-unit($number) {
+        @if type-of($number) == "number" and not unitless($number) {
+          @return $number / ($number * 0 + 1);
+        }
+
+        @return $number;
+      }
+      `,
+      description: "accepts function calls using @if"
+    },
+    {
+      code: `
+      @function strip-unit($number) {
+        @if true {
+          @return $number;
+        }
+        @else if type-of($number) == "number" and not unitless($number) {
+          @return $number / ($number * 0 + 1);
+        }
+
+        @return $number;
+      }
+      `,
+      description: "accepts function calls using @else if"
     }
   ],
 

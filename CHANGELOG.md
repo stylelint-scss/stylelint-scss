@@ -1,5 +1,6 @@
 # HEAD
 
+- Fixed: `at-rule-conditional-no-parentheses` don't warn for function calls.
 - Fixed: `map-keys-quotes` ignore math operators inside map values.
 - Fixed: `operator-no-unspaced` was looking for operators inside `@forward` and `@use`.
 
