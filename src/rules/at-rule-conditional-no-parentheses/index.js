@@ -1,6 +1,6 @@
+import _ from "lodash";
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
-import _ from "lodash";
 
 export const ruleName = namespace("at-rule-conditional-no-parentheses");
 
@@ -57,7 +57,7 @@ export default function(primary, _unused, context) {
           }
         }
       } else {
-        if (atrule.params.match(/ ?\(.*\) ?$/)) {
+        if (atrule.params.trim().match(/^\(.*\)$/)) {
           if (context.fix) {
             fix(atrule);
           } else {
