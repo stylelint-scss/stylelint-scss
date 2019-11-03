@@ -1,3 +1,7 @@
+# HEAD
+
+- Fixed: `operator-no-unspaced` was looking for operators inside `@forward` and `@use`.
+
 # 3.12.0
 
 - Added: `no-duplicate-mixins` rule.

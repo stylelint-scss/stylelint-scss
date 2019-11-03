@@ -1,3 +1,4 @@
+import mediaQueryParser from "postcss-media-query-parser";
 import { utils } from "stylelint";
 import {
   atRuleParamIndex,
@@ -8,7 +9,6 @@ import {
   isWhitespace,
   namespace
 } from "../../utils";
-import mediaQueryParser from "postcss-media-query-parser";
 
 export const ruleName = namespace("operator-no-unspaced");
 
@@ -178,6 +178,11 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     }
 
     if (item.type === "atrule") {
+      // @forward and @use
+      if (item.name === "forward" || item.name === "use") {
+        return;
+      }
+
       // Media queries
       if (item.name === "media" || item.name === "import") {
         mediaQueryParser(item.params).walk(node => {

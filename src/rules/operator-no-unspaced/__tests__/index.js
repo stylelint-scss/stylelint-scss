@@ -856,6 +856,10 @@ testRule(rule, {
     {
       code: "a { nospaces73: 1-#{1}; }",
       description: "??: 1-#{1}."
+    },
+    {
+      code: '@forward "src/list" as list-*;',
+      description: "should ignore @forward"
     }
   ]
 });
@@ -1245,6 +1249,10 @@ testRule(rule, {
       `,
       description:
         "Op *: background-image with absolute path inside url function and interpolation."
+    },
+    {
+      code: '@use "src/corners" as *;',
+      description: "ignores @use"
     }
   ],
 
