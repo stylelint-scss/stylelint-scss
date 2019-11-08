@@ -67,20 +67,18 @@ export default function(primaryOption, secondaryOptions) {
         root
       },
       warning => {
-        root.walkAtRules(atRule => {
-          const name = atRule.name;
+        const name = warning.node.name;
 
-          if (ignoreAtRules.indexOf(name) < 0) {
-            utils.report({
-              message: messages.rejected(`@${name}`),
-              ruleName,
-              result,
-              node: warning.node,
-              line: warning.line,
-              column: warning.column
-            });
-          }
-        });
+        if (ignoreAtRules.indexOf(name) < 0) {
+          utils.report({
+            message: messages.rejected(`@${name}`),
+            ruleName,
+            result,
+            node: warning.node,
+            line: warning.line,
+            column: warning.column
+          });
+        }
       }
     );
   };
