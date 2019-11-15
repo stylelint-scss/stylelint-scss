@@ -4,7 +4,7 @@ import { namespace } from "../../utils";
 export const ruleName = namespace("at-forward-before-use");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Expected @forward at-rule before @use at-rule"
+  rejected: "Unexpected @use at-rule before @forward at-rule"
 });
 
 function rule(primary) {
