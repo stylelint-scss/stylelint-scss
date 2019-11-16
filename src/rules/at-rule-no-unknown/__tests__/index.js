@@ -1,4 +1,9 @@
+import postcss from "postcss";
 import rule, { ruleName, messages } from "..";
+
+function logError(err) {
+  console.log(err.stack); // eslint-disable-line no-console
+}
 
 testRule(rule, {
   ruleName,
@@ -195,4 +200,20 @@ testRule(rule, {
       message: messages.rejected("@UNKNOWN")
     }
   ]
+});
+
+test("One warning for each unknown at rule", done => {
+  expect.assertions(3);
+
+  postcss([rule()])
+    .process("@foo { } @bar { }", { from: undefined })
+    .then(result => {
+      const warnings = result.warnings();
+
+      expect(warnings).toHaveLength(2);
+      expect(warnings[0].text).toBe(messages.rejected("@foo"));
+      expect(warnings[1].text).toBe(messages.rejected("@bar"));
+      done();
+    })
+    .catch(logError);
 });
