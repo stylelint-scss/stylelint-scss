@@ -1,4 +1,5 @@
-import { isRegExp, isString } from "lodash";
+import isRegExp from "lodash.isregexp";
+import isString from "lodash.isstring";
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
 import nodeJsPath from "path";

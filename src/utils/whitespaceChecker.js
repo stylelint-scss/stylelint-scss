@@ -1,4 +1,3 @@
-import { assign } from "lodash";
 import isWhitespace from "./isWhitespace";
 import isSingleLineString from "./isSingleLineString";
 import configurationError from "./configurationError";
@@ -180,7 +179,7 @@ export default function(targetWhitespace, expectation, messages) {
   }
 
   function beforeAllowingIndentation(obj) {
-    before(assign({}, obj, { allowIndentation: true }));
+    before(Object.assign({}, obj, { allowIndentation: true }));
   }
 
   function expectBefore(messageFunc = messages.expectedBefore) {
@@ -266,7 +265,7 @@ export default function(targetWhitespace, expectation, messages) {
   }
 
   function afterOneOnly(obj) {
-    after(assign({}, obj, { onlyOneChar: true }));
+    after(Object.assign({}, obj, { onlyOneChar: true }));
   }
 
   function expectAfter(messageFunc = messages.expectedAfter) {

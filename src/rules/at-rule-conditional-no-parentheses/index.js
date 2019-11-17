@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
 
@@ -26,7 +25,7 @@ function fix(atrule) {
   // 2 regex groups: 'if ' and cond.
   const groups = atrule.params.match(regex).slice(1);
 
-  atrule.params = _.uniq(groups).join(" ");
+  atrule.params = [...new Set(groups)].join(" ");
 }
 
 export default function(primary, _unused, context) {
@@ -41,7 +40,7 @@ export default function(primary, _unused, context) {
 
     root.walkAtRules(atrule => {
       // Check if this is a conditional rule.
-      if (!_.includes(conditional_rules, atrule.name)) {
+      if (!conditional_rules.includes(atrule.name)) {
         return;
       }
 
