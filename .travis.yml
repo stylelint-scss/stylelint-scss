@@ -17,4 +17,4 @@ matrix:
       script: npm run jest -- --runInBand
       env: CI=tests 12
 after_success:
-  - if [ "$CI" = "coverage" ]; then cat ./.coverage/lcov.info | ./node_modules/.bin/coveralls; fi
+  - if [ "$CI" = "coverage" ]; then npm run coveralls; fi

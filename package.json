@@ -160,7 +160,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "cat ./.coverage/lcov.info | coveralls",
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
