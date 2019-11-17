@@ -38,9 +38,7 @@
     "postcss": "^7.0.17",
     "postcss-scss": "^2.0.0",
     "prettier": "^1.18.2",
-    "request": "^2.88.0",
     "rimraf": "^3.0.0",
-    "semver": "^6.3.0",
     "stylelint": "^11.0.0"
   },
   "peerDependencies": {
