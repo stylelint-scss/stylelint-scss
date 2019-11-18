@@ -17,20 +17,21 @@ function rule(primary) {
       return;
     }
 
-    const forwardRules = [];
+    const useRules = [];
 
     root.walkAtRules(/forward|use/, decl => {
-      if (decl.name === "forward") {
-        forwardRules.push(decl.params.replace('"', ""));
+      if (
+        decl.name === "forward" &&
+        useRules.includes(decl.params.replace(/"/g, ""))
+      ) {
+        utils.report({
+          message: messages.rejected,
+          node: decl,
+          result,
+          ruleName
+        });
       } else {
-        if (!forwardRules.includes(decl.params.replace('"', ""))) {
-          utils.report({
-            message: messages.rejected,
-            node: decl,
-            result,
-            ruleName
-          });
-        }
+        useRules.push(decl.params.replace(/"/g, ""));
       }
     });
   };
