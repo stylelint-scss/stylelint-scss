@@ -1,11 +1,10 @@
 # stylelint-scss
 
 [![NPM version](https://img.shields.io/npm/v/stylelint-scss.svg)](https://www.npmjs.com/package/stylelint-scss)
-[![Build Status](https://travis-ci.org/kristerkari/stylelint-scss.svg?branch=master)](https://travis-ci.org/kristerkari/stylelint-scss)
-[![Build status](https://ci.appveyor.com/api/projects/status/xa12kju6qmvmqs1n/branch/master?svg=true)](https://ci.appveyor.com/project/kristerkari/stylelint-scss/branch/master)
-[![Coverage Status](https://coveralls.io/repos/github/kristerkari/stylelint-scss/badge.svg?branch=master)](https://coveralls.io/github/kristerkari/stylelint-scss?branch=master)
+[![Build Status](https://github.com/kristerkari/stylelint-scss/workflows/Tests/badge.svg)](https://github.com/kristerkari/stylelint-scss/actions?workflow=Tests)
+[![Coverage Status](https://img.shields.io/coveralls/github/kristerkari/stylelint-scss/master.svg)](https://coveralls.io/github/kristerkari/stylelint-scss?branch=master)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
-[![Downloads per month](https://img.shields.io/npm/dm/stylelint-scss.svg)](http://npmcharts.com/compare/stylelint-scss)
+[![Downloads per month](https://img.shields.io/npm/dm/stylelint-scss.svg)](https://npmcharts.com/compare/stylelint-scss)
 [![Greenkeeper badge](https://badges.greenkeeper.io/kristerkari/stylelint-scss.svg)](https://greenkeeper.io/)
 
 A collection of SCSS specific linting rules for [stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
