@@ -164,7 +164,7 @@
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
-    "prettify": "prettier --write 'src/**/*.js'",
+    "prettify": "prettier --write \"src/**/*.js\"",
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "release": "npmpub",
