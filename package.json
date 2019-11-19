@@ -26,7 +26,6 @@
     "@babel/preset-env": "^7.7.1",
     "babel-plugin-istanbul": "^5.2.0",
     "babel-preset-jest": "^24.9.0",
-    "coveralls": "^3.0.7",
     "eslint": "^6.6.0",
     "eslint-config-stylelint": "^11.1.0",
     "eslint-plugin-lodash": "^6.0.0",
@@ -160,7 +159,6 @@
     }
   },
   "scripts": {
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
