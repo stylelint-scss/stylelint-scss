@@ -50,7 +50,8 @@ testRule(rule, {
 
 test("{ always } Simple test: background-color, background-repeat", () => {
   expect.assertions(5);
-  postcss([rule("always")])
+
+  return postcss([rule("always")])
     .process(
       `
       a {
@@ -74,7 +75,8 @@ test("{ always } Simple test: background-color, background-repeat", () => {
 
 test("{ always } background-color, background-repeat separated by at-rule", () => {
   expect.assertions(6);
-  postcss([rule("always")])
+
+  return postcss([rule("always")])
     .process(
       `
       a {
@@ -102,7 +104,8 @@ test("{ always } background-color, background-repeat separated by at-rule", () =
 
 test("{ always } one `background` in nested form", () => {
   expect.assertions(1);
-  postcss([rule("always")])
+
+  return postcss([rule("always")])
     .process(
       `
       a {
@@ -123,7 +126,8 @@ test("{ always } one `background` in nested form", () => {
 
 test("{ always } nested `background` and background-position", () => {
   expect.assertions(1);
-  postcss([rule("always")])
+
+  return postcss([rule("always")])
     .process(
       `
       a {
@@ -145,7 +149,8 @@ test("{ always } nested `background` and background-position", () => {
 
 test("{ always } `prop:    value {nested} prop-v: value`.", () => {
   expect.assertions(1);
-  postcss([rule("always")])
+
+  return postcss([rule("always")])
     .process(
       `
       a {
@@ -167,7 +172,8 @@ test("{ always } `prop:    value {nested} prop-v: value`.", () => {
 
 test("{ always } `prop  :  value {nested} prop-v: value`.", () => {
   expect.assertions(1);
-  postcss([rule("always")])
+
+  return postcss([rule("always")])
     .process(
       `
       a {
@@ -193,7 +199,8 @@ test("{ always } `prop  :  value {nested} prop-v: value`.", () => {
 
 test("{ always, except: only-of-namespace } background-color only", () => {
   expect.assertions(1);
-  postcss([rule("always", { except: "only-of-namespace" })])
+
+  return postcss([rule("always", { except: "only-of-namespace" })])
     .process(
       `
       a {
@@ -213,7 +220,8 @@ test("{ always, except: only-of-namespace } background-color only", () => {
 
 test("{ always, except: only-of-namespace } background-color, background-repeat separated by at-rule", () => {
   expect.assertions(5);
-  postcss([rule("always", { except: "only-of-namespace" })])
+
+  return postcss([rule("always", { except: "only-of-namespace" })])
     .process(
       `
       a {
@@ -240,7 +248,8 @@ test("{ always, except: only-of-namespace } background-color, background-repeat 
 
 test("{ always, except: only-of-namespace } `background:red`, one rule inside", () => {
   expect.assertions(1);
-  postcss([rule("always", { except: "only-of-namespace" })])
+
+  return postcss([rule("always", { except: "only-of-namespace" })])
     .process(
       `
       a {
@@ -262,7 +271,8 @@ test("{ always, except: only-of-namespace } `background:red`, one rule inside", 
 
 test("{ always, except: only-of-namespace } background, two rules inside", () => {
   expect.assertions(1);
-  postcss([rule("always", { except: "only-of-namespace" })])
+
+  return postcss([rule("always", { except: "only-of-namespace" })])
     .process(
       `
       a {
@@ -284,7 +294,8 @@ test("{ always, except: only-of-namespace } background, two rules inside", () =>
 
 test("{ always, except: only-of-namespace } `background:red`, one rule inside 2", () => {
   expect.assertions(2);
-  postcss([rule("always", { except: "only-of-namespace" })])
+
+  return postcss([rule("always", { except: "only-of-namespace" })])
     .process(
       `
       a {
@@ -308,7 +319,8 @@ test("{ always, except: only-of-namespace } `background:red`, one rule inside 2"
 
 test("{ always, except: only-of-namespace } `prop: value`, one rule inside", () => {
   expect.assertions(2);
-  postcss([rule("always", { except: "only-of-namespace" })])
+
+  return postcss([rule("always", { except: "only-of-namespace" })])
     .process(
       `
       a {
@@ -330,7 +342,8 @@ test("{ always, except: only-of-namespace } `prop: value`, one rule inside", () 
 
 test("{ always, except: only-of-namespace } `prop:`, one rule X2", () => {
   expect.assertions(5);
-  postcss([rule("always", { except: "only-of-namespace" })])
+
+  return postcss([rule("always", { except: "only-of-namespace" })])
     .process(
       `
       a {

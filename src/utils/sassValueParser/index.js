@@ -536,8 +536,8 @@ function checkSlash(string, index, isAfterColon) {
   // `$var: 10px/2; // 5px`
   if (
     isAfterColon === true &&
-    ((isValueWithUnitAfter_.is || isNumberAfter_.is) &&
-      (isValueWithUnitBefore_ || isNumberBefore_))
+    (isValueWithUnitAfter_.is || isNumberAfter_.is) &&
+    (isValueWithUnitBefore_ || isNumberBefore_)
   ) {
     return "op";
   }

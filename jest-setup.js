@@ -20,6 +20,7 @@ global.testRule = (rule, schema) => {
     }
   });
 
+  // eslint-disable-next-line jest/valid-describe
   describe(`${schema.ruleName}`, () => {
     const stylelintConfig = {
       plugins: ["./src"],

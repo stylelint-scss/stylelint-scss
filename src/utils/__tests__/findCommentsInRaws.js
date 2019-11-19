@@ -9,7 +9,7 @@ function logError(err) {
 test("// is the first statement in the file", () => {
   expect.assertions(5);
 
-  postcss()
+  return postcss()
     .process("// comment", { syntax: scss, from: undefined })
     .then(result => {
       const css = result.root.source.input.css;
@@ -27,7 +27,7 @@ test("// is the first statement in the file", () => {
 test("// is the first statement in a string, w/o pre-whs", () => {
   expect.assertions(5);
 
-  postcss()
+  return postcss()
     .process(
       `a { width: 10; }
 // comment`,
@@ -49,7 +49,7 @@ test("// is the first statement in a string, w/o pre-whs", () => {
 test("CSS-comment is the first statement (and the last one) in a file", () => {
   expect.assertions(5);
 
-  postcss()
+  return postcss()
     .process("/* comment1 */", { syntax: scss, from: undefined })
     .then(result => {
       const css = result.root.source.input.css;
@@ -67,7 +67,7 @@ test("CSS-comment is the first statement (and the last one) in a file", () => {
 test("CSS-comment is the first statement (and the last one) in a string", () => {
   expect.assertions(5);
 
-  postcss()
+  return postcss()
     .process(
       `
 /* comment1 */
@@ -90,7 +90,7 @@ test("CSS-comment is the first statement (and the last one) in a string", () => 
 test("Various.", () => {
   expect.assertions(13);
 
-  postcss()
+  return postcss()
     .process(
       `
       /**! comment */
@@ -136,7 +136,7 @@ test("Various.", () => {
 test("//", () => {
   expect.assertions(4);
 
-  postcss()
+  return postcss()
     .process(
       `
       //
@@ -158,7 +158,7 @@ test("//", () => {
 test("// Inline comment, after {.", () => {
   expect.assertions(3);
 
-  postcss()
+  return postcss()
     .process(
       `
       a { // Inline comment, after {.
@@ -181,7 +181,7 @@ test("// Inline comment, after {.", () => {
 test("} // comment", () => {
   expect.assertions(2);
 
-  postcss()
+  return postcss()
     .process(
       `
       a {} // comment
@@ -201,7 +201,7 @@ test("} // comment", () => {
 test("Triple-slash comment", () => {
   expect.assertions(5);
 
-  postcss()
+  return postcss()
     .process("a {} /// comment", { syntax: scss, from: undefined })
     .then(result => {
       const css = result.root.source.input.css;
@@ -219,7 +219,7 @@ test("Triple-slash comment", () => {
 test("Some fancy comment", () => {
   expect.assertions(5);
 
-  postcss()
+  return postcss()
     .process(
       `
       /*!
@@ -248,7 +248,7 @@ test("Some fancy comment", () => {
 test("Another fancy comment", () => {
   expect.assertions(5);
 
-  postcss()
+  return postcss()
     .process(
       `
       /* Example with animate.css
@@ -275,7 +275,7 @@ test("Another fancy comment", () => {
 test("Comments inside comments", () => {
   expect.assertions(7);
 
-  postcss()
+  return postcss()
     .process(
       `
       /* Text.. /* is that a new comment? */
@@ -302,7 +302,7 @@ test("Comments inside comments", () => {
 test("No comments, but parsing a selector with ().", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       .dropdown-menu:not(.level-0) {
@@ -327,7 +327,7 @@ test("No comments, but parsing a selector with ().", () => {
 test("Double backslash inside a string (issue #294)", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       $breadcrumbs-item-separator-item-rtl: '\\\\';
@@ -347,7 +347,7 @@ test("Double backslash inside a string (issue #294)", () => {
 test("//-comment, Unix newlines", () => {
   expect.assertions(2);
 
-  postcss()
+  return postcss()
     .process("\n   // comment \n", { syntax: scss, from: undefined })
     .then(result => {
       const css = result.root.source.input.css;
@@ -362,7 +362,7 @@ test("//-comment, Unix newlines", () => {
 test("CSS comment, Unix newlines", () => {
   expect.assertions(2);
 
-  postcss()
+  return postcss()
     .process("\n   /* part 1 \n part 2*/ \n", { syntax: scss, from: undefined })
     .then(result => {
       const css = result.root.source.input.css;
@@ -377,7 +377,7 @@ test("CSS comment, Unix newlines", () => {
 test("//-comment, Windows-newline", () => {
   expect.assertions(2);
 
-  postcss()
+  return postcss()
     .process("\r\n   // comment \r\n", { syntax: scss, from: undefined })
     .then(result => {
       const css = result.root.source.input.css;
@@ -392,7 +392,7 @@ test("//-comment, Windows-newline", () => {
 test("CSS comment, Windows newlines", () => {
   expect.assertions(2);
 
-  postcss()
+  return postcss()
     .process("\r\n   /* part 1 \r\n part 2*/ \r\n", {
       syntax: scss,
       from: undefined
@@ -410,7 +410,7 @@ test("CSS comment, Windows newlines", () => {
 test("No comments; testing a dangerous case in function detection [`@media( ... )`]", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process("@media(min-width: 480px) { }", { syntax: scss, from: undefined })
     .then(result => {
       const css = result.root.source.input.css;

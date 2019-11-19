@@ -111,7 +111,8 @@ testRule(rule, {
 
 test("2 groups of the same namespace.", () => {
   expect.assertions(6);
-  postcss([rule(undefined)])
+
+  return postcss([rule(undefined)])
     .process(
       `
       a {
@@ -140,7 +141,8 @@ test("2 groups of the same namespace.", () => {
 
 test("3 groups, 1 and 3 has the same namespace", () => {
   expect.assertions(5);
-  postcss([rule(undefined)])
+
+  return postcss([rule(undefined)])
     .process(
       `
       a {
@@ -172,7 +174,8 @@ test("3 groups, 1 and 3 has the same namespace", () => {
 
 test("3 groups of the same namespace", () => {
   expect.assertions(6);
-  postcss([rule(undefined)])
+
+  return postcss([rule(undefined)])
     .process(
       `
       a {

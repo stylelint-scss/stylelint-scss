@@ -301,7 +301,8 @@ export default function(targetWhitespace, expectation, messages) {
     if (targetWhitespace === "space" && oneCharAfter === " ") {
       if (
         expectation === "at-least-one-space" ||
-        (activeArgs.onlyOneChar || !isWhitespace(twoCharsAfter))
+        activeArgs.onlyOneChar ||
+        !isWhitespace(twoCharsAfter)
       ) {
         return;
       }
