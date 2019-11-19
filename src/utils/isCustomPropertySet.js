@@ -1,5 +1,7 @@
-import { get } from "lodash";
-import hasBlock from "./hasBlock";
+"use strict";
+
+const hasBlock = require("./hasBlock");
+const { get } = require("lodash");
 
 /**
  * Check whether a Node is a custom property set
@@ -7,7 +9,7 @@ import hasBlock from "./hasBlock";
  * @param {import('postcss').Rule} node
  * @returns {boolean}
  */
-export default function(node) {
+module.exports = function(node) {
   const selector = get(node, "raws.selector.raw", node.selector);
 
   return (
@@ -16,4 +18,4 @@ export default function(node) {
     selector.startsWith("--") &&
     selector.endsWith(":")
   );
-}
+};

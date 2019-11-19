@@ -1,10 +1,12 @@
-import nodeJsPath from "path";
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-import-partial-extension");
+const nodeJsPath = require("path");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-import-partial-extension");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected @import to have an extension",
   rejected: ext => `Unexpected extension ".${ext}" in @import`
 });
@@ -28,7 +30,7 @@ const mediaQueryTypesRE = new RegExp(`(${mediaQueryTypes.join("|")})$`, "i");
 const stripPath = path =>
   path.replace(/^\s*?("|')\s*/, "").replace(/\s*("|')\s*?$/, "");
 
-export default function(expectation) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -84,3 +86,7 @@ export default function(expectation) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

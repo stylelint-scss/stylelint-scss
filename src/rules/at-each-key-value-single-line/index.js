@@ -1,14 +1,16 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-each-key-value-single-line");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-each-key-value-single-line");
+
+const messages = utils.ruleMessages(ruleName, {
   expected:
     "Use @each $key, $value in $map syntax instead of $value: map-get($map, $key)"
 });
 
-export default function(primary) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -98,3 +100,7 @@ function mapGetParameters(mapGetDecl) {
 
   return [parts[1], parts[2]];
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

@@ -1,12 +1,15 @@
-import isStandardSyntaxSelector from "./isStandardSyntaxSelector";
-import hasInterpolation from "./hasInterpolation";
+"use strict";
+
+const hasInterpolation = require("./hasInterpolation");
+const isStandardSyntaxSelector = require("./isStandardSyntaxSelector");
+
 /**
  * Check whether a selector is standard
  *
  * @param {string} selector
  * @return {boolean} If `true`, the selector is standard
  */
-export default function(selector) {
+module.exports = function(selector) {
   const standardSyntaxSelector = isStandardSyntaxSelector(selector);
 
   // SCSS placeholder selectors
@@ -17,4 +20,4 @@ export default function(selector) {
   }
 
   return standardSyntaxSelector;
-}
+};

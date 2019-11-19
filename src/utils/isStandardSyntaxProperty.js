@@ -1,4 +1,6 @@
-import hasInterpolation from "./hasInterpolation";
+"use strict";
+
+const hasInterpolation = require("./hasInterpolation");
 
 /**
  * Check whether a property is standard
@@ -6,7 +8,7 @@ import hasInterpolation from "./hasInterpolation";
  * @param {string} property
  * @returns {boolean}
  */
-export default function(property) {
+module.exports = function(property) {
   // SCSS var (e.g. $var: x), list (e.g. $list: (x)) or map (e.g. $map: (key:value))
   if (property.startsWith("$")) {
     return false;
@@ -28,4 +30,4 @@ export default function(property) {
   }
 
   return true;
-}
+};

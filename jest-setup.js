@@ -1,7 +1,7 @@
-"use strict"; // eslint-disable-line strict
+"use strict";
 
-const _ = require("lodash");
 const stylelint = require("stylelint");
+const { get } = require("lodash");
 
 global.testRule = (rule, schema) => {
   expect.extend({
@@ -82,15 +82,15 @@ global.testRule = (rule, schema) => {
               // expect(testCase).toHaveMessage();
 
               if (testCase.message !== undefined) {
-                expect(_.get(warning, "text")).toBe(testCase.message);
+                expect(get(warning, "text")).toBe(testCase.message);
               }
 
               if (testCase.line !== undefined) {
-                expect(_.get(warning, "line")).toBe(testCase.line);
+                expect(get(warning, "line")).toBe(testCase.line);
               }
 
               if (testCase.column !== undefined) {
-                expect(_.get(warning, "column")).toBe(testCase.column);
+                expect(get(warning, "column")).toBe(testCase.column);
               }
 
               if (!schema.fix) {

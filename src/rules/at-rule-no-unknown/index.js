@@ -1,6 +1,8 @@
-import { isRegExp, isString } from "lodash";
-import { rules, utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
+
+const { isRegExp, isString } = require("lodash");
+const { namespace } = require("../../utils");
+const { rules, utils } = require("stylelint");
 
 const sassAtRules = [
   "at-root",
@@ -27,13 +29,13 @@ const sassAtRules = [
 
 const ruleToCheckAgainst = "at-rule-no-unknown";
 
-export const ruleName = namespace(ruleToCheckAgainst);
+const ruleName = namespace(ruleToCheckAgainst);
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejected: rules[ruleToCheckAgainst].messages.rejected
 });
 
-export default function(primaryOption, secondaryOptions) {
+function rule(primaryOption, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -83,3 +85,7 @@ export default function(primaryOption, secondaryOptions) {
     );
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

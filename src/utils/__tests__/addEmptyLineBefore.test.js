@@ -1,5 +1,7 @@
-import postcss from "postcss";
-import { addEmptyLineBefore } from "../addEmptyLineBefore";
+"use strict";
+
+const addEmptyLineBefore = require("../addEmptyLineBefore");
+const postcss = require("postcss");
 
 describe("addEmptyLineBefore", () => {
   it("adds single newline to the newline at the beginning", () => {

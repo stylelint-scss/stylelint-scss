@@ -33,9 +33,6 @@ jobs:
       - name: Lint
         run: npm run lint
         
-      - name: Build
-        run: npm run build
-
       - name: Run jest tests
         run: npm run jest -- --runInBand
         if: "!(startsWith(matrix.os, 'ubuntu') && matrix.node == 10)"

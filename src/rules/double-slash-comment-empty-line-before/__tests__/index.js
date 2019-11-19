@@ -1,4 +1,6 @@
-import rule, { ruleName, messages } from "..";
+"use strict";
+
+const { rule, ruleName, messages } = require("..");
 
 // Used in all "always" tests
 const alwaysGeneralTests = {

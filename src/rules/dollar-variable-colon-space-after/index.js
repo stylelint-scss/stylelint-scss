@@ -1,14 +1,16 @@
-import {
+"use strict";
+
+const {
   declarationValueIndex,
   namespace,
   isSingleLineString,
   whitespaceChecker
-} from "../../utils";
-import { utils } from "stylelint";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("dollar-variable-colon-space-after");
+const ruleName = namespace("dollar-variable-colon-space-after");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expectedAfter: () => 'Expected single space after ":"',
   rejectedAfter: () => 'Unexpected whitespace after ":"',
   expectedAfterSingleLine: () =>
@@ -16,7 +18,7 @@ export const messages = utils.ruleMessages(ruleName, {
   expectedAfterAtLeast: () => 'Expected at least one space after ":"'
 });
 
-export default function(expectation, _, context) {
+function rule(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
 
   return (root, result) => {
@@ -41,7 +43,7 @@ export default function(expectation, _, context) {
   };
 }
 
-export function variableColonSpaceChecker({
+function variableColonSpaceChecker({
   locationChecker,
   root,
   result,
@@ -106,3 +108,8 @@ export function variableColonSpaceChecker({
     }
   });
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;
+module.exports.variableColonSpaceChecker = variableColonSpaceChecker;

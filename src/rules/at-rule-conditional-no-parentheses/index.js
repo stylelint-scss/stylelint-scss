@@ -1,9 +1,11 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-rule-conditional-no-parentheses");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-rule-conditional-no-parentheses");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected () used to surround statements for @-rules"
 });
 
@@ -28,7 +30,7 @@ function fix(atrule) {
   atrule.params = [...new Set(groups)].join(" ");
 }
 
-export default function(primary, _unused, context) {
+function rule(primary, _unused, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -67,3 +69,7 @@ export default function(primary, _unused, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

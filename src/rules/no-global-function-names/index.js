@@ -1,6 +1,8 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import { declarationValueIndex, namespace } from "../../utils";
+"use strict";
+
+const valueParser = require("postcss-value-parser");
+const { declarationValueIndex, namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
 const rules = {
   red: "color",
@@ -97,9 +99,9 @@ const new_rule_names = {
   "selector-extend": "extend"
 };
 
-export const ruleName = namespace("no-global-function-names");
+const ruleName = namespace("no-global-function-names");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejected: name => errorMessage(name)
 });
 
@@ -114,7 +116,7 @@ function errorMessage(name) {
   }
 }
 
-export default function(value) {
+function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value
@@ -144,3 +146,7 @@ export default function(value) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

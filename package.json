@@ -3,11 +3,6 @@
   "description": "A collection of SCSS specific rules for stylelint",
   "version": "3.17.1",
   "author": "Krister Kari",
-  "babel": {
-    "presets": [
-      "@babel/env"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/kristerkari/stylelint-scss/issues"
   },
@@ -19,11 +14,6 @@
     "postcss-value-parser": "^4.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "babel-plugin-istanbul": "^6.0.0",
-    "babel-preset-jest": "^25.3.0",
     "eslint": "^6.8.0",
     "eslint-config-stylelint": "^11.1.0",
     "eslint-plugin-lodash": "^7.1.0",
@@ -36,7 +26,6 @@
     "postcss": "^7.0.27",
     "postcss-scss": "^2.0.0",
     "prettier": "^1.19.1",
-    "rimraf": "^3.0.2",
     "stylelint": "^13.3.2"
   },
   "peerDependencies": {
@@ -51,7 +40,7 @@
       "stylelint"
     ],
     "parserOptions": {
-      "sourceType": "module",
+      "sourceType": "script",
       "ecmaVersion": 6
     },
     "env": {
@@ -101,8 +90,8 @@
     }
   },
   "files": [
-    "dist",
     "docs",
+    "src/**/*.js",
     "src/**/README.md",
     "!**/__tests__"
   ],
@@ -116,7 +105,7 @@
     "stylelint-plugin"
   ],
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "./src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kristerkari/stylelint-scss.git"
@@ -148,17 +137,11 @@
     "roots": [
       "src"
     ],
-    "testRegex": ".*\\.test\\.js$|src/.*/__tests__/.*\\.js$",
-    "transform": {
-      "^.+\\.jsx?$": "./babel-jest.js"
-    }
+    "testRegex": ".*\\.test\\.js$|src/.*/__tests__/.*\\.js$"
   },
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
     "prettify": "prettier --write \"src/**/*.js\"",
-    "prepublishOnly": "npm run build",
     "pretest": "npm run lint",
     "release": "npmpub",
     "jest": "jest",

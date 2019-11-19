@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Given a CSS statement, return the string before the block.
  * For rules, this is the selector list (and surrounding whitespace).
@@ -10,7 +12,7 @@
  * @param {boolean} [options.noRawBefore] - Leave out the `before` string
  * @return {string}
  */
-export default function(statement, { noRawBefore } = {}) {
+module.exports = function(statement, { noRawBefore } = {}) {
   let result = "";
 
   if (statement.type !== "rule" && statement.type !== "atrule") {
@@ -34,4 +36,4 @@ export default function(statement, { noRawBefore } = {}) {
   }
 
   return result;
-}
+};

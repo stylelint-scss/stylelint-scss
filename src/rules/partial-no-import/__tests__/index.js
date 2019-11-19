@@ -1,6 +1,8 @@
-import path from "path";
-import postcss from "postcss";
-import rule from "..";
+"use strict";
+
+const path = require("path");
+const postcss = require("postcss");
+const { rule } = require("..");
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console

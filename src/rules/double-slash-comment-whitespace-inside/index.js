@@ -1,14 +1,16 @@
-import { eachRoot, findCommentsInRaws, namespace } from "../../utils";
-import { utils } from "stylelint";
+"use strict";
 
-export const ruleName = namespace("double-slash-comment-whitespace-inside");
+const { eachRoot, findCommentsInRaws, namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("double-slash-comment-whitespace-inside");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a space after //",
   rejected: "Unexpected space after //"
 });
 
-export default function(expectation) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -63,3 +65,7 @@ export default function(expectation) {
     }
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;
