@@ -1,6 +1,8 @@
-import postcss from "postcss";
-import scss from "postcss-scss";
-import rule, { messages, ruleName } from "..";
+"use strict";
+
+const postcss = require("postcss");
+const scss = require("postcss-scss");
+const { rule, ruleName, messages } = require("..");
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
@@ -2473,22 +2475,22 @@ testRule(rule, {
       --my-var: #{scale-color(#fff, $lightness: -75%)};
     `,
       description:
-        "Function call in interpolation, negative unit value parameter: #{scale-color(#fff, $lightness: -75%)}",
+        "Function call in interpolation, negative unit value parameter: #{scale-color(#fff, $lightness: -75%)}"
     },
     {
       code: `
       --my-var: #{math.acos(-0.5)};
     `,
       description:
-        "Function call in interpolation, negative parameter: #{math.acos(-0.5)}",
+        "Function call in interpolation, negative parameter: #{math.acos(-0.5)}"
     },
     {
       code: `
       --my-var: #{math.acos(0.7 - 0.5)};
     `,
       description:
-        "Function call in interpolation, expression parameter: #{math.acos(0.7 - 0.5)}",
-    },
+        "Function call in interpolation, expression parameter: #{math.acos(0.7 - 0.5)}"
+    }
   ],
 
   reject: [
@@ -2501,7 +2503,7 @@ testRule(rule, {
       message: messages.expectedBefore("-"),
       line: 2,
       column: 32
-    },
+    }
   ]
 });
 

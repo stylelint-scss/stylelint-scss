@@ -1,3 +1,5 @@
+"use strict";
+
 const nativeCssFunctions = new Set([
   "annotation",
   "attr",
@@ -87,6 +89,6 @@ const nativeCssFunctions = new Set([
  * @param {string} functionName The name to check.
  * @returns {boolean} Whether or not the given function name is a native CSS function name.
  */
-export default function isNativeCssFunction(functionName) {
+module.exports = function isNativeCssFunction(functionName) {
   return nativeCssFunctions.has(functionName);
-}
+};

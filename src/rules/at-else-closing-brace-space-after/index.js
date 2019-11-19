@@ -1,15 +1,19 @@
-import { namespace } from "../../utils";
-import { utils } from "stylelint";
-import { sassConditionalBraceSpaceAfterChecker } from "../at-if-closing-brace-space-after";
+"use strict";
 
-export const ruleName = namespace("at-else-closing-brace-space-after");
+const {
+  sassConditionalBraceSpaceAfterChecker
+} = require("../at-if-closing-brace-space-after");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-else-closing-brace-space-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: 'Expected single space after "}" of @else statement',
   rejected: 'Unexpected space after "}" of @else statement'
 });
 
-export default function(expectation, _, context) {
+function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -31,3 +35,7 @@ export default function(expectation, _, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

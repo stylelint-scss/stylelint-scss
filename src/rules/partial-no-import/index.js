@@ -1,14 +1,16 @@
-import nodeJsPath from "path";
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("partial-no-import");
+const nodeJsPath = require("path");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("partial-no-import");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected @import in a partial"
 });
 
-export default function(on) {
+function rule(on) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: on
@@ -74,3 +76,7 @@ export default function(on) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

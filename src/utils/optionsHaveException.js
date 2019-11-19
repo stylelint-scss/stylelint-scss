@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Check if an options object contains a certain `except` keyword.
  * It will look for an `except` property whose value should
@@ -7,6 +9,6 @@
  * @param {string} exceptionName
  * @return {boolean}
  */
-export default function(options, exceptionName) {
+module.exports = function(options, exceptionName) {
   return options && options.except && options.except.includes(exceptionName);
-}
+};

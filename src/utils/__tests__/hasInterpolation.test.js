@@ -1,4 +1,6 @@
-import hasInterpolation from "../hasInterpolation";
+"use strict";
+
+const hasInterpolation = require("../hasInterpolation");
 
 it("hasInterpolation", () => {
   expect(hasInterpolation("(min-width#{$value}: 10px)")).toBeTruthy();

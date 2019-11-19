@@ -1,16 +1,18 @@
-import { utils } from "stylelint";
-import { namespace, parseSelector } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("selector-nest-combinators");
+const { namespace, parseSelector } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("selector-nest-combinators");
+
+const messages = utils.ruleMessages(ruleName, {
   expectedInterpolation: `Expected interpolation to be in a nested form`,
   expected: (combinator, type) =>
     `Expected combinator "${combinator}" of type "${type}" to be in a nested form`,
   rejected: `Unexpected nesting found in selector`
 });
 
-export default function(expectation) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -149,3 +151,7 @@ export default function(expectation) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

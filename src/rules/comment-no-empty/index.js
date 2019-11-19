@@ -1,9 +1,11 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("comment-no-empty");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("comment-no-empty");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected empty comment"
 });
 
@@ -34,4 +36,6 @@ function isEmptyComment(comment) {
   return comment.text === "";
 }
 
-export default rule;
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

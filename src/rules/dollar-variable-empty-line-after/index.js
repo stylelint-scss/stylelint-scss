@@ -1,22 +1,24 @@
-import {
+"use strict";
+
+const {
   hasEmptyLine,
   isSingleLineString,
   namespace,
   optionsHaveException,
   optionsHaveIgnored,
   blockString
-} from "../../utils";
-import { utils } from "stylelint";
-import { isBoolean } from "lodash";
+} = require("../../utils");
+const { isBoolean } = require("lodash");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("dollar-variable-empty-line-after");
+const ruleName = namespace("dollar-variable-empty-line-after");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected an empty line after $-variable",
   rejected: "Unexpected empty line after $-variable"
 });
 
-export default function(expectation, options, context) {
+function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -238,3 +240,7 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

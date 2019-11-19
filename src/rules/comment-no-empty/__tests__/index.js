@@ -1,4 +1,6 @@
-import rule, { ruleName, messages } from "..";
+"use strict";
+
+const { rule, ruleName, messages } = require("..");
 
 testRule(rule, {
   ruleName,
@@ -102,6 +104,6 @@ testRule(rule, {
       message: messages.rejected,
       line: 2,
       column: 7
-    }   
+    }
   ]
 });

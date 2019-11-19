@@ -1,16 +1,16 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import {
+"use strict";
+
+const valueParser = require("postcss-value-parser");
+const {
   declarationValueIndex,
   isNativeCssFunction,
   namespace
-} from "../../utils";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace(
-  "function-unquote-no-unquoted-strings-inside"
-);
+const ruleName = namespace("function-unquote-no-unquoted-strings-inside");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Unquote function used with an already-unquoted string"
 });
 
@@ -78,4 +78,6 @@ function rule(primary, _, context) {
   };
 }
 
-export default rule;
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

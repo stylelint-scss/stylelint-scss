@@ -1,13 +1,15 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("no-dollar-variables");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("no-dollar-variables");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: variable => `Unexpected dollar variable ${variable}`
 });
 
-export default function(value) {
+function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value
@@ -31,3 +33,7 @@ export default function(value) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

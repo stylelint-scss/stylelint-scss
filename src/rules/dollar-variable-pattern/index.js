@@ -1,14 +1,16 @@
-import { isRegExp, isString } from "lodash";
-import { utils } from "stylelint";
-import { namespace, optionsHaveIgnored } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-pattern");
+const { isRegExp, isString } = require("lodash");
+const { namespace, optionsHaveIgnored } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-pattern");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected $ variable name to match specified pattern"
 });
 
-export default function(pattern, options) {
+function rule(pattern, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -61,3 +63,7 @@ export default function(pattern, options) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

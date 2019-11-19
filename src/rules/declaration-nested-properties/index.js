@@ -1,21 +1,23 @@
-import { utils } from "stylelint";
-import {
+"use strict";
+
+const {
   isStandardSyntaxProperty,
   namespace,
   optionsHaveException,
   parseNestedPropRoot
-} from "../../utils";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
 
-export const ruleName = namespace("declaration-nested-properties");
+const ruleName = namespace("declaration-nested-properties");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expected: prop => `Expected property "${prop}" to be in a nested form`,
   rejected: prop => `Unexpected nested property "${prop}"`
 });
 
-export default function(expectation, options) {
+function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -153,3 +155,7 @@ export default function(expectation, options) {
     }
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

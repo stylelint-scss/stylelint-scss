@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Check if an options object contains a certain `ignore` keyword.
  * It will look for an `ignore` property whose value should
@@ -7,6 +9,6 @@
  * @param {string} ignoredName
  * @return {boolean}
  */
-export default function(options, ignoredName) {
+module.exports = function(options, ignoredName) {
   return options && options.ignore && options.ignore.includes(ignoredName);
-}
+};

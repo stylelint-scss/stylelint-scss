@@ -1,6 +1,8 @@
-import valueParser from "postcss-value-parser";
+"use strict";
 
-export function groupByKeyValue(nodes) {
+const valueParser = require("postcss-value-parser");
+
+function groupByKeyValue(nodes) {
   if (!nodes) {
     return [];
   }
@@ -29,7 +31,7 @@ export function groupByKeyValue(nodes) {
   }, []);
 }
 
-export function mapToKeyValue(nodes) {
+function mapToKeyValue(nodes) {
   const keyVal = nodes.reduce((acc, curr, i) => {
     if (acc.length === 1) {
       return acc;
@@ -58,7 +60,7 @@ export function mapToKeyValue(nodes) {
   return keyVal[0];
 }
 
-export function parseFunctionArguments(value) {
+function parseFunctionArguments(value) {
   const parsed = valueParser(value);
 
   if (!parsed.nodes[0] || parsed.nodes[0].type !== "function") {
@@ -69,3 +71,9 @@ export function parseFunctionArguments(value) {
     groupByKeyValue(node.nodes).map(mapToKeyValue)
   )[0];
 }
+
+module.exports = {
+  groupByKeyValue,
+  mapToKeyValue,
+  parseFunctionArguments
+};

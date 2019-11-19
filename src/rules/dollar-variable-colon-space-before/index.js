@@ -1,15 +1,19 @@
-import { namespace, whitespaceChecker } from "../../utils";
-import { utils } from "stylelint";
-import { variableColonSpaceChecker } from "../dollar-variable-colon-space-after";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-colon-space-before");
+const {
+  variableColonSpaceChecker
+} = require("../dollar-variable-colon-space-after");
+const { namespace, whitespaceChecker } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-colon-space-before");
+
+const messages = utils.ruleMessages(ruleName, {
   expectedBefore: () => 'Expected single space before ":"',
   rejectedBefore: () => 'Unexpected whitespace before ":"'
 });
 
-export default function(expectation, _, context) {
+function rule(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
 
   return (root, result) => {
@@ -33,3 +37,7 @@ export default function(expectation, _, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

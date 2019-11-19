@@ -1,13 +1,15 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-import-no-partial-leading-underscore");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-import-no-partial-leading-underscore");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected leading underscore in imported partial name"
 });
 
-export default function(actual) {
+function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -52,3 +54,7 @@ export default function(actual) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

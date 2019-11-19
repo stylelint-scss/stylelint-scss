@@ -1,14 +1,16 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import {
+"use strict";
+
+const valueParser = require("postcss-value-parser");
+const {
   declarationValueIndex,
   isNativeCssFunction,
   namespace
-} from "../../utils";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("function-quote-no-quoted-strings-inside");
+const ruleName = namespace("function-quote-no-quoted-strings-inside");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Quote function used with an already-quoted string"
 });
 
@@ -73,4 +75,6 @@ function rule(primary, _, context) {
   };
 }
 
-export default rule;
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

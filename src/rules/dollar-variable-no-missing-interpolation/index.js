@@ -1,10 +1,12 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
-import valueParser from "postcss-value-parser";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-no-missing-interpolation");
+const valueParser = require("postcss-value-parser");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-no-missing-interpolation");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: (n, v) =>
     `Expected variable ${v} to be interpolated when using it with ${n}`
 });
@@ -50,7 +52,7 @@ function toRegex(arr) {
   return new RegExp(`(${arr.join("|")})`);
 }
 
-export default function(actual) {
+function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -133,3 +135,7 @@ export default function(actual) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

@@ -1,16 +1,18 @@
-import { utils } from "stylelint";
-import { namespace, whitespaceChecker } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-else-if-parentheses-space-before");
+const { namespace, whitespaceChecker } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-else-if-parentheses-space-before");
+
+const messages = utils.ruleMessages(ruleName, {
   rejectedBefore: () =>
     "Unexpected whitespace before parentheses in else-if declaration",
   expectedBefore: () =>
     "Expected a single space before parentheses in else-if declaration"
 });
 
-export default function(value, _, context) {
+function rule(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -44,3 +46,7 @@ export default function(value, _, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;
