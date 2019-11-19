@@ -10,7 +10,7 @@ export const messages = utils.ruleMessages(ruleName, {
 });
 
 export default function(expectation) {
-  return function(root, result) {
+  return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
       possible: ["always", "never"]
@@ -38,7 +38,7 @@ export default function(expectation) {
         return;
       }
 
-      found.forEach(function(found) {
+      found.forEach(found => {
         // ... parse `: 10px )` to `10px`
         const valueParsed = found.match(valueRegex)[1];
 
@@ -63,7 +63,7 @@ export default function(expectation) {
           )
         ) {
           complain(messages.expected);
-        } else if (expectation === "never" && valueParsed.indexOf("$") !== -1) {
+        } else if (expectation === "never" && valueParsed.includes("$")) {
           // "Never" means no variables at all (functions allowed)
           complain(messages.rejected);
         }

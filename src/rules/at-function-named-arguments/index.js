@@ -18,7 +18,7 @@ export const messages = utils.ruleMessages(ruleName, {
 const isScssVarRegExp = /^\$\S*/;
 
 export default function(expectation, options) {
-  return function(root, result) {
+  return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
       ruleName,

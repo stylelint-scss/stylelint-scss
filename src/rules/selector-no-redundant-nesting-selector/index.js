@@ -8,7 +8,7 @@ export const messages = utils.ruleMessages(ruleName, {
 });
 
 export default function(actual) {
-  return function(root, result) {
+  return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
     if (!validOptions) {

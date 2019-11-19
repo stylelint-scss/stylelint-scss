@@ -5,7 +5,5 @@
  * @return {boolean}
  */
 export default function(string) {
-  return (
-    string && (string.indexOf("\n\n") !== -1 || string.indexOf("\n\r\n") !== -1)
-  );
+  return string && (string.includes("\n\n") || string.includes("\n\r\n"));
 }

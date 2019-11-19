@@ -36,7 +36,7 @@ function rule(primary) {
           const mapKeys = returnMapKeys(node.nodes);
 
           mapKeys.forEach(map_key => {
-            if (mathOperators.indexOf(map_key.value) > -1) {
+            if (mathOperators.includes(map_key.value)) {
               return;
             }
 

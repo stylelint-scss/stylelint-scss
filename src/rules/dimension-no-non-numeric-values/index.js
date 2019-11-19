@@ -91,9 +91,7 @@ export default function rule(primary) {
           return;
         }
 
-        const regex = new RegExp(
-          "#{[$a-z_0-9 +-]*}(" + units.join("|") + ");?"
-        );
+        const regex = new RegExp(`#{[$a-z_0-9 +-]*}(${units.join("|")});?`);
         const matchUnit = decl.value.match(regex);
         const unit = matchUnit[1];
         const offset = decl.value.indexOf(unit);
@@ -121,7 +119,7 @@ function isInterpolated(value) {
   }
 
   units.forEach(unit => {
-    const regex = new RegExp("^#{[$a-z_0-9 +-]*}" + unit + ";?$");
+    const regex = new RegExp(`^#{[$a-z_0-9 +-]*}${unit};?$`);
 
     if (value.match(regex)) {
       boolean = true;
