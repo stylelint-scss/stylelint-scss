@@ -914,7 +914,7 @@ function isFunctionAfter(after) {
   // `-fn()` is a valid function name, so if a - should be a sign/operator,
   // it must have a space after
   const matches = after.match(
-    /^\s*(-\s+|[+/*%]\s*)*[a-zA_Z_-][a-zA-Z_0-9-]*\(/
+    /^\s*(-\s+|[+/*%]\s*)*[a-zA-Z_-][a-zA-Z_0-9-]*\(/
   );
 
   if (matches) {
