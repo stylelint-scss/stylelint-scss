@@ -1,4 +1,6 @@
-import { ruleName, messages } from "..";
+"use strict";
+
+const { ruleName, messages } = require("..");
 
 // always-intermediate
 testRule({

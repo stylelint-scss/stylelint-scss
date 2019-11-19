@@ -1,19 +1,23 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import { declarationValueIndex, namespace, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("dimension-no-non-numeric-values");
+const valueParser = require("postcss-value-parser");
+const { utils } = require("stylelint");
+const declarationValueIndex = require("../../utils/declarationValueIndex");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dimension-no-non-numeric-values");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: unit =>
     `Expected "$value * 1${unit}" instead of "#{$value}${unit}". Consider writing "value" in terms of ${unit} originally.`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export const units = [
+const units = [
   // Font-relative lengths:
   // https://www.w3.org/TR/css-values-4/#font-relative-lengths
   "em",
@@ -73,7 +77,7 @@ export const units = [
   "fr"
 ];
 
-export default function rule(primary) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -141,3 +145,6 @@ function isInterpolated(value) {
 
   return boolean;
 }
+
+module.exports = rule;
+module.exports.units = units;

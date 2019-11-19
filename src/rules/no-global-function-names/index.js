@@ -1,6 +1,10 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import { declarationValueIndex, namespace, ruleUrl } from "../../utils";
+"use strict";
+
+const valueParser = require("postcss-value-parser");
+const { utils } = require("stylelint");
+const declarationValueIndex = require("../../utils/declarationValueIndex");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
 const interpolationPrefix = /^#{\s*/m;
 
@@ -130,14 +134,14 @@ const rule_mapping = {
   ]
 };
 
-export const ruleName = namespace("no-global-function-names");
+const ruleName = namespace("no-global-function-names");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejectedFullMessage: string => string,
   rejected: name => errorMessage(name)
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
@@ -159,7 +163,7 @@ function errorMessage(name) {
   }
 }
 
-export default function rule(value) {
+function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value
@@ -195,3 +199,5 @@ export default function rule(value) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

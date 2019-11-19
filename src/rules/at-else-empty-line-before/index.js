@@ -1,17 +1,21 @@
-import { hasEmptyLine, namespace, ruleUrl } from "../../utils";
-import { utils } from "stylelint";
+"use strict";
 
-export const ruleName = namespace("at-else-empty-line-before");
+const { utils } = require("stylelint");
+const hasEmptyLine = require("../../utils/hasEmptyLine");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-else-empty-line-before");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected empty line before @else"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation, _, context) {
+function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -53,3 +57,5 @@ export default function rule(expectation, _, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

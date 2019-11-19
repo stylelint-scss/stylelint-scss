@@ -1,17 +1,20 @@
-import { utils } from "stylelint";
-import { namespace, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("comment-no-loud");
+const { utils } = require("stylelint");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("comment-no-loud");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected // for comments instead of /*"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(primary) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -46,3 +49,5 @@ function isLoudComment(comment) {
 
   return regex.test(commentFirstLine);
 }
+
+module.exports = rule;

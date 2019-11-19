@@ -1,26 +1,25 @@
-import { utils } from "stylelint";
-import optionsMatches from "stylelint/lib/utils/optionsMatches";
-import {
-  hasNestedSibling,
-  isRegExp,
-  isString,
-  isType,
-  namespace,
-  parseSelector,
-  ruleUrl
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("selector-no-redundant-nesting-selector");
+const { utils } = require("stylelint");
+const optionsMatches = require("../../utils/optionsMatches");
+const hasNestedSibling = require("../../utils/hasNestedSibling");
+const isType = require("../../utils/isType");
+const parseSelector = require("../../utils/parseSelector");
+const { isRegExp, isString } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("selector-no-redundant-nesting-selector");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Unnecessary nesting selector (&)"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(actual, options) {
+function rule(actual, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -89,3 +88,5 @@ export default function rule(actual, options) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

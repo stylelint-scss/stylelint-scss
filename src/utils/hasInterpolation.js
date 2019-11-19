@@ -1,7 +1,9 @@
-import hasLessInterpolation from "./hasLessInterpolation";
-import hasPsvInterpolation from "./hasPsvInterpolation";
-import hasScssInterpolation from "./hasScssInterpolation";
-import hasTplInterpolation from "./hasTplInterpolation";
+"use strict";
+
+const hasLessInterpolation = require("./hasLessInterpolation");
+const hasPsvInterpolation = require("./hasPsvInterpolation");
+const hasScssInterpolation = require("./hasScssInterpolation");
+const hasTplInterpolation = require("./hasTplInterpolation");
 
 /**
  * Check whether a string has interpolation
@@ -9,7 +11,7 @@ import hasTplInterpolation from "./hasTplInterpolation";
  * @param {string} string
  * @return {boolean} If `true`, a string has interpolation
  */
-export default function (string) {
+module.exports = function (string) {
   // SCSS or Less interpolation
   return !!(
     hasLessInterpolation(string) ||
@@ -17,4 +19,4 @@ export default function (string) {
     hasTplInterpolation(string) ||
     hasPsvInterpolation(string)
   );
-}
+};

@@ -1,17 +1,22 @@
-import { utils } from "stylelint";
-import { isBoolean, isString, namespace, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("no-duplicate-dollar-variables");
+const { utils } = require("stylelint");
+const { isBoolean } = require("../../utils/validateTypes");
+const { isString } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("no-duplicate-dollar-variables");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: variable => `Unexpected duplicate dollar variable ${variable}`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(value, secondaryOptions) {
+function rule(value, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -185,3 +190,5 @@ export default function rule(value, secondaryOptions) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

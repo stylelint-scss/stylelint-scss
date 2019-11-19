@@ -1,26 +1,26 @@
-import { utils } from "stylelint";
-import {
-  isStandardSyntaxProperty,
-  namespace,
-  optionsHaveException,
-  parseNestedPropRoot,
-  ruleUrl
-} from "../../utils";
+"use strict";
+
+const { utils } = require("stylelint");
+const isStandardSyntaxProperty = require("../../utils/isStandardSyntaxProperty");
+const optionsHaveException = require("../../utils/optionsHaveException");
+const namespace = require("../../utils/namespace");
+const parseNestedPropRoot = require("../../utils/parseNestedPropRoot");
+const ruleUrl = require("../../utils/ruleUrl");
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
 
-export const ruleName = namespace("declaration-nested-properties");
+const ruleName = namespace("declaration-nested-properties");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expected: prop => `Expected property "${prop}" to be in a nested form`,
   rejected: prop => `Unexpected nested property "${prop}"`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation, options) {
+function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -164,3 +164,5 @@ export default function rule(expectation, options) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

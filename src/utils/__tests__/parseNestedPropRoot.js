@@ -1,4 +1,6 @@
-import { parseNestedPropRoot } from "../";
+"use strict";
+
+const parseNestedPropRoot = require("../parseNestedPropRoot");
 
 // --------------------------------------------------------------------------
 // nested props

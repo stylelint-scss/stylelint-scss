@@ -1,28 +1,27 @@
-import resolveNestedSelector from "postcss-resolve-nested-selector";
-import { utils } from "stylelint";
-import {
-  hasInterpolatingAmpersand,
-  isRegExp,
-  isStandardRule,
-  isStandardSelector,
-  isString,
-  namespace,
-  parseSelector,
-  ruleUrl
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("percent-placeholder-pattern");
+const resolveNestedSelector = require("postcss-resolve-nested-selector");
+const { utils } = require("stylelint");
+const { isRegExp, isString } = require("../../utils/validateTypes");
+const hasInterpolatingAmpersand = require("../../utils/hasInterpolatingAmpersand");
+const isStandardRule = require("../../utils/isStandardRule");
+const isStandardSelector = require("../../utils/isStandardSelector");
+const parseSelector = require("../../utils/parseSelector");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("percent-placeholder-pattern");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: placeholder =>
     `Expected %-placeholder "%${placeholder}" to match specified pattern`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(pattern) {
+function rule(pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
@@ -98,3 +97,5 @@ export default function rule(pattern) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

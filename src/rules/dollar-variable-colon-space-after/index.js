@@ -1,15 +1,15 @@
-import {
-  declarationValueIndex,
-  namespace,
-  isSingleLineString,
-  ruleUrl,
-  whitespaceChecker
-} from "../../utils";
-import { utils } from "stylelint";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-colon-space-after");
+const { utils } = require("stylelint");
+const declarationValueIndex = require("../../utils/declarationValueIndex");
+const isSingleLineString = require("../../utils/isSingleLineString");
+const whitespaceChecker = require("../../utils/whitespaceChecker");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-colon-space-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expectedAfter: () => 'Expected single space after ":"',
   rejectedAfter: () => 'Unexpected whitespace after ":"',
   expectedAfterSingleLine: () =>
@@ -17,11 +17,11 @@ export const messages = utils.ruleMessages(ruleName, {
   expectedAfterAtLeast: () => 'Expected at least one space after ":"'
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation, _, context) {
+function rule(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
 
   return (root, result) => {
@@ -50,7 +50,7 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-export function variableColonSpaceChecker({
+function variableColonSpaceChecker({
   locationChecker,
   root,
   result,
@@ -115,3 +115,6 @@ export function variableColonSpaceChecker({
     }
   });
 }
+
+module.exports = rule;
+module.exports.variableColonSpaceChecker = variableColonSpaceChecker;

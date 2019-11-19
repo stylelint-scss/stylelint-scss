@@ -1,4 +1,6 @@
-import { ruleName, messages } from "..";
+"use strict";
+
+const { messages, ruleName } = require("..");
 
 // Testing against a ragex, sequence part
 testRule({

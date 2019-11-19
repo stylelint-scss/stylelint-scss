@@ -1,23 +1,23 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import {
-  declarationValueIndex,
-  isNativeCssFunction,
-  namespace,
-  ruleUrl
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("function-quote-no-quoted-strings-inside");
+const valueParser = require("postcss-value-parser");
+const { utils } = require("stylelint");
+const declarationValueIndex = require("../../utils/declarationValueIndex");
+const isNativeCssFunction = require("../../utils/isNativeCssFunction");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("function-quote-no-quoted-strings-inside");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Quote function used with an already-quoted string"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(primary, _, context) {
+function rule(primary, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -80,3 +80,5 @@ export default function rule(primary, _, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

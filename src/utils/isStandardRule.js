@@ -1,5 +1,7 @@
-import isCustomPropertySet from "./isCustomPropertySet";
-import isStandardSyntaxSelector from "./isStandardSelector";
+"use strict";
+
+const isCustomPropertySet = require("./isCustomPropertySet");
+const isStandardSyntaxSelector = require("./isStandardSelector");
 
 /**
  * Check whether a Node is a standard rule
@@ -7,7 +9,7 @@ import isStandardSyntaxSelector from "./isStandardSelector";
  * @param {import('postcss').Rule} rule
  * @returns {boolean}
  */
-export default function (rule) {
+module.exports = function (rule) {
   // Get full selector
   const selector = rule?.raws?.selector?.raw || rule.selector;
 
@@ -60,4 +62,4 @@ export default function (rule) {
   }
 
   return true;
-}
+};

@@ -1,22 +1,25 @@
-import { rules, utils } from "stylelint";
-import { namespace, ruleUrl } from "../../utils";
+"use strict";
+
+const { rules, utils } = require("stylelint");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
 const coreRuleName = "comment-no-empty";
 
-export const ruleName = namespace(coreRuleName);
+const ruleName = namespace(coreRuleName);
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejected: rules[coreRuleName].messages.rejected.replace(
     ` (${coreRuleName})`,
     ""
   )
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(primary) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -46,3 +49,5 @@ rule.meta = meta;
 function isEmptyComment(comment) {
   return comment.text === "";
 }
+
+module.exports = rule;

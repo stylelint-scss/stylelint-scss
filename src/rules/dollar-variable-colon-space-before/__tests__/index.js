@@ -1,5 +1,6 @@
-import { ruleName, messages } from "..";
+"use strict";
 
+const { messages, ruleName } = require("..");
 testRule({
   ruleName,
   config: ["always"],

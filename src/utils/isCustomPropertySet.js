@@ -1,10 +1,12 @@
+"use strict";
+
 /**
  * Check whether a Node is a custom property set
  *
  * @param {import('postcss').Rule} node
  * @returns {boolean}
  */
-export default function (node) {
+module.exports = function (node) {
   const prop = node?.raws?.prop?.raw || node.prop;
   const value = node?.raws?.value?.raw || node.value;
 
@@ -14,4 +16,4 @@ export default function (node) {
     value.startsWith("{") &&
     value.endsWith("}")
   );
-}
+};

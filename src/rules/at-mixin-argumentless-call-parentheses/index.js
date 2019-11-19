@@ -1,19 +1,22 @@
-import { utils } from "stylelint";
-import { namespace, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-mixin-argumentless-call-parentheses");
+const { utils } = require("stylelint");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-mixin-argumentless-call-parentheses");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: mixin => `Expected parentheses in mixin "${mixin}" call`,
   rejected: mixin =>
     `Unexpected parentheses in argumentless mixin "${mixin}" call`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(value, _, context) {
+function rule(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -61,3 +64,5 @@ export default function rule(value, _, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

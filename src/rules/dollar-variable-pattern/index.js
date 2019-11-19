@@ -1,23 +1,22 @@
-import { utils } from "stylelint";
-import {
-  isRegExp,
-  isString,
-  namespace,
-  optionsHaveIgnored,
-  ruleUrl
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-pattern");
+const { utils } = require("stylelint");
+const { isRegExp, isString } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-pattern");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected $ variable name to match specified pattern"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(pattern, options) {
+function rule(pattern, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -74,3 +73,5 @@ export default function rule(pattern, options) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

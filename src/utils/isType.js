@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Determine whether the given node is of the given type.
  *
@@ -5,6 +7,6 @@
  * @param  {string} type
  * @return {boolean}
  */
-export default function (node, type) {
+module.exports = function (node, type) {
   return node && node.type === type;
-}
+};

@@ -1,18 +1,14 @@
+"use strict";
+
 /**
  * @see https://sass-lang.com/documentation/modules#global-functions
  */
-export const GLOBAL_FUNCTIONS = Object.freeze([
-  "hsl",
-  "hsla",
-  "if",
-  "rgb",
-  "rgba"
-]);
+const GLOBAL_FUNCTIONS = Object.freeze(["hsl", "hsla", "if", "rgb", "rgba"]);
 
 /**
  * @see https://sass-lang.com/documentation/modules/color
  */
-export const COLOR_FUNCTIONS = Object.freeze([
+const COLOR_FUNCTIONS = Object.freeze([
   "adjust-color",
   "adjust-hue",
   "alpha",
@@ -63,7 +59,7 @@ export const COLOR_FUNCTIONS = Object.freeze([
 /**
  * @see https://sass-lang.com/documentation/modules/list
  */
-export const LIST_FUNCTIONS = Object.freeze([
+const LIST_FUNCTIONS = Object.freeze([
   "append",
   "index",
   "is-bracketed",
@@ -90,7 +86,7 @@ export const LIST_FUNCTIONS = Object.freeze([
 /**
  * @see https://sass-lang.com/documentation/modules/map
  */
-export const MAP_FUNCTIONS = Object.freeze([
+const MAP_FUNCTIONS = Object.freeze([
   "map-get",
   "map-has-key",
   "map-keys",
@@ -113,7 +109,7 @@ export const MAP_FUNCTIONS = Object.freeze([
 /**
  * @see https://sass-lang.com/documentation/modules/math
  */
-export const MATH_FUNCTIONS = Object.freeze([
+const MATH_FUNCTIONS = Object.freeze([
   "abs",
   "ceil",
   "comparable",
@@ -156,7 +152,7 @@ export const MATH_FUNCTIONS = Object.freeze([
 /**
  * @see https://sass-lang.com/documentation/modules/meta
  */
-export const META_FUNCTIONS = Object.freeze([
+const META_FUNCTIONS = Object.freeze([
   "call",
   "content-exists",
   "feature-exists",
@@ -190,7 +186,7 @@ export const META_FUNCTIONS = Object.freeze([
 /**
  * @see https://sass-lang.com/documentation/modules/selector
  */
-export const SELECTOR_FUNCTIONS = Object.freeze([
+const SELECTOR_FUNCTIONS = Object.freeze([
   "is-superselector",
   "selector-append",
   "selector-extend",
@@ -214,7 +210,7 @@ export const SELECTOR_FUNCTIONS = Object.freeze([
 /**
  * @see https://sass-lang.com/documentation/modules/string
  */
-export const STRING_FUNCTIONS = Object.freeze([
+const STRING_FUNCTIONS = Object.freeze([
   "quote",
   "str-index",
   "str-insert",
@@ -237,7 +233,7 @@ export const STRING_FUNCTIONS = Object.freeze([
   "string.unquote"
 ]);
 
-export const ALL_FUNCTIONS = Object.freeze([
+const ALL_FUNCTIONS = Object.freeze([
   ...GLOBAL_FUNCTIONS,
   ...COLOR_FUNCTIONS,
   ...LIST_FUNCTIONS,
@@ -247,3 +243,15 @@ export const ALL_FUNCTIONS = Object.freeze([
   ...SELECTOR_FUNCTIONS,
   ...STRING_FUNCTIONS
 ]);
+
+module.exports = {
+  GLOBAL_FUNCTIONS,
+  COLOR_FUNCTIONS,
+  LIST_FUNCTIONS,
+  MAP_FUNCTIONS,
+  MATH_FUNCTIONS,
+  META_FUNCTIONS,
+  SELECTOR_FUNCTIONS,
+  STRING_FUNCTIONS,
+  ALL_FUNCTIONS
+};

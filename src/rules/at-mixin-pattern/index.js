@@ -1,17 +1,21 @@
-import { utils } from "stylelint";
-import { isRegExp, isString, namespace, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-mixin-pattern");
+const { utils } = require("stylelint");
+const { isRegExp, isString } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-mixin-pattern");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected @mixin name to match specified pattern"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(pattern) {
+function rule(pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
@@ -54,3 +58,5 @@ export default function rule(pattern) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

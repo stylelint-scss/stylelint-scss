@@ -5,7 +5,7 @@
   "author": "Krister Kari",
   "repository": "stylelint-scss/stylelint-scss",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "peerDependencies": {
     "stylelint": "^14.5.1 || ^15.0.0"
   },
@@ -16,11 +16,6 @@
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.4",
-    "@babel/preset-env": "^7.21.4",
-    "babel-plugin-istanbul": "^6.1.1",
-    "babel-preset-jest": "^29.5.0",
     "eslint": "^8.39.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^8.0.3",
@@ -33,11 +28,10 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.6",
     "prettier": "^2.8.8",
-    "rimraf": "^5.0.0",
     "stylelint": "^15.6.0"
   },
   "files": [
-    "dist/**/*.js",
+    "src/**/*.js",
     "!**/__tests__/**"
   ],
   "keywords": [
@@ -50,11 +44,8 @@
     "stylelint-plugin"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
     "prettify": "prettier --write \"src/**/*.js\"",
-    "prepublishOnly": "npm run build",
     "pretest": "npm run lint",
     "release": "np",
     "jest": "jest",

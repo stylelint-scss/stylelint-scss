@@ -1,4 +1,6 @@
-import hasInterpolation from "./hasInterpolation";
+"use strict";
+
+const hasInterpolation = require("./hasInterpolation");
 
 /**
  * Check whether a selector is standard
@@ -6,7 +8,7 @@ import hasInterpolation from "./hasInterpolation";
  * @param {string} selector
  * @returns {boolean}
  */
-export default function (selector) {
+module.exports = function (selector) {
   // SCSS or Less interpolation
   if (hasInterpolation(selector)) {
     return false;
@@ -33,4 +35,4 @@ export default function (selector) {
   }
 
   return true;
-}
+};

@@ -1,18 +1,23 @@
-import { utils } from "stylelint";
-import { isBoolean, isSingleLineString, namespace, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-if-closing-brace-newline-after");
+const { utils } = require("stylelint");
+const isSingleLineString = require("../../utils/isSingleLineString");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
+const { isBoolean } = require("../../utils/validateTypes");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-if-closing-brace-newline-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: 'Expected newline after "}" of @if statement',
   rejected: 'Unexpected newline after "}" of @if statement'
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation, options, context) {
+function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -59,7 +64,7 @@ export default function rule(expectation, options, context) {
  * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
  * @return {undefined}
  */
-export function sassConditionalBraceNLAfterChecker({
+function sassConditionalBraceNLAfterChecker({
   root,
   result,
   ruleName,
@@ -124,3 +129,6 @@ export function sassConditionalBraceNLAfterChecker({
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+rule.sassConditionalBraceNLAfterChecker = sassConditionalBraceNLAfterChecker;
+
+module.exports = rule;
