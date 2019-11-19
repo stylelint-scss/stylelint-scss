@@ -12,7 +12,9 @@
     "url": "https://github.com/kristerkari/stylelint-scss/issues"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash.isboolean": "^3.0.3",
+    "lodash.isregexp": "^4.0.1",
+    "lodash.isstring": "^4.0.1",
     "postcss-media-query-parser": "^0.2.3",
     "postcss-resolve-nested-selector": "^0.1.1",
     "postcss-selector-parser": "^6.0.2",
@@ -34,6 +36,7 @@
     "jest": "^24.9.0",
     "jest-cli": "^24.9.0",
     "lint-staged": "^9.4.3",
+    "lodash.get": "^4.4.2",
     "npmpub": "^5.0.0",
     "postcss": "^7.0.23",
     "postcss-scss": "^2.0.0",

@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 /**
  * Check whether a selector has an interpolating ampersand
  * An "interpolating ampersand" is an "&" used to interpolate within another
@@ -15,11 +13,11 @@ export default function(selector) {
       continue;
     }
 
-    if (!_.isUndefined(selector[i - 1]) && !isCombinator(selector[i - 1])) {
+    if (selector[i - 1] !== undefined && !isCombinator(selector[i - 1])) {
       return true;
     }
 
-    if (!_.isUndefined(selector[i + 1]) && !isCombinator(selector[i + 1])) {
+    if (selector[i + 1] !== undefined && !isCombinator(selector[i + 1])) {
       return true;
     }
   }

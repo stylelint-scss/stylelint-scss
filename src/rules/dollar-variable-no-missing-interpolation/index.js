@@ -1,4 +1,3 @@
-import { includes } from "lodash";
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
 import valueParser from "postcss-value-parser";
@@ -28,11 +27,11 @@ function isAtRule(type) {
 }
 
 function isCustomIdentAtRule(node) {
-  return isAtRule(node.type) && includes(customIdentAtRules, node.name);
+  return isAtRule(node.type) && customIdentAtRules.includes(node.name);
 }
 
 function isCustomIdentProp(node) {
-  return includes(customIdentProps, node.prop);
+  return customIdentProps.includes(node.prop);
 }
 
 function isAtSupports(node) {
@@ -66,7 +65,7 @@ export default function(actual) {
       node.walkDecls(decl => {
         const { prop, value } = decl;
 
-        if (!isSassVar(prop) || includes(vars, prop)) {
+        if (!isSassVar(prop) || vars.includes(prop)) {
           return;
         }
 
@@ -87,11 +86,11 @@ export default function(actual) {
 
     function shouldReport(node, value) {
       if (isAtSupports(node) || isCustomIdentProp(node)) {
-        return includes(stringVars, value);
+        return stringVars.includes(value);
       }
 
       if (isCustomIdentAtRule(node)) {
-        return includes(vars, value);
+        return vars.includes(value);
       }
 
       return false;

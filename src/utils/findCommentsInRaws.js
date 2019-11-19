@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 /**
  * Finds comments, both CSS comments and double slash ones, in a CSS string
  * This helper exists because PostCSS drops some inline comments (those
@@ -188,7 +186,7 @@ export default function findCommentsInRaws(rawString) {
           comment.text = matches[3];
           comment.inlineBefore =
             rawString.substring(i + 2).search(/^\s*?\S+\s*?\n/) !== -1;
-          result.push(_.assign({}, comment));
+          result.push(Object.assign({}, comment));
           comment = {};
           // Skip the next loop as the / in */ is already checked
           i++;
@@ -224,7 +222,7 @@ export default function findCommentsInRaws(rawString) {
             };
             comment.text = matches[3];
             comment.inlineBefore = false;
-            result.push(_.assign({}, comment));
+            result.push(Object.assign({}, comment));
             comment = {};
             // Compensate for the `*/` added by postcss-scss
             offset += 2;

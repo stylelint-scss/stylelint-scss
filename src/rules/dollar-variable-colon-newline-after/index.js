@@ -1,4 +1,4 @@
-import { isBoolean } from "lodash";
+import isBoolean from "lodash.isboolean";
 import { utils } from "stylelint";
 import {
   declarationValueIndex,

@@ -1,4 +1,3 @@
-import { head } from "lodash";
 import valueParser from "postcss-value-parser";
 
 export function groupByKeyValue(nodes) {
@@ -56,7 +55,7 @@ export function mapToKeyValue(nodes) {
     return acc;
   }, []);
 
-  return head(keyVal);
+  return keyVal[0];
 }
 
 export function parseFunctionArguments(value) {
@@ -66,7 +65,7 @@ export function parseFunctionArguments(value) {
     return [];
   }
 
-  return head(
-    parsed.nodes.map(node => groupByKeyValue(node.nodes).map(mapToKeyValue))
-  );
+  return parsed.nodes.map(node =>
+    groupByKeyValue(node.nodes).map(mapToKeyValue)
+  )[0];
 }
