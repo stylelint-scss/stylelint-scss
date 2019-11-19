@@ -5,7 +5,6 @@
 [![Coverage Status](https://img.shields.io/coveralls/github/kristerkari/stylelint-scss/master.svg)](https://coveralls.io/github/kristerkari/stylelint-scss?branch=master)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 [![Downloads per month](https://img.shields.io/npm/dm/stylelint-scss.svg)](https://npmcharts.com/compare/stylelint-scss)
-[![Greenkeeper badge](https://badges.greenkeeper.io/kristerkari/stylelint-scss.svg)](https://greenkeeper.io/)
 
 A collection of SCSS specific linting rules for [stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
 
