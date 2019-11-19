@@ -4,13 +4,13 @@ import { atRuleBaseName, namespace } from "../../utils";
 export const ruleName = namespace("no-duplicate-mixins");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: mixin => `Unexpected duplicate mixin ${mixin}`,
+  rejected: mixin => `Unexpected duplicate mixin ${mixin}`
 });
 
 export default function(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: value,
+      actual: value
     });
 
     if (!validOptions) {
@@ -33,7 +33,7 @@ export default function(value) {
           message: messages.rejected(mixinName),
           node: decl,
           result,
-          ruleName,
+          ruleName
         });
       }
 

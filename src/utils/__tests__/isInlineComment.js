@@ -9,7 +9,7 @@ function logError(err) {
 test("Single-line comment, after ruleset.", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a {} // comment
@@ -27,7 +27,7 @@ test("Single-line comment, after ruleset.", () => {
 test("CSS comment, after ruleset.", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a {} /* comment */
@@ -45,7 +45,7 @@ test("CSS comment, after ruleset.", () => {
 test("Single-line comment, after a decl.", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a {
@@ -65,7 +65,7 @@ test("Single-line comment, after a decl.", () => {
 test("CSS comment, before a decl.", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a {
@@ -85,7 +85,7 @@ test("CSS comment, before a decl.", () => {
 test("Inline comment, after a {.", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a { // Inline comment, after a {.
@@ -105,7 +105,7 @@ test("Inline comment, after a {.", () => {
 test("Inline comment, after a selector (in a list). IGNORED.", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a, // comment
@@ -129,7 +129,7 @@ test("Inline comment, after a selector (in a list). IGNORED.", () => {
 test("Inline comment, after a selector, comment prior. IGNORED.", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a,
@@ -153,7 +153,7 @@ test("Inline comment, after a selector, comment prior. IGNORED.", () => {
 test("Multi-line comment, after a ruleset (new line).", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a {}
@@ -172,7 +172,7 @@ test("Multi-line comment, after a ruleset (new line).", () => {
 test("Single-line comment, after a ruleset (new line).", () => {
   expect.assertions(1);
 
-  postcss()
+  return postcss()
     .process(
       `
       a {}
