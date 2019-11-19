@@ -1,10 +1,12 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("map-keys-quotes");
+const valueParser = require("postcss-value-parser");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("map-keys-quotes");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected keys in map to be quoted."
 });
 
@@ -87,4 +89,6 @@ function returnMapKeys(array) {
   return new_array;
 }
 
-export default rule;
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

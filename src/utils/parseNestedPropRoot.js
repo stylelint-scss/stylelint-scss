@@ -1,9 +1,11 @@
+"use strict";
+
 /**
  * Attempts to parse a selector as if it"s a root for a group of nested props
  * E.g.: `margin: {`, `font: 10px/1.1 Arial {` ("{" excluded)
  */
 
-export default function parseNestedPropRoot(propString) {
+module.exports = function parseNestedPropRoot(propString) {
   const modesEntered = [
     {
       mode: "normal",
@@ -91,4 +93,4 @@ export default function parseNestedPropRoot(propString) {
   }
 
   return null;
-}
+};

@@ -1,21 +1,23 @@
-import isBoolean from "lodash.isboolean";
-import { utils } from "stylelint";
-import {
+"use strict";
+
+const isBoolean = require("lodash.isboolean");
+const {
   declarationValueIndex,
   isSingleLineString,
   namespace,
   whitespaceChecker
-} from "../../utils";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("dollar-variable-colon-newline-after");
+const ruleName = namespace("dollar-variable-colon-newline-after");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expectedAfter: () => 'Expected newline after ":"',
   expectedAfterMultiLine: () =>
     'Expected newline after ":" with a multi-line value'
 });
 
-export default function(expectation, options, context) {
+function rule(expectation, options, context) {
   const checker = whitespaceChecker("newline", expectation, messages);
 
   return (root, result) => {
@@ -110,3 +112,7 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

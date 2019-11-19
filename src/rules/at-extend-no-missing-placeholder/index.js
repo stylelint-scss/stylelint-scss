@@ -1,14 +1,16 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-extend-no-missing-placeholder");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-extend-no-missing-placeholder");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected:
     "Expected a placeholder selector (e.g. %placeholder) to be used in @extend"
 });
 
-export default function(actual) {
+function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -31,3 +33,7 @@ export default function(actual) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

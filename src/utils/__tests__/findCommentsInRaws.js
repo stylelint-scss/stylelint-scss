@@ -1,6 +1,8 @@
-import { findCommentsInRaws } from "../";
-import postcss from "postcss";
-import scss from "postcss-scss";
+"use strict";
+
+const postcss = require("postcss");
+const scss = require("postcss-scss");
+const { findCommentsInRaws } = require("..");
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console

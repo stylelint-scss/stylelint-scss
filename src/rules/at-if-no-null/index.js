@@ -1,14 +1,16 @@
-import { namespace } from "../../utils";
-import { utils } from "stylelint";
+"use strict";
 
-export const ruleName = namespace("at-if-no-null");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-if-no-null");
+
+const messages = utils.ruleMessages(ruleName, {
   equals_null: "Expected @if not statement rather than @if statement == null",
   not_equals_null: "Expected @if statement rather than @if statement != null"
 });
 
-export default function(expectation) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -47,3 +49,7 @@ export default function(expectation) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

@@ -1,23 +1,25 @@
-import isRegExp from "lodash.isregexp";
-import isString from "lodash.isstring";
-import resolveNestedSelector from "postcss-resolve-nested-selector";
-import { utils } from "stylelint";
-import {
+"use strict";
+
+const isRegExp = require("lodash.isregexp");
+const isString = require("lodash.isstring");
+const resolveNestedSelector = require("postcss-resolve-nested-selector");
+const {
   hasInterpolatingAmpersand,
   isStandardRule,
   isStandardSelector,
   parseSelector,
   namespace
-} from "../../utils";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("percent-placeholder-pattern");
+const ruleName = namespace("percent-placeholder-pattern");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expected: placeholder =>
     `Expected %-placeholder "%${placeholder}" to match specified pattern`
 });
 
-export default function(pattern) {
+function rule(pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
@@ -89,3 +91,7 @@ export default function(pattern) {
     }
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

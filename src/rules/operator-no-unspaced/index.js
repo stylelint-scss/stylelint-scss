@@ -1,6 +1,7 @@
-import mediaQueryParser from "postcss-media-query-parser";
-import { utils } from "stylelint";
-import {
+"use strict";
+
+const mediaQueryParser = require("postcss-media-query-parser").default;
+const {
   atRuleParamIndex,
   declarationValueIndex,
   eachRoot,
@@ -8,11 +9,12 @@ import {
   findOperators,
   isWhitespace,
   namespace
-} from "../../utils";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("operator-no-unspaced");
+const ruleName = namespace("operator-no-unspaced");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expectedAfter: operator => `Expected single space after "${operator}"`,
   expectedBefore: operator => `Expected single space before "${operator}"`
 });
@@ -72,7 +74,7 @@ function newlineBefore(str, startIndex) {
   return false;
 }
 
-export default function(expectation) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -118,7 +120,7 @@ export default function(expectation) {
  *    {PostCSS Node} cbArgs.node -- for stylelint.utils.report
  *    {PostCSS Result} cbArgs.result -- for stylelint.utils.report
  */
-export function calculationOperatorSpaceChecker({ root, result, checker }) {
+function calculationOperatorSpaceChecker({ root, result, checker }) {
   /**
    * Takes a string, finds all occurencies of Sass interpolaion in it, then
    * finds all operators inside that interpolation
@@ -266,3 +268,8 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     });
   });
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;
+module.exports.calculationOperatorSpaceChecker = calculationOperatorSpaceChecker;

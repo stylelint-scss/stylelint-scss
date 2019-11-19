@@ -1,57 +1,86 @@
-import atEachKeyValue from "./at-each-key-value-single-line";
-import atElseClosingBraceNewlineAfter from "./at-else-closing-brace-newline-after";
-import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after";
-import atElseEmptyLineBefore from "./at-else-empty-line-before";
-import atElseIfParenthesesSpaceBefore from "./at-else-if-parentheses-space-before";
-import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder";
-import atFunctionNamedArguments from "./at-function-named-arguments";
-import atFunctionParenthesesSpaceBefore from "./at-function-parentheses-space-before";
-import atFunctionPattern from "./at-function-pattern";
-import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after";
-import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after";
-import atIfNoNull from "./at-if-no-null";
-import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore";
-import atImportPartialExtension from "./at-import-partial-extension";
-import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist";
-import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist";
-import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses";
-import atMixinNamedArguments from "./at-mixin-named-arguments";
-import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before";
-import atMixinPattern from "./at-mixin-pattern";
-import atRuleConditionalNoParen from "./at-rule-conditional-no-parentheses";
-import atRuleNoUnknown from "./at-rule-no-unknown";
-import commentNoLoud from "./comment-no-loud";
-import declarationNestedProperties from "./declaration-nested-properties";
-import declarationNestedPropertiesNoDividedGroups from "./declaration-nested-properties-no-divided-groups";
-import dimensionNoNonNumeric from "./dimension-no-non-numeric-values";
-import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-after";
-import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after";
-import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before";
-import dollarVariableDefault from "./dollar-variable-default";
-import dollarVariableEmptyLineBefore from "./dollar-variable-empty-line-before";
-import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation";
-import dollarVariablePattern from "./dollar-variable-pattern";
-import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line-before";
-import doubleSlashCommentInline from "./double-slash-comment-inline";
-import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
-import functionColorRelative from "./function-color-relative";
-import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
-import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-inside";
-import mapKeysQuotes from "./map-keys-quotes";
-import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
-import noDollarVariables from "./no-dollar-variables";
-import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
-import noDuplicateMixins from "./no-duplicate-mixins";
-import operatorNoNewlineAfter from "./operator-no-newline-after";
-import operatorNoNewlineBefore from "./operator-no-newline-before";
-import operatorNoUnspaced from "./operator-no-unspaced";
-import partialNoImport from "./partial-no-import";
-import percentPlaceholderPattern from "./percent-placeholder-pattern";
-import selectorNestCombinators from "./selector-nest-combinators";
-import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector";
-import selectorNoUnionClassName from "./selector-no-union-class-name";
+"use strict";
 
-export default {
+const atEachKeyValue = require("./at-each-key-value-single-line").rule;
+const atElseClosingBraceNewlineAfter = require("./at-else-closing-brace-newline-after")
+  .rule;
+const atElseClosingBraceSpaceAfter = require("./at-else-closing-brace-space-after")
+  .rule;
+const atElseEmptyLineBefore = require("./at-else-empty-line-before").rule;
+const atElseIfParenthesesSpaceBefore = require("./at-else-if-parentheses-space-before")
+  .rule;
+const atExtendNoMissingPlaceholder = require("./at-extend-no-missing-placeholder")
+  .rule;
+const atFunctionNamedArguments = require("./at-function-named-arguments").rule;
+const atFunctionParenthesesSpaceBefore = require("./at-function-parentheses-space-before")
+  .rule;
+const atFunctionPattern = require("./at-function-pattern").rule;
+const atIfClosingBraceNewlineAfter = require("./at-if-closing-brace-newline-after")
+  .rule;
+const atIfClosingBraceSpaceAfter = require("./at-if-closing-brace-space-after")
+  .rule;
+const atIfNoNull = require("./at-if-no-null").rule;
+const atImportNoPartialLeadingUnderscore = require("./at-import-no-partial-leading-underscore")
+  .rule;
+const atImportPartialExtension = require("./at-import-partial-extension").rule;
+const atImportPartialExtensionBlacklist = require("./at-import-partial-extension-blacklist")
+  .rule;
+const atImportPartialExtensionWhitelist = require("./at-import-partial-extension-whitelist")
+  .rule;
+const atMixinArgumentlessCallParentheses = require("./at-mixin-argumentless-call-parentheses")
+  .rule;
+const atMixinNamedArguments = require("./at-mixin-named-arguments").rule;
+const atMixinParenthesesSpaceBefore = require("./at-mixin-parentheses-space-before")
+  .rule;
+const atMixinPattern = require("./at-mixin-pattern").rule;
+const atRuleConditionalNoParen = require("./at-rule-conditional-no-parentheses")
+  .rule;
+const atRuleNoUnknown = require("./at-rule-no-unknown").rule;
+const commentNoLoud = require("./comment-no-loud").rule;
+const declarationNestedProperties = require("./declaration-nested-properties")
+  .rule;
+const declarationNestedPropertiesNoDividedGroups = require("./declaration-nested-properties-no-divided-groups")
+  .rule;
+const dimensionNoNonNumeric = require("./dimension-no-non-numeric-values").rule;
+const dollarVariableColonNewlineAfter = require("./dollar-variable-colon-newline-after")
+  .rule;
+const dollarVariableColonSpaceAfter = require("./dollar-variable-colon-space-after")
+  .rule;
+const dollarVariableColonSpaceBefore = require("./dollar-variable-colon-space-before")
+  .rule;
+const dollarVariableDefault = require("./dollar-variable-default").rule;
+const dollarVariableEmptyLineBefore = require("./dollar-variable-empty-line-before")
+  .rule;
+const dollarVariableNoMissingInterpolation = require("./dollar-variable-no-missing-interpolation")
+  .rule;
+const dollarVariablePattern = require("./dollar-variable-pattern").rule;
+const doubleSlashCommentEmptyLineBefore = require("./double-slash-comment-empty-line-before")
+  .rule;
+const doubleSlashCommentInline = require("./double-slash-comment-inline").rule;
+const doubleSlashCommentWhitespaceInside = require("./double-slash-comment-whitespace-inside")
+  .rule;
+const functionColorRelative = require("./function-color-relative").rule;
+const functionNoQuotedStrings = require("./function-quote-no-quoted-strings-inside")
+  .rule;
+const functionNoUnquotedStrings = require("./function-unquote-no-unquoted-strings-inside")
+  .rule;
+const mapKeysQuotes = require("./map-keys-quotes").rule;
+const mediaFeatureValueDollarVariable = require("./media-feature-value-dollar-variable")
+  .rule;
+const noDollarVariables = require("./no-dollar-variables").rule;
+const noDuplicateDollarVariables = require("./no-duplicate-dollar-variables")
+  .rule;
+const noDuplicateMixins = require("./no-duplicate-mixins").rule;
+const operatorNoNewlineAfter = require("./operator-no-newline-after").rule;
+const operatorNoNewlineBefore = require("./operator-no-newline-before").rule;
+const operatorNoUnspaced = require("./operator-no-unspaced").rule;
+const partialNoImport = require("./partial-no-import").rule;
+const percentPlaceholderPattern = require("./percent-placeholder-pattern").rule;
+const selectorNestCombinators = require("./selector-nest-combinators").rule;
+const selectorNoRedundantNestingSelector = require("./selector-no-redundant-nesting-selector")
+  .rule;
+const selectorNoUnionClassName = require("./selector-no-union-class-name").rule;
+
+module.exports = {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
   "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,
   "at-else-closing-brace-space-after": atElseClosingBraceSpaceAfter,

@@ -1,6 +1,8 @@
-import beforeBlockString from "./beforeBlockString";
-import hasBlock from "./hasBlock";
-import rawNodeString from "./rawNodeString";
+"use strict";
+
+const beforeBlockString = require("./beforeBlockString");
+const hasBlock = require("./hasBlock");
+const rawNodeString = require("./rawNodeString");
 
 /**
  * Return a CSS statement's block -- the string that starts with `{` and ends with `}`.
@@ -11,10 +13,10 @@ import rawNodeString from "./rawNodeString";
  * @param {Rule|AtRule} statement - postcss rule or at-rule node
  * @return {string|undefined}
  */
-export default function(statement) {
+module.exports = function(statement) {
   if (!hasBlock(statement)) {
     return;
   }
 
   return rawNodeString(statement).slice(beforeBlockString(statement).length);
-}
+};

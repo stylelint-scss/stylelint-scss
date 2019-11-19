@@ -1,17 +1,21 @@
-import { namespace } from "../../utils";
-import { utils } from "stylelint";
-import isBoolean from "lodash.isboolean";
+"use strict";
 
-export const ruleName = namespace("at-else-closing-brace-newline-after");
+const isBoolean = require("lodash.isboolean");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-else-closing-brace-newline-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: 'Expected newline after "}" of @else statement',
   rejected: 'Unexpected newline after "}" of @else statement'
 });
 
-import { sassConditionalBraceNLAfterChecker } from "../at-if-closing-brace-newline-after";
+const {
+  sassConditionalBraceNLAfterChecker
+} = require("../at-if-closing-brace-newline-after");
 
-export default function(expectation, options, context) {
+function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -45,3 +49,7 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

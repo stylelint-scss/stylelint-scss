@@ -1,23 +1,25 @@
-import isString from "lodash.isstring";
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import {
+"use strict";
+
+const isString = require("lodash.isstring");
+const valueParser = require("postcss-value-parser");
+const {
   isNativeCssFunction,
   namespace,
   optionsHaveIgnored,
   parseFunctionArguments
-} from "../../utils";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("at-function-named-arguments");
+const ruleName = namespace("at-function-named-arguments");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a named parameter to be used in function call",
   rejected: "Unexpected a named parameter in function call"
 });
 
 const isScssVarRegExp = /^\$\S*/;
 
-export default function(expectation, options) {
+function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -116,3 +118,7 @@ export default function(expectation, options) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

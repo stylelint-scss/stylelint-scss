@@ -1,4 +1,6 @@
-import isStandardSyntaxRule from "stylelint/lib/utils/isStandardSyntaxRule";
+"use strict";
+
+const isStandardSyntaxRule = require("stylelint/lib/utils/isStandardSyntaxRule");
 
 /**
  * Check whether a rule is standard
@@ -6,6 +8,6 @@ import isStandardSyntaxRule from "stylelint/lib/utils/isStandardSyntaxRule";
  * @param {Rule} postcss rule node
  * @return {boolean} If `true`, the rule is standard
  */
-export default function(rule) {
+module.exports = function(rule) {
   return isStandardSyntaxRule(rule);
-}
+};

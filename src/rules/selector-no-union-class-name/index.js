@@ -1,17 +1,19 @@
-import {
+"use strict";
+
+const {
   isAttribute,
   isClassName,
   isCombinator,
   isIdentifier,
   isPseudoClass,
   isPseudoElement
-} from "postcss-selector-parser";
-import { utils } from "stylelint";
-import { namespace, parseSelector } from "../../utils";
+} = require("postcss-selector-parser");
+const { namespace, parseSelector } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("selector-no-union-class-name");
+const ruleName = namespace("selector-no-union-class-name");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected union class name with the parent selector (&)"
 });
 
@@ -24,7 +26,7 @@ const validNestingTypes = [
   isPseudoElement
 ];
 
-export default function(actual) {
+function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -87,3 +89,7 @@ function getSelectorFromRule(rule) {
     return getSelectorFromRule(rule.parent);
   }
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

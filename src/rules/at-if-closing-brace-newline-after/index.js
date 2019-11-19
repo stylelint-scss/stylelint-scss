@@ -1,15 +1,17 @@
-import { isSingleLineString, namespace } from "../../utils";
-import { utils } from "stylelint";
-import isBoolean from "lodash.isboolean";
+"use strict";
 
-export const ruleName = namespace("at-if-closing-brace-newline-after");
+const isBoolean = require("lodash.isboolean");
+const { isSingleLineString, namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-if-closing-brace-newline-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: 'Expected newline after "}" of @if statement',
   rejected: 'Unexpected newline after "}" of @if statement'
 });
 
-export default function(expectation, options, context) {
+function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -56,7 +58,7 @@ export default function(expectation, options, context) {
  * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
  * @return {undefined}
  */
-export function sassConditionalBraceNLAfterChecker({
+function sassConditionalBraceNLAfterChecker({
   root,
   result,
   ruleName,
@@ -117,3 +119,8 @@ export function sassConditionalBraceNLAfterChecker({
     }
   });
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;
+module.exports.sassConditionalBraceNLAfterChecker = sassConditionalBraceNLAfterChecker;

@@ -1,15 +1,17 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-mixin-argumentless-call-parentheses");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-mixin-argumentless-call-parentheses");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: mixin => `Expected parentheses in mixin "${mixin}" call`,
   rejected: mixin =>
     `Unexpected parentheses in argumentless mixin "${mixin}" call`
 });
 
-export default function(value, _, context) {
+function rule(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -57,3 +59,7 @@ export default function(value, _, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

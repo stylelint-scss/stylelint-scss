@@ -1,9 +1,11 @@
-import { utils } from "stylelint";
-import { namespace, optionsHaveIgnored } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-mixin-named-arguments");
+const { namespace, optionsHaveIgnored } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-mixin-named-arguments");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a named parameter to be used in at-include call",
   rejected: "Unexpected a named parameter in at-include call"
 });
@@ -11,7 +13,7 @@ export const messages = utils.ruleMessages(ruleName, {
 const hasArgumentsRegExp = /\((.*)\)$/;
 const isScssVarRegExp = /^\$\S*/;
 
-export default function(expectation, options) {
+function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -109,3 +111,7 @@ export default function(expectation, options) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

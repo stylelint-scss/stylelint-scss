@@ -1,6 +1,8 @@
-import postcss from "postcss";
-import scss from "postcss-scss";
-import rule, { messages, ruleName } from "..";
+"use strict";
+
+const postcss = require("postcss");
+const scss = require("postcss-scss");
+const { rule, ruleName, messages } = require("..");
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console

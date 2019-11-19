@@ -1,14 +1,16 @@
-import { utils } from "stylelint";
-import isString from "lodash.isstring";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("no-duplicate-dollar-variables");
+const isString = require("lodash.isstring");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("no-duplicate-dollar-variables");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: variable => `Unexpected duplicate dollar variable ${variable}`
 });
 
-export default function(value, secondaryOptions) {
+function rule(value, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -73,3 +75,7 @@ export default function(value, secondaryOptions) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

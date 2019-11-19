@@ -1,14 +1,16 @@
-import { namespace } from "../../utils";
-import { utils } from "stylelint";
+"use strict";
 
-export const ruleName = namespace("at-if-closing-brace-space-after");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-if-closing-brace-space-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: 'Expected single space after "}" of @if statement',
   rejected: 'Unexpected space after "}" of @if statement'
 });
 
-export default function(expectation, _, context) {
+function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -43,7 +45,7 @@ export default function(expectation, _, context) {
  * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
  * @return {undefined}
  */
-export function sassConditionalBraceSpaceAfterChecker({
+function sassConditionalBraceSpaceAfterChecker({
   root,
   result,
   ruleName,
@@ -91,3 +93,8 @@ export function sassConditionalBraceSpaceAfterChecker({
     }
   });
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;
+module.exports.sassConditionalBraceSpaceAfterChecker = sassConditionalBraceSpaceAfterChecker;

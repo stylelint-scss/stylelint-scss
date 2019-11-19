@@ -1,16 +1,18 @@
-import isRegExp from "lodash.isregexp";
-import isString from "lodash.isstring";
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
-import nodeJsPath from "path";
+"use strict";
 
-export const ruleName = namespace("at-import-partial-extension-whitelist");
+const isRegExp = require("lodash.isregexp");
+const isString = require("lodash.isstring");
+const nodeJsPath = require("path");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-import-partial-extension-whitelist");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: ext => `Unexpected extension ".${ext}" in imported partial name`
 });
 
-export default function(whitelistOption) {
+function rule(whitelistOption) {
   const whitelist = [].concat(whitelistOption);
 
   return (root, result) => {
@@ -75,3 +77,7 @@ export default function(whitelistOption) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

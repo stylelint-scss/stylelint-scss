@@ -1,9 +1,11 @@
-import { createPlugin } from "stylelint";
-import { namespace } from "./utils";
-import rules from "./rules";
+"use strict";
+
+const rules = require("./rules");
+const { createPlugin } = require("stylelint");
+const { namespace } = require("./utils");
 
 const rulesPlugins = Object.keys(rules).map(ruleName => {
   return createPlugin(namespace(ruleName), rules[ruleName]);
 });
 
-export default rulesPlugins;
+module.exports = rulesPlugins;

@@ -1,23 +1,25 @@
-import { utils } from "stylelint";
-import {
+"use strict";
+
+const {
   addEmptyLineBefore,
   isInlineComment,
   namespace,
   optionsHaveException,
   optionsHaveIgnored,
   removeEmptyLinesBefore
-} from "../../utils";
+} = require("../../utils");
+const { utils } = require("stylelint");
 
-export const ruleName = namespace("double-slash-comment-empty-line-before");
+const ruleName = namespace("double-slash-comment-empty-line-before");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected empty line before comment",
   rejected: "Unexpected empty line before comment"
 });
 
 const stylelintCommandPrefix = "stylelint-";
 
-export default function(expectation, options, context) {
+function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -122,3 +124,7 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;

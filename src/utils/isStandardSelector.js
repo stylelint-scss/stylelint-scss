@@ -1,12 +1,15 @@
-import isStandardSyntaxSelector from "stylelint/lib/utils/isStandardSyntaxSelector";
-import hasInterpolation from "stylelint/lib/utils/hasInterpolation";
+"use strict";
+
+const hasInterpolation = require("stylelint/lib/utils/hasInterpolation");
+const isStandardSyntaxSelector = require("stylelint/lib/utils/isStandardSyntaxSelector");
+
 /**
  * Check whether a selector is standard
  *
  * @param {string} selector
  * @return {boolean} If `true`, the selector is standard
  */
-export default function(selector) {
+module.exports = function(selector) {
   const standardSyntaxSelector = isStandardSyntaxSelector(selector);
 
   // SCSS placeholder selectors
@@ -17,4 +20,4 @@ export default function(selector) {
   }
 
   return standardSyntaxSelector;
-}
+};

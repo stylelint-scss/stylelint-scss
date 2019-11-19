@@ -1,4 +1,6 @@
-import isStandardSyntaxProperty from "stylelint/lib/utils/isStandardSyntaxProperty";
+"use strict";
+
+const isStandardSyntaxProperty = require("stylelint/lib/utils/isStandardSyntaxProperty");
 
 /**
  * Check whether a property is standard
@@ -6,6 +8,6 @@ import isStandardSyntaxProperty from "stylelint/lib/utils/isStandardSyntaxProper
  * @param {string} property
  * @return {boolean} If `true`, the property is standard
  */
-export default function(property) {
+module.exports = function(property) {
   return isStandardSyntaxProperty(property);
-}
+};

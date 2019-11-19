@@ -1,15 +1,17 @@
-import isRegExp from "lodash.isregexp";
-import isString from "lodash.isstring";
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-function-pattern");
+const isRegExp = require("lodash.isregexp");
+const isString = require("lodash.isstring");
+const { namespace } = require("../../utils");
+const { utils } = require("stylelint");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-function-pattern");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected @function name to match specified pattern"
 });
 
-export default function(pattern) {
+function rule(pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
@@ -43,3 +45,7 @@ export default function(pattern) {
     });
   };
 }
+
+module.exports.rule = rule;
+module.exports.ruleName = ruleName;
+module.exports.messages = messages;
