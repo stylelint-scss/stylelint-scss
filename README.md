@@ -10,15 +10,15 @@ A collection of SCSS specific linting rules for [stylelint](https://github.com/s
 
 ## Purpose
 
-stylelint by itself supports [SCSS syntax](http://stylelint.io/user-guide/css-processors/#parsing-non-standard-syntax) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](http://stylelint.io/user-guide/rules/max-nesting-depth/), control the way [`@-rules`](http://stylelint.io/user-guide/rules/#at-rule) are written. Yet stylelint is in general focused on standard CSS.
+stylelint by itself supports [SCSS syntax](https://stylelint.io/user-guide/css-processors#parsing-non-standard-syntax) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](https://stylelint.io/user-guide/rules/max-nesting-depth), control the way [`@-rules`](https://stylelint.io/user-guide/rules#at-rule) are written. Yet stylelint is in general focused on standard CSS.
 
 stylelint-scss introduces rules specific to SCSS syntax. That said, the rules from this plugin can be used with other syntaxes, like Less or some PostCSS syntaxes. That's why the rules' names are not tied to SCSS only (`at-function-pattern` instead of `scss-function-pattern`).
 
-The plugin follows stylelint's guidelines (about [rule names](http://stylelint.io/user-guide/about-rules/), testing and [so on](https://github.com/stylelint/stylelint/tree/master/docs/developer-guide)).
+The plugin follows stylelint's guidelines (about [rule names](https://stylelint.io/user-guide/about-rules), testing and [so on](https://github.com/stylelint/stylelint/tree/master/docs/developer-guide)).
 
 ## Installation and usage
 
-stylelint-scss is a plugin for [stylelint](http://stylelint.io/user-guide/), so it's meant to be used with it.
+stylelint-scss is a plugin for [stylelint](https://stylelint.io/user-guide), so it's meant to be used with it.
 
 **Node.js v6 or newer** is required. That's because stylelint itself [doesn't support Node.js versions below 6](https://github.com/stylelint/stylelint/issues/2996#issuecomment-352663375).
 
@@ -43,11 +43,11 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
 }
 ```
 
-Please refer to [stylelint docs](http://stylelint.io/user-guide/) for the detailed info on using this linter.
+Please refer to [stylelint docs](https://stylelint.io/user-guide) for the detailed info on using this linter.
 
 ## List of rules
 
-Here are stylelint-scss' rules, grouped by the [_thing_](http://apps.workflower.fi/vocabs/css/en) they apply to (just like in [stylelint](http://stylelint.io/user-guide/about-rules/)).
+Here are stylelint-scss' rules, grouped by the [_thing_](http://apps.workflower.fi/vocabs/css/en) they apply to (just like in [stylelint](https://stylelint.io/user-guide/about-rules)).
 
 Please also see the [example configs](./docs/examples/) for special cases.
 
@@ -95,7 +95,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### `@`-rule
 
 - [`at-rule-conditional-no-parentheses`](./src/rules/at-rule-conditional-no-parentheses/README.md): Disallow parentheses in conditional @ rules (if, elsif, while).
-- [`at-rule-no-unknown`](./src/rules/at-rule-no-unknown/README.md): Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](http://stylelint.io/user-guide/rules/at-rule-no-unknown/).
+- [`at-rule-no-unknown`](./src/rules/at-rule-no-unknown/README.md): Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown).
 
 ### `$`-variable
 
@@ -132,9 +132,9 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### Function
 
-- [`function-color-relative`](./src/rules/function-color-relative/README.md): Encourage the use of the [scale-color](https://sass-lang.com/documentation/functions/color#scale-color) function over regular color functions.
-- [`function-quote-no-quoted-strings-inside`](./src/rules/function-quote-no-quoted-strings-inside/README.md): Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/functions/string#quote) (Autofixable).
-- [`function-unquote-no-unquoted-strings-inside`](./src/rules/function-unquote-no-unquoted-strings-inside/README.md): Disallow unquoted strings inside the [unquote function](https://sass-lang.com/documentation/functions/string#unquote) (Autofixable).
+- [`function-color-relative`](./src/rules/function-color-relative/README.md): Encourage the use of the [scale-color](https://sass-lang.com/documentation/modules/color#scale-color) function over regular color functions.
+- [`function-quote-no-quoted-strings-inside`](./src/rules/function-quote-no-quoted-strings-inside/README.md): Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/modules/string#quote) (Autofixable).
+- [`function-unquote-no-unquoted-strings-inside`](./src/rules/function-unquote-no-unquoted-strings-inside/README.md): Disallow unquoted strings inside the [unquote function](https://sass-lang.com/documentation/modules/string#unquote) (Autofixable).
 
 ### Map
 
@@ -181,7 +181,7 @@ There work on the plugin's rules is still in progress, so if you feel like it, y
 
 We communicate via [issues](https://github.com/kristerkari/stylelint-scss/issues) and [pull requests](https://github.com/kristerkari/stylelint-scss/pulls).
 
-There is also [stackoverflow](http://stackoverflow.com/questions/tagged/stylelint), which would be the preferred QA forum.
+There is also [stackoverflow](https://stackoverflow.com/questions/tagged/stylelint), which would be the preferred QA forum.
 
 ## Contributors
 

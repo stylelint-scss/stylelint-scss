@@ -13,11 +13,11 @@ This rule checks math operators (`+`, `-`, `/`, `*`, `%`) and comparison operato
 Not all symbols that correspond to math operators are actually considered operators by Sass. Some of the exceptions are:
 
 * `+` and `-` as signs before values;
-* `+` and `-` as signs in [space-delimited lists](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#string_operations);
-* `-` as part of [a string](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#string_operations) or [a Sass identifier](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#subtraction), e.g. a variable;
-* `/` as a CSS delimiter in property values like `font: 10px/1.2 Arial;` ([read more](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#division-and-slash)).
+* `+` and `-` as signs in [space-delimited lists](https://sass-lang.com/documentation/operators/string);
+* `-` as part of [a string](https://sass-lang.com/documentation/operators/string) or [a Sass identifier](https://sass-lang.com/documentation/operators/numeric#unary-operators), e.g. a variable;
+* `/` as a CSS delimiter in property values like `font: 10px/1.2 Arial;` ([read more](https://sass-lang.com/documentation/operators/numeric#slash-separated-values)).
 
-For more details refer to [Sass official documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html). An online Sass compiler - [Sassmeister](http://www.sassmeister.com/) - could also come in handy.
+For more details refer to [Sass official documentation](https://sass-lang.com/documentation/file.SASS_REFERENCE.html). An online Sass compiler - [Sassmeister](https://www.sassmeister.com/) - could also come in handy.
 
 The following patterns are considered warnings:
 

@@ -1,15 +1,15 @@
 # function-color-relative
 
-Encourage the use of the [scale-color](https://sass-lang.com/documentation/functions/color#scale-color) over:
+Encourage the use of the [scale-color](https://sass-lang.com/documentation/modules/color#scale-color) over:
 
-* [darken](https://sass-lang.com/documentation/functions/color#darken)
-* [desaturate](https://sass-lang.com/documentation/functions/color#desaturate)
-* [fade-in](https://sass-lang.com/documentation/functions/color#fade-in)
-* [fade-out](https://sass-lang.com/documentation/functions/color#fade-out)
-* [lighten](https://sass-lang.com/documentation/functions/color#lighten)
-* [opacify](https://sass-lang.com/documentation/functions/color#opacify)
-* [saturate](https://sass-lang.com/documentation/functions/color#saturate)
-* [transparentize](https://sass-lang.com/documentation/functions/color#transparentize)
+* [darken](https://sass-lang.com/documentation/modules/color#darken)
+* [desaturate](https://sass-lang.com/documentation/modules/color#desaturate)
+* [fade-in](https://sass-lang.com/documentation/modules/color#fade-in)
+* [fade-out](https://sass-lang.com/documentation/modules/color#fade-out)
+* [lighten](https://sass-lang.com/documentation/modules/color#lighten)
+* [opacify](https://sass-lang.com/documentation/modules/color#opacify)
+* [saturate](https://sass-lang.com/documentation/modules/color#saturate)
+* [transparentize](https://sass-lang.com/documentation/modules/color#transparentize)
 
 ```scss
 p {

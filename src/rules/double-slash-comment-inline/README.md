@@ -11,7 +11,7 @@ a {
 
 An inline comment in terms of this rule is a comment that is placed on the same line with any other code, either before or after it.
 
-This rule only works with SCSS-like [single-line comments](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#comments) and ignores CSS comments (`/* */`).
+This rule only works with SCSS-like [single-line comments](https://sass-lang.com/documentation/syntax/comments) and ignores CSS comments (`/* */`).
 
 ## Options
 

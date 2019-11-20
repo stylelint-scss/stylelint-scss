@@ -12,7 +12,7 @@ Disallow non-CSS `@import`s in partial files.
 
 The rule skips CSS files (doesn't report any `@import`s in them).
 
-The rule also ignores [cases](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#import) when Sass considers an `@import` command just a plain CSS import:
+The rule also ignores [cases](https://sass-lang.com/documentation/at-rules/import) when Sass considers an `@import` command just a plain CSS import:
 
 * If the file’s extension is `.css`.
 * If the filename begins with `http://` (or any other protocol).

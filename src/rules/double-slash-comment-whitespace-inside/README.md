@@ -9,7 +9,7 @@ a {
  * Such whitespace */
 ```
 
-This rule only works with SCSS-like [single-line comments](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#comments) and ignores CSS comments (`/* */`).
+This rule only works with SCSS-like [single-line comments](https://sass-lang.com/documentation/syntax/comments) and ignores CSS comments (`/* */`).
 
 Any number of slases are allowed at the beginning of the comment. So `/// comment` is treated the same way as `// comment`.
 
