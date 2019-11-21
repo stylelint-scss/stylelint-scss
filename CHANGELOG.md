@@ -1,3 +1,8 @@
+# 3.13.0
+
+- Added: support for stylelint version 12.
+- Fixed: duplicate warnings in `at-rule-no-unknown` rule.
+
 # 3.12.1
 
 - Fixed: `at-rule-conditional-no-parentheses` don't warn for function calls.
