@@ -70,7 +70,7 @@ export default function(primaryOption, secondaryOptions) {
       warning => {
         const name = warning.node.name;
 
-        if (ignoreAtRules.indexOf(name) < 0) {
+        if (!ignoreAtRules.includes(name)) {
           utils.report({
             message: messages.rejected(`@${name}`),
             ruleName,

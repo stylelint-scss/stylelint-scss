@@ -8,7 +8,5 @@
  * @return {boolean}
  */
 export default function(options, ignoredName) {
-  return (
-    options && options.ignore && options.ignore.indexOf(ignoredName) !== -1
-  );
+  return options && options.ignore && options.ignore.includes(ignoredName);
 }

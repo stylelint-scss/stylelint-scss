@@ -228,7 +228,7 @@ export default function(targetWhitespace, expectation, messages) {
     messageFunc = messages.expectedBefore
   ) {
     const { source, index, err } = activeArgs;
-    const expectedChar = (function() {
+    const expectedChar = (() => {
       if (targetWhitespace === "newline") {
         return "\n";
       }

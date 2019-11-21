@@ -188,14 +188,14 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
         mediaQueryParser(item.params).walk(node => {
           const type = node.type;
 
-          if (["keyword", "media-type", "media-feature"].indexOf(type) !== -1) {
+          if (["keyword", "media-type", "media-feature"].includes(type)) {
             results = results.concat(
               findInterpolation(
                 node.value,
                 atRuleParamIndex(item) + node.sourceIndex
               )
             );
-          } else if (["value", "url"].indexOf(type) !== -1) {
+          } else if (["value", "url"].includes(type)) {
             results.push({
               source: node.value,
               operators: findOperators({

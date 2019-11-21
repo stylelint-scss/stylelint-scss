@@ -49,7 +49,7 @@ export default function(value, secondaryOptions) {
         decl.parent.type === "atrule" &&
         secondaryOptions &&
         secondaryOptions.ignoreInsideAtRules &&
-        secondaryOptions.ignoreInsideAtRules.indexOf(decl.parent.name) > -1;
+        secondaryOptions.ignoreInsideAtRules.includes(decl.parent.name);
 
       if (
         !isVar ||

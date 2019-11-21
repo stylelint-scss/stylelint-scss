@@ -5,5 +5,5 @@
  * @return {boolean}
  */
 export default function(char) {
-  return [" ", "\n", "\t", "\r", "\f"].indexOf(char) !== -1;
+  return [" ", "\n", "\t", "\r", "\f"].includes(char);
 }

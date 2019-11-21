@@ -85,7 +85,7 @@ export default function findOperators({
 
     // If it's a math operator
     if (
-      (mathOperators.indexOf(character) !== -1 &&
+      (mathOperators.includes(character) &&
         mathOperatorCharType(string, i, isAfterColon) === "op") ||
       // or is "<" or ">"
       substringStartingWithIndex.search(/^[<>]([^=]|$)/) !== -1
@@ -138,7 +138,7 @@ export default function findOperators({
 export function mathOperatorCharType(string, index, isAfterColon) {
   // !Checking here to prevent unnecessary calculations and deep recursion
   // when calling isPrecedingOperator()
-  if (["+", "/", "-", "*", "%"].indexOf(string[index]) === -1) {
+  if (!["+", "/", "-", "*", "%"].includes(string[index])) {
     return "char";
   }
 

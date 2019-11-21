@@ -42,7 +42,7 @@ export default function(primaryOption, secondaryOptions) {
         return;
       }
 
-      if (decl.value.toLowerCase().indexOf("!default") !== -1) {
+      if (decl.value.toLowerCase().includes("!default")) {
         return;
       }
 

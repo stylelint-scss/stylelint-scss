@@ -150,7 +150,7 @@ global.testConfig = input => {
         code: "",
         config
       })
-      .then(function(data) {
+      .then(data => {
         const invalidOptionWarnings = data.results[0].invalidOptionWarnings;
 
         if (input.valid) {

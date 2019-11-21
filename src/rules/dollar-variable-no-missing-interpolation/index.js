@@ -51,7 +51,7 @@ function toRegex(arr) {
 }
 
 export default function(actual) {
-  return function(root, result) {
+  return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
     if (!validOptions) {
@@ -98,7 +98,7 @@ export default function(actual) {
 
     function report(node, value) {
       const { name, prop, type } = node;
-      const nodeName = isAtRule(type) ? "@" + name : prop;
+      const nodeName = isAtRule(type) ? `@${name}` : prop;
 
       utils.report({
         ruleName,
