@@ -1,6 +1,6 @@
 # function-unquote-no-unquoted-strings-inside
 
-Disallow unquoted strings inside the [unquote function](https://sass-lang.com/documentation/functions/string#unquote)
+Disallow unquoted strings inside the [unquote function](https://sass-lang.com/documentation/modules/string#unquote)
 
 ```scss
 p {

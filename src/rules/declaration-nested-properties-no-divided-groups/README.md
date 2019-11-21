@@ -12,7 +12,7 @@ font: { /* `font` is a "namespace" */
 
 A "namespace" is everything before the first `-` in property names, e.g. `margin` in `margin-bottom`. It is the "namespace" that is used as a root identifier for a nested properties group (`font` in the example above).
 
-[Sass official docs on nested properties](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#nested_properties).
+[Sass official docs on nested properties](https://sass-lang.com/documentation/style-rules/declarations#nesting).
 
 The following patterns are considered warnings:
 

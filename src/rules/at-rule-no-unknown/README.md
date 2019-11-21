@@ -1,6 +1,6 @@
 # at-rule-no-unknown
 
-Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](http://stylelint.io/user-guide/rules/at-rule-no-unknown/).
+Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown).
 
 ```css
     @unknown (max-width: 960px) {}

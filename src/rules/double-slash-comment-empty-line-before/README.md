@@ -12,7 +12,7 @@ a {}
 
 The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
 
-This rule only works with SCSS-like [single-line comments](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#comments) and ignores:
+This rule only works with SCSS-like [single-line comments](https://sass-lang.com/documentation/syntax/comments) and ignores:
 * comments that are the very first nodes in a file;
 * CSS comments (`/* */`);
 * comments that are on the same line as some non-comment code (inline comments).

@@ -8,7 +8,7 @@ Disallow leading underscore in partial names in `@import`.
  *   Disallow this */
 ```
 
-The rule ignores [cases](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#import) when Sass considers an `@import` command just a plain CSS import:
+The rule ignores [cases](https://sass-lang.com/documentation/at-rules/import) when Sass considers an `@import` command just a plain CSS import:
 
 * If the file’s extension is `.css`.
 * If the filename begins with `http://` (or any other protocol).

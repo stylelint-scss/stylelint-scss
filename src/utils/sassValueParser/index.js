@@ -167,7 +167,7 @@ export function mathOperatorCharType(string, index, isAfterColon) {
     }
 
     // ---- Processing / character
-    // http://sass-lang.com/documentation/file.SASS_REFERENCE.html#division-and-slash
+    // https://sass-lang.com/documentation/operators/numeric#slash-separated-values
     if (character === "/") {
       return checkSlash(string, index, isAfterColon);
     }

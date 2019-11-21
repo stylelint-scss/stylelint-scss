@@ -10,7 +10,7 @@ font: {
 }
 ```
 
-[Sass official docs on nested properties](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#nested_properties).
+[Sass official docs on nested properties](https://sass-lang.com/documentation/style-rules/declarations#nesting).
 
 ## Options
 
