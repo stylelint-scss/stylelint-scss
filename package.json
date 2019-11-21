@@ -163,14 +163,14 @@
     "build": "babel src --out-dir dist",
     "lint": "eslint . --ignore-path .gitignore",
     "prettify": "prettier --write \"src/**/*.js\"",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "pretest": "npm run lint",
     "release": "npmpub",
     "jest": "jest",
-    "test": "jest --coverage",
-    "watch": "jest --watch",
-    "test-rule": "jest",
-    "test-util": "jest"
+    "test": "npm run jest -- --coverage",
+    "watch": "npm run jest -- --watch",
+    "test-rule": "npm run jest",
+    "test-util": "npm run jest"
   },
   "lint-staged": {
     "**/*.{js,json}": [
