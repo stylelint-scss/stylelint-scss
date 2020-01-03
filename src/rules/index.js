@@ -40,6 +40,7 @@ import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-in
 import mapKeysQuotes from "./map-keys-quotes";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
 import noDollarVariables from "./no-dollar-variables";
+import noGlobalFunctionNames from "./no-global-function-names";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
 import noDuplicateMixins from "./no-duplicate-mixins";
 import operatorNoNewlineAfter from "./operator-no-newline-after";
@@ -96,6 +97,7 @@ export default {
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
   "no-duplicate-mixins": noDuplicateMixins,
+  "no-global-function-names": noGlobalFunctionNames,
   "operator-no-newline-after": operatorNoNewlineAfter,
   "operator-no-newline-before": operatorNoNewlineBefore,
   "operator-no-unspaced": operatorNoUnspaced,

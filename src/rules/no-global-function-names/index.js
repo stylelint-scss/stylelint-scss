@@ -1,3 +1,7 @@
+import { utils } from "stylelint";
+import { namespace } from "../../utils";
+import valueParser from "postcss-value-parser";
+
 const rules = {
   red: "color",
   blue: "color",
@@ -93,10 +97,7 @@ const new_rule_names = {
   "selector-extend": "extend"
 };
 
-import { utils } from "stylelint";
-import { atRuleBaseName, namespace } from "../../utils";
-
-export const ruleName = namespace("no-duplicate-mixins");
+export const ruleName = namespace("no-global-function-names");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: name => errorMessage(name)
@@ -107,9 +108,9 @@ function errorMessage(name) {
   const rename = new_rule_names[name];
 
   if (rename) {
-    return "Expected ${sass_package}.${rename} instead of ${name}";
+    return `Expected ${sass_package}.${rename} instead of ${name}`;
   } else {
-    return "Expected ${sass_package}.${name} instead of ${name}";
+    return `Expected ${sass_package}.${name} instead of ${name}`;
   }
 }
 
@@ -123,8 +124,6 @@ export default function(value) {
       return;
     }
 
-    const mixins = {};
-
     root.walkDecls(decl => {
       valueParser(decl.value).walk(node => {
         // Verify that we're only looking at functions.
@@ -132,7 +131,7 @@ export default function(value) {
           return;
         }
 
-        if (rules.keys.includes(node.value)) {
+        if (Object.keys(rules).includes(node.value)) {
           utils.report({
             message: messages.rejected(node.value),
             node: decl,
