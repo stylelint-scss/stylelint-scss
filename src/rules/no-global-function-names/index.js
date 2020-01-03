@@ -1,4 +1,4 @@
-rules = {
+const rules = {
   red: "color",
   blue: "color",
   green: "color",
@@ -68,7 +68,7 @@ rules = {
   "selector-extend": "selector"
 };
 
-new_rule_names = {
+const new_rule_names = {
   "adjust-color": "adjust",
   "scale-color": "scale",
   "change-color": "change",
@@ -103,8 +103,8 @@ export const messages = utils.ruleMessages(ruleName, {
 });
 
 function errorMessage(name) {
-  sass_package = rules[name];
-  rename = new_rule_names[name];
+  const sass_package = rules[name];
+  const rename = new_rule_names[name];
 
   if (rename) {
     return "Expected ${sass_package}.${rename} instead of ${name}";
