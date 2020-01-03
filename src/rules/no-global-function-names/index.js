@@ -99,8 +99,19 @@ import { atRuleBaseName, namespace } from "../../utils";
 export const ruleName = namespace("no-duplicate-mixins");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: mixin => `Unexpected duplicate mixin ${mixin}`
+  rejected: name => errorMessage(name)
 });
+
+function errorMessage(name) {
+  sass_package = rules[name];
+  rename = new_rule_names[name];
+
+  if (rename) {
+    return "Expected ${sass_package}.${rename} instead of ${name}";
+  } else {
+    return "Expected ${sass_package}.${name} instead of ${name}";
+  }
+}
 
 export default function(value) {
   return (root, result) => {
@@ -114,25 +125,22 @@ export default function(value) {
 
     const mixins = {};
 
-    root.walkAtRules(decl => {
-      const isMixin = decl.name === "mixin";
+    root.walkDecls(decl => {
+      valueParser(decl.value).walk(node => {
+        // Verify that we're only looking at functions.
+        if (node.type !== "function" || node.value === "") {
+          return;
+        }
 
-      if (!isMixin) {
-        return;
-      }
-
-      const mixinName = atRuleBaseName(decl);
-
-      if (mixins[mixinName]) {
-        utils.report({
-          message: messages.rejected(mixinName),
-          node: decl,
-          result,
-          ruleName
-        });
-      }
-
-      mixins[mixinName] = true;
+        if (rules.keys.includes(node.value)) {
+          utils.report({
+            message: messages.rejected(node.value),
+            node: decl,
+            result,
+            ruleName
+          });
+        }
+      });
     });
   };
 }
