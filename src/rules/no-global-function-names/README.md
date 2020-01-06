@@ -7,7 +7,7 @@ A full list of disallowed names (and their alternatives) is located [here](https
 It is recommended to use the [Sass migrator](https://sass-lang.com/documentation/cli/migrator) to change these global function names automatically.
 
 ```scss
-@use color;
+@use "sass:color";
 a {
     background: color.adjust(#6b717f, $red: 15);
 }
@@ -24,7 +24,7 @@ a {
 The following patterns are *not* considered warnings:
 
 ```scss
-@use color;
+@use "sass:color";
 a {
     background: color.adjust(#6b717f, $red: 15);
 }

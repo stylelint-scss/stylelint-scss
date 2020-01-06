@@ -8,7 +8,7 @@ testRule(rule, {
   accept: [
     {
       code: `
-      @use color;
+      @use "sass:color";
       a {
        background: color.adjust(#6b717f, $red: 15);
       }
@@ -17,12 +17,20 @@ testRule(rule, {
     },
     {
       code: `
-      @use color;
+      @use "sass:color";
       a {
        background: color.red(#6b717f);
       }
     `,
       description: "Non-global function with different name"
+    },
+    {
+      code: `
+      a {
+       background: rgb(27,224,63);
+      }
+    `,
+      description: "An allowed global function"
     }
   ],
 
