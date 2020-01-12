@@ -1,6 +1,6 @@
 import rule, { ruleName, messages } from "..";
 
-// Testing against a ragex, sequence part
+// Testing against a regex, sequence part
 testRule(rule, {
   ruleName,
   config: [/foo/],
@@ -240,7 +240,7 @@ testRule(rule, {
   ]
 });
 
-// Testing against a ragex, sequence part
+// Testing against a regex, sequence part
 testRule(rule, {
   ruleName,
   config: [/foo/],
