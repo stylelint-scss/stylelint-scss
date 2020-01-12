@@ -40,10 +40,10 @@
     "postcss-scss": "^2.0.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
-    "stylelint": "^12.0.0"
+    "stylelint": "^13.0.0"
   },
   "peerDependencies": {
-    "stylelint": "^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0"
+    "stylelint": "^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0"
   },
   "engines": {
     "node": ">=8"
