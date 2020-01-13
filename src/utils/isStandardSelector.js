@@ -1,5 +1,5 @@
-import isStandardSyntaxSelector from "stylelint/lib/utils/isStandardSyntaxSelector";
-import hasInterpolation from "stylelint/lib/utils/hasInterpolation";
+import isStandardSyntaxSelector from "./isStandardSyntaxSelector";
+import hasInterpolation from "./hasInterpolation";
 /**
  * Check whether a selector is standard
  *
