@@ -7,7 +7,7 @@ import {
   blockString
 } from "../../utils";
 import { utils } from "stylelint";
-import isBoolean from "lodash.isboolean";
+import { isBoolean } from "lodash";
 
 export const ruleName = namespace("dollar-variable-empty-line-before");
 

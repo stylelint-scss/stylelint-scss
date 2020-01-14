@@ -1,4 +1,4 @@
-import isString from "lodash.isstring";
+import { isString } from "lodash";
 import valueParser from "postcss-value-parser";
 import { utils } from "stylelint";
 import {
