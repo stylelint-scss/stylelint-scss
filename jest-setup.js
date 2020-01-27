@@ -1,6 +1,6 @@
 "use strict"; // eslint-disable-line strict
 
-const get = require("lodash.get");
+const _ = require("lodash");
 const stylelint = require("stylelint");
 
 global.testRule = (rule, schema) => {
@@ -82,15 +82,15 @@ global.testRule = (rule, schema) => {
               // expect(testCase).toHaveMessage();
 
               if (testCase.message !== undefined) {
-                expect(get(warning, "text")).toBe(testCase.message);
+                expect(_.get(warning, "text")).toBe(testCase.message);
               }
 
               if (testCase.line !== undefined) {
-                expect(get(warning, "line")).toBe(testCase.line);
+                expect(_.get(warning, "line")).toBe(testCase.line);
               }
 
               if (testCase.column !== undefined) {
-                expect(get(warning, "column")).toBe(testCase.column);
+                expect(_.get(warning, "column")).toBe(testCase.column);
               }
 
               if (!schema.fix) {

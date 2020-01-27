@@ -1,6 +1,6 @@
 import { isSingleLineString, namespace } from "../../utils";
 import { utils } from "stylelint";
-import isBoolean from "lodash.isboolean";
+import { isBoolean } from "lodash";
 
 export const ruleName = namespace("at-if-closing-brace-newline-after");
 

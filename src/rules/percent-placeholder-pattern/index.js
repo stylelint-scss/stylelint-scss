@@ -1,5 +1,4 @@
-import isRegExp from "lodash.isregexp";
-import isString from "lodash.isstring";
+import { isRegExp, isString } from "lodash";
 import resolveNestedSelector from "postcss-resolve-nested-selector";
 import { utils } from "stylelint";
 import {

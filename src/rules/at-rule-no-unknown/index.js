@@ -1,5 +1,4 @@
-import isRegExp from "lodash.isregexp";
-import isString from "lodash.isstring";
+import { isRegExp, isString } from "lodash";
 import { rules, utils } from "stylelint";
 import { namespace } from "../../utils";
 
