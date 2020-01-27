@@ -1,3 +1,8 @@
+# 3.14.0
+
+- Added: support for stylelint version 13.
+- Fixed: avoid possible breaking changes in the future by not using stylelint's internal utility functions.
+
 # 3.13.0
 
 - Added: support for stylelint version 12.
