@@ -41,7 +41,7 @@ export default function(expectation) {
 
     root.walkAtRules("import", decl => {
       const paths = decl.params
-        .split(",")
+        .split(/["']\s*,/)
         .filter(path => !mediaQueryTypesRE.test(path.trim()));
 
       // Processing comma-separated lists of import paths

@@ -76,6 +76,12 @@ testRule(rule, {
     },
     {
       code: `
+      @import 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
+    `,
+      description: "Import CSS from the web, https:// with comma"
+    },
+    {
+      code: `
       @import "//_file.scss";
     `,
       description: "Import CSS from the web, no protocol."
@@ -104,6 +110,12 @@ testRule(rule, {
       @import url(_lol.scss) screen;
     `,
       description: "Import CSS (with media queries - url + media)."
+    },
+    {
+      code: `
+      @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+    `,
+      description: "Import CSS from the web, https:// with comma"
     },
     {
       code: `
@@ -220,6 +232,12 @@ testRule(rule, {
     },
     {
       code: `
+      @import 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
+    `,
+      description: "Import CSS from the web, https:// with comma"
+    },
+    {
+      code: `
       @import "//_file.scss";
     `,
       description: "Import CSS from the web, no protocol."
@@ -248,6 +266,12 @@ testRule(rule, {
       @import url(_lol.scss) screen;
     `,
       description: "Import CSS (with media queries - url + media)."
+    },
+    {
+      code: `
+      @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+    `,
+      description: "Import CSS from the web, https:// with comma"
     },
     {
       code: `
