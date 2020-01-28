@@ -1,3 +1,7 @@
+# 3.14.2
+
+- Fixed: `operator-no-unspaced` ignore operators inside `@at-root`.
+
 # 3.14.1
 
 - Fixed: `at-import-partial-extension` don't warn for urls that have commas in them.
