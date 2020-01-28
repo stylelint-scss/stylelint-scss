@@ -1253,6 +1253,16 @@ testRule(rule, {
     {
       code: '@use "src/corners" as *;',
       description: "ignores @use"
+    },
+    {
+      code: `
+      .container {
+	      @at-root * {
+		      color: red;
+	      }
+      }
+      `,
+      description: "ignores @at-root"
     }
   ],
 

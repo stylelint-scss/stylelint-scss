@@ -178,8 +178,12 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     }
 
     if (item.type === "atrule") {
-      // @forward and @use
-      if (item.name === "forward" || item.name === "use") {
+      // @forward, @use and @at-root
+      if (
+        item.name === "forward" ||
+        item.name === "use" ||
+        item.name === "at-root"
+      ) {
         return;
       }
 
