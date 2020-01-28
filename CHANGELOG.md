@@ -1,3 +1,7 @@
+# 3.14.1
+
+- Fixed: `at-import-partial-extension` don't warn for urls that have commas in them.
+
 # 3.14.0
 
 - Added: support for stylelint version 13.
