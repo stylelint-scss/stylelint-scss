@@ -133,6 +133,58 @@ testRule(rule, {
       }
     `,
       description: "color.ie-hex-str"
+    },
+    {
+      code: `
+      @use "sass:map";
+      a {b: map.get((), 1)}
+    `,
+      description: "map.get()"
+    },
+    {
+      code: `
+      @use "sass:map";
+      $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+      @debug map.has-key($font-weights, "regular")
+    `,
+      description: "map.has-key"
+    },
+    {
+      code: `
+      @use "sass:map";
+      $light-weights: ("lightest": 100, "light": 300);
+      $heavy-weights: ("medium": 500, "bold": 700);
+
+      @debug map.merge($light-weights, $heavy-weights)
+    `,
+      description: "map.merge"
+    },
+    {
+      code: `
+      @use "sass:map";
+      $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+
+      @debug map.remove($font-weights, "regular")
+    `,
+      description: "map.remove"
+    },
+    {
+      code: `
+      @use "sass:map";
+      $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+
+      @debug map.keys($font-weights)
+    `,
+      description: "map.keys"
+    },
+    {
+      code: `
+      @use "sass:map";
+      $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+
+      @debug map.values($font-weights)
+    `,
+      description: "map.values"
     }
   ],
 
@@ -256,6 +308,50 @@ testRule(rule, {
       line: 3,
       message: messages.rejected("ie-hex-str"),
       description: "ie-hex-str"
+    },
+    {
+      code: `
+      a {b: map-get((), 1)}
+    `,
+      line: 2,
+      message: messages.rejected("map-get"),
+      description: "map-get"
+    },
+    {
+      code: `
+      $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+      @debug map-has-key($font-weights, "regular")
+    `,
+      line: 2,
+      message: messages.rejected("map-has-key"),
+      description: "map-has-key"
+    },
+    {
+      code: `
+      $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+      @debug map-remove($font-weights, "regular")
+    `,
+      line: 2,
+      message: messages.rejected("map-remove"),
+      description: "map-remove"
+    },
+    {
+      code: `
+      $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+      @debug map-keys($font-weights)
+    `,
+      line: 2,
+      message: messages.rejected("map-keys"),
+      description: "map-keys"
+    },
+    {
+      code: `
+      $font-weights: ("regular": 400, "medium": 500, "bold": 700)
+      @debug map-values($font-weights)
+    `,
+      line: 2,
+      message: messages.rejected("map-values"),
+      description: "map-values"
     }
   ]
 });
