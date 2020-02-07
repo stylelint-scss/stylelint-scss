@@ -185,6 +185,69 @@ testRule(rule, {
       @debug map.values($font-weights)
     `,
       description: "map.values"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.quote(Helvetica);
+      `,
+      description: "string.quote"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.unquote("Helvetica");
+      `,
+      description: "string.unquote"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.length("Helvetica");
+      `,
+      description: "string.length"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.insert("Roboto Bold", " Mono", 7);
+      `,
+      description: "string.insert"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.slice("Helvetica Neue", 11);
+      `,
+      description: "string.slice"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.index("Helvetica Neue", "Helvetica");
+      `,
+      description: "string.index"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.to-upper-case("Bold");
+      `,
+      description: "string.to-upper-case"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.to-lower-case("Bold");
+      `,
+      description: "string.to-lower-case"
+    },
+    {
+      code: `
+      @use "sass:string"
+      @debug string.unique-id()
+      `,
+      description: "string.unique-id"
     }
   ],
 
@@ -352,6 +415,70 @@ testRule(rule, {
       line: 2,
       message: messages.rejected("map-values"),
       description: "map-values"
+    },
+    {
+      code: `
+      @debug unquote("Helvetica");
+      `,
+      line: 2,
+      message: messages.rejected("unquote"),
+      description: "unquote"
+    },
+    {
+      code: `
+      @debug str-length("Helvetica");
+      `,
+      line: 2,
+      message: messages.rejected("str-length"),
+      description: "str-length"
+    },
+    {
+      code: `
+      @debug str-insert("Roboto Bold", " Mono", 7);
+      `,
+      line: 2,
+      message: messages.rejected("str-insert"),
+      description: "str-insert"
+    },
+    {
+      code: `
+      @debug str-slice("Helvetica Neue", 11);
+      `,
+      line: 2,
+      message: messages.rejected("str-slice"),
+      description: "str-slice"
+    },
+    {
+      code: `
+      @debug str-index("Helvetica Neue", "Helvetica");
+      `,
+      line: 2,
+      message: messages.rejected("str-index"),
+      description: "str-index"
+    },
+    {
+      code: `
+      @debug to-upper-case("Bold");
+      `,
+      line: 2,
+      message: messages.rejected("to-upper-case"),
+      description: "to-upper-case"
+    },
+    {
+      code: `
+      @debug to-lower-case("Bold");
+      `,
+      line: 2,
+      message: messages.rejected("to-lower-case"),
+      description: "to-lower-case"
+    },
+    {
+      code: `
+      @debug unique-id();
+      `,
+      line: 2,
+      message: messages.rejected("unique-id"),
+      description: "unique-id"
     }
   ]
 });
