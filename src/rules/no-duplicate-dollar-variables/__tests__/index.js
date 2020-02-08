@@ -63,6 +63,39 @@ testRule(rule, {
       }
     `,
       description: "A single variable and a normal CSS property."
+    },
+    {
+      code: `
+      .a {
+        $ab: 1;
+      }
+      .b {
+        $ab: 2;
+      }
+    `,
+      description: "Two variables in unrelated scopes."
+    },
+    {
+      code: `
+      @mixin a {
+        $ab: 1;
+      }
+      @mixin c {
+        $ab: 2;
+      }
+    `,
+      description: "Two variables in unrelated at-rule scopes."
+    },
+    {
+      code: `
+      @if 1 == 2 {
+        $ab: 1;
+      }
+      @else {
+        $ab: 2;
+      }
+    `,
+      description: "Two variables in unrelated at-rule scope cases."
     }
   ],
 
