@@ -2493,6 +2493,23 @@ testRule(rule, {
   syntax: "scss",
   skipBasicChecks: true,
 
+  accept: [
+    {
+      code: "@import url('10px +2');",
+      description: "Import url function w/ single-quoted string."
+    },
+    {
+      code: '@import url("10px +2");',
+      description: "Import url function w/ double-quoted string."
+    },
+    {
+      code: `
+      @import url(//fonts.googleapis.com/css?family=Google+Material+Icons);
+    `,
+      description: "url function w/ unquoted string, no whitespace."
+    }
+  ],
+
   reject: [
     {
       code: "@import url(10px +2);",

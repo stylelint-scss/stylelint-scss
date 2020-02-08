@@ -199,7 +199,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
                 atRuleParamIndex(item) + node.sourceIndex
               )
             );
-          } else if (["value", "url"].includes(type)) {
+          } else if (type === "value") {
             results.push({
               source: node.value,
               operators: findOperators({
@@ -208,6 +208,24 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
                 isAfterColon: true
               })
             });
+          } else if (type === "url") {
+            const isQuoted = node.value[0] === '"' || node.value[0] === "'";
+            const containsWhitespace = node.value.search(/\s/) > -1;
+
+            if (isQuoted || containsWhitespace) {
+              // The argument to the url function is only parsed as SassScript if it is a quoted
+              // string, or a _valid_ unquoted URL [1].
+              //
+              // [1] https://sass-lang.com/documentation/syntax/special-functions#url
+              results.push({
+                source: node.value,
+                operators: findOperators({
+                  string: node.value,
+                  globalIndex: atRuleParamIndex(item) + node.sourceIndex,
+                  isAfterColon: true
+                })
+              });
+            }
           }
         });
       } else {
