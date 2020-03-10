@@ -255,6 +255,27 @@ testRule(rule, {
       message: messages.rejected("$ab"),
       description:
         "Two dollar variables with the same name and multi-level nesting."
+    },
+    {
+      code: `
+      .a {
+        $ab: 1;
+      }
+      .b {
+        $ab: 2;
+      }
+      .c {
+        $ab: 3;
+        .d {
+          $ab: 4;
+        }
+      }
+    `,
+      line: 11,
+      column: 11,
+      message: messages.rejected("$ab"),
+      description:
+        "Two dollar variables with the same name and multi-level nesting."
     }
   ]
 });
