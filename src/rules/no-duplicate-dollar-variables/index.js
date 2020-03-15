@@ -32,6 +32,41 @@ export default function(value, secondaryOptions) {
 
     const vars = {};
 
+    /**
+     * Traverse the [vars] tree through the path defined by [ancestors], creating nodes as needed.
+     *
+     * Return the tree of the node defined by the last of [ancestors].
+     */
+    function getScope(ancestors) {
+      let scope = vars;
+
+      for (const node of ancestors) {
+        if (!(node in scope)) {
+          scope[node] = {};
+        }
+
+        scope = scope[node];
+      }
+
+      return scope;
+    }
+
+    /**
+     * Returns whether [variable] is declared anywhere in the scopes along the path defined by
+     * [ancestors].
+     */
+    function isDeclared(ancestors, variable) {
+      let scope = vars;
+
+      for (const node of ancestors) {
+        scope = scope[node];
+
+        if (scope[variable]) return true;
+      }
+
+      return false;
+    }
+
     root.walkDecls(decl => {
       const isVar = decl.prop[0] === "$";
       const isInsideIgnoredAtRule =
@@ -60,7 +95,19 @@ export default function(value, secondaryOptions) {
         return;
       }
 
-      if (vars[decl.prop]) {
+      const ancestors = [];
+      let parent = decl.parent;
+
+      while (parent !== null && parent !== undefined) {
+        const parentKey = parent.toString();
+
+        ancestors.unshift(parentKey);
+        parent = parent.parent;
+      }
+
+      const scope = getScope(ancestors);
+
+      if (isDeclared(ancestors, decl.prop)) {
         utils.report({
           message: messages.rejected(decl.prop),
           node: decl,
@@ -69,7 +116,7 @@ export default function(value, secondaryOptions) {
         });
       }
 
-      vars[decl.prop] = true;
+      scope[decl.prop] = true;
     });
   };
 }
