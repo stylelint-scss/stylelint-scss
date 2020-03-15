@@ -3,27 +3,26 @@
 Disallow duplicate dollar variables within a stylesheet.
 
 ```scss
-    $a: 1;
-    $a: 2;
+$a: 1;
+$a: 2;
 /** ↑
  * These are duplicates */
 ```
 
-A dollar variable is considered a duplicate if it shadows a variable of the same name (see the
-[Sass documentation](https://sass-lang.com/documentation/variables#shadowing)). Two dollar
-variables are not duplicates if their scopes are unrelated.
+A dollar variable is considered a duplicate if it shadows a variable of the same name (see the [Sass documentation](https://sass-lang.com/documentation/variables#shadowing)). Two dollar variables are not duplicates if their scopes are unrelated.
 
 ```scss
 .one {
-    $a: 1;
-/** ↑
- * Not a duplicate */
+  $a: 1;
+  /** ↑
+   * Not a duplicate */
 }
 .two {
-    $a: 2;
-/** ↑
- * Not a duplicate */
+  $a: 2;
+  /** ↑
+   * Not a duplicate */
 }
+```
 
 ## Options
 
