@@ -176,6 +176,67 @@ testRule(rule, {
 
 testRule(rule, {
   ruleName,
+  config: ["always", { except: ["inside-block"] }],
+  syntax: "scss",
+  skipBasicChecks: true,
+  fix: true,
+
+  accept: [
+    {
+      code: `
+      a {
+        // Inside block, no empty line.
+        color: pink;
+      }
+    `,
+      description: "Inside block, no empty line."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      a {
+
+        // Inside rule block, with empty line (rejected).
+        color: pink;
+      }
+    `,
+      fixed: `
+      a {
+        // Inside rule block, with empty line (rejected).
+        color: pink;
+      }
+    `,
+      description: "Inside rule block, with empty line (rejected).",
+      message: messages.rejected,
+      line: 4,
+      column: 9
+    },
+    {
+      code: `
+      @if 1 == 2 {
+
+        // Inside at-rule block, with empty line (rejected).
+        p { color: pink; }
+      }
+    `,
+      fixed: `
+      @if 1 == 2 {
+        // Inside at-rule block, with empty line (rejected).
+        p { color: pink; }
+      }
+    `,
+      description: "Inside at-rule block, with empty line (rejected).",
+      message: messages.rejected,
+      line: 4,
+      column: 9
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
   config: ["always", { ignore: ["stylelint-commands"] }],
   syntax: "scss",
   skipBasicChecks: true,
@@ -267,6 +328,59 @@ testRule(rule, {
       }
     `,
       description: "Multiple comments, inside ruleset, no empty lines.",
+      message: messages.expected
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
+  config: ["always", { ignore: ["inside-block"] }],
+  syntax: "scss",
+  skipBasicChecks: true,
+  fix: true,
+
+  accept: [
+    {
+      code: `
+      body { color: blue; }
+
+      // comment 1
+    `,
+      description: "Empty line before root level comment"
+    },
+    {
+      code: `
+      p {
+        // comment 1
+        color: red;
+      }
+    `,
+      description: "Non-empty line before comment inside a rule block"
+    },
+    {
+      code: `
+      @if 1 == 2 {
+        // comment 1
+        p { color: red; }
+      }
+    `,
+      description: "Non-empty line before comment inside an at-rule block"
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      body { color: blue; }
+      // comment 1
+    `,
+      fixed: `
+      body { color: blue; }
+
+      // comment 1
+    `,
+      description: "Non-empty line before root level comment",
       message: messages.expected
     }
   ]
@@ -426,6 +540,68 @@ testRule(rule, {
     `,
       description: "issue #321",
       message: messages.rejected
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
+  config: ["never", { except: ["inside-block"] }],
+  syntax: "scss",
+  skipBasicChecks: true,
+  fix: true,
+
+  accept: [
+    {
+      code: `
+      a {
+
+        // Inside block, with empty line.
+        color: pink;
+      }
+    `,
+      description: "Inside block, with empty line."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      a {
+        // Inside rule block, no empty line (rejected).
+        color: pink;
+      }
+    `,
+      fixed: `
+      a {
+
+        // Inside rule block, no empty line (rejected).
+        color: pink;
+      }
+    `,
+      description: "Inside rule block, no empty line (rejected).",
+      message: messages.expected,
+      line: 3,
+      column: 9
+    },
+    {
+      code: `
+      @if 1 == 2 {
+        // Inside at-rule block, no empty line (rejected).
+        p { color: pink; }
+      }
+    `,
+      fixed: `
+      @if 1 == 2 {
+
+        // Inside at-rule block, no empty line (rejected).
+        p { color: pink; }
+      }
+    `,
+      description: "Inside at-rule block, no empty line (rejected).",
+      message: messages.expected,
+      line: 3,
+      column: 9
     }
   ]
 });

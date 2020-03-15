@@ -69,7 +69,9 @@ a {} // comment
 
 ## Optional options
 
-### `except: ["first-nested"]`
+### `except: ["first-nested", "inside-block"]`
+
+#### `"first-nested"`
 
 Reverse the primary option for `//`-comments that are nested and the first child of their parent node.
 
@@ -94,7 +96,34 @@ a {
 }
 ```
 
-### `ignore: ["between-comments", "stylelint-commands"]`
+#### `"inside-block"`
+
+Reverse the primary option for `//`-comments that are inside a block.
+
+For example, with `"always"`:
+
+The following patterns are considered warnings:
+
+```scss
+a {
+  background: pink;
+
+  // comment
+  color: pink;
+}
+```
+
+The following patterns are *not* considered warnings:
+
+```scss
+a {
+  background: pink;
+  // comment
+  color: pink;
+}
+```
+
+### `ignore: ["between-comments", "stylelint-commands", "inside-block"]`
 
 #### `"between-comments"`
 
@@ -146,6 +175,29 @@ The following patterns are *not* considered warnings:
 a {
   background: pink;
   // stylelint-disable color-no-hex
+  color: pink;
+}
+```
+
+#### `"inside-block"`
+
+Ignore `//`-comments that are inside a block.
+
+For example, the following patterns are *not* considered warnings:
+
+```scss
+a {
+  background: pink;
+  // comment
+  color: pink;
+}
+```
+
+```scss
+a {
+  background: pink;
+
+  // comment
   color: pink;
 }
 ```

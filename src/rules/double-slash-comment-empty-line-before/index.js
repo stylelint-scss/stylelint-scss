@@ -29,8 +29,8 @@ export default function(expectation, options, context) {
       {
         actual: options,
         possible: {
-          except: ["first-nested"],
-          ignore: ["stylelint-commands", "between-comments"]
+          except: ["first-nested", "inside-block"],
+          ignore: ["stylelint-commands", "between-comments", "inside-block"]
         },
         optional: true
       }
@@ -63,6 +63,14 @@ export default function(expectation, options, context) {
         return;
       }
 
+      // Optionally ignore comments inside blocks
+      if (
+        comment.parent !== root &&
+        optionsHaveIgnored(options, "inside-block")
+      ) {
+        return;
+      }
+
       // Optionally ignore newlines between comments
       const prev = comment.prev();
 
@@ -83,6 +91,14 @@ export default function(expectation, options, context) {
           comment === comment.parent.first
         ) {
           return false;
+        }
+
+        // Reverse expectation for comments inside blocks
+        if (
+          comment.parent !== root &&
+          optionsHaveException(options, "inside-block")
+        ) {
+          return expectation === "never";
         }
 
         return expectation === "always";
