@@ -9,6 +9,14 @@ testRule(rule, {
   accept: [
     {
       code: `
+      @media print {
+        .navbar { display: none; }
+      }
+    `,
+      description: "Always. Example: no value."
+    },
+    {
+      code: `
       @media screen and (max-width: $val) {
         a { display: none; }
       }
@@ -204,6 +212,17 @@ testRule(rule, {
       column: 37,
       message: messages.expected,
       description: "Always. Example: function call as a value."
+    },
+    {
+      code: `
+      @media screen and (pointer: fine){
+        b { color: red; }
+      }
+    `,
+      line: 2,
+      column: 35,
+      message: messages.expected,
+      description: "Always. Example: keyword as a value."
     }
   ]
 });
@@ -215,6 +234,14 @@ testRule(rule, {
   syntax: "scss",
 
   accept: [
+    {
+      code: `
+      @media print {
+        .navbar { display: none; }
+      }
+    `,
+      description: "Never. Example: no value."
+    },
     {
       code: `
       @media screen and (min-width: 100px + 10px){
@@ -291,6 +318,58 @@ testRule(rule, {
       message: messages.rejected,
       description:
         "Never. Example: value is an interpolation of a math op on a var and a regular value."
+    }
+  ]
+});
+
+// Required ("always"), ignore keywords
+testRule(rule, {
+  ruleName,
+  config: ["always", { ignore: "keywords" }],
+  syntax: "scss",
+
+  accept: [
+    {
+      code: `
+      @media screen and (pointer: fine) {
+        a { display: none; }
+      }
+    `,
+      description: "Always. Example: value is a keyword."
+    },
+    {
+      code: `
+      @media screen and (max-width: $val) and (prefers-color-scheme: no-preference) {
+        a { display: none; }
+      }
+    `,
+      description: "Always. Example: values contain var and keyword with dash."
+    },
+    {
+      code: `
+      @media screen and (color-gamut: rec2020) {
+        a { display: none; }
+      }
+    `,
+      description: "Always. Example: value is a keyword with number."
+    }
+  ]
+});
+
+// Invalid option (false)
+testRule(rule, {
+  ruleName,
+  config: [false],
+  syntax: "scss",
+
+  accept: [
+    {
+      code: `
+      @media screen and (max-width: $val) and (min-width: 200px) {
+        a { display: none; }
+      }
+    `,
+      description: "Invalid option. Example: values are mixed."
     }
   ]
 });

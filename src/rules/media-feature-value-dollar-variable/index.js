@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, optionsHaveIgnored } from "../../utils";
 
 export const ruleName = namespace("media-feature-value-dollar-variable");
 
@@ -9,12 +9,23 @@ export const messages = utils.ruleMessages(ruleName, {
     "Expected a dollar-variable (e.g. $var) to be used as a media feature value"
 });
 
-export default function(expectation) {
+export default function(expectation, options) {
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation,
-      possible: ["always", "never"]
-    });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      {
+        actual: expectation,
+        possible: ["always", "never"]
+      },
+      {
+        actual: options,
+        possible: {
+          ignore: ["keywords"]
+        },
+        optional: true
+      }
+    );
 
     if (!validOptions) {
       return;
@@ -29,6 +40,8 @@ export default function(expectation) {
     const variableRegex = /^\$[A-Za-z_0-9-]+$/;
     // `#{$var-name_sth}`
     const interpolationVarRegex = /^#\{\s*?\$[A-Za-z_0-9]+\s*?\}$/;
+    // `none`, `dark`
+    const keywordValueRegex = /^[a-z][a-z0-9-]*$/;
 
     root.walkAtRules("media", atRule => {
       const found = atRule.params.match(valueRegexGlobal);
@@ -53,13 +66,22 @@ export default function(expectation) {
           });
         }
 
+        // Keyword values, like `none`, should always be fine if keywords are
+        // ignored.
+        if (
+          keywordValueRegex.test(valueParsed) &&
+          optionsHaveIgnored(options, "keywords")
+        ) {
+          return;
+        }
+
         // A value should be a single variable
         // or it should be a single variable inside Sass interpolation
         if (
           expectation === "always" &&
           !(
-            valueParsed.search(variableRegex) !== -1 ||
-            valueParsed.search(interpolationVarRegex) !== -1
+            variableRegex.test(valueParsed) ||
+            interpolationVarRegex.test(valueParsed)
           )
         ) {
           complain(messages.expected);

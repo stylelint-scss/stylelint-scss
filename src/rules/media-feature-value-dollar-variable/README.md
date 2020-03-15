@@ -84,3 +84,21 @@ The following patterns are *not* considered warnings:
 ```scss
 @media screen and (min-width: funcName(10px)){ b { color: red; } }
 ```
+
+## Optional options
+
+### `ignore: ["keywords"]`
+
+#### `"keywords"`
+
+Ignore keyword values like `none`, `dark`, `fine`, `srgb`.
+
+For example, with `"always"`:
+
+The following patterns are *not* considered warnings:
+
+```scss
+@media screen and (max-width: $var) and (pointer: fine) {
+  a { display: none; }
+}
+```
