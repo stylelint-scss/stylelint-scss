@@ -1,3 +1,10 @@
+# 3.15.0
+
+- Changed: `no-duplicate-dollar-variables` do not warn for duplicate variables that are in different scopes. A dollar variable is now considered a duplicate if it shadows a variable of the same name (see the [Sass documentation](https://sass-lang.com/documentation/variables#shadowing)).
+- Added: `media-feature-value-dollar-variable` new option `ignore: ["keywords"]` to not warn when the media feature value is a keyword value like `none`, `dark`, `fine`, `srgb`.
+- Added: `double-slash-comment-empty-line-before` new options `except: ["inside-block"]` and `ignore: ["inside-block"]`.
+- Fixed: `operator-no-unspaced` do not find operators in valid unquoted URLs.
+
 # 3.14.2
 
 - Fixed: `operator-no-unspaced` ignore operators inside `@at-root`.
