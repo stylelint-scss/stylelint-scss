@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 // always
 // --------------------------------------------------------------------------
@@ -123,7 +123,8 @@ testRule(rule, {
     }`,
       description: "$var inside a rule, not first.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     },
     {
       code: `
@@ -135,7 +136,8 @@ testRule(rule, {
     `,
       description: "$var following nested selector.",
       message: messages.expected,
-      line: 5
+      line: 5,
+      column: 9
     },
     {
       code: `
@@ -146,7 +148,8 @@ testRule(rule, {
     `,
       description: "$var following a comment.",
       message: messages.expected,
-      line: 4
+      line: 4,
+      column: 9
     },
     {
       code: `@media (min-width: 100px) {
@@ -155,7 +158,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside a media query.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     },
     {
       code: `@function function-name($base) {
@@ -164,7 +168,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside a `@function`.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     },
     {
       code: `@mixin mixin-name {
@@ -173,7 +178,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside a `@mixin`.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     },
     {
       code: `@at-root .class {
@@ -182,7 +188,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside an `@at-root`.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     },
     {
       code: `@if $direction == up {
@@ -191,7 +198,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside an `@if`.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     },
     {
       code: `@if $direction == up {
@@ -202,7 +210,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside an `@else`.",
       message: messages.expected,
-      line: 5
+      line: 5,
+      column: 7
     },
     {
       code: `@each $size in $sizes {
@@ -211,7 +220,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside an `@each` rule.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     },
     {
       code: `@for $i from 1 through 3 {
@@ -220,7 +230,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside a `@for` rule.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     },
     {
       code: `@while $value > $base {
@@ -229,7 +240,8 @@ testRule(rule, {
     }`,
       description: "$var not first inside a `@while` rule.",
       message: messages.expected,
-      line: 3
+      line: 3,
+      column: 7
     }
   ]
 });
@@ -393,7 +405,7 @@ testRule(rule, {
       code: `
       @import '1.css';
       $var1: 100px;
-      
+
       a { }
     `,
       description: "$var in root, preceded by import, followed by selector."
@@ -416,7 +428,8 @@ testRule(rule, {
     }`,
       description: "$var inside a rule, preceded by an import and not first.",
       message: messages.expected,
-      line: 4
+      line: 4,
+      column: 7
     },
     {
       code: `
@@ -429,7 +442,8 @@ testRule(rule, {
     `,
       description: "$var following import and nested selector.",
       message: messages.expected,
-      line: 6
+      line: 6,
+      column: 9
     }
   ]
 });
@@ -469,7 +483,7 @@ testRule(rule, {
     {
       code: `a {
       $var1: 100px;
-      
+
       /* Comment */
       $var2: 100px;
     }`,
@@ -479,7 +493,7 @@ testRule(rule, {
     {
       code: `a {
       $var1: 100px;
-      
+
       /* Comment
          Comment
          Comment */
@@ -500,7 +514,8 @@ testRule(rule, {
     }`,
       description: "$var inside a rule, preceded by //-comment and not first.",
       message: messages.expected,
-      line: 4
+      line: 4,
+      column: 7
     },
     {
       code: `
@@ -513,7 +528,8 @@ testRule(rule, {
     `,
       description: "$var following comment and nested selector.",
       message: messages.expected,
-      line: 6
+      line: 6,
+      column: 9
     },
     {
       code: `
@@ -529,7 +545,8 @@ testRule(rule, {
       description:
         "$var preceded by comment, a nested selector and another $var.",
       message: messages.expected,
-      line: 8
+      line: 8,
+      column: 9
     }
   ]
 });
@@ -596,7 +613,8 @@ testRule(rule, {
       description:
         "$var inside a rule, preceded by //-comment, an import and not first.",
       message: messages.expected,
-      line: 5
+      line: 5,
+      column: 7
     }
   ]
 });

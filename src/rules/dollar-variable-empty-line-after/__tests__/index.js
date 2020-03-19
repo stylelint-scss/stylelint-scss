@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 // always
 // --------------------------------------------------------------------------
@@ -68,7 +68,8 @@ testRule(rule, {
     }`,
       description: "always. $var inside a rule, no emptyline after.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 7
     },
     {
       code: `
@@ -85,7 +86,8 @@ testRule(rule, {
       description:
         "always. Two $var-s at the root start, no empty line between them.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 7
     }
   ]
 });
@@ -133,7 +135,8 @@ testRule(rule, {
   }`,
       description: "never. $var inside a rule, emptyline after.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: `
@@ -147,28 +150,32 @@ testRule(rule, {
   `,
       description: "never. $var in root, before comment, has empty line.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: "a { $var1: 100px;\n\n}",
       fixed: "a { $var1: 100px;\n}",
       description: "never. Unix newline",
       message: messages.rejected,
-      line: 1
+      line: 1,
+      column: 5
     },
     {
       code: "a { $var1: 100px;\r\n\r\n}",
       fixed: "a { $var1: 100px;\r\n}",
       description: "never. Windows newline",
       message: messages.rejected,
-      line: 1
+      line: 1,
+      column: 5
     },
     {
       code: "a { $var1: 100px;\n\r\n}",
       fixed: "a { $var1: 100px;\r\n}",
       description: "never. Mixed newline",
       message: messages.rejected,
-      line: 1
+      line: 1,
+      column: 5
     }
   ]
 });
@@ -232,7 +239,8 @@ testRule(rule, {
       description:
         "always, { ignore: before-comment }. No comment directly after $var, no empty line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 5
     }
   ]
 });
@@ -293,7 +301,8 @@ testRule(rule, {
       description:
         "never, { ignore: before-comment }. No comment directly before $var, has empty line.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     }
   ]
 });
@@ -334,7 +343,8 @@ testRule(rule, {
       description:
         "always, { ignore: inside-single-line-block }. Not a single line ruleset, $var and other decl on the same line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 15
     }
   ]
 });
@@ -380,7 +390,8 @@ width: 1;
       description:
         "always, { except: last-nested }. $var is not the last in a ruleset, no empty line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: `a {
@@ -393,7 +404,8 @@ width: 1;
       description:
         "always, { except: last-nested }. $var is the last in a ruleset, has empty line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 5
     }
   ]
 });
@@ -436,7 +448,8 @@ testRule(rule, {
       description:
         "never, { except: last-nested }. $var is the last in a ruleset, no empty line.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: `a {
@@ -451,7 +464,8 @@ testRule(rule, {
       description:
         "never, { except: last-nested }. $var isn't the last in a ruleset, has empty line.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     }
   ]
 });
@@ -501,7 +515,8 @@ testRule(rule, {
       description:
         "always, { except: last-nested }. $var is not the last in a ruleset, no empty line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: `a {
@@ -515,7 +530,8 @@ testRule(rule, {
       description:
         "always, { except: last-nested }. $var is the last in a ruleset, has empty line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 5
     }
   ]
 });
@@ -568,7 +584,8 @@ testRule(rule, {
       description:
         "always, { except: before-comment }. $var before //-comment, has empty line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: `
@@ -583,7 +600,8 @@ testRule(rule, {
       description:
         "always, { except: before-comment }. $var before CSS-comment, has empty line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: `a {
@@ -598,7 +616,8 @@ testRule(rule, {
       description:
         "always, { except: before-comment }. No comment after $var, has empty line.",
       message: messages.expected,
-      line: 2
+      line: 2,
+      column: 5
     }
   ]
 });
@@ -652,7 +671,8 @@ testRule(rule, {
       description:
         "never, { except: before-comment }. $var before //-comment, no empty line.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: `
@@ -667,7 +687,8 @@ testRule(rule, {
       description:
         "never, { except: before-comment }. $var before CSS-comment, no empty line.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     },
     {
       code: `a {
@@ -682,7 +703,8 @@ testRule(rule, {
       description:
         "never, { except: before-comment }. No comment before $var, has empty line.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     }
   ]
 });
@@ -768,7 +790,8 @@ testRule(rule, {
       description:
         "never, { except: before-dollar-variable }. $var1 and $var2 have no empty lines.",
       message: messages.rejected,
-      line: 2
+      line: 2,
+      column: 5
     }
   ]
 });
