@@ -1,3 +1,10 @@
+# 3.16.0
+
+- Added: `no-global-function-names` rule.
+- Added: `dollar-variable-first-in-block` rule.
+- Added: `dollar-variable-empty-line-after` rule.
+- Fixed: `function-color-relative`, `function-quote-no-quoted-strings-inside` and `function-unquote-no-unquoted-strings-inside` point the warning to the function name.
+
 # 3.15.0
 
 - Changed: `no-duplicate-dollar-variables` do not warn for duplicate variables that are in different scopes. A dollar variable is now considered a duplicate if it shadows a variable of the same name (see the [Sass documentation](https://sass-lang.com/documentation/variables#shadowing)).
