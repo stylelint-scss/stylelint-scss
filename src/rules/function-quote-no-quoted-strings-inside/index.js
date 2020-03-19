@@ -1,6 +1,10 @@
-import { utils } from "stylelint";
-import { namespace, isNativeCssFunction } from "../../utils";
 import valueParser from "postcss-value-parser";
+import { utils } from "stylelint";
+import {
+  declarationValueIndex,
+  isNativeCssFunction,
+  namespace
+} from "../../utils";
 
 export const ruleName = namespace("function-quote-no-quoted-strings-inside");
 
@@ -58,6 +62,7 @@ function rule(primary, _, context) {
             utils.report({
               message: messages.rejected,
               node: decl,
+              index: declarationValueIndex(decl) + node.sourceIndex,
               result,
               ruleName
             });

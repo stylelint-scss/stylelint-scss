@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 // always-intermediate
 testRule(rule, {
@@ -37,6 +37,7 @@ testRule(rule, {
       description: "does not accept strings without quotes",
       message: messages.rejected,
       line: 3,
+      column: 24,
       fixed: `
         p {
           font-family: Helvetica;
@@ -53,6 +54,7 @@ testRule(rule, {
       description:
         "does not accept variables representing strings that are quoted.",
       line: 4,
+      column: 24,
       fixed: `
         $font: Helvetica;
         p {

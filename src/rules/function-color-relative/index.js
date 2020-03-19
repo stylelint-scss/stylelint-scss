@@ -1,6 +1,6 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
 import valueParser from "postcss-value-parser";
+import { utils } from "stylelint";
+import { declarationValueIndex, namespace } from "../../utils";
 
 export const ruleName = namespace("function-color-relative");
 
@@ -40,6 +40,7 @@ function rule(primary) {
           utils.report({
             message: messages.rejected,
             node: decl,
+            index: declarationValueIndex(decl) + node.sourceIndex,
             result,
             ruleName
           });
