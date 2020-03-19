@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 testRule(rule, {
   ruleName,
@@ -259,6 +259,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("red"),
       description: "red"
     },
@@ -269,6 +270,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("blue"),
       description: "blue"
     },
@@ -279,6 +281,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("green"),
       description: "green"
     },
@@ -289,6 +292,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("mix"),
       description: "mix"
     },
@@ -299,6 +303,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("hue"),
       description: "hue"
     },
@@ -309,6 +314,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("saturation"),
       description: "saturation"
     },
@@ -319,6 +325,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("lightness"),
       description: "lightness"
     },
@@ -329,6 +336,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("alpha"),
       description: "alpha"
     },
@@ -339,6 +347,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("adjust-color"),
       description: "adjust-color"
     },
@@ -349,6 +358,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("scale-color"),
       description: "scale-color"
     },
@@ -359,6 +369,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("change-color"),
       description: "change-color"
     },
@@ -369,6 +380,7 @@ testRule(rule, {
       }
     `,
       line: 3,
+      column: 21,
       message: messages.rejected("ie-hex-str"),
       description: "ie-hex-str"
     },
@@ -377,6 +389,7 @@ testRule(rule, {
       a {b: map-get((), 1)}
     `,
       line: 2,
+      column: 13,
       message: messages.rejected("map-get"),
       description: "map-get"
     },
@@ -385,7 +398,8 @@ testRule(rule, {
       $font-weights: ("regular": 400, "medium": 500, "bold": 700)
       @debug map-has-key($font-weights, "regular")
     `,
-      line: 2,
+      line: 3,
+      column: 14,
       message: messages.rejected("map-has-key"),
       description: "map-has-key"
     },
@@ -394,7 +408,8 @@ testRule(rule, {
       $font-weights: ("regular": 400, "medium": 500, "bold": 700)
       @debug map-remove($font-weights, "regular")
     `,
-      line: 2,
+      line: 3,
+      column: 14,
       message: messages.rejected("map-remove"),
       description: "map-remove"
     },
@@ -403,7 +418,8 @@ testRule(rule, {
       $font-weights: ("regular": 400, "medium": 500, "bold": 700)
       @debug map-keys($font-weights)
     `,
-      line: 2,
+      line: 3,
+      column: 14,
       message: messages.rejected("map-keys"),
       description: "map-keys"
     },
@@ -412,7 +428,8 @@ testRule(rule, {
       $font-weights: ("regular": 400, "medium": 500, "bold": 700)
       @debug map-values($font-weights)
     `,
-      line: 2,
+      line: 3,
+      column: 14,
       message: messages.rejected("map-values"),
       description: "map-values"
     }

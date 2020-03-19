@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import rule, { messages, ruleName } from "..";
 
 testRule(rule, {
   ruleName,
@@ -24,7 +24,9 @@ testRule(rule, {
         }
       `,
       description: "does not accept the saturate function",
-      message: messages.rejected
+      message: messages.rejected,
+      line: 3,
+      column: 18
     },
     {
       code: `
@@ -33,7 +35,9 @@ testRule(rule, {
         }
       `,
       description: "does not accept the desaturate function",
-      message: messages.rejected
+      message: messages.rejected,
+      line: 3,
+      column: 18
     },
     {
       code: `
@@ -42,7 +46,9 @@ testRule(rule, {
         }
       `,
       description: "does not accept the darken function",
-      message: messages.rejected
+      message: messages.rejected,
+      line: 3,
+      column: 18
     },
     {
       code: `
@@ -51,7 +57,9 @@ testRule(rule, {
         }
       `,
       description: "does not accept the lighten function",
-      message: messages.rejected
+      message: messages.rejected,
+      line: 3,
+      column: 18
     },
     {
       code: `
@@ -60,7 +68,9 @@ testRule(rule, {
         }
       `,
       description: "does not accept the opacify function",
-      message: messages.rejected
+      message: messages.rejected,
+      line: 3,
+      column: 18
     },
     {
       code: `
@@ -69,7 +79,9 @@ testRule(rule, {
         }
       `,
       description: "does not accept the fade-in function",
-      message: messages.rejected
+      message: messages.rejected,
+      line: 3,
+      column: 18
     },
     {
       code: `
@@ -78,7 +90,9 @@ testRule(rule, {
         }
       `,
       description: "does not accept the transparentize function",
-      message: messages.rejected
+      message: messages.rejected,
+      line: 3,
+      column: 18
     },
     {
       code: `
@@ -87,7 +101,9 @@ testRule(rule, {
         }
       `,
       description: "does not accept the fade-out function",
-      message: messages.rejected
+      message: messages.rejected,
+      line: 3,
+      column: 18
     }
   ]
 });

@@ -1,6 +1,6 @@
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
 import valueParser from "postcss-value-parser";
+import { utils } from "stylelint";
+import { declarationValueIndex, namespace } from "../../utils";
 
 const rules = {
   red: "color",
@@ -135,6 +135,7 @@ export default function(value) {
           utils.report({
             message: messages.rejected(node.value),
             node: decl,
+            index: declarationValueIndex(decl) + node.sourceIndex,
             result,
             ruleName
           });
