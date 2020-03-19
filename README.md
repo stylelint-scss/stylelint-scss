@@ -165,6 +165,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`no-dollar-variables`](./src/rules/no-dollar-variables/README.md): Disallow dollar variables within a stylesheet.
 - [`no-duplicate-dollar-variables`](./src/rules/no-duplicate-dollar-variables/README.md): Disallow duplicate dollar variables within a stylesheet.
 - [`no-duplicate-mixins`](./src/rules/no-duplicate-mixins/README.md): Disallow duplicate mixins within a stylesheet.
+- [`no-global-function-names`](./src/rules/no-global-function-names/README.md): Disallows the use of global function names, as these global functions are now located inside built-in Sass modules.
 
 ## Help out
 
