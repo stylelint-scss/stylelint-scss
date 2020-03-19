@@ -101,6 +101,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`dollar-variable-colon-space-after`](./src/rules/dollar-variable-colon-space-after/README.md): Require or disallow whitespace after the colon in `$`-variable declarations (Autofixable).
 - [`dollar-variable-colon-space-before`](./src/rules/dollar-variable-colon-space-before/README.md): Require a single space or disallow whitespace before the colon in `$`-variable declarations (Autofixable).
 - [`dollar-variable-default`](./src/rules/dollar-variable-default/README.md): Require `!default` flag for `$`-variable declarations.
+- [`dollar-variable-empty-line-after`](./src/rules/dollar-variable-empty-line-after/README.md): Require a single empty line or disallow empty lines after `$`-variable declarations (Autofixable).
 - [`dollar-variable-empty-line-before`](./src/rules/dollar-variable-empty-line-before/README.md): Require a single empty line or disallow empty lines before `$`-variable declarations (Autofixable).
 - [`dollar-variable-no-missing-interpolation`](./src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
 - [`dollar-variable-pattern`](./src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.

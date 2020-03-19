@@ -28,6 +28,7 @@ import dollarVariableColonNewlineAfter from "./dollar-variable-colon-newline-aft
 import dollarVariableColonSpaceAfter from "./dollar-variable-colon-space-after";
 import dollarVariableColonSpaceBefore from "./dollar-variable-colon-space-before";
 import dollarVariableDefault from "./dollar-variable-default";
+import dollarVariableEmptyLineAfter from "./dollar-variable-empty-line-after";
 import dollarVariableEmptyLineBefore from "./dollar-variable-empty-line-before";
 import dollarVariableNoMissingInterpolation from "./dollar-variable-no-missing-interpolation";
 import dollarVariablePattern from "./dollar-variable-pattern";
@@ -82,6 +83,7 @@ export default {
   "dollar-variable-colon-space-after": dollarVariableColonSpaceAfter,
   "dollar-variable-colon-space-before": dollarVariableColonSpaceBefore,
   "dollar-variable-default": dollarVariableDefault,
+  "dollar-variable-empty-line-after": dollarVariableEmptyLineAfter,
   "dollar-variable-empty-line-before": dollarVariableEmptyLineBefore,
   "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
   "dollar-variable-pattern": dollarVariablePattern,
