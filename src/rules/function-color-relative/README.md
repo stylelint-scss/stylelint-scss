@@ -15,7 +15,7 @@ Encourage the use of the [scale-color](https://sass-lang.com/documentation/modul
 p {
    color: saturate(blue, 20%);
   /**     ↑      ↑
-   * This function should be scalar-color
+   * This function should be scale-color
    */
 }
 ```
