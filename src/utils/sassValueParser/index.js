@@ -328,6 +328,8 @@ function checkMinus(string, index) {
   const isParensBefore_ = isParensBefore(before);
   // The early check above helps prevent deep recursion here
   const isPrecedingOperator_ = isPrecedingOperator(string, index);
+  const isInsideFunctionCall_ = isInsideFunctionCall(string, index);
+
 
   if (isAtStart_) {
     // console.log("-, -<sth> or - <sth>")
@@ -347,8 +349,14 @@ function checkMinus(string, index) {
       return "op";
     }
 
-    // e.g. `#{10px -1}`
+    // e.g. `#{10px -1}`, `#{math.acos(-0.5)}`
     if (isInsideInterpolation(string, index)) {
+      if (isInsideFunctionCall_.is && (
+        (isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
+        (isNumberAfter_.is && !isNumberAfter_.opsBetween))) {
+        return "sign";
+      }
+
       return "op";
     }
 
@@ -691,7 +699,7 @@ function isInsideFunctionCall(string, index) {
   const result = { is: false, fn: null };
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
-  const beforeMatch = before.match(/([a-zA-Z_-][a-zA-Z0-9_-]*)\([^(){},]+$/);
+  const beforeMatch = before.match(/([a-zA-Z_-][a-zA-Z0-9_-]*)\([^(){}]+$/);
 
   if (beforeMatch && beforeMatch[0] && after.search(/^[^(,]+\)/) !== -1) {
     result.is = true;
@@ -833,7 +841,7 @@ function isValueWithUnitAfter(after) {
   // Again, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
   const matches = after.match(
-    /^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)[a-zA-Z_0-9-]+(?:$|[)}, ])/
+    /^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)[a-zA-Z_0-9-%]+(?:$|[)}, ])/
   );
 
   if (matches) {
