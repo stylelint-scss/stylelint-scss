@@ -1,3 +1,7 @@
+# 3.16.1
+
+- Fixed: `operator-no-unspaced` don't warn for negative numbers inside a function call in interpolated values.
+
 # 3.16.0
 
 - Added: `no-global-function-names` rule.
