@@ -251,26 +251,27 @@ Thanks goes to these wonderful people:
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/EvanHahn"><img alt="EvanHahn" src="https://avatars1.githubusercontent.com/u/777712?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/guoyunhe"><img alt="guoyunhe" src="https://avatars1.githubusercontent.com/u/5836790?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/jantimon"><img alt="jantimon" src="https://avatars2.githubusercontent.com/u/4113649?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/stormwarning"><img alt="stormwarning" src="https://avatars1.githubusercontent.com/u/999825?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/keegan-lillo"><img alt="keegan-lillo" src="https://avatars0.githubusercontent.com/u/3537963?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/manovotny"><img alt="manovotny" src="https://avatars2.githubusercontent.com/u/446260?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/paulgv"><img alt="paulgv" src="https://avatars0.githubusercontent.com/u/4895885?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/EvanHahn">EvanHahn</a></td>
 <td align="center"><a href="https://github.com/guoyunhe">guoyunhe</a></td>
 <td align="center"><a href="https://github.com/jantimon">jantimon</a></td>
 <td align="center"><a href="https://github.com/stormwarning">stormwarning</a></td>
 <td align="center"><a href="https://github.com/keegan-lillo">keegan-lillo</a></td>
 <td align="center"><a href="https://github.com/manovotny">manovotny</a></td>
-<td align="center"><a href="https://github.com/paulgv">paulgv</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/paulgv"><img alt="paulgv" src="https://avatars0.githubusercontent.com/u/4895885?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/sajadtorkamani"><img alt="sajadtorkamani" src="https://avatars1.githubusercontent.com/u/9380313?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/YozhikM"><img alt="YozhikM" src="https://avatars0.githubusercontent.com/u/27273025?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/YodaDaCoda"><img alt="YodaDaCoda" src="https://avatars0.githubusercontent.com/u/365349?v=4&s=80" width="80"></a></th>
@@ -279,6 +280,7 @@ Thanks goes to these wonderful people:
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/paulgv">paulgv</a></td>
 <td align="center"><a href="https://github.com/sajadtorkamani">sajadtorkamani</a></td>
 <td align="center"><a href="https://github.com/YozhikM">YozhikM</a></td>
 <td align="center"><a href="https://github.com/YodaDaCoda">YodaDaCoda</a></td>
