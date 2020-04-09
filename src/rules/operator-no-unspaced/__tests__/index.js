@@ -2486,6 +2486,51 @@ testRule(rule, {
   ]
 });
 
+// @function calls inside interpolation
+testRule(rule, {
+  ruleName,
+  config: [undefined],
+  syntax: "scss",
+  skipBasicChecks: true,
+
+  accept: [
+    {
+      code: `
+      --my-var: #{scale-color(#fff, $lightness: -75%)};
+    `,
+      description:
+        "Function call in interpolation, negative unit value parameter: #{scale-color(#fff, $lightness: -75%)}",
+    },
+    {
+      code: `
+      --my-var: #{math.acos(-0.5)};
+    `,
+      description:
+        "Function call in interpolation, negative parameter: #{math.acos(-0.5)}",
+    },
+    {
+      code: `
+      --my-var: #{math.acos(0.7 - 0.5)};
+    `,
+      description:
+        "Function call in interpolation, expression parameter: #{math.acos(0.7 - 0.5)}",
+    },
+  ],
+
+  reject: [
+    {
+      code: `
+      --my-var: #{math.acos(0.7-0.5)};
+    `,
+      description:
+        "Function call in interpolation, expression parameter: #{math.acos(0.7-0.5)}",
+      message: messages.expectedBefore("-"),
+      line: 2,
+      column: 32
+    },
+  ]
+});
+
 // @import
 testRule(rule, {
   ruleName,
