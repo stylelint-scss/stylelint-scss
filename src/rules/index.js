@@ -55,7 +55,6 @@ import selectorNestCombinators from "./selector-nest-combinators";
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector";
 import selectorNoUnionClassName from "./selector-no-union-class-name";
 
-
 export default {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
   "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,

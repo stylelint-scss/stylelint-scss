@@ -4,7 +4,7 @@ import { namespace } from "../../utils";
 export const ruleName = namespace("comment-no-empty");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Empty comments are forbidden"
+  rejected: "Unexpected empty comment"
 });
 
 function rule(primary) {
@@ -20,7 +20,7 @@ function rule(primary) {
     root.walkComments(comment => {
       if (isEmptyComment(comment)) {
         utils.report({
-          message: messages.expected,
+          message: messages.rejected,
           node: comment,
           result,
           ruleName
@@ -31,7 +31,7 @@ function rule(primary) {
 }
 
 function isEmptyComment(comment) {
-    return comment.text === "";
+  return comment.text === "";
 }
 
 export default rule;

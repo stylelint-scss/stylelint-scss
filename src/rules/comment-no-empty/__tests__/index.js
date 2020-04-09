@@ -15,9 +15,9 @@ testRule(rule, {
       description: "Double slash comments with first character as asterix"
     },
     {
-        code: "/* comment */",
-        description: "Single line block comment"
-    }    
+      code: "/* comment */",
+      description: "Single line block comment"
+    }
   ],
   reject: [
     {
@@ -25,8 +25,9 @@ testRule(rule, {
       /**/
     `,
       description: "Empty block comment",
-      message: messages.expected,
-      line: 2
+      message: messages.rejected,
+      line: 2,
+      column: 7
     },
     {
       code: `
@@ -34,42 +35,73 @@ testRule(rule, {
         */
     `,
       description: "Empty multline block comment",
-      message: messages.expected,
+      message: messages.rejected,
+      line: 2,
+      column: 9
+    },
+    {
+      code: `
+        /* 
+
+        */
+      `,
+      description: "Empty multline block comment with an empty line",
+      message: messages.rejected,
+      line: 2,
+      column: 9
+    },
+    {
+      code: `
+        //
+      `,
+      description: "Empty double slash comment",
+      message: messages.rejected,
       line: 2
     },
     {
-        code: `
-          /* 
-
-          */
-      `,
-        description: "Empty multline block comment with an empty line",
-        message: messages.expected,
-        line: 2
-      },
-    {
-        code: `
-        //
-      `,
-        description: "Empty double slash comment",
-        message: messages.expected,
-        line: 2
-      },  
-      {
-        code: `
+      code: `
         //     
       `,
-        description: "Empty double slash comment with spaces",
-        message: messages.expected,
-        line: 2
-      },        
-      {
-        code: `
+      description: "Empty double slash comment with spaces",
+      message: messages.rejected,
+      line: 2,
+      column: 9
+    },
+    {
+      code: `
         //\t
       `,
-        description: "Empty double slash comment with tab",
-        message: messages.expected,
-        line: 2
-      },  
-    ]
+      description: "Empty double slash comment with tab",
+      message: messages.rejected,
+      line: 2,
+      column: 9
+    },
+    {
+      code: `
+        width: 100px; // 
+      `,
+      description: "Empty inline comment",
+      message: messages.rejected,
+      line: 2,
+      column: 23
+    },
+    {
+      code: `
+        width: 100px; /* */
+      `,
+      description: "Empty inline block comment",
+      message: messages.rejected,
+      line: 2,
+      column: 23
+    },
+    {
+      code: `
+      /* */width: 100px; 
+      `,
+      description: "Empty inline block comment prepends code",
+      message: messages.rejected,
+      line: 2,
+      column: 7
+    }   
+  ]
 });
