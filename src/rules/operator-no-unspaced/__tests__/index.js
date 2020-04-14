@@ -2540,11 +2540,13 @@ testRule(rule, {
 
   accept: [
     {
-      code: "@import url('//fonts.googleapis.com/css?family=Google+Material+Icons');",
+      code:
+        "@import url('//fonts.googleapis.com/css?family=Google+Material+Icons');",
       description: "Import url function w/ single-quoted string."
     },
     {
-      code: '@import url("//fonts.googleapis.com/css?family=Google+Material+Icons");',
+      code:
+        '@import url("//fonts.googleapis.com/css?family=Google+Material+Icons");',
       description: "Import url function w/ double-quoted string."
     },
     {
