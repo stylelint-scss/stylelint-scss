@@ -1,3 +1,7 @@
+# 3.17.0
+
+- Added: `comment-no-empty` rule.
+
 # 3.16.1
 
 - Fixed: `operator-no-unspaced` don't warn for negative numbers inside a function call in interpolated values.
