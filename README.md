@@ -119,6 +119,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### Comment
 
+- [`comment-no-empty`](./src/rules/comment-no-empty/README.md): Disallow empty comments.
 - [`comment-no-loud`](./src/rules/comment-no-loud/README.md): Disallow `/*`-comments.
 
 ### Declaration
