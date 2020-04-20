@@ -13,6 +13,23 @@ testRule(rule, {
         }
       `,
       description: "accepts the scalar-color function"
+    },
+    {
+      code: `
+        p {
+          filter: saturate(50%);
+        }
+      `,
+      description: "ignores a color function inside the filter property"
+    },
+    {
+      code: `
+        p {
+          filter: drop-shadow(0 0 5px black) saturate(50%);
+        }
+      `,
+      description:
+        "ignores a color function inside the filter property when multiple values are used"
     }
   ],
 
@@ -104,6 +121,54 @@ testRule(rule, {
       message: messages.rejected,
       line: 3,
       column: 18
+    },
+    {
+      code: `
+        p {
+          filter: drop-shadow(0 0 5px saturate(red, 50%));
+        }
+      `,
+      description:
+        "does not acccept color functions inside a drop-shadow filter",
+      message: messages.rejected,
+      line: 3,
+      column: 39
+    },
+    {
+      code: `
+        p {
+          filter: contrast(175%) drop-shadow(0 0 5px saturate(red, 50%));
+        }
+      `,
+      description:
+        "does not acccept color functions inside a drop-shadow filter when multiple filters are used",
+      message: messages.rejected,
+      line: 3,
+      column: 54
+    },
+    {
+      code: `
+        p {
+          filter: saturate(50%) drop-shadow(0 0 5px saturate(red, 50%));
+        }
+      `,
+      description:
+        "does not acccept color functions inside a drop-shadow filter when multiple filters are used",
+      message: messages.rejected,
+      line: 3,
+      column: 53
+    },
+    {
+      code: `
+        p {
+          filter: drop-shadow(0 0 5px saturate(red, 50%)) saturate(50%);
+        }
+      `,
+      description:
+        "does not acccept color functions inside a drop-shadow filter when multiple filters are used",
+      message: messages.rejected,
+      line: 3,
+      column: 39
     }
   ]
 });
