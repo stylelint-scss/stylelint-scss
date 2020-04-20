@@ -1,3 +1,7 @@
+# 3.17.1
+
+- Fixed: `function-color-relative` false positives for CSS `filter` property.
+
 # 3.17.0
 
 - Added: `comment-no-empty` rule.
