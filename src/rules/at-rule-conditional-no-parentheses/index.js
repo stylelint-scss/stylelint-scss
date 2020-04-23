@@ -57,13 +57,11 @@ function rule(primary, _unused, context) {
             report(atrule, result);
           }
         }
-      } else {
-        if (atrule.params.trim().match(/^\(.*\)$/)) {
-          if (context.fix) {
-            fix(atrule);
-          } else {
-            report(atrule, result);
-          }
+      } else if (atrule.params.trim().match(/^\(.*\)$/)) {
+        if (context.fix) {
+          fix(atrule);
+        } else {
+          report(atrule, result);
         }
       }
     });

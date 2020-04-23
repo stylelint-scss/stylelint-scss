@@ -204,18 +204,20 @@ testRule(rule, {
   ]
 });
 
-test("One warning for each unknown at rule", done => {
-  expect.assertions(3);
+test("One warning for each unknown at rule", () => {
+  return new Promise(done => {
+    expect.assertions(3);
 
-  postcss([rule()])
-    .process("@foo { } @bar { }", { from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
+    postcss([rule()])
+      .process("@foo { } @bar { }", { from: undefined })
+      .then(result => {
+        const warnings = result.warnings();
 
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.rejected("@foo"));
-      expect(warnings[1].text).toBe(messages.rejected("@bar"));
-      done();
-    })
-    .catch(logError);
+        expect(warnings).toHaveLength(2);
+        expect(warnings[0].text).toBe(messages.rejected("@foo"));
+        expect(warnings[1].text).toBe(messages.rejected("@bar"));
+        done();
+      })
+      .catch(logError);
+  });
 });

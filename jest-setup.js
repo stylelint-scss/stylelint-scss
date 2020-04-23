@@ -1,3 +1,5 @@
+/* eslint-disable jest/no-standalone-expect */
+
 "use strict";
 
 const stylelint = require("stylelint");
@@ -20,7 +22,6 @@ global.testRule = (rule, schema) => {
     }
   });
 
-  // eslint-disable-next-line jest/valid-describe
   describe(`${schema.ruleName}`, () => {
     const stylelintConfig = {
       plugins: ["./src"],
@@ -49,13 +50,11 @@ global.testRule = (rule, schema) => {
               }
 
               // Check the fix
-              return stylelint
-                .lint(Object.assign({ fix: true }, options))
-                .then(output2 => {
-                  const fixedCode = getOutputCss(output2);
+              return stylelint.lint({ fix: true, ...options }).then(output2 => {
+                const fixedCode = getOutputCss(output2);
 
-                  expect(fixedCode).toBe(testCase.code);
-                });
+                expect(fixedCode).toBe(testCase.code);
+              });
             });
           });
         });
@@ -104,13 +103,11 @@ global.testRule = (rule, schema) => {
               }
 
               // Check the fix
-              return stylelint
-                .lint(Object.assign({ fix: true }, options))
-                .then(output2 => {
-                  const fixedCode = getOutputCss(output2);
+              return stylelint.lint({ fix: true, ...options }).then(output2 => {
+                const fixedCode = getOutputCss(output2);
 
-                  expect(fixedCode).toBe(testCase.fixed);
-                });
+                expect(fixedCode).toBe(testCase.fixed);
+              });
             });
           });
         });
@@ -118,6 +115,7 @@ global.testRule = (rule, schema) => {
     }
   });
 };
+/* eslint-enable jest/no-standalone-expect */
 
 function getOutputCss(output) {
   const result = output.results[0]._postcssResult;

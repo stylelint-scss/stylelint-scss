@@ -111,9 +111,9 @@ function errorMessage(name) {
 
   if (rename) {
     return `Expected ${sass_package}.${rename} instead of ${name}`;
-  } else {
-    return `Expected ${sass_package}.${name} instead of ${name}`;
   }
+
+  return `Expected ${sass_package}.${name} instead of ${name}`;
 }
 
 function rule(value) {

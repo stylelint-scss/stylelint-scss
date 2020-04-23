@@ -182,7 +182,9 @@ function rule(expectation, options, context) {
             }
 
             return;
-          } else if (
+          }
+
+          if (
             (expectEmptyLineAfter &&
               exceptBeforeComment &&
               nextIsComment &&
@@ -197,7 +199,9 @@ function rule(expectation, options, context) {
             fixNext(next, context.newline + context.newline, context.newline);
 
             return;
-          } else if (
+          }
+
+          if (
             (!expectEmptyLineAfter &&
               exceptBeforeComment &&
               nextIsComment &&
@@ -222,7 +226,9 @@ function rule(expectation, options, context) {
             fixParent(decl, context.newline, context.newline + context.newline);
 
             return;
-          } else if (!expectEmptyLineAfter && hasEmptyLineAfter) {
+          }
+
+          if (!expectEmptyLineAfter && hasEmptyLineAfter) {
             fixParent(decl, "\\n\\r\\n", "\r\n");
             fixParent(decl, context.newline + context.newline, context.newline);
 

@@ -88,9 +88,9 @@ function didCallMapGet(map_decl) {
 function mapName(map_decl) {
   if (didCallMapKeys(map_decl)) {
     return map_decl.match(/map-keys\((.*)\)/)[1];
-  } else {
-    return map_decl;
   }
+
+  return map_decl;
 }
 
 // Returns the parameters of a map-get call
