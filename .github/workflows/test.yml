@@ -11,8 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # switch to `8` when https://github.com/actions/setup-node/issues/27 is fixed
-        node: [8.16.2, 10, 12, 14]
+        node: [10, 12, 14]
         os: [ubuntu-latest, windows-latest]
 
     steps:
@@ -32,15 +31,15 @@ jobs:
 
       - name: Run jest tests
         run: npm run jest -- --runInBand
-        if: "!(startsWith(matrix.os, 'ubuntu') && matrix.node == 10)"
+        if: "!(startsWith(matrix.os, 'ubuntu') && matrix.node == 12)"
 
       - name: Run jest tests with coverage
         run: npm run jest -- --runInBand --coverage
-        if: startsWith(matrix.os, 'ubuntu') && matrix.node == 10
+        if: startsWith(matrix.os, 'ubuntu') && matrix.node == 12
 
       - name: Run Coveralls
         uses: coverallsapp/github-action@master
-        if: startsWith(matrix.os, 'ubuntu') && matrix.node == 10
+        if: startsWith(matrix.os, 'ubuntu') && matrix.node == 12
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           path-to-lcov: "./.coverage/lcov.info"
