@@ -1,3 +1,7 @@
+# 3.17.2
+
+- Updated: `postcss-value-parser` dependency and dev dependencies to latest versions.
+
 # 3.17.1
 
 - Fixed: `function-color-relative` false positives for CSS `filter` property.
