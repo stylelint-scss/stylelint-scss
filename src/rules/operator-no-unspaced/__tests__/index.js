@@ -1574,33 +1574,7 @@ testRule(rule, {
       description: "Variable part: $var---."
     }
   ]
-
-  // reject: [ {
-  // code: "a { width: 1 --1; }",
-  // description: "Should be op: 1 --1.",
-  // }, {
-  // code: "a { width: 1-- 1; }",
-  // description: "Should be op: 1-- 1.",
-  // }, {
-  // code: "a { width: 1px --1px; }",
-  // description: "Should be op: 1px --1px.",
-  // } ],
 });
-
-// test("1--1", t => {
-// t.plan(5)
-// postcss([rule()])
-// .process("a { width: 1-- 1; }", { syntax: scss })
-// .then(result => {
-// const warnings = result.warnings()
-// t.equal(warnings.length, 2)
-// t.equal(warnings[0].text, messages.expectedBefore("-"))
-// t.equal(warnings[0].column, 13)
-// t.equal(warnings[1].text, messages.expectedAfter("-"))
-// t.equal(warnings[1].column, 13)
-// })
-// .catch(logError)
-// })
 
 // Newlines, multiple spaces
 testRule(rule, {
