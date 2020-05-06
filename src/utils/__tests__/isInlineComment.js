@@ -14,7 +14,7 @@ test("Single-line comment, after ruleset.", () => {
       `
       a {} // comment
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       result.root.walkComments(comment => {
@@ -32,7 +32,7 @@ test("CSS comment, after ruleset.", () => {
       `
       a {} /* comment */
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       result.root.walkComments(comment => {
@@ -52,7 +52,7 @@ test("Single-line comment, after a decl.", () => {
         width: 10px; // hmm
       }
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       result.root.walkComments(comment => {
@@ -72,7 +72,7 @@ test("CSS comment, before a decl.", () => {
         /* CSS comment, before a decl */ width: 10px;
       }
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       result.root.walkComments(comment => {
@@ -92,7 +92,7 @@ test("Inline comment, after a {.", () => {
         width: 10px;
       }
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       result.root.walkComments(comment => {
@@ -113,7 +113,7 @@ test("Inline comment, after a selector (in a list). IGNORED.", () => {
         width: 10px;
       }
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       let res = null;
@@ -137,7 +137,7 @@ test("Inline comment, after a selector, comment prior. IGNORED.", () => {
         width: /* comment inside decl */ 10px;
       }
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       let res = null;
@@ -159,7 +159,7 @@ test("Multi-line comment, after a ruleset (new line).", () => {
       a {}
       /* comment */
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       result.root.walkComments(comment => {
@@ -178,7 +178,7 @@ test("Single-line comment, after a ruleset (new line).", () => {
       a {}
       // comment
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       result.root.walkComments(comment => {

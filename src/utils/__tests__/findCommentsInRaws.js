@@ -10,7 +10,7 @@ test("// is the first statement in the file", () => {
   expect.assertions(5);
 
   return postcss()
-    .process("// comment", { syntax: scss, from: undefined })
+    .process("// comment", { syntax: scss, from: undefined, parser: scss })
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
@@ -31,7 +31,7 @@ test("// is the first statement in a string, w/o pre-whs", () => {
     .process(
       `a { width: 10; }
 // comment`,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -50,7 +50,7 @@ test("CSS-comment is the first statement (and the last one) in a file", () => {
   expect.assertions(5);
 
   return postcss()
-    .process("/* comment1 */", { syntax: scss, from: undefined })
+    .process("/* comment1 */", { syntax: scss, from: undefined, parser: scss })
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
@@ -72,7 +72,7 @@ test("CSS-comment is the first statement (and the last one) in a string", () => 
       `
 /* comment1 */
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -96,19 +96,19 @@ test("Various.", () => {
       /**! comment */
       a
       {}
-      
-      b // there's a trailing whitespace at the end 
+
+      b // there's a trailing whitespace at the end
       {
         width: /* comment 3 */ 100px;
         background: url(http://lol);
         $var: "http://some-url";
-        content: ' /* Haha, this 
+        content: ' /* Haha, this
           comment is ignored! */
           // this one too
         ';
       }
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -122,13 +122,13 @@ test("Various.", () => {
       expect(comments[0].source).toEqual({ start: 7, end: 21 });
       expect(comments[1].type).toBe("double-slash");
       expect(comments[1].text).toBe("there's a trailing whitespace at the end");
-      expect(comments[1].source).toEqual({ start: 55, end: 98 });
+      expect(comments[1].source).toEqual({ start: 49, end: 91 });
       expect(comments[1].inlineAfter).toBe(true);
       expect(comments[2].inlineBefore).toBe(true);
       expect(comments[2].inlineAfter).toBe(true);
       // Here we take into account the fact that postcss-scss transforms
       // `// comment` -> `/* comment*/`, thus adding 2 symbols to the end
-      expect(comments[2].source).toEqual({ start: 125, end: 139 });
+      expect(comments[2].source).toEqual({ start: 118, end: 132 });
     })
     .catch(logError);
 });
@@ -141,7 +141,7 @@ test("//", () => {
       `
       //
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -165,7 +165,7 @@ test("// Inline comment, after {.", () => {
         width: 10px;
       }
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -186,7 +186,7 @@ test("} // comment", () => {
       `
       a {} // comment
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -202,7 +202,11 @@ test("Triple-slash comment", () => {
   expect.assertions(5);
 
   return postcss()
-    .process("a {} /// comment", { syntax: scss, from: undefined })
+    .process("a {} /// comment", {
+      syntax: scss,
+      from: undefined,
+      parser: scss
+    })
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
@@ -227,7 +231,7 @@ test("Some fancy comment", () => {
        *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
        */
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -255,7 +259,7 @@ test("Another fancy comment", () => {
       @import "animate.css/source/_base.css";
       "aaand if we try to close it here? */
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -282,7 +286,7 @@ test("Comments inside comments", () => {
       // And /* this */ ?
       /* And // this? */
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -313,7 +317,7 @@ test("No comments, but parsing a selector with ().", () => {
         }
       }
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -333,7 +337,7 @@ test("Double backslash inside a string (issue #294)", () => {
       $breadcrumbs-item-separator-item-rtl: '\\\\';
       $button-background: background('');
     `,
-      { syntax: scss, from: undefined }
+      { syntax: scss, from: undefined, parser: scss }
     )
     .then(result => {
       const css = result.root.source.input.css;
@@ -348,7 +352,11 @@ test("//-comment, Unix newlines", () => {
   expect.assertions(2);
 
   return postcss()
-    .process("\n   // comment \n", { syntax: scss, from: undefined })
+    .process("\n   // comment \n", {
+      syntax: scss,
+      from: undefined,
+      parser: scss
+    })
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
@@ -363,7 +371,11 @@ test("CSS comment, Unix newlines", () => {
   expect.assertions(2);
 
   return postcss()
-    .process("\n   /* part 1 \n part 2*/ \n", { syntax: scss, from: undefined })
+    .process("\n   /* part 1 \n part 2*/ \n", {
+      syntax: scss,
+      from: undefined,
+      parser: scss
+    })
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
@@ -378,7 +390,11 @@ test("//-comment, Windows-newline", () => {
   expect.assertions(2);
 
   return postcss()
-    .process("\r\n   // comment \r\n", { syntax: scss, from: undefined })
+    .process("\r\n   // comment \r\n", {
+      syntax: scss,
+      from: undefined,
+      parser: scss
+    })
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
@@ -395,7 +411,8 @@ test("CSS comment, Windows newlines", () => {
   return postcss()
     .process("\r\n   /* part 1 \r\n part 2*/ \r\n", {
       syntax: scss,
-      from: undefined
+      from: undefined,
+      parser: scss
     })
     .then(result => {
       const css = result.root.source.input.css;
@@ -411,7 +428,11 @@ test("No comments; testing a dangerous case in function detection [`@media( ... 
   expect.assertions(1);
 
   return postcss()
-    .process("@media(min-width: 480px) { }", { syntax: scss, from: undefined })
+    .process("@media(min-width: 480px) { }", {
+      syntax: scss,
+      from: undefined,
+      parser: scss
+    })
     .then(result => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
