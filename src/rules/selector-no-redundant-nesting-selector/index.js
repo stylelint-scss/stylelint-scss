@@ -1,5 +1,10 @@
 import { utils } from "stylelint";
-import { namespace, parseSelector } from "../../utils";
+import {
+  namespace,
+  parseSelector,
+  hasNestedSibling,
+  isKeyword
+} from "../../utils";
 
 export const ruleName = namespace("selector-no-redundant-nesting-selector");
 
@@ -7,7 +12,7 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unnecessary nesting selector (&)"
 });
 
-export default function(actual) {
+export default function(actual, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -15,13 +20,15 @@ export default function(actual) {
       return;
     }
 
+    const { keywords = [] } = options || {};
+
     root.walkRules(/&/, rule => {
       parseSelector(rule.selector, result, rule, fullSelector => {
         // "Ampersand followed by a combinator followed by non-combinator non-ampersand and not the selector end"
         fullSelector.walkNesting(node => {
           const prev = node.prev();
 
-          if (prev) {
+          if (prev || hasNestedSibling(node)) {
             return;
           }
 
@@ -38,8 +45,8 @@ export default function(actual) {
           const nextNext = next ? next.next() : null;
 
           if (
-            nextNext &&
-            (nextNext.type === "combinator" || nextNext.type === "nesting")
+            (nextNext && nextNext.type === "combinator") ||
+            isKeyword(nextNext, keywords)
           ) {
             return;
           }

@@ -348,3 +348,39 @@ testRule(rule, {
     }
   ]
 });
+
+testRule(rule, {
+  ruleName,
+  config: [true, { keywords: ["when"] }],
+  syntax: "less",
+  accept: [
+    {
+      code: `
+        @theme: ~'dark';
+        p {
+          & when (@theme = dark) {
+
+          }
+          & when not (@theme = dark) {
+
+          }
+        }
+      `,
+      line: 9,
+      message: messages.rejected,
+      description: "When an ampersand is followed by a keyword"
+    },
+    {
+      code: `
+        .breadcrumb {
+          & > span:last-child &-separator {
+            display: none;
+          }
+        }
+      `,
+      line: 5,
+      message: messages.rejected,
+      description: "when there are multiple reference nesting"
+    }
+  ]
+});

@@ -27,3 +27,5 @@ export { default as rawNodeString } from "./rawNodeString";
 export { removeEmptyLinesBefore } from "./removeEmptyLinesBefore";
 export { default as findOperators } from "./sassValueParser";
 export { default as whitespaceChecker } from "./whitespaceChecker";
+export { default as hasNestedSibling } from "./hasNestedSibling";
+export { default as isKeyword } from "./isKeyword";

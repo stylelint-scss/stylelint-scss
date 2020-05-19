@@ -59,3 +59,51 @@ p {
   }
 }
 ```
+
+## Options
+
+Some false alarms can be blocked by assigning keywords:
+
+```js
+{
+  rules: {
+    'scss/selector-no-redundant-nesting-selector', [true, { keywords: ['when'] }],
+  },
+}
+```
+
+The following patterns are *not* considered warnings:
+
+```less
+ @theme: ~'dark';
+p {
+  & when (@theme = dark) {
+
+  }
+  & when not(@theme = dark) {
+
+  }
+}
+```
+
+```js
+{
+  rules: {
+    'scss/selector-no-redundant-nesting-selector', true,
+  },
+}
+```
+
+The following patterns are considered warnings:
+
+```less
+ @theme: ~'dark';
+p {
+  & when (@theme = dark) {
+    
+  }
+  & when not(@theme = dark) {
+
+  }
+}
+```
