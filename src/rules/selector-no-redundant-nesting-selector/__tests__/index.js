@@ -345,6 +345,18 @@ testRule(rule, {
       message: messages.rejected,
       description:
         "when an ampersand is used in a comma sequence followed by a class"
+    },
+    {
+      code: `
+      @theme: ~'dark';
+      p {
+        & when (@theme = dark) {}
+        & when not (@theme = dark) {}
+      }
+    `,
+      line: 4,
+      message: messages.rejected,
+      description: "when the ampersand is followed by an unknown keyword"
     }
   ]
 });
@@ -366,9 +378,7 @@ testRule(rule, {
           }
         }
       `,
-      line: 9,
-      message: messages.rejected,
-      description: "When an ampersand is followed by a keyword"
+      description: "when an ampersand is followed by a keyword"
     },
     {
       code: `
@@ -378,8 +388,6 @@ testRule(rule, {
           }
         }
       `,
-      line: 5,
-      message: messages.rejected,
       description: "when there are multiple reference nesting"
     }
   ]
