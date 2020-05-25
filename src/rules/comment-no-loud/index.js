@@ -33,7 +33,10 @@ function rule(primary) {
 function isLoudComment(comment) {
   const regex = new RegExp(/^[ \t\n]*\/\*/);
 
-  return regex.test(comment.source.input.css);
+  const splitComment = comment.source.input.css.split("\n");
+  const commentFirstLine = splitComment[comment.source.start.line - 1];
+
+  return regex.test(commentFirstLine);
 }
 
 export default rule;
