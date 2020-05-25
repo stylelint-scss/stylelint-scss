@@ -35,6 +35,23 @@ testRule(rule, {
       line: 2,
       column: 9,
       message: messages.expected
+    },
+    {
+      code: `
+      i {
+        font-style: italic;
+      }
+
+      /* comment line */
+
+      b {
+        font-weight: bold;
+      }
+    `,
+      description: "Comment sandwiched between rules",
+      line: 6,
+      column: 7,
+      message: messages.expected
     }
   ]
 });
