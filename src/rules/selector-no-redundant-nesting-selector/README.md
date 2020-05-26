@@ -62,7 +62,7 @@ p {
 
 ## Options
 
-`string[]`: `[keywords]`
+`ignoreKeywords`: `["/regex/", /regex/, "string"]`
 
 if you are using Less or some other non-SCSS syntax, the warnings can be disabled by using `ignoreKeywords` option.
 

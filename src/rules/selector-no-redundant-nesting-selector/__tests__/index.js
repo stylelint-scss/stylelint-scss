@@ -368,7 +368,7 @@ testRule(rule, {
 
 testRule(rule, {
   ruleName,
-  config: [true, { ignoreKeywords: ["when"] }],
+  config: [true, { ignoreKeywords: ["when", /regex/] }],
   syntax: "less",
   accept: [
     {
@@ -394,6 +394,16 @@ testRule(rule, {
         }
       `,
       description: "when there are multiple reference nesting"
+    },
+    {
+      code: `
+        @theme: ~'dark';
+        p {
+          & regex (@theme = dark) {}
+          & regex not (@theme = dark) {}
+        }
+      `,
+      description: "should support the use of regular option"
     }
   ]
 });

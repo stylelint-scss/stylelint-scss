@@ -1,9 +1,11 @@
 import { utils } from "stylelint";
+import optionsMatches from "stylelint/lib/utils/optionsMatches";
+import { isString, isRegExp } from "lodash";
 import {
   namespace,
   parseSelector,
   hasNestedSibling,
-  isKeyword
+  isType
 } from "../../utils";
 
 export const ruleName = namespace("selector-no-redundant-nesting-selector");
@@ -14,13 +16,22 @@ export const messages = utils.ruleMessages(ruleName, {
 
 export default function(actual, options) {
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, { actual });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      { actual },
+      {
+        actual: options,
+        possible: {
+          ignoreKeywords: [isString, isRegExp]
+        },
+        optional: true
+      }
+    );
 
     if (!validOptions) {
       return;
     }
-
-    const { ignoreKeywords = [] } = options || {};
 
     root.walkRules(/&/, rule => {
       parseSelector(rule.selector, result, rule, fullSelector => {
@@ -45,8 +56,13 @@ export default function(actual, options) {
           const nextNext = next ? next.next() : null;
 
           if (
-            (nextNext && nextNext.type === "combinator") ||
-            isKeyword(nextNext, ignoreKeywords)
+            (isType(nextNext, "tag") &&
+              optionsMatches(
+                options,
+                "ignoreKeywords",
+                nextNext.value.trim()
+              )) ||
+            isType(nextNext, "combinator")
           ) {
             return;
           }
