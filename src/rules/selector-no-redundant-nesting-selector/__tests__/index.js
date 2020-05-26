@@ -375,10 +375,10 @@ testRule(rule, {
         @theme: ~'dark';
         p {
           & when (@theme = dark) {
-
+            color: #000;
           }
           & when not (@theme = dark) {
-
+            color: #fff;
           }
         }
       `,
