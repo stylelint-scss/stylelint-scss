@@ -21,6 +21,8 @@ testRule(rule, {
       /* comment */
     `,
       description: "One line with optional ending",
+      line: 2,
+      column: 7,
       message: messages.expected
     },
     {
@@ -30,6 +32,8 @@ testRule(rule, {
         */
     `,
       description: "Multline comment with optional ending on next line",
+      line: 2,
+      column: 9,
       message: messages.expected
     }
   ]
