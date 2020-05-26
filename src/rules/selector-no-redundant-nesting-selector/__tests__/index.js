@@ -359,6 +359,7 @@ testRule(rule, {
       }
     `,
       line: 4,
+      column: 9,
       message: messages.rejected,
       description: "when the ampersand is followed by an unknown keyword"
     }
