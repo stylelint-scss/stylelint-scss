@@ -20,7 +20,7 @@ export default function(actual, options) {
       return;
     }
 
-    const { keywords = [] } = options || {};
+    const { ignoreKeywords = [] } = options || {};
 
     root.walkRules(/&/, rule => {
       parseSelector(rule.selector, result, rule, fullSelector => {
@@ -46,7 +46,7 @@ export default function(actual, options) {
 
           if (
             (nextNext && nextNext.type === "combinator") ||
-            isKeyword(nextNext, keywords)
+            isKeyword(nextNext, ignoreKeywords)
           ) {
             return;
           }

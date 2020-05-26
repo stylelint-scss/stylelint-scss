@@ -350,8 +350,12 @@ testRule(rule, {
       code: `
       @theme: ~'dark';
       p {
-        & when (@theme = dark) {}
-        & when not (@theme = dark) {}
+        & when (@theme = dark) {
+          color: #000;
+        }
+        & when not (@theme = dark) {
+          color: #fff;
+        }
       }
     `,
       line: 4,
@@ -363,7 +367,7 @@ testRule(rule, {
 
 testRule(rule, {
   ruleName,
-  config: [true, { keywords: ["when"] }],
+  config: [true, { ignoreKeywords: ["when"] }],
   syntax: "less",
   accept: [
     {
