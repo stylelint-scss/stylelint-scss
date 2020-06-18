@@ -345,6 +345,65 @@ testRule(rule, {
       message: messages.rejected,
       description:
         "when an ampersand is used in a comma sequence followed by a class"
+    },
+    {
+      code: `
+      @theme: ~'dark';
+      p {
+        & when (@theme = dark) {
+          color: #000;
+        }
+        & when not (@theme = dark) {
+          color: #fff;
+        }
+      }
+    `,
+      line: 4,
+      column: 9,
+      message: messages.rejected,
+      description: "when the ampersand is followed by an unknown keyword"
+    }
+  ]
+});
+
+testRule(rule, {
+  ruleName,
+  config: [true, { ignoreKeywords: ["when", /regex/] }],
+  syntax: "less",
+  accept: [
+    {
+      code: `
+        @theme: ~'dark';
+        p {
+          & when (@theme = dark) {
+            color: #000;
+          }
+          & when not (@theme = dark) {
+            color: #fff;
+          }
+        }
+      `,
+      description: "when an ampersand is followed by a keyword"
+    },
+    {
+      code: `
+        .breadcrumb {
+          & > span:last-child &-separator {
+            display: none;
+          }
+        }
+      `,
+      description: "when there are multiple reference nesting"
+    },
+    {
+      code: `
+        @theme: ~'dark';
+        p {
+          & regex (@theme = dark) {}
+          & regex not (@theme = dark) {}
+        }
+      `,
+      description: "should support the use of regular option"
     }
   ]
 });

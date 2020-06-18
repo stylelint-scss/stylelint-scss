@@ -1,5 +1,12 @@
 import { utils } from "stylelint";
-import { namespace, parseSelector } from "../../utils";
+import optionsMatches from "stylelint/lib/utils/optionsMatches";
+import { isString, isRegExp } from "lodash";
+import {
+  namespace,
+  parseSelector,
+  hasNestedSibling,
+  isType
+} from "../../utils";
 
 export const ruleName = namespace("selector-no-redundant-nesting-selector");
 
@@ -7,9 +14,20 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unnecessary nesting selector (&)"
 });
 
-export default function(actual) {
+export default function(actual, options) {
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, { actual });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      { actual },
+      {
+        actual: options,
+        possible: {
+          ignoreKeywords: [isString, isRegExp]
+        },
+        optional: true
+      }
+    );
 
     if (!validOptions) {
       return;
@@ -21,7 +39,7 @@ export default function(actual) {
         fullSelector.walkNesting(node => {
           const prev = node.prev();
 
-          if (prev) {
+          if (prev || hasNestedSibling(node)) {
             return;
           }
 
@@ -38,8 +56,13 @@ export default function(actual) {
           const nextNext = next ? next.next() : null;
 
           if (
-            nextNext &&
-            (nextNext.type === "combinator" || nextNext.type === "nesting")
+            (isType(nextNext, "tag") &&
+              optionsMatches(
+                options,
+                "ignoreKeywords",
+                nextNext.value.trim()
+              )) ||
+            isType(nextNext, "combinator")
           ) {
             return;
           }
