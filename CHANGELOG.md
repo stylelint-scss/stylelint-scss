@@ -1,3 +1,8 @@
+# 3.18.0
+
+- Added: `selector-no-redundant-nesting-selector` add `ignoreKeywords` option to ignore certain keywords that can be used in [Less](http://lesscss.org) or some other non-Scss syntax.
+- Fixed: `comment-no-loud` fix a bug where the rule was only checking for comments that were in the beginning of the file.
+
 # 3.17.2
 
 - Updated: `postcss-value-parser` dependency and dev dependencies to latest versions.
