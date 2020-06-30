@@ -146,3 +146,33 @@ testRule(rule, {
     }
   ]
 });
+
+testRule(rule, {
+  ruleName,
+  config: [undefined],
+  syntax: "less",
+
+  accept: [
+    {
+      /* eslint-disable no-useless-escape */
+      code: `
+      .select {
+        // For undefined value baseline align
+        &::after,
+        // For '' value baseline align
+        .@{select-prefix-cls}-selection-item::after,
+        // For common baseline align
+        .@{select-prefix-cls}-selection-placeholder::after {
+          display: inline-block;
+          width: 0;
+          visibility: hidden;
+          content: '\a0';
+        }
+      }
+      `,
+      /* eslint-enable no-useless-escape */
+      description:
+        "verify that the selector parsing does not throw an error when Less is used (issue #471)."
+    }
+  ]
+});
