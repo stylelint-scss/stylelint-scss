@@ -3,7 +3,7 @@
  *
  * @param {Object} args - Named arguments object
  * @param {String} args.string - the input string
- * @param {Number} args.index - the position of args.string from the start of the line
+ * @param {Number} args.globalIndex - the position of args.string from the start of the line
  * @param {Boolean} args.isAfterColon - pass "true" if the string is
  *    a variable value, a mixin/function parameter default.
  *    In such cases + and / tend to be operations more often

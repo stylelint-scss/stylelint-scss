@@ -1,7 +1,7 @@
 /**
  * Check if a string contains at least one empty line
  *
- * @param {string} input
+ * @param {string} string
  * @return {boolean}
  */
 export default function(string) {

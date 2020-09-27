@@ -4,8 +4,8 @@
  * between selectors, property values, etc.)
  * https://github.com/postcss/postcss/issues/845#issuecomment-232306259
  *
- * @param [string] rawString -- the source raw CSS string
- * @return [array] array of objects with these props:
+ * @param {string} rawString -- the source raw CSS string
+ * @return {array} array of objects with these props:
  *    � type -- "css" or "double-slash"
  *    � source: { start, end }
  *      IMPORTANT: the function itself considers \r as a character, and counts
