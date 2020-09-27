@@ -129,7 +129,7 @@ testRule(rule, {
         }
       `,
       description:
-        "does not acccept color functions inside a drop-shadow filter",
+        "does not accept color functions inside a drop-shadow filter",
       message: messages.rejected,
       line: 3,
       column: 39
@@ -141,7 +141,7 @@ testRule(rule, {
         }
       `,
       description:
-        "does not acccept color functions inside a drop-shadow filter when multiple filters are used",
+        "does not accept color functions inside a drop-shadow filter when multiple filters are used",
       message: messages.rejected,
       line: 3,
       column: 54
@@ -153,7 +153,7 @@ testRule(rule, {
         }
       `,
       description:
-        "does not acccept color functions inside a drop-shadow filter when multiple filters are used",
+        "does not accept color functions inside a drop-shadow filter when multiple filters are used",
       message: messages.rejected,
       line: 3,
       column: 53
@@ -165,7 +165,7 @@ testRule(rule, {
         }
       `,
       description:
-        "does not acccept color functions inside a drop-shadow filter when multiple filters are used",
+        "does not accept color functions inside a drop-shadow filter when multiple filters are used",
       message: messages.rejected,
       line: 3,
       column: 39

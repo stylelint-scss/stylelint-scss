@@ -1,7 +1,7 @@
 /**
  * Finds comments, both CSS comments and double slash ones, in a CSS string
  * This helper exists because PostCSS drops some inline comments (those
- * between seelctors, property values, etc.)
+ * between selectors, property values, etc.)
  * https://github.com/postcss/postcss/issues/845#issuecomment-232306259
  *
  * @param [string] rawString -- the source raw CSS string
