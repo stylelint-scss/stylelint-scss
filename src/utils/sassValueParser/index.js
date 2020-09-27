@@ -330,7 +330,6 @@ function checkMinus(string, index) {
   const isPrecedingOperator_ = isPrecedingOperator(string, index);
   const isInsideFunctionCall_ = isInsideFunctionCall(string, index);
 
-
   if (isAtStart_) {
     // console.log("-, -<sth> or - <sth>")
     return "sign";
@@ -351,9 +350,11 @@ function checkMinus(string, index) {
 
     // e.g. `#{10px -1}`, `#{math.acos(-0.5)}`
     if (isInsideInterpolation(string, index)) {
-      if (isInsideFunctionCall_.is && (
-        (isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
-        (isNumberAfter_.is && !isNumberAfter_.opsBetween))) {
+      if (
+        isInsideFunctionCall_.is &&
+        ((isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
+          (isNumberAfter_.is && !isNumberAfter_.opsBetween))
+      ) {
         return "sign";
       }
 
@@ -679,7 +680,7 @@ function isInsideParens(string, index) {
 function isInsideInterpolation(string, index) {
   const before = string.substring(0, index).trim();
 
-  if (before.search(/#\{[^}]*$/) !== -1) {
+  if (before.search(/#{[^}]*$/) !== -1) {
     return true;
   }
 
