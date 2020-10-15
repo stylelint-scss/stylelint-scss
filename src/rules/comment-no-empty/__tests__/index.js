@@ -31,21 +31,21 @@ testRule(rule, {
     },
     {
       code: `
-        /* 
+        /*
         */
     `,
-      description: "Empty multline block comment",
+      description: "Empty multiline block comment",
       message: messages.rejected,
       line: 2,
       column: 9
     },
     {
       code: `
-        /* 
+        /*
 
         */
       `,
-      description: "Empty multline block comment with an empty line",
+      description: "Empty multiline block comment with an empty line",
       message: messages.rejected,
       line: 2,
       column: 9
@@ -60,7 +60,7 @@ testRule(rule, {
     },
     {
       code: `
-        //     
+        //
       `,
       description: "Empty double slash comment with spaces",
       message: messages.rejected,
@@ -78,7 +78,7 @@ testRule(rule, {
     },
     {
       code: `
-        width: 100px; // 
+        width: 100px; //
       `,
       description: "Empty inline comment",
       message: messages.rejected,
@@ -96,12 +96,12 @@ testRule(rule, {
     },
     {
       code: `
-      /* */width: 100px; 
+      /* */width: 100px;
       `,
       description: "Empty inline block comment prepends code",
       message: messages.rejected,
       line: 2,
       column: 7
-    }   
+    }
   ]
 });

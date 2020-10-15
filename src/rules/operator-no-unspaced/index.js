@@ -112,19 +112,19 @@ export default function(expectation) {
  *    {Object} cbArgs -- Named arguments object
  *    {string} cbArgs.string -- the input string (suspected operation)
  *    {number} cbArgs.globalIndex -- the string's index in a global input
- *    {number} cbArgs.startIndex -- the start index of a sybmol to inspect
- *    {number} cbArgs.endIndex -- the end index of a sybmol to inspect
+ *    {number} cbArgs.startIndex -- the start index of a symbol to inspect
+ *    {number} cbArgs.endIndex -- the end index of a symbol to inspect
  *      (two indexes needed to allow for `==`, `!=`, etc.)
  *    {PostCSS Node} cbArgs.node -- for stylelint.utils.report
  *    {PostCSS Result} cbArgs.result -- for stylelint.utils.report
  */
 export function calculationOperatorSpaceChecker({ root, result, checker }) {
   /**
-   * Takes a string, finds all occurencies of Sass interpolaion in it, then
+   * Takes a string, finds all occurrences of Sass interpolation in it, then
    * finds all operators inside that interpolation
    *
-   * @return {array} An array of ojbects { string, operators } - effectively,
-   *    a list of operators for each Sass interpolation occurence
+   * @return {array} An array of objects { string, operators } - effectively,
+   *    a list of operators for each Sass interpolation occurrence
    */
   function findInterpolation(string, startIndex) {
     const interpolationRegex = /#{(.*?)}/g;

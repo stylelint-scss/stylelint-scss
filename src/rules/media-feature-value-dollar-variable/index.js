@@ -39,7 +39,7 @@ export default function(expectation, options) {
     // `$var-name_sth`
     const variableRegex = /^\$[A-Za-z_0-9-]+$/;
     // `#{$var-name_sth}`
-    const interpolationVarRegex = /^#\{\s*?\$[A-Za-z_0-9]+\s*?\}$/;
+    const interpolationVarRegex = /^#{\s*?\$[A-Za-z_0-9]+\s*?}$/;
     // `none`, `dark`
     const keywordValueRegex = /^[a-z][a-z0-9-]*$/;
 
