@@ -28,15 +28,20 @@ npm install stylelint stylelint-scss
 
 Create the `.stylelintrc.json` config file (or open the existing one), add `stylelint-scss` to the plugins array and the rules you need to the rules list. All rules from stylelint-scss need to be namespaced with `scss`.
 
-```json
+```js
 {
   "plugins": [
     "stylelint-scss"
   ],
   "rules": {
+    // recommended rules
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    ...
+    ...
+    // any other rules you'd want to change e.g.
     "scss/dollar-variable-pattern": "^foo",
     "scss/selector-no-redundant-nesting-selector": true,
-    ...
   }
 }
 ```
