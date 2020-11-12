@@ -18,7 +18,7 @@ The plugin follows stylelint's guidelines (about [rule names](https://stylelint.
 
 ## Installation and usage
 
-stylelint-scss is a plugin for [stylelint](https://stylelint.io/user-guide), so it's meant to be used with it.
+stylelint-scss is a plugin for [stylelint](https://stylelint.io/user-guide/get-started), so it's meant to be used with it.
 
 First, install stylelint-scss (and stylelint, if you haven't done so yet) via NPM:
 
@@ -41,7 +41,7 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
 }
 ```
 
-Please refer to [stylelint docs](https://stylelint.io/user-guide) for the detailed info on using this linter.
+Please refer to [stylelint docs](https://stylelint.io/user-guide/get-started) for the detailed info on using this linter.
 
 ## List of rules
 
