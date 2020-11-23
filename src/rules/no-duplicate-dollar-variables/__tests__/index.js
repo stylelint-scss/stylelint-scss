@@ -945,3 +945,67 @@ testRule(rule, {
     }
   ]
 });
+
+testRule(rule, {
+  ruleName,
+  config: [true, { markDefaults: true }],
+  syntax: "scss",
+
+  accept: [
+    {
+      code: `
+      $a: 1 !default;
+      $a: 1;
+    `,
+      description:
+        "Two dollar variables with same names and containing a default."
+    },
+    {
+      code: `
+      $a: 1 !default; $a: 2;
+    `,
+      description:
+        "Two dollar variables with same names and containing a default on the same line."
+    },
+    {
+      code: "a { $a: 0 !default; $a: $a + 1; }",
+      description:
+        "Two dollar variables with same names and containing a default on the same line and variable assign."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      $a: 1 !default;
+      $a: 2 !default;
+    `,
+      line: 3,
+      column: 7,
+      message: messages.rejected("$a"),
+      description: "Two dollar variables with the same name containing default."
+    },
+    {
+      code: `
+      $a: 1 !default; $a: 2 !default;
+    `,
+      line: 2,
+      column: 23,
+      message: messages.rejected("$a"),
+      description:
+        "Two dollar variables with the same name on the same line containing default."
+    },
+    {
+      code: `
+      $a: 1 !default;
+      $a: 2 !default;
+      $a: 1 !default;
+    `,
+      line: 3,
+      column: 7,
+      message: messages.rejected("$a"),
+      description:
+        "Three dollar variables with the same name containing default."
+    }
+  ]
+});

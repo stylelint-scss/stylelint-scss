@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { isString } from "lodash";
+import { isString, isBoolean } from "lodash";
 import { namespace } from "../../utils";
 
 export const ruleName = namespace("no-duplicate-dollar-variables");
@@ -20,7 +20,8 @@ export default function(value, secondaryOptions) {
         actual: secondaryOptions,
         possible: {
           ignoreInside: ["at-rule", "nested-at-rule"],
-          ignoreInsideAtRules: [isString]
+          ignoreInsideAtRules: [isString],
+          markDefaults: isBoolean
         },
         optional: true
       }
@@ -53,15 +54,17 @@ export default function(value, secondaryOptions) {
 
     /**
      * Returns whether [variable] is declared anywhere in the scopes along the path defined by
-     * [ancestors].
+     * [ancestors]. If [checkDefault] is given, the default value is checked.
      */
-    function isDeclared(ancestors, variable) {
+    function isDeclared(ancestors, variable, checkDefault) {
       let scope = vars;
 
       for (const node of ancestors) {
         scope = scope[node];
 
-        if (scope[variable]) return true;
+        if (scope[variable]) {
+          return checkDefault ? scope[variable].default : scope[variable].var;
+        }
       }
 
       return false;
@@ -85,6 +88,8 @@ export default function(value, secondaryOptions) {
         secondaryOptions &&
         secondaryOptions.ignoreInsideAtRules &&
         secondaryOptions.ignoreInsideAtRules.includes(decl.parent.name);
+      const areDefaultsMarked =
+        secondaryOptions && secondaryOptions.markDefaults;
 
       if (
         !isVar ||
@@ -106,8 +111,10 @@ export default function(value, secondaryOptions) {
       }
 
       const scope = getScope(ancestors);
+      const hasDefault = /!default/.test(decl.value);
+      const useDefault = areDefaultsMarked && hasDefault;
 
-      if (isDeclared(ancestors, decl.prop)) {
+      if (isDeclared(ancestors, decl.prop, useDefault)) {
         utils.report({
           message: messages.rejected(decl.prop),
           node: decl,
@@ -116,7 +123,11 @@ export default function(value, secondaryOptions) {
         });
       }
 
-      scope[decl.prop] = true;
+      const scopeData = scope[decl.prop] ? scope[decl.prop] : {};
+      const key = useDefault ? "default" : "var";
+
+      scopeData[key] = true;
+      scope[decl.prop] = scopeData;
     });
   };
 }
