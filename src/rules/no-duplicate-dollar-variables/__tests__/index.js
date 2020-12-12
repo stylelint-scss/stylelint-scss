@@ -948,7 +948,7 @@ testRule(rule, {
 
 testRule(rule, {
   ruleName,
-  config: [true, { markDefaults: true }],
+  config: [true, { ignoreDefaults: true }],
   syntax: "scss",
 
   accept: [

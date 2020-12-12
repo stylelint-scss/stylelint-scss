@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { isString, isBoolean } from "lodash";
+import { isString, isFinite, isBoolean } from "lodash";
 import { namespace } from "../../utils";
 
 export const ruleName = namespace("no-duplicate-dollar-variables");
@@ -21,7 +21,7 @@ export default function(value, secondaryOptions) {
         possible: {
           ignoreInside: ["at-rule", "nested-at-rule"],
           ignoreInsideAtRules: [isString],
-          markDefaults: isBoolean
+          ignoreDefaults: [isBoolean, isFinite]
         },
         optional: true
       }
@@ -35,8 +35,8 @@ export default function(value, secondaryOptions) {
 
     /**
      * Traverse the [vars] tree through the path defined by [ancestors], creating nodes as needed.
-     *
-     * Return the tree of the node defined by the last of [ancestors].
+     * @param {*} ancestors
+     * @returns the tree of the node defined by the last of [ancestors].
      */
     function getScope(ancestors) {
       let scope = vars;
@@ -53,22 +53,74 @@ export default function(value, secondaryOptions) {
     }
 
     /**
-     * Returns whether [variable] is declared anywhere in the scopes along the path defined by
-     * [ancestors]. If [checkDefault] is given, the default value is checked.
+     * Iterates through the ancestors while checking each scope until the [variable] is found.
+     * If not found, an object with empty values is returned.
+     * @param {*} ancestors
+     * @param {string} variable the variable name.
+     * @returns The previosly declared variable data or an object with empty values.
      */
-    function isDeclared(ancestors, variable, checkDefault) {
+    function getVariableData(ancestors, variable) {
       let scope = vars;
 
       for (const node of ancestors) {
         scope = scope[node];
 
         if (scope[variable]) {
-          return checkDefault ? scope[variable].default : scope[variable].var;
+          return scope[variable];
         }
       }
 
-      return false;
+      return {
+        defaultCount: 0,
+        isDeclared: false
+      };
     }
+
+    /**
+     * Checks whether the given [variableData] is declared.
+     * @param {{ defaultCount: number; isDeclared: boolean; }} variableData the variable data
+     * containing default count and if the variable is declared.
+     * @param {boolean} isDefault if the variable contains the `!default` keyword.
+     * @param {boolean | number} ignoreDefaults the ignore defaults options.
+     * @returns true if declared.
+     */
+    function isDeclared(variableData, isDefault, ignoreDefaults) {
+      if (isDefault && ignoreDefaults !== undefined) {
+        if (isFinite(ignoreDefaults)) {
+          return variableData.defaultCount > ignoreDefaults;
+        } else if (ignoreDefaults) {
+          return false;
+        }
+      }
+
+      return variableData.isDeclared;
+    }
+
+    /**
+     * Processes the variable data based on the given arguments.
+     * @param {{ defaultCount: number; isDeclared: boolean; }} variableData the variable data
+     * containing default count and if the variable is declared.
+     * @param {boolean} isDefault if the variable contains the `!default` keyword.
+     * @param {boolean | number} ignoreDefaults the ignore defaults options.
+     */
+    function processVariableData(variableData, isDefault, ignoreDefaults) {
+      if (isDefault && ignoreDefaults !== undefined) {
+        return {
+          defaultCount: ++variableData.defaultCount,
+          isDeclared: variableData.isDeclared
+        };
+      }
+
+      return {
+        defaultCount: variableData.defaultCount,
+        isDeclared: true
+      };
+    }
+
+    const ignoreDefaults =
+      secondaryOptions && secondaryOptions.ignoreDefaults !== undefined
+        ? secondaryOptions.ignoreDefaults
+        : undefined;
 
     root.walkDecls(decl => {
       const isVar = decl.prop[0] === "$";
@@ -88,8 +140,6 @@ export default function(value, secondaryOptions) {
         secondaryOptions &&
         secondaryOptions.ignoreInsideAtRules &&
         secondaryOptions.ignoreInsideAtRules.includes(decl.parent.name);
-      const areDefaultsMarked =
-        secondaryOptions && secondaryOptions.markDefaults;
 
       if (
         !isVar ||
@@ -111,10 +161,10 @@ export default function(value, secondaryOptions) {
       }
 
       const scope = getScope(ancestors);
-      const hasDefault = /!default/.test(decl.value);
-      const useDefault = areDefaultsMarked && hasDefault;
+      const isDefault = /!default/.test(decl.value);
+      const variableData = getVariableData(ancestors, decl.prop);
 
-      if (isDeclared(ancestors, decl.prop, useDefault)) {
+      if (isDeclared(variableData, isDefault, ignoreDefaults)) {
         utils.report({
           message: messages.rejected(decl.prop),
           node: decl,
@@ -123,11 +173,11 @@ export default function(value, secondaryOptions) {
         });
       }
 
-      const scopeData = scope[decl.prop] ? scope[decl.prop] : {};
-      const key = useDefault ? "default" : "var";
-
-      scopeData[key] = true;
-      scope[decl.prop] = scopeData;
+      scope[decl.prop] = processVariableData(
+        variableData,
+        isDefault,
+        ignoreDefaults
+      );
     });
   };
 }
