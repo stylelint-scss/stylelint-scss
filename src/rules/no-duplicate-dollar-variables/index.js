@@ -105,16 +105,14 @@ export default function(value, secondaryOptions) {
      * @returns the updated `variableData`.
      */
     function processVariableData(variableData, isDefault, ignoreDefaults) {
-      if (isDefault && ignoreDefaults !== undefined) {
-        return {
-          defaultCount: ++variableData.defaultCount,
-          isDeclared: variableData.isDeclared
-        };
-      }
-
       return {
-        defaultCount: variableData.defaultCount,
-        isDeclared: true
+        defaultCount: isDefault
+          ? ++variableData.defaultCount
+          : variableData.defaultCount,
+        isDeclared:
+          isDefault && ignoreDefaults !== undefined
+            ? variableData.isDeclared
+            : true
       };
     }
 
