@@ -77,7 +77,9 @@ $a: 1;
   $b: 2;
 }
 ```
+
 ___
+
 ### `ignoreInside: ["at-rule", "nested-at-rule"]`
 
 #### `"at-rule"`
@@ -127,7 +129,9 @@ $a: 1;
   }
 }
 ```
+
 ___
+
 ### `ignoreInsideAtRules: ["array", "of", "at-rules"]`
 
 Ignores all variables that are inside specified at-rules.
@@ -155,7 +159,9 @@ $a: 1;
   $a: 2;
 }
 ```
+
 ___
+
 ### `ignoreDefaults: [boolean, number]`
 
 Ignores all or an amount of variables containing the `!default` keyword.
