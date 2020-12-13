@@ -1077,3 +1077,95 @@ testRule(rule, {
     }
   ]
 });
+
+testRule(rule, {
+  ruleName,
+  config: [true, { ignoreDefaults: 1 }],
+  syntax: "scss",
+
+  accept: [
+    {
+      code: `
+      $a: 1 !default;
+      $b: 1;
+    `,
+      description:
+        "Two dollar variables with different names and one containing a default."
+    },
+    {
+      code: `
+      $a: 1 !default;
+      $a: 1;
+    `,
+      description:
+        "Two dollar variables with same names and one containing a default."
+    },
+    {
+      code: `
+      $a: 1 !default;
+      $a: 1;
+      $b: 1 !default;
+      $b: 1;
+    `,
+      description:
+        "Two grouped dollar variables and each group contains a default."
+    },
+    {
+      code: `
+      $a: 1 !default;
+      $a: 1;
+
+      $b: 5;$b: 4 !default;
+
+      $c: 6 !default;
+      $c: $c + 5;
+    `,
+      description:
+        "Three grouped dollar variables and each group contains a default."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      $a: 1;
+      $a: 2;
+    `,
+      line: 3,
+      column: 7,
+      message: messages.rejected("$a"),
+      description: "Two dollar variables with the same name."
+    },
+    {
+      code: `
+      $a: 1 !default;
+      $a: 2 !default;
+    `,
+      line: 3,
+      column: 7,
+      message: messages.rejected("$a"),
+      description:
+        "Two dollar variables with the same name and containing default."
+    },
+    {
+      code: `
+      $a: 1 !default; $a: 2 !default;
+    `,
+      line: 2,
+      column: 23,
+      message: messages.rejected("$a"),
+      description:
+        "Two dollar variables with the same name on the same line and containing default."
+    },
+    {
+      code: `
+      $a: 5; $a: 1 !default; $a: 2 !default;
+    `,
+      line: 2,
+      column: 30,
+      message: messages.rejected("$a"),
+      description:
+        "Three dollar variables with the same name on the same line and two contains default."
+    }
+  ]
+});

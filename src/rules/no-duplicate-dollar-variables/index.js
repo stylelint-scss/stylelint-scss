@@ -87,7 +87,7 @@ export default function(value, secondaryOptions) {
     function isDeclared(variableData, isDefault, ignoreDefaults) {
       if (isDefault && ignoreDefaults !== undefined) {
         if (isFinite(ignoreDefaults)) {
-          return variableData.defaultCount > ignoreDefaults;
+          return variableData.defaultCount >= ignoreDefaults;
         } else if (ignoreDefaults) {
           return false;
         }
