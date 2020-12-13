@@ -77,7 +77,7 @@ $a: 1;
   $b: 2;
 }
 ```
-
+___
 ### `ignoreInside: ["at-rule", "nested-at-rule"]`
 
 #### `"at-rule"`
@@ -107,7 +107,6 @@ $a: 1;
   }
 }
 ```
-
 #### `"nested-at-rule"`
 
 Ignores dollar variables that are inside nested at-rules (`@media`, `@mixin`, etc.).
@@ -128,7 +127,7 @@ $a: 1;
   }
 }
 ```
-
+___
 ### `ignoreInsideAtRules: ["array", "of", "at-rules"]`
 
 Ignores all variables that are inside specified at-rules.
@@ -155,4 +154,36 @@ $a: 1;
 @if (true) {
   $a: 2;
 }
+```
+___
+### `ignoreDefaults: [boolean, number]`
+
+Ignores all or an amount of variables containing the `!default` keyword.
+
+Given:
+
+```json
+{ "ignoreDefaults": true }
+```
+
+The following patterns are _not_ considered warnings:
+
+```scss
+$a: 5 !default;
+$a: $a + 1;
+
+$a: 15 !default;
+```
+
+Given:
+
+```json
+{ "ignoreDefaults": 1 }
+```
+
+The following patterns are _not_ considered warnings:
+
+```scss
+$a: 5 !default;
+$a: $a + 1;
 ```
