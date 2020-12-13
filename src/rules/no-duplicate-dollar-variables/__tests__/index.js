@@ -1037,6 +1037,21 @@ testRule(rule, {
     `,
       description:
         "Four dollar variables with same names and three containing a default."
+    },
+    {
+      code: `
+      $a: 1 !default;
+      $a: 5 !default;
+      $a: 9 !default;
+      $a: 1;
+
+      $b: 5;$b: 4 !default;
+
+      $c: 6 !default;
+      $c: $c + 5;
+    `,
+      description:
+        "Three grouped dollar variables and each group contains a default."
     }
   ],
 
