@@ -109,6 +109,7 @@ $a: 1;
   }
 }
 ```
+
 #### `"nested-at-rule"`
 
 Ignores dollar variables that are inside nested at-rules (`@media`, `@mixin`, etc.).
