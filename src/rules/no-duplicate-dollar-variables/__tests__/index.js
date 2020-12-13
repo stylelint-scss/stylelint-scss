@@ -958,7 +958,7 @@ testRule(rule, {
       $b: 1;
     `,
       description:
-        "Two dollar variables with different names and containing a default."
+        "Two dollar variables with different names and one containing a default."
     }
   ],
 
@@ -981,7 +981,7 @@ testRule(rule, {
       column: 23,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name on the same line and a variable contains a default."
+        "Two dollar variables with the same name on the same line and one variable contains a default."
     },
     {
       code: `
@@ -992,7 +992,7 @@ testRule(rule, {
       column: 7,
       message: messages.rejected("$a"),
       description:
-        "Three dollar variables with the same name containing default."
+        "Two dollar variables with the same name and one containing default."
     }
   ]
 });
