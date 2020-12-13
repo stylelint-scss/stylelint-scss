@@ -948,29 +948,17 @@ testRule(rule, {
 
 testRule(rule, {
   ruleName,
-  config: [true, { ignoreDefaults: true }],
+  config: [true, { ignoreDefaults: false }],
   syntax: "scss",
 
   accept: [
     {
       code: `
       $a: 1 !default;
-      $a: 1;
+      $b: 1;
     `,
       description:
-        "Two dollar variables with same names and containing a default."
-    },
-    {
-      code: `
-      $a: 1 !default; $a: 2;
-    `,
-      description:
-        "Two dollar variables with same names and containing a default on the same line."
-    },
-    {
-      code: "a { $a: 0 !default; $a: $a + 1; }",
-      description:
-        "Two dollar variables with same names and containing a default on the same line and variable assign."
+        "Two dollar variables with different names and containing a default."
     }
   ],
 
@@ -987,19 +975,18 @@ testRule(rule, {
     },
     {
       code: `
-      $a: 1 !default; $a: 2 !default;
+      $a: 1 !default; $a: 2;
     `,
       line: 2,
       column: 23,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name on the same line containing default."
+        "Two dollar variables with the same name on the same line and a variable contains a default."
     },
     {
       code: `
       $a: 1 !default;
-      $a: 2 !default;
-      $a: 1 !default;
+      $a: 2;
     `,
       line: 3,
       column: 7,

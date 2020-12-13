@@ -102,6 +102,7 @@ export default function(value, secondaryOptions) {
      * containing default count and if the variable is declared.
      * @param {boolean} isDefault if the variable contains the `!default` keyword.
      * @param {boolean | number} ignoreDefaults the ignore defaults options.
+     * @returns the updated `variableData`.
      */
     function processVariableData(variableData, isDefault, ignoreDefaults) {
       if (isDefault && ignoreDefaults !== undefined) {
@@ -118,7 +119,7 @@ export default function(value, secondaryOptions) {
     }
 
     const ignoreDefaults =
-      secondaryOptions && secondaryOptions.ignoreDefaults !== undefined
+      secondaryOptions && secondaryOptions.ignoreDefaults
         ? secondaryOptions.ignoreDefaults
         : undefined;
 
