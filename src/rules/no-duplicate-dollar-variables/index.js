@@ -21,7 +21,7 @@ export default function(value, secondaryOptions) {
         possible: {
           ignoreInside: ["at-rule", "nested-at-rule"],
           ignoreInsideAtRules: [isString],
-          ignoreDefaults: [isBoolean, isFinite]
+          ignoreDefaults: [isBoolean]
         },
         optional: true
       }
@@ -85,7 +85,7 @@ export default function(value, secondaryOptions) {
      * @returns true if declared.
      */
     function isDeclared(variableData, isDefault, ignoreDefaults) {
-      if (isDefault && ignoreDefaults !== undefined) {
+      if (isDefault) {
         if (isFinite(ignoreDefaults)) {
           return variableData.defaultCount >= ignoreDefaults;
         } else if (ignoreDefaults) {
@@ -110,16 +110,14 @@ export default function(value, secondaryOptions) {
           ? ++variableData.defaultCount
           : variableData.defaultCount,
         isDeclared:
-          isDefault && ignoreDefaults !== undefined
-            ? variableData.isDeclared
-            : true
+          isDefault && ignoreDefaults !== false ? variableData.isDeclared : true
       };
     }
 
     const ignoreDefaults =
-      secondaryOptions && secondaryOptions.ignoreDefaults
+      secondaryOptions && secondaryOptions.ignoreDefaults !== undefined
         ? secondaryOptions.ignoreDefaults
-        : undefined;
+        : 1;
 
     root.walkDecls(decl => {
       const isVar = decl.prop[0] === "$";
