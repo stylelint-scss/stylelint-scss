@@ -24,6 +24,22 @@ A dollar variable is considered a duplicate if it shadows a variable of the same
 }
 ```
 
+A dollar variable is **not** considered a duplicate if it contains the `!default` keyword (see the [Sass documentation](https://sass-lang.com/documentation/variables#default-values)). Two dollar variables are duplicates if they both contain `!default` keyword.
+
+```scss
+$a: 1;
+$a: 5 !default;
+/** ↑
+   * Not a duplicate */
+
+$b: 1 !default;
+$b: 5 !default;
+/** ↑
+   * These are duplicates  */
+```
+
+
+
 ## Options
 
 ### `true`
@@ -78,6 +94,8 @@ $a: 1;
 }
 ```
 
+___
+
 ### `ignoreInside: ["at-rule", "nested-at-rule"]`
 
 #### `"at-rule"`
@@ -129,6 +147,8 @@ $a: 1;
 }
 ```
 
+___
+
 ### `ignoreInsideAtRules: ["array", "of", "at-rules"]`
 
 Ignores all variables that are inside specified at-rules.
@@ -155,4 +175,38 @@ $a: 1;
 @if (true) {
   $a: 2;
 }
+```
+
+___
+
+### `ignoreDefaults: [boolean]`
+
+Ignore all variables containing the `!default` keyword.
+
+Given:
+
+```json
+{ "ignoreDefaults": true }
+```
+
+The following patterns are _not_ considered warnings:
+
+```scss
+$a: 5 !default;
+$a: $a + 1;
+
+$a: 15 !default;
+```
+
+Given:
+
+```json
+{ "ignoreDefaults": false }
+```
+
+The following patterns are considered warnings:
+
+```scss
+$a: 5 !default;
+$a: 1;
 ```
