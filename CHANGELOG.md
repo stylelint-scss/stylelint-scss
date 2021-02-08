@@ -1,3 +1,7 @@
+# 3.19.0
+
+- Added: `ignoreDefaults` option to `no-duplicate-dollar-variables` rule.
+
 # 3.18.0
 
 - Added: `selector-no-redundant-nesting-selector` add `ignoreKeywords` option to ignore certain keywords that can be used in [Less](http://lesscss.org) or some other non-Scss syntax.
