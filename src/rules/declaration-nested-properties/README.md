@@ -35,7 +35,7 @@ a {
   font: {
     size: 10px;
   }
-  font-weight: 400; // This one should be nested either
+  font-weight: 400; // This one should be nested aswell
 }
 ```
 
