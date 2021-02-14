@@ -2,7 +2,7 @@ import { isRegExp, isString } from "lodash";
 import { rules, utils } from "stylelint";
 import { namespace } from "../../utils";
 
-const sassAtRules = [
+export const sassAtRules = [
   "at-root",
   "content",
   "debug",

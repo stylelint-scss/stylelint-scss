@@ -10,6 +10,7 @@ import atFunctionPattern from "./at-function-pattern";
 import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after";
 import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after";
 import atIfNoNull from "./at-if-no-null";
+import atImportNoImport from "./at-import-no-import";
 import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore";
 import atImportPartialExtension from "./at-import-partial-extension";
 import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist";
@@ -67,6 +68,7 @@ export default {
   "at-if-closing-brace-newline-after": atIfClosingBraceNewlineAfter,
   "at-if-closing-brace-space-after": atIfClosingBraceSpaceAfter,
   "at-if-no-null": atIfNoNull,
+  "at-import-no-import": atImportNoImport,
   "at-import-no-partial-leading-underscore": atImportNoPartialLeadingUnderscore,
   "at-import-partial-extension": atImportPartialExtension,
   "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
