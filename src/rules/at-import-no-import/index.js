@@ -4,7 +4,7 @@ import { namespace } from "../../utils";
 export const ruleName = namespace("at-import-no-import");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "@import is disallowed, replace it with @use"
+  expected: "Unexpected rule @import"
 });
 
 export default function(on) {
