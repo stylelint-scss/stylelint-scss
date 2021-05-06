@@ -87,7 +87,6 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`at-import-partial-extension`](./src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands.
 - [`at-import-partial-extension-blacklist`](./src/rules/at-import-partial-extension-blacklist/README.md): Specify blacklist of disallowed file extensions for partial names in `@import` commands.
 - [`at-import-partial-extension-whitelist`](./src/rules/at-import-partial-extension-whitelist/README.md): Specify whitelist of allowed file extensions for partial names in `@import` commands.
-- [`at-import-no-import`](./src/rules/at-import-no-import/README.md): Disallow `@import` rule and thus force `@use`.
 
 ### `@`-mixin
 
@@ -169,6 +168,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### General / Sheet
 
+- [`no-at-import`](./src/rules/no-at-import/README.md): Disallow `@import` rule and thus force `@use`.
 - [`no-dollar-variables`](./src/rules/no-dollar-variables/README.md): Disallow dollar variables within a stylesheet.
 - [`no-duplicate-dollar-variables`](./src/rules/no-duplicate-dollar-variables/README.md): Disallow duplicate dollar variables within a stylesheet.
 - [`no-duplicate-mixins`](./src/rules/no-duplicate-mixins/README.md): Disallow duplicate mixins within a stylesheet.

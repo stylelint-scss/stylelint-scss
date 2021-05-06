@@ -10,7 +10,6 @@ import atFunctionPattern from "./at-function-pattern";
 import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after";
 import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after";
 import atIfNoNull from "./at-if-no-null";
-import atImportNoImport from "./at-import-no-import";
 import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore";
 import atImportPartialExtension from "./at-import-partial-extension";
 import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist";
@@ -43,6 +42,7 @@ import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
 import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-inside";
 import mapKeysQuotes from "./map-keys-quotes";
 import mediaFeatureValueDollarVariable from "./media-feature-value-dollar-variable";
+import noAtImport from "./no-at-import";
 import noDollarVariables from "./no-dollar-variables";
 import noGlobalFunctionNames from "./no-global-function-names";
 import noDuplicateDollarVariables from "./no-duplicate-dollar-variables";
@@ -68,7 +68,6 @@ export default {
   "at-if-closing-brace-newline-after": atIfClosingBraceNewlineAfter,
   "at-if-closing-brace-space-after": atIfClosingBraceSpaceAfter,
   "at-if-no-null": atIfNoNull,
-  "at-import-no-import": atImportNoImport,
   "at-import-no-partial-leading-underscore": atImportNoPartialLeadingUnderscore,
   "at-import-partial-extension": atImportPartialExtension,
   "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
@@ -102,6 +101,7 @@ export default {
   "function-color-relative": functionColorRelative,
   "map-keys-quotes": mapKeysQuotes,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
+  "no-at-import": noAtImport,
   "no-dollar-variables": noDollarVariables,
   "no-duplicate-dollar-variables": noDuplicateDollarVariables,
   "no-duplicate-mixins": noDuplicateMixins,

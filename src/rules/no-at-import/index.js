@@ -1,7 +1,7 @@
 import { utils } from "stylelint";
 import { namespace } from "../../utils";
 
-export const ruleName = namespace("at-import-no-import");
+export const ruleName = namespace("no-at-import");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected rule @import"

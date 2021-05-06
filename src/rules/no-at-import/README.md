@@ -1,4 +1,4 @@
-# at-import-no-import
+# no-at-import
 
 According to the [Sass documentation](https://sass-lang.com/documentation/at-rules/import), you should no longer use the `@import` rule:
 
