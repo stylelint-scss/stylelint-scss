@@ -9,7 +9,7 @@ Require `$`-variable declarations to be placed first in a block (root or a rule)
 The following patterns are considered violations:
 
 ```scss
-@import '1.css';
+@import "1.css";
 $var: 200px;
 ```
 
@@ -20,11 +20,11 @@ a {
 }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 $var: 100px;
-@import '1.css';
+@import "1.css";
 ```
 
 ```scss
@@ -40,7 +40,7 @@ a {
 
 ### `"comments"`
 
-The following patterns are *not* considered violations:
+The following patterns are _not_ considered violations:
 
 ```scss
 // Comment
@@ -57,22 +57,33 @@ a {
 
 ### `"imports"`
 
-The following patterns are *not* considered violations:
+The following patterns are _not_ considered violations:
 
 ```scss
-@import '1.css';
+@import "1.css";
 $var: 1;
+```
+
+```scss
+@use "sass:color";
+$primary-color: #f26e21 !default;
+$secondary-color: color.change($primary-color, $alpha: 0.08) !default;
+```
+
+```scss
+@forward "src/list";
+$var1: 100px;
 ```
 
 ### `except: ["root", "at-rule", "function", "mixin", "if-else", "loops"]`
 
 ### `"root"`
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 // Imports
-@import '1.css';
+@import "1.css";
 
 // Variables
 $var: 1;
@@ -80,7 +91,7 @@ $var: 1;
 
 ```scss
 /* Imports */
-@import '1.css';
+@import "1.css";
 // Variables
 $var1: 1;
 $var2: 1;
@@ -92,7 +103,7 @@ a {
 
 ### `"at-rule"`
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 @at-root .class {
@@ -103,7 +114,7 @@ The following patterns are *not* considered warnings:
 
 ### `"function"`
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 @function function-name($numbers1, $numbers2) {
@@ -125,7 +136,7 @@ The following patterns are *not* considered warnings:
 
 ### `"mixin"`
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 @mixin mixin-name {
@@ -137,7 +148,7 @@ The following patterns are *not* considered warnings:
 
 ### `"if-else"`
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 @if $direction == up {
@@ -167,7 +178,7 @@ The following patterns are *not* considered warnings:
 
 ### `"loops"`
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 @each $size in $sizes {
