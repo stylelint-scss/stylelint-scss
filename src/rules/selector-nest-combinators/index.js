@@ -93,7 +93,7 @@ export default function(expectation) {
             }
 
             if (node.type === "combinator") {
-              if (!chainingTypes.includes(node.next().type)) {
+              if (node.next() && !chainingTypes.includes(node.next().type)) {
                 return;
               }
 
