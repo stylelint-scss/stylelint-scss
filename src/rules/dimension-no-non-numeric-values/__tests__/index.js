@@ -24,6 +24,13 @@ testRule(rule, {
       code: `$pad: "2";
       $string: "#{$pad}px";`,
       description: "does not report lint when string is quoted"
+    },
+    {
+      code: `
+      @include media-breakpoint-up($grid-gutter-breakpoint) {
+        --#{$variable-prefix}gutter-x: #{$gutter * 2};
+      }`,
+      description: "ignores interpolation without a unit"
     }
   ]),
   reject: loopOverUnits({

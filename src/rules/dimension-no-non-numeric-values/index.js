@@ -93,6 +93,11 @@ export default function rule(primary) {
 
         const regex = new RegExp(`#{[$a-z_0-9 +-]*}(${units.join("|")});?`);
         const matchUnit = decl.value.match(regex);
+
+        if (!matchUnit) {
+          return;
+        }
+
         const unit = matchUnit[1];
         const offset = decl.value.indexOf(unit);
 
