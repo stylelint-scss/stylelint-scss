@@ -1,3 +1,9 @@
+# 3.20.0
+
+- Changed: `dollar-variable-first-in-block` to support `@use` and `@forward` when using the `ignore: ["imports"]` option.
+- Fixed: `selector-nest-combinators` throwing an error when certain type of nesting was used.
+- Fixed: `dimension-no-non-numeric-values` throwing an error for certain type of unitless interpolation.
+
 # 3.19.0
 
 - Added: `ignoreDefaults` option to `no-duplicate-dollar-variables` rule.
