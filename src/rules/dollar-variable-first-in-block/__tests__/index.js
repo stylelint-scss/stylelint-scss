@@ -242,6 +242,51 @@ testRule(rule, {
       message: messages.expected,
       line: 3,
       column: 7
+    },
+    {
+      code: `
+      @import '1.css';
+      $var1: 100px;
+
+      a { }
+    `,
+      description: "$var in root, preceded by import, followed by selector.",
+      message: messages.expected,
+      line: 3,
+      column: 7
+    },
+    {
+      code: `
+      @import '1.css';
+      $var1: 100px;
+    `,
+      description: "$var in root, preceded by import.",
+      message: messages.expected,
+      line: 3,
+      column: 7
+    },
+    {
+      code: `
+      @use "sass:color";
+
+      $primary-color: #f26e21 !default;
+      $secondary-color: color.change($primary-color, $alpha: 0.08) !default;
+    `,
+      description: "variables in root, preceded by @use.",
+      message: messages.expected,
+      line: 4,
+      column: 7
+    },
+    {
+      code: `
+      @forward "src/list";
+
+      $var1: 100px;
+    `,
+      description: "$var in root, preceded by @forward.",
+      message: messages.expected,
+      line: 4,
+      column: 7
     }
   ]
 });
@@ -416,6 +461,23 @@ testRule(rule, {
       $var1: 100px;
     `,
       description: "$var in root, preceded by import."
+    },
+    {
+      code: `
+      @use "sass:color";
+
+      $primary-color: #f26e21 !default;
+      $secondary-color: color.change($primary-color, $alpha: 0.08) !default;
+    `,
+      description: "variables in root, preceded by @use."
+    },
+    {
+      code: `
+      @forward "src/list";
+
+      $var1: 100px;
+    `,
+      description: "$var in root, preceded by @forward."
     }
   ],
 
