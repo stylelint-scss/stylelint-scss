@@ -32,6 +32,17 @@ testRule(rule, {
     },
     {
       code: `
+      .foo {
+        & > {
+          .bar {}
+        }
+      }
+      `,
+      description:
+        "when direct descendant combinators are nested + a nested class"
+    },
+    {
+      code: `
       .baz {
         .foo.bar & {}
       }
