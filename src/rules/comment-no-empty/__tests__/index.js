@@ -31,7 +31,7 @@ testRule(rule, {
     },
     {
       code: `
-        /* 
+        /*
         */
     `,
       description: "Empty multline block comment",
@@ -41,7 +41,7 @@ testRule(rule, {
     },
     {
       code: `
-        /* 
+        /*
 
         */
       `,
@@ -60,7 +60,7 @@ testRule(rule, {
     },
     {
       code: `
-        //     
+        //
       `,
       description: "Empty double slash comment with spaces",
       message: messages.rejected,
@@ -78,7 +78,7 @@ testRule(rule, {
     },
     {
       code: `
-        width: 100px; // 
+        width: 100px; //
       `,
       description: "Empty inline comment",
       message: messages.rejected,
@@ -96,12 +96,18 @@ testRule(rule, {
     },
     {
       code: `
-      /* */width: 100px; 
+      /* */width: 100px;
       `,
       description: "Empty inline block comment prepends code",
       message: messages.rejected,
       line: 2,
       column: 7
-    }   
+    }
   ]
+});
+
+test("messages", () => {
+  expect(messages.rejected).toBe(
+    "Unexpected empty comment (scss/comment-no-empty)"
+  );
 });

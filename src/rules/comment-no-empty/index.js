@@ -6,11 +6,10 @@ const coreRuleName = "comment-no-empty";
 export const ruleName = namespace(coreRuleName);
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: (...args) => {
-    return rules[coreRuleName].messages
-      .rejected(...args)
-      .replace(` (${coreRuleName})`, "");
-  }
+  rejected: rules[coreRuleName].messages.rejected.replace(
+    ` (${coreRuleName})`,
+    ""
+  )
 });
 
 function rule(primary) {
