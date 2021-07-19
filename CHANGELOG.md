@@ -1,3 +1,8 @@
+# 3.20.1
+
+- Fixed: `comment-no-empty` remove duplicate rule name from rule's rejected message and improve readme.
+- Fixed: `at-rule-no-unknown` remove duplicate rule name from rule's rejected message.
+
 # 3.20.0
 
 - Changed: `dollar-variable-first-in-block` to support `@use` and `@forward` when using the `ignore: ["imports"]` option.
