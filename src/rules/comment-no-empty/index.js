@@ -1,10 +1,15 @@
-import { utils } from "stylelint";
+import { rules, utils } from "stylelint";
 import { namespace } from "../../utils";
 
-export const ruleName = namespace("comment-no-empty");
+const coreRuleName = "comment-no-empty";
+
+export const ruleName = namespace(coreRuleName);
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected empty comment"
+  rejected: rules[coreRuleName].messages.rejected.replace(
+    ` (${coreRuleName})`,
+    ""
+  )
 });
 
 function rule(primary) {

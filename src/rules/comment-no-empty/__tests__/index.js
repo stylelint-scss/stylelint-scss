@@ -105,3 +105,9 @@ testRule(rule, {
     }
   ]
 });
+
+test("messages", () => {
+  expect(messages.rejected).toBe(
+    "Unexpected empty comment (scss/comment-no-empty)"
+  );
+});
