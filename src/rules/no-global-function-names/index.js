@@ -2,7 +2,7 @@ import valueParser from "postcss-value-parser";
 import { utils } from "stylelint";
 import { declarationValueIndex, namespace } from "../../utils";
 
-const interpolationPrefix = /^#{\s*/;
+const interpolationPrefix = /^#{\s*/m;
 
 const rules = {
   red: "color",
