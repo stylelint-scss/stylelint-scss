@@ -138,6 +138,7 @@ const rule_mapping = {
 export const ruleName = namespace("no-global-function-names");
 
 export const messages = utils.ruleMessages(ruleName, {
+  rejectedFullMessage: string => string,
   rejected: name => errorMessage(name)
 });
 

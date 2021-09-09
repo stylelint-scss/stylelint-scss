@@ -452,7 +452,9 @@ testRule(rule, {
     `,
       line: 3,
       column: 21,
-      message: messages.rejected("lighten"),
+      message: messages.rejectedFullMessage(
+        "Expected color.adjust($color, $lightness: $amount) instead of lighten($color, $amount)"
+      ),
       description: "lighten"
     }
   ]
