@@ -1,3 +1,7 @@
+# 3.21.0
+
+- Changed: `no-global-function-names` handle interpolated values and add mappings for color functions.
+
 # 3.20.1
 
 - Fixed: `comment-no-empty` remove duplicate rule name from rule's rejected message and improve readme.
