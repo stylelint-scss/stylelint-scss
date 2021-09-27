@@ -1,6 +1,6 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true],
   syntax: "scss",
@@ -36,9 +36,18 @@ testRule(rule, {
 
       $b: 2;
     `,
-      line: 2,
-      column: 7,
-      message: messages.rejected("$a"),
+      warnings: [
+        {
+          line: 2,
+          column: 7,
+          message: messages.rejected("$a")
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.rejected("$b")
+        }
+      ],
       description: "Two dollar variables"
     },
     {

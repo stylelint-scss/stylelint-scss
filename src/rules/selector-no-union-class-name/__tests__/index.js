@@ -1,6 +1,6 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [undefined],
   syntax: "scss",
@@ -147,7 +147,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [undefined],
   syntax: "less",

@@ -1,7 +1,7 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // always-intermediate
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",

@@ -1,10 +1,10 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // -------------------------------------------------------------------------
 // "always"
 // -------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -76,7 +76,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "html",
@@ -112,7 +112,7 @@ a {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignore: ["stylelint-commands"] }],
   syntax: "scss",
@@ -136,7 +136,7 @@ testRule(rule, {
 // "never"
 // -------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",
@@ -203,7 +203,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "html",
@@ -236,7 +236,7 @@ a {} // comment
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never", { ignore: ["stylelint-commands"] }],
   syntax: "scss",

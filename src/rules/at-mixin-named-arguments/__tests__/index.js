@@ -1,7 +1,7 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // Required ("always")
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -121,9 +121,18 @@ testRule(rule, {
         @include reset(40px, 10px);
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description: "Always. Example: first argument is not named."
     },
     {
@@ -135,9 +144,18 @@ testRule(rule, {
         );
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always. Example: first argument is not named in multiline mixin call."
     },
@@ -171,9 +189,18 @@ testRule(rule, {
         @include reset($value: 40px, 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always. Example: first argument is named but remaining are not."
     },
@@ -183,9 +210,18 @@ testRule(rule, {
         @include reset(40px, $value: 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description: "Always. Example: mixed named arguments."
     },
     {
@@ -202,9 +238,18 @@ testRule(rule, {
       code: `
       @include reset(40px, 10px);
     `,
-      line: 2,
-      column: 7,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 2,
+          column: 7,
+          message: messages.expected
+        },
+        {
+          line: 2,
+          column: 7,
+          message: messages.expected
+        }
+      ],
       description:
         "Always. Example: first argument is not named in standalone mixin."
     }
@@ -212,7 +257,7 @@ testRule(rule, {
 });
 
 // Not allowed ("never")
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",
@@ -405,9 +450,23 @@ testRule(rule, {
         @include reset($value: 40px, $second-value: 10px, $color: 'black');
       }
       `,
-      line: 3,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description: "Never. Example: all arguments are named."
     },
     {
@@ -420,9 +479,23 @@ testRule(rule, {
         );
       }
       `,
-      line: 3,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description:
         "Never. Example: all arguments are named in multiline mixin call."
     },
@@ -452,7 +525,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignore: ["single-argument"] }],
   syntax: "scss",
@@ -590,9 +663,18 @@ testRule(rule, {
       code: `
       @include reset(40px, 10px);
     `,
-      line: 2,
-      column: 7,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 2,
+          column: 7,
+          message: messages.expected
+        },
+        {
+          line: 2,
+          column: 7,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore single argument. Example: first argument is not named in standalone mixin."
     },
@@ -629,9 +711,18 @@ testRule(rule, {
         @include reset(40px, $value: 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore single argument. Example: mixed named arguments."
     },
@@ -641,9 +732,18 @@ testRule(rule, {
         @include reset($value: 40px, 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore single argument. Example: first argument is named but remaining are not."
     },
@@ -653,16 +753,25 @@ testRule(rule, {
         @include reset(40px, $value: 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore single argument. Example: mixed named arguments."
     }
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never", { ignore: "single-argument" }],
   syntax: "scss",
@@ -835,9 +944,23 @@ testRule(rule, {
         @include reset($value: 40px, $second-value: 10px, $color: 'black');
       }
       `,
-      line: 3,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description:
         "Never and ignore single argument. Example: all arguments are named."
     },
@@ -851,9 +974,23 @@ testRule(rule, {
         );
       }
       `,
-      line: 3,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description:
         "Never and ignore single argument. Example: all arguments are named in multiline mixin call."
     },

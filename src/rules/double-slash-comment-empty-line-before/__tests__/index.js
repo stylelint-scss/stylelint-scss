@@ -1,4 +1,4 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // Used in all "always" tests
 const alwaysGeneralTests = {
@@ -97,7 +97,7 @@ const alwaysGeneralTests = {
 // "always"
 // -------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -134,7 +134,7 @@ testRule(rule, {
   ])
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { except: ["first-nested"] }],
   syntax: "scss",
@@ -174,7 +174,7 @@ testRule(rule, {
   ])
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { except: ["inside-block"] }],
   syntax: "scss",
@@ -235,7 +235,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignore: ["stylelint-commands"] }],
   syntax: "scss",
@@ -256,7 +256,7 @@ testRule(rule, {
   ])
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignore: ["between-comments"] }],
   syntax: "scss",
@@ -333,7 +333,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignore: ["inside-block"] }],
   syntax: "scss",
@@ -390,7 +390,7 @@ testRule(rule, {
 // "never"
 // -------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",
@@ -539,12 +539,23 @@ testRule(rule, {
       }
     `,
       description: "issue #321",
-      message: messages.rejected
+      warnings: [
+        {
+          line: 4,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 9,
+          column: 9,
+          message: messages.rejected
+        }
+      ]
     }
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never", { except: ["inside-block"] }],
   syntax: "scss",

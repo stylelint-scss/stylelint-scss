@@ -5,7 +5,7 @@ function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
 }
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true],
   syntax: "scss",
@@ -141,7 +141,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [
     true,
@@ -173,7 +173,8 @@ testRule(rule, {
     {
       code: "@unknown { @unknown-at-rule { font-size: 14px; } }",
       line: 1,
-      column: 12
+      column: 12,
+      message: messages.rejected("@unknown-at-rule")
     },
     {
       code: "@not-my-at-rule {}",

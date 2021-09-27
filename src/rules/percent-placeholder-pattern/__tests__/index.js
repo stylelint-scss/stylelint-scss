@@ -1,7 +1,7 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // Testing against a regex, sequence part
-testRule(rule, {
+testRule({
   ruleName,
   config: [/foo/],
   syntax: "scss",
@@ -45,7 +45,7 @@ testRule(rule, {
 });
 
 // Testing against a string, sequence part
-testRule(rule, {
+testRule({
   ruleName,
   config: ["foo"],
   syntax: "scss",
@@ -82,7 +82,7 @@ testRule(rule, {
 });
 
 // Testing against a regex, full match
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^foo$/],
   syntax: "scss",
@@ -131,7 +131,7 @@ testRule(rule, {
 });
 
 // Testing against a regex, match at the beginning
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^foo/],
   syntax: "scss",
@@ -167,7 +167,7 @@ testRule(rule, {
 });
 
 // Testing against kinda-SUIT pattern, and nesting
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^[A-Z][a-z]+-[a-z][a-zA-Z]+$/],
   syntax: "scss",
@@ -241,7 +241,7 @@ testRule(rule, {
 });
 
 // Testing against a regex, sequence part
-testRule(rule, {
+testRule({
   ruleName,
   config: [/foo/],
   syntax: "less",

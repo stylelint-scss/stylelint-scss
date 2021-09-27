@@ -9,7 +9,7 @@ function logError(err) {
 // always
 // --------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -373,7 +373,7 @@ test("{ always, except: only-of-namespace } `prop:`, one rule X2", () => {
 // never
 // --------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",

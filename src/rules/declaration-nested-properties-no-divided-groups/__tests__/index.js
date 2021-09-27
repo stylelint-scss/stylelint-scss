@@ -6,7 +6,7 @@ function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
 }
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [undefined],
   syntax: "scss",

@@ -1,6 +1,6 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always-last-in-chain"],
   syntax: "scss",
@@ -149,7 +149,7 @@ width: 10px;
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [
     "always-last-in-chain",
@@ -158,7 +158,7 @@ testRule(rule, {
     }
   ],
   syntax: "scss",
-  fix: true,
+  unfixable: true,
 
   accept: [
     {
@@ -239,11 +239,6 @@ testRule(rule, {
 
       } width: 10px;
     }`,
-      fixed: `a {
-      @if ($x == 1) {
-
-      } width: 10px;
-    }`,
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
       message: messages.expected,
@@ -251,12 +246,6 @@ testRule(rule, {
     },
     {
       code: `a {
-      @if ($x == 1) {
-
-      }
-      @else { }
-    }`,
-      fixed: `a {
       @if ($x == 1) {
 
       }
@@ -274,24 +263,12 @@ testRule(rule, {
 
       @else { }
     }`,
-      fixed: `a {
-      @if ($x == 1) {
-
-      }
-
-      @else { }
-    }`,
       description: "always-last-in-chain (has @else, empty line after).",
       message: messages.rejected,
       line: 4
     },
     {
       code: `a {
-      @if ($x == 1) {
-
-      } @include x;
-    }`,
-      fixed: `a {
       @if ($x == 1) {
 
       } @include x;

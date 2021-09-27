@@ -1,6 +1,6 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -116,10 +116,20 @@ testRule(rule, {
       code: `
         $test: (Helvetica: 25px, Arial: 50px)
       `,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 2,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 2,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
-        "does not accept variables representing strings that are quoted.",
-      location: 1
+        "does not accept variables representing strings that are quoted."
     }
   ]
 });

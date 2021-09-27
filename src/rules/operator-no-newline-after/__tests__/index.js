@@ -1,11 +1,11 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // ------------------------------------------------------------------------
 // Testing +
 // ------------------------------------------------------------------------
 
 // +, before a number (with or without a unit)
-testRule(rule, {
+testRule({
   ruleName,
   config: [undefined],
   syntax: "scss",
@@ -88,7 +88,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [undefined],
   syntax: "html",

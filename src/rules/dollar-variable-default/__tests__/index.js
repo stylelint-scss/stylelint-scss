@@ -1,6 +1,6 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true],
   syntax: "scss",
@@ -62,7 +62,7 @@ testRule(rule, {
 });
 
 // "ignore" options
-testRule(rule, {
+testRule({
   ruleName,
   config: [true, { ignore: "local" }],
   syntax: "scss",

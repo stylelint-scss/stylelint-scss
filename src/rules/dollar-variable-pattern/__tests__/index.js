@@ -1,7 +1,7 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
 // Testing against a ragex, sequence part
-testRule(rule, {
+testRule({
   ruleName,
   config: [/foo/],
   syntax: "scss",
@@ -48,7 +48,7 @@ testRule(rule, {
 });
 
 // Testing against a string, sequence part
-testRule(rule, {
+testRule({
   ruleName,
   config: ["foo"],
   syntax: "scss",
@@ -105,7 +105,7 @@ testRule(rule, {
 });
 
 // Testing against a regex, full match
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^foo$/],
   syntax: "scss",
@@ -156,7 +156,7 @@ testRule(rule, {
 });
 
 // Testing against a regex, match at the beginning
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^foo/],
   syntax: "scss",
@@ -208,7 +208,7 @@ testRule(rule, {
 });
 
 // Testing against a regex, SUIT naming
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^[A-Z][a-z]+-[a-z][a-zA-Z]+$/],
   syntax: "scss",
@@ -249,7 +249,7 @@ testRule(rule, {
 });
 
 // "ignore" options
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^[A-Z][a-z]+-[a-z][a-zA-Z]+$/, { ignore: "local" }],
   syntax: "scss",
@@ -277,7 +277,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^[A-Z][a-z]+-[a-z][a-zA-Z]+$/, { ignore: "global" }],
   syntax: "scss",

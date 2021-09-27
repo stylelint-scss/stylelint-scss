@@ -1,6 +1,6 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -161,15 +161,24 @@ testRule(rule, {
       code: `
       @import "fff", "score";
     `,
-      line: 2,
-      column: 7,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 2,
+          column: 7,
+          message: messages.expected
+        },
+        {
+          line: 2,
+          column: 7,
+          message: messages.expected
+        }
+      ],
       description: "Two files, no extensions."
     }
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",

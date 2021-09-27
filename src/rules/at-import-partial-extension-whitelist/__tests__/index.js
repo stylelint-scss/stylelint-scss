@@ -1,7 +1,7 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // Testing single value
-testRule(rule, {
+testRule({
   ruleName,
   config: ["scss"],
   syntax: "scss",
@@ -125,7 +125,7 @@ testRule(rule, {
 });
 
 // Testing exceptions
-testRule(rule, {
+testRule({
   ruleName,
   config: ["scss"],
   syntax: "scss",
@@ -203,7 +203,7 @@ testRule(rule, {
 });
 
 // Testing an array
-testRule(rule, {
+testRule({
   ruleName,
   config: [["scss", /less/]],
   syntax: "scss",

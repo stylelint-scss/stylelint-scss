@@ -1,10 +1,10 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
 // -------------------------------------------------------------------------
 // "always"
 // -------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -93,7 +93,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "html",
@@ -130,7 +130,7 @@ testRule(rule, {
 // "never"
 // -------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",
@@ -203,7 +203,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "html",

@@ -1,6 +1,6 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -110,7 +110,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",

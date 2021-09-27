@@ -1,7 +1,7 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
 // Required ("always")
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "scss",
@@ -196,9 +196,18 @@ testRule(rule, {
         border: reset(40px, 10px);
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description: "Always. Example: first argument is not named."
     },
     {
@@ -210,9 +219,18 @@ testRule(rule, {
         );
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always. Example: first argument is not named in multiline function call."
     },
@@ -246,9 +264,18 @@ testRule(rule, {
         border: reset($value: 40px, 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always. Example: first argument is named but remaining are not."
     },
@@ -258,9 +285,18 @@ testRule(rule, {
         border: reset(40px, $value: 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description: "Always. Example: mixed named arguments."
     },
     {
@@ -271,6 +307,7 @@ testRule(rule, {
       `,
       line: 3,
       column: 9,
+      message: messages.expected,
       description:
         "Always. Example: native CSS function inside a function call."
     },
@@ -284,13 +321,30 @@ testRule(rule, {
         "b": blue($color)
       );
       `,
+      warnings: [
+        {
+          line: 4,
+          column: 7,
+          message: messages.expected
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.expected
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.expected
+        }
+      ],
       description: "Always. function call inside a map."
     }
   ]
 });
 
 // Not allowed ("never")
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "scss",
@@ -490,9 +544,23 @@ testRule(rule, {
         border: reset($value: 40px, $second-value: 10px, $color: 'black');
       }
       `,
-      line: 3,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description: "Never. Example: all arguments are named."
     },
     {
@@ -505,9 +573,23 @@ testRule(rule, {
         );
       }
       `,
-      line: 3,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description:
         "Never. Example: all arguments are named in multiline function call."
     },
@@ -555,12 +637,29 @@ testRule(rule, {
         "b": blue($green: $color)
       );
       `,
+      warnings: [
+        {
+          line: 4,
+          column: 7,
+          message: messages.rejected
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.rejected
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.rejected
+        }
+      ],
       description: "Never. function call inside a map."
     }
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignore: "single-argument" }],
   syntax: "scss",
@@ -720,9 +819,18 @@ testRule(rule, {
         border: reset(40px, $value: 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore single argument. Example: mixed named arguments."
     },
@@ -732,9 +840,18 @@ testRule(rule, {
         border: reset($value: 40px, 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore single argument. Example: first argument is named but remaining are not."
     },
@@ -744,16 +861,25 @@ testRule(rule, {
         border: reset(40px, $value: 10px, 'black');
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore single argument. Example: mixed named arguments."
     }
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never", { ignore: ["single-argument"] }],
   syntax: "scss",
@@ -924,9 +1050,23 @@ testRule(rule, {
         border: reset($value: 40px, $second-value: 10px, $color: 'black');
       }
       `,
-      line: 3,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description:
         "Never and ignore single argument. Example: all arguments are named."
     },
@@ -940,9 +1080,23 @@ testRule(rule, {
         );
       }
       `,
-      line: 3,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description:
         "Never and ignore single argument. Example: all arguments are named in multiline function call."
     },
@@ -973,7 +1127,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignoreFunctions: ["map-get", "/^my-/i", "/funct$/"] }],
   syntax: "scss",
@@ -1041,9 +1195,18 @@ testRule(rule, {
         content: FFUNCT($map, key);
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore function. Example: function name's case does not match regex."
     },
@@ -1053,16 +1216,25 @@ testRule(rule, {
         content: fmap-get($map, key);
       }
     `,
-      line: 3,
-      column: 9,
-      message: messages.expected,
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        },
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected
+        }
+      ],
       description:
         "Always and ignore function. Example: function name does not match string or regex."
     }
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never", { ignoreFunctions: ["somefunc", "/^my-/", "/funct$/"] }],
   syntax: "scss",
