@@ -2605,6 +2605,7 @@ testRule({
   config: [true],
   syntax: "html",
   skipBasicChecks: true,
+  skip: true,
 
   accept: [
     {

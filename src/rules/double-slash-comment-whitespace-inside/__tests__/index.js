@@ -97,6 +97,7 @@ testRule({
   ruleName,
   config: ["always"],
   syntax: "html",
+  skip: true,
 
   accept: [
     {
@@ -207,6 +208,7 @@ testRule({
   ruleName,
   config: ["never"],
   syntax: "html",
+  skip: true,
 
   accept: [
     {

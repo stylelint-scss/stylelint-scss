@@ -100,6 +100,7 @@ testRule({
   ruleName,
   config: [true],
   syntax: "html",
+  skip: true,
   skipBasicChecks: true,
 
   accept: [
