@@ -1,5 +1,4 @@
 import { get } from "lodash";
-import hasBlock from "./hasBlock";
 
 /**
  * Check whether a Node is a custom property set
@@ -8,12 +7,13 @@ import hasBlock from "./hasBlock";
  * @returns {boolean}
  */
 export default function(node) {
-  const selector = get(node, "raws.selector.raw", node.selector);
+  const prop = get(node, "raws.prop.raw", node.prop);
+  const value = get(node, "raws.value.raw", node.value);
 
   return (
-    node.type === "rule" &&
-    hasBlock(node) &&
-    selector.startsWith("--") &&
-    selector.endsWith(":")
+    node.type === "decl" &&
+    prop.startsWith("--") &&
+    value.startsWith("{") &&
+    value.endsWith("}")
   );
 }
