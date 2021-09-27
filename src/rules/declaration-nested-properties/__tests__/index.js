@@ -1,9 +1,4 @@
-import postcss from "postcss";
-import rule, { messages, ruleName } from "../";
-
-function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
-}
+import { messages, ruleName } from "../";
 
 // --------------------------------------------------------------------------
 // always
@@ -43,93 +38,73 @@ testRule({
         }
       }
       `,
-      description: "nested properties"
-    }
-  ]
-});
-
-test("{ always } Simple test: background-color, background-repeat", () => {
-  expect.assertions(5);
-
-  return postcss([rule("always")])
-    .process(
-      `
-      a {
-        background-color: red;
-        background-repeat: no-repeat;
-      }
-    `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expected("background-color"));
-      expect(warnings[0].line).toBe(3);
-      expect(warnings[0].column).toBe(9);
-      expect(warnings[1].text).toBe(messages.expected("background-repeat"));
-    })
-    .catch(logError);
-});
-
-test("{ always } background-color, background-repeat separated by at-rule", () => {
-  expect.assertions(6);
-
-  return postcss([rule("always")])
-    .process(
-      `
-      a {
-        background-color: red;
-        @media (color) { background-image: url(img.png); }
-        background-repeat: no-repeat;
-      }
-    `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-      expect(warnings[0].text).toBe(messages.expected("background-color"));
-      expect(warnings[0].line).toBe(3);
-      expect(warnings[0].column).toBe(9);
-      expect(warnings[1].text).toBe(messages.expected("background-repeat"));
-      expect(warnings[2].text).toBe(messages.expected("background-image"));
-    })
-    .catch(logError);
-});
-
-// Nested stuff
-
-test("{ always } one `background` in nested form", () => {
-  expect.assertions(1);
-
-  return postcss([rule("always")])
-    .process(
-      `
+      description: "{ always } nested properties"
+    },
+    {
+      code: `
       a {
         background: {
           color: red
         };
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
+      description: "{ always } one `background` in nested form"
+    }
+  ],
 
-      expect(warnings).toHaveLength(0);
-    })
-    .catch(logError);
-});
-
-test("{ always } nested `background` and background-position", () => {
-  expect.assertions(1);
-
-  return postcss([rule("always")])
-    .process(
-      `
+  reject: [
+    {
+      code: `
+      a {
+        background-color: red;
+        background-repeat: no-repeat;
+      }
+    `,
+      description:
+        "{ always } Simple test: background-color, background-repeat",
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected("background-color")
+        },
+        {
+          line: 4,
+          column: 9,
+          message: messages.expected("background-repeat")
+        }
+      ]
+    },
+    {
+      code: `
+      a {
+        background-color: red;
+        @media (color) { background-image: url(img.png); }
+        background-repeat: no-repeat;
+      }
+    `,
+      description:
+        "{ always } background-color, background-repeat separated by at-rule",
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected("background-color")
+        },
+        {
+          line: 5,
+          column: 9,
+          message: messages.expected("background-repeat")
+        },
+        {
+          line: 4,
+          column: 26,
+          message: messages.expected("background-image")
+        }
+      ]
+    },
+    {
+      code: `
       a {
         background: url(img.png) no-repeat {
           color: red
@@ -137,22 +112,17 @@ test("{ always } nested `background` and background-position", () => {
         background-position: center;
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-    })
-    .catch(logError);
-});
-
-test("{ always } `prop:    value {nested} prop-v: value`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule("always")])
-    .process(
-      `
+      description: "{ always } nested `background` and background-position",
+      warnings: [
+        {
+          line: 6,
+          column: 9,
+          message: messages.expected("background-position")
+        }
+      ]
+    },
+    {
+      code: `
       a {
         background:   url(img.png) no-repeat {
           color: red
@@ -160,22 +130,17 @@ test("{ always } `prop:    value {nested} prop-v: value`.", () => {
         background-position: center;
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-    })
-    .catch(logError);
-});
-
-test("{ always } `prop  :  value {nested} prop-v: value`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule("always")])
-    .process(
-      `
+      description: "{ always } `prop:    value {nested} prop-v: value`.",
+      warnings: [
+        {
+          line: 6,
+          column: 9,
+          message: messages.expected("background-position")
+        }
+      ]
+    },
+    {
+      code: `
       a {
         background  : url(img.png) no-repeat {
           color: red
@@ -183,75 +148,40 @@ test("{ always } `prop  :  value {nested} prop-v: value`.", () => {
         background-position: center;
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-    })
-    .catch(logError);
+      description: "{ always } `prop  :  value {nested} prop-v: value`.",
+      warnings: [
+        {
+          line: 6,
+          column: 9,
+          message: messages.expected("background-position")
+        }
+      ]
+    }
+  ]
 });
 
 // --------------------------------------------------------------------------
 // always, except: only-of-namespace
 // --------------------------------------------------------------------------
 
-test("{ always, except: only-of-namespace } background-color only", () => {
-  expect.assertions(1);
+testRule({
+  ruleName,
+  config: ["always", { except: "only-of-namespace" }],
+  customSyntax: "postcss-scss",
+  skipBasicChecks: true,
 
-  return postcss([rule("always", { except: "only-of-namespace" })])
-    .process(
-      `
+  accept: [
+    {
+      code: `
       a {
         position: absolute;
         background-color: red;
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-    })
-    .catch(logError);
-});
-
-test("{ always, except: only-of-namespace } background-color, background-repeat separated by at-rule", () => {
-  expect.assertions(5);
-
-  return postcss([rule("always", { except: "only-of-namespace" })])
-    .process(
-      `
-      a {
-        background-color: red;
-        @media (color) { background-image: url(img.png); }
-        background-repeat: no-repeat;
-      }
-    `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expected("background-color"));
-      expect(warnings[0].line).toBe(3);
-      expect(warnings[0].column).toBe(9);
-      expect(warnings[1].text).toBe(messages.expected("background-repeat"));
-    })
-    .catch(logError);
-});
-
-// With some nested rules
-
-test("{ always, except: only-of-namespace } `background:red`, one rule inside", () => {
-  expect.assertions(1);
-
-  return postcss([rule("always", { except: "only-of-namespace" })])
-    .process(
-      `
+      description: "{ always, except: only-of-namespace } background-color only"
+    },
+    {
+      code: `
       a {
         background:red {
           origin: padding-box;
@@ -259,22 +189,11 @@ test("{ always, except: only-of-namespace } `background:red`, one rule inside", 
         background-position: center;
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-    })
-    .catch(logError);
-});
-
-test("{ always, except: only-of-namespace } background, two rules inside", () => {
-  expect.assertions(1);
-
-  return postcss([rule("always", { except: "only-of-namespace" })])
-    .process(
-      `
+      description:
+        "{ always, except: only-of-namespace } `background:red`, one rule inside"
+    },
+    {
+      code: `
       a {
         background: red {
           origin: padding-box;
@@ -282,22 +201,22 @@ test("{ always, except: only-of-namespace } background, two rules inside", () =>
         }
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-    })
-    .catch(logError);
-});
-
-test("{ always, except: only-of-namespace } `background:red`, one rule inside 2", () => {
-  expect.assertions(2);
-
-  return postcss([rule("always", { except: "only-of-namespace" })])
-    .process(
-      `
+      description:
+        "{ always, except: only-of-namespace } background, two rules inside"
+    },
+    {
+      code: `
+      a {
+        background: red {
+          origin: padding-box;
+        }
+      }
+    `,
+      description:
+        "{ always, except: only-of-namespace } `prop: value`, one rule inside"
+    },
+    {
+      code: `
       a {
         background: red {
           origin: padding-box;
@@ -306,46 +225,37 @@ test("{ always, except: only-of-namespace } `background:red`, one rule inside 2"
         background-position: center;
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
+      description:
+        "{ always, except: only-of-namespace } `background:red`, one rule inside 2"
+    }
+  ],
 
-      expect(warnings).toHaveLength(1);
-      expect(warnings[0].line).toBe(7);
-    })
-    .catch(logError);
-});
-
-test("{ always, except: only-of-namespace } `prop: value`, one rule inside", () => {
-  expect.assertions(2);
-
-  return postcss([rule("always", { except: "only-of-namespace" })])
-    .process(
-      `
+  reject: [
+    {
+      code: `
       a {
-        background: red {
-          origin: padding-box;
-        }
+        background-color: red;
+        @media (color) { background-image: url(img.png); }
+        background-repeat: no-repeat;
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-      expect(warnings[0].text).toBe(messages.rejected("background"));
-    })
-    .catch(logError);
-});
-
-test("{ always, except: only-of-namespace } `prop:`, one rule X2", () => {
-  expect.assertions(5);
-
-  return postcss([rule("always", { except: "only-of-namespace" })])
-    .process(
-      `
+      description:
+        "{ always, except: only-of-namespace } background-color, background-repeat separated by at-rule",
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected("background-color")
+        },
+        {
+          line: 5,
+          column: 9,
+          message: messages.expected("background-repeat")
+        }
+      ]
+    },
+    {
+      code: `
       a {
         background: {
           origin: padding-box;
@@ -355,18 +265,21 @@ test("{ always, except: only-of-namespace } `prop:`, one rule X2", () => {
         }
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.rejected("background"));
-      expect(warnings[0].line).toBe(3);
-      expect(warnings[1].text).toBe(messages.rejected("background"));
-      expect(warnings[1].line).toBe(6);
-    })
-    .catch(logError);
+      description: "{ always, except: only-of-namespace } `prop:`, one rule X2",
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected("background")
+        },
+        {
+          line: 6,
+          column: 9,
+          message: messages.rejected("background")
+        }
+      ]
+    }
+  ]
 });
 
 // --------------------------------------------------------------------------

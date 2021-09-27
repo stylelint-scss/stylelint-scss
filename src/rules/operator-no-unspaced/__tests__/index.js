@@ -1,10 +1,4 @@
-import postcss from "postcss";
-import scss from "postcss-scss";
-import rule, { messages, ruleName } from "..";
-
-function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
-}
+import { messages, ruleName } from "..";
 
 // ------------------------------------------------------------------------
 // Testing +
@@ -1293,9 +1287,9 @@ testRule({
     {
       code: `
       .container {
-	      @at-root * {
-		      color: red;
-	      }
+        @at-root * {
+          color: red;
+        }
       }
       `,
       description: "ignores @at-root"
@@ -1880,393 +1874,624 @@ testRule({
   ]
 });
 
-// ------------------------------------------------------------------------
-// These register more than one warning.
-// ------------------------------------------------------------------------
+// Operations without whitespaces on any of the sides
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-// ---- just operations without whitespaces on any of the sides ----
-
-test("+ without whitespaces: `#{$var}+#ffc`.", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: #{$var}+#ffc; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
-      expect(warnings[0].column).toBe(19);
-      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
-      expect(warnings[1].column).toBe(19);
-    })
-    .catch(logError);
+  reject: [
+    {
+      code: "a { width: #{$var}+#ffc; }",
+      description: "+ without whitespaces: `#{$var}+#ffc`.",
+      warnings: [
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 1+1s; }",
+      description: "+ without whitespaces: `1+1s`.",
+      warnings: [
+        {
+          line: 1,
+          column: 13,
+          message: messages.expectedBefore("+")
+        },
+        {
+          line: 1,
+          column: 13,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 5px-3px; }",
+      description: "- without whitespaces: `5px-3px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: .1px-1px; }",
+      description: "- without whitespaces: `.1px-1px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: s.1px-1; }",
+      description: "- without whitespaces: `s.1px-1`.",
+      warnings: [
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: fn()-1; }",
+      description: "fn()-1",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: fn()/1; }",
+      description: "fn()/1",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("/")
+        }
+      ]
+    },
+    {
+      code: "a { width: $var==1; }",
+      description: "$var==1",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("==")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("==")
+        }
+      ]
+    },
+    {
+      code: "a { width: var==var; }",
+      description: "var==var",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("==")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("==")
+        }
+      ]
+    }
+  ]
 });
 
-test("+ without whitespaces: `1+1s`.", () => {
-  expect.assertions(5);
+// Equity operators
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-  return postcss([rule()])
-    .process("a { width: 1+1s; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
-      expect(warnings[0].column).toBe(13);
-      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
-      expect(warnings[1].column).toBe(13);
-    })
-    .catch(logError);
+  reject: [
+    {
+      code: "a { width: $var==1; }",
+      description: "$var==1",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("==")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("==")
+        }
+      ]
+    },
+    {
+      code: "a { width: var==var; }",
+      description: "var==var",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("==")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("==")
+        }
+      ]
+    }
+  ]
 });
 
-test("- without whitespaces: `5px-3px`.", () => {
-  expect.assertions(5);
+// Slash, another operation after
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-  return postcss([rule()])
-    .process("a { width: 5px-3px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
-      expect(warnings[0].column).toBe(15);
-      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
-      expect(warnings[1].column).toBe(15);
-    })
-    .catch(logError);
-});
-
-test("- without whitespaces: `.1px-1px`.", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: .1px-1px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
-      expect(warnings[0].column).toBe(16);
-      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
-      expect(warnings[1].column).toBe(16);
-    })
-    .catch(logError);
-});
-
-test("- without whitespaces: `s.1px-1`.", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: s.1px-1; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
-      expect(warnings[0].column).toBe(17);
-      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
-      expect(warnings[1].column).toBe(17);
-    })
-    .catch(logError);
-});
-
-test("fn()-1", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: fn()-1; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
-      expect(warnings[0].column).toBe(16);
-      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
-      expect(warnings[1].column).toBe(16);
-    })
-    .catch(logError);
-});
-
-test("fn()/1", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: fn()/1; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("/"));
-      expect(warnings[0].column).toBe(16);
-      expect(warnings[1].text).toBe(messages.expectedAfter("/"));
-      expect(warnings[1].column).toBe(16);
-    })
-    .catch(logError);
-});
-
-// ---- Equity operators ----
-
-test("$var==1", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: $var==1; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("=="));
-      expect(warnings[0].column).toBe(16);
-      expect(warnings[1].text).toBe(messages.expectedAfter("=="));
-      expect(warnings[1].column).toBe(17);
-    })
-    .catch(logError);
-});
-
-test("var==var", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: var==var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("=="));
-      expect(warnings[0].column).toBe(15);
-      expect(warnings[1].text).toBe(messages.expectedAfter("=="));
-      expect(warnings[1].column).toBe(16);
-    })
-    .catch(logError);
-});
-
-// ---- Slash, another operation after ----
-
-test("8px/2px +$var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px +$var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-
-test("#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so it gives warnings).", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: #{$var}+8px/2px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
-      expect(warnings[0].column).toBe(19);
-      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
-      expect(warnings[1].column).toBe(19);
-    })
-    .catch(logError);
-});
-test("8px/2px+ $var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px+ $var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px +fn()`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px +fn(); }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px+ fn()`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px+ fn(); }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px+ 5px`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px+ 5px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px+ 5`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px+ 5; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-
-test("8px/2px -$var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px -$var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2-$var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2-$var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("8px/2- $var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2- $var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2- 5px`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2- 5px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px-5px`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px-5px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("8px/2-5px`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2-5px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("8px/2px-5`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px-5; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("8px/2-5`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2-5; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
+  reject: [
+    {
+      code: "a { width: 8px/2px +$var; }",
+      description: "8px/2px +$var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 20,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: #{$var}+8px/2px; }",
+      description:
+        "#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so it gives warnings).",
+      warnings: [
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px+ $var; }",
+      description: "8px/2px+ $var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px +fn(); }",
+      description: "8px/2px +fn()`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 20,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px+ fn(); }",
+      description: "8px/2px+ fn()`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px+ 5px; }",
+      description: "8px/2px+ 5px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px+ 5; }",
+      description: "8px/2px+ 5`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px -$var; }",
+      description: "8px/2px -$var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 20,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2-$var; }",
+      description: "8px/2-$var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2- $var; }",
+      description: "8px/2- $var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2- 5px; }",
+      description: "8px/2- 5px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px-5px; }",
+      description: "8px/2px-5px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2-5px; }",
+      description: "8px/2-5px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px-5; }",
+      description: "8px/2px-5`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2-5; }",
+      description: "8px/2-5`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    }
+  ]
 });
 
 // Slash, operation before
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-test("5+8px/2`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 5+8px/2; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("5px*8px/2`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 5px*8px/2; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("5px - 8px/2`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 5px - 8px/2; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-    })
-    .catch(logError);
+  reject: [
+    {
+      code: "a { width: 5+8px/2; }",
+      description: "5+8px/2`.",
+      warnings: [
+        {
+          line: 1,
+          column: 13,
+          message: messages.expectedBefore("+")
+        },
+        {
+          line: 1,
+          column: 13,
+          message: messages.expectedAfter("+")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("/")
+        }
+      ]
+    },
+    {
+      code: "a { width: 5px*8px/2; }",
+      description: "5px*8px/2`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("*")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("*")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("/")
+        }
+      ]
+    },
+    {
+      code: "a { width: 5px - 8px/2; }",
+      description: "5px - 8px/2`.",
+      warnings: [
+        {
+          line: 1,
+          column: 21,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 21,
+          message: messages.expectedAfter("/")
+        }
+      ]
+    }
+  ]
 });
 
 // ------------------------------------------------------------------------
