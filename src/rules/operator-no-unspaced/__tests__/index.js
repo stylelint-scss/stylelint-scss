@@ -14,7 +14,7 @@ function logError(err) {
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -142,7 +142,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -196,7 +196,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -231,7 +231,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -278,7 +278,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -305,7 +305,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -419,7 +419,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -494,7 +494,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -557,7 +557,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -599,7 +599,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -658,7 +658,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -697,7 +697,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -761,7 +761,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -808,7 +808,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -845,7 +845,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -902,7 +902,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -927,7 +927,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -945,7 +945,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1222,7 +1222,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1272,7 +1272,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1351,7 +1351,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1550,7 +1550,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1582,7 +1582,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1617,7 +1617,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1709,7 +1709,7 @@ a;
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1786,7 +1786,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -1836,7 +1836,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2276,7 +2276,7 @@ test("5px - 8px/2`.", () => {
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2383,7 +2383,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2414,7 +2414,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2461,7 +2461,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [],
@@ -2504,7 +2504,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2558,7 +2558,7 @@ testRule({
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [

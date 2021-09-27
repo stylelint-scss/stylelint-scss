@@ -8,7 +8,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [

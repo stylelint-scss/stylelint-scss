@@ -3,7 +3,7 @@ import { messages, ruleName, units } from "..";
 testRule({
   ruleName,
   config: [true],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   accept: loopOverUnits({
     code: `
     p {

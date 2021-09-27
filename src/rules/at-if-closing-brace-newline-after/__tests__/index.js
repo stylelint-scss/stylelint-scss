@@ -3,7 +3,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: ["always-last-in-chain"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -157,7 +157,7 @@ testRule({
       disableFix: true
     }
   ],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   unfixable: true,
 
   accept: [

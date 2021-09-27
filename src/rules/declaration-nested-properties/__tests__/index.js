@@ -12,7 +12,7 @@ function logError(err) {
 testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -376,7 +376,7 @@ test("{ always, except: only-of-namespace } `prop:`, one rule X2", () => {
 testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [

@@ -4,7 +4,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [

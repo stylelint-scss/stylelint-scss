@@ -4,7 +4,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -231,7 +231,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -327,7 +327,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { ignore: "keywords" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -361,7 +361,7 @@ testRule({
 testRule({
   ruleName,
   config: [false],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

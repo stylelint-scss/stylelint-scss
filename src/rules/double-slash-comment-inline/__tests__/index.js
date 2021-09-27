@@ -7,7 +7,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -115,7 +115,7 @@ a {
 testRule({
   ruleName,
   config: ["always", { ignore: ["stylelint-commands"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -139,7 +139,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -239,7 +239,7 @@ a {} // comment
 testRule({
   ruleName,
   config: ["never", { ignore: ["stylelint-commands"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [

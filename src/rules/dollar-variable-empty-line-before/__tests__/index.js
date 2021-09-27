@@ -6,7 +6,7 @@ import { messages, ruleName } from "..";
 testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -87,7 +87,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -175,7 +175,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { ignore: "after-comment" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -237,7 +237,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never", { ignore: "after-comment" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -302,7 +302,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { ignore: "inside-single-line-block" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -352,7 +352,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { except: "first-nested" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -410,7 +410,7 @@ $var2: 2;
 testRule({
   ruleName,
   config: ["never", { except: "first-nested" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -479,7 +479,7 @@ testRule({
       disableFix: true
     }
   ],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   unfixable: true,
 
   accept: [
@@ -532,7 +532,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { except: "after-comment" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -615,7 +615,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never", { except: "after-comment" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -705,7 +705,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { except: "after-dollar-variable" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -761,7 +761,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never", { except: "after-dollar-variable" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -814,7 +814,7 @@ testRule({
     "always",
     { except: ["first-nested", "after-comment", "after-dollar-variable"] }
   ],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

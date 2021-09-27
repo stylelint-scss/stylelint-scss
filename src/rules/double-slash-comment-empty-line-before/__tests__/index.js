@@ -100,7 +100,7 @@ const alwaysGeneralTests = {
 testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
   fix: true,
 
@@ -137,7 +137,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { except: ["first-nested"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
   fix: true,
 
@@ -177,7 +177,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { except: ["inside-block"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
   fix: true,
 
@@ -238,7 +238,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { ignore: ["stylelint-commands"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: alwaysGeneralTests.accept.concat([
@@ -259,7 +259,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { ignore: ["between-comments"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
   fix: true,
 
@@ -336,7 +336,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { ignore: ["inside-block"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
   fix: true,
 
@@ -393,7 +393,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
   fix: true,
 
@@ -558,7 +558,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never", { except: ["inside-block"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
   fix: true,
 

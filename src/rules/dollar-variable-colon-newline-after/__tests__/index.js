@@ -3,7 +3,7 @@ import { messages, ruleName } from "..";
 testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [

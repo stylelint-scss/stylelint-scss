@@ -3,7 +3,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: [undefined],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -378,7 +378,7 @@ testRule({
 testRule({
   ruleName,
   config: [true, { ignoreKeywords: ["when", /regex/] }],
-  syntax: "less",
+  customSyntax: "postcss-scss",
   accept: [
     {
       code: `

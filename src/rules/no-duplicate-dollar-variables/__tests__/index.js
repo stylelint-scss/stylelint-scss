@@ -3,7 +3,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: [true],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -372,7 +372,7 @@ testRule({
 testRule({
   ruleName,
   config: [true, { ignoreInside: "at-rule" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -618,7 +618,7 @@ testRule({
 testRule({
   ruleName,
   config: [true, { ignoreInside: "nested-at-rule" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -867,7 +867,7 @@ testRule({
 testRule({
   ruleName,
   config: [true, { ignoreInsideAtRules: ["if", "mixin"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -1083,7 +1083,7 @@ testRule({
 testRule({
   ruleName,
   config: [true, { ignoreDefaults: false }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -1134,7 +1134,7 @@ testRule({
 testRule({
   ruleName,
   config: [true, { ignoreDefaults: true }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

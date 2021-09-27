@@ -4,7 +4,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: [/foo/],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -87,7 +87,7 @@ testRule({
 testRule({
   ruleName,
   config: ["foo"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -139,7 +139,7 @@ testRule({
 testRule({
   ruleName,
   config: [/^foo$/],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -231,7 +231,7 @@ testRule({
 testRule({
   ruleName,
   config: [/^foo/],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -279,7 +279,7 @@ testRule({
 testRule({
   ruleName,
   config: [/^[A-Z][a-z]+-[a-z][a-zA-Z]+$/],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

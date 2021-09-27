@@ -4,7 +4,7 @@ import { messages, ruleName } from "..";
 testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -347,7 +347,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -662,7 +662,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { ignore: "single-argument" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -882,7 +882,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never", { ignore: ["single-argument"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -1130,7 +1130,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always", { ignoreFunctions: ["map-get", "/^my-/i", "/funct$/"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -1237,7 +1237,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never", { ignoreFunctions: ["somefunc", "/^my-/", "/funct$/"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

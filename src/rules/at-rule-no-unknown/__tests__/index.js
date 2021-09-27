@@ -8,7 +8,7 @@ function logError(err) {
 testRule({
   ruleName,
   config: [true],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

@@ -3,7 +3,7 @@ import { ruleName, messages } from "..";
 testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -149,7 +149,7 @@ testRule({
 testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -222,7 +222,7 @@ testRule({
 testRule({
   ruleName,
   config: ["always-single-line"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -303,7 +303,7 @@ testRule({
 testRule({
   ruleName,
   config: ["at-least-one-space"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
