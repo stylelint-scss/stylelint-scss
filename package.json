@@ -39,10 +39,10 @@
     "postcss-scss": "^4.0.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
-    "stylelint": "^13.3.3"
+    "stylelint": "github:stylelint/stylelint#v14"
   },
   "peerDependencies": {
-    "stylelint": "^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0"
+    "stylelint": "^14.0.0"
   },
   "engines": {
     "node": ">=8"
