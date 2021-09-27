@@ -2,7 +2,7 @@ import { ruleName, messages } from "..";
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
 
   accept: [

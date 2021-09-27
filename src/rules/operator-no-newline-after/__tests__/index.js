@@ -7,7 +7,7 @@ import { ruleName, messages } from "..";
 // +, before a number (with or without a unit)
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -90,7 +90,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   syntax: "html",
   skipBasicChecks: true,
 

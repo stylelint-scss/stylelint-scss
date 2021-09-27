@@ -13,7 +13,7 @@ function logError(err) {
 // +, before a number (with or without a unit)
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -141,7 +141,7 @@ testRule({
 // +, before an interpolation
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -195,7 +195,7 @@ testRule({
 // +, before a variable
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -230,7 +230,7 @@ testRule({
 // +, before a string
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -277,7 +277,7 @@ testRule({
 // +, before a color
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -304,7 +304,7 @@ testRule({
 // + after something
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -418,7 +418,7 @@ testRule({
 // - before a number/unit
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -493,7 +493,7 @@ testRule({
 // - before an interpolation
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -556,7 +556,7 @@ testRule({
 // - before a string
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -598,7 +598,7 @@ testRule({
 // - before a variable
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -657,7 +657,7 @@ testRule({
 // - before a HEX-color
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -696,7 +696,7 @@ testRule({
 // - after a number
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -760,7 +760,7 @@ testRule({
 // - after a value with a unit
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -807,7 +807,7 @@ testRule({
 // - after a HEX color
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -844,7 +844,7 @@ testRule({
 // - without spaces
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -901,7 +901,7 @@ testRule({
 // - next to parens
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -926,7 +926,7 @@ testRule({
 // Mixed cases
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -944,7 +944,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1221,7 +1221,7 @@ testRule({
 // - next to parens
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1271,7 +1271,7 @@ testRule({
 // e.g. `width: 7*st;` makes Sass throw an error
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1350,7 +1350,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1549,7 +1549,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1581,7 +1581,7 @@ testRule({
 // In many cases these work as indended, but in general we send double signs packing
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1616,7 +1616,7 @@ testRule({
 // Newlines, multiple spaces
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1708,7 +1708,7 @@ a;
 // Selectors, property names
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1785,7 +1785,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -1835,7 +1835,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -2275,7 +2275,7 @@ test("5px - 8px/2`.", () => {
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -2382,7 +2382,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -2413,7 +2413,7 @@ testRule({
 // Variables
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -2460,7 +2460,7 @@ testRule({
 // @function definitions
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -2503,7 +2503,7 @@ testRule({
 // @function calls inside interpolation
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -2557,7 +2557,7 @@ testRule({
 // @import
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
@@ -2602,7 +2602,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   syntax: "html",
   skipBasicChecks: true,
 

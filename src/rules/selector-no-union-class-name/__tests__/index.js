@@ -2,7 +2,7 @@ import { messages, ruleName } from "..";
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-scss",
 
   accept: [
@@ -149,7 +149,7 @@ testRule({
 
 testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   customSyntax: "postcss-less",
 
   accept: [
