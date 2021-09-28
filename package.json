@@ -36,7 +36,7 @@
     "npmpub": "^5.0.0",
     "postcss": "^8.3.8",
     "postcss-less": "^5.0.0",
-    "postcss-scss": "^4.0.0",
+    "postcss-scss": "^4.0.1",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
     "stylelint": "github:stylelint/stylelint#v14"
