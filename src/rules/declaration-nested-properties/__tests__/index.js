@@ -204,30 +204,6 @@ testRule({
       description:
         "{ always, except: only-of-namespace } background, two rules inside"
     },
-    {
-      code: `
-      a {
-        background: red {
-          origin: padding-box;
-        }
-      }
-    `,
-      description:
-        "{ always, except: only-of-namespace } `prop: value`, one rule inside"
-    },
-    {
-      code: `
-      a {
-        background: red {
-          origin: padding-box;
-          repeat: repeat-x;
-        }
-        background-position: center;
-      }
-    `,
-      description:
-        "{ always, except: only-of-namespace } `background:red`, one rule inside 2"
-    }
   ],
 
   reject: [
@@ -277,6 +253,44 @@ testRule({
           column: 9,
           message: messages.rejected("background")
         }
+      ]
+    },
+    {
+      code: `
+      a {
+        background: red {
+          origin: padding-box;
+        }
+      }
+    `,
+      description:
+        "{ always, except: only-of-namespace } `prop: value`, one rule inside",
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.rejected("background")
+        },
+      ]
+    },
+    {
+      code: `
+      a {
+        background: red {
+          origin: padding-box;
+          repeat: repeat-x;
+        }
+        background-position: center;
+      }
+    `,
+      description:
+        "{ always, except: only-of-namespace } `background:red`, one rule inside 2",
+      warnings: [
+        {
+          line: 7,
+          column: 9,
+          message: messages.expected("background-position")
+        },
       ]
     }
   ]
