@@ -27,7 +27,7 @@ export default function(pattern) {
       }
 
       // Stripping the mixin of its arguments
-      const mixinName = decl.params.replace(/(\s*)\((?:[^])*\)/g, "");
+      const mixinName = decl.params.replace(/(\s*)\([^]*\)/g, "");
 
       if (regexpPattern.test(mixinName)) {
         return;

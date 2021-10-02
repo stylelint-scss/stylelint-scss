@@ -41,7 +41,7 @@ export default function(on) {
         pathStripped.slice(0, 4) === "url(" ||
         pathStripped.slice(-4) === ".css" ||
         pathStripped.search("//") !== -1 ||
-        pathStripped.search(/(?:[\s,)"'])\w+$/) !== -1
+        pathStripped.search(/[\s,)"']\w+$/) !== -1
       ) {
         return;
       }
