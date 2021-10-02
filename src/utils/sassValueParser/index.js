@@ -554,9 +554,9 @@ function checkSlash(string, index, isAfterColon) {
   // Quick check of the following operator symbol - if it is a math operator
   if (
     // +, *, % count as operators unless after interpolation or at the start
-    before.search(/[^{,(}\s]\s*[+*%]\s*[^(){},]+$/) !== -1 ||
+    before.search(/[^{,(}\s]\s*[+*%][^(){},]+$/) !== -1 ||
     // We consider minus as op only if surrounded by whitespaces (` - `);
-    before.search(/[^{,(}\s]\s+-\s+[^(){},]+$/) !== -1 ||
+    before.search(/[^{,(}\s]\s+-\s[^(){},]+$/) !== -1 ||
     // `10/2 * 3`, `10/2 % 3`, with or without spaces
     after.search(/^[^(){},]+[*%]/) !== -1 ||
     // `10px/2px+1`, `10px/2px+ 1`
@@ -668,7 +668,7 @@ function isInsideParens(string, index) {
   const after = string.substring(index + 1).trim();
 
   return (
-    before.search(/(?:^|[,{]|\s)\(\s*[^(){},]+$/) !== -1 &&
+    before.search(/(?:^|[,{]|\s)\([^(){},]+$/) !== -1 &&
     after.search(/^[^(){},\s]+\s*\)/) !== -1
   );
 }
@@ -727,7 +727,7 @@ function isStringBefore(before) {
     result.is = true;
   } else if (
     stringOpsClipped.search(
-      /(?:^|[/(){},: ])([a-zA-Z_][a-zA-Z_\d-]*|-+[a-zA-Z_]+[a-zA-Z_\d-]*)$/
+      /(?:^|[/(){},: ])([a-zA-Z_][a-zA-Z_\d-]*|-+[a-zA-Z_][a-zA-Z_\d-]*)$/
     ) !== -1
   ) {
     // First pattern: a1, a1a, a-1,
@@ -746,7 +746,7 @@ function isStringAfter(after) {
   // e.g. `a1`, `a1a`, `a-1`, and even `--s323`
   return (
     stringTrimmed.search(
-      /^([a-zA-Z_][a-zA-Z_\d-]*|-+[a-zA-Z_]+[a-zA-Z_\d-]*)(?:$|[)}, ])/
+      /^([a-zA-Z_][a-zA-Z_\d-]*|-+[a-zA-Z_][a-zA-Z_\d-]*)(?:$|[)}, ])/
     ) !== -1
   );
 }
