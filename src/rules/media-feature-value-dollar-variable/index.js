@@ -31,7 +31,7 @@ export default function(expectation, options) {
       return;
     }
 
-    const valueRegex = /:(?:\s*?)(\S.+?)(:?\s*?)\)/;
+    const valueRegex = /:\s*?(\S.+?)(:?\s*?)\)/;
     // In `(max-width: 10px )` find `: 10px )`.
     // Got to go with that (the global search doesn't remember parens' insides)
     // and parse it again afterwards to remove trailing junk
