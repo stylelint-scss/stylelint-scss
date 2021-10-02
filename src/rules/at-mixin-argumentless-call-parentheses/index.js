@@ -22,10 +22,7 @@ export default function(value, _, context) {
 
     root.walkAtRules("include", mixinCall => {
       // If it is "No parens in argumentless calls"
-      if (
-        value === "never" &&
-        mixinCall.params.search(/\(\s*?\)\s*?$/) === -1
-      ) {
+      if (value === "never" && mixinCall.params.search(/\(\s*\)\s*$/) === -1) {
         return;
       }
 

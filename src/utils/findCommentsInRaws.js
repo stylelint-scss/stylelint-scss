@@ -171,7 +171,7 @@ export default function findCommentsInRaws(rawString) {
           comment.source.end = i + 1 + offset;
 
           const commentRaw = rawString.substring(commentStart, i + 2);
-          const matches = /^(\/\*+[!#]?)(\s*)([\s\S]*?)(\s*?)(\*+\/)$/.exec(
+          const matches = /^(\/\*+[!#]?)(\s*)([\s\S]*?)(\s*)(\*+\/)$/.exec(
             commentRaw
           );
 
@@ -185,7 +185,7 @@ export default function findCommentsInRaws(rawString) {
           };
           comment.text = matches[3];
           comment.inlineBefore =
-            rawString.substring(i + 2).search(/^\s*?\S+\s*?\n/) !== -1;
+            rawString.substring(i + 2).search(/^\s*\S+\s*?\n/) !== -1;
           result.push(Object.assign({}, comment));
           comment = {};
           // Skip the next loop as the / in */ is already checked
@@ -211,7 +211,7 @@ export default function findCommentsInRaws(rawString) {
               commentStart,
               isNewline ? i : i + 1
             );
-            const matches = /^(\/+)(\s*)(.*?)(\s*?)$/.exec(commentRaw);
+            const matches = /^(\/+)(\s*)(.*?)(\s*)$/.exec(commentRaw);
 
             modesEntered.pop();
             comment.raws = {

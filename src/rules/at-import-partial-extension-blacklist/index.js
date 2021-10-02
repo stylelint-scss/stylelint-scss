@@ -25,8 +25,8 @@ export default function(blacklistOption) {
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path
-        .replace(/^\s*?(["'])\s*/, "")
-        .replace(/\s*(["'])\s*?$/, "");
+        .replace(/^\s*(["'])\s*/, "")
+        .replace(/\s*(["'])\s*$/, "");
       const extension = nodeJsPath.extname(pathStripped).slice(1);
       // Save this separately to be able to pass the original string to report()
       const extensionNormalized = extension.toLowerCase();
