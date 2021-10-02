@@ -726,9 +726,7 @@ function isStringBefore(before) {
   ) {
     result.is = true;
   } else if (
-    stringOpsClipped.search(
-      /(?:^|[/(){},: ])([a-zA-Z_][\w-]*|-+[a-zA-Z_][\w-]*)$/
-    ) !== -1
+    stringOpsClipped.search(/(?:^|[/(){},: ])([a-zA-Z_][\w-]*|-+[a-zA-Z_][\w-]*)$/) !== -1
   ) {
     // First pattern: a1, a1a, a-1,
     result.is = true;
@@ -744,10 +742,7 @@ function isStringAfter(after) {
   if (stringTrimmed[0] === '"' || stringTrimmed[0] === "'") return true;
 
   // e.g. `a1`, `a1a`, `a-1`, and even `--s323`
-  return (
-    stringTrimmed.search(/^([a-zA-Z_][\w-]*|-+[a-zA-Z_][\w-]*)(?:$|[)}, ])/) !==
-    -1
-  );
+  return stringTrimmed.search(/^([a-zA-Z_][\w-]*|-+[a-zA-Z_][\w-]*)(?:$|[)}, ])/) !== -1;
 }
 
 function isInterpolationAfter(after) {
@@ -934,9 +929,7 @@ function isHexColorAfter(after) {
 }
 
 function isHexColorBefore(before) {
-  return (
-    before.search(/(?:[/(){},+*%-\s]|^)#([\da-fA-F]{3}|[\da-fA-F]{6})$/) !== -1
-  );
+  return before.search(/(?:[/(){},+*%-\s]|^)#([\da-fA-F]{3}|[\da-fA-F]{6})$/) !== -1;
 }
 
 /**
