@@ -817,7 +817,7 @@ function isValueWithUnitBefore(before) {
   // 1px, 0.1p-x, .2p-, 11.2pdf-df1df_
   // Surprisingly, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
-  return before.trim().search(/(^|[/(, \.])\d[\w-]+$/) !== -1;
+  return before.trim().search(/(^|[/(, .])\d[\w-]+$/) !== -1;
 }
 
 function isValueWithUnitAfter(after) {
