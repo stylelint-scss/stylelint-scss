@@ -667,24 +667,16 @@ function isInsideParens(string, index) {
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
 
-  if (
+  return (
     before.search(/(?:^|[,{]|\s)\(\s*[^(){},]+$/) !== -1 &&
     after.search(/^[^(){},\s]+\s*\)/) !== -1
-  ) {
-    return true;
-  }
-
-  return false;
+  );
 }
 
 function isInsideInterpolation(string, index) {
   const before = string.substring(0, index).trim();
 
-  if (before.search(/#{[^}]*$/) !== -1) {
-    return true;
-  }
-
-  return false;
+  return before.search(/#{[^}]*$/) !== -1;
 }
 
 /**
@@ -752,14 +744,11 @@ function isStringAfter(after) {
   if (stringTrimmed[0] === '"' || stringTrimmed[0] === "'") return true;
 
   // e.g. `a1`, `a1a`, `a-1`, and even `--s323`
-  if (
+  return (
     stringTrimmed.search(
       /^([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)(?:$|[)}, ])/
     ) !== -1
-  )
-    return true;
-
-  return false;
+  );
 }
 
 function isInterpolationAfter(after) {
@@ -829,11 +818,7 @@ function isValueWithUnitBefore(before) {
   // 1px, 0.1p-x, .2p-, 11.2pdf-df1df_
   // Surprisingly, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
-  if (before.trim().search(/(^|[/(, ]|\.)\d[a-zA-Z_0-9-]+$/) !== -1) {
-    return true;
-  }
-
-  return false;
+  return before.trim().search(/(^|[/(, ]|\.)\d[a-zA-Z_0-9-]+$/) !== -1;
 }
 
 function isValueWithUnitAfter(after) {
@@ -878,11 +863,9 @@ function isNumberAfter(after) {
 }
 
 function isNumberBefore(before) {
-  if (before.trim().search(/(?:^|[/(){},\s])(\d+(\.\d+){0,1}|\.\d+)$/) !== -1) {
-    return true;
-  }
-
-  return false;
+  return (
+    before.trim().search(/(?:^|[/(){},\s])(\d+(\.\d+){0,1}|\.\d+)$/) !== -1
+  );
 }
 
 function isVariableBefore(before) {
@@ -956,14 +939,10 @@ function isHexColorAfter(after) {
 }
 
 function isHexColorBefore(before) {
-  if (
+  return (
     before.search(/(?:[/(){},+*%-\s]|^)#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !==
     -1
-  ) {
-    return true;
-  }
-
-  return false;
+  );
 }
 
 /**
