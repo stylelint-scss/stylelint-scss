@@ -27,7 +27,7 @@ export default function(pattern) {
       }
 
       // Stripping the function of its arguments
-      const funcName = decl.params.replace(/(\s*)\([^]*\)/g, "");
+      const funcName = decl.params.replace(/(\s*)\([\s\S]*\)/g, "");
 
       if (regexpPattern.test(funcName)) {
         return;
