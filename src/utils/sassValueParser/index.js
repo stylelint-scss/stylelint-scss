@@ -668,7 +668,7 @@ function isInsideParens(string, index) {
   const after = string.substring(index + 1).trim();
 
   return (
-    before.search(/(?:^|[,{]|\s)\([^(){},]+$/) !== -1 &&
+    before.search(/(?:^|[,{\s])\([^(){},]+$/) !== -1 &&
     after.search(/^[^(){},\s]+\s*\)/) !== -1
   );
 }
@@ -817,7 +817,7 @@ function isValueWithUnitBefore(before) {
   // 1px, 0.1p-x, .2p-, 11.2pdf-df1df_
   // Surprisingly, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
-  return before.trim().search(/(^|[/(, ]|\.)\d[\w-]+$/) !== -1;
+  return before.trim().search(/(^|[/(, \.])\d[\w-]+$/) !== -1;
 }
 
 function isValueWithUnitAfter(after) {
@@ -930,7 +930,7 @@ function isHexColor(string) {
 }
 
 function isHexColorAfter(after) {
-  const afterTrimmed = after.match(/(.*?)(?:[)},+/*%-]|\s|$)/)[1].trim();
+  const afterTrimmed = after.match(/(.*?)(?:[)},+/*%\-\s]|$)/)[1].trim();
 
   return isHexColor(afterTrimmed);
 }

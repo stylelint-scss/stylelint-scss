@@ -83,7 +83,7 @@ export default function findCommentsInRaws(rawString) {
           break;
         }
 
-        const functionNameRegSearch = /(?:^|\n|\r|\s-|[:\s,.(){}*+/%])([\w-]*)$/.exec(
+        const functionNameRegSearch = /(?:^|[\n\r]|\s-|[:\s,.(){}*+/%])([\w-]*)$/.exec(
           rawString.substring(0, i)
         );
 
