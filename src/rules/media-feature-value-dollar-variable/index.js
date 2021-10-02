@@ -37,9 +37,9 @@ export default function(expectation, options) {
     // and parse it again afterwards to remove trailing junk
     const valueRegexGlobal = new RegExp(valueRegex.source, "g");
     // `$var-name_sth`
-    const variableRegex = /^\$[A-Za-z_\d-]+$/;
+    const variableRegex = /^\$[\w-]+$/;
     // `#{$var-name_sth}`
-    const interpolationVarRegex = /^#{\s*\$[A-Za-z_\d]+\s*}$/;
+    const interpolationVarRegex = /^#{\s*\$\w+\s*}$/;
     // `none`, `dark`
     const keywordValueRegex = /^[a-z][a-z\d-]*$/;
 
