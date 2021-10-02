@@ -43,7 +43,7 @@ function isSassVar(value) {
 }
 
 function isStringVal(value) {
-  return /^("|').*("|')$/.test(value);
+  return /^(["']).*(["'])$/.test(value);
 }
 
 function toRegex(arr) {
