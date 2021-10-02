@@ -862,9 +862,7 @@ function isNumberAfter(after) {
 }
 
 function isNumberBefore(before) {
-  return (
-    before.trim().search(/(?:^|[/(){},\s])(\d+(\.\d+){0,1}|\.\d+)$/) !== -1
-  );
+  return before.trim().search(/(?:^|[/(){},\s])(\d+(\.\d+)?|\.\d+)$/) !== -1;
 }
 
 function isVariableBefore(before) {
