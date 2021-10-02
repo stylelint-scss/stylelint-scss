@@ -560,7 +560,7 @@ function checkSlash(string, index, isAfterColon) {
     // `10/2 * 3`, `10/2 % 3`, with or without spaces
     after.search(/^[^(){},]+[*%]/) !== -1 ||
     // `10px/2px+1`, `10px/2px+ 1`
-    after.search(/^[^(){},\s]+[+]/) !== -1 ||
+    after.search(/^[^(){},\s]+\+/) !== -1 ||
     // Anything but `10px/2px +1`, `10px/2px +1px`
     after.search(/^[^(){},\s]+\s+(\+\D)/) !== -1 ||
     // Following ` -`: only if `$var` after (`10/10 -$var`)
