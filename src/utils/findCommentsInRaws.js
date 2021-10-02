@@ -171,7 +171,7 @@ export default function findCommentsInRaws(rawString) {
           comment.source.end = i + 1 + offset;
 
           const commentRaw = rawString.substring(commentStart, i + 2);
-          const matches = /^(\/\*+[!#]{0,1})(\s*)([\s\S]*?)(\s*?)(\*+\/)$/.exec(
+          const matches = /^(\/\*+[!#]?)(\s*)([\s\S]*?)(\s*?)(\*+\/)$/.exec(
             commentRaw
           );
 

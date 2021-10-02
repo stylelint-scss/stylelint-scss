@@ -566,9 +566,9 @@ function checkSlash(string, index, isAfterColon) {
     // Following ` -`: only if `$var` after (`10/10 -$var`)
     after.search(/^[^(){},\s]+\s+-(\$|\s)/) !== -1 ||
     // Following `-`: only if number after (`10s/10s-10`, `10s/10s-.1`)
-    after.search(/^[^(){},\s]+-(\.){0,1}\d/) !== -1 ||
+    after.search(/^[^(){},\s]+-(\.)?\d/) !== -1 ||
     // Or if there is a number before anything but string after (not `10s/1-str`,)
-    after.search(/^(\d*\.){0,1}\d+-\s*[^#a-zA-Z_\s]/) !== -1
+    after.search(/^(\d*\.)?\d+-\s*[^#a-zA-Z_\s]/) !== -1
   ) {
     // console.log("/, math op around")
     return "op";
@@ -827,7 +827,7 @@ function isValueWithUnitAfter(after) {
   // Again, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
   const matches = after.match(
-    /^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)[a-zA-Z_0-9-%]+(?:$|[)}, ])/
+    /^\s*([+/*%-]\s*)*(\d+(\.\d+)?|\.\d+)[a-zA-Z_0-9-%]+(?:$|[)}, ])/
   );
 
   if (matches) {
@@ -846,7 +846,7 @@ function isValueWithUnitAfter(after) {
 function isNumberAfter(after) {
   const result = { is: false, opsBetween: false };
   const matches = after.match(
-    /^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)(?:$|[)}, ])/
+    /^\s*([+/*%-]\s*)*(\d+(\.\d+)?|\.\d+)(?:$|[)}, ])/
   );
 
   if (matches) {
