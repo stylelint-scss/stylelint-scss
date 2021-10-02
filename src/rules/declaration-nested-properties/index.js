@@ -57,7 +57,7 @@ export default function(expectation, options) {
 
             // Add simple namespaced prop decls to warningCandidates.ns
             // (prop names with browser prefixes are ignored)
-            const seekNamespace = /^([a-zA-Z0-9]+)-/.exec(prop);
+            const seekNamespace = /^([a-zA-Z\d]+)-/.exec(prop);
 
             if (seekNamespace && seekNamespace[1]) {
               const ns = seekNamespace[1];

@@ -692,7 +692,7 @@ function isInsideFunctionCall(string, index) {
   const result = { is: false, fn: null };
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
-  const beforeMatch = before.match(/([a-zA-Z_-][a-zA-Z0-9_-]*)\([^(){}]+$/);
+  const beforeMatch = before.match(/([a-zA-Z_-][a-zA-Z\d_-]*)\([^(){}]+$/);
 
   if (beforeMatch && beforeMatch[0] && after.search(/^[^(,]+\)/) !== -1) {
     result.is = true;
@@ -727,7 +727,7 @@ function isStringBefore(before) {
     result.is = true;
   } else if (
     stringOpsClipped.search(
-      /(?:^|[/(){},: ])([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)$/
+      /(?:^|[/(){},: ])([a-zA-Z_][a-zA-Z_\d-]*|-+[a-zA-Z_]+[a-zA-Z_\d-]*)$/
     ) !== -1
   ) {
     // First pattern: a1, a1a, a-1,
@@ -746,7 +746,7 @@ function isStringAfter(after) {
   // e.g. `a1`, `a1a`, `a-1`, and even `--s323`
   return (
     stringTrimmed.search(
-      /^([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)(?:$|[)}, ])/
+      /^([a-zA-Z_][a-zA-Z_\d-]*|-+[a-zA-Z_]+[a-zA-Z_\d-]*)(?:$|[)}, ])/
     ) !== -1
   );
 }
@@ -818,7 +818,7 @@ function isValueWithUnitBefore(before) {
   // 1px, 0.1p-x, .2p-, 11.2pdf-df1df_
   // Surprisingly, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
-  return before.trim().search(/(^|[/(, ]|\.)\d[a-zA-Z_0-9-]+$/) !== -1;
+  return before.trim().search(/(^|[/(, ]|\.)\d[a-zA-Z_\d-]+$/) !== -1;
 }
 
 function isValueWithUnitAfter(after) {
@@ -827,7 +827,7 @@ function isValueWithUnitAfter(after) {
   // Again, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
   const matches = after.match(
-    /^\s*([+/*%-]\s*)*(\d+(\.\d+)?|\.\d+)[a-zA-Z_0-9-%]+(?:$|[)}, ])/
+    /^\s*([+/*%-]\s*)*(\d+(\.\d+)?|\.\d+)[a-zA-Z_\d-%]+(?:$|[)}, ])/
   );
 
   if (matches) {
@@ -869,7 +869,7 @@ function isNumberBefore(before) {
 }
 
 function isVariableBefore(before) {
-  return before.trim().search(/\$[a-zA-Z_0-9-]+$/) !== -1;
+  return before.trim().search(/\$[a-zA-Z_\d-]+$/) !== -1;
 }
 
 function isVariableAfter(after) {
@@ -898,16 +898,14 @@ function isProtocolBefore(before) {
 }
 
 function isFunctionBefore(before) {
-  return before.trim().search(/[a-zA-Z0-9_-]\(.*?\)\s*$/) !== -1;
+  return before.trim().search(/[a-zA-Z\d_-]\(.*?\)\s*$/) !== -1;
 }
 
 function isFunctionAfter(after) {
   const result = { is: false, opsBetween: false };
   // `-fn()` is a valid function name, so if a - should be a sign/operator,
   // it must have a space after
-  const matches = after.match(
-    /^\s*(-\s+|[+/*%]\s*)*[a-zA-Z_-][a-zA-Z_0-9-]*\(/
-  );
+  const matches = after.match(/^\s*(-\s+|[+/*%]\s*)*[a-zA-Z_-][a-zA-Z_\d-]*\(/);
 
   if (matches) {
     if (matches[0]) {
@@ -929,7 +927,7 @@ function isFunctionAfter(after) {
  * @return {Boolean} true, if the input is a hex color
  */
 function isHexColor(string) {
-  return string.trim().search(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !== -1;
+  return string.trim().search(/^#([\da-fA-F]{3}|[\da-fA-F]{6})$/) !== -1;
 }
 
 function isHexColorAfter(after) {
@@ -940,8 +938,7 @@ function isHexColorAfter(after) {
 
 function isHexColorBefore(before) {
   return (
-    before.search(/(?:[/(){},+*%-\s]|^)#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !==
-    -1
+    before.search(/(?:[/(){},+*%-\s]|^)#([\da-fA-F]{3}|[\da-fA-F]{6})$/) !== -1
   );
 }
 
