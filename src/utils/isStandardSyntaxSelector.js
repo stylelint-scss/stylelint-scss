@@ -23,7 +23,7 @@ export default function(selector) {
   }
 
   // Less mixin with resolved nested selectors (e.g. .foo().bar or .foo(@a, @b)[bar])
-  if (/\.[\w-]+\(.*\).+/i.test(selector)) {
+  if (/\.[\w-]+\(.*\).+/.test(selector)) {
     return false;
   }
 
