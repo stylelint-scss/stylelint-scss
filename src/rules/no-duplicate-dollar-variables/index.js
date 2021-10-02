@@ -57,7 +57,7 @@ export default function(value, secondaryOptions) {
      * If not found, an object with empty values is returned.
      * @param {*} ancestors
      * @param {string} variable the variable name.
-     * @returns The previosly declared variable data or an object with empty values.
+     * @returns The previously declared variable data or an object with empty values.
      */
     function getVariableData(ancestors, variable) {
       let scope = vars;

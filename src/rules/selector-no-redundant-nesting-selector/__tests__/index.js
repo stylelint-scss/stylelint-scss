@@ -76,7 +76,7 @@ testRule(rule, {
         &-small {}
       }
     `,
-      description: "when an ampersand is used in concatentation"
+      description: "when an ampersand is used in concatenation"
     },
     {
       code: `
@@ -93,7 +93,7 @@ testRule(rule, {
       }
     `,
       description:
-        "when an ampersand is used in concatentation following an ampersand"
+        "when an ampersand is used in concatenation following an ampersand"
     },
     {
       code: `

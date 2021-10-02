@@ -287,7 +287,7 @@ function checkPlus(string, index, isAftercolon) {
 
   // If the + is after a value, e.g. `$var+`
   if (!isAtStart_ && !isWhitespaceBefore) {
-    // It is always an operator. Prior to Sass 4, `#{...}+` was differernt,
+    // It is always an operator. Prior to Sass 4, `#{...}+` was different,
     // but that's not logical and had been fixed.
     // console.log('1+ sth')
     return "op";
@@ -468,7 +468,7 @@ function checkMinus(string, index) {
     }
   }
 
-  // And in all the other cases it's a characher inside a string
+  // And in all the other cases it's a character inside a string
   // console.log("-, default: char")
   return "char";
 }
@@ -504,7 +504,7 @@ function checkSlash(string, index, isAfterColon) {
     return "char";
   }
 
-  // having a dot before propbably means a relative path.
+  // having a dot before probably means a relative path.
   // e.g. url(../../image.png)
   if (isDotBefore(before)) {
     return "char";
@@ -624,7 +624,7 @@ function checkPercent(string, index) {
     return "char";
   }
 
-  // In `<sth> %<sth>` it's most likely an operator (except for inteprolation
+  // In `<sth> %<sth>` it's most likely an operator (except for interpolation
   // checked above)
   if (isWhitespaceBefore && !isWhitespaceAfter) {
     // console.log("%, `<sth> %<sth>`")
@@ -688,7 +688,7 @@ function isInsideInterpolation(string, index) {
 }
 
 /**
- * Checks if the character is inside a function agruments
+ * Checks if the character is inside a function arguments
  *
  * @param {String} string - the input string
  * @param {Number} index - current character index
@@ -967,7 +967,7 @@ function isHexColorBefore(before) {
 }
 
 /**
- * Checks if there is no operand before the currenc char
+ * Checks if there is no operand before the current char
  * In other words, the current char is at the start of a possible operation,
  * e.g. at the string start, after the opening paren or after a comma
  *
