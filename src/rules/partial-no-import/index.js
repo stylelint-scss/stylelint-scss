@@ -32,8 +32,8 @@ export default function(on) {
     function checkImportForCSS(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path
-        .replace(/^\s*?("|')\s*/, "")
-        .replace(/\s*("|')\s*?$/, "");
+        .replace(/^\s*(["'])\s*/, "")
+        .replace(/\s*(["'])\s*$/, "");
 
       // Skipping importing empty import, CSS: url(), ".css", URI with a protocol, media
       if (
@@ -41,7 +41,7 @@ export default function(on) {
         pathStripped.slice(0, 4) === "url(" ||
         pathStripped.slice(-4) === ".css" ||
         pathStripped.search("//") !== -1 ||
-        pathStripped.search(/(?:\s|[,)"'])\w+$/) !== -1
+        pathStripped.search(/[\s,)"']\w+$/) !== -1
       ) {
         return;
       }

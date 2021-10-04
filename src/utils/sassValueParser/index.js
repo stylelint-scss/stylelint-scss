@@ -287,7 +287,7 @@ function checkPlus(string, index, isAftercolon) {
 
   // If the + is after a value, e.g. `$var+`
   if (!isAtStart_ && !isWhitespaceBefore) {
-    // It is always an operator. Prior to Sass 4, `#{...}+` was differernt,
+    // It is always an operator. Prior to Sass 4, `#{...}+` was different,
     // but that's not logical and had been fixed.
     // console.log('1+ sth')
     return "op";
@@ -468,7 +468,7 @@ function checkMinus(string, index) {
     }
   }
 
-  // And in all the other cases it's a characher inside a string
+  // And in all the other cases it's a character inside a string
   // console.log("-, default: char")
   return "char";
 }
@@ -504,7 +504,7 @@ function checkSlash(string, index, isAfterColon) {
     return "char";
   }
 
-  // having a dot before propbably means a relative path.
+  // having a dot before probably means a relative path.
   // e.g. url(../../image.png)
   if (isDotBefore(before)) {
     return "char";
@@ -554,21 +554,21 @@ function checkSlash(string, index, isAfterColon) {
   // Quick check of the following operator symbol - if it is a math operator
   if (
     // +, *, % count as operators unless after interpolation or at the start
-    before.search(/[^{,(}\s]\s*[+*%]\s*[^(){},]+$/) !== -1 ||
+    before.search(/[^{,(}\s]\s*[+*%][^(){},]+$/) !== -1 ||
     // We consider minus as op only if surrounded by whitespaces (` - `);
-    before.search(/[^{,(}\s]\s+-\s+[^(){},]+$/) !== -1 ||
+    before.search(/[^{,(}\s]\s+-\s[^(){},]+$/) !== -1 ||
     // `10/2 * 3`, `10/2 % 3`, with or without spaces
     after.search(/^[^(){},]+[*%]/) !== -1 ||
     // `10px/2px+1`, `10px/2px+ 1`
-    after.search(/^[^(){},\s]+[+]/) !== -1 ||
+    after.search(/^[^(){},\s]+\+/) !== -1 ||
     // Anything but `10px/2px +1`, `10px/2px +1px`
     after.search(/^[^(){},\s]+\s+(\+\D)/) !== -1 ||
     // Following ` -`: only if `$var` after (`10/10 -$var`)
     after.search(/^[^(){},\s]+\s+-(\$|\s)/) !== -1 ||
     // Following `-`: only if number after (`10s/10s-10`, `10s/10s-.1`)
-    after.search(/^[^(){},\s]+-(\.){0,1}\d/) !== -1 ||
+    after.search(/^[^(){},\s]+-(\.)?\d/) !== -1 ||
     // Or if there is a number before anything but string after (not `10s/1-str`,)
-    after.search(/^(\d*\.){0,1}\d+-\s*[^#a-zA-Z_\s]/) !== -1
+    after.search(/^(\d*\.)?\d+-\s*[^#a-zA-Z_\s]/) !== -1
   ) {
     // console.log("/, math op around")
     return "op";
@@ -624,7 +624,7 @@ function checkPercent(string, index) {
     return "char";
   }
 
-  // In `<sth> %<sth>` it's most likely an operator (except for inteprolation
+  // In `<sth> %<sth>` it's most likely an operator (except for interpolation
   // checked above)
   if (isWhitespaceBefore && !isWhitespaceAfter) {
     // console.log("%, `<sth> %<sth>`")
@@ -667,28 +667,20 @@ function isInsideParens(string, index) {
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
 
-  if (
-    before.search(/(?:^|[,{]|\s)\(\s*[^(){},]+$/) !== -1 &&
+  return (
+    before.search(/(?:^|[,{\s])\([^(){},]+$/) !== -1 &&
     after.search(/^[^(){},\s]+\s*\)/) !== -1
-  ) {
-    return true;
-  }
-
-  return false;
+  );
 }
 
 function isInsideInterpolation(string, index) {
   const before = string.substring(0, index).trim();
 
-  if (before.search(/#{[^}]*$/) !== -1) {
-    return true;
-  }
-
-  return false;
+  return before.search(/#{[^}]*$/) !== -1;
 }
 
 /**
- * Checks if the character is inside a function agruments
+ * Checks if the character is inside a function arguments
  *
  * @param {String} string - the input string
  * @param {Number} index - current character index
@@ -700,7 +692,7 @@ function isInsideFunctionCall(string, index) {
   const result = { is: false, fn: null };
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
-  const beforeMatch = before.match(/([a-zA-Z_-][a-zA-Z0-9_-]*)\([^(){}]+$/);
+  const beforeMatch = before.match(/([a-zA-Z_-][\w-]*)\([^(){}]+$/);
 
   if (beforeMatch && beforeMatch[0] && after.search(/^[^(,]+\)/) !== -1) {
     result.is = true;
@@ -734,9 +726,7 @@ function isStringBefore(before) {
   ) {
     result.is = true;
   } else if (
-    stringOpsClipped.search(
-      /(?:^|[/(){},: ])([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)$/
-    ) !== -1
+    stringOpsClipped.search(/(?:^|[/(){},: ])([a-zA-Z_][\w-]*|-+[a-zA-Z_][\w-]*)$/) !== -1
   ) {
     // First pattern: a1, a1a, a-1,
     result.is = true;
@@ -752,14 +742,7 @@ function isStringAfter(after) {
   if (stringTrimmed[0] === '"' || stringTrimmed[0] === "'") return true;
 
   // e.g. `a1`, `a1a`, `a-1`, and even `--s323`
-  if (
-    stringTrimmed.search(
-      /^([a-zA-Z_][a-zA-Z_0-9-]*|-+[a-zA-Z_]+[a-zA-Z_0-9-]*)(?:$|[)}, ])/
-    ) !== -1
-  )
-    return true;
-
-  return false;
+  return stringTrimmed.search(/^([a-zA-Z_][\w-]*|-+[a-zA-Z_][\w-]*)(?:$|[)}, ])/) !== -1;
 }
 
 function isInterpolationAfter(after) {
@@ -829,11 +812,7 @@ function isValueWithUnitBefore(before) {
   // 1px, 0.1p-x, .2p-, 11.2pdf-df1df_
   // Surprisingly, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
-  if (before.trim().search(/(^|[/(, ]|\.)\d[a-zA-Z_0-9-]+$/) !== -1) {
-    return true;
-  }
-
-  return false;
+  return before.trim().search(/(^|[/(, .])\d[\w-]+$/) !== -1;
 }
 
 function isValueWithUnitAfter(after) {
@@ -842,7 +821,7 @@ function isValueWithUnitAfter(after) {
   // Again, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
   const matches = after.match(
-    /^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)[a-zA-Z_0-9-%]+(?:$|[)}, ])/
+    /^\s*([+/*%-]\s*)*(\d+(\.\d+)?|\.\d+)[\w-%]+(?:$|[)}, ])/
   );
 
   if (matches) {
@@ -861,7 +840,7 @@ function isValueWithUnitAfter(after) {
 function isNumberAfter(after) {
   const result = { is: false, opsBetween: false };
   const matches = after.match(
-    /^\s*([+/*%-]\s*)*(\d+(\.\d+){0,1}|\.\d+)(?:$|[)}, ])/
+    /^\s*([+/*%-]\s*)*(\d+(\.\d+)?|\.\d+)(?:$|[)}, ])/
   );
 
   if (matches) {
@@ -878,15 +857,11 @@ function isNumberAfter(after) {
 }
 
 function isNumberBefore(before) {
-  if (before.trim().search(/(?:^|[/(){},\s])(\d+(\.\d+){0,1}|\.\d+)$/) !== -1) {
-    return true;
-  }
-
-  return false;
+  return before.trim().search(/(?:^|[/(){},\s])(\d+(\.\d+)?|\.\d+)$/) !== -1;
 }
 
 function isVariableBefore(before) {
-  return before.trim().search(/\$[a-zA-Z_0-9-]+$/) !== -1;
+  return before.trim().search(/\$[\w-]+$/) !== -1;
 }
 
 function isVariableAfter(after) {
@@ -915,16 +890,14 @@ function isProtocolBefore(before) {
 }
 
 function isFunctionBefore(before) {
-  return before.trim().search(/[a-zA-Z0-9_-]\(.*?\)\s*$/) !== -1;
+  return before.trim().search(/[\w-]\(.*?\)\s*$/) !== -1;
 }
 
 function isFunctionAfter(after) {
   const result = { is: false, opsBetween: false };
   // `-fn()` is a valid function name, so if a - should be a sign/operator,
   // it must have a space after
-  const matches = after.match(
-    /^\s*(-\s+|[+/*%]\s*)*[a-zA-Z_-][a-zA-Z_0-9-]*\(/
-  );
+  const matches = after.match(/^\s*(-\s+|[+/*%]\s*)*[a-zA-Z_-][\w-]*\(/);
 
   if (matches) {
     if (matches[0]) {
@@ -946,28 +919,21 @@ function isFunctionAfter(after) {
  * @return {Boolean} true, if the input is a hex color
  */
 function isHexColor(string) {
-  return string.trim().search(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !== -1;
+  return string.trim().search(/^#([\da-fA-F]{3}|[\da-fA-F]{6})$/) !== -1;
 }
 
 function isHexColorAfter(after) {
-  const afterTrimmed = after.match(/(.*?)(?:[)},+/*%-]|\s|$)/)[1].trim();
+  const afterTrimmed = after.match(/(.*?)(?:[)},+/*%\-\s]|$)/)[1].trim();
 
   return isHexColor(afterTrimmed);
 }
 
 function isHexColorBefore(before) {
-  if (
-    before.search(/(?:[/(){},+*%-\s]|^)#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/) !==
-    -1
-  ) {
-    return true;
-  }
-
-  return false;
+  return before.search(/(?:[/(){},+*%-\s]|^)#([\da-fA-F]{3}|[\da-fA-F]{6})$/) !== -1;
 }
 
 /**
- * Checks if there is no operand before the currenc char
+ * Checks if there is no operand before the current char
  * In other words, the current char is at the start of a possible operation,
  * e.g. at the string start, after the opening paren or after a comma
  *

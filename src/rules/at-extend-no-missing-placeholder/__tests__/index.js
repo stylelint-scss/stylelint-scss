@@ -47,7 +47,7 @@ testRule(rule, {
     {
       code: `
       p {
-        @extend #some-identifer;
+        @extend #some-identifier;
       }
     `,
       line: 3,
@@ -73,7 +73,7 @@ testRule(rule, {
       line: 3,
       message: messages.rejected,
       description:
-        "when extending with a dyncamic selector whose prefix is not a placeholder"
+        "when extending with a dynamic selector whose prefix is not a placeholder"
     }
   ]
 });

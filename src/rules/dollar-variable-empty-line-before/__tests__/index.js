@@ -385,7 +385,7 @@ testRule(rule, {
 $var2: 2;
     }`,
       description:
-        "always, { except: first-nested }. $var is not the 1st in a ruleset, no epmty line.",
+        "always, { except: first-nested }. $var is not the 1st in a ruleset, no empty line.",
       message: messages.expected,
       line: 2,
       column: 17
@@ -399,7 +399,7 @@ $var2: 2;
       $var2: 2;
     }`,
       description:
-        "always, { except: first-nested }. $var is the 1st in a ruleset, has epmty line.",
+        "always, { except: first-nested }. $var is the 1st in a ruleset, has empty line.",
       message: messages.rejected,
       line: 3,
       column: 7
@@ -443,7 +443,7 @@ testRule(rule, {
       $var2: 2;
     }`,
       description:
-        "never, { except: first-nested }. $var is the 1st in a ruleset, no epmty line.",
+        "never, { except: first-nested }. $var is the 1st in a ruleset, no empty line.",
       message: messages.expected,
       line: 2,
       column: 7
@@ -459,7 +459,7 @@ testRule(rule, {
       $var2: 2;
     }`,
       description:
-        "never, { except: first-nested }. $var isn't the 1st in a ruleset, has epmty line.",
+        "never, { except: first-nested }. $var isn't the 1st in a ruleset, has empty line.",
       message: messages.rejected,
       line: 4,
       column: 7
@@ -510,7 +510,7 @@ testRule(rule, {
       width: 1; $var2: 2;
     }`,
       description:
-        "always, { except: first-nested }. $var is not the 1st in a ruleset, no epmty line.",
+        "always, { except: first-nested }. $var is not the 1st in a ruleset, no empty line.",
       message: messages.expected,
       line: 2,
       column: 17
@@ -525,7 +525,7 @@ testRule(rule, {
       $var2: 2;
     }`,
       description:
-        "always, { except: first-nested }. $var is the 1st in a ruleset, has epmty line.",
+        "always, { except: first-nested }. $var is the 1st in a ruleset, has empty line.",
       message: messages.rejected,
       line: 3,
       column: 7

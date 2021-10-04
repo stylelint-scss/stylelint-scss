@@ -31,17 +31,17 @@ export default function(expectation, options) {
       return;
     }
 
-    const valueRegex = /:(?:\s*?)(\S.+?)(:?\s*?)\)/;
+    const valueRegex = /:\s*(\S.+?)(:?\s*)\)/;
     // In `(max-width: 10px )` find `: 10px )`.
     // Got to go with that (the global search doesn't remember parens' insides)
     // and parse it again afterwards to remove trailing junk
     const valueRegexGlobal = new RegExp(valueRegex.source, "g");
     // `$var-name_sth`
-    const variableRegex = /^\$[A-Za-z_0-9-]+$/;
+    const variableRegex = /^\$[\w-]+$/;
     // `#{$var-name_sth}`
-    const interpolationVarRegex = /^#{\s*?\$[A-Za-z_0-9]+\s*?}$/;
+    const interpolationVarRegex = /^#{\s*\$\w+\s*}$/;
     // `none`, `dark`
-    const keywordValueRegex = /^[a-z][a-z0-9-]*$/;
+    const keywordValueRegex = /^[a-z][a-z\d-]*$/;
 
     root.walkAtRules("media", atRule => {
       const found = atRule.params.match(valueRegexGlobal);

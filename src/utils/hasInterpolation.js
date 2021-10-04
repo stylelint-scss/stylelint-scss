@@ -11,14 +11,10 @@ import hasTplInterpolation from "./hasTplInterpolation";
  */
 export default function(string) {
   // SCSS or Less interpolation
-  if (
+  return !!(
     hasLessInterpolation(string) ||
     hasScssInterpolation(string) ||
     hasTplInterpolation(string) ||
     hasPsvInterpolation(string)
-  ) {
-    return true;
-  }
-
-  return false;
+  );
 }

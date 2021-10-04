@@ -25,8 +25,8 @@ export default function(whitelistOption) {
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path
-        .replace(/^\s*?("|')\s*/, "")
-        .replace(/\s*("|')\s*?$/, "");
+        .replace(/^\s*(["'])\s*/, "")
+        .replace(/\s*(["'])\s*$/, "");
       const extension = nodeJsPath.extname(pathStripped).slice(1);
       // Save this separately to be able to pass the original string to report()
       const extensionNormalized = extension.toLowerCase();
@@ -41,7 +41,7 @@ export default function(whitelistOption) {
         pathStripped.slice(0, 4) === "url(" ||
         pathStripped.slice(-4) === ".css" ||
         pathStripped.search("//") !== -1 ||
-        pathStripped.search(/(?:\s|[,)"'])\w+$/) !== -1
+        pathStripped.search(/[\s,)"']\w+$/) !== -1
       ) {
         return;
       }

@@ -25,18 +25,18 @@ export default function(expectation) {
       }
 
       // If rule != null and (expr), skip
-      if (atrule.params.match(/\(?[ \t]*.* != null and .*\)?/)) {
+      if (atrule.params.match(/.* != null and .*/)) {
         return;
       }
 
-      if (atrule.params.match(/\(?[ \t]*.* == null[ \t]*\)?/)) {
+      if (atrule.params.match(/.* == null[ \t]*\)?/)) {
         utils.report({
           message: messages.equals_null,
           node: atrule,
           result,
           ruleName
         });
-      } else if (atrule.params.match(/\(?[ \t]*.* != null[ \t]*\)?/)) {
+      } else if (atrule.params.match(/.* != null[ \t]*\)?/)) {
         utils.report({
           message: messages.not_equals_null,
           node: atrule,

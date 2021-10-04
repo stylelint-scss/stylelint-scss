@@ -26,7 +26,7 @@ const mediaQueryTypes = [
 
 const mediaQueryTypesRE = new RegExp(`(${mediaQueryTypes.join("|")})$`, "i");
 const stripPath = path =>
-  path.replace(/^\s*?("|')\s*/, "").replace(/\s*("|')\s*?$/, "");
+  path.replace(/^\s*(["'])\s*/, "").replace(/\s*(["'])\s*$/, "");
 
 export default function(expectation) {
   return (root, result) => {

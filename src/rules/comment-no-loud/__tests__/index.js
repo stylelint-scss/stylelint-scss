@@ -12,7 +12,7 @@ testRule(rule, {
     },
     {
       code: "//* comment",
-      description: "Double slash comments with first character as asterix"
+      description: "Double slash comments with first character as asterisk"
     }
   ],
   reject: [
@@ -28,10 +28,10 @@ testRule(rule, {
     {
       code: `
         /* comment line 1
-           comment line 2 
+           comment line 2
         */
     `,
-      description: "Multline comment with optional ending on next line",
+      description: "Multiline comment with optional ending on next line",
       line: 2,
       column: 9,
       message: messages.expected

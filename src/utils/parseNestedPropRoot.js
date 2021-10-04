@@ -70,7 +70,7 @@ export default function parseNestedPropRoot(propString) {
         // or a dot), or
         // 3) the value is a variable (starts with $), or
         // 4) the value a string, surprisingly
-        if (propValue.before === "" && !/^[0-9.$'"]/.test(propValue.value)) {
+        if (propValue.before === "" && !/^[\d.$'"]/.test(propValue.value)) {
           return null;
         }
 

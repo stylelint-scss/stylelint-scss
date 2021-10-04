@@ -18,8 +18,8 @@ export default function(actual) {
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path
-        .replace(/^\s*?("|')\s*/, "")
-        .replace(/\s*("|')\s*?$/, "");
+        .replace(/^\s*(["'])\s*/, "")
+        .replace(/\s*(["'])\s*$/, "");
 
       // Searching a _ at the start of filename
       if (pathStripped.search(/(?:^|\/|\\)_[^/]+$/) === -1) {
@@ -31,7 +31,7 @@ export default function(actual) {
         pathStripped.slice(0, 4) === "url(" ||
         pathStripped.slice(-4) === ".css" ||
         pathStripped.search("//") !== -1 ||
-        pathStripped.search(/(?:\s|[,)"'])\w+$/) !== -1
+        pathStripped.search(/[\s,)"']\w+$/) !== -1
       ) {
         return;
       }

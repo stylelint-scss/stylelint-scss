@@ -21,7 +21,7 @@ export default function(value, _, context) {
       return;
     }
 
-    const match = /^([\w-]+)\s*?\(/;
+    const match = /^([\w-]+)\s*\(/;
     const replacement = value === "always" ? "$1 (" : "$1(";
 
     const checker = whitespaceChecker("space", value, messages).before;

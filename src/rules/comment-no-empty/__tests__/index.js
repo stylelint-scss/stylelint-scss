@@ -12,7 +12,7 @@ testRule(rule, {
     },
     {
       code: "//* comment",
-      description: "Double slash comments with first character as asterix"
+      description: "Double slash comments with first character as asterisk"
     },
     {
       code: "/* comment */",

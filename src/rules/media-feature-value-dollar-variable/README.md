@@ -15,7 +15,7 @@ Require a media feature value be a `$`-variable or disallow `$`-variables in med
 
 ### `"always"`
 
-A media feature value *must consist* of just a single `$`-variable (possibly with inteprolation).
+A media feature value *must consist* of just a single `$`-variable (possibly with interpolation).
 
 The following patterns are considered warnings:
 
