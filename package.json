@@ -25,7 +25,6 @@
     "babel-plugin-istanbul": "^6.0.0",
     "babel-preset-jest": "^27.2.0",
     "eslint": "^6.8.0",
-    "eslint-config-stylelint": "^11.1.0",
     "eslint-plugin-lodash": "^7.3.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^4.2.5",
@@ -33,7 +32,7 @@
     "jest-cli": "^27.2.2",
     "jest-preset-stylelint": "^4.1.1",
     "lint-staged": "^10.2.2",
-    "npmpub": "^5.0.0",
+    "np": "^7.5.0",
     "postcss": "^8.3.8",
     "postcss-less": "^5.0.0",
     "postcss-scss": "^4.0.1",
@@ -44,13 +43,9 @@
   "peerDependencies": {
     "stylelint": "^14.0.0"
   },
-  "engines": {
-    "node": ">=8"
-  },
   "eslintConfig": {
     "extends": [
-      "eslint:recommended",
-      "stylelint"
+      "eslint:recommended"
     ],
     "parserOptions": {
       "sourceType": "module",
@@ -73,7 +68,6 @@
         "error",
         "nofunc"
       ],
-      "sort-requires/sort-requires": "error",
       "strict": [
         "error",
         "global"
@@ -90,16 +84,7 @@
       "lodash/no-extra-args": "error",
       "lodash/no-unbound-this": "error",
       "lodash/unwrap": "error",
-      "lodash/preferred-alias": "error",
-      "node/no-unsupported-features/es-syntax": [
-        "error",
-        {
-          "version": ">=8.0.0",
-          "ignores": [
-            "modules"
-          ]
-        }
-      ]
+      "lodash/preferred-alias": "error"
     }
   },
   "files": [
