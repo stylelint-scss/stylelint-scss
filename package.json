@@ -8,9 +8,6 @@
       "@babel/env"
     ]
   },
-  "bugs": {
-    "url": "https://github.com/kristerkari/stylelint-scss/issues"
-  },
   "dependencies": {
     "lodash": "^4.17.15",
     "postcss-media-query-parser": "^0.2.3",
@@ -93,7 +90,6 @@
     "src/**/README.md",
     "!**/__tests__"
   ],
-  "homepage": "https://github.com/kristerkari/stylelint-scss#readme",
   "keywords": [
     "css",
     "csslint",
@@ -104,10 +100,7 @@
   ],
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kristerkari/stylelint-scss.git"
-  },
+  "repository": "stylelint-scss/stylelint-scss",
   "jest": {
     "preset": "jest-preset-stylelint",
     "clearMocks": true,
