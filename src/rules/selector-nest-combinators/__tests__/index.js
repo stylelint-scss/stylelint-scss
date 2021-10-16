@@ -1,9 +1,9 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -140,7 +140,7 @@ testRule(rule, {
       .foo .bar {}
       `,
       description: "when a child combinator is used instead of nesting",
-      messages: messages.expected(" ", "combinator"),
+      message: messages.expected(" ", "combinator"),
       line: 2,
       column: 11
     },
@@ -149,7 +149,7 @@ testRule(rule, {
       .foo.bar {}
       `,
       description: "when a selector is chained with another",
-      messages: messages.expected(".bar", "class"),
+      message: messages.expected("bar", "class"),
       line: 2,
       column: 11
     },
@@ -159,7 +159,7 @@ testRule(rule, {
       `,
       description:
         "when a direct descendant combinator is used without nesting",
-      messages: messages.expected(">", "combinator"),
+      message: messages.expected(">", "combinator"),
       line: 2,
       column: 12
     },
@@ -168,7 +168,7 @@ testRule(rule, {
       .foo:hover {}
       `,
       description: "when pseudo classes are used without nesting",
-      messages: messages.expected(":hover", "pseudo"),
+      message: messages.expected(":hover", "pseudo"),
       line: 2,
       column: 11
     },
@@ -177,7 +177,7 @@ testRule(rule, {
       * + li {}
       `,
       description: "when universal selectors are used with a combinator",
-      messages: messages.expected("+", "combinator"),
+      message: messages.expected("+", "combinator"),
       line: 2,
       column: 9
     },
@@ -186,7 +186,7 @@ testRule(rule, {
       :nth-child(2n - 1):last-child {}
       `,
       description: "when pseudo selectors only are chained",
-      messages: messages.expected(":last-child", "pseudo"),
+      message: messages.expected(":last-child", "pseudo"),
       line: 2,
       column: 25
     },
@@ -195,17 +195,17 @@ testRule(rule, {
       .class-name #{if(&, "&", "")} {}
       `,
       description: "when interpolation is used",
-      messages: messages.expectedInterpolation,
+      message: messages.expectedInterpolation,
       line: 2,
       column: 18
     }
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -310,9 +310,18 @@ testRule(rule, {
       }
       `,
       description: "when child combinators are nested",
-      messages: messages.rejected,
-      line: 3,
-      column: 9
+      warnings: [
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        }
+      ]
     },
     {
       code: `
@@ -321,9 +330,23 @@ testRule(rule, {
       }
       `,
       description: "when chained combinators are nested",
-      messages: messages.rejected,
-      line: 3,
-      column: 9
+      warnings: [
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 10
+        }
+      ]
     },
     {
       code: `
@@ -332,9 +355,28 @@ testRule(rule, {
       }
       `,
       description: "when direct descendant combinators are nested",
-      messages: messages.rejected,
-      line: 3,
-      column: 9
+      warnings: [
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 11
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 13
+        }
+      ]
     },
     {
       code: `
@@ -345,9 +387,38 @@ testRule(rule, {
       }
       `,
       description: "when parent selectors are used for concatenation",
-      messages: messages.rejected,
-      line: 3,
-      column: 9
+      warnings: [
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 10
+        },
+        {
+          message: messages.rejected,
+          line: 4,
+          column: 11
+        },
+        {
+          message: messages.rejected,
+          line: 4,
+          column: 11
+        },
+        {
+          message: messages.rejected,
+          line: 4,
+          column: 12
+        }
+      ]
     },
     {
       code: `
@@ -358,9 +429,38 @@ testRule(rule, {
       }
       `,
       description: "when parent selectors are used for BEM style concatenation",
-      messages: messages.rejected,
-      line: 3,
-      column: 9
+      warnings: [
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 10
+        },
+        {
+          message: messages.rejected,
+          line: 4,
+          column: 11
+        },
+        {
+          message: messages.rejected,
+          line: 4,
+          column: 11
+        },
+        {
+          message: messages.rejected,
+          line: 4,
+          column: 12
+        }
+      ]
     },
     {
       code: `
@@ -369,9 +469,23 @@ testRule(rule, {
       }
       `,
       description: "when pseudo classes are nested",
-      messages: messages.rejected,
-      line: 3,
-      column: 9
+      warnings: [
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 9
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 10
+        }
+      ]
     },
     {
       code: `
@@ -382,9 +496,18 @@ testRule(rule, {
       }
       `,
       description: "when interpolation is used",
-      messages: messages.rejected,
-      line: 3,
-      column: 8
+      warnings: [
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 8
+        },
+        {
+          message: messages.rejected,
+          line: 3,
+          column: 8
+        }
+      ]
     }
   ]
 });

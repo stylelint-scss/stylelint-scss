@@ -1,15 +1,9 @@
-import rule, { ruleName, messages } from "../";
+import { ruleName, messages } from "../";
 
-import postcss from "postcss";
-
-function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
-}
-
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -108,13 +102,12 @@ testRule(rule, {
 });
 
 // Warnings
-
-test("2 groups of the same namespace.", () => {
-  expect.assertions(6);
-
-  return postcss([rule(undefined)])
-    .process(
-      `
+testRule({
+  ruleName,
+  config: [true],
+  reject: [
+    {
+      code: `
       a {
         background: url(img.png) center {
           size: auto;
@@ -124,27 +117,22 @@ test("2 groups of the same namespace.", () => {
         }
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expected("background"));
-      expect(warnings[0].line).toBe(3);
-      expect(warnings[0].column).toBe(9);
-      expect(warnings[1].text).toBe(messages.expected("background"));
-      expect(warnings[1].line).toBe(6);
-    })
-    .catch(logError);
-});
-
-test("3 groups, 1 and 3 has the same namespace", () => {
-  expect.assertions(5);
-
-  return postcss([rule(undefined)])
-    .process(
-      `
+      description: "2 groups of the same namespace.",
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected("background")
+        },
+        {
+          line: 6,
+          column: 9,
+          message: messages.expected("background")
+        }
+      ]
+    },
+    {
+      code: `
       a {
         background: url(img.png) center {
           size: auto;
@@ -158,26 +146,22 @@ test("3 groups, 1 and 3 has the same namespace", () => {
         }
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expected("background"));
-      expect(warnings[0].line).toBe(3);
-      expect(warnings[1].line).toBe(10);
-      expect(warnings[1].text).toBe(messages.expected("background"));
-    })
-    .catch(logError);
-});
-
-test("3 groups of the same namespace", () => {
-  expect.assertions(6);
-
-  return postcss([rule(undefined)])
-    .process(
-      `
+      description: "3 groups, 1 and 3 has the same namespace",
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected("background")
+        },
+        {
+          line: 10,
+          column: 9,
+          message: messages.expected("background")
+        }
+      ]
+    },
+    {
+      code: `
       a {
         background: url(img.png) center {
           size: auto;
@@ -191,17 +175,24 @@ test("3 groups of the same namespace", () => {
         }
       }
     `,
-      { from: undefined }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-      expect(warnings[0].text).toBe(messages.expected("background"));
-      expect(warnings[0].line).toBe(3);
-      expect(warnings[1].text).toBe(messages.expected("background"));
-      expect(warnings[1].line).toBe(6);
-      expect(warnings[2].line).toBe(10);
-    })
-    .catch(logError);
+      description: "3 groups of the same namespace",
+      warnings: [
+        {
+          line: 3,
+          column: 9,
+          message: messages.expected("background")
+        },
+        {
+          line: 6,
+          column: 9,
+          message: messages.expected("background")
+        },
+        {
+          line: 10,
+          column: 9,
+          message: messages.expected("background")
+        }
+      ]
+    }
+  ]
 });

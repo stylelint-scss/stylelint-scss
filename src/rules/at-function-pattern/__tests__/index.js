@@ -1,10 +1,10 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // Testing against a ragex, sequence part
-testRule(rule, {
+testRule({
   ruleName,
   config: [/foo/],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -84,10 +84,10 @@ testRule(rule, {
 });
 
 // Testing against a string, sequence part
-testRule(rule, {
+testRule({
   ruleName,
   config: ["foo"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -136,10 +136,10 @@ testRule(rule, {
 });
 
 // Testing against a regex, full match
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^foo$/],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -228,10 +228,10 @@ testRule(rule, {
 });
 
 // Testing against a regex, match at the beginning
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^foo/],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -276,10 +276,10 @@ testRule(rule, {
 });
 
 // Testing against a regex, SUIT naming
-testRule(rule, {
+testRule({
   ruleName,
   config: [/^[A-Z][a-z]+-[a-z][a-zA-Z]+$/],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

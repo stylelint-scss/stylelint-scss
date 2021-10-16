@@ -1,10 +1,10 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // Testing single value
-testRule(rule, {
+testRule({
   ruleName,
   config: ["scss"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -160,10 +160,10 @@ testRule(rule, {
 });
 
 // Testing an array
-testRule(rule, {
+testRule({
   ruleName,
   config: [["scss", /less/]],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

@@ -1,9 +1,9 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -358,18 +358,27 @@ testRule(rule, {
         }
       }
     `,
-      line: 4,
-      column: 9,
-      message: messages.rejected,
+      warnings: [
+        {
+          line: 4,
+          column: 9,
+          message: messages.rejected
+        },
+        {
+          line: 7,
+          column: 9,
+          message: messages.rejected
+        }
+      ],
       description: "when the ampersand is followed by an unknown keyword"
     }
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true, { ignoreKeywords: ["when", /regex/] }],
-  syntax: "less",
+  customSyntax: "postcss-scss",
   accept: [
     {
       code: `

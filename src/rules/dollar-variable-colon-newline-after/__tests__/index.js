@@ -1,9 +1,9 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -240,7 +240,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always-multi-line"],
   fix: true,
@@ -411,7 +411,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [
     "always-multi-line",
@@ -419,7 +419,7 @@ testRule(rule, {
       disableFix: true
     }
   ],
-  fix: true,
+  unfixable: true,
 
   accept: [
     {
@@ -538,9 +538,6 @@ testRule(rule, {
       code:
         "  $box-shadow: 0 0 0 1px #5b9dd9,\n" +
         "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
-      fixed:
-        "  $box-shadow: 0 0 0 1px #5b9dd9,\n" +
-        "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
       description:
         "  $box-shadow: 0 0 0 1px #5b9dd9,\\n" +
         "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
@@ -550,9 +547,6 @@ testRule(rule, {
     },
     {
       code:
-        "  $box-shadow:0 0 0 1px #5b9dd9,\n" +
-        "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
-      fixed:
         "  $box-shadow:0 0 0 1px #5b9dd9,\n" +
         "    0 0 2px 1px rgba(30, 140, 190, 0.8);",
       description:

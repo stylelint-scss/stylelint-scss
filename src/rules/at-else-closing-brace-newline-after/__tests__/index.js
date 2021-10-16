@@ -1,9 +1,9 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always-last-in-chain"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -137,7 +137,7 @@ width: 10px;
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [
     "always-last-in-chain",
@@ -145,8 +145,8 @@ testRule(rule, {
       disableFix: true
     }
   ],
-  syntax: "scss",
-  fix: true,
+  customSyntax: "postcss-scss",
+  unfixable: true,
 
   accept: [
     {
@@ -212,13 +212,6 @@ testRule(rule, {
 
       } width: 10px;
     }`,
-      fixed: `a {
-      @if ($x == 1) {
-
-      } @else {
-
-      } width: 10px;
-    }`,
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
       message: messages.expected,
@@ -226,12 +219,6 @@ testRule(rule, {
     },
     {
       code: `a {
-      @if ($x == 1) {
-
-      } @else if { }
-      @else { }
-    }`,
-      fixed: `a {
       @if ($x == 1) {
 
       } @else if { }
@@ -249,13 +236,6 @@ testRule(rule, {
 
       @else { }
     }`,
-      fixed: `a {
-      @if ($x == 1) {
-
-      } @else { }
-
-      @else { }
-    }`,
       description:
         "always-last-in-chain (has following @else, empty line after).",
       message: messages.rejected,
@@ -263,11 +243,6 @@ testRule(rule, {
     },
     {
       code: `a {
-      @if ($x == 1) {
-
-      } @else {} @include x;
-    }`,
-      fixed: `a {
       @if ($x == 1) {
 
       } @else {} @include x;

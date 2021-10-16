@@ -1,13 +1,13 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // -------------------------------------------------------------------------
 // "always"
 // -------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -76,10 +76,11 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
   syntax: "html",
+  skip: true,
 
   accept: [
     {
@@ -112,10 +113,10 @@ a {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignore: ["stylelint-commands"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -136,10 +137,10 @@ testRule(rule, {
 // "never"
 // -------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -203,10 +204,11 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
   syntax: "html",
+  skip: true,
 
   accept: [
     {
@@ -236,10 +238,10 @@ a {} // comment
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never", { ignore: ["stylelint-commands"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [

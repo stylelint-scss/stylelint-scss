@@ -1,10 +1,10 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // Required ("always")
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -228,10 +228,10 @@ testRule(rule, {
 });
 
 // Not allowed ("never")
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -304,6 +304,7 @@ testRule(rule, {
         b { color: red; }
       }
     `,
+      message: messages.rejected,
       description:
         "Never. Example: math operation with a var (not the 1st operand) as a value."
     },
@@ -323,10 +324,10 @@ testRule(rule, {
 });
 
 // Required ("always"), ignore keywords
-testRule(rule, {
+testRule({
   ruleName,
   config: ["always", { ignore: "keywords" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -357,10 +358,10 @@ testRule(rule, {
 });
 
 // Invalid option (false)
-testRule(rule, {
+testRule({
   ruleName,
   config: [false],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

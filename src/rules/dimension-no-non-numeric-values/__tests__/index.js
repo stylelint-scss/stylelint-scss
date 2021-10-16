@@ -1,9 +1,9 @@
-import rule, { messages, ruleName, units } from "..";
+import { messages, ruleName, units } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   accept: loopOverUnits({
     code: `
     p {

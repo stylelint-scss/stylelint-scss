@@ -1,14 +1,9 @@
-import postcss from "postcss";
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
-}
-
-testRule(rule, {
+testRule({
   ruleName,
   config: [true],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -141,7 +136,7 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [
     true,
@@ -173,7 +168,8 @@ testRule(rule, {
     {
       code: "@unknown { @unknown-at-rule { font-size: 14px; } }",
       line: 1,
-      column: 12
+      column: 12,
+      message: messages.rejected("@unknown-at-rule")
     },
     {
       code: "@not-my-at-rule {}",
@@ -202,24 +198,27 @@ testRule(rule, {
   ]
 });
 
-test("One warning for each unknown at rule", done => {
-  expect.assertions(3);
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-  postcss([rule()])
-    .process("@foo { } @bar { }", { from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.rejected("@foo"));
-      expect(warnings[1].text).toBe(messages.rejected("@bar"));
-      done();
-    })
-    .catch(logError);
-});
-
-test("messages", () => {
-  expect(messages.rejected("@foo")).toBe(
-    'Unexpected unknown at-rule "@foo" (scss/at-rule-no-unknown)'
-  );
+  reject: [
+    {
+      code: "@foo { } @bar { }",
+      description: "Unexpected unknown at-rule",
+      warnings: [
+        {
+          line: 1,
+          column: 1,
+          message: messages.rejected("@foo")
+        },
+        {
+          line: 1,
+          column: 10,
+          message: messages.rejected("@bar")
+        }
+      ]
+    }
+  ]
 });

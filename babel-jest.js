@@ -82,34 +82,36 @@ const createTransformer = options => {
 
   return {
     canInstrument: true,
-    getCacheKey(fileData, filename, configString, _ref) {
-      const instrument = _ref.instrument;
+    getCacheKey(sourceText, sourcePath, transformOptions) {
+      const { configString, instrument } = transformOptions;
 
       return crypto
         .createHash("md5")
         .update(THIS_FILE)
         .update("\0", "utf8")
-        .update(fileData)
+        .update(sourceText)
         .update("\0", "utf8")
         .update(configString)
         .update("\0", "utf8")
-        .update(getBabelRC(filename))
+        .update(getBabelRC(sourcePath))
         .update("\0", "utf8")
         .update(instrument ? "instrument" : "")
         .digest("hex");
     },
-    process(src, filename, config, transformOptions) {
+    process(sourceText, sourcePath, transformOptions) {
+      const { config, instrument } = transformOptions;
+
       if (!babel) {
         babel = require("@babel/core");
       }
 
-      if (babel.util && !babel.util.canCompile(filename)) {
-        return src;
+      if (babel.util && !babel.util.canCompile(sourcePath)) {
+        return sourceText;
       }
 
-      const theseOptions = Object.assign({ filename }, options);
+      const theseOptions = Object.assign({ filename: sourcePath }, options);
 
-      if (transformOptions && transformOptions.instrument) {
+      if (typeof instrument !== "undefined" && instrument) {
         // theseOptions.auxiliaryCommentBefore = ' istanbul ignore next ';
         // Copied from jest-runtime transform.js
         theseOptions.plugins = theseOptions.plugins.concat([
@@ -124,7 +126,7 @@ const createTransformer = options => {
         ]);
       }
 
-      return babel.transform(src, theseOptions).code;
+      return babel.transform(sourceText, theseOptions).code;
     }
   };
 };

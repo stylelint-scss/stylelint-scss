@@ -1,20 +1,14 @@
-import postcss from "postcss";
-import scss from "postcss-scss";
-import rule, { messages, ruleName } from "..";
-
-function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
-}
+import { messages, ruleName } from "..";
 
 // ------------------------------------------------------------------------
 // Testing +
 // ------------------------------------------------------------------------
 
 // +, before a number (with or without a unit)
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -139,10 +133,10 @@ testRule(rule, {
 });
 
 // +, before an interpolation
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -193,10 +187,10 @@ testRule(rule, {
 });
 
 // +, before a variable
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -228,10 +222,10 @@ testRule(rule, {
 });
 
 // +, before a string
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -268,25 +262,28 @@ testRule(rule, {
     },
     {
       code: "a { c5: 1px +s.1px; }",
+      message: messages.expectedAfter("+"),
       description: "Op (1px + s). c5: 1px +s.1px."
     }
   ]
 });
 
 // +, before a color
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
     {
       code: "a { d2: #{$var} +#ffc; }",
+      message: messages.expectedAfter("+"),
       description: "Op (concatenates at least): #{$var} +#ffc."
     },
     {
       code: "a { d: 1 +#ffc; }",
+      message: messages.expectedAfter("+"),
       description: "Op: 1 +#ffc."
     },
     {
@@ -299,71 +296,86 @@ testRule(rule, {
 });
 
 // + after something
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
     {
       code: "a { plusafter1: 1+ 1; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1+ 1."
     },
     {
       code: "a { plusafter11: 1+ 1px; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1+ 1px."
     },
     {
       code: "a { plusafter12: 1+ px; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1+ px."
     },
     {
       code: "a { plusafter13: 1+ #0ff; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1+ #0ff."
     },
     {
       code: "a { plusafter14: 1+ $var; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1+ $var."
     },
     {
       code: "a { plusafter14: 1+ fn(); }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1+ fn()."
     },
     {
       code: "a { plusafter2: 1px+ 1; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1px+ 1."
     },
     {
       code: "a { plusafter21: 1px+ 1px; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1px+ 1px."
     },
     {
       code: "a { plusafter22: 1px+ px; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1px+ px."
     },
     {
       code: "a { plusafter24: 1px+ $var; }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1px+ $var."
     },
     {
       code: "a { plusafter14: 1px+ fn(); }",
+      message: messages.expectedBefore("+"),
       description: "Op: 1px+ fn()."
     },
     {
       code: "a { plusafter3: #0f0+ 1; }",
+      message: messages.expectedBefore("+"),
       description: "Op: #0f0+ 1."
     },
     {
       code: "a { plusafter22: #0f0+ px; }",
+      message: messages.expectedBefore("+"),
       description: "Op: #0f0+ px."
     },
     {
       code: "a { plusafter13: #0f0+ #0ff; }",
+      message: messages.expectedBefore("+"),
       description: "Op: #0f0+ #0ff."
     },
     {
       code: "a { plusafter24: #0f0+ $var1; }",
+      message: messages.expectedBefore("+"),
       description: "Op: #0f0+ $var1."
     },
     {
@@ -387,6 +399,7 @@ testRule(rule, {
     },
     {
       code: "a { plusafter24: #0f0+ #{$var}; }",
+      message: messages.expectedBefore("+"),
       description: "Op (since Sass 4): #0f0+ #{$var}."
     }
   ]
@@ -397,10 +410,10 @@ testRule(rule, {
 // ------------------------------------------------------------------------
 
 // - before a number/unit
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -472,10 +485,10 @@ testRule(rule, {
 });
 
 // - before an interpolation
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -535,10 +548,10 @@ testRule(rule, {
 });
 
 // - before a string
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -577,15 +590,16 @@ testRule(rule, {
 });
 
 // - before a variable
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
     {
       code: "a { b: 1 -$var; }",
+      message: messages.expectedAfter("-"),
       description: "Op: 1 -$var."
     },
     {
@@ -596,7 +610,8 @@ testRule(rule, {
     },
     {
       code: "a { b2: 1px -$var; }",
-      description: "Op: 1px -$var."
+      description: "Op: 1px -$var.",
+      message: messages.expectedAfter("-")
     },
     {
       code: "a { b21: 1px+ -$var; }",
@@ -634,10 +649,10 @@ testRule(rule, {
 });
 
 // - before a HEX-color
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -660,6 +675,7 @@ testRule(rule, {
     },
     {
       code: "a { d2: #ff4 -#ffc; }",
+      message: messages.expectedAfter("-"),
       description: "Op: #ff4 -#ffc."
     },
     {
@@ -672,43 +688,51 @@ testRule(rule, {
 });
 
 // - after a number
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
     {
       code: "a { minusafter1: 1- 1; }",
+      message: messages.expectedBefore("-"),
       description: "Op: 1- 1."
     },
     {
       code: "a { minusafter11: 1- 1px; }",
+      message: messages.expectedBefore("-"),
       description: "Op: 1- 1px."
     },
     {
       code: "a { minusafter110: (1- 1px); }",
+      message: messages.expectedBefore("-"),
       description: "Op: (1- 1px)."
     },
     {
       code: "a { minusafter12: 1- px; }",
+      message: messages.expectedBefore("-"),
       description: "Op (though concatenated): 1- px."
     },
     {
       code: "a { minusafter13: 1- #0ff; }",
+      message: messages.expectedBefore("-"),
       description: "Op (though concatenated): 1- #0ff."
     },
     {
       code: "a { minusafter15: 1- $var; }",
+      message: messages.expectedBefore("-"),
       description: "Op: 1- $var."
     },
     {
       code: "a { minusafter16: 1- fn(); }",
+      message: messages.expectedBefore("-"),
       description: "Op: 1- fn()."
     },
     {
       code: "a { minusafter15: 1- #{$var}; }",
+      message: messages.expectedBefore("-"),
       description: "Op (though concatenated): 1- #{$var}."
     },
     {
@@ -728,10 +752,10 @@ testRule(rule, {
 });
 
 // - after a value with a unit
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -775,27 +799,31 @@ testRule(rule, {
 });
 
 // - after a HEX color
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
     {
       code: "a { minusafter3: #0f0- 1; }",
+      message: messages.expectedBefore("-"),
       description: "Op: #0f0- 1."
     },
     {
       code: "a { minusafter22: #0f0- px; }",
+      message: messages.expectedBefore("-"),
       description: "Op (concat): #0f0- px."
     },
     {
       code: "a { minusafter13: #0f0- #0ff; }",
+      message: messages.expectedBefore("-"),
       description: "Op: #0f0- #0ff."
     },
     {
       code: "a { minusafter24: #0f0- $var1; }",
+      message: messages.expectedBefore("-"),
       description: "Op: #0f0- $var1."
     },
     {
@@ -808,10 +836,10 @@ testRule(rule, {
 });
 
 // - without spaces
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -865,10 +893,10 @@ testRule(rule, {
 });
 
 // - next to parens
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -890,10 +918,10 @@ testRule(rule, {
 });
 
 // Mixed cases
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -908,10 +936,10 @@ testRule(rule, {
 // Testing /
 // ------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1097,10 +1125,12 @@ testRule(rule, {
   reject: [
     {
       code: "a { slash10: (1px/ 1px); }",
+      message: messages.expectedBefore("/"),
       description: "Op: (1px/ 1px)."
     },
     {
       code: "a { slash12: 1px /$var; }",
+      message: messages.expectedAfter("/"),
       description: "Op: 1px /$var."
     },
     {
@@ -1183,10 +1213,10 @@ testRule(rule, {
 });
 
 // - next to parens
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1233,10 +1263,10 @@ testRule(rule, {
 
 // If the operand is not a number, still consider it an operation
 // e.g. `width: 7*st;` makes Sass throw an error
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1257,9 +1287,9 @@ testRule(rule, {
     {
       code: `
       .container {
-	      @at-root * {
-		      color: red;
-	      }
+        @at-root * {
+          color: red;
+        }
       }
       `,
       description: "ignores @at-root"
@@ -1312,10 +1342,10 @@ testRule(rule, {
 // Testing %
 // ------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1511,10 +1541,10 @@ testRule(rule, {
 // Inside strings, interpolations, newlines, etc.
 // ------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1535,6 +1565,7 @@ testRule(rule, {
   reject: [
     {
       code: 'a { width: "#{10 %1}"; }',
+      message: messages.expectedAfter("%"),
       description: 'Op (interpolation inside a string): "#{10 %1}".'
     }
   ]
@@ -1542,10 +1573,10 @@ testRule(rule, {
 
 // double -
 // In many cases these work as indended, but in general we send double signs packing
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1577,10 +1608,10 @@ testRule(rule, {
 });
 
 // Newlines, multiple spaces
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1641,6 +1672,7 @@ a;
           a+ 1;
       }
     `,
+      message: messages.expectedBefore("+"),
       description:
         "Operator-spaces-newline-indentation-operand and a breaching operator: 1 -  \\na+ 1.",
       line: 5,
@@ -1648,12 +1680,14 @@ a;
     },
     {
       code: "a { width: 1 -  1; }",
+      message: messages.expectedAfter("-"),
       description: "Two spaces after: 1 -  1.",
       line: 1,
       column: 14
     },
     {
       code: "a { width: 1  - 1; }",
+      message: messages.expectedBefore("-"),
       description: "Two spaces before: 1  - 1.",
       line: 1,
       column: 15
@@ -1666,10 +1700,10 @@ a;
 // ------------------------------------------------------------------------
 
 // Selectors, property names
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1743,10 +1777,10 @@ testRule(rule, {
 // Relational and equity operators
 // ------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   reject: [
@@ -1793,10 +1827,10 @@ testRule(rule, {
 // Interpolation inside comments
 // ------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -1840,403 +1874,634 @@ testRule(rule, {
   ]
 });
 
-// ------------------------------------------------------------------------
-// These register more than one warning.
-// ------------------------------------------------------------------------
+// Operations without whitespaces on any of the sides
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-// ---- just operations without whitespaces on any of the sides ----
-
-test("+ without whitespaces: `#{$var}+#ffc`.", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: #{$var}+#ffc; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
-      expect(warnings[0].column).toBe(19);
-      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
-      expect(warnings[1].column).toBe(19);
-    })
-    .catch(logError);
+  reject: [
+    {
+      code: "a { width: #{$var}+#ffc; }",
+      description: "+ without whitespaces: `#{$var}+#ffc`.",
+      warnings: [
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 1+1s; }",
+      description: "+ without whitespaces: `1+1s`.",
+      warnings: [
+        {
+          line: 1,
+          column: 13,
+          message: messages.expectedBefore("+")
+        },
+        {
+          line: 1,
+          column: 13,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 5px-3px; }",
+      description: "- without whitespaces: `5px-3px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: .1px-1px; }",
+      description: "- without whitespaces: `.1px-1px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: s.1px-1; }",
+      description: "- without whitespaces: `s.1px-1`.",
+      warnings: [
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: fn()-1; }",
+      description: "fn()-1",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: fn()/1; }",
+      description: "fn()/1",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("/")
+        }
+      ]
+    },
+    {
+      code: "a { width: $var==1; }",
+      description: "$var==1",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("==")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("==")
+        }
+      ]
+    },
+    {
+      code: "a { width: var==var; }",
+      description: "var==var",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("==")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("==")
+        }
+      ]
+    }
+  ]
 });
 
-test("+ without whitespaces: `1+1s`.", () => {
-  expect.assertions(5);
+// Equity operators
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-  return postcss([rule()])
-    .process("a { width: 1+1s; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
-      expect(warnings[0].column).toBe(13);
-      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
-      expect(warnings[1].column).toBe(13);
-    })
-    .catch(logError);
+  reject: [
+    {
+      code: "a { width: $var==1; }",
+      description: "$var==1",
+      warnings: [
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedBefore("==")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("==")
+        }
+      ]
+    },
+    {
+      code: "a { width: var==var; }",
+      description: "var==var",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("==")
+        },
+        {
+          line: 1,
+          column: 16,
+          message: messages.expectedAfter("==")
+        }
+      ]
+    }
+  ]
 });
 
-test("- without whitespaces: `5px-3px`.", () => {
-  expect.assertions(5);
+// Slash, another operation after
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-  return postcss([rule()])
-    .process("a { width: 5px-3px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
-      expect(warnings[0].column).toBe(15);
-      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
-      expect(warnings[1].column).toBe(15);
-    })
-    .catch(logError);
-});
-
-test("- without whitespaces: `.1px-1px`.", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: .1px-1px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
-      expect(warnings[0].column).toBe(16);
-      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
-      expect(warnings[1].column).toBe(16);
-    })
-    .catch(logError);
-});
-
-test("- without whitespaces: `s.1px-1`.", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: s.1px-1; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
-      expect(warnings[0].column).toBe(17);
-      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
-      expect(warnings[1].column).toBe(17);
-    })
-    .catch(logError);
-});
-
-test("fn()-1", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: fn()-1; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("-"));
-      expect(warnings[0].column).toBe(16);
-      expect(warnings[1].text).toBe(messages.expectedAfter("-"));
-      expect(warnings[1].column).toBe(16);
-    })
-    .catch(logError);
-});
-
-test("fn()/1", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: fn()/1; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("/"));
-      expect(warnings[0].column).toBe(16);
-      expect(warnings[1].text).toBe(messages.expectedAfter("/"));
-      expect(warnings[1].column).toBe(16);
-    })
-    .catch(logError);
-});
-
-// ---- Equity operators ----
-
-test("$var==1", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: $var==1; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("=="));
-      expect(warnings[0].column).toBe(16);
-      expect(warnings[1].text).toBe(messages.expectedAfter("=="));
-      expect(warnings[1].column).toBe(17);
-    })
-    .catch(logError);
-});
-
-test("var==var", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: var==var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("=="));
-      expect(warnings[0].column).toBe(15);
-      expect(warnings[1].text).toBe(messages.expectedAfter("=="));
-      expect(warnings[1].column).toBe(16);
-    })
-    .catch(logError);
-});
-
-// ---- Slash, another operation after ----
-
-test("8px/2px +$var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px +$var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-
-test("#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so it gives warnings).", () => {
-  expect.assertions(5);
-
-  return postcss([rule()])
-    .process("a { width: #{$var}+8px/2px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      expect(warnings[0].text).toBe(messages.expectedBefore("+"));
-      expect(warnings[0].column).toBe(19);
-      expect(warnings[1].text).toBe(messages.expectedAfter("+"));
-      expect(warnings[1].column).toBe(19);
-    })
-    .catch(logError);
-});
-test("8px/2px+ $var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px+ $var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px +fn()`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px +fn(); }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px+ fn()`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px+ fn(); }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px+ 5px`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px+ 5px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px+ 5`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px+ 5; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-
-test("8px/2px -$var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px -$var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2-$var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2-$var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("8px/2- $var`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2- $var; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2- 5px`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2- 5px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(3);
-    })
-    .catch(logError);
-});
-test("8px/2px-5px`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px-5px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("8px/2-5px`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2-5px; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("8px/2px-5`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2px-5; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("8px/2-5`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 8px/2-5; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
+  reject: [
+    {
+      code: "a { width: 8px/2px +$var; }",
+      description: "8px/2px +$var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 20,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: #{$var}+8px/2px; }",
+      description:
+        "#{$var}+8px/2px (+ is not math op, so isn't /. But + is concatenation, so it gives warnings).",
+      warnings: [
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px+ $var; }",
+      description: "8px/2px+ $var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px +fn(); }",
+      description: "8px/2px +fn()`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 20,
+          message: messages.expectedAfter("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px+ fn(); }",
+      description: "8px/2px+ fn()`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px+ 5px; }",
+      description: "8px/2px+ 5px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px+ 5; }",
+      description: "8px/2px+ 5`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("+")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px -$var; }",
+      description: "8px/2px -$var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 20,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2-$var; }",
+      description: "8px/2-$var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2- $var; }",
+      description: "8px/2- $var`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2- 5px; }",
+      description: "8px/2- 5px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px-5px; }",
+      description: "8px/2px-5px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2-5px; }",
+      description: "8px/2-5px`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2px-5; }",
+      description: "8px/2px-5`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    },
+    {
+      code: "a { width: 8px/2-5; }",
+      description: "8px/2-5`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("-")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("-")
+        }
+      ]
+    }
+  ]
 });
 
 // Slash, operation before
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
 
-test("5+8px/2`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 5+8px/2; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("5px*8px/2`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 5px*8px/2; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(4);
-    })
-    .catch(logError);
-});
-test("5px - 8px/2`.", () => {
-  expect.assertions(1);
-
-  return postcss([rule()])
-    .process("a { width: 5px - 8px/2; }", { syntax: scss, from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-    })
-    .catch(logError);
+  reject: [
+    {
+      code: "a { width: 5+8px/2; }",
+      description: "5+8px/2`.",
+      warnings: [
+        {
+          line: 1,
+          column: 13,
+          message: messages.expectedBefore("+")
+        },
+        {
+          line: 1,
+          column: 13,
+          message: messages.expectedAfter("+")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("/")
+        }
+      ]
+    },
+    {
+      code: "a { width: 5px*8px/2; }",
+      description: "5px*8px/2`.",
+      warnings: [
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedBefore("*")
+        },
+        {
+          line: 1,
+          column: 15,
+          message: messages.expectedAfter("*")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 19,
+          message: messages.expectedAfter("/")
+        }
+      ]
+    },
+    {
+      code: "a { width: 5px - 8px/2; }",
+      description: "5px - 8px/2`.",
+      warnings: [
+        {
+          line: 1,
+          column: 21,
+          message: messages.expectedBefore("/")
+        },
+        {
+          line: 1,
+          column: 21,
+          message: messages.expectedAfter("/")
+        }
+      ]
+    }
+  ]
 });
 
 // ------------------------------------------------------------------------
 // @media rules
 // ------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2340,10 +2605,10 @@ testRule(rule, {
 // Escaped characters
 // ------------------------------------------------------------------------
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2371,10 +2636,10 @@ testRule(rule, {
 });
 
 // Variables
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2418,10 +2683,10 @@ testRule(rule, {
 });
 
 // @function definitions
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [],
@@ -2461,10 +2726,10 @@ testRule(rule, {
 });
 
 // @function calls inside interpolation
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2473,22 +2738,22 @@ testRule(rule, {
       --my-var: #{scale-color(#fff, $lightness: -75%)};
     `,
       description:
-        "Function call in interpolation, negative unit value parameter: #{scale-color(#fff, $lightness: -75%)}",
+        "Function call in interpolation, negative unit value parameter: #{scale-color(#fff, $lightness: -75%)}"
     },
     {
       code: `
       --my-var: #{math.acos(-0.5)};
     `,
       description:
-        "Function call in interpolation, negative parameter: #{math.acos(-0.5)}",
+        "Function call in interpolation, negative parameter: #{math.acos(-0.5)}"
     },
     {
       code: `
       --my-var: #{math.acos(0.7 - 0.5)};
     `,
       description:
-        "Function call in interpolation, expression parameter: #{math.acos(0.7 - 0.5)}",
-    },
+        "Function call in interpolation, expression parameter: #{math.acos(0.7 - 0.5)}"
+    }
   ],
 
   reject: [
@@ -2498,18 +2763,27 @@ testRule(rule, {
     `,
       description:
         "Function call in interpolation, expression parameter: #{math.acos(0.7-0.5)}",
-      message: messages.expectedBefore("-"),
-      line: 2,
-      column: 32
-    },
+      warnings: [
+        {
+          message: messages.expectedBefore("-"),
+          line: 2,
+          column: 32
+        },
+        {
+          message: messages.expectedAfter("-"),
+          line: 2,
+          column: 32
+        }
+      ]
+    }
   ]
 });
 
 // @import
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -2551,11 +2825,12 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   syntax: "html",
   skipBasicChecks: true,
+  skip: true,
 
   accept: [
     {
@@ -2584,7 +2859,7 @@ a {
 }
 </style>
 `,
-      message: messages.rejected,
+      message: messages.expectedAfter("+"),
       line: 7,
       column: 12
     }

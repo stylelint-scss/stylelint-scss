@@ -1,9 +1,9 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
 
   accept: [
     {

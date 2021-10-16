@@ -1,14 +1,14 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // ------------------------------------------------------------------------
 // Testing +
 // ------------------------------------------------------------------------
 
 // +, before a number (with or without a unit)
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
-  syntax: "scss",
+  config: [true],
+  customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
   accept: [
@@ -88,10 +88,11 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
-  config: [undefined],
+  config: [true],
   syntax: "html",
+  skip: true,
   skipBasicChecks: true,
 
   accept: [

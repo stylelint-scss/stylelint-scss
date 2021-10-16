@@ -1,10 +1,10 @@
-import rule, { messages, ruleName } from "..";
+import { messages, ruleName } from "..";
 
 // always-intermediate
-testRule(rule, {
+testRule({
   ruleName,
   config: [true],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
@@ -55,6 +55,7 @@ testRule(rule, {
         "does not accept variables representing strings that are quoted.",
       line: 4,
       column: 24,
+      message: messages.rejected,
       fixed: `
         $font: "Helvetica";
         p {

@@ -1,9 +1,9 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -164,9 +164,18 @@ testRule(rule, {
       $a: 2;
       $a: 1;
     `,
-      line: 3,
-      column: 7,
-      message: messages.rejected("$a"),
+      warnings: [
+        {
+          line: 3,
+          column: 7,
+          message: messages.rejected("$a")
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.rejected("$a")
+        }
+      ],
       description: "Three dollar variables with the same name."
     },
     {
@@ -360,10 +369,10 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true, { ignoreInside: "at-rule" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -504,9 +513,18 @@ testRule(rule, {
         }
       }
     `,
-      line: 6,
-      column: 9,
-      message: messages.rejected("$b"),
+      warnings: [
+        {
+          line: 6,
+          column: 9,
+          message: messages.rejected("$b")
+        },
+        {
+          line: 8,
+          column: 11,
+          message: messages.rejected("$a")
+        }
+      ],
       description:
         "Should warn for a var inside the selector, but not for nested one."
     },
@@ -535,9 +553,18 @@ testRule(rule, {
       $a: 2;
       $a: 1;
     `,
-      line: 3,
-      column: 7,
-      message: messages.rejected("$a"),
+      warnings: [
+        {
+          line: 3,
+          column: 7,
+          message: messages.rejected("$a")
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.rejected("$a")
+        }
+      ],
       description: "Three dollar variables with the same name."
     },
     {
@@ -588,10 +615,10 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true, { ignoreInside: "nested-at-rule" }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -723,9 +750,18 @@ testRule(rule, {
         }
       }
     `,
-      line: 6,
-      column: 9,
-      message: messages.rejected("$b"),
+      warnings: [
+        {
+          line: 6,
+          column: 9,
+          message: messages.rejected("$b")
+        },
+        {
+          line: 8,
+          column: 11,
+          message: messages.rejected("$a")
+        }
+      ],
       description:
         "Should warn for a var inside the selector, but not for nested one."
     },
@@ -754,9 +790,18 @@ testRule(rule, {
       $a: 2;
       $a: 1;
     `,
-      line: 3,
-      column: 7,
-      message: messages.rejected("$a"),
+      warnings: [
+        {
+          line: 3,
+          column: 7,
+          message: messages.rejected("$a")
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.rejected("$a")
+        }
+      ],
       description: "Three dollar variables with the same name."
     },
     {
@@ -819,10 +864,10 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true, { ignoreInsideAtRules: ["if", "mixin"] }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -958,9 +1003,18 @@ testRule(rule, {
       $a: 2;
       $a: 1;
     `,
-      line: 3,
-      column: 7,
-      message: messages.rejected("$a"),
+      warnings: [
+        {
+          line: 3,
+          column: 7,
+          message: messages.rejected("$a")
+        },
+        {
+          line: 4,
+          column: 7,
+          message: messages.rejected("$a")
+        }
+      ],
       description: "Three dollar variables with the same name."
     },
     {
@@ -1026,10 +1080,10 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true, { ignoreDefaults: false }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -1077,10 +1131,10 @@ testRule(rule, {
   ]
 });
 
-testRule(rule, {
+testRule({
   ruleName,
   config: [true, { ignoreDefaults: true }],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
 
   accept: [
     {

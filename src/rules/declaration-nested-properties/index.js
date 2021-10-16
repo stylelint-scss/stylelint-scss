@@ -71,10 +71,10 @@ export default function(expectation, options) {
           }
 
           // Nested props, `prop: [value] { <nested decls> }`
-          if (type === "rule") {
+          if (type === "rule" || (type === "decl" && decl.isNested)) {
             // `background:red {` - selector;
             // `background: red {` - nested prop; space is decisive here
-            const testForProp = parseNestedPropRoot(selector);
+            const testForProp = parseNestedPropRoot(selector || decl.toString());
 
             if (testForProp && testForProp.propName !== undefined) {
               const ns = testForProp.propName.value;

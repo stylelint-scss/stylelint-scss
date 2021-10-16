@@ -1,10 +1,10 @@
-import rule, { ruleName, messages } from "..";
+import { ruleName, messages } from "..";
 
 // always-intermediate
-testRule(rule, {
+testRule({
   ruleName,
   config: ["never"],
-  syntax: "scss",
+  customSyntax: "postcss-scss",
   fix: true,
 
   accept: [
