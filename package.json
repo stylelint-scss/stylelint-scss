@@ -1,6 +1,6 @@
 {
   "name": "stylelint-scss",
-  "description": "A collection of SCSS specific rules for stylelint",
+  "description": "A collection of SCSS specific rules for Stylelint",
   "version": "4.0.0-2",
   "author": "Krister Kari",
   "babel": {
@@ -35,10 +35,10 @@
     "postcss-scss": "^4.0.1",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
-    "stylelint": "^14.0.0-0"
+    "stylelint": "^14.0.0"
   },
   "peerDependencies": {
-    "stylelint": "14.0.0-0"
+    "stylelint": "14.0.0"
   },
   "eslintConfig": {
     "extends": [
