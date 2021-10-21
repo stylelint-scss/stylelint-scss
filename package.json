@@ -141,7 +141,7 @@
     "prettify": "prettier --write \"src/**/*.js\"",
     "prepublishOnly": "npm run build",
     "pretest": "npm run lint",
-    "release": "npmpub",
+    "release": "np",
     "jest": "jest",
     "test": "npm run jest -- --coverage",
     "watch": "npm run jest -- --watch",
