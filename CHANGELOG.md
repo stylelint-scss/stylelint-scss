@@ -1,3 +1,8 @@
+# 4.0.0
+
+- Removed: `stylelint@13` support.
+- Added: `stylelint@14` support.
+
 # 3.21.0
 
 - Changed: `no-global-function-names` handle interpolated values and add mappings for color functions.

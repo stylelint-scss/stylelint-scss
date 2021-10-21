@@ -1,16 +1,16 @@
 # stylelint-scss
 
 [![NPM version](https://img.shields.io/npm/v/stylelint-scss.svg)](https://www.npmjs.com/package/stylelint-scss)
-[![Build Status](https://github.com/kristerkari/stylelint-scss/workflows/Tests/badge.svg)](https://github.com/kristerkari/stylelint-scss/actions?workflow=Tests)
-[![Coverage Status](https://img.shields.io/coveralls/github/kristerkari/stylelint-scss/master.svg)](https://coveralls.io/github/kristerkari/stylelint-scss?branch=master)
+[![Build Status](https://github.com/stylelint-scss/stylelint-scss/workflows/Tests/badge.svg)](https://github.com/stylelint-scss/stylelint-scss/actions?workflow=Tests)
+[![Coverage Status](https://img.shields.io/coveralls/github/stylelint-scss/stylelint-scss/master.svg)](https://coveralls.io/github/stylelint-scss/stylelint-scss?branch=master)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 [![Downloads per month](https://img.shields.io/npm/dm/stylelint-scss.svg)](https://npmcharts.com/compare/stylelint-scss)
 
-A collection of SCSS specific linting rules for [stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
+A collection of SCSS specific linting rules for [Stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
 
 ## Purpose
 
-stylelint by itself supports [SCSS syntax](https://stylelint.io/user-guide/css-processors#parsing-non-standard-syntax) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](https://stylelint.io/user-guide/rules/max-nesting-depth), control the way [`@-rules`](https://stylelint.io/user-guide/rules#at-rule) are written. Yet stylelint is in general focused on standard CSS.
+Stylelint by itself supports [SCSS syntax](https://stylelint.io/user-guide/css-processors#parsing-non-standard-syntax) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](https://stylelint.io/user-guide/rules/max-nesting-depth), control the way [`@-rules`](https://stylelint.io/user-guide/rules#at-rule) are written. Yet stylelint is in general focused on standard CSS.
 
 stylelint-scss introduces rules specific to SCSS syntax. That said, the rules from this plugin can be used with other syntaxes, like Less or some PostCSS syntaxes. That's why the rules' names are not tied to SCSS only (`at-function-pattern` instead of `scss-function-pattern`).
 
@@ -18,9 +18,9 @@ The plugin follows stylelint's guidelines (about [rule names](https://stylelint.
 
 ## Installation and usage
 
-stylelint-scss is a plugin for [stylelint](https://stylelint.io/user-guide/get-started), so it's meant to be used with it.
+This plugin is used in the [stylelint-config-standard-scss shared config](https://github.com/stylelint-scss/stylelint-config-standard-scss). We recommend using that shared config, rather than installing this plugin directly.
 
-First, install stylelint-scss (and stylelint, if you haven't done so yet) via NPM:
+However, the plugin can still be used in you're crafting a config from the ground up. First, install stylelint-scss (and stylelint, if you haven't done so yet) via NPM:
 
 ```
 npm install stylelint stylelint-scss
@@ -186,7 +186,7 @@ There work on the plugin's rules is still in progress, so if you feel like it, y
 - Contribute to [stylelint](https://github.com/stylelint/stylelint)
 - Spread the word.
 
-We communicate via [issues](https://github.com/kristerkari/stylelint-scss/issues) and [pull requests](https://github.com/kristerkari/stylelint-scss/pulls).
+We communicate via [issues](https://github.com/stylelint-scss/stylelint-scss/issues) and [pull requests](https://github.com/stylelint-scss/stylelint-scss/pulls).
 
 There is also [stackoverflow](https://stackoverflow.com/questions/tagged/stylelint), which would be the preferred QA forum.
 

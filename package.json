@@ -1,15 +1,12 @@
 {
   "name": "stylelint-scss",
-  "description": "A collection of SCSS specific rules for stylelint",
-  "version": "3.21.0",
+  "description": "A collection of SCSS specific rules for Stylelint",
+  "version": "4.0.0-2",
   "author": "Krister Kari",
   "babel": {
     "presets": [
       "@babel/env"
     ]
-  },
-  "bugs": {
-    "url": "https://github.com/kristerkari/stylelint-scss/issues"
   },
   "dependencies": {
     "lodash": "^4.17.15",
@@ -25,7 +22,6 @@
     "babel-plugin-istanbul": "^6.0.0",
     "babel-preset-jest": "^27.2.0",
     "eslint": "^6.8.0",
-    "eslint-config-stylelint": "^11.1.0",
     "eslint-plugin-lodash": "^7.3.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^4.2.5",
@@ -33,24 +29,20 @@
     "jest-cli": "^27.2.2",
     "jest-preset-stylelint": "^4.1.1",
     "lint-staged": "^10.2.2",
-    "npmpub": "^5.0.0",
+    "np": "^7.5.0",
     "postcss": "^8.3.8",
     "postcss-less": "^5.0.0",
     "postcss-scss": "^4.0.1",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
-    "stylelint": "github:stylelint/stylelint#v14"
+    "stylelint": "^14.0.0"
   },
   "peerDependencies": {
     "stylelint": "^14.0.0"
   },
-  "engines": {
-    "node": ">=8"
-  },
   "eslintConfig": {
     "extends": [
-      "eslint:recommended",
-      "stylelint"
+      "eslint:recommended"
     ],
     "parserOptions": {
       "sourceType": "module",
@@ -73,7 +65,6 @@
         "error",
         "nofunc"
       ],
-      "sort-requires/sort-requires": "error",
       "strict": [
         "error",
         "global"
@@ -90,16 +81,7 @@
       "lodash/no-extra-args": "error",
       "lodash/no-unbound-this": "error",
       "lodash/unwrap": "error",
-      "lodash/preferred-alias": "error",
-      "node/no-unsupported-features/es-syntax": [
-        "error",
-        {
-          "version": ">=8.0.0",
-          "ignores": [
-            "modules"
-          ]
-        }
-      ]
+      "lodash/preferred-alias": "error"
     }
   },
   "files": [
@@ -108,7 +90,6 @@
     "src/**/README.md",
     "!**/__tests__"
   ],
-  "homepage": "https://github.com/kristerkari/stylelint-scss#readme",
   "keywords": [
     "css",
     "csslint",
@@ -119,10 +100,7 @@
   ],
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kristerkari/stylelint-scss.git"
-  },
+  "repository": "stylelint-scss/stylelint-scss",
   "jest": {
     "preset": "jest-preset-stylelint",
     "clearMocks": true,
