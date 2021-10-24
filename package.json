@@ -85,10 +85,8 @@
     }
   },
   "files": [
-    "dist",
-    "docs",
-    "src/**/README.md",
-    "!**/__tests__"
+    "dist/**/*.js",
+    "!**/__tests__/**"
   ],
   "keywords": [
     "css",
