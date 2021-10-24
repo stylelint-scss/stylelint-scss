@@ -4,7 +4,6 @@ import {
   optionsHaveIgnored
 } from "../../utils";
 import { utils } from "stylelint";
-import { includes } from "lodash";
 
 export const ruleName = namespace("dollar-variable-first-in-block");
 
@@ -93,7 +92,7 @@ export default function(primary, options) {
             (allowComments && sibling.type === "comment") ||
             (allowImports &&
               sibling.type === "atrule" &&
-              includes(importAtRules, sibling.name))
+              importAtRules.includes(sibling.name))
           )
         ) {
           precededOnlyByAllowed = false;
