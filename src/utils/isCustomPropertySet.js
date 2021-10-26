@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import delve from "dlv";
 
 /**
  * Check whether a Node is a custom property set
@@ -7,8 +7,8 @@ import { get } from "lodash";
  * @returns {boolean}
  */
 export default function (node) {
-  const prop = get(node, "raws.prop.raw", node.prop);
-  const value = get(node, "raws.value.raw", node.value);
+  const prop = delve(node, "raws.prop.raw", node.prop);
+  const value = delve(node, "raws.value.raw", node.value);
 
   return (
     node.type === "decl" &&
