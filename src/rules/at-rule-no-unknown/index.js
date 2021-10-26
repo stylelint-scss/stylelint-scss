@@ -1,6 +1,5 @@
-import { isRegExp, isString } from "lodash";
 import { rules, utils } from "stylelint";
-import { namespace, ruleUrl } from "../../utils";
+import { isRegExp, isString, namespace, ruleUrl } from "../../utils";
 
 const sassAtRules = [
   "at-root",

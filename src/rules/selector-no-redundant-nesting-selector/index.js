@@ -1,11 +1,12 @@
 import { utils } from "stylelint";
 import optionsMatches from "stylelint/lib/utils/optionsMatches";
-import { isString, isRegExp } from "lodash";
 import {
+  hasNestedSibling,
+  isRegExp,
+  isString,
+  isType,
   namespace,
   parseSelector,
-  hasNestedSibling,
-  isType,
   ruleUrl
 } from "../../utils";
 

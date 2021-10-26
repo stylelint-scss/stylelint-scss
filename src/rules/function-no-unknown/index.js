@@ -1,7 +1,12 @@
-import { isRegExp, isString } from "lodash";
-import { rules, utils } from "stylelint";
 import valueParser from "postcss-value-parser";
-import { namespace, ruleUrl, ALL_FUNCTIONS } from "../../utils";
+import { rules, utils } from "stylelint";
+import {
+  ALL_FUNCTIONS,
+  isRegExp,
+  isString,
+  namespace,
+  ruleUrl
+} from "../../utils";
 
 const ruleToCheckAgainst = "function-no-unknown";
 

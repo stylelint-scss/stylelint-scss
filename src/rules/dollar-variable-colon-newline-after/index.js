@@ -1,7 +1,7 @@
-import { isBoolean } from "lodash";
 import { utils } from "stylelint";
 import {
   declarationValueIndex,
+  isBoolean,
   isSingleLineString,
   namespace,
   ruleUrl,

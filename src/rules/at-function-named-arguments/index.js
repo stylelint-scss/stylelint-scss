@@ -1,8 +1,8 @@
-import { isString } from "lodash";
 import valueParser from "postcss-value-parser";
 import { utils } from "stylelint";
 import {
   isNativeCssFunction,
+  isString,
   namespace,
   optionsHaveIgnored,
   parseFunctionArguments,

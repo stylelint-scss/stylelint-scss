@@ -1,12 +1,13 @@
-import { isRegExp, isString } from "lodash";
 import resolveNestedSelector from "postcss-resolve-nested-selector";
 import { utils } from "stylelint";
 import {
   hasInterpolatingAmpersand,
+  isRegExp,
   isStandardRule,
   isStandardSelector,
-  parseSelector,
+  isString,
   namespace,
+  parseSelector,
   ruleUrl
 } from "../../utils";
 
