@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { isString, isFinite, isBoolean } from "lodash";
+import { isString, isBoolean } from "lodash";
 import { namespace } from "../../utils";
 
 export const ruleName = namespace("no-duplicate-dollar-variables");
@@ -86,7 +86,7 @@ export default function(value, secondaryOptions) {
      */
     function isDeclared(variableData, isDefault, ignoreDefaults) {
       if (isDefault) {
-        if (isFinite(ignoreDefaults)) {
+        if (Number.isFinite(ignoreDefaults)) {
           return variableData.defaultCount >= ignoreDefaults;
         } else if (ignoreDefaults) {
           return false;
