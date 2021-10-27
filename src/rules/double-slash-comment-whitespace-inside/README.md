@@ -11,7 +11,7 @@ a {
 
 This rule only works with SCSS-like [single-line comments](https://sass-lang.com/documentation/syntax/comments) and ignores CSS comments (`/* */`).
 
-Any number of slases are allowed at the beginning of the comment. So `/// comment` is treated the same way as `// comment`.
+Any number of slashes are allowed at the beginning of the comment. So `/// comment` is treated the same way as `// comment`.
 
 Note that a newline is not possible as a whitespace in terms of this rule as `//`-comments are intended to be single-line.
 
