@@ -104,8 +104,7 @@
     "clearMocks": true,
     "collectCoverage": false,
     "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/testUtils/*.js"
+      "src/**/*.js"
     ],
     "coverageDirectory": "./.coverage/",
     "coverageReporters": [
