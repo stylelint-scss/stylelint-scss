@@ -39,8 +39,6 @@ const rules = {
   ceil: "math",
   floor: "math",
   abs: "math",
-  min: "math",
-  max: "math",
   random: "math",
   unit: "math",
   unitless: "math",
