@@ -74,7 +74,6 @@ const rules = {
   darken: "color",
   desaturate: "color",
   opacify: "color",
-  saturate: "color",
   transparentize: "color"
 };
 
