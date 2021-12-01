@@ -13,7 +13,7 @@ There work on the plugin's rules is still in progress, so if you feel like it, y
 * Contribute to [stylelint](https://github.com/stylelint/stylelint)
 * Spread the word.
 
-We communicate via [issues](https://github.com/kristerkari/stylelint-scss/issues) and [pull requests](https://github.com/kristerkari/stylelint-scss/pulls).
+We communicate via [issues](https://github.com/stylelint-scss/stylelint-scss/issues) and [pull requests](https://github.com/stylelint-scss/stylelint-scss/pulls).
 
 ## Links
 
