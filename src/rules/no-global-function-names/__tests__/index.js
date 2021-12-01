@@ -56,6 +56,14 @@ testRule({
     },
     {
       code: `
+      a {
+       filter: invert(1);
+      }
+    `,
+      description: "An allowed global function"
+    },
+    {
+      code: `
       @use "sass:color";
       a {
        background: color.red(#6b717f);

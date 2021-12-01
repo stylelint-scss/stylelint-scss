@@ -13,7 +13,6 @@ const rules = {
   saturation: "color",
   lightness: "color",
   complement: "color",
-  invert: "color",
   alpha: "color",
   "adjust-color": "color",
   "scale-color": "color",
