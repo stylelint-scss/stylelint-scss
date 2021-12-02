@@ -13,8 +13,6 @@ const rules = {
   saturation: "color",
   lightness: "color",
   complement: "color",
-  invert: "color",
-  alpha: "color",
   "adjust-color": "color",
   "scale-color": "color",
   "change-color": "color",
@@ -39,8 +37,6 @@ const rules = {
   ceil: "math",
   floor: "math",
   abs: "math",
-  min: "math",
-  max: "math",
   random: "math",
   unit: "math",
   unitless: "math",
@@ -77,7 +73,6 @@ const rules = {
   darken: "color",
   desaturate: "color",
   opacify: "color",
-  saturate: "color",
   transparentize: "color"
 };
 

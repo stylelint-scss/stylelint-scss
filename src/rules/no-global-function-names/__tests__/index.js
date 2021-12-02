@@ -40,6 +40,46 @@ testRule({
     },
     {
       code: `
+      a {
+       min-width: min(30vw, 300px);
+      }
+    `,
+      description: "An allowed global function"
+    },
+    {
+      code: `
+      a {
+       min-width: max(30vw, 300px);
+      }
+    `,
+      description: "An allowed global function"
+    },
+    {
+      code: `
+      a {
+       filter: invert(1);
+      }
+    `,
+      description: "An allowed global function"
+    },
+    {
+      code: `
+      a {
+       filter: saturate(140%);
+      }
+    `,
+      description: "An allowed global function"
+    },
+    {
+      code: `
+      a {
+       filter: alpha(opacity=50);
+      }
+    `,
+      description: "An allowed global function"
+    },
+    {
+      code: `
       @use "sass:color";
       a {
        background: color.red(#6b717f);
@@ -328,17 +368,6 @@ testRule({
       column: 21,
       message: messages.rejected("lightness"),
       description: "lightness"
-    },
-    {
-      code: `
-      a {
-        background: alpha(#6b717f);
-      }
-    `,
-      line: 3,
-      column: 21,
-      message: messages.rejected("alpha"),
-      description: "alpha"
     },
     {
       code: `
