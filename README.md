@@ -56,7 +56,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `@`-each
 
-- [`at-each-key-value-single-line`](./src/rules/at-each-key-value-single-line/README.md): This is a rule that checks for situations where users have done a loop using map-keys and grabbed the value for that key inside of the loop.
+- [`at-each-key-value-single-line`](./src/rules/at-each-key-value-single-line/README.md): This is a rule that checks for situations where users have done a loop using map-keys or map.keys and grabbed the value for that key inside of the loop.
 
 ### `@`-else
 
