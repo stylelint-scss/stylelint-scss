@@ -147,6 +147,8 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     return results;
   }
 
+  const dataURIRegex = /^url\(\s*['"]?data:.+;base64,.+['"]?\s*\)$/;
+
   root.walk(item => {
     if (item.prop === "unicode-range") {
       return;
@@ -156,6 +158,9 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
 
     // Check a value (`10px` in `width: 10px;`)
     if (item.value !== undefined) {
+      if (dataURIRegex.test(item.value)) {
+        return results;
+      }
       results.push({
         source: item.value,
         operators: findOperators({
