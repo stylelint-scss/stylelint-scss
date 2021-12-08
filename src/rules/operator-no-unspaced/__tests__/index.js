@@ -42,6 +42,19 @@ testRule({
     },
     {
       code: `
+      @mixin test {
+        @for $i from 0 through 10 {
+          &:nth-child(#{$i + 1}) {
+            top: #{$i * -10}px;
+            transform: scale(#{(10 - $i) * 0.1}) !important;
+          }
+        }
+      }
+      `,
+      description: "issue #561"
+    },
+    {
+      code: `
       @font-face {
         font-family: 'Ampersand';
         src: local('Times New Roman');
