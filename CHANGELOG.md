@@ -1,3 +1,10 @@
+# 4.0.1
+
+- Fixed: `operator-no-unspaced` false positive when using a loop (#575).
+- Fixed: `operator-no-unspaced` don't check operators from data URIs (#574).
+- Updated: `parseSelector` function to match the one in stylelint repo (#567).
+- Fixed: `no-global-function-names` removed checks functions that cause warnings for global CSS functions (min, max, filter) (#566).
+
 # 4.0.0
 
 - Removed: `stylelint@13` support.
