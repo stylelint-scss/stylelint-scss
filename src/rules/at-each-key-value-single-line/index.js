@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace, moduleNamespace } from "../../utils";
+import { moduleNamespace, namespace } from "../../utils";
 
 export const ruleName = namespace("at-each-key-value-single-line");
 
@@ -77,13 +77,17 @@ function separateEachParams(paramString) {
 }
 
 function didCallMapKeys(mapDecl, mapNamespace) {
-  const pattern = getNamespacedPattern("keys\\(.*\\)", mapNamespace);
+  const pattern = getNamespacedPattern("keys\\(.*\\)", mapNamespace, mapDecl);
 
   return new RegExp(pattern).test(mapDecl);
 }
 
 function didCallMapGet(mapDecl, mapNamespace) {
-  const pattern = getNamespacedPattern("get\\((.*),(.*)\\)", mapNamespace);
+  const pattern = getNamespacedPattern(
+    "get\\((.*),(.*)\\)",
+    mapNamespace,
+    mapDecl
+  );
 
   return new RegExp(pattern).test(mapDecl);
 }
@@ -91,7 +95,11 @@ function didCallMapGet(mapDecl, mapNamespace) {
 // Fetch the name of the map from a map-keys() or map.keys() call.
 function mapName(mapDecl, mapNamespace) {
   if (didCallMapKeys(mapDecl, mapNamespace)) {
-    const pattern = getNamespacedPattern("keys\\((.*)\\)", mapNamespace);
+    const pattern = getNamespacedPattern(
+      "keys\\((.*)\\)",
+      mapNamespace,
+      mapDecl
+    );
 
     return mapDecl.match(new RegExp(pattern))[1];
   }
@@ -102,19 +110,26 @@ function mapName(mapDecl, mapNamespace) {
 // Returns the parameters of a map-get or map.get call
 // Returns [map variable, key_variable]
 function mapGetParameters(mapGetDecl, mapNamespace) {
-  const pattern = getNamespacedPattern("get\\((.*), ?(.*)\\)", mapNamespace);
+  const pattern = getNamespacedPattern(
+    "get\\((.*), ?(.*)\\)",
+    mapNamespace,
+    mapGetDecl
+  );
   const parts = mapGetDecl.match(new RegExp(pattern));
 
   return [parts[1], parts[2]];
 }
 
-function getNamespacedPattern(pattern, mapNamespace) {
-  switch (mapNamespace) {
-    case "*":
-      return pattern;
-    case null:
-      return `map[-.]${pattern}`;
+function getNamespacedPattern(pattern, namespace, decl) {
+  if (namespace === null) {
+    return `map[-.]${pattern}`;
   }
 
-  return `${mapNamespace}[-.]${pattern}`;
+  if (namespace === "*") {
+    return pattern;
+  }
+
+  return new RegExp(`${namespace}.${pattern}`).test(decl)
+    ? `${namespace}.${pattern}`
+    : `map-${pattern}`;
 }
