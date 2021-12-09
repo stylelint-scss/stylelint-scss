@@ -32,7 +32,10 @@ export function moduleNamespace(root, module) {
       return;
     }
 
-    moduleNamespace = parts[1].trim();
+    moduleNamespace = parts[1]
+      .trim()
+      .split(" ")[0]
+      .trim();
   });
 
   return moduleNamespace;
