@@ -1,3 +1,9 @@
+# 4.1.0
+
+- Added: `at-use-no-unnamespaced` rule (#569).
+- Added: `dollar-variable-no-namespaced-assignment` rule (#570).
+- Changed: `at-each-key-value-single-line` add support for Sass modules (#580).
+
 # 4.0.1
 
 - Fixed: `operator-no-unspaced` false positive when using a loop (#575).
