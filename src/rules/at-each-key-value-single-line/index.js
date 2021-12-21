@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { moduleNamespace, namespace } from "../../utils";
 
 export const ruleName = namespace("at-each-key-value-single-line");
 
@@ -18,6 +18,8 @@ export default function(primary) {
       return;
     }
 
+    const mapNamespace = moduleNamespace(root, "sass:map");
+
     root.walkAtRules("each", rule => {
       const parts = separateEachParams(rule.params);
 
@@ -27,7 +29,7 @@ export default function(primary) {
       }
 
       // If didn't call map-keys, return.
-      if (!didCallMapKeys(parts[1])) {
+      if (!didCallMapKeys(parts[1], mapNamespace)) {
         return;
       }
 
@@ -38,15 +40,15 @@ export default function(primary) {
           return;
         }
 
-        if (!didCallMapGet(innerDecl.value)) {
+        if (!didCallMapGet(innerDecl.value, mapNamespace)) {
           return;
         }
 
         // Check map_name + key_name match.
-        const map_get_parts = mapGetParameters(innerDecl.value);
+        const map_get_parts = mapGetParameters(innerDecl.value, mapNamespace);
 
         // Check map names match.
-        if (map_get_parts[0] !== mapName(parts[1])) {
+        if (map_get_parts[0] !== mapName(parts[1], mapNamespace)) {
           return;
         }
 
@@ -74,27 +76,38 @@ function separateEachParams(paramString) {
   return [parts[0].split(",").map(s => s.trim()), parts[1].trim()];
 }
 
-function didCallMapKeys(map_decl) {
-  return map_decl.match(/map-keys\(.*\)/);
+function didCallMapKeys(mapDecl, mapNamespace) {
+  const pattern = getNamespacedPattern("keys\\(.*\\)", mapNamespace);
+
+  return new RegExp(pattern).test(mapDecl);
 }
 
-function didCallMapGet(map_decl) {
-  return map_decl.match(/map-get\((.*),(.*)\)/);
+function didCallMapGet(mapDecl, mapNamespace) {
+  const pattern = getNamespacedPattern("get\\((.*),(.*)\\)", mapNamespace);
+
+  return new RegExp(pattern).test(mapDecl);
 }
 
-// Fetch the name of the map from a map-keys() call.
-function mapName(map_decl) {
-  if (didCallMapKeys(map_decl)) {
-    return map_decl.match(/map-keys\((.*)\)/)[1];
-  } else {
-    return map_decl;
+// Fetch the name of the map from a map-keys() or map.keys() call.
+function mapName(mapDecl, mapNamespace) {
+  if (didCallMapKeys(mapDecl, mapNamespace)) {
+    const pattern = getNamespacedPattern("keys\\((.*)\\)", mapNamespace);
+
+    return mapDecl.match(new RegExp(pattern))[1];
   }
+
+  return mapDecl;
 }
 
-// Returns the parameters of a map-get call
+// Returns the parameters of a map-get or map.get call
 // Returns [map variable, key_variable]
-function mapGetParameters(mapGetDecl) {
-  const parts = mapGetDecl.match(/map-get\((.*), ?(.*)\)/);
+function mapGetParameters(mapGetDecl, mapNamespace) {
+  const pattern = getNamespacedPattern("get\\((.*), ?(.*)\\)", mapNamespace);
+  const parts = mapGetDecl.match(new RegExp(pattern));
 
   return [parts[1], parts[2]];
+}
+
+function getNamespacedPattern(pattern, namespace) {
+  return namespace !== null ? `(?:${namespace}\\.|map-)${pattern}` : pattern;
 }

@@ -36,6 +36,19 @@ $font-weights: (
 }
 ```
 
+```scss
+@use 'sass:map';
+
+$font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "bold": 700
+);
+@each $key in map.keys($font-weights) {
+  $value: map.get($font-weights, $key);
+}
+```
+
 The following patterns are _not_ considered violations:
 
 ```scss
@@ -61,7 +74,32 @@ $other-weights: (
 ```
 
 ```scss
-$font-weights: ("regular": 400, "medium": 500, "bold": 700);
+@use 'sass:map';
 
+$font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "bold": 700
+);
+$other-weights: (
+  "regular": 400,
+  "medium": 500,
+  "bold": 700
+);
+
+@each $key, $value in map.keys($font-weights) {
+  $value: map.get($other-weights, $key);
+}
+```
+
+```scss
+$font-weights: ("regular": 400, "medium": 500, "bold": 700);
 @each $key, $value in map-keys($font-weights) {...}
+```
+
+```scss
+@use 'sass:map';
+
+$font-weights: ("regular": 400, "medium": 500, "bold": 700);
+@each $key, $value in map.keys($font-weights) {...}
 ```

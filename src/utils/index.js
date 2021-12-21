@@ -29,3 +29,4 @@ export { default as findOperators } from "./sassValueParser";
 export { default as whitespaceChecker } from "./whitespaceChecker";
 export { default as hasNestedSibling } from "./hasNestedSibling";
 export { default as isType } from "./isType";
+export { moduleNamespace } from "./moduleNamespace";
