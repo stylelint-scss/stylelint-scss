@@ -100,6 +100,10 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`at-rule-conditional-no-parentheses`](./src/rules/at-rule-conditional-no-parentheses/README.md): Disallow parentheses in conditional @ rules (if, elsif, while) (Autofixable).
 - [`at-rule-no-unknown`](./src/rules/at-rule-no-unknown/README.md): Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown).
 
+### `@`-use
+
+- [`at-use-no-unnamespaced`](./src/rules/at-use-no-unnamespaced/README.md): Disallow `@use` without a namespace (i.e. `@use "..." as *`).
+
 ### `$`-variable
 
 - [`dollar-variable-colon-newline-after`](./src/rules/dollar-variable-colon-newline-after/README.md): Require a newline after the colon in `$`-variable declarations (Autofixable).
