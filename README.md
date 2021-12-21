@@ -114,6 +114,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`dollar-variable-empty-line-before`](./src/rules/dollar-variable-empty-line-before/README.md): Require a single empty line or disallow empty lines before `$`-variable declarations (Autofixable).
 - [`dollar-variable-first-in-block`](./src/rules/dollar-variable-first-in-block/README.md): Require for variables to be put first in a block (a rule or in root).
 - [`dollar-variable-no-missing-interpolation`](./src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
+- [`dollar-variable-no-namespaced-assignment`](./src/rules/dollar-variable-no-namespaced-assignment/README.md): Disallow assignment to namespaced Sass variables.
 - [`dollar-variable-pattern`](./src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.
 
 ### `%`-placeholder
