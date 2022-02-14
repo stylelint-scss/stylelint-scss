@@ -110,11 +110,140 @@ export const MAP_FUNCTIONS = Object.freeze([
   "map.values"
 ]);
 
-// TODO: Add other functions...
+/**
+ * @see https://sass-lang.com/documentation/modules/math
+ */
+export const MATH_FUNCTIONS = Object.freeze([
+  "abs",
+  "ceil",
+  "comparable",
+  "floor",
+  "max",
+  "min",
+  "percentage",
+  "random",
+  "round",
+  "unit",
+  "unitless",
+
+  // with namespace
+  "math.abs",
+  "math.acos",
+  "math.asin",
+  "math.atan",
+  "math.atan2",
+  "math.ceil",
+  "math.clamp",
+  "math.compatible",
+  "math.cos",
+  "math.div",
+  "math.floor",
+  "math.hypot",
+  "math.is-unitless",
+  "math.log",
+  "math.max",
+  "math.min",
+  "math.percentage",
+  "math.pow",
+  "math.random",
+  "math.round",
+  "math.sin",
+  "math.sqrt",
+  "math.tan",
+  "math.unit"
+]);
+
+/**
+ * @see https://sass-lang.com/documentation/modules/meta
+ */
+export const META_FUNCTIONS = Object.freeze([
+  "call",
+  "content-exists",
+  "feature-exists",
+  "function-exists",
+  "get-function",
+  "global-variable-exists",
+  "inspect",
+  "keywords",
+  "mixin-exists",
+  "type-of",
+  "variable-exists",
+
+  // with namespace
+  "meta.calc-args",
+  "meta.calc-name",
+  "meta.call",
+  "meta.content-exists",
+  "meta.feature-exists",
+  "meta.function-exists",
+  "meta.get-function",
+  "meta.global-variable-exists",
+  "meta.inspect",
+  "meta.keywords",
+  "meta.mixin-exists",
+  "meta.module-functions",
+  "meta.module-variables",
+  "meta.type-of",
+  "meta.variable-exists"
+]);
+
+/**
+ * @see https://sass-lang.com/documentation/modules/selector
+ */
+export const SELECTOR_FUNCTIONS = Object.freeze([
+  "is-superselector",
+  "selector-append",
+  "selector-extend",
+  "selector-nest",
+  "selector-parse",
+  "selector-replace",
+  "selector-unify",
+  "simple-selectors",
+
+  // with namespace
+  "selector.append",
+  "selector.extend",
+  "selector.is-superselector",
+  "selector.nest",
+  "selector.parse",
+  "selector.replace",
+  "selector.simple-selectors",
+  "selector.unify"
+]);
+
+/**
+ * @see https://sass-lang.com/documentation/modules/string
+ */
+export const STRING_FUNCTIONS = Object.freeze([
+  "quote",
+  "str-index",
+  "str-insert",
+  "str-length",
+  "str-slice",
+  "to-lower-case",
+  "to-upper-case",
+  "unique-id",
+  "unquote",
+
+  // with namespace
+  "string.index",
+  "string.insert",
+  "string.length",
+  "string.quote",
+  "string.slice",
+  "string.to-lower-case",
+  "string.to-upper-case",
+  "string.unique-id",
+  "string.unquote"
+]);
 
 export const ALL_FUNCTIONS = Object.freeze([
   ...GLOBAL_FUNCTIONS,
   ...COLOR_FUNCTIONS,
   ...LIST_FUNCTIONS,
-  ...MAP_FUNCTIONS
+  ...MAP_FUNCTIONS,
+  ...MATH_FUNCTIONS,
+  ...META_FUNCTIONS,
+  ...SELECTOR_FUNCTIONS,
+  ...STRING_FUNCTIONS
 ]);
