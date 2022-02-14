@@ -40,6 +40,7 @@ import doubleSlashCommentEmptyLineBefore from "./double-slash-comment-empty-line
 import doubleSlashCommentInline from "./double-slash-comment-inline";
 import doubleSlashCommentWhitespaceInside from "./double-slash-comment-whitespace-inside";
 import functionColorRelative from "./function-color-relative";
+import functionNoUnknown from "./function-no-unknown";
 import functionNoQuotedStrings from "./function-quote-no-quoted-strings-inside";
 import functionNoUnquotedStrings from "./function-unquote-no-unquoted-strings-inside";
 import mapKeysQuotes from "./map-keys-quotes";
@@ -102,6 +103,7 @@ export default {
   "function-quote-no-quoted-strings-inside": functionNoQuotedStrings,
   "function-unquote-no-unquoted-strings-inside": functionNoUnquotedStrings,
   "function-color-relative": functionColorRelative,
+  "function-no-unknown": functionNoUnknown,
   "map-keys-quotes": mapKeysQuotes,
   "media-feature-value-dollar-variable": mediaFeatureValueDollarVariable,
   "no-dollar-variables": noDollarVariables,
