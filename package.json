@@ -35,10 +35,10 @@
     "postcss-scss": "^4.0.1",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
-    "stylelint": "^14.5.0"
+    "stylelint": "^14.5.1"
   },
   "peerDependencies": {
-    "stylelint": "^14.5.0"
+    "stylelint": "^14.5.1"
   },
   "eslintConfig": {
     "extends": [
