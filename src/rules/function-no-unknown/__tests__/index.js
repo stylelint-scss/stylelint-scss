@@ -7,10 +7,16 @@ testRule({
 
   accept: [
     {
-      code: "a { color: hsl(240 100% 50%); }"
+      code: "a { color: hwb(240 100% 50%); }",
+      description: "Normal CSS function"
     },
     {
-      code: "a { color: if(true, green, red); }"
+      code: "a { color: hsl(240 100% 50%); }",
+      description: "Function both in CSS and SCSS"
+    },
+    {
+      code: "a { color: if(true, green, red); }",
+      description: "SCSS function"
     },
     {
       code: "a { color: adjust-color(#6b717f, $red: 15); }"
