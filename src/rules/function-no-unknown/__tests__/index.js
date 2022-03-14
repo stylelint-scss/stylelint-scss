@@ -26,6 +26,12 @@ testRule({
       message: messages.rejected("unknown"),
       line: 1,
       column: 12
+    },
+    {
+      code: "a { color: color.unknown(#6b717f, $red: 15); }",
+      message: messages.rejected("color.unknown"),
+      line: 1,
+      column: 12
     }
   ]
 });
