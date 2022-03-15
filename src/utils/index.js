@@ -7,6 +7,7 @@ export { default as declarationValueIndex } from "./declarationValueIndex";
 // Todo should be deleted after upgrade `stylelint` to `10`
 export { default as eachRoot } from "./eachRoot";
 export { default as findCommentsInRaws } from "./findCommentsInRaws";
+export * from "./functions";
 export { default as hasBlock } from "./hasBlock";
 export { default as hasEmptyLine } from "./hasEmptyLine";
 export { default as hasInterpolatingAmpersand } from "./hasInterpolatingAmpersand";
