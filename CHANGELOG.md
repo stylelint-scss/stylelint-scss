@@ -1,3 +1,8 @@
+# 4.2.0
+
+- Added: `function-no-unknown` rule (#591).
+- Updated: `stylelint` peer dependency version to `^14.5.1` (required by the `function-no-unknown` rule).
+
 # 4.1.0
 
 - Added: `at-use-no-unnamespaced` rule (#569).
