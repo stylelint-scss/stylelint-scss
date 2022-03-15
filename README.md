@@ -223,79 +223,79 @@ Thanks goes to these wonderful people:
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/stof"><img alt="stof" src="https://avatars.githubusercontent.com/u/439401?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/niksy"><img alt="niksy" src="https://avatars.githubusercontent.com/u/389286?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/kaysonwu"><img alt="kaysonwu" src="https://avatars.githubusercontent.com/u/14865584?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/srawlins"><img alt="srawlins" src="https://avatars.githubusercontent.com/u/103167?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/stof"><img alt="stof" src="https://avatars.githubusercontent.com/u/439401?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/pipopotamasu"><img alt="pipopotamasu" src="https://avatars.githubusercontent.com/u/14048211?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/ybiquitous"><img alt="ybiquitous" src="https://avatars.githubusercontent.com/u/473530?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/pipopotamasu"><img alt="pipopotamasu" src="https://avatars.githubusercontent.com/u/14048211?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/stof">stof</a></td>
 <td align="center"><a href="https://github.com/niksy">niksy</a></td>
 <td align="center"><a href="https://github.com/kaysonwu">kaysonwu</a></td>
 <td align="center"><a href="https://github.com/srawlins">srawlins</a></td>
-<td align="center"><a href="https://github.com/stof">stof</a></td>
-<td align="center"><a href="https://github.com/pipopotamasu">pipopotamasu</a></td>
 <td align="center"><a href="https://github.com/ybiquitous">ybiquitous</a></td>
+<td align="center"><a href="https://github.com/pipopotamasu">pipopotamasu</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/jhae-de"><img alt="jhae-de" src="https://avatars.githubusercontent.com/u/28291021?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/OriR"><img alt="OriR" src="https://avatars.githubusercontent.com/u/2384068?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/ntwb"><img alt="ntwb" src="https://avatars.githubusercontent.com/u/1016458?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/ricardogobbosouza"><img alt="ricardogobbosouza" src="https://avatars.githubusercontent.com/u/13064722?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/jeddy3"><img alt="jeddy3" src="https://avatars.githubusercontent.com/u/808227?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/bjankord"><img alt="bjankord" src="https://avatars.githubusercontent.com/u/633148?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/kevindew"><img alt="kevindew" src="https://avatars.githubusercontent.com/u/282717?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/jhae-de">jhae-de</a></td>
 <td align="center"><a href="https://github.com/OriR">OriR</a></td>
 <td align="center"><a href="https://github.com/ntwb">ntwb</a></td>
 <td align="center"><a href="https://github.com/ricardogobbosouza">ricardogobbosouza</a></td>
 <td align="center"><a href="https://github.com/jeddy3">jeddy3</a></td>
 <td align="center"><a href="https://github.com/bjankord">bjankord</a></td>
-<td align="center"><a href="https://github.com/kevindew">kevindew</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/kevindew"><img alt="kevindew" src="https://avatars.githubusercontent.com/u/282717?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/thibaudcolas"><img alt="thibaudcolas" src="https://avatars.githubusercontent.com/u/877585?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/AndyOGo"><img alt="AndyOGo" src="https://avatars.githubusercontent.com/u/914443?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/chalkygames123"><img alt="chalkygames123" src="https://avatars.githubusercontent.com/u/5608239?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/xboy2012"><img alt="xboy2012" src="https://avatars.githubusercontent.com/u/7540144?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/alexander-akait"><img alt="alexander-akait" src="https://avatars.githubusercontent.com/u/4567934?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/vseventer"><img alt="vseventer" src="https://avatars.githubusercontent.com/u/638323?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/kevindew">kevindew</a></td>
 <td align="center"><a href="https://github.com/thibaudcolas">thibaudcolas</a></td>
 <td align="center"><a href="https://github.com/AndyOGo">AndyOGo</a></td>
 <td align="center"><a href="https://github.com/chalkygames123">chalkygames123</a></td>
 <td align="center"><a href="https://github.com/xboy2012">xboy2012</a></td>
 <td align="center"><a href="https://github.com/alexander-akait">alexander-akait</a></td>
-<td align="center"><a href="https://github.com/vseventer">vseventer</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/vseventer"><img alt="vseventer" src="https://avatars.githubusercontent.com/u/638323?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/SterlingVix"><img alt="SterlingVix" src="https://avatars.githubusercontent.com/u/7531113?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/Calme1709"><img alt="Calme1709" src="https://avatars.githubusercontent.com/u/30140939?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/Deimos"><img alt="Deimos" src="https://avatars.githubusercontent.com/u/9033?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars.githubusercontent.com/u/5973294?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars.githubusercontent.com/u/5973294?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/EvanHahn"><img alt="EvanHahn" src="https://avatars.githubusercontent.com/u/777712?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/vseventer">vseventer</a></td>
 <td align="center"><a href="https://github.com/SterlingVix">SterlingVix</a></td>
 <td align="center"><a href="https://github.com/Calme1709">Calme1709</a></td>
 <td align="center"><a href="https://github.com/Deimos">Deimos</a></td>
-<td align="center"><a href="https://github.com/diego-codes">diego-codes</a></td>
 <td align="center"><a href="https://github.com/diego-codes">diego-codes</a></td>
 <td align="center"><a href="https://github.com/EvanHahn">EvanHahn</a></td>
 </tr>
