@@ -1,4 +1,4 @@
-import { namespace, whitespaceChecker } from "../../utils";
+import { namespace, ruleUrl, whitespaceChecker } from "../../utils";
 import { utils } from "stylelint";
 import { variableColonSpaceChecker } from "../dollar-variable-colon-space-after";
 
@@ -9,7 +9,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejectedBefore: () => 'Unexpected whitespace before ":"'
 });
 
-export default function(expectation, _, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
 
   return (root, result) => {
@@ -33,3 +37,7 @@ export default function(expectation, _, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

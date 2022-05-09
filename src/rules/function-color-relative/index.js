@@ -1,12 +1,16 @@
 import valueParser from "postcss-value-parser";
 import { utils } from "stylelint";
-import { declarationValueIndex, namespace } from "../../utils";
+import { declarationValueIndex, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("function-color-relative");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Expected the scale-color function to be used"
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
 const function_names = [
   "saturate",
@@ -23,7 +27,7 @@ function isColorFunction(node) {
   return node.type === "function" && function_names.includes(node.value);
 }
 
-function rule(primary) {
+export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -67,4 +71,6 @@ function rule(primary) {
   };
 }
 
-export default rule;
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

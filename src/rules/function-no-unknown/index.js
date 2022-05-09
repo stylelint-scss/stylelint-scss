@@ -1,7 +1,7 @@
 import { isRegExp, isString } from "lodash";
 import { rules, utils } from "stylelint";
 import valueParser from "postcss-value-parser";
-import { namespace, ALL_FUNCTIONS } from "../../utils";
+import { namespace, ruleUrl, ALL_FUNCTIONS } from "../../utils";
 
 const ruleToCheckAgainst = "function-no-unknown";
 
@@ -14,6 +14,10 @@ export const messages = utils.ruleMessages(ruleName, {
       .replace(` (${ruleToCheckAgainst})`, "");
   }
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
 export default function rule(primaryOption, secondaryOptions) {
   return (root, result) => {
@@ -75,3 +79,7 @@ export default function rule(primaryOption, secondaryOptions) {
     );
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

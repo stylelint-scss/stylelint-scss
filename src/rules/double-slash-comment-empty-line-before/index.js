@@ -5,7 +5,8 @@ import {
   namespace,
   optionsHaveException,
   optionsHaveIgnored,
-  removeEmptyLinesBefore
+  removeEmptyLinesBefore,
+  ruleUrl
 } from "../../utils";
 
 export const ruleName = namespace("double-slash-comment-empty-line-before");
@@ -15,9 +16,13 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected empty line before comment"
 });
 
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
 const stylelintCommandPrefix = "stylelint-";
 
-export default function(expectation, options, context) {
+export default function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -138,3 +143,7 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

@@ -1,7 +1,8 @@
 import {
   namespace,
   optionsHaveException,
-  optionsHaveIgnored
+  optionsHaveIgnored,
+  ruleUrl
 } from "../../utils";
 import { utils } from "stylelint";
 
@@ -11,7 +12,11 @@ export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected $-variable to be first in block"
 });
 
-export default function(primary, options) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(primary, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -112,3 +117,7 @@ export default function(primary, options) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

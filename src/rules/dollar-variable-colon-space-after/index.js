@@ -2,6 +2,7 @@ import {
   declarationValueIndex,
   namespace,
   isSingleLineString,
+  ruleUrl,
   whitespaceChecker
 } from "../../utils";
 import { utils } from "stylelint";
@@ -16,7 +17,11 @@ export const messages = utils.ruleMessages(ruleName, {
   expectedAfterAtLeast: () => 'Expected at least one space after ":"'
 });
 
-export default function(expectation, _, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, _, context) {
   const checker = whitespaceChecker("space", expectation, messages);
 
   return (root, result) => {
@@ -40,6 +45,10 @@ export default function(expectation, _, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
 
 export function variableColonSpaceChecker({
   locationChecker,

@@ -6,7 +6,8 @@ import {
   isStandardRule,
   isStandardSelector,
   parseSelector,
-  namespace
+  namespace,
+  ruleUrl
 } from "../../utils";
 
 export const ruleName = namespace("percent-placeholder-pattern");
@@ -16,7 +17,11 @@ export const messages = utils.ruleMessages(ruleName, {
     `Expected %-placeholder "%${placeholder}" to match specified pattern`
 });
 
-export default function(pattern) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
@@ -88,3 +93,7 @@ export default function(pattern) {
     }
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

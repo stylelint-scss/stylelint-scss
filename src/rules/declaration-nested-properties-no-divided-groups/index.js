@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace, parseNestedPropRoot } from "../../utils";
+import { namespace, parseNestedPropRoot, ruleUrl } from "../../utils";
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
 
@@ -12,7 +12,11 @@ export const messages = utils.ruleMessages(ruleName, {
     `Expected all nested properties of "${prop}" namespace to be in one nested group`
 });
 
-export default function(expectation) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -66,3 +70,7 @@ export default function(expectation) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

@@ -3,7 +3,8 @@ import { utils } from "stylelint";
 import {
   declarationValueIndex,
   isNativeCssFunction,
-  namespace
+  namespace,
+  ruleUrl
 } from "../../utils";
 
 export const ruleName = namespace(
@@ -14,7 +15,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unquote function used with an already-unquoted string"
 });
 
-function rule(primary, _, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(primary, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -78,4 +83,6 @@ function rule(primary, _, context) {
   };
 }
 
-export default rule;
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

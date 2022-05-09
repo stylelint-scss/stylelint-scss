@@ -1,11 +1,15 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-rule-conditional-no-parentheses");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected () used to surround statements for @-rules"
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
 // postcss picks up else-if as else.
 const conditional_rules = ["if", "while", "else"];
@@ -28,7 +32,7 @@ function fix(atrule) {
   atrule.params = [...new Set(groups)].join(" ");
 }
 
-export default function(primary, _unused, context) {
+export default function rule(primary, _unused, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -67,3 +71,7 @@ export default function(primary, _unused, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

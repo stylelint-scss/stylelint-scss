@@ -1,6 +1,7 @@
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 import { utils } from "stylelint";
 import { isBoolean } from "lodash";
+import { sassConditionalBraceNLAfterChecker } from "../at-if-closing-brace-newline-after";
 
 export const ruleName = namespace("at-else-closing-brace-newline-after");
 
@@ -9,9 +10,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: 'Unexpected newline after "}" of @else statement'
 });
 
-import { sassConditionalBraceNLAfterChecker } from "../at-if-closing-brace-newline-after";
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
-export default function(expectation, options, context) {
+export default function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -45,3 +48,7 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

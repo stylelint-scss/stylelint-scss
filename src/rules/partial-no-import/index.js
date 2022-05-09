@@ -1,6 +1,6 @@
 import nodeJsPath from "path";
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("partial-no-import");
 
@@ -8,7 +8,11 @@ export const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected @import in a partial"
 });
 
-export default function(on) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(on) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: on
@@ -74,3 +78,7 @@ export default function(on) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

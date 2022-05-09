@@ -1,6 +1,6 @@
 import valueParser from "postcss-value-parser";
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("map-keys-quotes");
 
@@ -8,9 +8,13 @@ export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected keys in map to be quoted."
 });
 
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
 const mathOperators = ["+", "/", "-", "*", "%"];
 
-function rule(primary) {
+export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary,
@@ -55,6 +59,10 @@ function rule(primary) {
   };
 }
 
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
+
 // Takes in a list of map nodes and identifies if they are a map.
 // A map is identified by the pattern: [string/word colon(div) anything comma(div) ...]
 function isMap(nodes) {
@@ -86,5 +94,3 @@ function returnMapKeys(array) {
 
   return new_array;
 }
-
-export default rule;

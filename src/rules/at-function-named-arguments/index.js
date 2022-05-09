@@ -5,7 +5,8 @@ import {
   isNativeCssFunction,
   namespace,
   optionsHaveIgnored,
-  parseFunctionArguments
+  parseFunctionArguments,
+  ruleUrl
 } from "../../utils";
 
 export const ruleName = namespace("at-function-named-arguments");
@@ -15,9 +16,13 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected a named parameter in function call"
 });
 
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
 const isScssVarRegExp = /^\$\S*/;
 
-export default function(expectation, options) {
+export default function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -116,3 +121,7 @@ export default function(expectation, options) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

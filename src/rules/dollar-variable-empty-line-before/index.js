@@ -4,7 +4,8 @@ import {
   namespace,
   optionsHaveException,
   optionsHaveIgnored,
-  blockString
+  blockString,
+  ruleUrl
 } from "../../utils";
 import { utils } from "stylelint";
 import { isBoolean } from "lodash";
@@ -16,7 +17,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected empty line before $-variable"
 });
 
-export default function(expectation, options, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -146,6 +151,10 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
 
 function isDollarVar(node) {
   return node.prop && node.prop[0] === "$";

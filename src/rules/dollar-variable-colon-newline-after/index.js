@@ -4,6 +4,7 @@ import {
   declarationValueIndex,
   isSingleLineString,
   namespace,
+  ruleUrl,
   whitespaceChecker
 } from "../../utils";
 
@@ -15,7 +16,11 @@ export const messages = utils.ruleMessages(ruleName, {
     'Expected newline after ":" with a multi-line value'
 });
 
-export default function(expectation, options, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, options, context) {
   const checker = whitespaceChecker("newline", expectation, messages);
 
   return (root, result) => {
@@ -110,3 +115,7 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
