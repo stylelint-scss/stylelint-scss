@@ -69,7 +69,6 @@ function rule(primary) {
 
 function isStandaloneDoubleSlashComment(node) {
   return (
-    // Must be a comment
     node &&
     node.type === "comment" &&
     // Must be a double-slash comment
