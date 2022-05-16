@@ -17,6 +17,33 @@ testRule({
     {
       code: "/* comment */",
       description: "Single line block comment"
+    },
+    {
+      code: `
+        // comment
+        //
+        // comment
+      `,
+      description: "Multiline double slash comment with paragraph break"
+    },
+    {
+      code: `
+        //
+        //
+        // comment
+        //
+        //
+      `,
+      description:
+        "Multiline double slash comment with leading and trailing empty lines"
+    },
+    {
+      code: `
+        /* comment
+
+           comment */
+      `,
+      description: "Multiline block comment with paragraph break"
     }
   ],
   reject: [
@@ -38,6 +65,34 @@ testRule({
       message: messages.rejected,
       line: 2,
       column: 9
+    },
+    {
+      code: `
+        //
+        //
+        //
+      `,
+      description: "Empty multiline double slash comment",
+      message: messages.rejected,
+      line: 2 // note, should be just one error at first line
+    },
+    {
+      code: `
+        //
+        width: 100px; // comment
+      `,
+      description: "Empty double slash comment with trailing inline comment",
+      message: messages.rejected,
+      line: 2
+    },
+    {
+      code: `
+        width: 100px; // comment
+        //
+      `,
+      description: "Empty double slash comment with preceding inline comment",
+      message: messages.rejected,
+      line: 3
     },
     {
       code: `
