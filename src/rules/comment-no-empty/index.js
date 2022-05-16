@@ -30,15 +30,14 @@ function rule(primary) {
       // postcss considers multiple double-slash comments in a row to be separate comments,
       // but for this rule's purposes we want to track them as one combined comment block.
       if (isStandaloneDoubleSlashComment(comment)) {
-        doubleSlashCommentBlockState = {
-          firstCommentInBlock: doubleSlashCommentBlockState
-            ? doubleSlashCommentBlockState.firstCommentInBlock
-            : comment,
-          isBlockEmptySoFar:
-            isEmpty &&
-            (!doubleSlashCommentBlockState ||
-              doubleSlashCommentBlockState.isBlockEmptySoFar)
-        };
+        if (doubleSlashCommentBlockState) {
+          doubleSlashCommentBlockState.isBlockEmptySoFar &= isEmpty;
+        } else {
+          doubleSlashCommentBlockState = {
+            firstCommentInBlock: comment,
+            isBlockEmptySoFar: isEmpty
+          };
+        }
 
         if (!isStandaloneDoubleSlashComment(comment.next())) {
           if (doubleSlashCommentBlockState.isBlockEmptySoFar) {
