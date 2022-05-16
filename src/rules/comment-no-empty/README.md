@@ -49,6 +49,13 @@ The following patterns are considered violations:
 
 <!-- prettier-ignore -->
 ```scss
+//
+//
+//
+```
+
+<!-- prettier-ignore -->
+```scss
 width: 10px; //
 ```
 
@@ -64,4 +71,11 @@ The following patterns are _not_ considered violations:
 /*
  * Multi-line Comment
 **/
+```
+
+<!-- prettier-ignore -->
+```scss
+// Multi-line double-slash comment...
+//
+// ...with paragraph breaks
 ```
