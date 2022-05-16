@@ -49,10 +49,8 @@ function rule(primary) {
             });
           }
           doubleSlashCommentBlockState = null;
-          return;
         }
       } else {
-        doubleSlashCommentBlockState = null;
         if (isEmptyComment(comment)) {
           utils.report({
             message: messages.rejected,
@@ -61,6 +59,7 @@ function rule(primary) {
             ruleName
           });
         }
+        doubleSlashCommentBlockState = null;
       }
     });
   };
