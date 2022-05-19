@@ -10,7 +10,7 @@ a {}
 *     This line */
 ```
 
-The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule.
 
 This rule only works with SCSS-like [single-line comments](https://sass-lang.com/documentation/syntax/comments) and ignores:
 * comments that are the very first nodes in a file;

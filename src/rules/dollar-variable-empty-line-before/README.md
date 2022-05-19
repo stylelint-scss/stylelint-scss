@@ -11,7 +11,7 @@ $width: 10px;   ↑
  * This empty line */
 ```
 
-The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule.
 
 ## Options
 

@@ -11,7 +11,7 @@ Require an empty line or disallow empty lines before `@`-else.
  * This empty line */
 ```
 
-The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule.
 
 `@if` and `@else` statements might need to have different behavior than all the other at-rules. For that you might need to set `"ignoreAtRules": ["else"]` for stylelint's core rule [`at-rule-empty-line-before`](https://stylelint.io/user-guide/rules/at-rule-empty-line-before). But that would make you unable to disallow empty lines before `@else` while forcing it to be on a new line. This rule is designed to solve exactly that.
 
@@ -53,7 +53,7 @@ The following patterns are *not* considered warnings:
 } @else if ($x == 2) {
   // ...
 } @else {}
-      
+
 a {
   @if ($x == 1) {
     // ...
