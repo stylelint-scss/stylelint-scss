@@ -8,7 +8,7 @@ Require or disallow a space before `@mixin` parentheses.
  * The space before this parenthesis */
 ```
 
-The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule.
 
 ## Options
 
@@ -16,7 +16,7 @@ The `--fix` option on the [command line](https://github.com/stylelint/stylelint/
 
 ### `"always"`
 
-There *must always* be exactly one space between the mixin name and the opening parenthesis. 
+There *must always* be exactly one space between the mixin name and the opening parenthesis.
 
 *Note: This rule does not enforce parentheses to be present in a declaration without arguments.*
 
