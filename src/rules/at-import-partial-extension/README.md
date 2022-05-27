@@ -8,6 +8,8 @@ Require or disallow extension in `@import` commands.
  * This extension */
 ```
 
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule only when `"never"` is given.
+
 The rule ignores [cases](https://sass-lang.com/documentation/at-rules/import) when Sass considers an `@import` command just a plain CSS import:
 
 - If the file’s extension is `.css`.

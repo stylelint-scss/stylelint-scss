@@ -182,6 +182,7 @@ testRule({
   ruleName,
   config: ["never"],
   customSyntax: "postcss-scss",
+  fix: true,
 
   accept: [
     {
@@ -300,7 +301,10 @@ testRule({
     {
       code: `
       @import "fff.scss";
-    `,
+     `,
+      fixed: `
+      @import "fff";
+     `,
       line: 2,
       column: 20,
       message: messages.rejected("scss"),
@@ -309,6 +313,9 @@ testRule({
     {
       code: `
       @import "screen.scss";
+    `,
+      fixed: `
+      @import "screen";
     `,
       line: 2,
       column: 23,
@@ -319,6 +326,9 @@ testRule({
       code: `
       @import "fff.scss ";
     `,
+      fixed: `
+      @import "fff ";
+    `,
       line: 2,
       column: 20,
       message: messages.rejected("scss"),
@@ -327,6 +337,9 @@ testRule({
     {
       code: `
       @import " fff.scss ";
+    `,
+      fixed: `
+      @import " fff ";
     `,
       line: 2,
       column: 21,
@@ -337,6 +350,9 @@ testRule({
       code: `
       @import "df/fff.scss";
     `,
+      fixed: `
+      @import "df/fff";
+    `,
       line: 2,
       column: 23,
       message: messages.rejected("scss"),
@@ -345,6 +361,9 @@ testRule({
     {
       code: `
       @import "df\\fff.scss";
+    `,
+      fixed: `
+      @import "df\\fff";
     `,
       line: 2,
       column: 23,
@@ -355,6 +374,9 @@ testRule({
     {
       code: `
       @import "df/fff", '_1.scss';
+    `,
+      fixed: `
+      @import "df/fff", '_1';
     `,
       line: 2,
       column: 29,

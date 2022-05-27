@@ -28,7 +28,7 @@ const mediaQueryTypesRE = new RegExp(`(${mediaQueryTypes.join("|")})$`, "i");
 const stripPath = path =>
   path.replace(/^\s*(["'])\s*/, "").replace(/\s*(["'])\s*$/, "");
 
-export default function(expectation) {
+export default function(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -72,6 +72,13 @@ export default function(expectation) {
         }
 
         if (extension && expectation === "never") {
+          if (context.fix) {
+            const extPattern = new RegExp(`\\.${extension}(['" ]*)`, "g");
+            decl.params = decl.params.replace(extPattern, "$1");
+
+            return;
+          }
+
           utils.report({
             message: messages.rejected(extension),
             node: decl,
