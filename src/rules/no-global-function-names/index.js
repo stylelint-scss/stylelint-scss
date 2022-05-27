@@ -1,6 +1,6 @@
 import valueParser from "postcss-value-parser";
 import { utils } from "stylelint";
-import { declarationValueIndex, namespace } from "../../utils";
+import { declarationValueIndex, namespace, ruleUrl } from "../../utils";
 
 const interpolationPrefix = /^#{\s*/m;
 
@@ -137,6 +137,10 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: name => errorMessage(name)
 });
 
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
 function errorMessage(name) {
   const sass_package = rules[name];
   const rename = new_rule_names[name];
@@ -155,7 +159,7 @@ function errorMessage(name) {
   }
 }
 
-export default function(value) {
+export default function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value
@@ -187,3 +191,7 @@ export default function(value) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

@@ -5,7 +5,8 @@ import {
   namespace,
   parseSelector,
   hasNestedSibling,
-  isType
+  isType,
+  ruleUrl
 } from "../../utils";
 
 export const ruleName = namespace("selector-no-redundant-nesting-selector");
@@ -14,7 +15,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unnecessary nesting selector (&)"
 });
 
-export default function(actual, options) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(actual, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -79,3 +84,7 @@ export default function(actual, options) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

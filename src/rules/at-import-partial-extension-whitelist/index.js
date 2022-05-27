@@ -1,6 +1,6 @@
 import { isRegExp, isString } from "lodash";
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 import nodeJsPath from "path";
 
 export const ruleName = namespace("at-import-partial-extension-whitelist");
@@ -9,7 +9,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: ext => `Unexpected extension ".${ext}" in imported partial name`
 });
 
-export default function(whitelistOption) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(whitelistOption) {
   const whitelist = [].concat(whitelistOption);
 
   return (root, result) => {
@@ -74,3 +78,7 @@ export default function(whitelistOption) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { atRuleBaseName, namespace } from "../../utils";
+import { atRuleBaseName, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("no-duplicate-mixins");
 
@@ -7,7 +7,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: mixin => `Unexpected duplicate mixin ${mixin}`
 });
 
-export default function(value) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value
@@ -41,3 +45,7 @@ export default function(value) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

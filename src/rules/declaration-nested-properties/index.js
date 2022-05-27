@@ -3,7 +3,8 @@ import {
   isStandardSyntaxProperty,
   namespace,
   optionsHaveException,
-  parseNestedPropRoot
+  parseNestedPropRoot,
+  ruleUrl
 } from "../../utils";
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
@@ -15,7 +16,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: prop => `Unexpected nested property "${prop}"`
 });
 
-export default function(expectation, options) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -74,7 +79,9 @@ export default function(expectation, options) {
           if (type === "rule" || (type === "decl" && decl.isNested)) {
             // `background:red {` - selector;
             // `background: red {` - nested prop; space is decisive here
-            const testForProp = parseNestedPropRoot(selector || decl.toString());
+            const testForProp = parseNestedPropRoot(
+              selector || decl.toString()
+            );
 
             if (testForProp && testForProp.propName !== undefined) {
               const ns = testForProp.propName.value;
@@ -153,3 +160,7 @@ export default function(expectation, options) {
     }
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

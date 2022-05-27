@@ -26,6 +26,7 @@ export { default as parseNestedPropRoot } from "./parseNestedPropRoot";
 export { default as parseSelector } from "./parseSelector";
 export { default as rawNodeString } from "./rawNodeString";
 export { removeEmptyLinesBefore } from "./removeEmptyLinesBefore";
+export * from "./ruleUrl";
 export { default as findOperators } from "./sassValueParser";
 export { default as whitespaceChecker } from "./whitespaceChecker";
 export { default as hasNestedSibling } from "./hasNestedSibling";

@@ -3,7 +3,8 @@ import { utils } from "stylelint";
 import {
   declarationValueIndex,
   isNativeCssFunction,
-  namespace
+  namespace,
+  ruleUrl
 } from "../../utils";
 
 export const ruleName = namespace("function-quote-no-quoted-strings-inside");
@@ -12,7 +13,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Quote function used with an already-quoted string"
 });
 
-function rule(primary, _, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(primary, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -73,4 +78,6 @@ function rule(primary, _, context) {
   };
 }
 
-export default rule;
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

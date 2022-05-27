@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-use-no-unnamespaced");
 
@@ -7,7 +7,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected @use without namespace"
 });
 
-export default function(actual) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -27,3 +31,7 @@ export default function(actual) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

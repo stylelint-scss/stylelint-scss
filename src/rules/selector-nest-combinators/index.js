@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace, parseSelector } from "../../utils";
+import { namespace, parseSelector, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("selector-nest-combinators");
 
@@ -10,7 +10,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: `Unexpected nesting found in selector`
 });
 
-export default function(expectation) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -149,3 +153,7 @@ export default function(expectation) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

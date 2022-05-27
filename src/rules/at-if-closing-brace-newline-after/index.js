@@ -1,4 +1,4 @@
-import { isSingleLineString, namespace } from "../../utils";
+import { isSingleLineString, namespace, ruleUrl } from "../../utils";
 import { utils } from "stylelint";
 import { isBoolean } from "lodash";
 
@@ -9,7 +9,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: 'Unexpected newline after "}" of @if statement'
 });
 
-export default function(expectation, options, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -117,3 +121,7 @@ export function sassConditionalBraceNLAfterChecker({
     }
   });
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

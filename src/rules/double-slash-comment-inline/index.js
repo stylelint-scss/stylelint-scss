@@ -2,7 +2,8 @@ import {
   eachRoot,
   findCommentsInRaws,
   namespace,
-  optionsHaveIgnored
+  optionsHaveIgnored,
+  ruleUrl
 } from "../../utils";
 import { utils } from "stylelint";
 
@@ -13,9 +14,13 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected inline //-comment"
 });
 
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
 const stylelintCommandPrefix = "stylelint-";
 
-export default function(expectation, options) {
+export default function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -84,3 +89,7 @@ export default function(expectation, options) {
     }
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
