@@ -134,6 +134,12 @@ testRule({
       @import "screen.scss";
     `,
       description: "Import with a name that matches a media query type."
+    },
+    {
+      code: `
+      @import "colors.variables.scss";
+    `,
+      description: "Import a filename with a dot."
     }
   ],
 
@@ -294,6 +300,12 @@ testRule({
       @import _file.scss tv,screen;
     `,
       description: "Import CSS (with media queries - multiple, no spaces)."
+    },
+    {
+      code: `
+      @import "colors.variables";
+    `,
+      description: "Import a style file with a dot in the name."
     }
   ],
 
@@ -382,6 +394,18 @@ testRule({
       column: 29,
       message: messages.rejected("scss"),
       description: "Two files, path with dir, has extension."
+    },
+    {
+      code: `
+      @import "colors.variables.scss";
+    `,
+      fixed: `
+      @import "colors.variables";
+    `,
+      line: 2,
+      column: 33,
+      message: messages.rejected("scss"),
+      description: "Single file, has .scss extension and a dot in the name."
     }
   ]
 });

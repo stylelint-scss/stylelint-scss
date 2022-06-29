@@ -75,7 +75,8 @@ export default function rule(expectation, _, context) {
           return;
         }
 
-        if (extension && expectation === "never") {
+        const isScssPartial = extension === "scss";
+        if (extension && isScssPartial && expectation === "never") {
           if (context.fix) {
             const extPattern = new RegExp(`\\.${extension}(['" ]*)`, "g");
             decl.params = decl.params.replace(extPattern, "$1");
