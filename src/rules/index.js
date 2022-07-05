@@ -4,6 +4,7 @@ import atElseClosingBraceSpaceAfter from "./at-else-closing-brace-space-after";
 import atElseEmptyLineBefore from "./at-else-empty-line-before";
 import atElseIfParenthesesSpaceBefore from "./at-else-if-parentheses-space-before";
 import atExtendNoMissingPlaceholder from "./at-extend-no-missing-placeholder";
+import atExtendDisallow from "./at-extend-disallow";
 import atFunctionNamedArguments from "./at-function-named-arguments";
 import atFunctionParenthesesSpaceBefore from "./at-function-parentheses-space-before";
 import atFunctionPattern from "./at-function-pattern";
@@ -60,6 +61,7 @@ import selectorNoUnionClassName from "./selector-no-union-class-name";
 
 export default {
   "at-extend-no-missing-placeholder": atExtendNoMissingPlaceholder,
+  "at-extend-disallow": atExtendDisallow,
   "at-else-closing-brace-newline-after": atElseClosingBraceNewlineAfter,
   "at-else-closing-brace-space-after": atElseClosingBraceSpaceAfter,
   "at-else-empty-line-before": atElseEmptyLineBefore,
