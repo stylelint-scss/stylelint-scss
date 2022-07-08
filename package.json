@@ -25,8 +25,8 @@
     "eslint-plugin-lodash": "^7.3.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^8.0.1",
-    "jest": "^27.3.1",
-    "jest-cli": "^27.3.1",
+    "jest": "^28.1.2",
+    "jest-cli": "^28.1.2",
     "jest-preset-stylelint": "^5.0.4",
     "lint-staged": "^10.5.4",
     "np": "^7.5.0",
@@ -126,10 +126,7 @@
     "roots": [
       "src"
     ],
-    "testRegex": ".*\\.test\\.js$|src/.*/__tests__/.*\\.js$",
-    "transform": {
-      "^.+\\.jsx?$": "./babel-jest.js"
-    }
+    "testRegex": ".*\\.test\\.js$|src/.*/__tests__/.*\\.js$"
   },
   "scripts": {
     "prebuild": "rimraf dist",
@@ -144,7 +141,8 @@
     "watch": "npm run jest -- --watch",
     "test-rule": "npm run jest",
     "test-util": "npm run jest",
-    "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html"
+    "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "**/*.{js,json}": [
