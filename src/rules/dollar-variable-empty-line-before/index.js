@@ -34,7 +34,11 @@ export default function rule(expectation, options, context) {
         actual: options,
         possible: {
           except: ["first-nested", "after-comment", "after-dollar-variable"],
-          ignore: ["after-comment", "inside-single-line-block"],
+          ignore: [
+            "after-comment",
+            "inside-single-line-block",
+            "after-dollar-variable"
+          ],
           disableFix: isBoolean
         },
         optional: true
@@ -78,6 +82,15 @@ export default function rule(expectation, options, context) {
         optionsHaveIgnored(options, "inside-single-line-block") &&
         decl.parent.type !== "root" &&
         isSingleLineString(blockString(decl.parent))
+      ) {
+        return;
+      }
+
+      // if ignoring after another $-variable
+      if (
+        optionsHaveIgnored(options, "after-dollar-variable") &&
+        decl.prev() &&
+        isDollarVar(decl.prev())
       ) {
         return;
       }

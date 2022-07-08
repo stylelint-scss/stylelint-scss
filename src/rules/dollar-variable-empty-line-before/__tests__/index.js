@@ -346,6 +346,101 @@ testRule({
   ]
 });
 
+// Ignore: after-dollar-variable
+// --------------------------------------------------------------------------
+
+testRule({
+  ruleName,
+  config: ["always", { ignore: "after-dollar-variable" }],
+  customSyntax: "postcss-scss",
+  fix: true,
+
+  accept: [
+    {
+      code: `
+      $var1: 100px;
+      $var2: 200px;
+    `,
+      description:
+        "always, { ignore: after-dollar-variable }. $var after $var, no empty line."
+    },
+    {
+      code: `
+      $var1: 100px;
+
+      $var2: 200px;
+    `,
+      description:
+        "always, { ignore: after-dollar-variable }. $var after $var, has empty line."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      width: 1;
+      $var2: 2;
+    `,
+      fixed: `
+      width: 1;
+
+      $var2: 2;
+    `,
+      description:
+        "always, { ignore: after-dollar-variable }. No $var directly before $var, no empty line.",
+      message: messages.expected,
+      line: 3,
+      column: 7
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: ["never", { ignore: "after-dollar-variable" }],
+  customSyntax: "postcss-scss",
+  fix: true,
+
+  accept: [
+    {
+      code: `
+      $var1: 100px;
+      $var2: 200px;
+    `,
+      description:
+        "never, { ignore: after-dollar-variable }. $var after $var, no empty line."
+    },
+    {
+      code: `
+      $var1: 100px;
+
+      $var2: 200px;
+    `,
+      description:
+        "never, { ignore: after-dollar-variable }. $var after $var, has empty line."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      width: 1;
+
+      $var2: 2;
+    `,
+      fixed: `
+      width: 1;
+      $var2: 2;
+    `,
+      description:
+        "never, { ignore: after-dollar-variable }. No $var directly before $var, has empty line.",
+      message: messages.rejected,
+      line: 4,
+      column: 7
+    }
+  ]
+});
+
 // Except: first-nested
 // --------------------------------------------------------------------------
 
