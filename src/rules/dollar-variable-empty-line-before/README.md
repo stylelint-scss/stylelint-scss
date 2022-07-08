@@ -19,12 +19,12 @@ The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automa
 
 ### `"always"`
 
-There *must always* be one empty line before a `$`-variable declaration.
+There _must always_ be one empty line before a `$`-variable declaration.
 
 The following patterns are considered warnings:
 
 ```scss
-@import '1.css';
+@import "1.css";
 $var2: 200px;
 ```
 
@@ -34,31 +34,35 @@ a {
 }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 $var: 100px; // The first declaration in a stylesheet
 ```
 
 ```scss
-a { color: red; }
+a {
+  color: red;
+}
 
 $var: 1;
 ```
 
 ### `"never"`
 
-There *must never* be an empty line before a `$`-variable declaration.
+There _must never_ be an empty line before a `$`-variable declaration.
 
 The following patterns are considered warnings:
 
 ```scss
-a { color: red; }
+a {
+  color: red;
+}
 
 $var: 1;
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 $var: 100px;
@@ -98,7 +102,7 @@ b {
 }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 a {
@@ -134,7 +138,7 @@ b {
 }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 a {
@@ -160,7 +164,7 @@ a {
 }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 a {
@@ -170,7 +174,7 @@ a {
 }
 ```
 
-### `ignore: ["after-comment", "inside-single-line-block"]`
+### `ignore: ["after-comment", "inside-single-line-block", "after-dollar-variable"]`
 
 ### `"after-comment"`
 
@@ -178,7 +182,7 @@ Ignore `$`-variables that go after a comment.
 
 For example, with `"always"`:
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 // comment
@@ -194,10 +198,30 @@ Ignore `$`-variables that are inside single-line blocks.
 
 For example, with `"always"`:
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
-a { $var: 10; }
+a {
+  $var: 10;
+}
+```
+
+### `"after-dollar-variable"`
+
+For example, with `"always"`:
+
+The following patterns are considered warnings:
+
+```scss
+width: 1px;
+$var2: 2;
+```
+
+The following patterns are _not_ considered warnings:
+
+```scss
+$var1: 1;
+$var2: 2;
 ```
 
 ### `disableFix: true`
