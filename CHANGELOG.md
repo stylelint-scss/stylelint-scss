@@ -1,3 +1,10 @@
+# 4.3.0
+
+- Added: options ignore: "after-dollar-variable" to `dollar-variable-empty-line-before` (#604)
+- Fixed: Make filenames with dots work with `at-import-partial-extension` rule (#612)
+- Added: `meta` property for all rules (#602)
+- Added: `at-import-partial-extension` autofix only when `"never"` (#608)
+
 # 4.2.0
 
 - Added: `function-no-unknown` rule (#591).
