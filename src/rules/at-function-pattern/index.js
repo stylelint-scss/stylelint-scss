@@ -37,11 +37,16 @@ export default function rule(pattern) {
         return;
       }
 
+      const funcTopLine = Object.assign({}, decl.source.start);
+      funcTopLine.line += 1;
+      funcTopLine.column = 0;
+
       utils.report({
         message: messages.expected,
         node: decl,
         result,
-        ruleName
+        ruleName,
+        end: funcTopLine
       });
     });
   };

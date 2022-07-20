@@ -77,6 +77,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description: "Regexp: sequence part. Example: symbol in between."
     }
@@ -120,6 +123,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description: "String: sequence part. Example: symbol in between."
     },
@@ -129,6 +135,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description: "String: sequence part. Example: not a full sequence."
     }
@@ -191,6 +200,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description: "Regexp: strict match. Example: matches at the end."
     },
@@ -200,6 +212,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description: "Regexp: strict match. Example: matches at the beginning."
     },
@@ -209,6 +224,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description: "Regexp: strict match. Example: symbol in between."
     },
@@ -220,6 +238,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description:
         "Regexp: strict match. Example: function name divided by newlines."
@@ -258,6 +279,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description:
         "Regexp: pattern at the beginning. Example: matches at the end."
@@ -268,6 +292,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 0,
       message: messages.expected,
       description:
         "Regexp: pattern at the beginning. Example: symbol in between."
@@ -296,6 +323,9 @@ testRule({
     {
       code: "@function boo-Foo-bar ( $p) {}",
       line: 1,
+      column: 1,
+      endLine: 2,
+      endColumn: 0,
       message: messages.expected,
       description:
         "Regexp: SUIT component. Example: starts with lowercase, two elements"
@@ -303,12 +333,18 @@ testRule({
     {
       code: "@function foo-bar ($p) {}",
       line: 1,
+      column: 1,
+      endLine: 2,
+      endColumn: 0,
       message: messages.expected,
       description: "Regexp: SUIT component. Example: starts with lowercase"
     },
     {
       code: "@function Foo-Bar ($p) {}",
       line: 1,
+      column: 1,
+      endLine: 2,
+      endColumn: 0,
       message: messages.expected,
       description:
         "Regexp: SUIT component. Example: element starts with uppercase"
