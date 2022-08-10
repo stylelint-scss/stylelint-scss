@@ -406,6 +406,18 @@ testRule({
       column: 33,
       message: messages.rejected("scss"),
       description: "Single file, has .scss extension and a dot in the name."
+    },
+    {
+      code: `
+      @import "component.scss-theme.scss";
+    `,
+      fixed: `
+      @import "component.scss-theme";
+    `,
+      line: 2,
+      column: 26,
+      message: messages.rejected("scss"),
+      description: "Single file, has .scss extension and a .scss in the filename."
     }
   ]
 });
