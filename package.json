@@ -26,7 +26,7 @@
     "github-contributors-list": "^1.2.5",
     "husky": "^8.0.1",
     "jest": "^28.1.2",
-    "jest-cli": "^28.1.2",
+    "jest-cli": "^29.0.3",
     "jest-preset-stylelint": "^5.0.4",
     "lint-staged": "^13.0.3",
     "np": "^7.5.0",
