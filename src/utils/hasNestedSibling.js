@@ -4,8 +4,8 @@
  * @param  {import('postcss').Node} node
  * @return {boolean}
  */
-export default function(node) {
+export default function (node) {
   return (
-    node && node.parent.nodes.some(n => n !== node && n.type === "nesting")
+    node && node.parent.nodes.some((n) => n !== node && n.type === "nesting")
   );
 }

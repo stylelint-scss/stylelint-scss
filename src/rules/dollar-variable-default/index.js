@@ -4,11 +4,11 @@ import { namespace, optionsHaveIgnored, ruleUrl } from "../../utils";
 export const ruleName = namespace("dollar-variable-default");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: variable => `Expected !default flag for "${variable}"`
+  expected: (variable) => `Expected !default flag for "${variable}"`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(primaryOption, secondaryOptions) {
@@ -17,14 +17,14 @@ export default function rule(primaryOption, secondaryOptions) {
       result,
       ruleName,
       {
-        actual: primaryOption
+        actual: primaryOption,
       },
       {
         actual: secondaryOptions,
         possible: {
-          ignore: ["local"]
+          ignore: ["local"],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -32,7 +32,7 @@ export default function rule(primaryOption, secondaryOptions) {
       return;
     }
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       // not variable
       if (decl.prop[0] !== "$") {
         return;
@@ -54,7 +54,7 @@ export default function rule(primaryOption, secondaryOptions) {
         message: messages.expected(decl.prop),
         node: decl,
         result,
-        ruleName
+        ruleName,
       });
     });
   };

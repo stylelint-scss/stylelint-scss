@@ -6,11 +6,11 @@ import { calculationOperatorSpaceChecker } from "../operator-no-unspaced";
 export const ruleName = namespace("operator-no-newline-before");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: operator => `Unexpected newline before "${operator}"`
+  rejected: (operator) => `Unexpected newline before "${operator}"`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 /**
@@ -22,7 +22,7 @@ function checkNewlineBefore({
   startIndex,
   endIndex,
   node,
-  result
+  result,
 }) {
   const symbol = string.substring(startIndex, endIndex + 1);
   let newLineBefore = false;
@@ -44,7 +44,7 @@ function checkNewlineBefore({
       result,
       node,
       message: messages.rejected(symbol),
-      index: endIndex + globalIndex
+      index: endIndex + globalIndex,
     });
   }
 }
@@ -52,7 +52,7 @@ function checkNewlineBefore({
 export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation
+      actual: expectation,
     });
 
     if (!validOptions) {
@@ -65,7 +65,7 @@ export default function rule(expectation) {
       calculationOperatorSpaceChecker({
         root,
         result,
-        checker: checkNewlineBefore
+        checker: checkNewlineBefore,
       });
     }
   };

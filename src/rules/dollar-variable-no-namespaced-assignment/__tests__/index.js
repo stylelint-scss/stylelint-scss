@@ -12,7 +12,7 @@ testRule({
         $foo: 10px;
       }
     `,
-      description: "Non-namespaced assignment"
+      description: "Non-namespaced assignment",
     },
     {
       code: `
@@ -20,8 +20,8 @@ testRule({
         a: imported.$foo;
       }
     `,
-      description: "Namespaced usage"
-    }
+      description: "Namespaced usage",
+    },
   ],
 
   reject: [
@@ -33,7 +33,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "Namespaced assignment"
-    }
-  ]
+      description: "Namespaced assignment",
+    },
+  ],
 });

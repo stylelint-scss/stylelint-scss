@@ -14,7 +14,7 @@ testRule({
         margin: 1px;
       }
     `,
-      description: "No groups."
+      description: "No groups.",
     },
     {
       code: `
@@ -23,7 +23,7 @@ testRule({
         background-repeat: no-repeat;
       }
     `,
-      description: "No groups #2."
+      description: "No groups #2.",
     },
     {
       code: `
@@ -34,7 +34,7 @@ testRule({
         background-repeat: no-repeat;
       }
     `,
-      description: "One group, one unnested."
+      description: "One group, one unnested.",
     },
     {
       code: `
@@ -46,7 +46,7 @@ testRule({
         background-repeat: no-repeat;
       }
     `,
-      description: "One group, two unnested."
+      description: "One group, two unnested.",
     },
     {
       code: `
@@ -59,7 +59,7 @@ testRule({
         }
       }
     `,
-      description: "One group, one selector."
+      description: "One group, one selector.",
     },
     {
       code: `
@@ -72,7 +72,7 @@ testRule({
         }
       }
     `,
-      description: "Multiple groups, different namespaces."
+      description: "Multiple groups, different namespaces.",
     },
     {
       code: `
@@ -87,7 +87,7 @@ testRule({
         }
       }
     `,
-      description: "Two groups on one namespace, one nested in @media."
+      description: "Two groups on one namespace, one nested in @media.",
     },
     {
       code: `
@@ -96,9 +96,9 @@ testRule({
         &:not(.another-class) { }
       }
     `,
-      description: "Two groups of &:not()."
-    }
-  ]
+      description: "Two groups of &:not().",
+    },
+  ],
 });
 
 // Warnings
@@ -122,14 +122,14 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected("background")
+          message: messages.expected("background"),
         },
         {
           line: 6,
           column: 9,
-          message: messages.expected("background")
-        }
-      ]
+          message: messages.expected("background"),
+        },
+      ],
     },
     {
       code: `
@@ -151,14 +151,14 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected("background")
+          message: messages.expected("background"),
         },
         {
           line: 10,
           column: 9,
-          message: messages.expected("background")
-        }
-      ]
+          message: messages.expected("background"),
+        },
+      ],
     },
     {
       code: `
@@ -180,19 +180,19 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected("background")
+          message: messages.expected("background"),
         },
         {
           line: 6,
           column: 9,
-          message: messages.expected("background")
+          message: messages.expected("background"),
         },
         {
           line: 10,
           column: 9,
-          message: messages.expected("background")
-        }
-      ]
-    }
-  ]
+          message: messages.expected("background"),
+        },
+      ],
+    },
+  ],
 });

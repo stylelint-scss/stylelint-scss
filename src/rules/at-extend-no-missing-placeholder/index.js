@@ -5,11 +5,11 @@ export const ruleName = namespace("at-extend-no-missing-placeholder");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected:
-    "Expected a placeholder selector (e.g. %placeholder) to be used in @extend"
+    "Expected a placeholder selector (e.g. %placeholder) to be used in @extend",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(actual) {
@@ -20,7 +20,7 @@ export default function rule(actual) {
       return;
     }
 
-    root.walkAtRules("extend", atrule => {
+    root.walkAtRules("extend", (atrule) => {
       const isPlaceholder = atrule.params.trim()[0] === "%";
       const isInterpolation = /^#{.+}/.test(atrule.params.trim());
 
@@ -29,7 +29,7 @@ export default function rule(actual) {
           ruleName,
           result,
           node: atrule,
-          message: messages.rejected
+          message: messages.rejected,
         });
       }
     });

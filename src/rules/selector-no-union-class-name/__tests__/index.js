@@ -12,7 +12,7 @@ testRule({
         &.foo {}
       }
     `,
-      description: "when an ampersand is chained with another class name"
+      description: "when an ampersand is chained with another class name",
     },
     {
       code: `
@@ -20,7 +20,7 @@ testRule({
         &-union {}
       }
     `,
-      description: "when an ampersand parent is not class name"
+      description: "when an ampersand parent is not class name",
     },
     {
       code: `
@@ -28,7 +28,7 @@ testRule({
         & span {}
       }
     `,
-      description: "when an ampersand is chained with combinator"
+      description: "when an ampersand is chained with combinator",
     },
     {
       code: `
@@ -37,7 +37,7 @@ testRule({
       }
     `,
       description:
-        "when an ampersand is chained with the adjacent sibling combinator"
+        "when an ampersand is chained with the adjacent sibling combinator",
     },
     {
       code: `
@@ -46,7 +46,7 @@ testRule({
       }
     `,
       description:
-        "when an ampersand is chained with the general sibling combinator"
+        "when an ampersand is chained with the general sibling combinator",
     },
     {
       code: `
@@ -54,7 +54,7 @@ testRule({
         & > span {}
       }
     `,
-      description: "when an ampersand is chained with the child combinator "
+      description: "when an ampersand is chained with the child combinator ",
     },
     {
       code: `
@@ -64,7 +64,7 @@ testRule({
         }
       }
       `,
-      description: "ignores an ampersand chained with a pseudo-class"
+      description: "ignores an ampersand chained with a pseudo-class",
     },
     {
       code: `
@@ -74,7 +74,7 @@ testRule({
         }
       }
       `,
-      description: "ignores an ampersand chained with a pseudo-element"
+      description: "ignores an ampersand chained with a pseudo-element",
     },
     {
       code: `
@@ -84,7 +84,7 @@ testRule({
         }
       }
       `,
-      description: "ignores an ampersand chained with an ID"
+      description: "ignores an ampersand chained with an ID",
     },
     {
       code: `
@@ -94,7 +94,7 @@ testRule({
         }
       }
       `,
-      description: "ignores an ampersand chained with an attribute"
+      description: "ignores an ampersand chained with an attribute",
     },
     {
       code: `
@@ -108,8 +108,8 @@ testRule({
           }
         }
       }`,
-      description: "should not throw an error when using nesting (issue #345)"
-    }
+      description: "should not throw an error when using nesting (issue #345)",
+    },
   ],
 
   reject: [
@@ -121,7 +121,8 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand is chained with union class name (hyphen)"
+      description:
+        "when an ampersand is chained with union class name (hyphen)",
     },
     {
       code: `
@@ -132,7 +133,7 @@ testRule({
       line: 3,
       message: messages.rejected,
       description:
-        "when an ampersand is chained with union class name (underscore)"
+        "when an ampersand is chained with union class name (underscore)",
     },
     {
       code: `
@@ -142,9 +143,10 @@ testRule({
 			`,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand is chained with union class name (direct)"
-    }
-  ]
+      description:
+        "when an ampersand is chained with union class name (direct)",
+    },
+  ],
 });
 
 testRule({
@@ -168,8 +170,8 @@ testRule({
       }
       `,
       description:
-        "verify that the selector parsing does not throw an error when Less is used (issue #471)."
-    }
-  ]
+        "verify that the selector parsing does not throw an error when Less is used (issue #471).",
+    },
+  ],
   /* eslint-enable no-useless-escape */
 });

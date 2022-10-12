@@ -5,11 +5,11 @@ import { declarationValueIndex, namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("function-color-relative");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Expected the scale-color function to be used"
+  rejected: "Expected the scale-color function to be used",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 const function_names = [
@@ -20,7 +20,7 @@ const function_names = [
   "opacify",
   "fade-in",
   "transparentize",
-  "fade-out"
+  "fade-out",
 ];
 
 function isColorFunction(node) {
@@ -30,15 +30,15 @@ function isColorFunction(node) {
 export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary
+      actual: primary,
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkDecls(decl => {
-      valueParser(decl.value).walk(node => {
+    root.walkDecls((decl) => {
+      valueParser(decl.value).walk((node) => {
         // Verify that we're only looking at functions.
         if (node.type !== "function" || node.value === "") {
           return;
@@ -56,13 +56,13 @@ export default function rule(primary) {
             ? node.nodes.filter(isColorFunction)
             : [node];
 
-          nodes.forEach(node => {
+          nodes.forEach((node) => {
             utils.report({
               message: messages.rejected,
               node: decl,
               index: declarationValueIndex(decl) + node.sourceIndex,
               result,
-              ruleName
+              ruleName,
             });
           });
         }

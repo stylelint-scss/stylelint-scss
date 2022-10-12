@@ -9,41 +9,41 @@ testRule({
   accept: [
     {
       code: "a { width:10px }",
-      description: "Not an SCSS var, ignored: a { width:10px }"
+      description: "Not an SCSS var, ignored: a { width:10px }",
     },
     {
       code: "a { $var: 10px }",
-      description: "a { $var: 10px }"
+      description: "a { $var: 10px }",
     },
     {
       code: "a { $var : 10px }",
-      description: "a { $var : 10px }"
+      description: "a { $var : 10px }",
     },
     {
       code: "a { $var\n: 10px }",
-      description: "a { $var\n: 10px }"
+      description: "a { $var\n: 10px }",
     },
     {
       code: "a { $var\r\n: 10px }",
-      description: "a { $var\r\n: 10px }"
+      description: "a { $var\r\n: 10px }",
     },
     {
       code: "$var: 10px;",
-      description: "$var: 10px;"
+      description: "$var: 10px;",
     },
     {
       code: "$var : 10px",
-      description: "$var : 10px"
+      description: "$var : 10px",
     },
     {
       code: "$var: url(data:application/font-woff;...);",
-      description: "Data URI: $var: url(data:application/font-woff;...);"
+      description: "Data URI: $var: url(data:application/font-woff;...);",
     },
     {
       code: "@function ($a:10) {}",
       description:
-        "Default in a function definition, ignored: @function ($a: 10)"
-    }
+        "Default in a function definition, ignored: @function ($a: 10)",
+    },
   ],
 
   reject: [
@@ -53,7 +53,7 @@ testRule({
       description: "a { $var :10px; }",
       message: messages.expectedAfter(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :  10px; }",
@@ -61,7 +61,7 @@ testRule({
       description: "a { $var :  10px; }",
       message: messages.expectedAfter(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :\t10px; }",
@@ -69,7 +69,7 @@ testRule({
       description: "Tab after: a { $var :\t10px; }",
       message: messages.expectedAfter(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :\n10px; }",
@@ -77,7 +77,7 @@ testRule({
       description: "Newline after: a { $var :\n10px; }",
       message: messages.expectedAfter(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :\r\n10px; }",
@@ -85,7 +85,7 @@ testRule({
       description: "Windows newline after: a { $var :\r\n10px; }",
       message: messages.expectedAfter(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var:10px; }",
@@ -93,7 +93,7 @@ testRule({
       description: "a { $var:10px; }",
       message: messages.expectedAfter(),
       line: 1,
-      column: 9
+      column: 9,
     },
     {
       code: "$var :10px;",
@@ -101,7 +101,7 @@ testRule({
       description: "$var :10px;",
       message: messages.expectedAfter(),
       line: 1,
-      column: 6
+      column: 6,
     },
     {
       code: "$var :  10px;",
@@ -109,7 +109,7 @@ testRule({
       description: "$var :  10px;",
       message: messages.expectedAfter(),
       line: 1,
-      column: 6
+      column: 6,
     },
     {
       code: "$var :\t10px;",
@@ -117,7 +117,7 @@ testRule({
       description: "$var :\t10px;",
       message: messages.expectedAfter(),
       line: 1,
-      column: 6
+      column: 6,
     },
     {
       code: "$var :\n10px;",
@@ -125,7 +125,7 @@ testRule({
       description: "$var :\n10px;",
       message: messages.expectedAfter(),
       line: 1,
-      column: 6
+      column: 6,
     },
     {
       code: "$var :\r\n10px;",
@@ -133,7 +133,7 @@ testRule({
       description: "$var :\r\n10px;",
       message: messages.expectedAfter(),
       line: 1,
-      column: 6
+      column: 6,
     },
     {
       code: "$var:10px;",
@@ -141,9 +141,9 @@ testRule({
       description: "$var:10px;",
       message: messages.expectedAfter(),
       line: 1,
-      column: 5
-    }
-  ]
+      column: 5,
+    },
+  ],
 });
 
 testRule({
@@ -155,24 +155,24 @@ testRule({
   accept: [
     {
       code: "a { $var:10px }",
-      description: "a { $var:10px }"
+      description: "a { $var:10px }",
     },
     {
       code: "a { $var :10px }",
-      description: "a { $var :10px }"
+      description: "a { $var :10px }",
     },
     {
       code: "a { $var\n:10px }",
-      description: "a { $var\n:10px }"
+      description: "a { $var\n:10px }",
     },
     {
       code: "a { $var\r\n:10px }",
-      description: "a { $var\r\n:10px }"
+      description: "a { $var\r\n:10px }",
     },
     {
       code: "$map:(key: value)",
-      description: "$map:(key: value)"
-    }
+      description: "$map:(key: value)",
+    },
   ],
 
   reject: [
@@ -182,7 +182,7 @@ testRule({
       description: "a { $var : 10px; }",
       message: messages.rejectedAfter(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var:  10px; }",
@@ -190,7 +190,7 @@ testRule({
       description: "a { $var:  10px; }",
       message: messages.rejectedAfter(),
       line: 1,
-      column: 9
+      column: 9,
     },
     {
       code: "a { $var :\t10px; }",
@@ -198,7 +198,7 @@ testRule({
       description: "a { $var :\t10px; }",
       message: messages.rejectedAfter(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :\n10px; }",
@@ -206,7 +206,7 @@ testRule({
       description: "a { $var :\n10px; }",
       message: messages.rejectedAfter(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :\r\n10px; }",
@@ -214,9 +214,9 @@ testRule({
       description: "a { $var :\r\n10px; }",
       message: messages.rejectedAfter(),
       line: 1,
-      column: 10
-    }
-  ]
+      column: 10,
+    },
+  ],
 });
 
 testRule({
@@ -228,24 +228,24 @@ testRule({
   accept: [
     {
       code: "a { $var: 10px }",
-      description: "a { $var: 10px }"
+      description: "a { $var: 10px }",
     },
     {
       code: "$transition: color 1s,\n\twidth 2s;",
-      description: "$transition: color 1s,\n\twidth 2s;"
+      description: "$transition: color 1s,\n\twidth 2s;",
     },
     {
       code: "$transition:color 1s,\n\twidth 2s;",
-      description: "$transition:color 1s,\n\twidth 2s;"
+      description: "$transition:color 1s,\n\twidth 2s;",
     },
     {
       code: "$transition:color 1s,\r\n\twidth 2s;",
-      description: "$transition:color 1s,\r\n\twidth 2s;"
+      description: "$transition:color 1s,\r\n\twidth 2s;",
     },
     {
       code: "a { $transition:\tcolor 1s,\n\twidth 2s; }",
-      description: "a { $transition:\tcolor 1s,\n\twidth 2s; }"
-    }
+      description: "a { $transition:\tcolor 1s,\n\twidth 2s; }",
+    },
   ],
 
   reject: [
@@ -255,7 +255,7 @@ testRule({
       description: "a { $var :10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :  10px; }",
@@ -263,7 +263,7 @@ testRule({
       description: "a { $var :  10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :\t10px; }",
@@ -271,7 +271,7 @@ testRule({
       description: "a { $var :\t10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :\n10px; }",
@@ -279,7 +279,7 @@ testRule({
       description: "a { $var :\n10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var :\r\n10px; }",
@@ -287,7 +287,7 @@ testRule({
       description: "a { $var :\r\n10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "a { $var:10px; }",
@@ -295,9 +295,9 @@ testRule({
       description: "a { $var:10px; }",
       message: messages.expectedAfterSingleLine(),
       line: 1,
-      column: 9
-    }
-  ]
+      column: 9,
+    },
+  ],
 });
 
 testRule({
@@ -309,45 +309,45 @@ testRule({
   accept: [
     {
       code: "a { width:10px }",
-      description: "Not an SCSS var, ignored: a { width:10px }"
+      description: "Not an SCSS var, ignored: a { width:10px }",
     },
     {
       code: "a { $var: 10px }",
-      description: "a { $var: 10px }"
+      description: "a { $var: 10px }",
     },
     {
       code: "a { $var : 10px }",
-      description: "a { $var : 10px }"
+      description: "a { $var : 10px }",
     },
     {
       code: "a { $var\n: 10px }",
-      description: "a { $var\n: 10px }"
+      description: "a { $var\n: 10px }",
     },
     {
       code: "a { $var\r\n: 10px }",
-      description: "a { $var\r\n: 10px }"
+      description: "a { $var\r\n: 10px }",
     },
     {
       code: "$var: 10px;",
-      description: "$var: 10px;"
+      description: "$var: 10px;",
     },
     {
       code: "$var : 10px",
-      description: "$var : 10px"
+      description: "$var : 10px",
     },
     {
       code: "$var: url(data:application/font-woff;...);",
-      description: "Data URI: $var: url(data:application/font-woff;...);"
+      description: "Data URI: $var: url(data:application/font-woff;...);",
     },
     {
       code: "@function ($a:10) {}",
       description:
-        "Default in a function definition, ignored: @function ($a: 10)"
+        "Default in a function definition, ignored: @function ($a: 10)",
     },
     {
       code: "$var:    10px",
-      description: "$var:    10px"
-    }
+      description: "$var:    10px",
+    },
   ],
 
   reject: [
@@ -357,7 +357,7 @@ testRule({
       description: "a { $var :10px; }",
       message: messages.expectedAfterAtLeast(),
       line: 1,
-      column: 10
+      column: 10,
     },
     {
       code: "$var :10px;",
@@ -365,7 +365,7 @@ testRule({
       description: "$var :10px;",
       message: messages.expectedAfterAtLeast(),
       line: 1,
-      column: 6
+      column: 6,
     },
     {
       code: "$var:10px;",
@@ -373,7 +373,7 @@ testRule({
       description: "$var:10px;",
       message: messages.expectedAfterAtLeast(),
       line: 1,
-      column: 5
-    }
-  ]
+      column: 5,
+    },
+  ],
 });

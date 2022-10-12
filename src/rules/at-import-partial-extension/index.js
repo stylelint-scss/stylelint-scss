@@ -6,11 +6,11 @@ export const ruleName = namespace("at-import-partial-extension");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected @import to have an extension",
-  rejected: ext => `Unexpected extension ".${ext}" in @import`
+  rejected: (ext) => `Unexpected extension ".${ext}" in @import`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 // https://drafts.csswg.org/mediaqueries/#media-types
@@ -25,31 +25,31 @@ const mediaQueryTypes = [
   "handheld",
   "braille",
   "embossed",
-  "aural"
+  "aural",
 ];
 
 const mediaQueryTypesRE = new RegExp(`(${mediaQueryTypes.join("|")})$`, "i");
-const stripPath = path =>
+const stripPath = (path) =>
   path.replace(/^\s*(["'])\s*/, "").replace(/\s*(["'])\s*$/, "");
 
 export default function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["always", "never"]
+      possible: ["always", "never"],
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkAtRules("import", decl => {
+    root.walkAtRules("import", (decl) => {
       const paths = decl.params
         .split(/["']\s*,/)
-        .filter(path => !mediaQueryTypesRE.test(path.trim()));
+        .filter((path) => !mediaQueryTypesRE.test(path.trim()));
 
       // Processing comma-separated lists of import paths
-      paths.forEach(path => {
+      paths.forEach((path) => {
         // Stripping trailing quotes and whitespaces, if any
         const pathStripped = stripPath(path);
 
@@ -69,7 +69,7 @@ export default function rule(expectation, _, context) {
             message: messages.expected,
             node: decl,
             result,
-            ruleName
+            ruleName,
           });
 
           return;
@@ -89,7 +89,7 @@ export default function rule(expectation, _, context) {
             node: decl,
             word: extension,
             result,
-            ruleName
+            ruleName,
           });
         }
       });

@@ -13,13 +13,13 @@ testRule({
   accept: [
     {
       code: "a {} // Inline comment, outside a ruleset.",
-      description: "Inline comment, outside a ruleset."
+      description: "Inline comment, outside a ruleset.",
     },
     {
       code: `a { // Inline comment, after {.
       width: 10px;
     }`,
-      description: "Inline comment, after {."
+      description: "Inline comment, after {.",
     },
     {
       code: `
@@ -28,15 +28,15 @@ testRule({
         width: 10px;
       }
     `,
-      description: "Inline comment between selectors."
+      description: "Inline comment between selectors.",
     },
     {
       code: `a {
       /* Non-inline CSS comment, ignored */
       width: 10px;
     }`,
-      description: "Non-inline CSS comment, ignored."
-    }
+      description: "Non-inline CSS comment, ignored.",
+    },
   ],
 
   reject: [
@@ -48,7 +48,7 @@ testRule({
       description: "Non-inline comment (after a ruleset)",
       message: messages.expected,
       line: 3,
-      column: 7
+      column: 7,
     },
     {
       code: `
@@ -59,7 +59,7 @@ testRule({
       description: "Non-inline comment between selectors.",
       message: messages.expected,
       line: 3,
-      column: 7
+      column: 7,
     },
     {
       code: `
@@ -71,9 +71,9 @@ testRule({
       description: "Non-inline comment (before a decl)",
       message: messages.expected,
       line: 3,
-      column: 9
-    }
-  ]
+      column: 9,
+    },
+  ],
 });
 
 testRule({
@@ -90,8 +90,8 @@ testRule({
 a {} // Inline comment, outside a ruleset.
 </style>
 // Just text
-`
-    }
+`,
+    },
   ],
 
   reject: [
@@ -108,9 +108,9 @@ a {
 `,
       message: messages.expected,
       line: 5,
-      column: 3
-    }
-  ]
+      column: 3,
+    },
+  ],
 });
 
 testRule({
@@ -128,9 +128,9 @@ testRule({
         top: 0;
       }
     `,
-      description: "stylelint command non-inline comment."
-    }
-  ]
+      description: "stylelint command non-inline comment.",
+    },
+  ],
 });
 
 // -------------------------------------------------------------------------
@@ -148,19 +148,19 @@ testRule({
       code: `
       // comment
     `,
-      description: "Non-inline comment, outside rulesets."
+      description: "Non-inline comment, outside rulesets.",
     },
     {
       code: `// comment
     `,
-      description: "Non-inline comment, the very start of the stylesheet."
+      description: "Non-inline comment, the very start of the stylesheet.",
     },
     {
       code: `
       a { color: red; }
       // Non-inline comment, outside rulesets.
     `,
-      description: "Non-inline comment, outside rulesets."
+      description: "Non-inline comment, outside rulesets.",
     },
     {
       code: `
@@ -168,15 +168,15 @@ testRule({
         color: red; /* Inline CSS comment, ignored */
       }
     `,
-      description: "Inline CSS comment, ignored."
-    }
+      description: "Inline CSS comment, ignored.",
+    },
   ],
 
   reject: [
     {
       code: "a {} // comment",
       message: messages.rejected,
-      description: "Inline comment, outside a ruleset."
+      description: "Inline comment, outside a ruleset.",
     },
     {
       code: `
@@ -187,7 +187,7 @@ testRule({
       message: messages.rejected,
       description: "Inline comment, inside a ruleset.",
       line: 3,
-      column: 34
+      column: 34,
     },
     {
       code: `
@@ -199,9 +199,9 @@ testRule({
       message: messages.rejected,
       description: "Inline comment, between selectors.",
       line: 2,
-      column: 10
-    }
-  ]
+      column: 10,
+    },
+  ],
 });
 
 testRule({
@@ -218,8 +218,8 @@ testRule({
 // comment
 </style>
 // Just text
-`
-    }
+`,
+    },
   ],
 
   reject: [
@@ -233,9 +233,9 @@ a {} // comment
 `,
       message: messages.rejected,
       line: 4,
-      column: 6
-    }
-  ]
+      column: 6,
+    },
+  ],
 });
 
 testRule({
@@ -252,7 +252,7 @@ testRule({
         top: 0;
       }
     `,
-      description: "stylelint command inline comment."
-    }
-  ]
+      description: "stylelint command inline comment.",
+    },
+  ],
 });

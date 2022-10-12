@@ -4,25 +4,25 @@ import { utils } from "stylelint";
 export const ruleName = namespace("at-else-empty-line-before");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected empty line before @else"
+  rejected: "Unexpected empty line before @else",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["never"]
+      possible: ["never"],
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkAtRules(atrule => {
+    root.walkAtRules((atrule) => {
       if (atrule.name !== "else") {
         return;
       }
@@ -44,7 +44,7 @@ export default function rule(expectation, _, context) {
         message: messages.rejected,
         node: atrule,
         result,
-        ruleName
+        ruleName,
       });
     });
   };

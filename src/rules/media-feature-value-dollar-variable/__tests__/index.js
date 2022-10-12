@@ -13,7 +13,7 @@ testRule({
         .navbar { display: none; }
       }
     `,
-      description: "Always. Example: no value."
+      description: "Always. Example: no value.",
     },
     {
       code: `
@@ -21,7 +21,7 @@ testRule({
         a { display: none; }
       }
     `,
-      description: "Always. Example: value is a var."
+      description: "Always. Example: value is a var.",
     },
     {
       code: `
@@ -29,7 +29,7 @@ testRule({
         a { display: none; }
       }
     `,
-      description: "Always. Example: value is interpolation of a single var."
+      description: "Always. Example: value is interpolation of a single var.",
     },
     {
       code: `
@@ -38,7 +38,7 @@ testRule({
       }
     `,
       description:
-        "Always. Example: value is interpolation of a single var; space after the interpolation."
+        "Always. Example: value is interpolation of a single var; space after the interpolation.",
     },
     {
       code: `
@@ -47,7 +47,7 @@ testRule({
       }
     `,
       description:
-        "Always. Example: value is interpolation of a single var spaces inside the interpolation."
+        "Always. Example: value is interpolation of a single var spaces inside the interpolation.",
     },
     {
       code: `
@@ -56,8 +56,8 @@ testRule({
       }
     `,
       description:
-        "Always. Example: value is interpolation of a single var; spaces before and after the interpolation."
-    }
+        "Always. Example: value is interpolation of a single var; spaces before and after the interpolation.",
+    },
   ],
 
   reject: [
@@ -70,7 +70,7 @@ testRule({
       line: 2,
       column: 26,
       message: messages.expected,
-      description: "Always. Example: value is not a var, space before."
+      description: "Always. Example: value is not a var, space before.",
     },
     {
       code: `
@@ -81,7 +81,7 @@ testRule({
       line: 2,
       column: 25,
       message: messages.expected,
-      description: "Always. Example: value is not a var, no spaces."
+      description: "Always. Example: value is not a var, no spaces.",
     },
     {
       code: `
@@ -94,7 +94,7 @@ testRule({
       column: 19,
       message: messages.expected,
       description:
-        "Always. Example: value is not a var, newline before statement."
+        "Always. Example: value is not a var, newline before statement.",
     },
     {
       code: `
@@ -106,7 +106,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.expected,
-      description: "Always. Example: value is not a var, newline before value."
+      description: "Always. Example: value is not a var, newline before value.",
     },
     {
       code: `
@@ -118,7 +118,7 @@ testRule({
       line: 2,
       column: 37,
       message: messages.expected,
-      description: "Always. Example: value is not a var, newline after value."
+      description: "Always. Example: value is not a var, newline after value.",
     },
     {
       code: `
@@ -131,7 +131,7 @@ testRule({
       line: 4,
       column: 19,
       message: messages.expected,
-      description: "Always. Example: multiple statements, one has non-var."
+      description: "Always. Example: multiple statements, one has non-var.",
     },
     {
       code: `
@@ -143,7 +143,7 @@ testRule({
       column: 37,
       message: messages.expected,
       description:
-        "Always. Example: value is a math op on an interpolation of a single var and a regular value."
+        "Always. Example: value is a math op on an interpolation of a single var and a regular value.",
     },
     {
       code: `
@@ -155,7 +155,7 @@ testRule({
       column: 37,
       message: messages.expected,
       description:
-        "Always. Example: value is an interpolation of a math op on a var and a regular value."
+        "Always. Example: value is an interpolation of a math op on a var and a regular value.",
     },
     {
       code: `
@@ -167,7 +167,7 @@ testRule({
       column: 37,
       message: messages.expected,
       description:
-        "Always. Example: value is an interpolation of a math op on a var and a var."
+        "Always. Example: value is an interpolation of a math op on a var and a var.",
     },
     {
       code: `
@@ -178,7 +178,7 @@ testRule({
       line: 2,
       column: 37,
       message: messages.expected,
-      description: "Always. Example: math operation without a var as a value."
+      description: "Always. Example: math operation without a var as a value.",
     },
     {
       code: `
@@ -189,7 +189,7 @@ testRule({
       line: 2,
       column: 37,
       message: messages.expected,
-      description: "Always. Example: math operation with a var as a value."
+      description: "Always. Example: math operation with a var as a value.",
     },
     {
       code: `
@@ -200,7 +200,7 @@ testRule({
       line: 2,
       column: 37,
       message: messages.expected,
-      description: "Always. Example: math operation with a var as a value."
+      description: "Always. Example: math operation with a var as a value.",
     },
     {
       code: `
@@ -211,7 +211,7 @@ testRule({
       line: 2,
       column: 37,
       message: messages.expected,
-      description: "Always. Example: function call as a value."
+      description: "Always. Example: function call as a value.",
     },
     {
       code: `
@@ -222,9 +222,9 @@ testRule({
       line: 2,
       column: 35,
       message: messages.expected,
-      description: "Always. Example: keyword as a value."
-    }
-  ]
+      description: "Always. Example: keyword as a value.",
+    },
+  ],
 });
 
 // Not allowed ("never")
@@ -240,7 +240,7 @@ testRule({
         .navbar { display: none; }
       }
     `,
-      description: "Never. Example: no value."
+      description: "Never. Example: no value.",
     },
     {
       code: `
@@ -248,7 +248,7 @@ testRule({
         b { color: red; }
       }
     `,
-      description: "Never. Example: math operation without a var as a value."
+      description: "Never. Example: math operation without a var as a value.",
     },
     {
       code: `
@@ -257,8 +257,8 @@ testRule({
         b { color: red; }
       }
     `,
-      description: "Never. Example: value is not a var, newline before value."
-    }
+      description: "Never. Example: value is not a var, newline before value.",
+    },
   ],
 
   reject: [
@@ -271,7 +271,7 @@ testRule({
       line: 2,
       column: 37,
       message: messages.rejected,
-      description: "Never. Example: value is a var."
+      description: "Never. Example: value is a var.",
     },
     {
       code: `
@@ -284,7 +284,7 @@ testRule({
       line: 3,
       column: 19,
       message: messages.rejected,
-      description: "Never. Example: multiple statements, one has non-var."
+      description: "Never. Example: multiple statements, one has non-var.",
     },
     {
       code: `
@@ -296,7 +296,7 @@ testRule({
       column: 37,
       message: messages.rejected,
       description:
-        "Never. Example: function call and with a var as a parameter."
+        "Never. Example: function call and with a var as a parameter.",
     },
     {
       code: `
@@ -306,7 +306,7 @@ testRule({
     `,
       message: messages.rejected,
       description:
-        "Never. Example: math operation with a var (not the 1st operand) as a value."
+        "Never. Example: math operation with a var (not the 1st operand) as a value.",
     },
     {
       code: `
@@ -318,9 +318,9 @@ testRule({
       column: 37,
       message: messages.rejected,
       description:
-        "Never. Example: value is an interpolation of a math op on a var and a regular value."
-    }
-  ]
+        "Never. Example: value is an interpolation of a math op on a var and a regular value.",
+    },
+  ],
 });
 
 // Required ("always"), ignore keywords
@@ -336,7 +336,7 @@ testRule({
         a { display: none; }
       }
     `,
-      description: "Always. Example: value is a keyword."
+      description: "Always. Example: value is a keyword.",
     },
     {
       code: `
@@ -344,7 +344,7 @@ testRule({
         a { display: none; }
       }
     `,
-      description: "Always. Example: values contain var and keyword with dash."
+      description: "Always. Example: values contain var and keyword with dash.",
     },
     {
       code: `
@@ -352,9 +352,9 @@ testRule({
         a { display: none; }
       }
     `,
-      description: "Always. Example: value is a keyword with number."
-    }
-  ]
+      description: "Always. Example: value is a keyword with number.",
+    },
+  ],
 });
 
 // Invalid option (false)
@@ -370,7 +370,7 @@ testRule({
         a { display: none; }
       }
     `,
-      description: "Invalid option. Example: values are mixed."
-    }
-  ]
+      description: "Invalid option. Example: values are mixed.",
+    },
+  ],
 });

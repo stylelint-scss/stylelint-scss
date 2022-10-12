@@ -4,11 +4,11 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("at-rule-conditional-no-parentheses");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected () used to surround statements for @-rules"
+  rejected: "Unexpected () used to surround statements for @-rules",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 // postcss picks up else-if as else.
@@ -19,7 +19,7 @@ function report(atrule, result) {
     message: messages.rejected,
     node: atrule,
     result,
-    ruleName
+    ruleName,
   });
 }
 
@@ -35,14 +35,14 @@ function fix(atrule) {
 export default function rule(primary, _unused, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary
+      actual: primary,
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkAtRules(atrule => {
+    root.walkAtRules((atrule) => {
       // Check if this is a conditional rule.
       if (!conditional_rules.includes(atrule.name)) {
         return;

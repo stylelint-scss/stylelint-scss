@@ -6,11 +6,11 @@ export const ruleName = namespace("media-feature-value-dollar-variable");
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected dollar-variable as a media feature value",
   expected:
-    "Expected a dollar-variable (e.g. $var) to be used as a media feature value"
+    "Expected a dollar-variable (e.g. $var) to be used as a media feature value",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, options) {
@@ -20,14 +20,14 @@ export default function rule(expectation, options) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never"]
+        possible: ["always", "never"],
       },
       {
         actual: options,
         possible: {
-          ignore: ["keywords"]
+          ignore: ["keywords"],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -47,7 +47,7 @@ export default function rule(expectation, options) {
     // `none`, `dark`
     const keywordValueRegex = /^[a-z][a-z\d-]*$/;
 
-    root.walkAtRules("media", atRule => {
+    root.walkAtRules("media", (atRule) => {
       const found = atRule.params.match(valueRegexGlobal);
 
       // If there are no values
@@ -55,7 +55,7 @@ export default function rule(expectation, options) {
         return;
       }
 
-      found.forEach(found => {
+      found.forEach((found) => {
         // ... parse `: 10px )` to `10px`
         const valueParsed = found.match(valueRegex)[1];
 
@@ -66,7 +66,7 @@ export default function rule(expectation, options) {
             result,
             node: atRule,
             word: valueParsed,
-            message
+            message,
           });
         }
 

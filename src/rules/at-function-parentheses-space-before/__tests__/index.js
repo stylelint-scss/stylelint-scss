@@ -12,43 +12,43 @@ testRule({
       @function foo () {
       }
     `,
-      description: "No params."
+      description: "No params.",
     },
     {
       code: `
       @function foo ($links: 10){
       }
     `,
-      description: "With default params."
+      description: "With default params.",
     },
     {
       code: `
       @function foo ($n) {
       }
     `,
-      description: "With params."
+      description: "With params.",
     },
     {
       code: `
       @function  foo ($n) {
       }
     `,
-      description: "Extra spaces after @function."
+      description: "Extra spaces after @function.",
     },
     {
       code: `
       @functio1n foo ($n) {
       }
     `,
-      description: "Not a SCSS function, skipping."
+      description: "Not a SCSS function, skipping.",
     },
     {
       code: `
       @function foo-bar () {
       }
     `,
-      description: "No params, hyphenated name."
-    }
+      description: "No params, hyphenated name.",
+    },
   ],
 
   reject: [
@@ -66,7 +66,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "Newline after function name"
+      description: "Newline after function name",
     },
     {
       code: `
@@ -79,7 +79,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "No space before parentheses."
+      description: "No space before parentheses.",
     },
     {
       code: `
@@ -92,7 +92,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "Extra spaces after @function."
+      description: "Extra spaces after @function.",
     },
     {
       code: `
@@ -105,9 +105,9 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "No space before parentheses, hyphenated name."
-    }
-  ]
+      description: "No space before parentheses, hyphenated name.",
+    },
+  ],
 });
 
 testRule({
@@ -122,43 +122,43 @@ testRule({
       @function foo() {
       }
     `,
-      description: "No params."
+      description: "No params.",
     },
     {
       code: `
       @function foo($links: 10){
       }
     `,
-      description: "With default params."
+      description: "With default params.",
     },
     {
       code: `
       @function foo($n) {
       }
     `,
-      description: "With params."
+      description: "With params.",
     },
     {
       code: `
       @function  foo($n) {
       }
     `,
-      description: "Extra spaces after @function."
+      description: "Extra spaces after @function.",
     },
     {
       code: `
       @functio1n foo($n) {
       }
     `,
-      description: "Not a SCSS function, skipping."
+      description: "Not a SCSS function, skipping.",
     },
     {
       code: `
       @function foo-bar() {
       }
     `,
-      description: "No params, hyphenated name."
-    }
+      description: "No params, hyphenated name.",
+    },
   ],
 
   reject: [
@@ -176,7 +176,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Newline after function name"
+      description: "Newline after function name",
     },
     {
       code: `
@@ -189,7 +189,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Single space before parentheses."
+      description: "Single space before parentheses.",
     },
     {
       code: `
@@ -202,7 +202,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Multiple spaces before parentheses."
+      description: "Multiple spaces before parentheses.",
     },
     {
       code: `
@@ -215,7 +215,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Single space before parentheses, hyphenated name."
-    }
-  ]
+      description: "Single space before parentheses, hyphenated name.",
+    },
+  ],
 });

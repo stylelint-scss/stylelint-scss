@@ -5,7 +5,7 @@ import {
   optionsHaveException,
   optionsHaveIgnored,
   blockString,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 import { utils } from "stylelint";
 import { isBoolean } from "lodash";
@@ -14,11 +14,11 @@ export const ruleName = namespace("dollar-variable-empty-line-before");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected an empty line before $-variable",
-  rejected: "Unexpected empty line before $-variable"
+  rejected: "Unexpected empty line before $-variable",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, options, context) {
@@ -28,7 +28,7 @@ export default function rule(expectation, options, context) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never"]
+        possible: ["always", "never"],
       },
       {
         actual: options,
@@ -37,11 +37,11 @@ export default function rule(expectation, options, context) {
           ignore: [
             "after-comment",
             "inside-single-line-block",
-            "after-dollar-variable"
+            "after-dollar-variable",
           ],
-          disableFix: isBoolean
+          disableFix: isBoolean,
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -56,9 +56,9 @@ export default function rule(expectation, options, context) {
       );
     };
 
-    const hasNewline = str => str.includes(context.newline);
+    const hasNewline = (str) => str.includes(context.newline);
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       if (!isDollarVar(decl)) {
         return;
       }
@@ -159,7 +159,7 @@ export default function rule(expectation, options, context) {
           : messages.rejected,
         node: decl,
         result,
-        ruleName
+        ruleName,
       });
     });
   };

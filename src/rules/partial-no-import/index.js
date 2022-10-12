@@ -5,17 +5,17 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("partial-no-import");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Unexpected @import in a partial"
+  expected: "Unexpected @import in a partial",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(on) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: on
+      actual: on,
     });
 
     if (!validOptions) {
@@ -55,7 +55,7 @@ export default function rule(on) {
         node: decl,
         index: decl.params.indexOf(path),
         result,
-        ruleName
+        ruleName,
       });
     }
 
@@ -69,10 +69,10 @@ export default function rule(on) {
       return;
     }
 
-    root.walkAtRules("import", mixinCall => {
+    root.walkAtRules("import", (mixinCall) => {
       // Check if @import is treated as CSS import; report only if not
       // Processing comma-separated lists of import paths
-      mixinCall.params.split(/["']\s*,/).forEach(path => {
+      mixinCall.params.split(/["']\s*,/).forEach((path) => {
         checkImportForCSS(path, mixinCall);
       });
     });

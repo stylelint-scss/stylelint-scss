@@ -10,40 +10,41 @@ testRule({
       code: `
       $a: 1;
     `,
-      description: "A single dollar variable."
+      description: "A single dollar variable.",
     },
     {
       code: `
       $a: 1;
       $b: 2;
     `,
-      description: "Two dollar variables with different names."
+      description: "Two dollar variables with different names.",
     },
     {
       code: `
       $a: 1; $b: 2;
     `,
-      description: "Two dollar variables with different names on the same line."
+      description:
+        "Two dollar variables with different names on the same line.",
     },
     {
       code: "a { $a: 0; $b: $a + 1; }",
       description:
-        "Two dollar variables with different names on the same line and variable assign."
+        "Two dollar variables with different names on the same line and variable assign.",
     },
     {
       code: "a { @less: 0; @less: @less + 1; }",
-      description: "Less variables are ignored"
+      description: "Less variables are ignored",
     },
     {
       code: "a { --custom-property: 0; --custom-property: 1; }",
-      description: "Custom properties are ignored"
+      description: "Custom properties are ignored",
     },
     {
       code: `
       $a: 1;
       $ab: 2;
     `,
-      description: "Two dollar variables with different names."
+      description: "Two dollar variables with different names.",
     },
     {
       code: `
@@ -53,7 +54,7 @@ testRule({
       }
     `,
       description:
-        "Two dollar variables with different names and inside a selector."
+        "Two dollar variables with different names and inside a selector.",
     },
     {
       code: `
@@ -62,7 +63,7 @@ testRule({
         color: black;
       }
     `,
-      description: "A single variable and a normal CSS property."
+      description: "A single variable and a normal CSS property.",
     },
     {
       code: `
@@ -73,7 +74,7 @@ testRule({
         $ab: 2;
       }
     `,
-      description: "Two variables in unrelated scopes."
+      description: "Two variables in unrelated scopes.",
     },
     {
       code: `
@@ -84,7 +85,7 @@ testRule({
         $ab: 2;
       }
     `,
-      description: "Two variables in unrelated at-rule scopes."
+      description: "Two variables in unrelated at-rule scopes.",
     },
     {
       code: `
@@ -95,7 +96,7 @@ testRule({
         $ab: 2;
       }
     `,
-      description: "Two variables in unrelated at-rule scope cases."
+      description: "Two variables in unrelated at-rule scope cases.",
     },
     {
       code: `
@@ -103,7 +104,7 @@ testRule({
       $b: 1;
     `,
       description:
-        "Two dollar variables with different names and one containing a default."
+        "Two dollar variables with different names and one containing a default.",
     },
     {
       code: `
@@ -111,7 +112,7 @@ testRule({
       $a: 1;
     `,
       description:
-        "Two dollar variables with same names and one containing a default."
+        "Two dollar variables with same names and one containing a default.",
     },
     {
       code: `
@@ -121,7 +122,7 @@ testRule({
       $b: 1;
     `,
       description:
-        "Two grouped dollar variables and each group contains a default."
+        "Two grouped dollar variables and each group contains a default.",
     },
     {
       code: `
@@ -134,8 +135,8 @@ testRule({
       $c: $c + 5;
     `,
       description:
-        "Three grouped dollar variables and each group contains a default."
-    }
+        "Three grouped dollar variables and each group contains a default.",
+    },
   ],
 
   reject: [
@@ -147,7 +148,7 @@ testRule({
       line: 3,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name."
+      description: "Two dollar variables with the same name.",
     },
     {
       code: `
@@ -156,7 +157,7 @@ testRule({
       line: 2,
       column: 14,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name on the same line."
+      description: "Two dollar variables with the same name on the same line.",
     },
     {
       code: `
@@ -168,22 +169,22 @@ testRule({
         {
           line: 3,
           column: 7,
-          message: messages.rejected("$a")
+          message: messages.rejected("$a"),
         },
         {
           line: 4,
           column: 7,
-          message: messages.rejected("$a")
-        }
+          message: messages.rejected("$a"),
+        },
       ],
-      description: "Three dollar variables with the same name."
+      description: "Three dollar variables with the same name.",
     },
     {
       code: "a { $scss: 0; $scss: $scss + 1; }",
       line: 1,
       column: 15,
       message: messages.rejected("$scss"),
-      description: "Two dollar variables with the same name inside a selector."
+      description: "Two dollar variables with the same name inside a selector.",
     },
     {
       code: `
@@ -194,7 +195,7 @@ testRule({
       line: 4,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name, variable between."
+      description: "Two dollar variables with the same name, variable between.",
     },
     {
       code: `
@@ -208,7 +209,7 @@ testRule({
       column: 7,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name, variable and newlines between."
+        "Two dollar variables with the same name, variable and newlines between.",
     },
     {
       code: `
@@ -221,7 +222,7 @@ testRule({
       column: 9,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and inside a selector."
+        "Two dollar variables with the same name and inside a selector.",
     },
     {
       code: `
@@ -235,7 +236,7 @@ testRule({
       line: 5,
       column: 11,
       message: messages.rejected("$ab"),
-      description: "Two dollar variables with the same name and nested @mixin."
+      description: "Two dollar variables with the same name and nested @mixin.",
     },
     {
       code: `
@@ -250,7 +251,7 @@ testRule({
       column: 11,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and nesting selector."
+        "Two dollar variables with the same name and nesting selector.",
     },
     {
       code: `
@@ -267,7 +268,7 @@ testRule({
       line: 4,
       column: 9,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name and @mixin."
+      description: "Two dollar variables with the same name and @mixin.",
     },
     {
       code: `
@@ -285,7 +286,7 @@ testRule({
       column: 11,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and multi-level nesting."
+        "Two dollar variables with the same name and multi-level nesting.",
     },
     {
       code: `
@@ -302,7 +303,7 @@ testRule({
       column: 11,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and multi-level nesting."
+        "Two dollar variables with the same name and multi-level nesting.",
     },
     {
       code: `
@@ -323,7 +324,7 @@ testRule({
       column: 11,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and multi-level nesting."
+        "Two dollar variables with the same name and multi-level nesting.",
     },
     {
       code: `
@@ -333,7 +334,7 @@ testRule({
       line: 3,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name."
+      description: "Two dollar variables with the same name.",
     },
     {
       code: `
@@ -344,7 +345,7 @@ testRule({
       column: 7,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name and containing default."
+        "Two dollar variables with the same name and containing default.",
     },
     {
       code: `
@@ -354,7 +355,7 @@ testRule({
       column: 23,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name on the same line and containing default."
+        "Two dollar variables with the same name on the same line and containing default.",
     },
     {
       code: `
@@ -364,9 +365,9 @@ testRule({
       column: 30,
       message: messages.rejected("$a"),
       description:
-        "Three dollar variables with the same name on the same line and two contains default."
-    }
-  ]
+        "Three dollar variables with the same name on the same line and two contains default.",
+    },
+  ],
 });
 
 testRule({
@@ -385,7 +386,7 @@ testRule({
         }
       }
     `,
-      description: "Should ignore inside nested @mixin."
+      description: "Should ignore inside nested @mixin.",
     },
     {
       code: `
@@ -394,7 +395,7 @@ testRule({
         $ab: 2;
       }
     `,
-      description: "Two dollar variables with the same name and inside @mixin."
+      description: "Two dollar variables with the same name and inside @mixin.",
     },
     {
       code: `
@@ -408,46 +409,47 @@ testRule({
         }
       }
     `,
-      description: "Should ignore inside nested @media query."
+      description: "Should ignore inside nested @media query.",
     },
     {
       code: `
       $a: 1;
     `,
-      description: "A single dollar variable."
+      description: "A single dollar variable.",
     },
     {
       code: `
       $a: 1;
       $b: 2;
     `,
-      description: "Two dollar variables with different names."
+      description: "Two dollar variables with different names.",
     },
     {
       code: `
       $a: 1; $b: 2;
     `,
-      description: "Two dollar variables with different names on the same line."
+      description:
+        "Two dollar variables with different names on the same line.",
     },
     {
       code: "a { $a: 0; $b: $a + 1; }",
       description:
-        "Two dollar variables with different names on the same line and variable assign."
+        "Two dollar variables with different names on the same line and variable assign.",
     },
     {
       code: "a { @less: 0; @less: @less + 1; }",
-      description: "Less variables are ignored"
+      description: "Less variables are ignored",
     },
     {
       code: "a { --custom-property: 0; --custom-property: 1; }",
-      description: "Custom properties are ignored"
+      description: "Custom properties are ignored",
     },
     {
       code: `
       $a: 1;
       $ab: 2;
     `,
-      description: "Two dollar variables with different names."
+      description: "Two dollar variables with different names.",
     },
     {
       code: `
@@ -456,7 +458,7 @@ testRule({
         $b: 2;
       }
     `,
-      description: "Two dollar variables with different names and nesting."
+      description: "Two dollar variables with different names and nesting.",
     },
     {
       code: `
@@ -465,8 +467,8 @@ testRule({
         color: black;
       }
     `,
-      description: "A single variable and a normal CSS property."
-    }
+      description: "A single variable and a normal CSS property.",
+    },
   ],
 
   reject: [
@@ -483,7 +485,7 @@ testRule({
       line: 6,
       column: 11,
       message: messages.rejected("$a"),
-      description: "Should warn inside nested selector."
+      description: "Should warn inside nested selector.",
     },
     {
       code: `
@@ -498,7 +500,7 @@ testRule({
       line: 6,
       column: 11,
       message: messages.rejected("$a"),
-      description: "Should warn inside nesting selector."
+      description: "Should warn inside nesting selector.",
     },
 
     {
@@ -517,16 +519,16 @@ testRule({
         {
           line: 6,
           column: 9,
-          message: messages.rejected("$b")
+          message: messages.rejected("$b"),
         },
         {
           line: 8,
           column: 11,
-          message: messages.rejected("$a")
-        }
+          message: messages.rejected("$a"),
+        },
       ],
       description:
-        "Should warn for a var inside the selector, but not for nested one."
+        "Should warn for a var inside the selector, but not for nested one.",
     },
     {
       code: `
@@ -536,7 +538,7 @@ testRule({
       line: 3,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name."
+      description: "Two dollar variables with the same name.",
     },
     {
       code: `
@@ -545,7 +547,7 @@ testRule({
       line: 2,
       column: 14,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name on the same line."
+      description: "Two dollar variables with the same name on the same line.",
     },
     {
       code: `
@@ -557,22 +559,22 @@ testRule({
         {
           line: 3,
           column: 7,
-          message: messages.rejected("$a")
+          message: messages.rejected("$a"),
         },
         {
           line: 4,
           column: 7,
-          message: messages.rejected("$a")
-        }
+          message: messages.rejected("$a"),
+        },
       ],
-      description: "Three dollar variables with the same name."
+      description: "Three dollar variables with the same name.",
     },
     {
       code: "a { $scss: 0; $scss: $scss + 1; }",
       line: 1,
       column: 15,
       message: messages.rejected("$scss"),
-      description: "Two dollar variables with the same name inside a selector."
+      description: "Two dollar variables with the same name inside a selector.",
     },
     {
       code: `
@@ -583,7 +585,7 @@ testRule({
       line: 4,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name, variable between."
+      description: "Two dollar variables with the same name, variable between.",
     },
     {
       code: `
@@ -597,7 +599,7 @@ testRule({
       column: 7,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name, variable and newlines between."
+        "Two dollar variables with the same name, variable and newlines between.",
     },
     {
       code: `
@@ -610,9 +612,9 @@ testRule({
       column: 9,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and inside a selector."
-    }
-  ]
+        "Two dollar variables with the same name and inside a selector.",
+    },
+  ],
 });
 
 testRule({
@@ -631,7 +633,7 @@ testRule({
         }
       }
     `,
-      description: "Should ignore inside nested @mixin."
+      description: "Should ignore inside nested @mixin.",
     },
     {
       code: `
@@ -645,46 +647,47 @@ testRule({
         }
       }
     `,
-      description: "Should ignore inside nested @media query."
+      description: "Should ignore inside nested @media query.",
     },
     {
       code: `
       $a: 1;
     `,
-      description: "A single dollar variable."
+      description: "A single dollar variable.",
     },
     {
       code: `
       $a: 1;
       $b: 2;
     `,
-      description: "Two dollar variables with different names."
+      description: "Two dollar variables with different names.",
     },
     {
       code: `
       $a: 1; $b: 2;
     `,
-      description: "Two dollar variables with different names on the same line."
+      description:
+        "Two dollar variables with different names on the same line.",
     },
     {
       code: "a { $a: 0; $b: $a + 1; }",
       description:
-        "Two dollar variables with different names on the same line and variable assign."
+        "Two dollar variables with different names on the same line and variable assign.",
     },
     {
       code: "a { @less: 0; @less: @less + 1; }",
-      description: "Less variables are ignored"
+      description: "Less variables are ignored",
     },
     {
       code: "a { --custom-property: 0; --custom-property: 1; }",
-      description: "Custom properties are ignored"
+      description: "Custom properties are ignored",
     },
     {
       code: `
       $a: 1;
       $ab: 2;
     `,
-      description: "Two dollar variables with different names."
+      description: "Two dollar variables with different names.",
     },
     {
       code: `
@@ -693,7 +696,7 @@ testRule({
         $b: 2;
       }
     `,
-      description: "Two dollar variables with different names and nesting."
+      description: "Two dollar variables with different names and nesting.",
     },
     {
       code: `
@@ -702,8 +705,8 @@ testRule({
         color: black;
       }
     `,
-      description: "A single variable and a normal CSS property."
-    }
+      description: "A single variable and a normal CSS property.",
+    },
   ],
 
   reject: [
@@ -720,7 +723,7 @@ testRule({
       line: 6,
       column: 11,
       message: messages.rejected("$a"),
-      description: "Should warn inside nested selector."
+      description: "Should warn inside nested selector.",
     },
     {
       code: `
@@ -735,7 +738,7 @@ testRule({
       line: 6,
       column: 11,
       message: messages.rejected("$a"),
-      description: "Should warn inside nesting selector."
+      description: "Should warn inside nesting selector.",
     },
 
     {
@@ -754,16 +757,16 @@ testRule({
         {
           line: 6,
           column: 9,
-          message: messages.rejected("$b")
+          message: messages.rejected("$b"),
         },
         {
           line: 8,
           column: 11,
-          message: messages.rejected("$a")
-        }
+          message: messages.rejected("$a"),
+        },
       ],
       description:
-        "Should warn for a var inside the selector, but not for nested one."
+        "Should warn for a var inside the selector, but not for nested one.",
     },
     {
       code: `
@@ -773,7 +776,7 @@ testRule({
       line: 3,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name."
+      description: "Two dollar variables with the same name.",
     },
     {
       code: `
@@ -782,7 +785,7 @@ testRule({
       line: 2,
       column: 14,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name on the same line."
+      description: "Two dollar variables with the same name on the same line.",
     },
     {
       code: `
@@ -794,22 +797,22 @@ testRule({
         {
           line: 3,
           column: 7,
-          message: messages.rejected("$a")
+          message: messages.rejected("$a"),
         },
         {
           line: 4,
           column: 7,
-          message: messages.rejected("$a")
-        }
+          message: messages.rejected("$a"),
+        },
       ],
-      description: "Three dollar variables with the same name."
+      description: "Three dollar variables with the same name.",
     },
     {
       code: "a { $scss: 0; $scss: $scss + 1; }",
       line: 1,
       column: 15,
       message: messages.rejected("$scss"),
-      description: "Two dollar variables with the same name inside a selector."
+      description: "Two dollar variables with the same name inside a selector.",
     },
     {
       code: `
@@ -820,7 +823,7 @@ testRule({
       line: 4,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name, variable between."
+      description: "Two dollar variables with the same name, variable between.",
     },
     {
       code: `
@@ -834,7 +837,7 @@ testRule({
       column: 7,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name, variable and newlines between."
+        "Two dollar variables with the same name, variable and newlines between.",
     },
     {
       code: `
@@ -847,7 +850,7 @@ testRule({
       column: 9,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and inside a selector."
+        "Two dollar variables with the same name and inside a selector.",
     },
     {
       code: `
@@ -859,9 +862,9 @@ testRule({
       line: 4,
       column: 9,
       message: messages.rejected("$ab"),
-      description: "Two dollar variables with the same name and inside @mixin."
-    }
-  ]
+      description: "Two dollar variables with the same name and inside @mixin.",
+    },
+  ],
 });
 
 testRule({
@@ -878,7 +881,7 @@ testRule({
         $a: 2;
       }
     `,
-      description: "Should ignore inside @mixin."
+      description: "Should ignore inside @mixin.",
     },
     {
       code: `
@@ -893,7 +896,7 @@ testRule({
       }
 
     `,
-      description: "Should ignore inside nested @mixin."
+      description: "Should ignore inside nested @mixin.",
     },
     {
       code: `
@@ -903,46 +906,47 @@ testRule({
         $a: 2;
       }
     `,
-      description: "Should ignore inside @if."
+      description: "Should ignore inside @if.",
     },
     {
       code: `
       $a: 1;
     `,
-      description: "A single dollar variable."
+      description: "A single dollar variable.",
     },
     {
       code: `
       $a: 1;
       $b: 2;
     `,
-      description: "Two dollar variables with different names."
+      description: "Two dollar variables with different names.",
     },
     {
       code: `
       $a: 1; $b: 2;
     `,
-      description: "Two dollar variables with different names on the same line."
+      description:
+        "Two dollar variables with different names on the same line.",
     },
     {
       code: "a { $a: 0; $b: $a + 1; }",
       description:
-        "Two dollar variables with different names on the same line and variable assign."
+        "Two dollar variables with different names on the same line and variable assign.",
     },
     {
       code: "a { @less: 0; @less: @less + 1; }",
-      description: "Less variables are ignored"
+      description: "Less variables are ignored",
     },
     {
       code: "a { --custom-property: 0; --custom-property: 1; }",
-      description: "Custom properties are ignored"
+      description: "Custom properties are ignored",
     },
     {
       code: `
       $a: 1;
       $ab: 2;
     `,
-      description: "Two dollar variables with different names."
+      description: "Two dollar variables with different names.",
     },
     {
       code: `
@@ -952,7 +956,7 @@ testRule({
       }
     `,
       description:
-        "Two dollar variables with different names and inside a selector."
+        "Two dollar variables with different names and inside a selector.",
     },
     {
       code: `
@@ -961,8 +965,8 @@ testRule({
         color: black;
       }
     `,
-      description: "A single variable and a normal CSS property."
-    }
+      description: "A single variable and a normal CSS property.",
+    },
   ],
   reject: [
     {
@@ -976,7 +980,7 @@ testRule({
       line: 5,
       column: 9,
       message: messages.rejected("$c"),
-      description: "Should warn inside @function as it is not ignored."
+      description: "Should warn inside @function as it is not ignored.",
     },
     {
       code: `
@@ -986,7 +990,7 @@ testRule({
       line: 3,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name."
+      description: "Two dollar variables with the same name.",
     },
     {
       code: `
@@ -995,7 +999,7 @@ testRule({
       line: 2,
       column: 14,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name on the same line."
+      description: "Two dollar variables with the same name on the same line.",
     },
     {
       code: `
@@ -1007,22 +1011,22 @@ testRule({
         {
           line: 3,
           column: 7,
-          message: messages.rejected("$a")
+          message: messages.rejected("$a"),
         },
         {
           line: 4,
           column: 7,
-          message: messages.rejected("$a")
-        }
+          message: messages.rejected("$a"),
+        },
       ],
-      description: "Three dollar variables with the same name."
+      description: "Three dollar variables with the same name.",
     },
     {
       code: "a { $scss: 0; $scss: $scss + 1; }",
       line: 1,
       column: 15,
       message: messages.rejected("$scss"),
-      description: "Two dollar variables with the same name inside a selector."
+      description: "Two dollar variables with the same name inside a selector.",
     },
     {
       code: `
@@ -1033,7 +1037,7 @@ testRule({
       line: 4,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name, variable between."
+      description: "Two dollar variables with the same name, variable between.",
     },
     {
       code: `
@@ -1047,7 +1051,7 @@ testRule({
       column: 7,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name, variable and newlines between."
+        "Two dollar variables with the same name, variable and newlines between.",
     },
     {
       code: `
@@ -1060,7 +1064,7 @@ testRule({
       column: 9,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and inside a selector."
+        "Two dollar variables with the same name and inside a selector.",
     },
     {
       code: `
@@ -1075,9 +1079,9 @@ testRule({
       column: 11,
       message: messages.rejected("$ab"),
       description:
-        "Two dollar variables with the same name and nesting selector."
-    }
-  ]
+        "Two dollar variables with the same name and nesting selector.",
+    },
+  ],
 });
 
 testRule({
@@ -1092,8 +1096,8 @@ testRule({
       $b: 1;
     `,
       description:
-        "Two dollar variables with different names and one containing a default."
-    }
+        "Two dollar variables with different names and one containing a default.",
+    },
   ],
 
   reject: [
@@ -1105,7 +1109,8 @@ testRule({
       line: 3,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name containing default."
+      description:
+        "Two dollar variables with the same name containing default.",
     },
     {
       code: `
@@ -1115,7 +1120,7 @@ testRule({
       column: 23,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name on the same line and one variable contains a default."
+        "Two dollar variables with the same name on the same line and one variable contains a default.",
     },
     {
       code: `
@@ -1126,9 +1131,9 @@ testRule({
       column: 7,
       message: messages.rejected("$a"),
       description:
-        "Two dollar variables with the same name and one containing default."
-    }
-  ]
+        "Two dollar variables with the same name and one containing default.",
+    },
+  ],
 });
 
 testRule({
@@ -1143,7 +1148,7 @@ testRule({
       $b: 1;
     `,
       description:
-        "Two dollar variables with different names and one containing a default."
+        "Two dollar variables with different names and one containing a default.",
     },
     {
       code: `
@@ -1151,7 +1156,7 @@ testRule({
       $a: 1;
     `,
       description:
-        "Two dollar variables with same names and one containing a default."
+        "Two dollar variables with same names and one containing a default.",
     },
     {
       code: `
@@ -1160,7 +1165,7 @@ testRule({
       $a: 1;
     `,
       description:
-        "Three dollar variables with same names and two containing a default."
+        "Three dollar variables with same names and two containing a default.",
     },
     {
       code: `
@@ -1170,7 +1175,7 @@ testRule({
       $a: 1;
     `,
       description:
-        "Four dollar variables with same names and three containing a default."
+        "Four dollar variables with same names and three containing a default.",
     },
     {
       code: `
@@ -1185,8 +1190,8 @@ testRule({
       $c: $c + 5;
     `,
       description:
-        "Three grouped dollar variables and each group contains a default."
-    }
+        "Three grouped dollar variables and each group contains a default.",
+    },
   ],
 
   reject: [
@@ -1198,7 +1203,7 @@ testRule({
       line: 3,
       column: 7,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name."
+      description: "Two dollar variables with the same name.",
     },
     {
       code: `
@@ -1207,7 +1212,7 @@ testRule({
       line: 2,
       column: 14,
       message: messages.rejected("$a"),
-      description: "Two dollar variables with the same name on the same line."
-    }
-  ]
+      description: "Two dollar variables with the same name on the same line.",
+    },
+  ],
 });

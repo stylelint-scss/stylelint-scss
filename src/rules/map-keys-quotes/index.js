@@ -5,11 +5,11 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("map-keys-quotes");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected keys in map to be quoted."
+  expected: "Expected keys in map to be quoted.",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 const mathOperators = ["+", "/", "-", "*", "%"];
@@ -18,19 +18,19 @@ export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary,
-      possible: ["always"]
+      possible: ["always"],
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       if (decl.prop[0] !== "$") {
         return;
       }
 
-      valueParser(decl.value).walk(node => {
+      valueParser(decl.value).walk((node) => {
         if (
           node.type === "function" &&
           node.value === "" &&
@@ -39,7 +39,7 @@ export default function rule(primary) {
           // Identify all of the map-keys and see if they're strings (not words).
           const mapKeys = returnMapKeys(node.nodes);
 
-          mapKeys.forEach(map_key => {
+          mapKeys.forEach((map_key) => {
             if (mathOperators.includes(map_key.value)) {
               return;
             }
@@ -49,7 +49,7 @@ export default function rule(primary) {
                 message: messages.expected,
                 node: decl,
                 result,
-                ruleName
+                ruleName,
               });
             }
           });

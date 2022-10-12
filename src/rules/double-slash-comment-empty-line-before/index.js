@@ -6,18 +6,18 @@ import {
   optionsHaveException,
   optionsHaveIgnored,
   removeEmptyLinesBefore,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 
 export const ruleName = namespace("double-slash-comment-empty-line-before");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected empty line before comment",
-  rejected: "Unexpected empty line before comment"
+  rejected: "Unexpected empty line before comment",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 const stylelintCommandPrefix = "stylelint-";
@@ -29,15 +29,15 @@ export default function rule(expectation, options, context) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never"]
+        possible: ["always", "never"],
       },
       {
         actual: options,
         possible: {
           except: ["first-nested", "inside-block"],
-          ignore: ["stylelint-commands", "between-comments", "inside-block"]
+          ignore: ["stylelint-commands", "between-comments", "inside-block"],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -45,7 +45,7 @@ export default function rule(expectation, options, context) {
       return;
     }
 
-    root.walkComments(comment => {
+    root.walkComments((comment) => {
       // Only process // comments
       if (!comment.raws.inline && !comment.inline) {
         return;
@@ -138,7 +138,7 @@ export default function rule(expectation, options, context) {
         message,
         node: comment,
         result,
-        ruleName
+        ruleName,
       });
     });
   };

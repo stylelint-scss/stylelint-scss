@@ -5,18 +5,18 @@ export const ruleName = namespace("at-if-closing-brace-space-after");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: 'Expected single space after "}" of @if statement',
-  rejected: 'Unexpected space after "}" of @if statement'
+  rejected: 'Unexpected space after "}" of @if statement',
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["always-intermediate", "never-intermediate"]
+      possible: ["always-intermediate", "never-intermediate"],
     });
 
     if (!validOptions) {
@@ -30,7 +30,7 @@ export default function rule(expectation, _, context) {
       atRuleName: "if",
       expectation,
       messages,
-      context
+      context,
     });
   };
 }
@@ -54,7 +54,7 @@ export function sassConditionalBraceSpaceAfterChecker({
   atRuleName,
   expectation,
   messages,
-  context
+  context,
 }) {
   function complain(node, message, index, fixValue) {
     if (context.fix) {
@@ -68,11 +68,11 @@ export function sassConditionalBraceSpaceAfterChecker({
       ruleName,
       node,
       message,
-      index
+      index,
     });
   }
 
-  root.walkAtRules(atrule => {
+  root.walkAtRules((atrule) => {
     // Do nothing if it's not an @if
     if (atrule.name !== atRuleName) {
       return;

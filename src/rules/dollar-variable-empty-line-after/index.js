@@ -5,7 +5,7 @@ import {
   optionsHaveException,
   optionsHaveIgnored,
   blockString,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 import { utils } from "stylelint";
 import { isBoolean } from "lodash";
@@ -14,11 +14,11 @@ export const ruleName = namespace("dollar-variable-empty-line-after");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected an empty line after $-variable",
-  rejected: "Unexpected empty line after $-variable"
+  rejected: "Unexpected empty line after $-variable",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, options, context) {
@@ -28,16 +28,16 @@ export default function rule(expectation, options, context) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never"]
+        possible: ["always", "never"],
       },
       {
         actual: options,
         possible: {
           except: ["last-nested", "before-comment", "before-dollar-variable"],
           ignore: ["before-comment", "inside-single-line-block"],
-          disableFix: isBoolean
+          disableFix: isBoolean,
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -59,10 +59,10 @@ export default function rule(expectation, options, context) {
       );
     };
 
-    const hasNewline = str => str.indexOf(context.newline) > -1;
-    const isDollarVar = node => node.prop && node.prop[0] === "$";
+    const hasNewline = (str) => str.indexOf(context.newline) > -1;
+    const isDollarVar = (node) => node.prop && node.prop[0] === "$";
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       let expectEmptyLineAfter = expectation === "always";
       const exceptLastNested = optionsHaveException(options, "last-nested");
       const exceptBeforeComment = optionsHaveException(
@@ -238,7 +238,7 @@ export default function rule(expectation, options, context) {
         message: expectEmptyLineAfter ? messages.expected : messages.rejected,
         node: decl,
         result,
-        ruleName
+        ruleName,
       });
     });
   };

@@ -4,11 +4,11 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("dollar-variable-no-namespaced-assignment");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected assignment to a namespaced $ variable"
+  rejected: "Unexpected assignment to a namespaced $ variable",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(actual) {
@@ -19,7 +19,7 @@ export default function rule(actual) {
       return;
     }
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       if (!/^[^$.]+\.\$./.test(decl.prop)) {
         return;
       }
@@ -28,7 +28,7 @@ export default function rule(actual) {
         message: messages.rejected,
         node: decl,
         result,
-        ruleName
+        ruleName,
       });
     });
   };

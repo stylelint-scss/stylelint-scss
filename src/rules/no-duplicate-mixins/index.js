@@ -4,17 +4,17 @@ import { atRuleBaseName, namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("no-duplicate-mixins");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: mixin => `Unexpected duplicate mixin ${mixin}`
+  rejected: (mixin) => `Unexpected duplicate mixin ${mixin}`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: value
+      actual: value,
     });
 
     if (!validOptions) {
@@ -23,7 +23,7 @@ export default function rule(value) {
 
     const mixins = {};
 
-    root.walkAtRules(decl => {
+    root.walkAtRules((decl) => {
       const isMixin = decl.name === "mixin";
 
       if (!isMixin) {
@@ -37,7 +37,7 @@ export default function rule(value) {
           message: messages.rejected(mixinName),
           node: decl,
           result,
-          ruleName
+          ruleName,
         });
       }
 

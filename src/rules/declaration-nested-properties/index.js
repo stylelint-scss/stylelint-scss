@@ -4,7 +4,7 @@ import {
   namespace,
   optionsHaveException,
   parseNestedPropRoot,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
@@ -12,12 +12,12 @@ const hasOwnProp = Object.prototype.hasOwnProperty;
 export const ruleName = namespace("declaration-nested-properties");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: prop => `Expected property "${prop}" to be in a nested form`,
-  rejected: prop => `Unexpected nested property "${prop}"`
+  expected: (prop) => `Expected property "${prop}" to be in a nested form`,
+  rejected: (prop) => `Unexpected nested property "${prop}"`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, options) {
@@ -27,14 +27,14 @@ export default function rule(expectation, options) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never"]
+        possible: ["always", "never"],
       },
       {
         actual: options,
         possible: {
-          except: ["only-of-namespace"]
+          except: ["only-of-namespace"],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -43,14 +43,14 @@ export default function rule(expectation, options) {
     }
 
     if (expectation === "always") {
-      root.walk(item => {
+      root.walk((item) => {
         if (item.type !== "rule" && item.type !== "atrule") {
           return;
         }
 
         const warningCandidates = {};
 
-        item.each(decl => {
+        item.each((decl) => {
           const { prop, type, selector } = decl;
 
           // Looking for namespaced non-nested properties
@@ -92,21 +92,21 @@ export default function rule(expectation, options) {
 
               warningCandidates[ns].push({
                 node: decl,
-                nested: true
+                nested: true,
               });
             }
           }
         });
 
         // Now check if the found properties deserve warnings
-        Object.keys(warningCandidates).forEach(namespace => {
+        Object.keys(warningCandidates).forEach((namespace) => {
           const exceptIfOnlyOfNs = optionsHaveException(
             options,
             "only-of-namespace"
           );
           const moreThanOneProp = warningCandidates[namespace].length > 1;
 
-          warningCandidates[namespace].forEach(candidate => {
+          warningCandidates[namespace].forEach((candidate) => {
             if (candidate.nested === true) {
               if (exceptIfOnlyOfNs) {
                 // If there is only one prop inside a nested prop - warn (reverse "always")
@@ -118,7 +118,7 @@ export default function rule(expectation, options) {
                     message: messages.rejected(namespace),
                     node: candidate.node,
                     result,
-                    ruleName
+                    ruleName,
                   });
                 }
               }
@@ -133,14 +133,14 @@ export default function rule(expectation, options) {
                 message: messages.expected(candidate.node.prop),
                 node: candidate.node,
                 result,
-                ruleName
+                ruleName,
               });
             }
           });
         });
       });
     } else if (expectation === "never") {
-      root.walk(item => {
+      root.walk((item) => {
         // Just check if there are ANY nested props
         if (item.type === "rule") {
           // `background:red {` - selector;
@@ -152,7 +152,7 @@ export default function rule(expectation, options) {
               message: messages.rejected(testForProp.propName.value),
               result,
               ruleName,
-              node: item
+              node: item,
             });
           }
         }

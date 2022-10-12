@@ -13,7 +13,7 @@ testRule({
         border: reset();
       }
       `,
-      description: "Always. Example: no arguments with parenthesis."
+      description: "Always. Example: no arguments with parenthesis.",
     },
     {
       code: `
@@ -22,7 +22,7 @@ testRule({
         text-align: center;
       }
       `,
-      description: "Always. Example: no arguments with other declarations."
+      description: "Always. Example: no arguments with other declarations.",
     },
     {
       code: `
@@ -30,7 +30,7 @@ testRule({
         background-image: linear-gradient(0deg, blue, green 40%, red);
       }
       `,
-      description: "Always. Example: native CSS function is ignored."
+      description: "Always. Example: native CSS function is ignored.",
     },
     {
       code: `
@@ -39,7 +39,7 @@ testRule({
       }
       `,
       description:
-        "Always. Example: native CSS function is ignored inside a function call."
+        "Always. Example: native CSS function is ignored inside a function call.",
     },
     {
       code: `
@@ -48,7 +48,7 @@ testRule({
       }
       `,
       description:
-        "Always. Example: native CSS camel-casing function is ignored."
+        "Always. Example: native CSS camel-casing function is ignored.",
     },
     {
       code: `
@@ -56,7 +56,7 @@ testRule({
         border: reset($value: 40px);
       }
       `,
-      description: "Always. Example: single argument is named."
+      description: "Always. Example: single argument is named.",
     },
     {
       code: `
@@ -67,7 +67,7 @@ testRule({
       }
       `,
       description:
-        "Always. Example: single argument is named in multiline function call."
+        "Always. Example: single argument is named in multiline function call.",
     },
     {
       code: `
@@ -77,7 +77,7 @@ testRule({
         );
       }
       `,
-      description: "Always. Example: trailing comma after last argument."
+      description: "Always. Example: trailing comma after last argument.",
     },
     {
       code: `
@@ -85,7 +85,7 @@ testRule({
         border: reset($value: 40px, $second-value: 10px, $color: 'black');
       }
       `,
-      description: "Always. Example: all arguments are named."
+      description: "Always. Example: all arguments are named.",
     },
     {
       code: `
@@ -98,7 +98,7 @@ testRule({
       }
       `,
       description:
-        "Always. Example: all arguments are named in multiline function call."
+        "Always. Example: all arguments are named in multiline function call.",
     },
     {
       code: `
@@ -106,7 +106,7 @@ testRule({
         border: reset($value: $other-value);
       }
       `,
-      description: "Always. Example: single argument is a variable."
+      description: "Always. Example: single argument is a variable.",
     },
     {
       code: `
@@ -114,7 +114,7 @@ testRule({
         border: reset($value: #{$other-value});
       }
       `,
-      description: "Always. Example: single argument is an interpolated value."
+      description: "Always. Example: single argument is an interpolated value.",
     },
     {
       code: `
@@ -122,7 +122,7 @@ testRule({
         animation: anim($duration: 30 * 25ms);
       }
       `,
-      description: "Always. Example: single argument is a calculated value."
+      description: "Always. Example: single argument is a calculated value.",
     },
     {
       code: `
@@ -130,7 +130,7 @@ testRule({
         animation: anim($iteration: infinite);
       }
       `,
-      description: "Always. Example: single argument is an unquoted string."
+      description: "Always. Example: single argument is an unquoted string.",
     },
     {
       code: `
@@ -138,7 +138,7 @@ testRule({
         font-size: calc(10px * 2em);
       }
       `,
-      description: "Always. Example: single argument is an unquoted string."
+      description: "Always. Example: single argument is an unquoted string.",
     },
     {
       code: `
@@ -150,7 +150,7 @@ testRule({
         huge: $horizontal-list-spacing-huge
       );
       `,
-      description: "Always. Should ignore Sass maps."
+      description: "Always. Should ignore Sass maps.",
     },
     {
       code: `
@@ -162,7 +162,7 @@ testRule({
         huge: $horizontal-list-spacing-huge
       ) !default;
       `,
-      description: "Always. Should ignore Sass maps with default."
+      description: "Always. Should ignore Sass maps with default.",
     },
     {
       code: `
@@ -174,8 +174,8 @@ testRule({
         "b": blue($blue: $color)
       );
       `,
-      description: "Always. function call inside a map."
-    }
+      description: "Always. function call inside a map.",
+    },
   ],
 
   reject: [
@@ -188,7 +188,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.expected,
-      description: "Always. Example: single argument that is not named."
+      description: "Always. Example: single argument that is not named.",
     },
     {
       code: `
@@ -200,15 +200,15 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
-      description: "Always. Example: first argument is not named."
+      description: "Always. Example: first argument is not named.",
     },
     {
       code: `
@@ -223,16 +223,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always. Example: first argument is not named in multiline function call."
+        "Always. Example: first argument is not named in multiline function call.",
     },
     {
       code: `
@@ -244,7 +244,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always. Example: single argument is a variable but is not named."
+        "Always. Example: single argument is a variable but is not named.",
     },
     {
       code: `
@@ -256,7 +256,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always. Example: single argument is a calculated value but is not named."
+        "Always. Example: single argument is a calculated value but is not named.",
     },
     {
       code: `
@@ -268,16 +268,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always. Example: first argument is named but remaining are not."
+        "Always. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -289,15 +289,15 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
-      description: "Always. Example: mixed named arguments."
+      description: "Always. Example: mixed named arguments.",
     },
     {
       code: `
@@ -309,7 +309,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always. Example: native CSS function inside a function call."
+        "Always. Example: native CSS function inside a function call.",
     },
     {
       code: `
@@ -325,22 +325,22 @@ testRule({
         {
           line: 4,
           column: 7,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 4,
           column: 7,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 4,
           column: 7,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
-      description: "Always. function call inside a map."
-    }
-  ]
+      description: "Always. function call inside a map.",
+    },
+  ],
 });
 
 // Not allowed ("never")
@@ -356,7 +356,7 @@ testRule({
         background-image: linear-gradient(0deg, blue, green 40%, red);
       }
       `,
-      description: "Never. Example: native CSS function is ignored."
+      description: "Never. Example: native CSS function is ignored.",
     },
     {
       code: `
@@ -365,7 +365,7 @@ testRule({
       }
       `,
       description:
-        "Never. Example: native CSS camel-casing function is ignored."
+        "Never. Example: native CSS camel-casing function is ignored.",
     },
     {
       code: `
@@ -373,7 +373,7 @@ testRule({
         border: reset();
       }
       `,
-      description: "Never. Example: no arguments with parenthesis."
+      description: "Never. Example: no arguments with parenthesis.",
     },
     {
       code: `
@@ -381,7 +381,7 @@ testRule({
         border: reset(40px);
       }
     `,
-      description: "Never. Example: single argument that is not named."
+      description: "Never. Example: single argument that is not named.",
     },
     {
       code: `
@@ -389,7 +389,7 @@ testRule({
         border: reset(40px, 10px);
       }
     `,
-      description: "Never. Example: multiple arguments that are not named."
+      description: "Never. Example: multiple arguments that are not named.",
     },
     {
       code: `
@@ -401,7 +401,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: multiple arguments that are not named in multiline function call."
+        "Never. Example: multiple arguments that are not named in multiline function call.",
     },
     {
       code: `
@@ -410,7 +410,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is a variable and are not named."
+        "Never. Example: single argument is a variable and are not named.",
     },
     {
       code: `
@@ -419,7 +419,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is a calculated value and not named."
+        "Never. Example: single argument is a calculated value and not named.",
     },
     {
       code: `
@@ -428,7 +428,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is a quoted string and not named."
+        "Never. Example: single argument is a quoted string and not named.",
     },
     {
       code: `
@@ -437,7 +437,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is an unquoted string and not named."
+        "Never. Example: single argument is an unquoted string and not named.",
     },
     {
       code: `
@@ -446,7 +446,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is an interpolated value and not named."
+        "Never. Example: single argument is an interpolated value and not named.",
     },
     {
       code: `
@@ -455,7 +455,7 @@ testRule({
       }
       `,
       description:
-        "Never. Example: native CSS function is ignored inside a function call."
+        "Never. Example: native CSS function is ignored inside a function call.",
     },
     {
       code: `
@@ -467,8 +467,8 @@ testRule({
         "b": blue($color)
       );
       `,
-      description: "Never. function call inside a map."
-    }
+      description: "Never. function call inside a map.",
+    },
   ],
 
   reject: [
@@ -481,7 +481,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is named."
+      description: "Never. Example: single argument is named.",
     },
     {
       code: `
@@ -492,7 +492,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is a variable."
+      description: "Never. Example: single argument is a variable.",
     },
     {
       code: `
@@ -503,7 +503,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is an interpolated value."
+      description: "Never. Example: single argument is an interpolated value.",
     },
     {
       code: `
@@ -514,7 +514,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is a calculated value."
+      description: "Never. Example: single argument is a calculated value.",
     },
     {
       code: `
@@ -525,7 +525,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is a quoted string."
+      description: "Never. Example: single argument is a quoted string.",
     },
     {
       code: `
@@ -536,7 +536,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is an unquoted string."
+      description: "Never. Example: single argument is an unquoted string.",
     },
     {
       code: `
@@ -548,20 +548,20 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
-      description: "Never. Example: all arguments are named."
+      description: "Never. Example: all arguments are named.",
     },
     {
       code: `
@@ -577,21 +577,21 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
       description:
-        "Never. Example: all arguments are named in multiline function call."
+        "Never. Example: all arguments are named in multiline function call.",
     },
     {
       code: `
@@ -603,7 +603,7 @@ testRule({
       column: 9,
       message: messages.rejected,
       description:
-        "Never. Example: first argument is named but remaining are not."
+        "Never. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -614,7 +614,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: mixed named arguments."
+      description: "Never. Example: mixed named arguments.",
     },
     {
       code: `
@@ -625,7 +625,8 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: native CSS function inside a function call."
+      description:
+        "Never. Example: native CSS function inside a function call.",
     },
     {
       code: `
@@ -641,22 +642,22 @@ testRule({
         {
           line: 4,
           column: 7,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 4,
           column: 7,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 4,
           column: 7,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
-      description: "Never. function call inside a map."
-    }
-  ]
+      description: "Never. function call inside a map.",
+    },
+  ],
 });
 
 testRule({
@@ -672,7 +673,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: native CSS function is ignored."
+        "Always and ignore single argument. Example: native CSS function is ignored.",
     },
     {
       code: `
@@ -681,7 +682,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: native CSS camel-casing function is ignored."
+        "Always and ignore single argument. Example: native CSS camel-casing function is ignored.",
     },
     {
       code: `
@@ -690,7 +691,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: no arguments with parenthesis."
+        "Always and ignore single argument. Example: no arguments with parenthesis.",
     },
     {
       code: `
@@ -699,7 +700,7 @@ testRule({
       }
     `,
       description:
-        "Always and ignore single argument. Example: single argument that is not named."
+        "Always and ignore single argument. Example: single argument that is not named.",
     },
     {
       code: `
@@ -708,7 +709,7 @@ testRule({
       }
     `,
       description:
-        "Always and ignore single argument. Example: single argument is a variable and is not named."
+        "Always and ignore single argument. Example: single argument is a variable and is not named.",
     },
     {
       code: `
@@ -717,7 +718,7 @@ testRule({
       }
     `,
       description:
-        "Always and ignore single argument. Example: single argument is a calculated value and is not named."
+        "Always and ignore single argument. Example: single argument is a calculated value and is not named.",
     },
     {
       code: `
@@ -726,7 +727,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: all arguments are named."
+        "Always and ignore single argument. Example: all arguments are named.",
     },
     {
       code: `
@@ -735,7 +736,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single argument is named."
+        "Always and ignore single argument. Example: single argument is named.",
     },
     {
       code: `
@@ -744,7 +745,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is a variable."
+        "Always and ignore single argument. Example: single named argument is a variable.",
     },
     {
       code: `
@@ -753,7 +754,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is an interpolated value."
+        "Always and ignore single argument. Example: single named argument is an interpolated value.",
     },
     {
       code: `
@@ -762,7 +763,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is a calculated value."
+        "Always and ignore single argument. Example: single named argument is a calculated value.",
     },
     {
       code: `
@@ -771,7 +772,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is a quoted string."
+        "Always and ignore single argument. Example: single named argument is a quoted string.",
     },
     {
       code: `
@@ -780,7 +781,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single argument is an unquoted string."
+        "Always and ignore single argument. Example: single argument is an unquoted string.",
     },
     {
       code: `
@@ -793,8 +794,8 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: all arguments are named in multiline function call."
-    }
+        "Always and ignore single argument. Example: all arguments are named in multiline function call.",
+    },
   ],
 
   reject: [
@@ -811,7 +812,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always and ignore single argument. Example: first argument is named but remaining are not in multiline function call."
+        "Always and ignore single argument. Example: first argument is named but remaining are not in multiline function call.",
     },
     {
       code: `
@@ -823,16 +824,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore single argument. Example: mixed named arguments."
+        "Always and ignore single argument. Example: mixed named arguments.",
     },
     {
       code: `
@@ -844,16 +845,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore single argument. Example: first argument is named but remaining are not."
+        "Always and ignore single argument. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -865,18 +866,18 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore single argument. Example: mixed named arguments."
-    }
-  ]
+        "Always and ignore single argument. Example: mixed named arguments.",
+    },
+  ],
 });
 
 testRule({
@@ -892,7 +893,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: native CSS function is ignored."
+        "Never and ignore single argument. Example: native CSS function is ignored.",
     },
     {
       code: `
@@ -901,7 +902,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: native CSS camel-casing function is ignored."
+        "Never and ignore single argument. Example: native CSS camel-casing function is ignored.",
     },
     {
       code: `
@@ -910,7 +911,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: no arguments with parenthesis."
+        "Never and ignore single argument. Example: no arguments with parenthesis.",
     },
     {
       code: `
@@ -919,7 +920,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument that is not named."
+        "Never and ignore single argument. Example: single argument that is not named.",
     },
     {
       code: `
@@ -928,7 +929,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: multiple arguments that are not named."
+        "Never and ignore single argument. Example: multiple arguments that are not named.",
     },
     {
       code: `
@@ -940,7 +941,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: multiple arguments that are not named in multiline function call."
+        "Never and ignore single argument. Example: multiple arguments that are not named in multiline function call.",
     },
     {
       code: `
@@ -949,7 +950,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is a variable and are not named."
+        "Never and ignore single argument. Example: single argument is a variable and are not named.",
     },
     {
       code: `
@@ -958,7 +959,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is a calculated value and not named."
+        "Never and ignore single argument. Example: single argument is a calculated value and not named.",
     },
     {
       code: `
@@ -967,7 +968,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is a quoted string and not named."
+        "Never and ignore single argument. Example: single argument is a quoted string and not named.",
     },
     {
       code: `
@@ -976,7 +977,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is an unquoted string and not named."
+        "Never and ignore single argument. Example: single argument is an unquoted string and not named.",
     },
     {
       code: `
@@ -985,7 +986,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is an interpolated value and not named."
+        "Never and ignore single argument. Example: single argument is an interpolated value and not named.",
     },
     {
       code: `
@@ -994,7 +995,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single argument is named."
+        "Never and ignore single argument. Example: single argument is named.",
     },
     {
       code: `
@@ -1003,7 +1004,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single argument is a variable."
+        "Never and ignore single argument. Example: single argument is a variable.",
     },
     {
       code: `
@@ -1012,7 +1013,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single argument is an interpolated value."
+        "Never and ignore single argument. Example: single argument is an interpolated value.",
     },
     {
       code: `
@@ -1021,7 +1022,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single argument is a calculated value."
+        "Never and ignore single argument. Example: single argument is a calculated value.",
     },
     {
       code: `
@@ -1030,7 +1031,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single argument is a quoted string."
+        "Never and ignore single argument. Example: single argument is a quoted string.",
     },
     {
       code: `
@@ -1039,8 +1040,8 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single argument is an unquoted string."
-    }
+        "Never and ignore single argument. Example: single argument is an unquoted string.",
+    },
   ],
 
   reject: [
@@ -1054,21 +1055,21 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
       description:
-        "Never and ignore single argument. Example: all arguments are named."
+        "Never and ignore single argument. Example: all arguments are named.",
     },
     {
       code: `
@@ -1084,21 +1085,21 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
       description:
-        "Never and ignore single argument. Example: all arguments are named in multiline function call."
+        "Never and ignore single argument. Example: all arguments are named in multiline function call.",
     },
     {
       code: `
@@ -1110,7 +1111,7 @@ testRule({
       column: 9,
       message: messages.rejected,
       description:
-        "Never and ignore single argument. Example: first argument is named but remaining are not."
+        "Never and ignore single argument. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -1122,9 +1123,9 @@ testRule({
       column: 9,
       message: messages.rejected,
       description:
-        "Never and ignore single argument. Example: mixed named arguments."
-    }
-  ]
+        "Never and ignore single argument. Example: mixed named arguments.",
+    },
+  ],
 });
 
 testRule({
@@ -1140,7 +1141,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore function. Example: single argument is named."
+        "Always and ignore function. Example: single argument is named.",
     },
     {
       code: `
@@ -1148,7 +1149,7 @@ testRule({
         content: map-get($map, key);
       }
       `,
-      description: "Always and ignore function: ignored function."
+      description: "Always and ignore function: ignored function.",
     },
     {
       code: `
@@ -1156,7 +1157,7 @@ testRule({
         content: my-func($map, key);
       }
       `,
-      description: "Always and ignore function: ignored function."
+      description: "Always and ignore function: ignored function.",
     },
     {
       code: `
@@ -1164,7 +1165,7 @@ testRule({
         content: MY-FUNC($map, key);
       }
       `,
-      description: "Always and ignore function: ignored function."
+      description: "Always and ignore function: ignored function.",
     },
     {
       code: `
@@ -1172,8 +1173,8 @@ testRule({
         content: ffunct($map, key);
       }
       `,
-      description: "Always and ignore function: ignored function."
-    }
+      description: "Always and ignore function: ignored function.",
+    },
   ],
 
   reject: [
@@ -1187,7 +1188,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always and ignore function. Example: single argument that is not named."
+        "Always and ignore function. Example: single argument that is not named.",
     },
     {
       code: `
@@ -1199,16 +1200,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore function. Example: function name's case does not match regex."
+        "Always and ignore function. Example: function name's case does not match regex.",
     },
     {
       code: `
@@ -1220,18 +1221,18 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore function. Example: function name does not match string or regex."
-    }
-  ]
+        "Always and ignore function. Example: function name does not match string or regex.",
+    },
+  ],
 });
 
 testRule({
@@ -1246,7 +1247,7 @@ testRule({
         border: reset(40px);
       }
     `,
-      description: "Never. Example: single argument that is not named."
+      description: "Never. Example: single argument that is not named.",
     },
     {
       code: `
@@ -1254,7 +1255,7 @@ testRule({
         border: reset(40px, 10px);
       }
     `,
-      description: "Never. Example: multiple arguments that are not named."
+      description: "Never. Example: multiple arguments that are not named.",
     },
     {
       code: `
@@ -1262,7 +1263,7 @@ testRule({
         content: somefunc($key: 1, $key2: 2);
       }
       `,
-      description: "Never and ignore function: ignored function."
+      description: "Never and ignore function: ignored function.",
     },
     {
       code: `
@@ -1270,7 +1271,7 @@ testRule({
         content: my-func($key: 1, $key2: 2);
       }
       `,
-      description: "Never and ignore function: ignored function."
+      description: "Never and ignore function: ignored function.",
     },
     {
       code: `
@@ -1278,8 +1279,8 @@ testRule({
         content: ffunct($key: 1, $key2: 2);
       }
       `,
-      description: "Never and ignore function: ignored function."
-    }
+      description: "Never and ignore function: ignored function.",
+    },
   ],
 
   reject: [
@@ -1292,7 +1293,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is named."
-    }
-  ]
+      description: "Never. Example: single argument is named.",
+    },
+  ],
 });

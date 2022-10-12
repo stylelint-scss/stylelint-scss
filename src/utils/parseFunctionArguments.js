@@ -42,14 +42,14 @@ export function mapToKeyValue(nodes) {
     if (isNextNodeColon) {
       acc.push({
         key: valueParser.stringify(nodes[i]),
-        value: valueParser.stringify(nodes.slice(2))
+        value: valueParser.stringify(nodes.slice(2)),
       });
 
       return acc;
     }
 
     acc.push({
-      value: valueParser.stringify(nodes)
+      value: valueParser.stringify(nodes),
     });
 
     return acc;
@@ -65,7 +65,7 @@ export function parseFunctionArguments(value) {
     return [];
   }
 
-  return parsed.nodes.map(node =>
+  return parsed.nodes.map((node) =>
     groupByKeyValue(node.nodes).map(mapToKeyValue)
   )[0];
 }

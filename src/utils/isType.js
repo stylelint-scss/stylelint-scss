@@ -5,6 +5,6 @@
  * @param  {string} type
  * @return {boolean}
  */
-export default function(node, type) {
+export default function (node, type) {
   return node && node.type === type;
 }

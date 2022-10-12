@@ -7,11 +7,11 @@ export const ruleName = namespace("at-else-closing-brace-newline-after");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: 'Expected newline after "}" of @else statement',
-  rejected: 'Unexpected newline after "}" of @else statement'
+  rejected: 'Unexpected newline after "}" of @else statement',
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, options, context) {
@@ -21,14 +21,14 @@ export default function rule(expectation, options, context) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always-last-in-chain"]
+        possible: ["always-last-in-chain"],
       },
       {
         actual: options,
         possible: {
-          disableFix: isBoolean
+          disableFix: isBoolean,
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -44,7 +44,7 @@ export default function rule(expectation, options, context) {
       expectation,
       messages,
       context,
-      options
+      options,
     });
   };
 }

@@ -15,7 +15,7 @@ testRule({
       }
     `,
       description:
-        "when variable is a string and it is interpolated in animation-name property"
+        "when variable is a string and it is interpolated in animation-name property",
     },
     {
       code: `
@@ -24,7 +24,7 @@ testRule({
       @keyframes #{$var} {}
     `,
       description:
-        "when variable is a string and it is interpolated in @keyframes"
+        "when variable is a string and it is interpolated in @keyframes",
     },
     {
       code: `
@@ -35,7 +35,7 @@ testRule({
       }
     `,
       description:
-        "when variable is not a string and it is used in animation-name property"
+        "when variable is not a string and it is used in animation-name property",
     },
     {
       code: `
@@ -46,7 +46,7 @@ testRule({
       }
     `,
       description:
-        "when variable is not a string and it is interpolated in animation-name property"
+        "when variable is not a string and it is interpolated in animation-name property",
     },
     {
       code: `
@@ -57,7 +57,7 @@ testRule({
       }
     `,
       description:
-        "when variable is not a string and it is interpolated in counter-reset property"
+        "when variable is not a string and it is interpolated in counter-reset property",
     },
     {
       code: `
@@ -66,7 +66,7 @@ testRule({
       @keyframes #{$var} {}
     `,
       description:
-        "when variable is not a string and it is interpolated in @keyframes"
+        "when variable is not a string and it is interpolated in @keyframes",
     },
     {
       code: `
@@ -80,7 +80,7 @@ testRule({
       }
     `,
       description:
-        "when variable is a not string and it is interpolated in @counter-style"
+        "when variable is a not string and it is interpolated in @counter-style",
     },
     {
       code: `
@@ -91,7 +91,7 @@ testRule({
       }
     `,
       description:
-        "when variable is not a string and it is interpolated in @supports"
+        "when variable is not a string and it is interpolated in @supports",
     },
     {
       code: `
@@ -102,7 +102,7 @@ testRule({
       }
     `,
       description:
-        "when variable is a string and it is interpolated in @supports"
+        "when variable is a string and it is interpolated in @supports",
     },
     {
       code: `
@@ -112,7 +112,7 @@ testRule({
         @keyframes {}
       }
     `,
-      description: "when variable is not a string and it is used in @supports"
+      description: "when variable is not a string and it is used in @supports",
     },
     {
       code: `
@@ -124,7 +124,7 @@ testRule({
       }
     `,
       description:
-        "when variable is a string and the same name is used inside another string"
+        "when variable is a string and the same name is used inside another string",
     },
     {
       code: `
@@ -134,7 +134,7 @@ testRule({
       }
     `,
       description:
-        "when variable is a string and it is used with content property"
+        "when variable is a string and it is used with content property",
     },
     {
       code: `
@@ -144,7 +144,7 @@ testRule({
       }
     `,
       description:
-        "when variable name has dashes and it is used with content property"
+        "when variable name has dashes and it is used with content property",
     },
     {
       code: `
@@ -155,8 +155,8 @@ testRule({
       }
     `,
       description:
-        "when variable is a string and it is interpolated in @keyframes inside a mixin"
-    }
+        "when variable is a string and it is interpolated in @keyframes inside a mixin",
+    },
   ],
 
   reject: [
@@ -170,7 +170,7 @@ testRule({
       line: 4,
       message: messages.rejected("animation-name", "$var"),
       description:
-        "when variable is a string and it is not interpolated in animation-name property"
+        "when variable is a string and it is not interpolated in animation-name property",
     },
     {
       code: `
@@ -183,7 +183,7 @@ testRule({
       line: 5,
       message: messages.rejected("animation-name", "$var"),
       description:
-        "when variable is a string and it is not interpolated in animation-name property"
+        "when variable is a string and it is not interpolated in animation-name property",
     },
     {
       code: `
@@ -196,7 +196,7 @@ testRule({
       line: 5,
       message: messages.rejected("counter-reset", "$var"),
       description:
-        "when variable is a string and it is not interpolated in counter-reset"
+        "when variable is a string and it is not interpolated in counter-reset",
     },
     {
       code: `
@@ -206,7 +206,7 @@ testRule({
     `,
       line: 4,
       message: messages.rejected("@keyframes", "$var"),
-      description: "when variable is not a string and it is used in @keyframes"
+      description: "when variable is not a string and it is used in @keyframes",
     },
     {
       code: `
@@ -217,7 +217,7 @@ testRule({
       line: 4,
       message: messages.rejected("@keyframes", "$var"),
       description:
-        "when variable is a string and it is not interpolated in @keyframes"
+        "when variable is a string and it is not interpolated in @keyframes",
     },
     {
       code: `
@@ -228,7 +228,7 @@ testRule({
       line: 4,
       message: messages.rejected("@keyframes", "$var"),
       description:
-        "when variable is a string and it is not interpolated in @keyframes"
+        "when variable is a string and it is not interpolated in @keyframes",
     },
     {
       code: `
@@ -243,7 +243,7 @@ testRule({
     `,
       line: 4,
       message: messages.rejected("@counter-style", "$var"),
-      description: "when variable is a string and it is used in @counter-style"
+      description: "when variable is a string and it is used in @counter-style",
     },
     {
       code: `
@@ -259,7 +259,7 @@ testRule({
       line: 4,
       message: messages.rejected("@counter-style", "$var"),
       description:
-        "when variable is not a string and it is used in @counter-style"
+        "when variable is not a string and it is used in @counter-style",
     },
     {
       code: `
@@ -271,7 +271,7 @@ testRule({
     `,
       line: 4,
       message: messages.rejected("@supports", "$var"),
-      description: "when variable is a string and it is used in @supports"
+      description: "when variable is a string and it is used in @supports",
     },
     {
       code: `
@@ -284,7 +284,7 @@ testRule({
       line: 4,
       message: messages.rejected("@supports", "$var"),
       description:
-        "when variable is a string and it is used in @supports and there is whitespace"
+        "when variable is a string and it is used in @supports and there is whitespace",
     },
     {
       code: `
@@ -297,7 +297,7 @@ testRule({
       line: 5,
       message: messages.rejected("@keyframes", "$var"),
       description:
-        "when variable is a string and it is not interpolated in @keyframes inside a mixin"
-    }
-  ]
+        "when variable is a string and it is not interpolated in @keyframes inside a mixin",
+    },
+  ],
 });

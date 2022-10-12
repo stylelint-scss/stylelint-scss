@@ -5,22 +5,22 @@ const alwaysGeneralTests = {
   accept: [
     {
       code: "// First node, ignored",
-      description: "First node, ignored."
+      description: "First node, ignored.",
     },
     {
       code: `
       a { color: pink; /* CSS comment */
       top: 0; }
     `,
-      description: "CSS comment inside ruleset, ignored."
+      description: "CSS comment inside ruleset, ignored.",
     },
     {
       code: "a {} /* CSS comment */",
-      description: "CSS comment in root scope, ignored."
+      description: "CSS comment in root scope, ignored.",
     },
     {
       code: "a {} // Inline comment",
-      description: "Inline comment (on the same line as some code)."
+      description: "Inline comment (on the same line as some code).",
     },
     {
       code: `
@@ -28,15 +28,15 @@ const alwaysGeneralTests = {
 
       // comment with empty line before it
     `,
-      description: "Proper empty line, root scope."
+      description: "Proper empty line, root scope.",
     },
     {
       code: "a {}\r\n\r\n// comment with Win empty line",
-      description: "Proper empty line (Windows style)."
+      description: "Proper empty line (Windows style).",
     },
     {
       code: "a {}\n\r\n// comment with mixed empty line",
-      description: "Proper empty lint (mixed styles)."
+      description: "Proper empty lint (mixed styles).",
     },
     {
       code: `
@@ -45,8 +45,8 @@ const alwaysGeneralTests = {
       // comment with proper empty line
       top: 0; }
     `,
-      description: "Proper empty line, inside ruleset."
-    }
+      description: "Proper empty line, inside ruleset.",
+    },
   ],
 
   reject: [
@@ -60,13 +60,13 @@ const alwaysGeneralTests = {
 
       // comment 2
     `,
-      message: messages.expected
+      message: messages.expected,
     },
     {
       code: "// comment\r\n// comment",
       fixed: "// comment\r\n\r\n// comment",
       description: "One windows newline between comments.",
-      message: messages.expected
+      message: messages.expected,
     },
     {
       code: `
@@ -80,17 +80,16 @@ const alwaysGeneralTests = {
       // comment w/o empty line
       top: 0; }
     `,
-      message: messages.expected
+      message: messages.expected,
     },
     {
-      code:
-        "a { color: pink;\r\n// comment w/o empty lines, Win style\r\ntop: 0; }",
+      code: "a { color: pink;\r\n// comment w/o empty lines, Win style\r\ntop: 0; }",
       fixed:
         "a { color: pink;\r\n\r\n// comment w/o empty lines, Win style\r\ntop: 0; }",
       description: "One Windows newline before comment.",
-      message: messages.expected
-    }
-  ]
+      message: messages.expected,
+    },
+  ],
 };
 
 // -------------------------------------------------------------------------
@@ -111,8 +110,8 @@ testRule({
       // First-nested, empty line before
       color: pink;
     }`,
-      description: "First-nested, empty line before."
-    }
+      description: "First-nested, empty line before.",
+    },
   ]),
 
   reject: alwaysGeneralTests.reject.concat([
@@ -129,9 +128,9 @@ testRule({
       description: "First-nested, no empty line before.",
       message: messages.expected,
       line: 2,
-      column: 7
-    }
-  ])
+      column: 7,
+    },
+  ]),
 });
 
 testRule({
@@ -149,8 +148,8 @@ testRule({
         color: pink;
       }
     `,
-      description: "First nested, no empty line."
-    }
+      description: "First nested, no empty line.",
+    },
   ]),
 
   reject: alwaysGeneralTests.reject.concat([
@@ -169,9 +168,9 @@ testRule({
       description: "First-nested, with empty line (rejected).",
       message: messages.rejected,
       line: 4,
-      column: 7
-    }
-  ])
+      column: 7,
+    },
+  ]),
 });
 
 testRule({
@@ -189,8 +188,8 @@ testRule({
         color: pink;
       }
     `,
-      description: "Inside block, no empty line."
-    }
+      description: "Inside block, no empty line.",
+    },
   ],
 
   reject: [
@@ -211,7 +210,7 @@ testRule({
       description: "Inside rule block, with empty line (rejected).",
       message: messages.rejected,
       line: 4,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -230,9 +229,9 @@ testRule({
       description: "Inside at-rule block, with empty line (rejected).",
       message: messages.rejected,
       line: 4,
-      column: 9
-    }
-  ]
+      column: 9,
+    },
+  ],
 });
 
 testRule({
@@ -251,9 +250,9 @@ testRule({
       }
     `,
       description:
-        "stylelint command line-comment, no empty line before (ignored)."
-    }
-  ])
+        "stylelint command line-comment, no empty line before (ignored).",
+    },
+  ]),
 });
 
 testRule({
@@ -271,7 +270,7 @@ testRule({
       // comment 3
       body { color: red; }
     `,
-      description: "Multiple comments, root level, no empty lines between."
+      description: "Multiple comments, root level, no empty lines between.",
     },
     {
       code: `
@@ -282,7 +281,7 @@ testRule({
       top: 0;
     }`,
       description:
-        "Multiple comments, inside ruleset, empty line only before the 1st."
+        "Multiple comments, inside ruleset, empty line only before the 1st.",
     },
     {
       code: `
@@ -293,7 +292,7 @@ testRule({
       top: 0;
     }`,
       description:
-        "2 comments, 1st is CSS one, 2nd is single-line, empty line only before the 1st."
+        "2 comments, 1st is CSS one, 2nd is single-line, empty line only before the 1st.",
     },
     {
       code: `
@@ -304,8 +303,8 @@ testRule({
       top: 0;
     }`,
       description:
-        "2 comments, 1st is single-line, 2nd is CSS one, empty line only before the 1st."
-    }
+        "2 comments, 1st is single-line, 2nd is CSS one, empty line only before the 1st.",
+    },
   ],
 
   reject: [
@@ -328,9 +327,9 @@ testRule({
       }
     `,
       description: "Multiple comments, inside ruleset, no empty lines.",
-      message: messages.expected
-    }
-  ]
+      message: messages.expected,
+    },
+  ],
 });
 
 testRule({
@@ -347,7 +346,7 @@ testRule({
 
       // comment 1
     `,
-      description: "Empty line before root level comment"
+      description: "Empty line before root level comment",
     },
     {
       code: `
@@ -356,7 +355,7 @@ testRule({
         color: red;
       }
     `,
-      description: "Non-empty line before comment inside a rule block"
+      description: "Non-empty line before comment inside a rule block",
     },
     {
       code: `
@@ -365,8 +364,8 @@ testRule({
         p { color: red; }
       }
     `,
-      description: "Non-empty line before comment inside an at-rule block"
-    }
+      description: "Non-empty line before comment inside an at-rule block",
+    },
   ],
 
   reject: [
@@ -381,9 +380,9 @@ testRule({
       // comment 1
     `,
       description: "Non-empty line before root level comment",
-      message: messages.expected
-    }
-  ]
+      message: messages.expected,
+    },
+  ],
 });
 
 // -------------------------------------------------------------------------
@@ -403,11 +402,11 @@ testRule({
 
       // comment
     `,
-      description: "First nested, empty line, ignored."
+      description: "First nested, empty line, ignored.",
     },
     {
       code: "\r\n\r\n// comment",
-      description: "First nested, CRLF-empty line, ignored."
+      description: "First nested, CRLF-empty line, ignored.",
     },
     {
       code: `
@@ -418,10 +417,10 @@ testRule({
         top: 0;
       }
     `,
-      description: "CSS comment, ignored"
+      description: "CSS comment, ignored",
     },
     {
-      code: "a {} // Inline comment"
+      code: "a {} // Inline comment",
     },
     {
       code: `a {
@@ -430,12 +429,12 @@ testRule({
 
       top: 0;
     }
-  `
+  `,
     },
     {
       code: "a { color: pink;\r\n// comment\r\n\r\ntop: 0; }",
-      description: "CRLF"
-    }
+      description: "CRLF",
+    },
   ],
 
   reject: [
@@ -449,7 +448,7 @@ testRule({
       // comment
       /// comment
     `,
-      message: messages.rejected
+      message: messages.rejected,
     },
     {
       code: `
@@ -461,7 +460,7 @@ testRule({
       a {}
       // comment
     `,
-      message: messages.rejected
+      message: messages.rejected,
     },
     {
       code: `
@@ -475,25 +474,25 @@ testRule({
       // comment
     `,
       description: "multiple lines",
-      message: messages.rejected
+      message: messages.rejected,
     },
     {
       code: "a {}\n\n\n\n\n\n// comment",
       fixed: "a {}\n// comment",
       description: "multiple lines",
-      message: messages.rejected
+      message: messages.rejected,
     },
     {
       code: "a {}\r\n\r\n// comment",
       fixed: "a {}\r\n// comment",
       description: "CRLF",
-      message: messages.rejected
+      message: messages.rejected,
     },
     {
       code: "a {}\r\n\r\n\r\n// comment",
       fixed: "a {}\r\n// comment",
       description: "CRLF",
-      message: messages.rejected
+      message: messages.rejected,
     },
     {
       code: `
@@ -511,7 +510,7 @@ testRule({
         top: 0;
       }
     `,
-      message: messages.rejected
+      message: messages.rejected,
     },
     {
       code: `
@@ -543,16 +542,16 @@ testRule({
         {
           line: 4,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 9,
           column: 9,
-          message: messages.rejected
-        }
-      ]
-    }
-  ]
+          message: messages.rejected,
+        },
+      ],
+    },
+  ],
 });
 
 testRule({
@@ -571,8 +570,8 @@ testRule({
         color: pink;
       }
     `,
-      description: "Inside block, with empty line."
-    }
+      description: "Inside block, with empty line.",
+    },
   ],
 
   reject: [
@@ -593,7 +592,7 @@ testRule({
       description: "Inside rule block, no empty line (rejected).",
       message: messages.expected,
       line: 3,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -612,7 +611,7 @@ testRule({
       description: "Inside at-rule block, no empty line (rejected).",
       message: messages.expected,
       line: 3,
-      column: 9
-    }
-  ]
+      column: 9,
+    },
+  ],
 });

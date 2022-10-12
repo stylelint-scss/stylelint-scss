@@ -12,7 +12,7 @@ testRule({
         .bar {}
       }
       `,
-      description: "when child combinators are nested"
+      description: "when child combinators are nested",
     },
     {
       code: `
@@ -20,7 +20,7 @@ testRule({
         &.bar {}
       }
       `,
-      description: "when chained combinators are nested"
+      description: "when chained combinators are nested",
     },
     {
       code: `
@@ -28,7 +28,7 @@ testRule({
         & > .bar {}
       }
       `,
-      description: "when direct descendant combinators are nested"
+      description: "when direct descendant combinators are nested",
     },
     {
       code: `
@@ -39,7 +39,7 @@ testRule({
       }
       `,
       description:
-        "when direct descendant combinators are nested + a nested class"
+        "when direct descendant combinators are nested + a nested class",
     },
     {
       code: `
@@ -48,7 +48,7 @@ testRule({
       }
       `,
       description:
-        "when chained combinators can't be nested due to preceding a parent selector"
+        "when chained combinators can't be nested due to preceding a parent selector",
     },
     {
       code: `
@@ -58,7 +58,7 @@ testRule({
         }
       }
       `,
-      description: "when parent selectors are used for concatenation"
+      description: "when parent selectors are used for concatenation",
     },
     {
       code: `
@@ -68,7 +68,7 @@ testRule({
         }
       }
       `,
-      description: "when parent selectors are used for BEM style concatenation"
+      description: "when parent selectors are used for BEM style concatenation",
     },
     {
       code: `
@@ -76,7 +76,7 @@ testRule({
         &:hover {}
       }
       `,
-      description: "when pseudo classes are nested"
+      description: "when pseudo classes are nested",
     },
     {
       code: `
@@ -84,19 +84,19 @@ testRule({
         &:nth-child(2n - 1) {}
       }
       `,
-      description: "when an nth child selector is used which includes spaces"
+      description: "when an nth child selector is used which includes spaces",
     },
     {
       code: `
       [data-test="foo bar"] {}
       `,
-      description: "when an attribute selector is used with spaces in it"
+      description: "when an attribute selector is used with spaces in it",
     },
     {
       code: `
       :not([class]:last-child) {}
       `,
-      description: "when selectors are chained within a not selector"
+      description: "when selectors are chained within a not selector",
     },
     {
       code: `
@@ -106,7 +106,7 @@ testRule({
 	      }
       }
       `,
-      description: "should support interpolation"
+      description: "should support interpolation",
     },
     {
       code: `
@@ -117,7 +117,7 @@ testRule({
         }
       }
       `,
-      description: "ignores nested properties"
+      description: "ignores nested properties",
     },
     {
       code: `
@@ -130,8 +130,8 @@ testRule({
         }
       }
       `,
-      description: "ignores @keyframes"
-    }
+      description: "ignores @keyframes",
+    },
   ],
 
   reject: [
@@ -142,7 +142,7 @@ testRule({
       description: "when a child combinator is used instead of nesting",
       message: messages.expected(" ", "combinator"),
       line: 2,
-      column: 11
+      column: 11,
     },
     {
       code: `
@@ -151,7 +151,7 @@ testRule({
       description: "when a selector is chained with another",
       message: messages.expected("bar", "class"),
       line: 2,
-      column: 11
+      column: 11,
     },
     {
       code: `
@@ -161,7 +161,7 @@ testRule({
         "when a direct descendant combinator is used without nesting",
       message: messages.expected(">", "combinator"),
       line: 2,
-      column: 12
+      column: 12,
     },
     {
       code: `
@@ -170,7 +170,7 @@ testRule({
       description: "when pseudo classes are used without nesting",
       message: messages.expected(":hover", "pseudo"),
       line: 2,
-      column: 11
+      column: 11,
     },
     {
       code: `
@@ -179,7 +179,7 @@ testRule({
       description: "when universal selectors are used with a combinator",
       message: messages.expected("+", "combinator"),
       line: 2,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -188,7 +188,7 @@ testRule({
       description: "when pseudo selectors only are chained",
       message: messages.expected(":last-child", "pseudo"),
       line: 2,
-      column: 25
+      column: 25,
     },
     {
       code: `
@@ -197,9 +197,9 @@ testRule({
       description: "when interpolation is used",
       message: messages.expectedInterpolation,
       line: 2,
-      column: 18
-    }
-  ]
+      column: 18,
+    },
+  ],
 });
 
 testRule({
@@ -212,25 +212,26 @@ testRule({
       code: `
       .foo .bar {}
       `,
-      description: "when a child combinator is used instead of nesting"
+      description: "when a child combinator is used instead of nesting",
     },
     {
       code: `
       .foo.bar {}
       `,
-      description: "when a selector is chained with another"
+      description: "when a selector is chained with another",
     },
     {
       code: `
       .foo > .bar {}
       `,
-      description: "when a direct descendant combinator is used without nesting"
+      description:
+        "when a direct descendant combinator is used without nesting",
     },
     {
       code: `
       .foo:hover {}
       `,
-      description: "when pseudo classes are used without nesting"
+      description: "when pseudo classes are used without nesting",
     },
     {
       code: `
@@ -238,7 +239,7 @@ testRule({
         .foo {}
       }
       `,
-      description: "when selectors are nested inside @media"
+      description: "when selectors are nested inside @media",
     },
     {
       code: `
@@ -247,7 +248,7 @@ testRule({
         100% {}
       }
       `,
-      description: "when a keyframes rule is used"
+      description: "when a keyframes rule is used",
     },
     {
       code: `
@@ -256,25 +257,25 @@ testRule({
       }
       `,
       description:
-        "when selectors are nested in a mixin, e.g. when making use of @content"
+        "when selectors are nested in a mixin, e.g. when making use of @content",
     },
     {
       code: `
       .foo:nth-child(2n-1) {}
       `,
-      description: "when using an nth-child selector"
+      description: "when using an nth-child selector",
     },
     {
       code: `
       #foo:not([class]:last-child) {}
       `,
-      description: "when using a not selector"
+      description: "when using a not selector",
     },
     {
       code: `
       .class-name #{if(&, "&", "")} {}
       `,
-      description: "should support interpolation"
+      description: "should support interpolation",
     },
     {
       code: `
@@ -285,7 +286,7 @@ testRule({
         }
       }
       `,
-      description: "ignores nested properties"
+      description: "ignores nested properties",
     },
     {
       code: `
@@ -298,8 +299,8 @@ testRule({
         }
       }
       `,
-      description: "ignores @keyframes"
-    }
+      description: "ignores @keyframes",
+    },
   ],
 
   reject: [
@@ -314,14 +315,14 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 9
-        }
-      ]
+          column: 9,
+        },
+      ],
     },
     {
       code: `
@@ -334,19 +335,19 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 10
-        }
-      ]
+          column: 10,
+        },
+      ],
     },
     {
       code: `
@@ -359,24 +360,24 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 11
+          column: 11,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 13
-        }
-      ]
+          column: 13,
+        },
+      ],
     },
     {
       code: `
@@ -391,34 +392,34 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 10
+          column: 10,
         },
         {
           message: messages.rejected,
           line: 4,
-          column: 11
+          column: 11,
         },
         {
           message: messages.rejected,
           line: 4,
-          column: 11
+          column: 11,
         },
         {
           message: messages.rejected,
           line: 4,
-          column: 12
-        }
-      ]
+          column: 12,
+        },
+      ],
     },
     {
       code: `
@@ -433,34 +434,34 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 10
+          column: 10,
         },
         {
           message: messages.rejected,
           line: 4,
-          column: 11
+          column: 11,
         },
         {
           message: messages.rejected,
           line: 4,
-          column: 11
+          column: 11,
         },
         {
           message: messages.rejected,
           line: 4,
-          column: 12
-        }
-      ]
+          column: 12,
+        },
+      ],
     },
     {
       code: `
@@ -473,19 +474,19 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 9
+          column: 9,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 10
-        }
-      ]
+          column: 10,
+        },
+      ],
     },
     {
       code: `
@@ -500,14 +501,14 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 8
+          column: 8,
         },
         {
           message: messages.rejected,
           line: 3,
-          column: 8
-        }
-      ]
-    }
-  ]
+          column: 8,
+        },
+      ],
+    },
+  ],
 });

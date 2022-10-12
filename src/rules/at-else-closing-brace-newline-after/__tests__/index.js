@@ -13,7 +13,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (no following @else, has newline after)."
+        "always-last-in-chain (no following @else, has newline after).",
     },
     {
       code: `a {
@@ -22,7 +22,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (no following @else, has blank line after)."
+        "always-last-in-chain (no following @else, has blank line after).",
     },
     {
       code: `a {
@@ -35,7 +35,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has following @else, this one with no newline after, the following has it)."
+        "always-last-in-chain (has following @else, this one with no newline after, the following has it).",
     },
     {
       code: `a {
@@ -44,7 +44,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has following @else, single-line, this one with no newline after, the following has it)."
+        "always-last-in-chain (has following @else, single-line, this one with no newline after, the following has it).",
     },
     {
       code: `a {
@@ -53,12 +53,12 @@ testRule({
       @include x;
     }`,
       description:
-        "always-last-in-chain (followed by non-@else at-rule, single-line, empty line after)."
+        "always-last-in-chain (followed by non-@else at-rule, single-line, empty line after).",
     },
     {
       code: "@if ($x == 1) {} @else { }",
-      description: "always-last-in-chain (single line, nothing after)."
-    }
+      description: "always-last-in-chain (single line, nothing after).",
+    },
   ],
 
   reject: [
@@ -81,7 +81,7 @@ width: 10px;
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
       message: messages.expected,
-      line: 6
+      line: 6,
     },
     {
       code: `a {
@@ -97,7 +97,7 @@ width: 10px;
     }`,
       description: "always-last-in-chain (has following @else, newline after).",
       message: messages.rejected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -115,7 +115,7 @@ width: 10px;
       description:
         "always-last-in-chain (has following @else, empty line after).",
       message: messages.rejected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -132,9 +132,9 @@ width: 10px;
       description:
         "always-last-in-chain (followed by non-@else at-rule, no newline after).",
       message: messages.expected,
-      line: 4
-    }
-  ]
+      line: 4,
+    },
+  ],
 });
 
 testRule({
@@ -142,8 +142,8 @@ testRule({
   config: [
     "always-last-in-chain",
     {
-      disableFix: true
-    }
+      disableFix: true,
+    },
   ],
   customSyntax: "postcss-scss",
   unfixable: true,
@@ -155,7 +155,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (no following @else, has newline after)."
+        "always-last-in-chain (no following @else, has newline after).",
     },
     {
       code: `a {
@@ -164,7 +164,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (no following @else, has blank line after)."
+        "always-last-in-chain (no following @else, has blank line after).",
     },
     {
       code: `a {
@@ -177,7 +177,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has following @else, this one with no newline after, the following has it)."
+        "always-last-in-chain (has following @else, this one with no newline after, the following has it).",
     },
     {
       code: `a {
@@ -186,7 +186,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has following @else, single-line, this one with no newline after, the following has it)."
+        "always-last-in-chain (has following @else, single-line, this one with no newline after, the following has it).",
     },
     {
       code: `a {
@@ -195,12 +195,12 @@ testRule({
       @include x;
     }`,
       description:
-        "always-last-in-chain (followed by non-@else at-rule, single-line, empty line after)."
+        "always-last-in-chain (followed by non-@else at-rule, single-line, empty line after).",
     },
     {
       code: "@if ($x == 1) {} @else { }",
-      description: "always-last-in-chain (single line, nothing after)."
-    }
+      description: "always-last-in-chain (single line, nothing after).",
+    },
   ],
 
   reject: [
@@ -215,7 +215,7 @@ testRule({
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
       message: messages.expected,
-      line: 6
+      line: 6,
     },
     {
       code: `a {
@@ -226,7 +226,7 @@ testRule({
     }`,
       description: "always-last-in-chain (has following @else, newline after).",
       message: messages.rejected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -239,7 +239,7 @@ testRule({
       description:
         "always-last-in-chain (has following @else, empty line after).",
       message: messages.rejected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -250,7 +250,7 @@ testRule({
       description:
         "always-last-in-chain (followed by non-@else at-rule, no newline after).",
       message: messages.expected,
-      line: 4
-    }
-  ]
+      line: 4,
+    },
+  ],
 });

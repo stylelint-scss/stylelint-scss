@@ -8,16 +8,16 @@ testRule({
   accept: [
     {
       code: "a { color: blue; }",
-      description: "No variables"
+      description: "No variables",
     },
     {
       code: "a { @less: 0; @less: @less + 1; }",
-      description: "Less variables are ignored"
+      description: "Less variables are ignored",
     },
     {
       code: "a { --custom-property: 0; --custom-property: 1; }",
-      description: "Custom properties are ignored"
-    }
+      description: "Custom properties are ignored",
+    },
   ],
 
   reject: [
@@ -28,7 +28,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.rejected("$a"),
-      description: "A dollar variable"
+      description: "A dollar variable",
     },
     {
       code: `
@@ -40,15 +40,15 @@ testRule({
         {
           line: 2,
           column: 7,
-          message: messages.rejected("$a")
+          message: messages.rejected("$a"),
         },
         {
           line: 4,
           column: 7,
-          message: messages.rejected("$b")
-        }
+          message: messages.rejected("$b"),
+        },
       ],
-      description: "Two dollar variables"
+      description: "Two dollar variables",
     },
     {
       code: `
@@ -59,7 +59,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected("$a"),
-      description: "A dollar variable inside a class selector"
+      description: "A dollar variable inside a class selector",
     },
     {
       code: `
@@ -70,7 +70,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected("$a"),
-      description: "A dollar variable inside a placeholder selector"
+      description: "A dollar variable inside a placeholder selector",
     },
     {
       code: `
@@ -81,7 +81,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected("$a"),
-      description: "A dollar variable inside a @mixin"
+      description: "A dollar variable inside a @mixin",
     },
     {
       code: `
@@ -94,7 +94,7 @@ testRule({
       line: 4,
       column: 11,
       message: messages.rejected("$a"),
-      description: "Nested dollar variable"
-    }
-  ]
+      description: "Nested dollar variable",
+    },
+  ],
 });

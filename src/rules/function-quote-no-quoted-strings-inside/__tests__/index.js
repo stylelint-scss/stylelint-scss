@@ -14,7 +14,7 @@ testRule({
           font-family: quote(Helvetica);
         }
       `,
-      description: "accepts strings without quotes"
+      description: "accepts strings without quotes",
     },
     {
       code: `
@@ -23,8 +23,8 @@ testRule({
           font-family: quote($font);
         }
       `,
-      description: "accepts variables representing strings that are unquoted."
-    }
+      description: "accepts variables representing strings that are unquoted.",
+    },
   ],
 
   reject: [
@@ -42,7 +42,7 @@ testRule({
         p {
           font-family: "Helvetica";
         }
-      `
+      `,
     },
     {
       code: `
@@ -61,7 +61,7 @@ testRule({
         p {
           font-family: $font;
         }
-      `
-    }
-  ]
+      `,
+    },
+  ],
 });

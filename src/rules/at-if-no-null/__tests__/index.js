@@ -10,20 +10,20 @@ testRule({
       code: `a {
       @if $x {}
     }`,
-      description: "does not use the != null format"
+      description: "does not use the != null format",
     },
     {
       code: `a {
       @if not $x {}
     }`,
-      description: "does not use the == null format"
+      description: "does not use the == null format",
     },
     {
       code: `a {
       @if $x != null and $x > 1 {}
     }`,
-      description: "does not use the == null format"
-    }
+      description: "does not use the == null format",
+    },
   ],
 
   reject: [
@@ -33,7 +33,7 @@ testRule({
     }`,
       description: "uses the == null format",
       message: messages.equals_null,
-      line: 2
+      line: 2,
     },
     {
       code: `a {
@@ -41,7 +41,7 @@ testRule({
     }`,
       description: "uses the != null format",
       message: messages.not_equals_null,
-      line: 2
-    }
-  ]
+      line: 2,
+    },
+  ],
 });

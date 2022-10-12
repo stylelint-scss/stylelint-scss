@@ -30,7 +30,7 @@ import configurationError from "./configurationError";
  * @param {function} [messages.rejectedBeforeMultiLine]
  * @return {object} The checker, with its exposed checking functions
  */
-export default function(targetWhitespace, expectation, messages) {
+export default function (targetWhitespace, expectation, messages) {
   // Keep track of active arguments in order to avoid passing
   // too much stuff around, making signatures long and confusing.
   // This variable gets reset anytime a checking function is called.
@@ -68,7 +68,7 @@ export default function(targetWhitespace, expectation, messages) {
     errTarget,
     lineCheckStr,
     onlyOneChar = false,
-    allowIndentation = false
+    allowIndentation = false,
   }) {
     activeArgs = {
       source,
@@ -76,7 +76,7 @@ export default function(targetWhitespace, expectation, messages) {
       err,
       errTarget,
       onlyOneChar,
-      allowIndentation
+      allowIndentation,
     };
 
     switch (expectation) {
@@ -131,7 +131,7 @@ export default function(targetWhitespace, expectation, messages) {
     err,
     errTarget,
     lineCheckStr,
-    onlyOneChar = false
+    onlyOneChar = false,
   }) {
     activeArgs = { source, index, err, errTarget, onlyOneChar };
 
@@ -327,7 +327,7 @@ export default function(targetWhitespace, expectation, messages) {
     before,
     beforeAllowingIndentation,
     after,
-    afterOneOnly
+    afterOneOnly,
   };
 }
 

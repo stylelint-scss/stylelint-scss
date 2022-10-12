@@ -12,50 +12,50 @@ testRule({
       @mixin foo () {
       }
     `,
-      description: "No params with parentheses."
+      description: "No params with parentheses.",
     },
     {
       code: `
       @mixin foo {
       }
     `,
-      description: "No params without parentheses."
+      description: "No params without parentheses.",
     },
     {
       code: `
       @mixin foo ($links: 10){
       }
     `,
-      description: "With default params."
+      description: "With default params.",
     },
     {
       code: `
       @mixin foo ($n) {
       }
     `,
-      description: "With params."
+      description: "With params.",
     },
     {
       code: `
       @mixin  foo ($n) {
       }
     `,
-      description: "Extra spaces after @mixin."
+      description: "Extra spaces after @mixin.",
     },
     {
       code: `
       @bar foo ($n) {
       }
     `,
-      description: "Not a SCSS mixin, skipping."
+      description: "Not a SCSS mixin, skipping.",
     },
     {
       code: `
       @mixin foo-bar () {
       }
     `,
-      description: "No params with parentheses, hyphenated name."
-    }
+      description: "No params with parentheses, hyphenated name.",
+    },
   ],
 
   reject: [
@@ -73,7 +73,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "Newline after mixin name"
+      description: "Newline after mixin name",
     },
     {
       code: `
@@ -86,7 +86,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "No space before parentheses."
+      description: "No space before parentheses.",
     },
     {
       code: `
@@ -99,7 +99,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "Extra spaces after @mixin."
+      description: "Extra spaces after @mixin.",
     },
     {
       code: `
@@ -112,9 +112,9 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "No space before parentheses, hyphenated name."
-    }
-  ]
+      description: "No space before parentheses, hyphenated name.",
+    },
+  ],
 });
 
 testRule({
@@ -129,50 +129,50 @@ testRule({
       @mixin foo() {
       }
     `,
-      description: "No params with parentheses."
+      description: "No params with parentheses.",
     },
     {
       code: `
       @mixin foo {
       }
     `,
-      description: "No params without parentheses."
+      description: "No params without parentheses.",
     },
     {
       code: `
       @mixin foo($links: 10){
       }
     `,
-      description: "With default params."
+      description: "With default params.",
     },
     {
       code: `
       @mixin foo($n) {
       }
     `,
-      description: "With params."
+      description: "With params.",
     },
     {
       code: `
       @mixin  foo($n) {
       }
     `,
-      description: "Extra spaces after @mixin."
+      description: "Extra spaces after @mixin.",
     },
     {
       code: `
       @bar foo($n) {
       }
     `,
-      description: "Not a SCSS mixin, skipping."
+      description: "Not a SCSS mixin, skipping.",
     },
     {
       code: `
       @mixin foo-bar() {
       }
     `,
-      description: "No params with parentheses, hyphenated name."
-    }
+      description: "No params with parentheses, hyphenated name.",
+    },
   ],
 
   reject: [
@@ -190,7 +190,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Newline after mixin name"
+      description: "Newline after mixin name",
     },
     {
       code: `
@@ -203,7 +203,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Single space before parentheses."
+      description: "Single space before parentheses.",
     },
     {
       code: `
@@ -216,7 +216,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Multiple spaces before parentheses."
+      description: "Multiple spaces before parentheses.",
     },
     {
       code: `
@@ -229,7 +229,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Single space before parentheses, hyphenated name."
-    }
-  ]
+      description: "Single space before parentheses, hyphenated name.",
+    },
+  ],
 });

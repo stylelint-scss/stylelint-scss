@@ -3,6 +3,6 @@
  *
  * @param {string} string
  */
-export default function(string) {
+export default function (string) {
   return /#{.+?}/.test(string);
 }

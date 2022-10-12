@@ -7,18 +7,18 @@ export const messages = utils.ruleMessages(ruleName, {
   rejectedBefore: () =>
     "Unexpected whitespace before parentheses in else-if declaration",
   expectedBefore: () =>
-    "Expected a single space before parentheses in else-if declaration"
+    "Expected a single space before parentheses in else-if declaration",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
-      possible: ["always", "never"]
+      possible: ["always", "never"],
     });
 
     if (!validOptions) {
@@ -30,7 +30,7 @@ export default function rule(value, _, context) {
 
     const checker = whitespaceChecker("space", value, messages).before;
 
-    root.walkAtRules("else", decl => {
+    root.walkAtRules("else", (decl) => {
       // return early if the else-if statement is not surrounded by parentheses
       if (!match.test(decl.params)) {
         return;
@@ -43,7 +43,8 @@ export default function rule(value, _, context) {
       checker({
         source: decl.params,
         index: decl.params.indexOf("("),
-        err: message => utils.report({ message, node: decl, result, ruleName })
+        err: (message) =>
+          utils.report({ message, node: decl, result, ruleName }),
       });
     });
   };

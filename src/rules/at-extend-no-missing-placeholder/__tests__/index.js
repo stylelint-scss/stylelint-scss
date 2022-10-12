@@ -12,7 +12,7 @@ testRule({
         @extend %placeholder;
       }
     `,
-      description: "when extending with a placeholder"
+      description: "when extending with a placeholder",
     },
     {
       code: `
@@ -20,7 +20,7 @@ testRule({
         @extend #{$dynamically_generated_placeholder_name};
       }
     `,
-      description: "when extending with a dynamic selector"
+      description: "when extending with a dynamic selector",
     },
     {
       code: `
@@ -29,8 +29,8 @@ testRule({
       }
     `,
       description:
-        "when extending with a dynamic selector whose prefix is a placeholder"
-    }
+        "when extending with a dynamic selector whose prefix is a placeholder",
+    },
   ],
 
   reject: [
@@ -42,7 +42,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when extending with an element"
+      description: "when extending with an element",
     },
     {
       code: `
@@ -52,7 +52,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when extending with an id"
+      description: "when extending with an id",
     },
     {
       code: `
@@ -62,7 +62,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when extending with a class"
+      description: "when extending with a class",
     },
     {
       code: `
@@ -73,7 +73,7 @@ testRule({
       line: 3,
       message: messages.rejected,
       description:
-        "when extending with a dynamic selector whose prefix is not a placeholder"
-    }
-  ]
+        "when extending with a dynamic selector whose prefix is not a placeholder",
+    },
+  ],
 });

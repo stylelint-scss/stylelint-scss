@@ -12,49 +12,49 @@ testRule({
       @mixin foo {
       }
     `,
-      description: "Regexp: sequence part. Example: full match, argumentless."
+      description: "Regexp: sequence part. Example: full match, argumentless.",
     },
     {
       code: `
       @mixin foo () {
       }
     `,
-      description: "Regexp: sequence part. Example: full match."
+      description: "Regexp: sequence part. Example: full match.",
     },
     {
       code: `
       @mixin foo ($links: 10){
       }
     `,
-      description: "Regexp: sequence part. Example: full match, with params."
+      description: "Regexp: sequence part. Example: full match, with params.",
     },
     {
       code: `
       @mixin _foo ($n) {
       }
     `,
-      description: "Regexp: sequence part. Example: matches at the end."
+      description: "Regexp: sequence part. Example: matches at the end.",
     },
     {
       code: `
       @mixin food ($n) {
       }
     `,
-      description: "Regexp: sequence part. Example: matches at the beginning."
+      description: "Regexp: sequence part. Example: matches at the beginning.",
     },
     {
       code: `
       @mixin  foo ($n) {
       }
     `,
-      description: "Regexp: sequence part. Example: space after @mixin."
+      description: "Regexp: sequence part. Example: space after @mixin.",
     },
     {
       code: `
       @mix4in fowdo ($n) {
       }
     `,
-      description: "Any pattern. Example: not a SCSS mixin, skipping."
+      description: "Any pattern. Example: not a SCSS mixin, skipping.",
     },
     {
       code: `
@@ -64,8 +64,8 @@ testRule({
       }
     `,
       description:
-        "Regexp: sequence part. Example: newlines around a mixin name."
-    }
+        "Regexp: sequence part. Example: newlines around a mixin name.",
+    },
   ],
 
   reject: [
@@ -79,9 +79,9 @@ testRule({
       endLine: 3,
       endColumn: 0,
       message: messages.expected,
-      description: "Regexp: sequence part. Example: symbol in between."
-    }
-  ]
+      description: "Regexp: sequence part. Example: symbol in between.",
+    },
+  ],
 });
 
 // Testing against a string, sequence part
@@ -96,22 +96,22 @@ testRule({
       @mixin foo ($p) {
       }
     `,
-      description: "String: sequence part. Example: full match."
+      description: "String: sequence part. Example: full match.",
     },
     {
       code: `
       @mixin _foo ($p) {
       }
     `,
-      description: "String: sequence part. Example: matches at the end."
+      description: "String: sequence part. Example: matches at the end.",
     },
     {
       code: `
       @mixin food ($p) {
       }
     `,
-      description: "String: sequence part. Example: matches at the beginning."
-    }
+      description: "String: sequence part. Example: matches at the beginning.",
+    },
   ],
 
   reject: [
@@ -125,7 +125,7 @@ testRule({
       endLine: 3,
       endColumn: 0,
       message: messages.expected,
-      description: "String: sequence part. Example: symbol in between."
+      description: "String: sequence part. Example: symbol in between.",
     },
     {
       code: `
@@ -137,9 +137,9 @@ testRule({
       endLine: 3,
       endColumn: 0,
       message: messages.expected,
-      description: "String: sequence part. Example: not a full sequence."
-    }
-  ]
+      description: "String: sequence part. Example: not a full sequence.",
+    },
+  ],
 });
 
 // Testing against a regex, full match
@@ -154,14 +154,14 @@ testRule({
       @mixin foo ($options: ()) {}
     `,
       description:
-        "Regexp: strict match. Example: mixin with params that have parens INSIDE."
+        "Regexp: strict match. Example: mixin with params that have parens INSIDE.",
     },
     {
       code: `
       @mixin foo ($options: (), $lol: ()) {}
     `,
       description:
-        "Regexp: strict match. Example: mixin with params that have parens INSIDE #2."
+        "Regexp: strict match. Example: mixin with params that have parens INSIDE #2.",
     },
     {
       code: `
@@ -170,14 +170,14 @@ testRule({
       }
     `,
       description:
-        "Regexp: strict match. Example: mixin with params that have parens INSIDE #3."
+        "Regexp: strict match. Example: mixin with params that have parens INSIDE #3.",
     },
     {
       code: `
       @mixin foo {
       }
     `,
-      description: "Regexp: strict match. Example: matches."
+      description: "Regexp: strict match. Example: matches.",
     },
     {
       code: `
@@ -187,7 +187,7 @@ testRule({
       }
     `,
       description:
-        "Regexp: strict match. Example: newlines around a mixni name."
+        "Regexp: strict match. Example: newlines around a mixni name.",
     },
     {
       code: `
@@ -196,8 +196,8 @@ testRule({
         $p
       ) {}
     `,
-      description: "Regexp: strict match. Example: newline after a brace."
-    }
+      description: "Regexp: strict match. Example: newline after a brace.",
+    },
   ],
 
   reject: [
@@ -211,7 +211,7 @@ testRule({
       endLine: 3,
       endColumn: 0,
       message: messages.expected,
-      description: "Regexp: strict match. Example: matches at the end."
+      description: "Regexp: strict match. Example: matches at the end.",
     },
     {
       code: `
@@ -223,7 +223,7 @@ testRule({
       endLine: 3,
       endColumn: 0,
       message: messages.expected,
-      description: "Regexp: strict match. Example: matches at the beginning."
+      description: "Regexp: strict match. Example: matches at the beginning.",
     },
     {
       code: `
@@ -235,7 +235,7 @@ testRule({
       endLine: 3,
       endColumn: 0,
       message: messages.expected,
-      description: "Regexp: strict match. Example: symbol in between."
+      description: "Regexp: strict match. Example: symbol in between.",
     },
     {
       code: `
@@ -250,9 +250,9 @@ testRule({
       endColumn: 0,
       message: messages.expected,
       description:
-        "Regexp: strict match. Example: mixin name divided by newlines."
-    }
-  ]
+        "Regexp: strict match. Example: mixin name divided by newlines.",
+    },
+  ],
 });
 
 // Testing against a regex, match at the beginning
@@ -267,7 +267,7 @@ testRule({
       @mixin foo {
       }
     `,
-      description: "Regexp: pattern at the beginning. Example: matches."
+      description: "Regexp: pattern at the beginning. Example: matches.",
     },
     {
       code: `
@@ -275,8 +275,8 @@ testRule({
       }
     `,
       description:
-        "Regexp: pattern at the beginning. Example: matches at the beginning."
-    }
+        "Regexp: pattern at the beginning. Example: matches at the beginning.",
+    },
   ],
 
   reject: [
@@ -291,7 +291,7 @@ testRule({
       endColumn: 0,
       message: messages.expected,
       description:
-        "Regexp: pattern at the beginning. Example: matches at the end."
+        "Regexp: pattern at the beginning. Example: matches at the end.",
     },
     {
       code: `
@@ -304,9 +304,9 @@ testRule({
       endColumn: 0,
       message: messages.expected,
       description:
-        "Regexp: pattern at the beginning. Example: symbol in between."
-    }
-  ]
+        "Regexp: pattern at the beginning. Example: symbol in between.",
+    },
+  ],
 });
 
 // Testing against a regex, SUIT naming
@@ -318,12 +318,12 @@ testRule({
   accept: [
     {
       code: "@mixin Foo-bar  ( $p: 1 ) {}",
-      description: "Regexp: SUIT component. Example: comply"
+      description: "Regexp: SUIT component. Example: comply",
     },
     {
       code: "@mixin Foo-barBaz {}",
-      description: "Regexp: SUIT component. Example: comply"
-    }
+      description: "Regexp: SUIT component. Example: comply",
+    },
   ],
 
   reject: [
@@ -335,7 +335,7 @@ testRule({
       endColumn: 0,
       message: messages.expected,
       description:
-        "Regexp: SUIT component. Example: starts with lowercase, two elements"
+        "Regexp: SUIT component. Example: starts with lowercase, two elements",
     },
     {
       code: "@mixin foo-bar ($p) {}",
@@ -344,7 +344,7 @@ testRule({
       endLine: 2,
       endColumn: 0,
       message: messages.expected,
-      description: "Regexp: SUIT component. Example: starts with lowercase"
+      description: "Regexp: SUIT component. Example: starts with lowercase",
     },
     {
       code: "@mixin Foo-Bar ($p) {}",
@@ -354,7 +354,7 @@ testRule({
       endColumn: 0,
       message: messages.expected,
       description:
-        "Regexp: SUIT component. Example: element starts with uppercase"
-    }
-  ]
+        "Regexp: SUIT component. Example: element starts with uppercase",
+    },
+  ],
 });

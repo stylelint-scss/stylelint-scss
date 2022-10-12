@@ -9,30 +9,30 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: rules[coreRuleName].messages.rejected.replace(
     ` (${coreRuleName})`,
     ""
-  )
+  ),
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary
+      actual: primary,
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkComments(comment => {
+    root.walkComments((comment) => {
       if (isEmptyComment(comment)) {
         utils.report({
           message: messages.rejected,
           node: comment,
           result,
-          ruleName
+          ruleName,
         });
       }
     });

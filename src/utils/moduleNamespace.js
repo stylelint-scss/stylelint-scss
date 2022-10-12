@@ -22,7 +22,7 @@
 export function moduleNamespace(root, module) {
   let moduleNamespace = getDefaultNamespace(module);
 
-  root.walkAtRules("use", rule => {
+  root.walkAtRules("use", (rule) => {
     const customNamespace = getCustomNamespace(module, rule);
 
     switch (customNamespace) {

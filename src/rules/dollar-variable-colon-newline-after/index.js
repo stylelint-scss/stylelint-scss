@@ -5,7 +5,7 @@ import {
   isSingleLineString,
   namespace,
   ruleUrl,
-  whitespaceChecker
+  whitespaceChecker,
 } from "../../utils";
 
 export const ruleName = namespace("dollar-variable-colon-newline-after");
@@ -13,11 +13,11 @@ export const ruleName = namespace("dollar-variable-colon-newline-after");
 export const messages = utils.ruleMessages(ruleName, {
   expectedAfter: () => 'Expected newline after ":"',
   expectedAfterMultiLine: () =>
-    'Expected newline after ":" with a multi-line value'
+    'Expected newline after ":" with a multi-line value',
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, options, context) {
@@ -29,14 +29,14 @@ export default function rule(expectation, options, context) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "always-multi-line"]
+        possible: ["always", "always-multi-line"],
       },
       {
         actual: options,
         possible: {
-          disableFix: isBoolean
+          disableFix: isBoolean,
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -46,7 +46,7 @@ export default function rule(expectation, options, context) {
 
     const shouldFix = context.fix && (!options || options.disableFix !== true);
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       if (!decl.prop || decl.prop[0] !== "$") {
         return;
       }
@@ -84,7 +84,7 @@ export default function rule(expectation, options, context) {
           source: propPlusColon,
           index: indexToCheck,
           lineCheckStr: decl.value,
-          err: m => {
+          err: (m) => {
             if (shouldFix) {
               const nextLinePrefix =
                 expectation === "always"
@@ -106,9 +106,9 @@ export default function rule(expectation, options, context) {
               node: decl,
               index: indexToCheck,
               result,
-              ruleName
+              ruleName,
             });
-          }
+          },
         });
         break;
       }

@@ -4,11 +4,11 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("at-import-no-partial-leading-underscore");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Unexpected leading underscore in imported partial name"
+  expected: "Unexpected leading underscore in imported partial name",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(actual) {
@@ -44,13 +44,13 @@ export default function rule(actual) {
         message: messages.expected,
         node: decl,
         result,
-        ruleName
+        ruleName,
       });
     }
 
-    root.walkAtRules("import", decl => {
+    root.walkAtRules("import", (decl) => {
       // Processing comma-separated lists of import paths
-      decl.params.split(",").forEach(path => {
+      decl.params.split(",").forEach((path) => {
         checkPathForUnderscore(path, decl);
       });
     });

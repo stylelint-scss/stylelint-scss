@@ -4,27 +4,27 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("at-mixin-argumentless-call-parentheses");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: mixin => `Expected parentheses in mixin "${mixin}" call`,
-  rejected: mixin =>
-    `Unexpected parentheses in argumentless mixin "${mixin}" call`
+  expected: (mixin) => `Expected parentheses in mixin "${mixin}" call`,
+  rejected: (mixin) =>
+    `Unexpected parentheses in argumentless mixin "${mixin}" call`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
-      possible: ["always", "never"]
+      possible: ["always", "never"],
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkAtRules("include", mixinCall => {
+    root.walkAtRules("include", (mixinCall) => {
       // If it is "No parens in argumentless calls"
       if (value === "never" && mixinCall.params.search(/\(\s*\)\s*$/) === -1) {
         return;
@@ -48,12 +48,11 @@ export default function rule(value, _, context) {
       const mixinName = /\s*(\S*?)\s*(?:\(|$)/.exec(mixinCall.params)[1];
 
       utils.report({
-        message: messages[value === "never" ? "rejected" : "expected"](
-          mixinName
-        ),
+        message:
+          messages[value === "never" ? "rejected" : "expected"](mixinName),
         node: mixinCall,
         result,
-        ruleName
+        ruleName,
       });
     });
   };
