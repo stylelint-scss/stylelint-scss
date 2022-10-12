@@ -12,11 +12,11 @@ export const messages = utils.ruleMessages(ruleName, {
     return rules[ruleToCheckAgainst].messages
       .rejected(...args)
       .replace(` (${ruleToCheckAgainst})`, "");
-  }
+  },
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(primaryOption, secondaryOptions) {
@@ -25,14 +25,14 @@ export default function rule(primaryOption, secondaryOptions) {
       result,
       ruleName,
       {
-        actual: primaryOption
+        actual: primaryOption,
       },
       {
         actual: secondaryOptions,
         possible: {
-          ignoreFunctions: [isString, isRegExp]
+          ignoreFunctions: [isString, isRegExp],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -45,20 +45,20 @@ export default function rule(primaryOption, secondaryOptions) {
     const ignoreFunctions = ALL_FUNCTIONS.concat(optionsFunctions);
     const ignoreFunctionsAsSet = new Set(ignoreFunctions);
     const newSecondaryOptions = Object.assign({}, secondaryOptions, {
-      ignoreFunctions
+      ignoreFunctions,
     });
 
     utils.checkAgainstRule(
       {
         ruleName: ruleToCheckAgainst,
         ruleSettings: [primaryOption, newSecondaryOptions],
-        root
+        root,
       },
-      warning => {
+      (warning) => {
         const { node, index } = warning;
 
         // NOTE: Using `valueParser` is necessary for extracting a function name. This may be a performance waste.
-        valueParser(node.value).walk(valueNode => {
+        valueParser(node.value).walk((valueNode) => {
           const { type, value: funcName } = valueNode;
 
           if (type !== "function") {
@@ -71,7 +71,7 @@ export default function rule(primaryOption, secondaryOptions) {
               ruleName,
               result,
               node,
-              index
+              index,
             });
           }
         });

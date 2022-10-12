@@ -16,8 +16,8 @@ test("Single-line comment, after ruleset.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
-      result.root.walkComments(comment => {
+    .then((result) => {
+      result.root.walkComments((comment) => {
         expect(isInlineComment(comment)).toBe(true);
       });
     })
@@ -34,8 +34,8 @@ test("CSS comment, after ruleset.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
-      result.root.walkComments(comment => {
+    .then((result) => {
+      result.root.walkComments((comment) => {
         expect(isInlineComment(comment)).toBe(true);
       });
     })
@@ -54,8 +54,8 @@ test("Single-line comment, after a decl.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
-      result.root.walkComments(comment => {
+    .then((result) => {
+      result.root.walkComments((comment) => {
         expect(isInlineComment(comment)).toBe(true);
       });
     })
@@ -74,8 +74,8 @@ test("CSS comment, before a decl.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
-      result.root.walkComments(comment => {
+    .then((result) => {
+      result.root.walkComments((comment) => {
         expect(isInlineComment(comment)).toBe(true);
       });
     })
@@ -94,8 +94,8 @@ test("Inline comment, after a {.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
-      result.root.walkComments(comment => {
+    .then((result) => {
+      result.root.walkComments((comment) => {
         expect(isInlineComment(comment)).toBe(true);
       });
     })
@@ -115,10 +115,10 @@ test("Inline comment, after a selector (in a list). IGNORED.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       let res = null;
 
-      result.root.walkComments(comment => {
+      result.root.walkComments((comment) => {
         res = isInlineComment(comment);
       });
       expect(res).toBeNull();
@@ -139,10 +139,10 @@ test("Inline comment, after a selector, comment prior. IGNORED.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       let res = null;
 
-      result.root.walkComments(comment => {
+      result.root.walkComments((comment) => {
         res = isInlineComment(comment);
       });
       expect(res).toBeNull();
@@ -161,8 +161,8 @@ test("Multi-line comment, after a ruleset (new line).", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
-      result.root.walkComments(comment => {
+    .then((result) => {
+      result.root.walkComments((comment) => {
         expect(isInlineComment(comment)).toBe(false);
       });
     })
@@ -180,8 +180,8 @@ test("Single-line comment, after a ruleset (new line).", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
-      result.root.walkComments(comment => {
+    .then((result) => {
+      result.root.walkComments((comment) => {
         expect(isInlineComment(comment)).toBe(false);
       });
     })

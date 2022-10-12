@@ -6,17 +6,17 @@ import {
   parseSelector,
   hasNestedSibling,
   isType,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 
 export const ruleName = namespace("selector-no-redundant-nesting-selector");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unnecessary nesting selector (&)"
+  rejected: "Unnecessary nesting selector (&)",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(actual, options) {
@@ -28,9 +28,9 @@ export default function rule(actual, options) {
       {
         actual: options,
         possible: {
-          ignoreKeywords: [isString, isRegExp]
+          ignoreKeywords: [isString, isRegExp],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -38,10 +38,10 @@ export default function rule(actual, options) {
       return;
     }
 
-    root.walkRules(/&/, rule => {
-      parseSelector(rule.selector, result, rule, fullSelector => {
+    root.walkRules(/&/, (rule) => {
+      parseSelector(rule.selector, result, rule, (fullSelector) => {
         // "Ampersand followed by a combinator followed by non-combinator non-ampersand and not the selector end"
-        fullSelector.walkNesting(node => {
+        fullSelector.walkNesting((node) => {
           const prev = node.prev();
 
           if (prev || hasNestedSibling(node)) {
@@ -77,7 +77,7 @@ export default function rule(actual, options) {
             result,
             node: rule,
             message: messages.rejected,
-            index: node.sourceIndex
+            index: node.sourceIndex,
           });
         });
       });

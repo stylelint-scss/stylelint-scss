@@ -12,7 +12,7 @@ testRule({
        background: rgb(27,224,63);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -20,7 +20,7 @@ testRule({
        background: rgba(27,224,63, 0);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -28,7 +28,7 @@ testRule({
        background: hsla(27,224,63, 0);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -36,7 +36,7 @@ testRule({
        background: hsa(27,224,63);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -44,7 +44,7 @@ testRule({
        min-width: min(30vw, 300px);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -52,7 +52,7 @@ testRule({
        min-width: max(30vw, 300px);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -60,7 +60,7 @@ testRule({
        filter: invert(1);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -68,7 +68,7 @@ testRule({
        filter: saturate(140%);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -76,7 +76,7 @@ testRule({
        filter: alpha(opacity=50);
       }
     `,
-      description: "An allowed global function"
+      description: "An allowed global function",
     },
     {
       code: `
@@ -85,7 +85,7 @@ testRule({
        background: color.red(#6b717f);
       }
     `,
-      description: "Red function"
+      description: "Red function",
     },
     {
       code: `
@@ -94,7 +94,7 @@ testRule({
        background: color.blue(#6b717f);
       }
     `,
-      description: "Blue function"
+      description: "Blue function",
     },
     {
       code: `
@@ -103,7 +103,7 @@ testRule({
        background: color.green(#6b717f);
       }
     `,
-      description: "color.green function"
+      description: "color.green function",
     },
     {
       code: `
@@ -112,7 +112,7 @@ testRule({
        background: color.mix(#6b717f, #6b717f);
       }
     `,
-      description: "color.mix"
+      description: "color.mix",
     },
     {
       code: `
@@ -121,7 +121,7 @@ testRule({
        background: color.hue(#6b717f);
       }
     `,
-      description: "color.hue"
+      description: "color.hue",
     },
     {
       code: `
@@ -130,7 +130,7 @@ testRule({
        background: color.saturation(#6b717f);
       }
     `,
-      description: "color.saturation"
+      description: "color.saturation",
     },
     {
       code: `
@@ -139,13 +139,13 @@ testRule({
        background: color.lightness(#6b717f);
       }
     `,
-      description: "color.lightness"
+      description: "color.lightness",
     },
     {
       code: `
       @use "sass:color";
       @debug color.alpha(#e1d7d2)`,
-      description: "color.alpha"
+      description: "color.alpha",
     },
     {
       code: `
@@ -154,7 +154,7 @@ testRule({
        background: color.adjust(#6b717f, $red: 15);
       }
     `,
-      description: "color.adjust (not adjust-color)"
+      description: "color.adjust (not adjust-color)",
     },
     {
       code: `
@@ -163,7 +163,7 @@ testRule({
        background: color.scale(#6b717f, $red: 15);
       }
     `,
-      description: "color.scale (not scale-color)"
+      description: "color.scale (not scale-color)",
     },
     {
       code: `
@@ -172,14 +172,14 @@ testRule({
        background: color.ie-hex-str(#6b717f);
       }
     `,
-      description: "color.ie-hex-str"
+      description: "color.ie-hex-str",
     },
     {
       code: `
       @use "sass:map";
       a {b: map.get((), 1)}
     `,
-      description: "map.get()"
+      description: "map.get()",
     },
     {
       code: `
@@ -187,7 +187,7 @@ testRule({
       $font-weights: ("regular": 400, "medium": 500, "bold": 700)
       @debug map.has-key($font-weights, "regular")
     `,
-      description: "map.has-key"
+      description: "map.has-key",
     },
     {
       code: `
@@ -197,7 +197,7 @@ testRule({
 
       @debug map.merge($light-weights, $heavy-weights)
     `,
-      description: "map.merge"
+      description: "map.merge",
     },
     {
       code: `
@@ -206,7 +206,7 @@ testRule({
 
       @debug map.remove($font-weights, "regular")
     `,
-      description: "map.remove"
+      description: "map.remove",
     },
     {
       code: `
@@ -215,7 +215,7 @@ testRule({
 
       @debug map.keys($font-weights)
     `,
-      description: "map.keys"
+      description: "map.keys",
     },
     {
       code: `
@@ -224,71 +224,71 @@ testRule({
 
       @debug map.values($font-weights)
     `,
-      description: "map.values"
+      description: "map.values",
     },
     {
       code: `
       @use "sass:string"
       @debug string.quote(Helvetica);
       `,
-      description: "string.quote"
+      description: "string.quote",
     },
     {
       code: `
       @use "sass:string"
       @debug string.unquote("Helvetica");
       `,
-      description: "string.unquote"
+      description: "string.unquote",
     },
     {
       code: `
       @use "sass:string"
       @debug string.length("Helvetica");
       `,
-      description: "string.length"
+      description: "string.length",
     },
     {
       code: `
       @use "sass:string"
       @debug string.insert("Roboto Bold", " Mono", 7);
       `,
-      description: "string.insert"
+      description: "string.insert",
     },
     {
       code: `
       @use "sass:string"
       @debug string.slice("Helvetica Neue", 11);
       `,
-      description: "string.slice"
+      description: "string.slice",
     },
     {
       code: `
       @use "sass:string"
       @debug string.index("Helvetica Neue", "Helvetica");
       `,
-      description: "string.index"
+      description: "string.index",
     },
     {
       code: `
       @use "sass:string"
       @debug string.to-upper-case("Bold");
       `,
-      description: "string.to-upper-case"
+      description: "string.to-upper-case",
     },
     {
       code: `
       @use "sass:string"
       @debug string.to-lower-case("Bold");
       `,
-      description: "string.to-lower-case"
+      description: "string.to-lower-case",
     },
     {
       code: `
       @use "sass:string"
       @debug string.unique-id()
       `,
-      description: "string.unique-id"
-    }
+      description: "string.unique-id",
+    },
   ],
 
   reject: [
@@ -301,7 +301,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("red"),
-      description: "red"
+      description: "red",
     },
     {
       code: `
@@ -312,7 +312,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("blue"),
-      description: "blue"
+      description: "blue",
     },
     {
       code: `
@@ -323,7 +323,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("green"),
-      description: "green"
+      description: "green",
     },
     {
       code: `
@@ -334,7 +334,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("mix"),
-      description: "mix"
+      description: "mix",
     },
     {
       code: `
@@ -345,7 +345,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("hue"),
-      description: "hue"
+      description: "hue",
     },
     {
       code: `
@@ -356,7 +356,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("saturation"),
-      description: "saturation"
+      description: "saturation",
     },
     {
       code: `
@@ -367,7 +367,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("lightness"),
-      description: "lightness"
+      description: "lightness",
     },
     {
       code: `
@@ -378,7 +378,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("adjust-color"),
-      description: "adjust-color"
+      description: "adjust-color",
     },
     {
       code: `
@@ -389,7 +389,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("scale-color"),
-      description: "scale-color"
+      description: "scale-color",
     },
     {
       code: `
@@ -400,7 +400,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("change-color"),
-      description: "change-color"
+      description: "change-color",
     },
     {
       code: `
@@ -411,7 +411,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("ie-hex-str"),
-      description: "ie-hex-str"
+      description: "ie-hex-str",
     },
     {
       code: `
@@ -420,7 +420,7 @@ testRule({
       line: 2,
       column: 13,
       message: messages.rejected("map-get"),
-      description: "map-get"
+      description: "map-get",
     },
     {
       code: `
@@ -430,7 +430,7 @@ testRule({
       line: 3,
       column: 14,
       message: messages.rejected("map-has-key"),
-      description: "map-has-key"
+      description: "map-has-key",
     },
     {
       code: `
@@ -440,7 +440,7 @@ testRule({
       line: 3,
       column: 14,
       message: messages.rejected("map-remove"),
-      description: "map-remove"
+      description: "map-remove",
     },
     {
       code: `
@@ -450,7 +450,7 @@ testRule({
       line: 3,
       column: 14,
       message: messages.rejected("map-keys"),
-      description: "map-keys"
+      description: "map-keys",
     },
     {
       code: `
@@ -460,7 +460,7 @@ testRule({
       line: 3,
       column: 14,
       message: messages.rejected("map-values"),
-      description: "map-values"
+      description: "map-values",
     },
     {
       code: `
@@ -471,7 +471,7 @@ testRule({
       line: 3,
       column: 21,
       message: messages.rejected("change-color"),
-      description: "change-color"
+      description: "change-color",
     },
     {
       code: `
@@ -484,7 +484,7 @@ testRule({
       message: messages.rejectedFullMessage(
         "Expected color.adjust($color, $lightness: $amount) instead of lighten($color, $amount)"
       ),
-      description: "lighten"
-    }
-  ]
+      description: "lighten",
+    },
+  ],
 });

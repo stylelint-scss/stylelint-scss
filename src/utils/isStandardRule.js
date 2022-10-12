@@ -8,7 +8,7 @@ import isStandardSyntaxSelector from "./isStandardSelector";
  * @param {import('postcss').Rule} rule
  * @returns {boolean}
  */
-export default function(rule) {
+export default function (rule) {
   // Get full selector
   const selector = get(rule, "raws.selector.raw", rule.selector);
 

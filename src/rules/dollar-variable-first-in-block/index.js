@@ -2,18 +2,18 @@ import {
   namespace,
   optionsHaveException,
   optionsHaveIgnored,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 import { utils } from "stylelint";
 
 export const ruleName = namespace("dollar-variable-first-in-block");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected $-variable to be first in block"
+  expected: "Expected $-variable to be first in block",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(primary, options) {
@@ -22,15 +22,15 @@ export default function rule(primary, options) {
       result,
       ruleName,
       {
-        actual: primary
+        actual: primary,
       },
       {
         actual: options,
         possible: {
           ignore: ["comments", "imports"],
-          except: ["root", "at-rule", "function", "mixin", "if-else", "loops"]
+          except: ["root", "at-rule", "function", "mixin", "if-else", "loops"],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -38,9 +38,9 @@ export default function rule(primary, options) {
       return;
     }
 
-    const isDollarVar = node => node.prop && node.prop[0] === "$";
+    const isDollarVar = (node) => node.prop && node.prop[0] === "$";
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       // Ignore declarations that aren't variables.
       // ------------------------------------------
       if (!isDollarVar(decl)) {
@@ -112,7 +112,7 @@ export default function rule(primary, options) {
         message: messages.expected,
         node: decl,
         result,
-        ruleName
+        ruleName,
       });
     });
   };

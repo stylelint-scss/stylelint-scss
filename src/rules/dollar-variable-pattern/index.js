@@ -5,11 +5,11 @@ import { namespace, optionsHaveIgnored, ruleUrl } from "../../utils";
 export const ruleName = namespace("dollar-variable-pattern");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected $ variable name to match specified pattern"
+  expected: "Expected $ variable name to match specified pattern",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(pattern, options) {
@@ -19,14 +19,14 @@ export default function rule(pattern, options) {
       ruleName,
       {
         actual: pattern,
-        possible: [isRegExp, isString]
+        possible: [isRegExp, isString],
       },
       {
         actual: options,
         possible: {
-          ignore: ["local", "global"]
+          ignore: ["local", "global"],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -36,7 +36,7 @@ export default function rule(pattern, options) {
 
     const regexpPattern = isString(pattern) ? new RegExp(pattern) : pattern;
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       const { prop } = decl;
 
       if (prop[0] !== "$") {
@@ -60,7 +60,7 @@ export default function rule(pattern, options) {
         message: messages.expected,
         node: decl,
         result,
-        ruleName
+        ruleName,
       });
     });
   };

@@ -18,7 +18,7 @@ testRule({
         margin: 1px;
       }
     `,
-      description: "{ always } Nothing to nest"
+      description: "{ always } Nothing to nest",
     },
     {
       code: `
@@ -27,7 +27,7 @@ testRule({
         -webkit-box-shadow: 1px 0 0 red;
       }
     `,
-      description: "{ always } Vendor prefixed rules."
+      description: "{ always } Vendor prefixed rules.",
     },
     {
       code: `
@@ -38,7 +38,7 @@ testRule({
         }
       }
       `,
-      description: "{ always } nested properties"
+      description: "{ always } nested properties",
     },
     {
       code: `
@@ -48,8 +48,8 @@ testRule({
         };
       }
     `,
-      description: "{ always } one `background` in nested form"
-    }
+      description: "{ always } one `background` in nested form",
+    },
   ],
 
   reject: [
@@ -66,14 +66,14 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected("background-color")
+          message: messages.expected("background-color"),
         },
         {
           line: 4,
           column: 9,
-          message: messages.expected("background-repeat")
-        }
-      ]
+          message: messages.expected("background-repeat"),
+        },
+      ],
     },
     {
       code: `
@@ -89,19 +89,19 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected("background-color")
+          message: messages.expected("background-color"),
         },
         {
           line: 5,
           column: 9,
-          message: messages.expected("background-repeat")
+          message: messages.expected("background-repeat"),
         },
         {
           line: 4,
           column: 26,
-          message: messages.expected("background-image")
-        }
-      ]
+          message: messages.expected("background-image"),
+        },
+      ],
     },
     {
       code: `
@@ -117,9 +117,9 @@ testRule({
         {
           line: 6,
           column: 9,
-          message: messages.expected("background-position")
-        }
-      ]
+          message: messages.expected("background-position"),
+        },
+      ],
     },
     {
       code: `
@@ -135,9 +135,9 @@ testRule({
         {
           line: 6,
           column: 9,
-          message: messages.expected("background-position")
-        }
-      ]
+          message: messages.expected("background-position"),
+        },
+      ],
     },
     {
       code: `
@@ -153,11 +153,11 @@ testRule({
         {
           line: 6,
           column: 9,
-          message: messages.expected("background-position")
-        }
-      ]
-    }
-  ]
+          message: messages.expected("background-position"),
+        },
+      ],
+    },
+  ],
 });
 
 // --------------------------------------------------------------------------
@@ -178,7 +178,8 @@ testRule({
         background-color: red;
       }
     `,
-      description: "{ always, except: only-of-namespace } background-color only"
+      description:
+        "{ always, except: only-of-namespace } background-color only",
     },
     {
       code: `
@@ -190,7 +191,7 @@ testRule({
       }
     `,
       description:
-        "{ always, except: only-of-namespace } `background:red`, one rule inside"
+        "{ always, except: only-of-namespace } `background:red`, one rule inside",
     },
     {
       code: `
@@ -202,7 +203,7 @@ testRule({
       }
     `,
       description:
-        "{ always, except: only-of-namespace } background, two rules inside"
+        "{ always, except: only-of-namespace } background, two rules inside",
     },
   ],
 
@@ -221,14 +222,14 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected("background-color")
+          message: messages.expected("background-color"),
         },
         {
           line: 5,
           column: 9,
-          message: messages.expected("background-repeat")
-        }
-      ]
+          message: messages.expected("background-repeat"),
+        },
+      ],
     },
     {
       code: `
@@ -246,14 +247,14 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected("background")
+          message: messages.rejected("background"),
         },
         {
           line: 6,
           column: 9,
-          message: messages.rejected("background")
-        }
-      ]
+          message: messages.rejected("background"),
+        },
+      ],
     },
     {
       code: `
@@ -269,9 +270,9 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected("background")
+          message: messages.rejected("background"),
         },
-      ]
+      ],
     },
     {
       code: `
@@ -289,11 +290,11 @@ testRule({
         {
           line: 7,
           column: 9,
-          message: messages.expected("background-position")
+          message: messages.expected("background-position"),
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 });
 
 // --------------------------------------------------------------------------
@@ -313,7 +314,7 @@ testRule({
         background: red;
       }
     `,
-      description: "{ never } bg shorthand."
+      description: "{ never } bg shorthand.",
     },
     {
       code: `
@@ -321,7 +322,7 @@ testRule({
         background-color: red;
       }
     `,
-      description: "{ never } bgc."
+      description: "{ never } bgc.",
     },
     {
       code: `
@@ -330,7 +331,7 @@ testRule({
         background-repeat: no-repeat;
       }
     `,
-      description: "{ never } bgc, bgr."
+      description: "{ never } bgc, bgr.",
     },
     {
       code: `
@@ -341,18 +342,18 @@ testRule({
         }
       }
     `,
-      description: "{ never } `prop:value` -- selector."
+      description: "{ never } `prop:value` -- selector.",
     },
     {
       code: `.class {
       &:not(.other-class) { }
     }`,
-      description: "{ never } `.class { &:not() { ... } }` -- selector."
+      description: "{ never } `.class { &:not() { ... } }` -- selector.",
     },
     {
       code: `.test4\\:3 {}`,
-      description: "{ never } selector with escaping"
-    }
+      description: "{ never } selector with escaping",
+    },
   ],
 
   reject: [
@@ -380,7 +381,7 @@ testRule({
       description: "{ never } `prop: value { one nested }`.",
       message: messages.rejected("background"),
       line: 3,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -398,7 +399,7 @@ testRule({
       description: "{ never } `prop: { two nested }`, deep inside a rule.",
       message: messages.rejected("background"),
       line: 5,
-      column: 13
+      column: 13,
     },
     {
       code: `
@@ -412,7 +413,7 @@ testRule({
       description: "{ never } `-webkit: { ... }`.",
       message: messages.rejected("-webkit"),
       line: 3,
-      column: 9
-    }
-  ]
+      column: 9,
+    },
+  ],
 });

@@ -14,11 +14,11 @@ testRule({
   accept: [
     {
       code: "a { width: 1 +1; }",
-      description: "List. width: 1 +1."
+      description: "List. width: 1 +1.",
     },
     {
       code: "a { width: s1- +1; }",
-      description: "List. width: s1- +1."
+      description: "List. width: s1- +1.",
     },
     {
       code: `
@@ -27,7 +27,7 @@ testRule({
           1;
       }
     `,
-      description: "Newline after the op: 10px +\\n          1"
+      description: "Newline after the op: 10px +\\n          1",
     },
     {
       code: `
@@ -37,7 +37,7 @@ testRule({
       }
     `,
       description:
-        "Newline before a character, that is not an operator: 10px\\n-1"
+        "Newline before a character, that is not an operator: 10px\\n-1",
     },
     {
       code: `
@@ -46,7 +46,7 @@ testRule({
           1 + 1;
       }
     `,
-      description: "Newline before the preceding op: 10px +\\n          1"
+      description: "Newline before the preceding op: 10px +\\n          1",
     },
     {
       code: `
@@ -54,7 +54,7 @@ testRule({
           --foo: '{{}}';
         }
       `,
-      description: "Custom property"
+      description: "Custom property",
     },
     {
       code: `
@@ -64,8 +64,8 @@ testRule({
         unicode-range: U+26;
       }
       `,
-      description: "unicode-range"
-    }
+      description: "unicode-range",
+    },
   ],
 
   reject: [
@@ -79,7 +79,7 @@ testRule({
       description: "Newline-indentation-operator: 10px\\n        + 1.",
       message: messages.rejected("+"),
       line: 4,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -91,9 +91,9 @@ testRule({
       description: "Newline-operator: 10px\\n+ 1.",
       message: messages.rejected("+"),
       line: 4,
-      column: 1
-    }
-  ]
+      column: 1,
+    },
+  ],
 });
 
 testRule({
@@ -116,8 +116,8 @@ a {
     1;
 }
 </style>
-`
-    }
+`,
+    },
   ],
 
   reject: [
@@ -136,7 +136,7 @@ a {
 `,
       message: messages.rejected("+"),
       line: 9,
-      column: 5
-    }
-  ]
+      column: 5,
+    },
+  ],
 });

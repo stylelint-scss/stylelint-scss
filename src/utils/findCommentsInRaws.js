@@ -33,8 +33,8 @@ export default function findCommentsInRaws(rawString) {
   const modesEntered = [
     {
       mode: "normal",
-      character: null
-    }
+      character: null,
+    },
   ];
   let commentStart = null;
 
@@ -71,7 +71,7 @@ export default function findCommentsInRaws(rawString) {
           // Entering a string
           modesEntered.push({
             mode: "string",
-            character
+            character,
           });
         }
 
@@ -83,15 +83,16 @@ export default function findCommentsInRaws(rawString) {
           break;
         }
 
-        const functionNameRegSearch = /(?:^|[\n\r]|\s-|[:\s,.(){}*+/%])([\w-]*)$/.exec(
-          rawString.substring(0, i)
-        );
+        const functionNameRegSearch =
+          /(?:^|[\n\r]|\s-|[:\s,.(){}*+/%])([\w-]*)$/.exec(
+            rawString.substring(0, i)
+          );
 
         // A `\S(` can be in, say, `@media(`
         if (!functionNameRegSearch) {
           modesEntered.push({
             mode: "parens",
-            character: "("
+            character: "(",
           });
           break;
         }
@@ -100,7 +101,7 @@ export default function findCommentsInRaws(rawString) {
 
         modesEntered.push({
           mode: functionName === "url" ? "url" : "parens",
-          character: "("
+          character: "(",
         });
         break;
       }
@@ -125,14 +126,14 @@ export default function findCommentsInRaws(rawString) {
         if (nextChar === "*") {
           modesEntered.push({
             mode: "comment",
-            character: "/*"
+            character: "/*",
           });
           comment = {
             type: "css",
             source: { start: i + offset },
             // If i is 0 then the file/the line starts with this comment
             inlineAfter:
-              i > 0 && rawString.substring(0, i).search(/\n\s*$/) === -1
+              i > 0 && rawString.substring(0, i).search(/\n\s*$/) === -1,
           };
           commentStart = i;
           // Skip the next iteration as the * is already checked
@@ -145,14 +146,14 @@ export default function findCommentsInRaws(rawString) {
 
           modesEntered.push({
             mode: "comment",
-            character: "//"
+            character: "//",
           });
           comment = {
             type: "double-slash",
             source: { start: i + offset },
             // If i is 0 then the file/the line starts with this comment
             inlineAfter:
-              i > 0 && rawString.substring(0, i).search(/\n\s*$/) === -1
+              i > 0 && rawString.substring(0, i).search(/\n\s*$/) === -1,
           };
           commentStart = i;
           // Skip the next iteration as the second slash in // is already checked
@@ -181,7 +182,7 @@ export default function findCommentsInRaws(rawString) {
             left: matches[2],
             text: commentRaw,
             right: matches[4],
-            endToken: matches[5]
+            endToken: matches[5],
           };
           comment.text = matches[3];
           comment.inlineBefore =
@@ -218,7 +219,7 @@ export default function findCommentsInRaws(rawString) {
               startToken: matches[1],
               left: matches[2],
               text: commentRaw,
-              right: matches[4]
+              right: matches[4],
             };
             comment.text = matches[3];
             comment.inlineBefore = false;

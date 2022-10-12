@@ -6,11 +6,11 @@ export const ruleName = namespace("dollar-variable-colon-space-before");
 
 export const messages = utils.ruleMessages(ruleName, {
   expectedBefore: () => 'Expected single space before ":"',
-  rejectedBefore: () => 'Unexpected whitespace before ":"'
+  rejectedBefore: () => 'Unexpected whitespace before ":"',
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, _, context) {
@@ -19,7 +19,7 @@ export default function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["always", "never"]
+      possible: ["always", "never"],
     });
 
     if (!validOptions) {
@@ -33,7 +33,7 @@ export default function rule(expectation, _, context) {
       checkedRuleName: ruleName,
       position: "before",
       expectation,
-      context
+      context,
     });
   };
 }

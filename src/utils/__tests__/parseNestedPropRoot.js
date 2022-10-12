@@ -12,8 +12,8 @@ test("`background:`", () => {
   expect(result).toEqual({
     propName: {
       value: "background",
-      after: ""
-    }
+      after: "",
+    },
   });
 });
 
@@ -25,13 +25,13 @@ test("`background: red`", () => {
   expect(result).toEqual({
     propName: {
       value: "background",
-      after: ""
+      after: "",
     },
     propValue: {
       value: "red",
       before: " ",
-      sourceIndex: 12
-    }
+      sourceIndex: 12,
+    },
   });
 });
 
@@ -43,13 +43,13 @@ test("`margin:10px`", () => {
   expect(result).toEqual({
     propName: {
       value: "margin",
-      after: ""
+      after: "",
     },
     propValue: {
       value: "10px",
       before: "",
-      sourceIndex: 7
-    }
+      sourceIndex: 7,
+    },
   });
 });
 
@@ -61,13 +61,13 @@ test("`margin:$var`", () => {
   expect(result).toEqual({
     propName: {
       value: "margin",
-      after: ""
+      after: "",
     },
     propValue: {
       value: "$var",
       before: "",
-      sourceIndex: 7
-    }
+      sourceIndex: 7,
+    },
   });
 });
 
@@ -79,13 +79,13 @@ test("`input: -moz-focusring ` -- yes, this IS parsed as 'prop: value' by Sass!"
   expect(result).toEqual({
     propName: {
       value: "input",
-      after: ""
+      after: "",
     },
     propValue: {
       value: "-moz-focusring",
       before: " ",
-      sourceIndex: 7
-    }
+      sourceIndex: 7,
+    },
   });
 });
 
@@ -97,13 +97,13 @@ test("`background  :  red`", () => {
   expect(result).toEqual({
     propName: {
       value: "background",
-      after: "  "
+      after: "  ",
     },
     propValue: {
       value: "red",
       before: "  ",
-      sourceIndex: 15
-    }
+      sourceIndex: 15,
+    },
   });
 });
 
@@ -115,8 +115,8 @@ test("Edge case: function with param `#{fn($a:1)}:`.", () => {
   expect(result).toEqual({
     propName: {
       value: "#{fn($a:1)}",
-      after: ""
-    }
+      after: "",
+    },
   });
 });
 
@@ -128,8 +128,8 @@ test("Edge case: function with param `#{fn($a: 1)}:`.", () => {
   expect(result).toEqual({
     propName: {
       value: "#{fn($a: 1)}",
-      after: ""
-    }
+      after: "",
+    },
   });
 });
 
@@ -141,13 +141,13 @@ test('`input:"prop: value"` (value is a string).', () => {
   expect(result).toEqual({
     propName: {
       value: "input",
-      after: ""
+      after: "",
     },
     propValue: {
       value: '"prop: value"',
       before: "",
-      sourceIndex: 6
-    }
+      sourceIndex: 6,
+    },
   });
 });
 

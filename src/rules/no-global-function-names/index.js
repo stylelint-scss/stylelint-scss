@@ -73,7 +73,7 @@ const rules = {
   darken: "color",
   desaturate: "color",
   opacify: "color",
-  transparentize: "color"
+  transparentize: "color",
 };
 
 const new_rule_names = {
@@ -105,40 +105,40 @@ const new_rule_names = {
   desaturate: "adjust",
   opacify: "adjust",
   saturate: "adjust",
-  transparentize: "adjust"
+  transparentize: "adjust",
 };
 
 const rule_mapping = {
   lighten: ["lighten($color, $amount)", "adjust($color, $lightness: $amount)"],
   "adjust-hue": [
     "adjust-hue($color, $amount)",
-    "adjust($color, $hue: $amount)"
+    "adjust($color, $hue: $amount)",
   ],
   darken: ["darken($color, $amount)", "adjust($color, $lightness: -$amount)"],
   desaturate: [
     "desaturate($color, $amount)",
-    "adjust($color, $saturation: -$amount)"
+    "adjust($color, $saturation: -$amount)",
   ],
   opacify: ["opacify($color, $amount)", "adjust($color, $alpha: -$amount)"],
   saturate: [
     "saturate($color, $amount)",
-    "adjust($color, $saturation: $amount)"
+    "adjust($color, $saturation: $amount)",
   ],
   transparentize: [
     "transparentize($color, $amount)",
-    "adjust($color, $alpha: -$amount)"
-  ]
+    "adjust($color, $alpha: -$amount)",
+  ],
 };
 
 export const ruleName = namespace("no-global-function-names");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejectedFullMessage: string => string,
-  rejected: name => errorMessage(name)
+  rejectedFullMessage: (string) => string,
+  rejected: (name) => errorMessage(name),
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 function errorMessage(name) {
@@ -162,15 +162,15 @@ function errorMessage(name) {
 export default function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: value
+      actual: value,
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkDecls(decl => {
-      valueParser(decl.value).walk(node => {
+    root.walkDecls((decl) => {
+      valueParser(decl.value).walk((node) => {
         const cleanValue = node.value.replace(interpolationPrefix, "");
 
         // Verify that we're only looking at functions.
@@ -184,7 +184,7 @@ export default function rule(value) {
             node: decl,
             index: declarationValueIndex(decl) + node.sourceIndex,
             result,
-            ruleName
+            ruleName,
           });
         }
       });

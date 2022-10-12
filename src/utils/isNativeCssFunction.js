@@ -78,7 +78,7 @@ const nativeCssFunctions = new Set([
   "translateZ",
   "translatez",
   "url",
-  "var"
+  "var",
 ]);
 
 /**

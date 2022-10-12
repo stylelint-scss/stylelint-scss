@@ -8,20 +8,20 @@ testRule({
   accept: [
     {
       code: "a { color: blue }",
-      description: "Basic style definition"
+      description: "Basic style definition",
     },
     {
       code: "$var: 10px !default",
-      description: "Global variable with !default"
+      description: "Global variable with !default",
     },
     {
       code: "a { $var: 10px !default }",
-      description: "Local variable with !default"
+      description: "Local variable with !default",
     },
     {
       code: ".class { a { $var: 10px !default } }",
-      description: "Nested local variable with !default"
-    }
+      description: "Nested local variable with !default",
+    },
   ],
 
   reject: [
@@ -30,7 +30,7 @@ testRule({
       message: messages.expected("$var"),
       description: "Global variable without !default",
       line: 1,
-      column: 1
+      column: 1,
     },
     {
       code: `
@@ -42,7 +42,7 @@ testRule({
       message: messages.expected("$local-var"),
       description: "Local variable without !default",
       line: 4,
-      column: 11
+      column: 11,
     },
     {
       code: `
@@ -56,9 +56,9 @@ testRule({
       message: messages.expected("$nested-var"),
       description: "Nested local variable without !default",
       line: 5,
-      column: 13
-    }
-  ]
+      column: 13,
+    },
+  ],
 });
 
 // "ignore" options
@@ -70,28 +70,28 @@ testRule({
   accept: [
     {
       code: "a { color: blue }",
-      description: "Basic style definition (ignoring local variables)"
+      description: "Basic style definition (ignoring local variables)",
     },
     {
       code: "$var: 10px !default",
-      description: "Global variable with !default (ignoring local variables)"
+      description: "Global variable with !default (ignoring local variables)",
     },
     {
       code: "a { $var: 10px !default }",
-      description: "Ignore local variable with !default"
+      description: "Ignore local variable with !default",
     },
     {
       code: ".class { a { $var: 10px !default } }",
-      description: "Ignore nested local variable with !default"
+      description: "Ignore nested local variable with !default",
     },
     {
       code: "a { $var: 10px }",
-      description: "Ignore local variable without !default"
+      description: "Ignore local variable without !default",
     },
     {
       code: ".class { a { $var: 10px } }",
-      description: "Ignore nested local variable without !default"
-    }
+      description: "Ignore nested local variable without !default",
+    },
   ],
 
   reject: [
@@ -101,7 +101,7 @@ testRule({
       description:
         "Ignore local variable, fail global variable without !default",
       line: 1,
-      column: 1
-    }
-  ]
+      column: 1,
+    },
+  ],
 });

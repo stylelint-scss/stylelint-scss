@@ -5,11 +5,11 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("no-duplicate-dollar-variables");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: variable => `Unexpected duplicate dollar variable ${variable}`
+  rejected: (variable) => `Unexpected duplicate dollar variable ${variable}`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(value, secondaryOptions) {
@@ -18,16 +18,16 @@ export default function rule(value, secondaryOptions) {
       result,
       ruleName,
       {
-        actual: value
+        actual: value,
       },
       {
         actual: secondaryOptions,
         possible: {
           ignoreInside: ["at-rule", "nested-at-rule"],
           ignoreInsideAtRules: [isString],
-          ignoreDefaults: [isBoolean]
+          ignoreDefaults: [isBoolean],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -76,7 +76,7 @@ export default function rule(value, secondaryOptions) {
 
       return {
         defaultCount: 0,
-        isDeclared: false
+        isDeclared: false,
       };
     }
 
@@ -114,7 +114,9 @@ export default function rule(value, secondaryOptions) {
           ? ++variableData.defaultCount
           : variableData.defaultCount,
         isDeclared:
-          isDefault && ignoreDefaults !== false ? variableData.isDeclared : true
+          isDefault && ignoreDefaults !== false
+            ? variableData.isDeclared
+            : true,
       };
     }
 
@@ -123,7 +125,7 @@ export default function rule(value, secondaryOptions) {
         ? secondaryOptions.ignoreDefaults
         : 1;
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       const isVar = decl.prop[0] === "$";
       const isInsideIgnoredAtRule =
         decl.parent.type === "atrule" &&
@@ -170,7 +172,7 @@ export default function rule(value, secondaryOptions) {
           message: messages.rejected(decl.prop),
           node: decl,
           result,
-          ruleName
+          ruleName,
         });
       }
 

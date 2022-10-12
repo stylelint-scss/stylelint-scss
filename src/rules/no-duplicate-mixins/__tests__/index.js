@@ -12,7 +12,7 @@ testRule({
         font-size: 16px;
       }
     `,
-      description: "A single mixin."
+      description: "A single mixin.",
     },
     {
       code: `
@@ -23,8 +23,8 @@ testRule({
         font-size: 18px;
       }
     `,
-      description: "Two mixins with different names."
-    }
+      description: "Two mixins with different names.",
+    },
   ],
 
   reject: [
@@ -40,7 +40,7 @@ testRule({
       column: 7,
       line: 5,
       message: messages.rejected("font-size-default"),
-      description: "Two mixins with the same names."
+      description: "Two mixins with the same names.",
     },
     {
       code: `
@@ -57,7 +57,7 @@ testRule({
       column: 7,
       line: 8,
       message: messages.rejected("font-size-default"),
-      description: "Three mixins including two with the same names."
+      description: "Three mixins including two with the same names.",
     },
     {
       code: `
@@ -72,7 +72,7 @@ testRule({
       line: 5,
       message: messages.rejected("font-size"),
       description:
-        "Two mixins with the same names including one accepting arguments."
+        "Two mixins with the same names including one accepting arguments.",
     },
     {
       code: `
@@ -86,7 +86,7 @@ testRule({
       column: 7,
       line: 5,
       message: messages.rejected("font-size"),
-      description: "Two mixins with the same names accepting arguments."
+      description: "Two mixins with the same names accepting arguments.",
     },
     {
       code: `
@@ -104,7 +104,7 @@ testRule({
       column: 9,
       line: 7,
       message: messages.rejected("font-size"),
-      description: "Two mixins with the same names accepting arguments."
-    }
-  ]
+      description: "Two mixins with the same names accepting arguments.",
+    },
+  ],
 });

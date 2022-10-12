@@ -5,18 +5,18 @@ export const ruleName = namespace("double-slash-comment-whitespace-inside");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a space after //",
-  rejected: "Unexpected space after //"
+  rejected: "Unexpected space after //",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["always", "never"]
+      possible: ["always", "never"],
     });
 
     if (!validOptions) {
@@ -34,7 +34,7 @@ export default function rule(expectation) {
 
       const comments = findCommentsInRaws(rootString);
 
-      comments.forEach(comment => {
+      comments.forEach((comment) => {
         // Only process // comments
         if (comment.type !== "double-slash") {
           return;
@@ -61,7 +61,7 @@ export default function rule(expectation) {
           node: root,
           index: comment.source.start + comment.raws.startToken.length,
           result,
-          ruleName
+          ruleName,
         });
       });
     }

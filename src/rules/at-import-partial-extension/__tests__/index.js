@@ -10,137 +10,137 @@ testRule({
       code: `
       @import "fff.scss";
     `,
-      description: "Single file, .scss extension"
+      description: "Single file, .scss extension",
     },
     {
       code: `
       @import "path/fff.scss";
     `,
-      description: "Single file, path with dir, .scss extension"
+      description: "Single file, path with dir, .scss extension",
     },
     {
       code: `
       @import "df\\fff.scss";
     `,
       description:
-        "Single file, path with dir, has extension, windows delimiters."
+        "Single file, path with dir, has extension, windows delimiters.",
     },
     {
       code: `
       @import 'fff.scss';
     `,
-      description: "Single file, .scss extension, single quotes."
+      description: "Single file, .scss extension, single quotes.",
     },
     {
       code: `
       @import "fff.foo";
     `,
-      description: "Single file, .foo extension."
+      description: "Single file, .foo extension.",
     },
     {
       code: `
       @import " fff.scss1 ";
     `,
-      description: "Single file, extension, trailing whitespaces."
+      description: "Single file, extension, trailing whitespaces.",
     },
     {
       code: `
       @import "fff.scss", "fff.moi";
     `,
-      description: "Multiple files with extensions."
+      description: "Multiple files with extensions.",
     },
     {
       code: `
       @import url("path/_file.css");
     `,
-      description: "Import CSS with url()."
+      description: "Import CSS with url().",
     },
     {
       code: `
       @import "_file.css";
     `,
-      description: "Import CSS by extension."
+      description: "Import CSS by extension.",
     },
     {
       code: `
       @import "http://_file.scss";
     `,
-      description: "Import CSS from the web, http://."
+      description: "Import CSS from the web, http://.",
     },
     {
       code: `
       @import " https://_file.scss ";
     `,
       description:
-        "Import CSS from the web, https://, trailing spaces inside quotes"
+        "Import CSS from the web, https://, trailing spaces inside quotes",
     },
     {
       code: `
       @import 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
     `,
-      description: "Import CSS from the web, https:// with comma"
+      description: "Import CSS from the web, https:// with comma",
     },
     {
       code: `
       @import "//_file.scss";
     `,
-      description: "Import CSS from the web, no protocol."
+      description: "Import CSS from the web, no protocol.",
     },
     {
       code: `
       @import "_file.scss" screen;
     `,
-      description: "Import CSS (with media queries)."
+      description: "Import CSS (with media queries).",
     },
     {
       code: `
       @import "_file.scss"screen;
     `,
-      description: "Import CSS (with media queries)."
+      description: "Import CSS (with media queries).",
     },
     {
       code: `
       @import "_file.scss "screen;
     `,
       description:
-        "Import CSS (with media queries), trailing space inside quotes."
+        "Import CSS (with media queries), trailing space inside quotes.",
     },
     {
       code: `
       @import url(_lol.scss) screen;
     `,
-      description: "Import CSS (with media queries - url + media)."
+      description: "Import CSS (with media queries - url + media).",
     },
     {
       code: `
       @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
     `,
-      description: "Import CSS from the web, https:// with comma"
+      description: "Import CSS from the web, https:// with comma",
     },
     {
       code: `
       @import _file.scss tv, screen;
     `,
-      description: "Import CSS (with media queries - multiple)."
+      description: "Import CSS (with media queries - multiple).",
     },
     {
       code: `
       @import _file.scss tv,screen;
     `,
-      description: "Import CSS (with media queries - multiple, no spaces)."
+      description: "Import CSS (with media queries - multiple, no spaces).",
     },
     {
       code: `
       @import "screen.scss";
     `,
-      description: "Import with a name that matches a media query type."
+      description: "Import with a name that matches a media query type.",
     },
     {
       code: `
       @import "colors.variables.scss";
     `,
-      description: "Import a filename with a dot."
-    }
+      description: "Import a filename with a dot.",
+    },
   ],
 
   reject: [
@@ -151,7 +151,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.expected,
-      description: "Single file, no extension."
+      description: "Single file, no extension.",
     },
     {
       code: `
@@ -161,7 +161,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.expected,
-      description: "Multiple files, one without extension."
+      description: "Multiple files, one without extension.",
     },
     {
       code: `
@@ -171,17 +171,17 @@ testRule({
         {
           line: 2,
           column: 7,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 2,
           column: 7,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
-      description: "Two files, no extensions."
-    }
-  ]
+      description: "Two files, no extensions.",
+    },
+  ],
 });
 
 testRule({
@@ -195,118 +195,118 @@ testRule({
       code: `
       @import "fff";
     `,
-      description: "Single file, no extension, double quotes."
+      description: "Single file, no extension, double quotes.",
     },
     {
       code: `
       @import 'fff';
     `,
-      description: "Single file, no extension, single quotes."
+      description: "Single file, no extension, single quotes.",
     },
     {
       code: `
       @import ' fff ';
     `,
-      description: "Single file, no extension, trailing spaces inside quotes."
+      description: "Single file, no extension, trailing spaces inside quotes.",
     },
     {
       code: `
       @import "fff", "score";
     `,
-      description: "Two files, no extension, double quotes."
+      description: "Two files, no extension, double quotes.",
     },
     {
       code: `
       @import "screen";
     `,
-      description: "Import with a name that matches a media query type."
+      description: "Import with a name that matches a media query type.",
     },
     {
       code: `
       @import url("path/_file.css");
     `,
-      description: "Import CSS with url()."
+      description: "Import CSS with url().",
     },
     {
       code: `
       @import "_file.css";
     `,
-      description: "Import CSS by extension."
+      description: "Import CSS by extension.",
     },
     {
       code: `
       @import "http://_file.scss";
     `,
-      description: "Import CSS from the web, http://."
+      description: "Import CSS from the web, http://.",
     },
     {
       code: `
       @import " https://_file.scss ";
     `,
       description:
-        "Import CSS from the web, https://, trailing spaces inside quotes"
+        "Import CSS from the web, https://, trailing spaces inside quotes",
     },
     {
       code: `
       @import 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
     `,
-      description: "Import CSS from the web, https:// with comma"
+      description: "Import CSS from the web, https:// with comma",
     },
     {
       code: `
       @import "//_file.scss";
     `,
-      description: "Import CSS from the web, no protocol."
+      description: "Import CSS from the web, no protocol.",
     },
     {
       code: `
       @import "_file.scss" screen;
     `,
-      description: "Import CSS (with media queries)."
+      description: "Import CSS (with media queries).",
     },
     {
       code: `
       @import "_file.scss"screen;
     `,
-      description: "Import CSS (with media queries)."
+      description: "Import CSS (with media queries).",
     },
     {
       code: `
       @import "_file.scss "screen;
     `,
       description:
-        "Import CSS (with media queries), trailing space inside quotes."
+        "Import CSS (with media queries), trailing space inside quotes.",
     },
     {
       code: `
       @import url(_lol.scss) screen;
     `,
-      description: "Import CSS (with media queries - url + media)."
+      description: "Import CSS (with media queries - url + media).",
     },
     {
       code: `
       @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
     `,
-      description: "Import CSS from the web, https:// with comma"
+      description: "Import CSS from the web, https:// with comma",
     },
     {
       code: `
       @import _file.scss tv, screen;
     `,
-      description: "Import CSS (with media queries - multiple)."
+      description: "Import CSS (with media queries - multiple).",
     },
     {
       code: `
       @import _file.scss tv,screen;
     `,
-      description: "Import CSS (with media queries - multiple, no spaces)."
+      description: "Import CSS (with media queries - multiple, no spaces).",
     },
     {
       code: `
       @import "colors.variables";
     `,
-      description: "Import a style file with a dot in the name."
-    }
+      description: "Import a style file with a dot in the name.",
+    },
   ],
 
   reject: [
@@ -320,7 +320,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("scss"),
-      description: "Single file, .scss extension."
+      description: "Single file, .scss extension.",
     },
     {
       code: `
@@ -332,7 +332,8 @@ testRule({
       line: 2,
       column: 23,
       message: messages.rejected("scss"),
-      description: "Single file with media query type as name, .scss extension."
+      description:
+        "Single file with media query type as name, .scss extension.",
     },
     {
       code: `
@@ -344,7 +345,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("scss"),
-      description: "Single file, has extension, space at the end."
+      description: "Single file, has extension, space at the end.",
     },
     {
       code: `
@@ -356,7 +357,7 @@ testRule({
       line: 2,
       column: 21,
       message: messages.rejected("scss"),
-      description: "Single file, has extension, trailing spaces."
+      description: "Single file, has extension, trailing spaces.",
     },
     {
       code: `
@@ -368,7 +369,7 @@ testRule({
       line: 2,
       column: 23,
       message: messages.rejected("scss"),
-      description: "Single file, path with dir, has extension."
+      description: "Single file, path with dir, has extension.",
     },
     {
       code: `
@@ -381,7 +382,7 @@ testRule({
       column: 23,
       message: messages.rejected("scss"),
       description:
-        "Single file, path with dir, has extension, windows delimiters."
+        "Single file, path with dir, has extension, windows delimiters.",
     },
     {
       code: `
@@ -393,7 +394,7 @@ testRule({
       line: 2,
       column: 29,
       message: messages.rejected("scss"),
-      description: "Two files, path with dir, has extension."
+      description: "Two files, path with dir, has extension.",
     },
     {
       code: `
@@ -405,7 +406,7 @@ testRule({
       line: 2,
       column: 33,
       message: messages.rejected("scss"),
-      description: "Single file, has .scss extension and a dot in the name."
+      description: "Single file, has .scss extension and a dot in the name.",
     },
     {
       code: `
@@ -417,7 +418,8 @@ testRule({
       line: 2,
       column: 26,
       message: messages.rejected("scss"),
-      description: "Single file, has .scss extension and a .scss in the filename."
-    }
-  ]
+      description:
+        "Single file, has .scss extension and a .scss in the filename.",
+    },
+  ],
 });

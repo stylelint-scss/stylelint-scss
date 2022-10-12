@@ -3,7 +3,7 @@ import {
   findCommentsInRaws,
   namespace,
   optionsHaveIgnored,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 import { utils } from "stylelint";
 
@@ -11,11 +11,11 @@ export const ruleName = namespace("double-slash-comment-inline");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected //-comment to be inline comment",
-  rejected: "Unexpected inline //-comment"
+  rejected: "Unexpected inline //-comment",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 const stylelintCommandPrefix = "stylelint-";
@@ -27,14 +27,14 @@ export default function rule(expectation, options) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never"]
+        possible: ["always", "never"],
       },
       {
         actual: options,
         possible: {
-          ignore: ["stylelint-commands"]
+          ignore: ["stylelint-commands"],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -53,7 +53,7 @@ export default function rule(expectation, options) {
 
       const comments = findCommentsInRaws(rootString);
 
-      comments.forEach(comment => {
+      comments.forEach((comment) => {
         // Only process // comments
         if (comment.type !== "double-slash") {
           return;
@@ -83,7 +83,7 @@ export default function rule(expectation, options) {
           node: root,
           index: comment.source.start,
           result,
-          ruleName
+          ruleName,
         });
       });
     }

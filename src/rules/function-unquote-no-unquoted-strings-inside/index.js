@@ -4,7 +4,7 @@ import {
   declarationValueIndex,
   isNativeCssFunction,
   namespace,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 
 export const ruleName = namespace(
@@ -12,17 +12,17 @@ export const ruleName = namespace(
 );
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unquote function used with an already-unquoted string"
+  rejected: "Unquote function used with an already-unquoted string",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(primary, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary
+      actual: primary,
     });
 
     if (!validOptions) {
@@ -32,18 +32,18 @@ export default function rule(primary, _, context) {
     // Setup variable naming.
     const vars = {};
 
-    root.walkDecls(decl => {
+    root.walkDecls((decl) => {
       if (decl.prop[0] !== "$") {
         return;
       }
 
-      valueParser(decl.value).walk(node => {
+      valueParser(decl.value).walk((node) => {
         vars[decl.prop] = node.type;
       });
     });
 
-    root.walkDecls(decl => {
-      valueParser(decl.value).walk(node => {
+    root.walkDecls((decl) => {
+      valueParser(decl.value).walk((node) => {
         // Verify that we're only looking at functions.
         if (
           node.type !== "function" ||
@@ -74,7 +74,7 @@ export default function rule(primary, _, context) {
               node: decl,
               index: declarationValueIndex(decl) + node.sourceIndex,
               result,
-              ruleName
+              ruleName,
             });
           }
         }

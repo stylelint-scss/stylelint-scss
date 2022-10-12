@@ -12,7 +12,7 @@ testRule({
       @if ($x == 1) {}
       width: 10px;
     }`,
-      description: "always-last-in-chain (no @else, has newline after)."
+      description: "always-last-in-chain (no @else, has newline after).",
     },
     {
       code: `a {
@@ -20,7 +20,7 @@ testRule({
 
       width: 10px;
     }`,
-      description: "always-last-in-chain (no @else, has blank line after)."
+      description: "always-last-in-chain (no @else, has blank line after).",
     },
     {
       code: `a {
@@ -30,7 +30,7 @@ testRule({
 
       width: 10px;
     }`,
-      description: "always-last-in-chain (has @else, no newline after)."
+      description: "always-last-in-chain (has @else, no newline after).",
     },
     {
       code: `a {
@@ -43,7 +43,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has @else and @elseif, no newline after)."
+        "always-last-in-chain (has @else and @elseif, no newline after).",
     },
     {
       code: `a {
@@ -52,7 +52,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has @else, single-line, no newline after)."
+        "always-last-in-chain (has @else, single-line, no newline after).",
     },
     {
       code: `a {
@@ -61,7 +61,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has @else and @elseif, single-line, no newline after)."
+        "always-last-in-chain (has @else and @elseif, single-line, no newline after).",
     },
     {
       code: `a {
@@ -70,12 +70,12 @@ testRule({
       @include x;
     }`,
       description:
-        "always-last-in-chain (followed by non-@else at-rule, single-line, empty line after)."
+        "always-last-in-chain (followed by non-@else at-rule, single-line, empty line after).",
     },
     {
       code: "@if ($x == 1) {}",
-      description: "always-last-in-chain (single line, nothing after)."
-    }
+      description: "always-last-in-chain (single line, nothing after).",
+    },
   ],
 
   reject: [
@@ -94,7 +94,7 @@ width: 10px;
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
       message: messages.expected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -110,7 +110,7 @@ width: 10px;
     }`,
       description: "always-last-in-chain (has @else, newline after).",
       message: messages.rejected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -127,7 +127,7 @@ width: 10px;
     }`,
       description: "always-last-in-chain (has @else, empty line after).",
       message: messages.rejected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -144,9 +144,9 @@ width: 10px;
       description:
         "always-last-in-chain (followed by non-@else at-rule, no newline after).",
       message: messages.expected,
-      line: 4
-    }
-  ]
+      line: 4,
+    },
+  ],
 });
 
 testRule({
@@ -154,8 +154,8 @@ testRule({
   config: [
     "always-last-in-chain",
     {
-      disableFix: true
-    }
+      disableFix: true,
+    },
   ],
   customSyntax: "postcss-scss",
   unfixable: true,
@@ -166,7 +166,7 @@ testRule({
       @if ($x == 1) {}
       width: 10px;
     }`,
-      description: "always-last-in-chain (no @else, has newline after)."
+      description: "always-last-in-chain (no @else, has newline after).",
     },
     {
       code: `a {
@@ -174,7 +174,7 @@ testRule({
 
       width: 10px;
     }`,
-      description: "always-last-in-chain (no @else, has blank line after)."
+      description: "always-last-in-chain (no @else, has blank line after).",
     },
     {
       code: `a {
@@ -184,7 +184,7 @@ testRule({
 
       width: 10px;
     }`,
-      description: "always-last-in-chain (has @else, no newline after)."
+      description: "always-last-in-chain (has @else, no newline after).",
     },
     {
       code: `a {
@@ -197,7 +197,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has @else and @elseif, no newline after)."
+        "always-last-in-chain (has @else and @elseif, no newline after).",
     },
     {
       code: `a {
@@ -206,7 +206,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has @else, single-line, no newline after)."
+        "always-last-in-chain (has @else, single-line, no newline after).",
     },
     {
       code: `a {
@@ -215,7 +215,7 @@ testRule({
       width: 10px;
     }`,
       description:
-        "always-last-in-chain (has @else and @elseif, single-line, no newline after)."
+        "always-last-in-chain (has @else and @elseif, single-line, no newline after).",
     },
     {
       code: `a {
@@ -224,12 +224,12 @@ testRule({
       @include x;
     }`,
       description:
-        "always-last-in-chain (followed by non-@else at-rule, single-line, empty line after)."
+        "always-last-in-chain (followed by non-@else at-rule, single-line, empty line after).",
     },
     {
       code: "@if ($x == 1) {}",
-      description: "always-last-in-chain (single line, nothing after)."
-    }
+      description: "always-last-in-chain (single line, nothing after).",
+    },
   ],
 
   reject: [
@@ -242,7 +242,7 @@ testRule({
       description:
         "always-last-in-chain (has decl on the same line as its closing brace).",
       message: messages.expected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -253,7 +253,7 @@ testRule({
     }`,
       description: "always-last-in-chain (has @else, newline after).",
       message: messages.rejected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -265,7 +265,7 @@ testRule({
     }`,
       description: "always-last-in-chain (has @else, empty line after).",
       message: messages.rejected,
-      line: 4
+      line: 4,
     },
     {
       code: `a {
@@ -276,7 +276,7 @@ testRule({
       description:
         "always-last-in-chain (followed by non-@else at-rule, no newline after).",
       message: messages.expected,
-      line: 4
-    }
-  ]
+      line: 4,
+    },
+  ],
 });

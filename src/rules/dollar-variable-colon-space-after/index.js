@@ -3,7 +3,7 @@ import {
   namespace,
   isSingleLineString,
   ruleUrl,
-  whitespaceChecker
+  whitespaceChecker,
 } from "../../utils";
 import { utils } from "stylelint";
 
@@ -14,11 +14,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejectedAfter: () => 'Unexpected whitespace after ":"',
   expectedAfterSingleLine: () =>
     'Expected single space after ":" with a single-line value',
-  expectedAfterAtLeast: () => 'Expected at least one space after ":"'
+  expectedAfterAtLeast: () => 'Expected at least one space after ":"',
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation, _, context) {
@@ -27,7 +27,7 @@ export default function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["always", "never", "always-single-line", "at-least-one-space"]
+      possible: ["always", "never", "always-single-line", "at-least-one-space"],
     });
 
     if (!validOptions) {
@@ -41,7 +41,7 @@ export default function rule(expectation, _, context) {
       checkedRuleName: ruleName,
       position: "after",
       expectation,
-      context
+      context,
     });
   };
 }
@@ -57,9 +57,9 @@ export function variableColonSpaceChecker({
   checkedRuleName,
   position,
   expectation,
-  context
+  context,
 }) {
-  root.walkDecls(decl => {
+  root.walkDecls((decl) => {
     if (decl.prop === undefined || decl.prop[0] !== "$") {
       return;
     }
@@ -101,15 +101,15 @@ export function variableColonSpaceChecker({
         source: propPlusColon,
         index: i,
         lineCheckStr: decl.value,
-        err: m => {
+        err: (m) => {
           utils.report({
             message: m,
             node: decl,
             index: i,
             result,
-            ruleName: checkedRuleName
+            ruleName: checkedRuleName,
           });
-        }
+        },
       });
       break;
     }

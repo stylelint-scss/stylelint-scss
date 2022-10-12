@@ -9,7 +9,7 @@ import hasTplInterpolation from "./hasTplInterpolation";
  * @param {string} string
  * @return {boolean} If `true`, a string has interpolation
  */
-export default function(string) {
+export default function (string) {
   // SCSS or Less interpolation
   return !!(
     hasLessInterpolation(string) ||

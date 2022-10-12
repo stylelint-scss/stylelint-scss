@@ -5,18 +5,18 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("at-function-pattern");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected @function name to match specified pattern"
+  expected: "Expected @function name to match specified pattern",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
-      possible: [isRegExp, isString]
+      possible: [isRegExp, isString],
     });
 
     if (!validOptions) {
@@ -25,7 +25,7 @@ export default function rule(pattern) {
 
     const regexpPattern = isString(pattern) ? new RegExp(pattern) : pattern;
 
-    root.walkAtRules(decl => {
+    root.walkAtRules((decl) => {
       if (decl.name !== "function") {
         return;
       }
@@ -46,7 +46,7 @@ export default function rule(pattern) {
         node: decl,
         result,
         ruleName,
-        end: funcTopLine
+        end: funcTopLine,
       });
     });
   };

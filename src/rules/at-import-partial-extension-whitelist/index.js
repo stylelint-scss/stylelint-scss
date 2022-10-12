@@ -6,11 +6,11 @@ import nodeJsPath from "path";
 export const ruleName = namespace("at-import-partial-extension-whitelist");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: ext => `Unexpected extension ".${ext}" in imported partial name`
+  rejected: (ext) => `Unexpected extension ".${ext}" in imported partial name`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(whitelistOption) {
@@ -19,7 +19,7 @@ export default function rule(whitelistOption) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: whitelistOption,
-      possible: [isString, isRegExp]
+      possible: [isString, isRegExp],
     });
 
     if (!validOptions) {
@@ -51,7 +51,7 @@ export default function rule(whitelistOption) {
       }
 
       if (
-        whitelist.some(ext => {
+        whitelist.some((ext) => {
           return (
             (isString(ext) && extensionNormalized === ext) ||
             (isRegExp(ext) && extensionNormalized.search(ext) !== -1)
@@ -66,13 +66,13 @@ export default function rule(whitelistOption) {
         node: decl,
         word: extension,
         result,
-        ruleName
+        ruleName,
       });
     }
 
-    root.walkAtRules("import", atRule => {
+    root.walkAtRules("import", (atRule) => {
       // Processing comma-separated lists of import paths
-      atRule.params.split(",").forEach(path => {
+      atRule.params.split(",").forEach((path) => {
         checkPathForUnderscore(path, atRule);
       });
     });

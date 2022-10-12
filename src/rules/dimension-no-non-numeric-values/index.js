@@ -5,12 +5,12 @@ import { declarationValueIndex, namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("dimension-no-non-numeric-values");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: unit =>
-    `Expected "$value * 1${unit}" instead of "#{$value}${unit}". Consider writing "value" in terms of ${unit} originally.`
+  rejected: (unit) =>
+    `Expected "$value * 1${unit}" instead of "#{$value}${unit}". Consider writing "value" in terms of ${unit} originally.`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export const units = [
@@ -70,21 +70,21 @@ export const units = [
 
   // Flexible lengths:
   // https://www.w3.org/TR/css-grid-1/#fr-unit
-  "fr"
+  "fr",
 ];
 
 export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary
+      actual: primary,
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkDecls(decl => {
-      valueParser(decl.value).walk(node => {
+    root.walkDecls((decl) => {
+      valueParser(decl.value).walk((node) => {
         // All words are non-quoted, while strings are quoted.
         // If quoted, it's probably a deliberate non-numeric dimension.
         if (node.type !== "word") {
@@ -110,7 +110,7 @@ export default function rule(primary) {
           result,
           message: messages.rejected(unit),
           index: declarationValueIndex(decl) + offset,
-          node: decl
+          node: decl,
         });
       });
     });
@@ -131,7 +131,7 @@ function isInterpolated(value) {
     return true;
   }
 
-  units.forEach(unit => {
+  units.forEach((unit) => {
     const regex = new RegExp(`^#{[$a-z_0-9 +-]*}${unit};?$`);
 
     if (value.match(regex)) {

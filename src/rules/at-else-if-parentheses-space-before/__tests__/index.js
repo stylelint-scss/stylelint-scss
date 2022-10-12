@@ -12,50 +12,50 @@ testRule({
       @else if ($bar) {
       }
     `,
-      description: "With parentheses. Single condition"
+      description: "With parentheses. Single condition",
     },
     {
       code: `
       @else if $bar {
       }
     `,
-      description: "Without parentheses. Single condition"
+      description: "Without parentheses. Single condition",
     },
     {
       code: `
       @else if ($bar == 0 or ($bar > 5 and $bar < 10)) {
       }
     `,
-      description: "With parentheses. Complex condition"
+      description: "With parentheses. Complex condition",
     },
     {
       code: `
       @else if ($bar == 0 or($bar > 5 and $bar < 10)) {
       }
     `,
-      description: "With parentheses. Complex condition"
+      description: "With parentheses. Complex condition",
     },
     {
       code: `
       @else if $bar == 0 or ($bar > 5 and $bar < 10) {
       }
     `,
-      description: "Without parentheses. Complex condition"
+      description: "Without parentheses. Complex condition",
     },
     {
       code: `
       @else if $bar == 0 or($bar > 5 and $bar < 10) {
       }
     `,
-      description: "Without parentheses. Complex condition"
+      description: "Without parentheses. Complex condition",
     },
     {
       code: `
       @bar foo ($n) {
       }
     `,
-      description: "Not an SCSS else statement, skipping."
-    }
+      description: "Not an SCSS else statement, skipping.",
+    },
   ],
 
   reject: [
@@ -73,7 +73,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "Newline after if"
+      description: "Newline after if",
     },
     {
       code: `
@@ -86,7 +86,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "No space before parentheses. Simple condition."
+      description: "No space before parentheses. Simple condition.",
     },
     {
       code: `
@@ -99,7 +99,7 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "Extra spaces after if."
+      description: "Extra spaces after if.",
     },
     {
       code: `
@@ -112,9 +112,9 @@ testRule({
     `,
       line: 2,
       message: messages.expectedBefore(),
-      description: "No space before parentheses. Complex condition."
-    }
-  ]
+      description: "No space before parentheses. Complex condition.",
+    },
+  ],
 });
 
 testRule({
@@ -129,50 +129,50 @@ testRule({
       @else if($bar) {
       }
     `,
-      description: "With parentheses. Single condition"
+      description: "With parentheses. Single condition",
     },
     {
       code: `
       @else if $bar {
       }
     `,
-      description: "Without parentheses. Single condition"
+      description: "Without parentheses. Single condition",
     },
     {
       code: `
       @else if($bar == 0 or ($bar > 5 and $bar < 10)) {
       }
     `,
-      description: "With parentheses. Complex condition"
+      description: "With parentheses. Complex condition",
     },
     {
       code: `
       @else if($bar == 0 or($bar > 5 and $bar < 10)) {
       }
     `,
-      description: "With parentheses. Complex condition"
+      description: "With parentheses. Complex condition",
     },
     {
       code: `
       @else if $bar == 0 or ($bar > 5 and $bar < 10) {
       }
     `,
-      description: "Without parentheses. Complex condition"
+      description: "Without parentheses. Complex condition",
     },
     {
       code: `
       @else if $bar == 0 or($bar > 5 and $bar < 10) {
       }
     `,
-      description: "Without parentheses. Complex condition"
+      description: "Without parentheses. Complex condition",
     },
     {
       code: `
       @bar foo($n) {
       }
     `,
-      description: "Not an SCSS else statement, skipping."
-    }
+      description: "Not an SCSS else statement, skipping.",
+    },
   ],
 
   reject: [
@@ -190,7 +190,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Newline after if"
+      description: "Newline after if",
     },
     {
       code: `
@@ -203,7 +203,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Single space before parentheses. Simple condition."
+      description: "Single space before parentheses. Simple condition.",
     },
     {
       code: `
@@ -216,7 +216,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Single space before parentheses. Complex condition."
+      description: "Single space before parentheses. Complex condition.",
     },
     {
       code: `
@@ -229,7 +229,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Multiple spaces before parentheses. Simple condition."
+      description: "Multiple spaces before parentheses. Simple condition.",
     },
     {
       code: `
@@ -242,7 +242,7 @@ testRule({
     `,
       line: 2,
       message: messages.rejectedBefore(),
-      description: "Multiple spaces before parentheses. Complex condition."
-    }
-  ]
+      description: "Multiple spaces before parentheses. Complex condition.",
+    },
+  ],
 });

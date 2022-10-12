@@ -10,14 +10,14 @@ testRule({
       code: `
       @use "foo";
     `,
-      description: "Default namespace"
+      description: "Default namespace",
     },
     {
       code: `
       @use "foo" as bar;
     `,
-      description: "Explicit namespace"
-    }
+      description: "Explicit namespace",
+    },
   ],
 
   reject: [
@@ -28,7 +28,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.rejected,
-      description: "Without namespace"
+      description: "Without namespace",
     },
     {
       code: `
@@ -37,7 +37,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.rejected,
-      description: "Without space"
+      description: "Without space",
     },
     {
       code: `
@@ -46,7 +46,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.rejected,
-      description: "With many spaces"
+      description: "With many spaces",
     },
     {
       code: `
@@ -55,7 +55,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.rejected,
-      description: "Configured"
+      description: "Configured",
     },
     {
       code: `
@@ -66,7 +66,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.rejected,
-      description: "Configured multiline"
-    }
-  ]
+      description: "Configured multiline",
+    },
+  ],
 });

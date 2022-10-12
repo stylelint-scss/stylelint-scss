@@ -1,7 +1,7 @@
 import {
   groupByKeyValue,
   mapToKeyValue,
-  parseFunctionArguments
+  parseFunctionArguments,
 } from "../parseFunctionArguments";
 
 describe("groupByKeyValue", () => {
@@ -14,7 +14,7 @@ describe("groupByKeyValue", () => {
           sourceIndex: 12,
           value: ":",
           before: "",
-          after: " "
+          after: " ",
         },
         { type: "word", sourceIndex: 14, value: "40px" },
         {
@@ -22,17 +22,17 @@ describe("groupByKeyValue", () => {
           sourceIndex: 18,
           value: ",",
           before: "",
-          after: " "
+          after: " ",
         },
-        { type: "word", sourceIndex: 20, value: "10px" }
+        { type: "word", sourceIndex: 20, value: "10px" },
       ])
     ).toEqual([
       [
         { sourceIndex: 6, type: "word", value: "$value" },
         { after: " ", before: "", sourceIndex: 12, type: "div", value: ":" },
-        { sourceIndex: 14, type: "word", value: "40px" }
+        { sourceIndex: 14, type: "word", value: "40px" },
       ],
-      [{ sourceIndex: 20, type: "word", value: "10px" }]
+      [{ sourceIndex: 20, type: "word", value: "10px" }],
     ]);
     expect(
       groupByKeyValue([
@@ -42,7 +42,7 @@ describe("groupByKeyValue", () => {
           sourceIndex: 12,
           value: ":",
           before: "",
-          after: " "
+          after: " ",
         },
         { type: "word", sourceIndex: 14, value: "40px" },
         {
@@ -50,7 +50,7 @@ describe("groupByKeyValue", () => {
           sourceIndex: 18,
           value: ",",
           before: "",
-          after: " "
+          after: " ",
         },
         { type: "word", sourceIndex: 20, value: "$second-value" },
         {
@@ -58,7 +58,7 @@ describe("groupByKeyValue", () => {
           sourceIndex: 33,
           value: ":",
           before: "",
-          after: " "
+          after: " ",
         },
         { type: "word", sourceIndex: 35, value: "10px" },
         {
@@ -66,7 +66,7 @@ describe("groupByKeyValue", () => {
           sourceIndex: 39,
           value: ",",
           before: "",
-          after: " "
+          after: " ",
         },
         { type: "word", sourceIndex: 41, value: "$color" },
         {
@@ -74,26 +74,26 @@ describe("groupByKeyValue", () => {
           sourceIndex: 47,
           value: ":",
           before: "",
-          after: " "
+          after: " ",
         },
-        { type: "string", sourceIndex: 49, quote: "'", value: "black" }
+        { type: "string", sourceIndex: 49, quote: "'", value: "black" },
       ])
     ).toEqual([
       [
         { sourceIndex: 6, type: "word", value: "$value" },
         { after: " ", before: "", sourceIndex: 12, type: "div", value: ":" },
-        { sourceIndex: 14, type: "word", value: "40px" }
+        { sourceIndex: 14, type: "word", value: "40px" },
       ],
       [
         { sourceIndex: 20, type: "word", value: "$second-value" },
         { after: " ", before: "", sourceIndex: 33, type: "div", value: ":" },
-        { sourceIndex: 35, type: "word", value: "10px" }
+        { sourceIndex: 35, type: "word", value: "10px" },
       ],
       [
         { sourceIndex: 41, type: "word", value: "$color" },
         { after: " ", before: "", sourceIndex: 47, type: "div", value: ":" },
-        { quote: "'", sourceIndex: 49, type: "string", value: "black" }
-      ]
+        { quote: "'", sourceIndex: 49, type: "string", value: "black" },
+      ],
     ]);
     expect(
       groupByKeyValue([
@@ -103,7 +103,7 @@ describe("groupByKeyValue", () => {
           sourceIndex: 12,
           value: ":",
           before: "",
-          after: " "
+          after: " ",
         },
         { type: "word", sourceIndex: 14, value: "40px" },
         {
@@ -111,7 +111,7 @@ describe("groupByKeyValue", () => {
           sourceIndex: 18,
           value: ",",
           before: "",
-          after: " "
+          after: " ",
         },
         { type: "word", sourceIndex: 20, value: "$second-value" },
         {
@@ -119,7 +119,7 @@ describe("groupByKeyValue", () => {
           sourceIndex: 33,
           value: ":",
           before: "",
-          after: " "
+          after: " ",
         },
         { type: "word", sourceIndex: 35, value: "10px" },
         {
@@ -127,20 +127,20 @@ describe("groupByKeyValue", () => {
           sourceIndex: 39,
           value: ",",
           before: "",
-          after: " "
-        }
+          after: " ",
+        },
       ])
     ).toEqual([
       [
         { sourceIndex: 6, type: "word", value: "$value" },
         { after: " ", before: "", sourceIndex: 12, type: "div", value: ":" },
-        { sourceIndex: 14, type: "word", value: "40px" }
+        { sourceIndex: 14, type: "word", value: "40px" },
       ],
       [
         { sourceIndex: 20, type: "word", value: "$second-value" },
         { after: " ", before: "", sourceIndex: 33, type: "div", value: ":" },
-        { sourceIndex: 35, type: "word", value: "10px" }
-      ]
+        { sourceIndex: 35, type: "word", value: "10px" },
+      ],
     ]);
   });
 });
@@ -151,7 +151,7 @@ describe("mapToKeyValue", () => {
       mapToKeyValue([
         { sourceIndex: 6, type: "word", value: "$value" },
         { after: " ", before: "", sourceIndex: 12, type: "div", value: ":" },
-        { sourceIndex: 14, type: "word", value: "40px" }
+        { sourceIndex: 14, type: "word", value: "40px" },
       ])
     ).toEqual({ key: "$value", value: "40px" });
     expect(
@@ -176,38 +176,38 @@ describe("parseFunctionArguments", () => {
   it("parses number as the value", () => {
     expect(parseFunctionArguments("func(1)")).toEqual([
       {
-        value: "1"
-      }
+        value: "1",
+      },
     ]);
   });
 
   it("parses calculation as the value", () => {
     expect(parseFunctionArguments("func(30 * 25ms)")).toEqual([
       {
-        value: "30 * 25ms"
-      }
+        value: "30 * 25ms",
+      },
     ]);
   });
 
   it("parses multiple args", () => {
     expect(parseFunctionArguments("func(1, 2)")).toEqual([
       {
-        value: "1"
+        value: "1",
       },
       {
-        value: "2"
-      }
+        value: "2",
+      },
     ]);
   });
 
   it("parses trailing commas", () => {
     expect(parseFunctionArguments("func(1, 2,)")).toEqual([
       {
-        value: "1"
+        value: "1",
       },
       {
-        value: "2"
-      }
+        value: "2",
+      },
     ]);
   });
 
@@ -215,8 +215,8 @@ describe("parseFunctionArguments", () => {
     expect(parseFunctionArguments("func($var: 1)")).toEqual([
       {
         key: "$var",
-        value: "1"
-      }
+        value: "1",
+      },
     ]);
   });
 
@@ -228,8 +228,8 @@ describe("parseFunctionArguments", () => {
     ).toEqual([
       {
         key: "$foo",
-        value: 'url("data:image/svg+xml;charset=utf8,%3C")'
-      }
+        value: 'url("data:image/svg+xml;charset=utf8,%3C")',
+      },
     ]);
   });
 
@@ -237,8 +237,8 @@ describe("parseFunctionArguments", () => {
     expect(parseFunctionArguments("reset($value: #{$other-value})")).toEqual([
       {
         key: "$value",
-        value: "#{$other-value}"
-      }
+        value: "#{$other-value}",
+      },
     ]);
   });
 
@@ -246,8 +246,8 @@ describe("parseFunctionArguments", () => {
     expect(parseFunctionArguments("anim($duration: 30 * 25ms)")).toEqual([
       {
         key: "$duration",
-        value: "30 * 25ms"
-      }
+        value: "30 * 25ms",
+      },
     ]);
   });
 
@@ -255,12 +255,12 @@ describe("parseFunctionArguments", () => {
     expect(parseFunctionArguments("func($var: 1, $foo: bar)")).toEqual([
       {
         key: "$var",
-        value: "1"
+        value: "1",
       },
       {
         key: `$foo`,
-        value: "bar"
-      }
+        value: "bar",
+      },
     ]);
   });
 
@@ -272,16 +272,16 @@ describe("parseFunctionArguments", () => {
     ).toEqual([
       {
         key: "$value",
-        value: "40px"
+        value: "40px",
       },
       {
         key: "$second-value",
-        value: "10px"
+        value: "10px",
       },
       {
         key: "$color",
-        value: "'black'"
-      }
+        value: "'black'",
+      },
     ]);
   });
 
@@ -292,20 +292,20 @@ describe("parseFunctionArguments", () => {
       )
     ).toEqual([
       {
-        value: "to left"
+        value: "to left",
       },
       {
-        value: "#333"
+        value: "#333",
       },
       {
-        value: "#333 50%"
+        value: "#333 50%",
       },
       {
-        value: "#eee 75%"
+        value: "#eee 75%",
       },
       {
-        value: "#333 75%"
-      }
+        value: "#333 75%",
+      },
     ]);
   });
 });

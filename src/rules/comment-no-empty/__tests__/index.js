@@ -8,16 +8,16 @@ testRule({
   accept: [
     {
       code: "// comment",
-      description: "Double slash comment"
+      description: "Double slash comment",
     },
     {
       code: "//* comment",
-      description: "Double slash comments with first character as asterisk"
+      description: "Double slash comments with first character as asterisk",
     },
     {
       code: "/* comment */",
-      description: "Single line block comment"
-    }
+      description: "Single line block comment",
+    },
   ],
   reject: [
     {
@@ -27,7 +27,7 @@ testRule({
       description: "Empty block comment",
       message: messages.rejected,
       line: 2,
-      column: 7
+      column: 7,
     },
     {
       code: `
@@ -37,7 +37,7 @@ testRule({
       description: "Empty multiline block comment",
       message: messages.rejected,
       line: 2,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -48,7 +48,7 @@ testRule({
       description: "Empty multiline block comment with an empty line",
       message: messages.rejected,
       line: 2,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -56,7 +56,7 @@ testRule({
       `,
       description: "Empty double slash comment",
       message: messages.rejected,
-      line: 2
+      line: 2,
     },
     {
       code: `
@@ -65,7 +65,7 @@ testRule({
       description: "Empty double slash comment with spaces",
       message: messages.rejected,
       line: 2,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -74,7 +74,7 @@ testRule({
       description: "Empty double slash comment with tab",
       message: messages.rejected,
       line: 2,
-      column: 9
+      column: 9,
     },
     {
       code: `
@@ -83,7 +83,7 @@ testRule({
       description: "Empty inline comment",
       message: messages.rejected,
       line: 2,
-      column: 23
+      column: 23,
     },
     {
       code: `
@@ -92,7 +92,7 @@ testRule({
       description: "Empty inline block comment",
       message: messages.rejected,
       line: 2,
-      column: 23
+      column: 23,
     },
     {
       code: `
@@ -101,9 +101,9 @@ testRule({
       description: "Empty inline block comment prepends code",
       message: messages.rejected,
       line: 2,
-      column: 7
-    }
-  ]
+      column: 7,
+    },
+  ],
 });
 
 test("messages", () => {

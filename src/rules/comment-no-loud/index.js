@@ -4,30 +4,30 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("comment-no-loud");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected // for comments instead of /*"
+  expected: "Expected // for comments instead of /*",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary
+      actual: primary,
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walkComments(comment => {
+    root.walkComments((comment) => {
       if (isLoudComment(comment)) {
         utils.report({
           message: messages.expected,
           node: comment,
           result,
-          ruleName
+          ruleName,
         });
       }
     });

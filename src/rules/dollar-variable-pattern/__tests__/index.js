@@ -13,7 +13,7 @@ testRule({
         $foo: 10px;
       }
     `,
-      description: "Regexp: sequence part. Example: full match."
+      description: "Regexp: sequence part. Example: full match.",
     },
     {
       code: `
@@ -21,7 +21,7 @@ testRule({
         $_foo: 10px;
       }
     `,
-      description: "Regexp: sequence part. Example: matches at the end."
+      description: "Regexp: sequence part. Example: matches at the end.",
     },
     {
       code: `
@@ -29,8 +29,8 @@ testRule({
         $food: 10px;
       }
     `,
-      description: "Regexp: sequence part. Example: matches at the beginning."
-    }
+      description: "Regexp: sequence part. Example: matches at the beginning.",
+    },
   ],
 
   reject: [
@@ -42,9 +42,9 @@ testRule({
     `,
       line: 3,
       message: messages.expected,
-      description: "Regexp: sequence part. Example: symbol in between."
-    }
-  ]
+      description: "Regexp: sequence part. Example: symbol in between.",
+    },
+  ],
 });
 
 // Testing against a string, sequence part
@@ -60,7 +60,7 @@ testRule({
         $foo: 10px;
       }
     `,
-      description: "String: sequence part. Example: full match."
+      description: "String: sequence part. Example: full match.",
     },
     {
       code: `
@@ -68,7 +68,7 @@ testRule({
         $_foo: 10px;
       }
     `,
-      description: "String: sequence part. Example: matches at the end."
+      description: "String: sequence part. Example: matches at the end.",
     },
     {
       code: `
@@ -76,8 +76,8 @@ testRule({
         $food: 10px;
       }
     `,
-      description: "String: sequence part. Example: matches at the beginning."
-    }
+      description: "String: sequence part. Example: matches at the beginning.",
+    },
   ],
 
   reject: [
@@ -89,7 +89,7 @@ testRule({
     `,
       line: 3,
       message: messages.expected,
-      description: "String: sequence part. Example: symbol in between."
+      description: "String: sequence part. Example: symbol in between.",
     },
     {
       code: `
@@ -99,9 +99,9 @@ testRule({
     `,
       line: 3,
       message: messages.expected,
-      description: "String: sequence part. Example: not a full sequence."
-    }
-  ]
+      description: "String: sequence part. Example: not a full sequence.",
+    },
+  ],
 });
 
 // Testing against a regex, full match
@@ -117,8 +117,8 @@ testRule({
         $foo: 10px;
       }
     `,
-      description: "Regexp: strict pattern. Example: matches."
-    }
+      description: "Regexp: strict pattern. Example: matches.",
+    },
   ],
 
   reject: [
@@ -130,7 +130,7 @@ testRule({
     `,
       line: 3,
       message: messages.expected,
-      description: "Regexp: strict pattern. Example: matches at the end."
+      description: "Regexp: strict pattern. Example: matches at the end.",
     },
     {
       code: `
@@ -140,7 +140,7 @@ testRule({
     `,
       line: 3,
       message: messages.expected,
-      description: "Regexp: strict pattern. Example: matches at the beginning."
+      description: "Regexp: strict pattern. Example: matches at the beginning.",
     },
     {
       code: `
@@ -150,9 +150,9 @@ testRule({
     `,
       line: 3,
       message: messages.expected,
-      description: "Regexp: strict pattern. Example: symbol in between."
-    }
-  ]
+      description: "Regexp: strict pattern. Example: symbol in between.",
+    },
+  ],
 });
 
 // Testing against a regex, match at the beginning
@@ -168,7 +168,7 @@ testRule({
         $foo: 10px;
       }
     `,
-      description: "Regexp: pattern at the beginning. Example: matches."
+      description: "Regexp: pattern at the beginning. Example: matches.",
     },
     {
       code: `
@@ -177,8 +177,8 @@ testRule({
       }
     `,
       description:
-        "Regexp: pattern at the beginning. Example: matches at the beginning."
-    }
+        "Regexp: pattern at the beginning. Example: matches at the beginning.",
+    },
   ],
 
   reject: [
@@ -191,7 +191,7 @@ testRule({
       line: 3,
       message: messages.expected,
       description:
-        "Regexp: pattern at the beginning. Example: matches at the end."
+        "Regexp: pattern at the beginning. Example: matches at the end.",
     },
     {
       code: `
@@ -202,9 +202,9 @@ testRule({
       line: 3,
       message: messages.expected,
       description:
-        "Regexp: pattern at the beginning. Example: symbol in between."
-    }
-  ]
+        "Regexp: pattern at the beginning. Example: symbol in between.",
+    },
+  ],
 });
 
 // Testing against a regex, SUIT naming
@@ -216,12 +216,12 @@ testRule({
   accept: [
     {
       code: "a { $Foo-bar: 0; }",
-      description: "Regexp: SUIT component. Example: comply"
+      description: "Regexp: SUIT component. Example: comply",
     },
     {
       code: "a { $Foo-barBaz: 0; }",
-      description: "Regexp: SUIT component. Example: comply"
-    }
+      description: "Regexp: SUIT component. Example: comply",
+    },
   ],
 
   reject: [
@@ -230,22 +230,22 @@ testRule({
       line: 1,
       message: messages.expected,
       description:
-        "Regexp: SUIT component. Example: starts with lowercase, two elements"
+        "Regexp: SUIT component. Example: starts with lowercase, two elements",
     },
     {
       code: "a { $foo-bar: 0; }",
       line: 1,
       message: messages.expected,
-      description: "Regexp: SUIT component. Example: starts with lowercase"
+      description: "Regexp: SUIT component. Example: starts with lowercase",
     },
     {
       code: "a { $Foo-Bar: 0; }",
       line: 1,
       message: messages.expected,
       description:
-        "Regexp: SUIT component. Example: element starts with uppercase"
-    }
-  ]
+        "Regexp: SUIT component. Example: element starts with uppercase",
+    },
+  ],
 });
 
 // "ignore" options
@@ -257,13 +257,13 @@ testRule({
   accept: [
     {
       code: "a { $oo-bar: 0; }",
-      description: "Ignore local variable (not matching the pattern)."
+      description: "Ignore local variable (not matching the pattern).",
     },
     {
       code: "$Foo-barBaz: 0;",
       description:
-        "Ignore local variable (passing global, matching the pattern)."
-    }
+        "Ignore local variable (passing global, matching the pattern).",
+    },
   ],
 
   reject: [
@@ -272,9 +272,9 @@ testRule({
       line: 1,
       message: messages.expected,
       description:
-        "Ignore local variable (passing global, not matching the pattern)."
-    }
-  ]
+        "Ignore local variable (passing global, not matching the pattern).",
+    },
+  ],
 });
 
 testRule({
@@ -285,13 +285,13 @@ testRule({
   accept: [
     {
       code: "$oo-bar: 0;",
-      description: "Ignore global variable (not matching the pattern)."
+      description: "Ignore global variable (not matching the pattern).",
     },
     {
       code: "a { $Foo-barBaz: 0; }",
       description:
-        "Ignore global variable (passing local, matching the pattern)."
-    }
+        "Ignore global variable (passing local, matching the pattern).",
+    },
   ],
 
   reject: [
@@ -300,7 +300,7 @@ testRule({
       line: 1,
       message: messages.expected,
       description:
-        "Ignore global variable (passing local, not matching the pattern)."
-    }
-  ]
+        "Ignore global variable (passing local, not matching the pattern).",
+    },
+  ],
 });

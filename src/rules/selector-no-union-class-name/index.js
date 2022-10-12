@@ -4,7 +4,7 @@ import {
   isCombinator,
   isIdentifier,
   isPseudoClass,
-  isPseudoElement
+  isPseudoElement,
 } from "postcss-selector-parser";
 import { utils } from "stylelint";
 import { namespace, parseSelector, ruleUrl } from "../../utils";
@@ -12,11 +12,11 @@ import { namespace, parseSelector, ruleUrl } from "../../utils";
 export const ruleName = namespace("selector-no-union-class-name");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected union class name with the parent selector (&)"
+  rejected: "Unexpected union class name with the parent selector (&)",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 const validNestingTypes = [
@@ -25,7 +25,7 @@ const validNestingTypes = [
   isAttribute,
   isIdentifier,
   isPseudoClass,
-  isPseudoElement
+  isPseudoElement,
 ];
 
 export default function rule(actual) {
@@ -36,14 +36,14 @@ export default function rule(actual) {
       return;
     }
 
-    root.walkRules(/&/, rule => {
+    root.walkRules(/&/, (rule) => {
       const parentNodes = [];
 
       const selector = getSelectorFromRule(rule.parent);
 
       if (selector) {
-        parseSelector(selector, result, rule, fullSelector => {
-          fullSelector.walk(node => parentNodes.push(node));
+        parseSelector(selector, result, rule, (fullSelector) => {
+          fullSelector.walk((node) => parentNodes.push(node));
         });
       }
 
@@ -53,20 +53,20 @@ export default function rule(actual) {
 
       if (!isClassName(lastParentNode)) return;
 
-      parseSelector(rule.selector, result, rule, fullSelector => {
-        fullSelector.walkNesting(node => {
+      parseSelector(rule.selector, result, rule, (fullSelector) => {
+        fullSelector.walkNesting((node) => {
           const next = node.next();
 
           if (!next) return;
 
-          if (validNestingTypes.some(isType => isType(next))) return;
+          if (validNestingTypes.some((isType) => isType(next))) return;
 
           utils.report({
             ruleName,
             result,
             node: rule,
             message: messages.rejected,
-            index: node.sourceIndex
+            index: node.sourceIndex,
           });
         });
       });

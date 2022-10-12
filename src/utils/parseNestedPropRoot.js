@@ -8,8 +8,8 @@ export default function parseNestedPropRoot(propString) {
     {
       mode: "normal",
       character: null,
-      isCalculationEnabled: true
-    }
+      isCalculationEnabled: true,
+    },
   ];
   const result = {};
   let lastModeIndex = 0;
@@ -25,7 +25,7 @@ export default function parseNestedPropRoot(propString) {
         modesEntered.push({
           mode: "string",
           isCalculationEnabled: false,
-          character
+          character,
         });
         lastModeIndex++;
       } else if (
@@ -42,7 +42,7 @@ export default function parseNestedPropRoot(propString) {
     if (character === "{") {
       modesEntered.push({
         mode: "interpolation",
-        isCalculationEnabled: true
+        isCalculationEnabled: true,
       });
       lastModeIndex++;
     } else if (character === "}") {
@@ -62,7 +62,7 @@ export default function parseNestedPropRoot(propString) {
       if (propValueStr.length) {
         const propValue = {
           before: /^(\s*)/.exec(propValueStr)[1],
-          value: propValueStr.trim()
+          value: propValueStr.trim(),
         };
 
         // It's a declaration if 1) there is a whitespace after :, or
@@ -81,7 +81,7 @@ export default function parseNestedPropRoot(propString) {
 
       result.propName = {
         after: /(\s*)$/.exec(propName)[1],
-        value: propName.trim()
+        value: propName.trim(),
       };
 
       return result;

@@ -10,13 +10,13 @@ testRule({
       code: `
         $test: ("foo": 14px, "bar": 25px);
       `,
-      description: "accepts strings without quotes"
+      description: "accepts strings without quotes",
     },
     {
       code: `
         $test: ('foo': 14px, 'bar': 25px);
       `,
-      description: "accepts strings with quotes"
+      description: "accepts strings with quotes",
     },
     {
       code: `
@@ -29,7 +29,7 @@ testRule({
         900: #2e4662
       );
       `,
-      description: "accepts numbers"
+      description: "accepts numbers",
     },
     {
       code: `
@@ -44,7 +44,7 @@ testRule({
         )
       );
       `,
-      description: "accepts numbers (nested)"
+      description: "accepts numbers (nested)",
     },
     {
       code: `
@@ -53,7 +53,7 @@ testRule({
         "key-two": $variable * 2,
       );
       `,
-      description: "accepts * operator inside a value"
+      description: "accepts * operator inside a value",
     },
     {
       code: `
@@ -62,7 +62,7 @@ testRule({
         "key-two": $variable*2,
       );
       `,
-      description: "accepts * operator without spaces inside a value"
+      description: "accepts * operator without spaces inside a value",
     },
     {
       code: `
@@ -71,7 +71,7 @@ testRule({
         "key-two": $variable - 2,
       );
       `,
-      description: "accepts - operator inside a value"
+      description: "accepts - operator inside a value",
     },
     {
       code: `
@@ -80,7 +80,7 @@ testRule({
         "key-two": $variable + 2,
       );
       `,
-      description: "accepts + operator inside a value"
+      description: "accepts + operator inside a value",
     },
     {
       code: `
@@ -89,7 +89,7 @@ testRule({
         "key-two": $variable / 2,
       );
       `,
-      description: "accepts / operator inside a value"
+      description: "accepts / operator inside a value",
     },
     {
       code: `
@@ -98,7 +98,7 @@ testRule({
         "key-two": $variable % 2,
       );
       `,
-      description: "accepts % operator inside a value"
+      description: "accepts % operator inside a value",
     },
     {
       code: `
@@ -107,8 +107,8 @@ testRule({
         "key-two": (1+2),
       );
       `,
-      description: "accepts parens inside a value"
-    }
+      description: "accepts parens inside a value",
+    },
   ],
 
   reject: [
@@ -120,16 +120,16 @@ testRule({
         {
           line: 2,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 2,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "does not accept variables representing strings that are quoted."
-    }
-  ]
+        "does not accept variables representing strings that are quoted.",
+    },
+  ],
 });

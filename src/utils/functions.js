@@ -6,7 +6,7 @@ export const GLOBAL_FUNCTIONS = Object.freeze([
   "hsla",
   "if",
   "rgb",
-  "rgba"
+  "rgba",
 ]);
 
 /**
@@ -57,7 +57,7 @@ export const COLOR_FUNCTIONS = Object.freeze([
   "color.red",
   "color.saturation",
   "color.scale",
-  "color.whiteness"
+  "color.whiteness",
 ]);
 
 /**
@@ -84,7 +84,7 @@ export const LIST_FUNCTIONS = Object.freeze([
   "list.separator",
   "list.set-nth",
   "list.slash",
-  "zip"
+  "zip",
 ]);
 
 /**
@@ -107,7 +107,7 @@ export const MAP_FUNCTIONS = Object.freeze([
   "map.merge",
   "map.remove",
   "map.set",
-  "map.values"
+  "map.values",
 ]);
 
 /**
@@ -150,7 +150,7 @@ export const MATH_FUNCTIONS = Object.freeze([
   "math.sin",
   "math.sqrt",
   "math.tan",
-  "math.unit"
+  "math.unit",
 ]);
 
 /**
@@ -184,7 +184,7 @@ export const META_FUNCTIONS = Object.freeze([
   "meta.module-functions",
   "meta.module-variables",
   "meta.type-of",
-  "meta.variable-exists"
+  "meta.variable-exists",
 ]);
 
 /**
@@ -208,7 +208,7 @@ export const SELECTOR_FUNCTIONS = Object.freeze([
   "selector.parse",
   "selector.replace",
   "selector.simple-selectors",
-  "selector.unify"
+  "selector.unify",
 ]);
 
 /**
@@ -234,7 +234,7 @@ export const STRING_FUNCTIONS = Object.freeze([
   "string.to-lower-case",
   "string.to-upper-case",
   "string.unique-id",
-  "string.unquote"
+  "string.unquote",
 ]);
 
 export const ALL_FUNCTIONS = Object.freeze([
@@ -245,5 +245,5 @@ export const ALL_FUNCTIONS = Object.freeze([
   ...MATH_FUNCTIONS,
   ...META_FUNCTIONS,
   ...SELECTOR_FUNCTIONS,
-  ...STRING_FUNCTIONS
+  ...STRING_FUNCTIONS,
 ]);

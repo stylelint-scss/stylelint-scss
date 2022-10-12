@@ -10,28 +10,28 @@ testRule({
       padding: 1 * 1%unit%;
     }
     `,
-    description: "Accepts proper value interpolation with %unit%"
+    description: "Accepts proper value interpolation with %unit%",
   }).concat([
     {
       code: "$pad: 2; $doublePad: px#{$pad}px;",
-      description: "does not report when a unit is preceded by another string"
+      description: "does not report when a unit is preceded by another string",
     },
     {
       code: "$pad: 2; $doublePad: #{$pad}pxx;",
-      description: "does not report lint when no understood units are used"
+      description: "does not report lint when no understood units are used",
     },
     {
       code: `$pad: "2";
       $string: "#{$pad}px";`,
-      description: "does not report lint when string is quoted"
+      description: "does not report lint when string is quoted",
     },
     {
       code: `
       @include media-breakpoint-up($grid-gutter-breakpoint) {
         --#{$variable-prefix}gutter-x: #{$gutter * 2};
       }`,
-      description: "ignores interpolation without a unit"
-    }
+      description: "ignores interpolation without a unit",
+    },
   ]),
   reject: loopOverUnits({
     code: `
@@ -42,14 +42,14 @@ testRule({
     message: messages.rejected("%unit%"),
     line: 3,
     column: 27,
-    description: "Rejects interpolation with %unit%"
+    description: "Rejects interpolation with %unit%",
   }).concat([
     {
       code: "$pad: 2; $padAndMore: #{$pad + 5}px;",
       description: "reports lint when expression used in interpolation",
       line: 1,
       column: 34,
-      message: messages.rejected("px")
+      message: messages.rejected("px"),
     },
     {
       code: `
@@ -60,7 +60,7 @@ testRule({
       description: "reports lint when mixing accepted and rejected syntax",
       line: 3,
       column: 39,
-      message: messages.rejected("px")
+      message: messages.rejected("px"),
     },
     {
       code: `
@@ -71,7 +71,7 @@ testRule({
       description: "reports lint when mixing accepted and rejected syntax",
       line: 3,
       column: 39,
-      message: messages.rejected("px")
+      message: messages.rejected("px"),
     },
     {
       code: `
@@ -82,7 +82,7 @@ testRule({
       description: "reports lint when mixing normal unit and rejected syntax",
       line: 3,
       column: 29,
-      message: messages.rejected("vmin")
+      message: messages.rejected("vmin"),
     },
     {
       code: `
@@ -93,16 +93,16 @@ testRule({
       description: "reports lint when mixing normal unit and rejected syntax",
       line: 3,
       column: 29,
-      message: messages.rejected("vmin")
-    }
-  ])
+      message: messages.rejected("vmin"),
+    },
+  ]),
 });
 
 function loopOverUnits(codeBlock) {
-  return units.map(unit => {
+  return units.map((unit) => {
     const block = {
       code: codeBlock.code.replace(/%unit%/g, unit),
-      description: codeBlock.description.replace(/%unit%/g, unit)
+      description: codeBlock.description.replace(/%unit%/g, unit),
     };
 
     if (codeBlock.message) {

@@ -14,11 +14,11 @@ testRule({
   accept: [
     {
       code: "a { width: 1 +1; }",
-      description: "List. width: 1 +1."
+      description: "List. width: 1 +1.",
     },
     {
       code: "a { width: s1- +1; }",
-      description: "List. width: s1- +1."
+      description: "List. width: s1- +1.",
     },
     {
       code: `
@@ -27,7 +27,7 @@ testRule({
           + 1;
       }
     `,
-      description: "Newline before the op: 10px\\n          + 1"
+      description: "Newline before the op: 10px\\n          + 1",
     },
     {
       code: `
@@ -37,7 +37,7 @@ testRule({
       }
     `,
       description:
-        "Newline after a character, that is not an operator: 10px /\\n  1"
+        "Newline after a character, that is not an operator: 10px /\\n  1",
     },
     {
       code: `
@@ -46,7 +46,7 @@ testRule({
           + 1;
       }
     `,
-      description: "Newline after the following op: 10px + 1\\n         + 1"
+      description: "Newline after the following op: 10px + 1\\n         + 1",
     },
     {
       code: `
@@ -56,8 +56,8 @@ testRule({
         unicode-range: U+26;
       }
       `,
-      description: "unicode-range"
-    }
+      description: "unicode-range",
+    },
   ],
 
   reject: [
@@ -71,7 +71,7 @@ testRule({
       description: "Newline-operator-indentation: 10px +\\n1px.",
       message: messages.rejected("+"),
       line: 3,
-      column: 21
+      column: 21,
     },
     {
       code: `
@@ -83,9 +83,9 @@ testRule({
       description: "Newline-operator-operand: 10px +\\n1px.",
       message: messages.rejected("+"),
       line: 3,
-      column: 21
-    }
-  ]
+      column: 21,
+    },
+  ],
 });
 
 testRule({
@@ -108,8 +108,8 @@ a {
     + 1;
 }
 </style>
-`
-    }
+`,
+    },
   ],
 
   reject: [
@@ -128,7 +128,7 @@ a {
 `,
       message: messages.rejected("+"),
       line: 8,
-      column: 15
-    }
-  ]
+      column: 15,
+    },
+  ],
 });

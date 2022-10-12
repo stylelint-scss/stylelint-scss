@@ -7,18 +7,18 @@ export const messages = utils.ruleMessages(ruleName, {
   expectedInterpolation: `Expected interpolation to be in a nested form`,
   expected: (combinator, type) =>
     `Expected combinator "${combinator}" of type "${type}" to be in a nested form`,
-  rejected: `Unexpected nesting found in selector`
+  rejected: `Unexpected nesting found in selector`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
-      possible: ["always", "never"]
+      possible: ["always", "never"],
     });
 
     if (!validOptions) {
@@ -44,12 +44,12 @@ export default function rule(expectation) {
       "id",
       "pseudo",
       "tag",
-      "universal"
+      "universal",
     ];
 
     const interpolationRe = /#{.+?}$/;
 
-    root.walkRules(rule => {
+    root.walkRules((rule) => {
       if (
         rule.parent &&
         rule.parent.type === "atrule" &&
@@ -66,10 +66,10 @@ export default function rule(expectation) {
         }
       }
 
-      parseSelector(rule.selector, result, rule, fullSelector => {
+      parseSelector(rule.selector, result, rule, (fullSelector) => {
         let message;
 
-        fullSelector.walk(node => {
+        fullSelector.walk((node) => {
           if (node.value === "}") {
             return;
           }
@@ -146,7 +146,7 @@ export default function rule(expectation) {
             result,
             node: rule,
             message,
-            index: node.sourceIndex
+            index: node.sourceIndex,
           });
         });
       });

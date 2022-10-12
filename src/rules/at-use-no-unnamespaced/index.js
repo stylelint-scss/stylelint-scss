@@ -4,11 +4,11 @@ import { namespace, ruleUrl } from "../../utils";
 export const ruleName = namespace("at-use-no-unnamespaced");
 
 export const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected @use without namespace"
+  rejected: "Unexpected @use without namespace",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(actual) {
@@ -19,13 +19,13 @@ export default function rule(actual) {
       return;
     }
 
-    root.walkAtRules("use", decl => {
+    root.walkAtRules("use", (decl) => {
       if (/as\s*\*\s*(?:$|with\s*\()/.test(decl.params)) {
         utils.report({
           message: messages.rejected,
           node: decl,
           result,
-          ruleName
+          ruleName,
         });
       }
     });

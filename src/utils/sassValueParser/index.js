@@ -21,7 +21,7 @@ export default function findOperators({
   string,
   globalIndex,
   isAfterColon,
-  callback
+  callback,
 }) {
   const mathOperators = ["+", "/", "-", "*", "%"];
   // A stack of modes activated for the current char: string, interpolation
@@ -30,8 +30,8 @@ export default function findOperators({
     {
       mode: "normal",
       isCalculationEnabled: true,
-      character: null
-    }
+      character: null,
+    },
   ];
   const result = [];
   let lastModeIndex = 0;
@@ -47,7 +47,7 @@ export default function findOperators({
         modesEntered.push({
           mode: "string",
           isCalculationEnabled: false,
-          character
+          character,
         });
         lastModeIndex++;
       } else if (
@@ -70,7 +70,7 @@ export default function findOperators({
     ) {
       modesEntered.push({
         mode: "interpolation",
-        isCalculationEnabled: true
+        isCalculationEnabled: true,
       });
       lastModeIndex++;
     } else if (character === "}") {
@@ -94,7 +94,7 @@ export default function findOperators({
         symbol: string[i],
         globalIndex,
         startIndex: i,
-        endIndex: i
+        endIndex: i,
       });
 
       if (callback) {
@@ -108,7 +108,7 @@ export default function findOperators({
         symbol: string[i],
         globalIndex,
         startIndex: i,
-        endIndex: i + 1
+        endIndex: i + 1,
       });
 
       if (callback) {

@@ -12,7 +12,7 @@ testRule({
         &.foo {}
       }
     `,
-      description: "when an ampersand is chained with class"
+      description: "when an ampersand is chained with class",
     },
     {
       code: `
@@ -20,7 +20,7 @@ testRule({
         .foo > & {}
       }
     `,
-      description: "when an ampersand follows a direct descendant operator"
+      description: "when an ampersand follows a direct descendant operator",
     },
     {
       code: `
@@ -29,7 +29,7 @@ testRule({
       }
     `,
       description:
-        "when an ampersand follows a direct descendant operator and there are extra spaces"
+        "when an ampersand follows a direct descendant operator and there are extra spaces",
     },
     {
       code: `
@@ -38,7 +38,7 @@ testRule({
       }
     `,
       description:
-        "when an ampersand follows a direct descendant operator and there are no spaces"
+        "when an ampersand follows a direct descendant operator and there are no spaces",
     },
     {
       code: `
@@ -47,7 +47,7 @@ testRule({
         & ~ & {}
       }
     `,
-      description: "when an ampersand precedes a sibling operator"
+      description: "when an ampersand precedes a sibling operator",
     },
     {
       code: `
@@ -55,7 +55,7 @@ testRule({
         & + &:hover {}
       }
     `,
-      description: "when multiple ampersands exist with one concatenated"
+      description: "when multiple ampersands exist with one concatenated",
     },
     {
       code: `
@@ -68,7 +68,7 @@ testRule({
       }
     `,
       description:
-        "when an ampersand is used in a comma sequence to DRY up code"
+        "when an ampersand is used in a comma sequence to DRY up code",
     },
     {
       code: `
@@ -76,7 +76,7 @@ testRule({
         &-small {}
       }
     `,
-      description: "when an ampersand is used in concatenation"
+      description: "when an ampersand is used in concatenation",
     },
     {
       code: `
@@ -84,7 +84,7 @@ testRule({
         & & {}
       }
     `,
-      description: "when an ampersand following an ampersand"
+      description: "when an ampersand following an ampersand",
     },
     {
       code: `
@@ -93,7 +93,7 @@ testRule({
       }
     `,
       description:
-        "when an ampersand is used in concatenation following an ampersand"
+        "when an ampersand is used in concatenation following an ampersand",
     },
     {
       code: `
@@ -101,7 +101,7 @@ testRule({
         &.foo {}
       }
     `,
-      description: "when an ampersand is used in an attribute selector"
+      description: "when an ampersand is used in an attribute selector",
     },
     {
       code: `
@@ -112,7 +112,7 @@ testRule({
       }
     `,
       description:
-        "when an ampersand is used to combine three parts of a classname"
+        "when an ampersand is used to combine three parts of a classname",
     },
     {
       code: `
@@ -121,7 +121,7 @@ testRule({
       }
     `,
       description:
-        "when an ampersand is used to combine two parts of a classname"
+        "when an ampersand is used to combine two parts of a classname",
     },
     {
       code: `
@@ -129,7 +129,7 @@ testRule({
         &__element {}
       }
     `,
-      description: "when BEM syntax element is used"
+      description: "when BEM syntax element is used",
     },
     {
       code: `
@@ -137,8 +137,8 @@ testRule({
         &--modifier {}
       }
     `,
-      description: "when BEM syntax modifier is used"
-    }
+      description: "when BEM syntax modifier is used",
+    },
   ],
 
   reject: [
@@ -150,7 +150,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand precedes a direct descendant operator"
+      description: "when an ampersand precedes a direct descendant operator",
     },
     {
       code: `
@@ -161,7 +161,7 @@ testRule({
       line: 3,
       message: messages.rejected,
       description:
-        "when an ampersand precedes a direct descendant operator and there are extra spaces"
+        "when an ampersand precedes a direct descendant operator and there are extra spaces",
     },
     {
       code: `
@@ -172,7 +172,7 @@ testRule({
       line: 3,
       message: messages.rejected,
       description:
-        "when an ampersand precedes a direct descendant operator and there are no spaces"
+        "when an ampersand precedes a direct descendant operator and there are no spaces",
     },
     {
       code: `
@@ -182,7 +182,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand precedes an element"
+      description: "when an ampersand precedes an element",
     },
     {
       code: `
@@ -192,7 +192,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand precedes a class"
+      description: "when an ampersand precedes a class",
     },
     {
       code: `
@@ -205,7 +205,7 @@ testRule({
       line: 4,
       message: messages.rejected,
       description:
-        "when an ampersand is used to combine two parts of a classname and an ampersand precedes a class"
+        "when an ampersand is used to combine two parts of a classname and an ampersand precedes a class",
     },
     {
       code: `
@@ -215,7 +215,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand precedes an element and a class"
+      description: "when an ampersand precedes an element and a class",
     },
     {
       code: `
@@ -226,7 +226,7 @@ testRule({
       line: 3,
       message: messages.rejected,
       description:
-        "when an ampersand precedes an element, a child selector and a class"
+        "when an ampersand precedes an element, a child selector and a class",
     },
     {
       code: `
@@ -236,7 +236,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand precedes a sibling operator"
+      description: "when an ampersand precedes a sibling operator",
     },
     {
       code: `
@@ -246,7 +246,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand precedes a sibling operator"
+      description: "when an ampersand precedes a sibling operator",
     },
     {
       code: `
@@ -257,7 +257,7 @@ testRule({
       line: 3,
       message: messages.rejected,
       description:
-        "when an ampersand precedes a class and there are extra spaces"
+        "when an ampersand precedes a class and there are extra spaces",
     },
     {
       code: `
@@ -267,7 +267,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "ampersand followed by id"
+      description: "ampersand followed by id",
     },
     {
       code: `
@@ -277,7 +277,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "ampersand followed by attribute selector"
+      description: "ampersand followed by attribute selector",
     },
     {
       code: `
@@ -287,7 +287,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "ampersand followed by %placeholder"
+      description: "ampersand followed by %placeholder",
     },
     {
       code: `
@@ -298,7 +298,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "ampersand followed by newline and tag selector"
+      description: "ampersand followed by newline and tag selector",
     },
     {
       code: `
@@ -308,7 +308,7 @@ testRule({
     `,
       line: 3,
       message: messages.rejected,
-      description: "when an ampersand is used by itself"
+      description: "when an ampersand is used by itself",
     },
     {
       code: `
@@ -319,7 +319,7 @@ testRule({
       line: 3,
       message: messages.rejected,
       description:
-        "when an ampersand is used by itself and there are extra spaces"
+        "when an ampersand is used by itself and there are extra spaces",
     },
     {
       code: `
@@ -330,7 +330,7 @@ testRule({
     `,
       line: 4,
       message: messages.rejected,
-      description: "multiple nested selectors"
+      description: "multiple nested selectors",
     },
     {
       code: `
@@ -344,7 +344,7 @@ testRule({
       line: 4,
       message: messages.rejected,
       description:
-        "when an ampersand is used in a comma sequence followed by a class"
+        "when an ampersand is used in a comma sequence followed by a class",
     },
     {
       code: `
@@ -362,17 +362,17 @@ testRule({
         {
           line: 4,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 7,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
-      description: "when the ampersand is followed by an unknown keyword"
-    }
-  ]
+      description: "when the ampersand is followed by an unknown keyword",
+    },
+  ],
 });
 
 testRule({
@@ -392,7 +392,7 @@ testRule({
           }
         }
       `,
-      description: "when an ampersand is followed by a keyword"
+      description: "when an ampersand is followed by a keyword",
     },
     {
       code: `
@@ -402,7 +402,7 @@ testRule({
           }
         }
       `,
-      description: "when there are multiple reference nesting"
+      description: "when there are multiple reference nesting",
     },
     {
       code: `
@@ -412,7 +412,7 @@ testRule({
           & regex not (@theme = dark) {}
         }
       `,
-      description: "should support the use of regular option"
-    }
-  ]
+      description: "should support the use of regular option",
+    },
+  ],
 });

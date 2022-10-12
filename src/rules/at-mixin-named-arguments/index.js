@@ -5,11 +5,11 @@ export const ruleName = namespace("at-mixin-named-arguments");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a named parameter to be used in at-include call",
-  rejected: "Unexpected a named parameter in at-include call"
+  rejected: "Unexpected a named parameter in at-include call",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 const hasArgumentsRegExp = /\((.*)\)$/;
@@ -22,14 +22,14 @@ export default function rule(expectation, options) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never"]
+        possible: ["always", "never"],
       },
       {
         actual: options,
         possible: {
-          ignore: ["single-argument"]
+          ignore: ["single-argument"],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -42,7 +42,7 @@ export default function rule(expectation, options) {
       "single-argument"
     );
 
-    root.walkAtRules("include", atRule => {
+    root.walkAtRules("include", (atRule) => {
       const argsString = atRule.params
         .replace(/\n/g, " ")
         .match(hasArgumentsRegExp);
@@ -60,8 +60,10 @@ export default function rule(expectation, options) {
         // Create array of arguments.
         .split(",")
         // Create a key-value array for every argument.
-        .map(argsString =>
-          argsString.split(":").map(argsKeyValuePair => argsKeyValuePair.trim())
+        .map((argsString) =>
+          argsString
+            .split(":")
+            .map((argsKeyValuePair) => argsKeyValuePair.trim())
         )
         .reduce((resultArray, keyValuePair) => {
           const pair = { value: keyValuePair[1] || keyValuePair[0] };
@@ -79,7 +81,7 @@ export default function rule(expectation, options) {
         return;
       }
 
-      args.forEach(arg => {
+      args.forEach((arg) => {
         switch (expectation) {
           case "never": {
             if (!arg.key) {
@@ -90,7 +92,7 @@ export default function rule(expectation, options) {
               message: messages.rejected,
               node: atRule,
               result,
-              ruleName
+              ruleName,
             });
             break;
           }
@@ -104,7 +106,7 @@ export default function rule(expectation, options) {
               message: messages.expected,
               node: atRule,
               result,
-              ruleName
+              ruleName,
             });
             break;
           }

@@ -8,18 +8,18 @@ import {
   findOperators,
   isWhitespace,
   namespace,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 
 export const ruleName = namespace("operator-no-unspaced");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expectedAfter: operator => `Expected single space after "${operator}"`,
-  expectedBefore: operator => `Expected single space before "${operator}"`
+  expectedAfter: (operator) => `Expected single space after "${operator}"`,
+  expectedBefore: (operator) => `Expected single space before "${operator}"`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 /**
@@ -31,7 +31,7 @@ function checkSpaces({
   startIndex,
   endIndex,
   node,
-  result
+  result,
 }) {
   const symbol = string.substring(startIndex, endIndex + 1);
 
@@ -45,7 +45,7 @@ function checkSpaces({
       result,
       node,
       message: messages.expectedBefore(symbol),
-      index: startIndex + globalIndex
+      index: startIndex + globalIndex,
     });
   }
 
@@ -60,7 +60,7 @@ function checkSpaces({
       result,
       node,
       message: messages.expectedAfter(symbol),
-      index: endIndex + globalIndex
+      index: endIndex + globalIndex,
     });
   }
 }
@@ -80,7 +80,7 @@ function newlineBefore(str, startIndex) {
 export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation
+      actual: expectation,
     });
 
     if (!validOptions) {
@@ -99,7 +99,7 @@ export default function rule(expectation) {
       calculationOperatorSpaceChecker({
         root,
         result,
-        checker: checkSpaces
+        checker: checkSpaces,
       });
     }
   };
@@ -147,8 +147,8 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
         source: match[0],
         operators: findOperators({
           string: match[0],
-          globalIndex: match.index + startIndex
-        })
+          globalIndex: match.index + startIndex,
+        }),
       });
       match = interpolationRegex.exec(string);
     }
@@ -158,7 +158,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
 
   const dataURIRegex = /^url\(\s*['"]?data:.+;base64,.+['"]?\s*\)$/;
 
-  root.walk(item => {
+  root.walk((item) => {
     if (item.prop === "unicode-range") {
       return;
     }
@@ -176,8 +176,8 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
           string: item.value,
           globalIndex: declarationValueIndex(item),
           // For Sass variable values some special rules apply
-          isAfterColon: item.prop[0] === "$"
-        })
+          isAfterColon: item.prop[0] === "$",
+        }),
       });
     }
 
@@ -203,7 +203,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
 
       // Media queries
       if (item.name === "media" || item.name === "import") {
-        mediaQueryParser(item.params).walk(node => {
+        mediaQueryParser(item.params).walk((node) => {
           const type = node.type;
 
           if (["keyword", "media-type", "media-feature"].includes(type)) {
@@ -219,8 +219,8 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
               operators: findOperators({
                 string: node.value,
                 globalIndex: atRuleParamIndex(item) + node.sourceIndex,
-                isAfterColon: true
-              })
+                isAfterColon: true,
+              }),
             });
           } else if (type === "url") {
             const isQuoted = node.value[0] === '"' || node.value[0] === "'";
@@ -236,8 +236,8 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
                 operators: findOperators({
                   string: node.value,
                   globalIndex: atRuleParamIndex(item) + node.sourceIndex,
-                  isAfterColon: true
-                })
+                  isAfterColon: true,
+                }),
               });
             }
           }
@@ -249,24 +249,24 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
           operators: findOperators({
             string: item.params,
             globalIndex: atRuleParamIndex(item),
-            isAfterColon: true
-          })
+            isAfterColon: true,
+          }),
         });
       }
     }
 
     // All the strings have been parsed, now run whitespace checking
-    results.forEach(el => {
+    results.forEach((el) => {
       // Only if there are operators within a string
       if (el.operators && el.operators.length > 0) {
-        el.operators.forEach(operator => {
+        el.operators.forEach((operator) => {
           checker({
             string: el.source,
             globalIndex: operator.globalIndex,
             startIndex: operator.startIndex,
             endIndex: operator.endIndex,
             node: item,
-            result
+            result,
           });
         });
       }
@@ -275,7 +275,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
 
   // Checking interpolation inside comments
   // We have to give up on PostCSS here because it skips some inline comments
-  findCommentsInRaws(root.source.input.css).forEach(comment => {
+  findCommentsInRaws(root.source.input.css).forEach((comment) => {
     const startIndex =
       comment.source.start +
       comment.raws.startToken.length +
@@ -285,17 +285,17 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
       return;
     }
 
-    findInterpolation(comment.text).forEach(el => {
+    findInterpolation(comment.text).forEach((el) => {
       // Only if there are operators within a string
       if (el.operators && el.operators.length > 0) {
-        el.operators.forEach(operator => {
+        el.operators.forEach((operator) => {
           checker({
             string: el.source,
             globalIndex: operator.globalIndex + startIndex,
             startIndex: operator.startIndex,
             endIndex: operator.endIndex,
             node: root,
-            result
+            result,
           });
         });
       }

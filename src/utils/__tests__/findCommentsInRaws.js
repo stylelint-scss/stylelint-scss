@@ -11,7 +11,7 @@ test("// is the first statement in the file", () => {
 
   return postcss()
     .process("// comment", { syntax: scss, from: undefined, parser: scss })
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -33,7 +33,7 @@ test("// is the first statement in a string, w/o pre-whs", () => {
 // comment`,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -51,7 +51,7 @@ test("CSS-comment is the first statement (and the last one) in a file", () => {
 
   return postcss()
     .process("/* comment1 */", { syntax: scss, from: undefined, parser: scss })
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -74,7 +74,7 @@ test("CSS-comment is the first statement (and the last one) in a string", () => 
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -110,7 +110,7 @@ test("Various.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -143,7 +143,7 @@ test("//", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -167,7 +167,7 @@ test("// Inline comment, after {.", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -188,7 +188,7 @@ test("} // comment", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -205,9 +205,9 @@ test("Triple-slash comment", () => {
     .process("a {} /// comment", {
       syntax: scss,
       from: undefined,
-      parser: scss
+      parser: scss,
     })
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -233,7 +233,7 @@ test("Some fancy comment", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -261,7 +261,7 @@ test("Another fancy comment", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -288,7 +288,7 @@ test("Comments inside comments", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -319,7 +319,7 @@ test("No comments, but parsing a selector with ().", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -339,7 +339,7 @@ test("Double backslash inside a string (issue #294)", () => {
     `,
       { syntax: scss, from: undefined, parser: scss }
     )
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -355,9 +355,9 @@ test("//-comment, Unix newlines", () => {
     .process("\n   // comment \n", {
       syntax: scss,
       from: undefined,
-      parser: scss
+      parser: scss,
     })
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -374,9 +374,9 @@ test("CSS comment, Unix newlines", () => {
     .process("\n   /* part 1 \n part 2*/ \n", {
       syntax: scss,
       from: undefined,
-      parser: scss
+      parser: scss,
     })
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -393,9 +393,9 @@ test("//-comment, Windows-newline", () => {
     .process("\r\n   // comment \r\n", {
       syntax: scss,
       from: undefined,
-      parser: scss
+      parser: scss,
     })
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -412,9 +412,9 @@ test("CSS comment, Windows newlines", () => {
     .process("\r\n   /* part 1 \r\n part 2*/ \r\n", {
       syntax: scss,
       from: undefined,
-      parser: scss
+      parser: scss,
     })
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 
@@ -431,9 +431,9 @@ test("No comments; testing a dangerous case in function detection [`@media( ... 
     .process("@media(min-width: 480px) { }", {
       syntax: scss,
       from: undefined,
-      parser: scss
+      parser: scss,
     })
-    .then(result => {
+    .then((result) => {
       const css = result.root.source.input.css;
       const comments = findCommentsInRaws(css);
 

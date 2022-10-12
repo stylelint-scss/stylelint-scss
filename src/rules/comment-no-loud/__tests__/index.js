@@ -8,12 +8,12 @@ testRule({
   accept: [
     {
       code: "// comment",
-      description: "Double slash comments"
+      description: "Double slash comments",
     },
     {
       code: "//* comment",
-      description: "Double slash comments with first character as asterisk"
-    }
+      description: "Double slash comments with first character as asterisk",
+    },
   ],
   reject: [
     {
@@ -23,7 +23,7 @@ testRule({
       description: "One line with optional ending",
       line: 2,
       column: 7,
-      message: messages.expected
+      message: messages.expected,
     },
     {
       code: `
@@ -34,7 +34,7 @@ testRule({
       description: "Multiline comment with optional ending on next line",
       line: 2,
       column: 9,
-      message: messages.expected
+      message: messages.expected,
     },
     {
       code: `
@@ -51,7 +51,7 @@ testRule({
       description: "Comment sandwiched between rules",
       line: 6,
       column: 7,
-      message: messages.expected
-    }
-  ]
+      message: messages.expected,
+    },
+  ],
 });

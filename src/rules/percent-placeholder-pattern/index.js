@@ -7,25 +7,25 @@ import {
   isStandardSelector,
   parseSelector,
   namespace,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 
 export const ruleName = namespace("percent-placeholder-pattern");
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: placeholder =>
-    `Expected %-placeholder "%${placeholder}" to match specified pattern`
+  expected: (placeholder) =>
+    `Expected %-placeholder "%${placeholder}" to match specified pattern`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
-      possible: [isRegExp, isString]
+      possible: [isRegExp, isString],
     });
 
     if (!validOptions) {
@@ -37,12 +37,12 @@ export default function rule(pattern) {
       : pattern;
 
     // Checking placeholder definitions (looking among regular rules)
-    root.walkRules(rule => {
+    root.walkRules((rule) => {
       const { selector } = rule;
 
       // Just a shorthand for calling `parseSelector`
       function parse(selector) {
-        parseSelector(selector, result, rule, s => checkSelector(s, rule));
+        parseSelector(selector, result, rule, (s) => checkSelector(s, rule));
       }
 
       // If it's a custom prop or a less mixin
@@ -69,7 +69,7 @@ export default function rule(pattern) {
 
     function checkSelector(fullSelector, rule) {
       // postcss-selector-parser gives %placeholders' nodes a "tag" type
-      fullSelector.walkTags(compoundSelector => {
+      fullSelector.walkTags((compoundSelector) => {
         const { value, sourceIndex } = compoundSelector;
 
         if (value[0] !== "%") {
@@ -87,7 +87,7 @@ export default function rule(pattern) {
           ruleName,
           message: messages.expected(placeholder),
           node: rule,
-          index: sourceIndex
+          index: sourceIndex,
         });
       });
     }

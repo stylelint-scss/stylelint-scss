@@ -6,11 +6,11 @@ export const ruleName = namespace("dollar-variable-no-missing-interpolation");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: (n, v) =>
-    `Expected variable ${v} to be interpolated when using it with ${n}`
+    `Expected variable ${v} to be interpolated when using it with ${n}`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 // https://developer.mozilla.org/en/docs/Web/CSS/custom-ident#Lists_of_excluded_values
@@ -20,7 +20,7 @@ const customIdentProps = [
   "counter-reset",
   "counter-increment",
   "list-style-type",
-  "will-change"
+  "will-change",
 ];
 
 // https://developer.mozilla.org/en/docs/Web/CSS/At-rule
@@ -66,7 +66,7 @@ export default function rule(actual) {
     const vars = [];
 
     function findVars(node) {
-      node.walkDecls(decl => {
+      node.walkDecls((decl) => {
         const { prop, value } = decl;
 
         if (!isSassVar(prop) || vars.includes(prop)) {
@@ -108,7 +108,7 @@ export default function rule(actual) {
         ruleName,
         result,
         node,
-        message: messages.rejected(nodeName, value)
+        message: messages.rejected(nodeName, value),
       });
     }
 
@@ -117,7 +117,7 @@ export default function rule(actual) {
     }
 
     function walkValues(node, value) {
-      valueParser(value).walk(valNode => {
+      valueParser(value).walk((valNode) => {
         const { value } = valNode;
 
         if (exitEarly(valNode) || !shouldReport(node, value)) {
@@ -128,11 +128,11 @@ export default function rule(actual) {
       });
     }
 
-    root.walkDecls(toRegex(customIdentProps), decl => {
+    root.walkDecls(toRegex(customIdentProps), (decl) => {
       walkValues(decl, decl.value);
     });
 
-    root.walkAtRules(toRegex(customIdentAtRules), atRule => {
+    root.walkAtRules(toRegex(customIdentAtRules), (atRule) => {
       walkValues(atRule, atRule.params);
     });
   };

@@ -8,25 +8,25 @@ export const ruleName = namespace(
 );
 
 export const messages = utils.ruleMessages(ruleName, {
-  expected: prop =>
-    `Expected all nested properties of "${prop}" namespace to be in one nested group`
+  expected: (prop) =>
+    `Expected all nested properties of "${prop}" namespace to be in one nested group`,
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation
+      actual: expectation,
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walk(item => {
+    root.walk((item) => {
       if (item.type !== "rule" && item.type !== "atrule") {
         return;
       }
@@ -34,7 +34,7 @@ export default function rule(expectation) {
       const nestedGroups = {};
 
       // Find all nested property groups
-      item.each(decl => {
+      item.each((decl) => {
         if (decl.type !== "rule") {
           return;
         }
@@ -52,18 +52,18 @@ export default function rule(expectation) {
         }
       });
 
-      Object.keys(nestedGroups).forEach(namespace => {
+      Object.keys(nestedGroups).forEach((namespace) => {
         // Only warn if there are more than one nested groups with equal namespaces
         if (nestedGroups[namespace].length === 1) {
           return;
         }
 
-        nestedGroups[namespace].forEach(group => {
+        nestedGroups[namespace].forEach((group) => {
           utils.report({
             message: messages.expected(namespace),
             node: group,
             result,
-            ruleName
+            ruleName,
           });
         });
       });

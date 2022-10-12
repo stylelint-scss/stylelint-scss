@@ -6,18 +6,18 @@ import {
   namespace,
   optionsHaveIgnored,
   parseFunctionArguments,
-  ruleUrl
+  ruleUrl,
 } from "../../utils";
 
 export const ruleName = namespace("at-function-named-arguments");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a named parameter to be used in function call",
-  rejected: "Unexpected a named parameter in function call"
+  rejected: "Unexpected a named parameter in function call",
 });
 
 export const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
 };
 
 const isScssVarRegExp = /^\$\S*/;
@@ -29,15 +29,15 @@ export default function rule(expectation, options) {
       ruleName,
       {
         actual: expectation,
-        possible: ["always", "never"]
+        possible: ["always", "never"],
       },
       {
         actual: options,
         possible: {
           ignore: ["single-argument"],
-          ignoreFunctions: [isString]
+          ignoreFunctions: [isString],
         },
-        optional: true
+        optional: true,
       }
     );
 
@@ -50,8 +50,8 @@ export default function rule(expectation, options) {
       "single-argument"
     );
 
-    root.walkDecls(decl => {
-      valueParser(decl.value).walk(node => {
+    root.walkDecls((decl) => {
+      valueParser(decl.value).walk((node) => {
         if (
           node.type !== "function" ||
           isNativeCssFunction(node.value) ||
@@ -63,7 +63,7 @@ export default function rule(expectation, options) {
         const hasFuncIgnored =
           options &&
           options.ignoreFunctions &&
-          options.ignoreFunctions.some(f => {
+          options.ignoreFunctions.some((f) => {
             const isRegex = /^\/.*\//.test(f);
 
             if (!isRegex) {
@@ -86,7 +86,7 @@ export default function rule(expectation, options) {
           return;
         }
 
-        args.forEach(arg => {
+        args.forEach((arg) => {
           switch (expectation) {
             case "never": {
               if (!arg.key) {
@@ -97,7 +97,7 @@ export default function rule(expectation, options) {
                 message: messages.rejected,
                 node: decl,
                 result,
-                ruleName
+                ruleName,
               });
               break;
             }
@@ -111,7 +111,7 @@ export default function rule(expectation, options) {
                 message: messages.expected,
                 node: decl,
                 result,
-                ruleName
+                ruleName,
               });
               break;
             }

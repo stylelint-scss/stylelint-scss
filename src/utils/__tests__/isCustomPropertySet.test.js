@@ -3,13 +3,13 @@ import postcss from "postcss";
 
 describe("isCustomPropertySet", () => {
   it("accepts custom property set", () => {
-    customPropertySet("--foo: {};", customPropertySet => {
+    customPropertySet("--foo: {};", (customPropertySet) => {
       expect(isCustomPropertySet(customPropertySet)).toBeTruthy();
     });
   });
 
   it("rejects custom property", () => {
-    customPropertySet("--foo: red;", customPropertySet => {
+    customPropertySet("--foo: red;", (customPropertySet) => {
       expect(isCustomPropertySet(customPropertySet)).toBeFalsy();
     });
   });

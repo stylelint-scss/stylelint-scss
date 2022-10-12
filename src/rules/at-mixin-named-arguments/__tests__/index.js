@@ -13,7 +13,7 @@ testRule({
         @include reset;
       }
       `,
-      description: "Always. Example: no arguments."
+      description: "Always. Example: no arguments.",
     },
     {
       code: `
@@ -21,7 +21,7 @@ testRule({
         @include reset();
       }
       `,
-      description: "Always. Example: no arguments with parenthesis."
+      description: "Always. Example: no arguments with parenthesis.",
     },
     {
       code: `
@@ -29,7 +29,7 @@ testRule({
         @include reset($value: 40px);
       }
       `,
-      description: "Always. Example: single argument is named."
+      description: "Always. Example: single argument is named.",
     },
     {
       code: `
@@ -40,7 +40,7 @@ testRule({
       }
       `,
       description:
-        "Always. Example: single argument is named in multiline mixin call."
+        "Always. Example: single argument is named in multiline mixin call.",
     },
     {
       code: `
@@ -48,7 +48,7 @@ testRule({
         @include reset($value: 40px, $second-value: 10px, $color: 'black');
       }
       `,
-      description: "Always. Example: all arguments are named."
+      description: "Always. Example: all arguments are named.",
     },
     {
       code: `
@@ -61,7 +61,7 @@ testRule({
       }
       `,
       description:
-        "Always. Example: all arguments are named in multiline mixin call."
+        "Always. Example: all arguments are named in multiline mixin call.",
     },
     {
       code: `
@@ -69,7 +69,7 @@ testRule({
         @include reset($value: $other-value);
       }
       `,
-      description: "Always. Example: single argument is a variable."
+      description: "Always. Example: single argument is a variable.",
     },
     {
       code: `
@@ -77,7 +77,7 @@ testRule({
         @include reset($value: #{$other-value});
       }
       `,
-      description: "Always. Example: single argument is an interpolated value."
+      description: "Always. Example: single argument is an interpolated value.",
     },
     {
       code: `
@@ -85,7 +85,7 @@ testRule({
         @include animation($duration: 30 * 25ms);
       }
       `,
-      description: "Always. Example: single argument is a calculated value."
+      description: "Always. Example: single argument is a calculated value.",
     },
     {
       code: `
@@ -93,14 +93,14 @@ testRule({
         @include animation($iteration: infinite);
       }
       `,
-      description: "Always. Example: single argument is an unquoted string."
+      description: "Always. Example: single argument is an unquoted string.",
     },
     {
       code: `
       @include reset($value: 40px);
       `,
-      description: "Always. Example: standalone mixin."
-    }
+      description: "Always. Example: standalone mixin.",
+    },
   ],
 
   reject: [
@@ -113,7 +113,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.expected,
-      description: "Always. Example: single argument that is not named."
+      description: "Always. Example: single argument that is not named.",
     },
     {
       code: `
@@ -125,15 +125,15 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
-      description: "Always. Example: first argument is not named."
+      description: "Always. Example: first argument is not named.",
     },
     {
       code: `
@@ -148,16 +148,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always. Example: first argument is not named in multiline mixin call."
+        "Always. Example: first argument is not named in multiline mixin call.",
     },
     {
       code: `
@@ -169,7 +169,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always. Example: single argument is a variable but is not named."
+        "Always. Example: single argument is a variable but is not named.",
     },
     {
       code: `
@@ -181,7 +181,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always. Example: single argument is a calculated value but is not named."
+        "Always. Example: single argument is a calculated value but is not named.",
     },
     {
       code: `
@@ -193,16 +193,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always. Example: first argument is named but remaining are not."
+        "Always. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -214,15 +214,15 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
-      description: "Always. Example: mixed named arguments."
+      description: "Always. Example: mixed named arguments.",
     },
     {
       code: `
@@ -232,7 +232,7 @@ testRule({
       column: 7,
       message: messages.expected,
       description:
-        "Always. Example: single argument is not named in standalone mixin."
+        "Always. Example: single argument is not named in standalone mixin.",
     },
     {
       code: `
@@ -242,18 +242,18 @@ testRule({
         {
           line: 2,
           column: 7,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 2,
           column: 7,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always. Example: first argument is not named in standalone mixin."
-    }
-  ]
+        "Always. Example: first argument is not named in standalone mixin.",
+    },
+  ],
 });
 
 // Not allowed ("never")
@@ -269,7 +269,7 @@ testRule({
         @include reset;
       }
       `,
-      description: "Never. Example: no arguments."
+      description: "Never. Example: no arguments.",
     },
     {
       code: `
@@ -277,7 +277,7 @@ testRule({
         @include reset();
       }
       `,
-      description: "Never. Example: no arguments with parenthesis."
+      description: "Never. Example: no arguments with parenthesis.",
     },
     {
       code: `
@@ -285,7 +285,7 @@ testRule({
         @include reset(40px);
       }
     `,
-      description: "Never. Example: single argument that is not named."
+      description: "Never. Example: single argument that is not named.",
     },
     {
       code: `
@@ -293,7 +293,7 @@ testRule({
         @include reset(40px, 10px);
       }
     `,
-      description: "Never. Example: multiple arguments that are not named."
+      description: "Never. Example: multiple arguments that are not named.",
     },
     {
       code: `
@@ -305,7 +305,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: multiple arguments that are not named in multiline mixin call."
+        "Never. Example: multiple arguments that are not named in multiline mixin call.",
     },
     {
       code: `
@@ -314,7 +314,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is a variable and are not named."
+        "Never. Example: single argument is a variable and are not named.",
     },
     {
       code: `
@@ -323,7 +323,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is a calculated value and not named."
+        "Never. Example: single argument is a calculated value and not named.",
     },
     {
       code: `
@@ -332,7 +332,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is a quoted string and not named."
+        "Never. Example: single argument is a quoted string and not named.",
     },
     {
       code: `
@@ -341,7 +341,7 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is an unquoted string and not named."
+        "Never. Example: single argument is an unquoted string and not named.",
     },
     {
       code: `
@@ -350,22 +350,22 @@ testRule({
       }
     `,
       description:
-        "Never. Example: single argument is an interpolated value and not named."
+        "Never. Example: single argument is an interpolated value and not named.",
     },
     {
       code: `
       @include reset(40px);
     `,
       description:
-        "Never. Example: single argument is not named in standalone mixin."
+        "Never. Example: single argument is not named in standalone mixin.",
     },
     {
       code: `
       @include reset(40px, 10px);
     `,
       description:
-        "Never. Example: all arguments are not named in standalone mixin."
-    }
+        "Never. Example: all arguments are not named in standalone mixin.",
+    },
   ],
 
   reject: [
@@ -378,7 +378,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is named."
+      description: "Never. Example: single argument is named.",
     },
     {
       code: `
@@ -389,7 +389,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is a variable."
+      description: "Never. Example: single argument is a variable.",
     },
     {
       code: `
@@ -400,7 +400,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is an interpolated value."
+      description: "Never. Example: single argument is an interpolated value.",
     },
     {
       code: `
@@ -411,7 +411,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is a calculated value."
+      description: "Never. Example: single argument is a calculated value.",
     },
     {
       code: `
@@ -422,7 +422,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is a quoted string."
+      description: "Never. Example: single argument is a quoted string.",
     },
     {
       code: `
@@ -433,7 +433,7 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: single argument is an unquoted string."
+      description: "Never. Example: single argument is an unquoted string.",
     },
     {
       code: `
@@ -442,7 +442,7 @@ testRule({
       line: 2,
       column: 7,
       message: messages.rejected,
-      description: "Never. Example: standalone mixin."
+      description: "Never. Example: standalone mixin.",
     },
     {
       code: `
@@ -454,20 +454,20 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
-      description: "Never. Example: all arguments are named."
+      description: "Never. Example: all arguments are named.",
     },
     {
       code: `
@@ -483,21 +483,21 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
       description:
-        "Never. Example: all arguments are named in multiline mixin call."
+        "Never. Example: all arguments are named in multiline mixin call.",
     },
     {
       code: `
@@ -509,7 +509,7 @@ testRule({
       column: 9,
       message: messages.rejected,
       description:
-        "Never. Example: first argument is named but remaining are not."
+        "Never. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -520,9 +520,9 @@ testRule({
       line: 3,
       column: 9,
       message: messages.rejected,
-      description: "Never. Example: mixed named arguments."
-    }
-  ]
+      description: "Never. Example: mixed named arguments.",
+    },
+  ],
 });
 
 testRule({
@@ -537,7 +537,7 @@ testRule({
         @include reset;
       }
       `,
-      description: "Always and ignore single argument. Example: no arguments."
+      description: "Always and ignore single argument. Example: no arguments.",
     },
     {
       code: `
@@ -546,7 +546,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: no arguments with parenthesis."
+        "Always and ignore single argument. Example: no arguments with parenthesis.",
     },
     {
       code: `
@@ -555,7 +555,7 @@ testRule({
       }
     `,
       description:
-        "Always and ignore single argument. Example: single argument that is not named."
+        "Always and ignore single argument. Example: single argument that is not named.",
     },
     {
       code: `
@@ -564,7 +564,7 @@ testRule({
       }
     `,
       description:
-        "Always and ignore single argument. Example: single argument is a variable and is not named."
+        "Always and ignore single argument. Example: single argument is a variable and is not named.",
     },
     {
       code: `
@@ -573,7 +573,7 @@ testRule({
       }
     `,
       description:
-        "Always and ignore single argument. Example: single argument is a calculated value and is not named."
+        "Always and ignore single argument. Example: single argument is a calculated value and is not named.",
     },
     {
       code: `
@@ -582,7 +582,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: all arguments are named."
+        "Always and ignore single argument. Example: all arguments are named.",
     },
     {
       code: `
@@ -595,14 +595,14 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: all arguments are named in multiline mixin call."
+        "Always and ignore single argument. Example: all arguments are named in multiline mixin call.",
     },
     {
       code: `
       @include reset(40px);
     `,
       description:
-        "Always and ignore single argument. Example: single argument is not named in standalone mixin."
+        "Always and ignore single argument. Example: single argument is not named in standalone mixin.",
     },
     {
       code: `
@@ -611,7 +611,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is a variable."
+        "Always and ignore single argument. Example: single named argument is a variable.",
     },
     {
       code: `
@@ -620,7 +620,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is an interpolated value."
+        "Always and ignore single argument. Example: single named argument is an interpolated value.",
     },
     {
       code: `
@@ -629,7 +629,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is a calculated value."
+        "Always and ignore single argument. Example: single named argument is a calculated value.",
     },
     {
       code: `
@@ -638,7 +638,7 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is a quoted string."
+        "Always and ignore single argument. Example: single named argument is a quoted string.",
     },
     {
       code: `
@@ -647,15 +647,15 @@ testRule({
       }
       `,
       description:
-        "Always and ignore single argument. Example: single named argument is an unquoted string."
+        "Always and ignore single argument. Example: single named argument is an unquoted string.",
     },
     {
       code: `
       @include reset($value: 40px);
       `,
       description:
-        "Always and ignore single argument. Example: standalone mixin."
-    }
+        "Always and ignore single argument. Example: standalone mixin.",
+    },
   ],
 
   reject: [
@@ -667,16 +667,16 @@ testRule({
         {
           line: 2,
           column: 7,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 2,
           column: 7,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore single argument. Example: first argument is not named in standalone mixin."
+        "Always and ignore single argument. Example: first argument is not named in standalone mixin.",
     },
     {
       code: `
@@ -688,7 +688,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always and ignore single argument. Example: first argument is named but remaining are not."
+        "Always and ignore single argument. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -703,7 +703,7 @@ testRule({
       column: 9,
       message: messages.expected,
       description:
-        "Always and ignore single argument. Example: first argument is named but remaining are not in multiline mixin call."
+        "Always and ignore single argument. Example: first argument is named but remaining are not in multiline mixin call.",
     },
     {
       code: `
@@ -715,16 +715,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore single argument. Example: mixed named arguments."
+        "Always and ignore single argument. Example: mixed named arguments.",
     },
     {
       code: `
@@ -736,16 +736,16 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore single argument. Example: first argument is named but remaining are not."
+        "Always and ignore single argument. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -757,18 +757,18 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.expected
+          message: messages.expected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.expected
-        }
+          message: messages.expected,
+        },
       ],
       description:
-        "Always and ignore single argument. Example: mixed named arguments."
-    }
-  ]
+        "Always and ignore single argument. Example: mixed named arguments.",
+    },
+  ],
 });
 
 testRule({
@@ -783,7 +783,7 @@ testRule({
         @include reset;
       }
       `,
-      description: "Never and ignore single argument. Example: no arguments."
+      description: "Never and ignore single argument. Example: no arguments.",
     },
     {
       code: `
@@ -792,7 +792,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: no arguments with parenthesis."
+        "Never and ignore single argument. Example: no arguments with parenthesis.",
     },
     {
       code: `
@@ -801,7 +801,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument that is not named."
+        "Never and ignore single argument. Example: single argument that is not named.",
     },
     {
       code: `
@@ -810,7 +810,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: multiple arguments that are not named."
+        "Never and ignore single argument. Example: multiple arguments that are not named.",
     },
     {
       code: `
@@ -822,7 +822,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: multiple arguments that are not named in multiline mixin call."
+        "Never and ignore single argument. Example: multiple arguments that are not named in multiline mixin call.",
     },
     {
       code: `
@@ -831,7 +831,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is a variable and are not named."
+        "Never and ignore single argument. Example: single argument is a variable and are not named.",
     },
     {
       code: `
@@ -840,7 +840,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is a calculated value and not named."
+        "Never and ignore single argument. Example: single argument is a calculated value and not named.",
     },
     {
       code: `
@@ -849,7 +849,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is a quoted string and not named."
+        "Never and ignore single argument. Example: single argument is a quoted string and not named.",
     },
     {
       code: `
@@ -858,7 +858,7 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is an unquoted string and not named."
+        "Never and ignore single argument. Example: single argument is an unquoted string and not named.",
     },
     {
       code: `
@@ -867,14 +867,14 @@ testRule({
       }
     `,
       description:
-        "Never and ignore single argument. Example: single argument is an interpolated value and not named."
+        "Never and ignore single argument. Example: single argument is an interpolated value and not named.",
     },
     {
       code: `
       @include reset(40px);
     `,
       description:
-        "Never and ignore single argument. Example: single argument is not named in standalone mixin."
+        "Never and ignore single argument. Example: single argument is not named in standalone mixin.",
     },
     {
       code: `
@@ -883,7 +883,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single named argument is a variable."
+        "Never and ignore single argument. Example: single named argument is a variable.",
     },
     {
       code: `
@@ -892,7 +892,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single named argument is an interpolated value."
+        "Never and ignore single argument. Example: single named argument is an interpolated value.",
     },
     {
       code: `
@@ -901,7 +901,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single named argument is a calculated value."
+        "Never and ignore single argument. Example: single named argument is a calculated value.",
     },
     {
       code: `
@@ -910,7 +910,7 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single named argument is a quoted string."
+        "Never and ignore single argument. Example: single named argument is a quoted string.",
     },
     {
       code: `
@@ -919,22 +919,22 @@ testRule({
       }
       `,
       description:
-        "Never and ignore single argument. Example: single named argument is an unquoted string."
+        "Never and ignore single argument. Example: single named argument is an unquoted string.",
     },
     {
       code: `
       @include reset($value: 40px);
       `,
       description:
-        "Never and ignore single argument. Example: standalone mixin."
+        "Never and ignore single argument. Example: standalone mixin.",
     },
     {
       code: `
       @include reset(40px, 10px);
     `,
       description:
-        "Never and ignore single argument. Example: all arguments are not named in standalone mixin."
-    }
+        "Never and ignore single argument. Example: all arguments are not named in standalone mixin.",
+    },
   ],
 
   reject: [
@@ -948,21 +948,21 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
       description:
-        "Never and ignore single argument. Example: all arguments are named."
+        "Never and ignore single argument. Example: all arguments are named.",
     },
     {
       code: `
@@ -978,21 +978,21 @@ testRule({
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
+          message: messages.rejected,
         },
         {
           line: 3,
           column: 9,
-          message: messages.rejected
-        }
+          message: messages.rejected,
+        },
       ],
       description:
-        "Never and ignore single argument. Example: all arguments are named in multiline mixin call."
+        "Never and ignore single argument. Example: all arguments are named in multiline mixin call.",
     },
     {
       code: `
@@ -1004,7 +1004,7 @@ testRule({
       column: 9,
       message: messages.rejected,
       description:
-        "Never and ignore single argument. Example: first argument is named but remaining are not."
+        "Never and ignore single argument. Example: first argument is named but remaining are not.",
     },
     {
       code: `
@@ -1016,7 +1016,7 @@ testRule({
       column: 9,
       message: messages.rejected,
       description:
-        "Never and ignore single argument. Example: mixed named arguments."
-    }
-  ]
+        "Never and ignore single argument. Example: mixed named arguments.",
+    },
+  ],
 });

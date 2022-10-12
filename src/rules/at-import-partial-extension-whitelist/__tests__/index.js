@@ -11,57 +11,57 @@ testRule({
       code: `
       @import "fff";
     `,
-      description: "Single file, no extension, double quotes."
+      description: "Single file, no extension, double quotes.",
     },
     {
       code: `
       @import 'fff';
     `,
-      description: "Single file, no extension, single quotes."
+      description: "Single file, no extension, single quotes.",
     },
     {
       code: `
       @import ' fff ';
     `,
-      description: "Single file, no extension, trailing spaces inside quotes."
+      description: "Single file, no extension, trailing spaces inside quotes.",
     },
     {
       code: `
       @import "fff", "score";
     `,
-      description: "Two files, no extension, double quotes."
+      description: "Two files, no extension, double quotes.",
     },
     {
       code: `
       @import "fff.scss ";
     `,
-      description: "One file, whitelisted extension, space at the end."
+      description: "One file, whitelisted extension, space at the end.",
     },
     {
       code: `
       @import " fff.scss ";
     `,
-      description: "One file, whitelisted extension, trailing spaces."
+      description: "One file, whitelisted extension, trailing spaces.",
     },
     {
       code: `
       @import "df/fff.scss";
     `,
-      description: "One file, path with dir, whitelisted extension."
+      description: "One file, path with dir, whitelisted extension.",
     },
     {
       code: `
       @import "df\\fff.scss";
     `,
       description:
-        "One file, path with dir, whitelisted extension, windows delimiters."
+        "One file, path with dir, whitelisted extension, windows delimiters.",
     },
     {
       code: `
       @import "df/fff", '_1.scss';
     `,
-      description: "Two files, path with dir, whitelisted extension."
-    }
+      description: "Two files, path with dir, whitelisted extension.",
+    },
   ],
 
   reject: [
@@ -72,7 +72,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("less"),
-      description: "One file, ext not from a whitelist-string."
+      description: "One file, ext not from a whitelist-string.",
     },
     {
       code: `
@@ -82,7 +82,7 @@ testRule({
       column: 20,
       message: messages.rejected("scssy"),
       description:
-        "One file, ext not from a whitelist-string, space at the end."
+        "One file, ext not from a whitelist-string, space at the end.",
     },
     {
       code: `
@@ -91,7 +91,8 @@ testRule({
       line: 2,
       column: 21,
       message: messages.rejected("less"),
-      description: "One file, ext not from a whitelist-string, trailing spaces."
+      description:
+        "One file, ext not from a whitelist-string, trailing spaces.",
     },
     {
       code: `
@@ -100,7 +101,7 @@ testRule({
       line: 2,
       column: 23,
       message: messages.rejected("less"),
-      description: "One file, path with dir, ext not from a whitelist-string."
+      description: "One file, path with dir, ext not from a whitelist-string.",
     },
     {
       code: `
@@ -110,7 +111,7 @@ testRule({
       column: 23,
       message: messages.rejected("less"),
       description:
-        "One file, path with dir, ext not from a whitelist-string, windows delimiters."
+        "One file, path with dir, ext not from a whitelist-string, windows delimiters.",
     },
     {
       code: `
@@ -119,9 +120,9 @@ testRule({
       line: 2,
       column: 29,
       message: messages.rejected("less"),
-      description: "Two files, path with dir, ext not from a whitelist-string."
-    }
-  ]
+      description: "Two files, path with dir, ext not from a whitelist-string.",
+    },
+  ],
 });
 
 // Testing exceptions
@@ -135,71 +136,71 @@ testRule({
       code: `
       @import url("path/_file.css");
     `,
-      description: "Import CSS with url()."
+      description: "Import CSS with url().",
     },
     {
       code: `
       @import "_file.css";
     `,
-      description: "Import CSS by extension."
+      description: "Import CSS by extension.",
     },
     {
       code: `
       @import "http://_file.scss";
     `,
-      description: "Import CSS from the web, http://."
+      description: "Import CSS from the web, http://.",
     },
     {
       code: `
       @import " https://_file.scss ";
     `,
       description:
-        "Import CSS from the web, https://, trailing spaces inside quotes"
+        "Import CSS from the web, https://, trailing spaces inside quotes",
     },
     {
       code: `
       @import "//_file.scss";
     `,
-      description: "Import CSS from the web, no protocol."
+      description: "Import CSS from the web, no protocol.",
     },
     {
       code: `
       @import "_file.scss" screen;
     `,
-      description: "Import CSS (with media queries)."
+      description: "Import CSS (with media queries).",
     },
     {
       code: `
       @import "_file.scss"screen;
     `,
-      description: "Import CSS (with media queries)."
+      description: "Import CSS (with media queries).",
     },
     {
       code: `
       @import "_file.scss "screen;
     `,
       description:
-        "Import CSS (with media queries), trailing space inside quotes."
+        "Import CSS (with media queries), trailing space inside quotes.",
     },
     {
       code: `
       @import url(_lol.scss) screen;
     `,
-      description: "Import CSS (with media queries - url + media)."
+      description: "Import CSS (with media queries - url + media).",
     },
     {
       code: `
       @import _file.scss tv, screen;
     `,
-      description: "Import CSS (with media queries - multiple)."
+      description: "Import CSS (with media queries - multiple).",
     },
     {
       code: `
       @import _file.scss tv,screen;
     `,
-      description: "Import CSS (with media queries - multiple, no spaces)."
-    }
-  ]
+      description: "Import CSS (with media queries - multiple, no spaces).",
+    },
+  ],
 });
 
 // Testing an array
@@ -213,25 +214,26 @@ testRule({
       code: `
       @import "fff.scss";
     `,
-      description: "One file, ext from a whitelist array (string)."
+      description: "One file, ext from a whitelist array (string).",
     },
     {
       code: `
       @import "fff.SCsS";
     `,
-      description: "One file, ext from a whitelist array (string), messed case."
+      description:
+        "One file, ext from a whitelist array (string), messed case.",
     },
     {
       code: `
       @import "fff.less";
     `,
-      description: "One file, ext from a whitelist array (regex)."
+      description: "One file, ext from a whitelist array (regex).",
     },
     {
       code: `
       @import "fff.LESS";
     `,
-      description: "One file, ext from a whitelist array (regex), messed case."
+      description: "One file, ext from a whitelist array (regex), messed case.",
     },
     {
       code: `
@@ -239,8 +241,8 @@ testRule({
           "fff.ruthless";
     `,
       description:
-        "Multiple files, ext from a whitelist array (regex), partial match."
-    }
+        "Multiple files, ext from a whitelist array (regex), partial match.",
+    },
   ],
 
   reject: [
@@ -251,7 +253,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("foo"),
-      description: "Single file, extension not from a whitelist."
+      description: "Single file, extension not from a whitelist.",
     },
     {
       code: `
@@ -261,7 +263,7 @@ testRule({
       column: 21,
       message: messages.rejected("scss1"),
       description:
-        "Single file, extension not from a whitelist, trailing whitespaces."
+        "Single file, extension not from a whitelist, trailing whitespaces.",
     },
     {
       code: `
@@ -270,7 +272,7 @@ testRule({
       line: 2,
       column: 27,
       message: messages.rejected("moi"),
-      description: "Multiple files, ext not from a whitelist."
-    }
-  ]
+      description: "Multiple files, ext not from a whitelist.",
+    },
+  ],
 });
