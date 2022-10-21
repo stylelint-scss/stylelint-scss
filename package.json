@@ -57,6 +57,7 @@
       "lodash"
     ],
     "globals": {
+      "dedent": true,
       "testRule": true
     },
     "rules": {
