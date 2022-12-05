@@ -417,7 +417,8 @@ testRule({
       line: 2,
       column: 26,
       message: messages.rejected("scss"),
-      description: "Single file, has .scss extension and a .scss in the filename."
+      description:
+        "Single file, has .scss extension and a .scss in the filename."
     }
   ]
 });

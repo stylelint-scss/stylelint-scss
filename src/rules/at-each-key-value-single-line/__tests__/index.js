@@ -11,7 +11,7 @@ testRule({
         $font-weights: ("regular": 400, "medium": 500, "bold": 700);
         @each $key, $value in $font-weights {}
       `,
-      description: "Proper map loop that gets both keys + values",
+      description: "Proper map loop that gets both keys + values"
     },
     {
       code: dedent`
@@ -19,7 +19,7 @@ testRule({
         @each $key in map-keys($font-weights) {}
       `,
       description:
-        "Loop that just gets keys + has no need for values when using global function",
+        "Loop that just gets keys + has no need for values when using global function"
     },
     {
       code: dedent`
@@ -28,7 +28,7 @@ testRule({
         @each $key in map.keys($font-weights) {}
       `,
       description:
-        "Loop that just gets keys + has no need for values when loading sass module with default namespace",
+        "Loop that just gets keys + has no need for values when loading sass module with default namespace"
     },
     {
       code: dedent`
@@ -37,7 +37,7 @@ testRule({
         @each $key in map-keys($font-weights) {}
       `,
       description:
-        "Loop that just gets keys + has no need for values when loading sass module with default namespace but using global function",
+        "Loop that just gets keys + has no need for values when loading sass module with default namespace but using global function"
     },
     {
       code: dedent`
@@ -46,7 +46,7 @@ testRule({
         @each $key in keys($font-weights) {}
       `,
       description:
-        "Loop that just gets keys + has no need for values when loading sass module with no namespace",
+        "Loop that just gets keys + has no need for values when loading sass module with no namespace"
     },
     {
       code: dedent`
@@ -55,7 +55,7 @@ testRule({
         @each $key in map-keys($font-weights) {}
       `,
       description:
-        "Loop that just gets keys + has no need for values when loading sass module with no namespace but using global function",
+        "Loop that just gets keys + has no need for values when loading sass module with no namespace but using global function"
     },
     {
       code: dedent`
@@ -64,7 +64,7 @@ testRule({
         @each $key in ns.keys($font-weights) {}
       `,
       description:
-        "Loop that just gets keys + has no need for values when loading sass module with custom namespace",
+        "Loop that just gets keys + has no need for values when loading sass module with custom namespace"
     },
     {
       code: dedent`
@@ -73,7 +73,7 @@ testRule({
         @each $key in map-keys($font-weights) {}
       `,
       description:
-        "Loop that just gets keys + has no need for values when loading sass module with custom namespace but using global function",
+        "Loop that just gets keys + has no need for values when loading sass module with custom namespace but using global function"
     },
     {
       code: dedent`
@@ -84,7 +84,7 @@ testRule({
         }
       `,
       description:
-        "map-get pattern used with different hash than loop when using global function",
+        "map-get pattern used with different hash than loop when using global function"
     },
     {
       code: dedent`
@@ -96,7 +96,7 @@ testRule({
         }
       `,
       description:
-        "map.get pattern used with different hash than loop when loading sass module with default namespace",
+        "map.get pattern used with different hash than loop when loading sass module with default namespace"
     },
     {
       code: dedent`
@@ -108,7 +108,7 @@ testRule({
         }
       `,
       description:
-        "map.get pattern used with different hash than loop when loading sass module with default namespace but using global function",
+        "map.get pattern used with different hash than loop when loading sass module with default namespace but using global function"
     },
     {
       code: dedent`
@@ -120,7 +120,7 @@ testRule({
         }
       `,
       description:
-        "map.get pattern used with different hash than loop when loading sass module with no namespace",
+        "map.get pattern used with different hash than loop when loading sass module with no namespace"
     },
     {
       code: dedent`
@@ -132,7 +132,7 @@ testRule({
         }
       `,
       description:
-        "map.get pattern used with different hash than loop when loading sass module with no namespace but using global function",
+        "map.get pattern used with different hash than loop when loading sass module with no namespace but using global function"
     },
     {
       code: dedent`
@@ -144,7 +144,7 @@ testRule({
         }
       `,
       description:
-        "map.get pattern used with different hash than loop when loading sass module with custom namespace",
+        "map.get pattern used with different hash than loop when loading sass module with custom namespace"
     },
     {
       code: dedent`
@@ -156,8 +156,8 @@ testRule({
         }
       `,
       description:
-        "map.get pattern used with different hash than loop when loading sass module with custom namespace but using global function",
-    },
+        "map.get pattern used with different hash than loop when loading sass module with custom namespace but using global function"
+    }
   ],
 
   reject: [
@@ -174,7 +174,7 @@ testRule({
       line: 2,
       column: 7,
       endLine: 2,
-      endColumn: 38,
+      endColumn: 38
     },
     {
       code: dedent`
@@ -190,7 +190,7 @@ testRule({
       line: 3,
       column: 7,
       endLine: 3,
-      endColumn: 38,
+      endColumn: 38
     },
     {
       code: dedent`
@@ -206,7 +206,7 @@ testRule({
       line: 3,
       column: 7,
       endLine: 3,
-      endColumn: 38,
+      endColumn: 38
     },
     {
       code: dedent`
@@ -222,7 +222,7 @@ testRule({
       line: 3,
       column: 7,
       endLine: 3,
-      endColumn: 34,
+      endColumn: 34
     },
     {
       code: dedent`
@@ -238,7 +238,7 @@ testRule({
       line: 3,
       column: 7,
       endLine: 3,
-      endColumn: 38,
+      endColumn: 38
     },
     {
       code: dedent`
@@ -254,7 +254,7 @@ testRule({
       line: 3,
       column: 7,
       endLine: 3,
-      endColumn: 37,
+      endColumn: 37
     },
     {
       code: dedent`
@@ -270,7 +270,7 @@ testRule({
       line: 3,
       column: 7,
       endLine: 3,
-      endColumn: 38,
-    },
-  ],
+      endColumn: 38
+    }
+  ]
 });

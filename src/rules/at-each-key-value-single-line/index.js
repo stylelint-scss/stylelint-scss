@@ -5,17 +5,17 @@ export const ruleName = namespace("at-each-key-value-single-line");
 
 export const messages = utils.ruleMessages(ruleName, {
   expected:
-    "Use @each $key, $value in $map syntax instead of $value: map-get($map, $key)",
+    "Use @each $key, $value in $map syntax instead of $value: map-get($map, $key)"
 });
 
 export const meta = {
-  url: ruleUrl(ruleName),
+  url: ruleUrl(ruleName)
 };
 
 export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary,
+      actual: primary
     });
 
     if (!validOptions) {
@@ -24,7 +24,7 @@ export default function rule(primary) {
 
     const mapNamespace = moduleNamespace(root, "sass:map");
 
-    root.walkAtRules("each", (rule) => {
+    root.walkAtRules("each", rule => {
       const parts = separateEachParams(rule.params);
 
       // If loop is fetching both key + value, return
@@ -38,7 +38,7 @@ export default function rule(primary) {
       }
 
       // Loop over decls inside of each statement and loop for variable assignments.
-      rule.walkDecls((innerDecl) => {
+      rule.walkDecls(innerDecl => {
         // Check that this decl is a map-get call
         if (innerDecl.prop[0] !== "$") {
           return;
@@ -66,7 +66,7 @@ export default function rule(primary) {
           node: rule,
           result,
           ruleName,
-          word: rule.params,
+          word: rule.params
         });
       });
     });
@@ -82,7 +82,7 @@ rule.meta = meta;
 function separateEachParams(paramString) {
   const parts = paramString.split("in");
 
-  return [parts[0].split(",").map((s) => s.trim()), parts[1].trim()];
+  return [parts[0].split(",").map(s => s.trim()), parts[1].trim()];
 }
 
 function didCallMapKeys(mapDecl, mapNamespace) {

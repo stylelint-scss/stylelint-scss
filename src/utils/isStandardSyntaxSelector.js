@@ -6,7 +6,7 @@ import hasInterpolation from "./hasInterpolation";
  * @param {string} selector
  * @returns {boolean}
  */
-export default function(selector) {
+export default function (selector) {
   // SCSS or Less interpolation
   if (hasInterpolation(selector)) {
     return false;

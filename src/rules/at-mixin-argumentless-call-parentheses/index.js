@@ -48,9 +48,8 @@ export default function rule(value, _, context) {
       const mixinName = /\s*(\S*?)\s*(?:\(|$)/.exec(mixinCall.params)[1];
 
       utils.report({
-        message: messages[value === "never" ? "rejected" : "expected"](
-          mixinName
-        ),
+        message:
+          messages[value === "never" ? "rejected" : "expected"](mixinName),
         node: mixinCall,
         result,
         ruleName

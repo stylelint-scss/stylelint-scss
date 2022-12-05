@@ -203,7 +203,7 @@ testRule({
     `,
       description:
         "{ always, except: only-of-namespace } background, two rules inside"
-    },
+    }
   ],
 
   reject: [
@@ -270,7 +270,7 @@ testRule({
           line: 3,
           column: 9,
           message: messages.rejected("background")
-        },
+        }
       ]
     },
     {
@@ -290,7 +290,7 @@ testRule({
           line: 7,
           column: 9,
           message: messages.expected("background-position")
-        },
+        }
       ]
     }
   ]

@@ -4,7 +4,7 @@
  * @param {Node} node - Any PostCSS node
  * @return {string}
  */
-export default function(node) {
+export default function (node) {
   let result = "";
 
   if (node.raws.before) {
