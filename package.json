@@ -129,6 +129,13 @@
     ],
     "testRegex": ".*\\.test\\.js$|src/.*/__tests__/.*\\.js$"
   },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": false,
+    "arrowParens": "avoid"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",

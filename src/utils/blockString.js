@@ -11,7 +11,7 @@ import rawNodeString from "./rawNodeString";
  * @param {Rule|AtRule} statement - postcss rule or at-rule node
  * @return {string|undefined}
  */
-export default function(statement) {
+export default function (statement) {
   if (!hasBlock(statement)) {
     return;
   }

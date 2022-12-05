@@ -7,6 +7,6 @@
  * @param {string} ignoredName
  * @return {boolean}
  */
-export default function(options, ignoredName) {
+export default function (options, ignoredName) {
   return options && options.ignore && options.ignore.includes(ignoredName);
 }

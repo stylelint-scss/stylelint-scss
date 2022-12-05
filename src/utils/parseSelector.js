@@ -1,6 +1,6 @@
 import postCssSelectorParser from "postcss-selector-parser";
 
-export default function(selector, result, node, cb) {
+export default function (selector, result, node, cb) {
   try {
     return postCssSelectorParser(cb).processSync(selector);
   } catch (e) {

@@ -6,7 +6,7 @@ import { get } from "lodash";
  * @param {import('postcss').Rule} node
  * @returns {boolean}
  */
-export default function(node) {
+export default function (node) {
   const prop = get(node, "raws.prop.raw", node.prop);
   const value = get(node, "raws.value.raw", node.value);
 

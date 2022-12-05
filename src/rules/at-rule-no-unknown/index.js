@@ -22,7 +22,7 @@ const sassAtRules = [
   "return",
   "use",
   "warn",
-  "while",
+  "while"
 ];
 
 const ruleToCheckAgainst = "at-rule-no-unknown";
@@ -34,11 +34,11 @@ export const messages = utils.ruleMessages(ruleName, {
     return rules[ruleToCheckAgainst].messages
       .rejected(...args)
       .replace(` (${ruleToCheckAgainst})`, "");
-  },
+  }
 });
 
 export const meta = {
-  url: ruleUrl(ruleName),
+  url: ruleUrl(ruleName)
 };
 
 export default function rule(primaryOption, secondaryOptions) {
@@ -47,14 +47,14 @@ export default function rule(primaryOption, secondaryOptions) {
       result,
       ruleName,
       {
-        actual: primaryOption,
+        actual: primaryOption
       },
       {
         actual: secondaryOptions,
         possible: {
-          ignoreAtRules: [isRegExp, isString],
+          ignoreAtRules: [isRegExp, isString]
         },
-        optional: true,
+        optional: true
       }
     );
 
@@ -65,16 +65,16 @@ export default function rule(primaryOption, secondaryOptions) {
     const optionsAtRules = secondaryOptions && secondaryOptions.ignoreAtRules;
     const ignoreAtRules = sassAtRules.concat(optionsAtRules || []);
     const defaultedOptions = Object.assign({}, secondaryOptions, {
-      ignoreAtRules,
+      ignoreAtRules
     });
 
     utils.checkAgainstRule(
       {
         ruleName: ruleToCheckAgainst,
         ruleSettings: [primaryOption, defaultedOptions],
-        root,
+        root
       },
-      (warning) => {
+      warning => {
         const name = warning.node.name;
 
         if (!ignoreAtRules.includes(name)) {
@@ -84,7 +84,7 @@ export default function rule(primaryOption, secondaryOptions) {
             result,
             node: warning.node,
             start: { line: warning.line, column: warning.column },
-            end: { line: warning.endLine, column: warning.endColumn },
+            end: { line: warning.endLine, column: warning.endColumn }
           });
         }
       }

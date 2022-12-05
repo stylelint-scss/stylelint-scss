@@ -6,7 +6,7 @@ import hasInterpolation from "./hasInterpolation";
  * @param {string} property
  * @returns {boolean}
  */
-export default function(property) {
+export default function (property) {
   // SCSS var (e.g. $var: x), list (e.g. $list: (x)) or map (e.g. $map: (key:value))
   if (property.startsWith("$")) {
     return false;

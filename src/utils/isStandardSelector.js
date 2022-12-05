@@ -6,7 +6,7 @@ import hasInterpolation from "./hasInterpolation";
  * @param {string} selector
  * @return {boolean} If `true`, the selector is standard
  */
-export default function(selector) {
+export default function (selector) {
   const standardSyntaxSelector = isStandardSyntaxSelector(selector);
 
   // SCSS placeholder selectors

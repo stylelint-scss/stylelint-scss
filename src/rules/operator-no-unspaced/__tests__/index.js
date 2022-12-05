@@ -881,8 +881,7 @@ testRule({
       description: "Char (actually, part of variable name): $var-1px."
     },
     {
-      code:
-        'a { background-image: url(if($bootstrap-sass-asset-helper, twbs-image-path("#{$var-1x}"), "#{$var-1x}")); }',
+      code: 'a { background-image: url(if($bootstrap-sass-asset-helper, twbs-image-path("#{$var-1x}"), "#{$var-1x}")); }',
       description:
         'Char (actually, part of variable name): url(if($bootstrap-sass-asset-helper, twbs-image-path("#{$var-1x}"), "#{$var-1x}"));.'
     },
@@ -2805,13 +2804,11 @@ testRule({
 
   accept: [
     {
-      code:
-        "@import url('//fonts.googleapis.com/css?family=Google+Material+Icons');",
+      code: "@import url('//fonts.googleapis.com/css?family=Google+Material+Icons');",
       description: "Import url function w/ single-quoted string."
     },
     {
-      code:
-        '@import url("//fonts.googleapis.com/css?family=Google+Material+Icons");',
+      code: '@import url("//fonts.googleapis.com/css?family=Google+Material+Icons");',
       description: "Import url function w/ double-quoted string."
     },
     {

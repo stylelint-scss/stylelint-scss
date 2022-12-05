@@ -7,7 +7,7 @@
  * @param {string} selector
  * @return {boolean} If `true`, the selector has an interpolating ampersand
  */
-export default function(selector) {
+export default function (selector) {
   for (let i = 0; i < selector.length; i++) {
     if (selector[i] !== "&") {
       continue;
