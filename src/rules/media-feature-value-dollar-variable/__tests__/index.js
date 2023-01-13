@@ -57,6 +57,47 @@ testRule({
     `,
       description:
         "Always. Example: value is interpolation of a single var; spaces before and after the interpolation."
+    },
+    {
+      code: `
+      @use "./variables";
+
+      @media (max-width: variables.$val) { 
+        a { color: red; } 
+      }
+      `,
+      description: "Always. Example: using @use."
+    },
+    {
+      code: `
+      @use "./variables" as v;
+
+      @media (max-width: v.$val) { 
+        a { color: red; } 
+      }
+      `,
+      description: "Always. Example: using @use with 'as'."
+    },
+    {
+      code: `
+      @use "./variables";
+
+      @media (max-width: #{variables.$val}) { 
+        a { color: red; } 
+      }
+      `,
+      description: "Always. Example: using @use with interpolation."
+    },
+    {
+      code: `
+      @use "./variables";
+
+      @media (max-width: #{ variables.$val }) { 
+        a { color: red; } 
+      }
+      `,
+      description:
+        "Always. Example: using @use with interpolation of a single var spaces inside the interpolation."
     }
   ],
 
