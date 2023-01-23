@@ -34,7 +34,7 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.1",
     "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.1.1",
     "stylelint": "^14.5.1"
   },
   "peerDependencies": {
