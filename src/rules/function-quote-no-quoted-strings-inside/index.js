@@ -60,9 +60,8 @@ export default function rule(primary, _, context) {
         // postcss-value-parser represents quoted strings as type 'string' (as opposed to word)
         if (node.nodes[0].quote || vars[node.nodes[0].value] === "string") {
           if (context.fix) {
-            const contents = /quote\((.*)\)/.exec(decl.value);
-
-            decl.value = contents[1];
+            const contents = decl.value.match(/quote\((.*)\)/);
+            decl.value = decl.value.replace(/quote\(.*\)/, contents[1]);
           } else {
             utils.report({
               message: messages.rejected,
