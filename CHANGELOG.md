@@ -1,3 +1,12 @@
+# 4.4.0
+
+- Added: support for stylelint version 15.
+- Added: `at-rule-no-unknown` and `at-each-key-value-single-line` rules support for end positions (#655, #689).
+- Fixed: `at-function-pattern` and `at-mixin-pattern`, fix warnings to range only one line (#639).
+- Fixed: `at-import-partial-extension` autofix incorrectly replacing the filename (#643).
+- Fixed: `media-feature-value-dollar-variable` add support for `@use` (#715).
+- Fixed: `function-quote-no-quoted-strings-inside` bug with autofix (#740).
+
 # 4.3.0
 
 - Added: options ignore: "after-dollar-variable" to `dollar-variable-empty-line-before` (#604)
