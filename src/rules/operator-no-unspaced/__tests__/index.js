@@ -1323,6 +1323,16 @@ testRule({
       }
       `,
       description: "ignores @at-root"
+    },
+    {
+      code: `
+      .element {
+        @supports selector(:has(*)) {
+          opacity: 0;
+        }
+      }
+      `,
+      description: "issue #709"
     }
   ],
 
