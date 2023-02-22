@@ -92,6 +92,20 @@ testRule({
     {
       code: `div { background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) }`,
       description: "background image with base64 data, issue #561"
+    },
+    {
+      code: `
+      .foo {
+	      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="412" height="395" viewBox="0 0 412 395"><style>.bar{}</style><g fill-rule="evenodd"><path d="M208.805 393.054c45.057-161.12 43.75-161.848 76.32-276.73l7.832 4.523c4.255 2.458 7.738.448 7.738-4.455V61.606c8.643-30.27 15.416-53.66 17.4-60.693h35.287L412 55.217l-38.498 33.27 29.11 31.473-191.86 273.094c-.938 1.542-2.244 1.19-1.947 0zm20.96-347.278c1.733 0 3.148.958 3.148 2.147V76c0 1.186-1.415 2.15-3.147 2.15H182.37c-1.742 0-3.153-.96-3.153-2.15V47.923c0-1.185 1.41-2.147 3.153-2.147h47.396z"/><path d="m288.265 14.688-52.14 30.1c.605.92.973 1.98.973 3.136v28.078c0 1.457-.565 2.77-1.496 3.83l52.663 30.402c3.59 2.073 6.535.377 6.535-3.764V18.456c0-4.145-2.944-5.836-6.535-3.768zM175.03 76V47.923c0-1.15.368-2.21.966-3.13l-52.14-30.105c-3.588-2.068-6.53-.376-6.53 3.768v88.013c0 4.14 2.938 5.84 6.53 3.76l52.66-30.405c-.926-1.06-1.487-2.37-1.487-3.827z"/><path d="M201.248 393.054h1.947c-45.05-161.12-43.753-161.848-76.32-276.73l-7.833 4.523c-4.253 2.458-7.737.448-7.737-4.455V61.606C102.66 31.336 95.89 7.946 93.9.913H58.617L0 55.217l38.494 33.27-29.11 31.473 191.864 273.094z"/><circle cx="204.572" cy="122.538" r="14.231"/><circle cx="204.572" cy="207.156" r="14.231"/><circle cx="204.572" cy="291.785" r="14.23"/></g></svg>');
+      }
+      `,
+      description: "background image with an svg, issue #605"
+    },
+    {
+      code: `
+       $accordion-button-active-icon: url("data:image/svg+xml;charset=utf-8,<svg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 512 512' xml:space='preserve'><style>.st0{fill:#{$accordion-icon-color-active};stroke:%231d4dcd;stroke-width:32;stroke-linecap:round;stroke-linejoin:round}</style><path class='st0' d='M256 112v288M400 256H112'/></svg>") !default;
+      `,
+      description: "data uri inside a variable, issue #605"
     }
   ],
 
