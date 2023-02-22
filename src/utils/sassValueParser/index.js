@@ -158,7 +158,7 @@ export function mathOperatorCharType(string, index, isAfterColon) {
 
     // ---- Processing * character
     if (character === "*") {
-      return "op";
+      return checkMultiplication(string, index);
     }
 
     // ---- Processing % character
@@ -179,6 +179,34 @@ export function mathOperatorCharType(string, index, isAfterColon) {
 // --------------------------------------------------------------------------
 // Functions for checking particular characters (+, -, /)
 // --------------------------------------------------------------------------
+
+/**
+ * Checks the specified `*` char type: operator, sign (*), part of string
+ *
+ * @param {String} string - the source string
+ * @param {Number} index - the index of the character in string to check
+ * @return {String|false}
+ *    • "op", if the character is a operator in a math/string operation
+ *    • "sign" if it is a sign before a positive number,
+ *    • "char" if it is a part of a string or identifier,
+ *    • false - if it is none from above (most likely an error)
+ */
+function checkMultiplication(string, index) {
+  const insideFn = isInsideFunctionCall(string, index);
+
+  if (insideFn.is && insideFn.fn) {
+    const fnArgsReg = new RegExp(insideFn.fn + "\\(([^)]+)\\)");
+    const fnArgs = string.match(fnArgsReg);
+    const isSingleMultiplicationChar =
+      Array.isArray(fnArgs) && fnArgs[1] === "*";
+    // e.g. selector(:has(*))
+    if (isSingleMultiplicationChar) {
+      return "char";
+    }
+  }
+
+  return "op";
+}
 
 /**
  * Checks the specified `+` char type: operator, sign (+ or -), part of string
@@ -350,6 +378,11 @@ function checkMinus(string, index) {
 
     // e.g. `#{10px -1}`, `#{math.acos(-0.5)}`
     if (isInsideInterpolation(string, index)) {
+      // e.g. `url(https://my-url.com/image-#{$i -2}-dark.svg)`
+      if (isInsideFunctionCall_.fn === "url") {
+        return "op";
+      }
+
       if (
         isInsideFunctionCall_.is &&
         ((isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
@@ -518,7 +551,11 @@ function checkSlash(string, index, isAfterColon) {
   // e.g. `(1px/1)`, `fn(7 / 15)`, but not `url(8/11)`
   const isInsideFn = isInsideFunctionCall(string, index);
 
-  if (isInsideFn.is && isInsideFn.fn === "url" && isProtocolBefore(before)) {
+  if (isInsideFn.is && isInsideFn.fn === "url") {
+    // e.g. `url(https://my-url.com/image-#{$i /2}-dark.svg)`
+    if (isInsideInterpolation(string, index)) {
+      return "op";
+    }
     return "char";
   }
 
@@ -693,11 +730,13 @@ function isInsideInterpolation(string, index) {
  *    {Boolean} return.is - if inside a function arguments
  *    {String} return.fn - function name
  */
-function isInsideFunctionCall(string, index) {
+export function isInsideFunctionCall(string, index) {
   const result = { is: false, fn: null };
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
-  const beforeMatch = before.match(/([a-zA-Z_-][\w-]*)\([^(){}]+$/);
+  const beforeMatch = before.match(
+    /(?:[a-zA-Z_-][\w-]*\()?(:?[a-zA-Z_-][\w-]*)\(/
+  );
 
   if (beforeMatch && beforeMatch[0] && after.search(/^[^(,]+\)/) !== -1) {
     result.is = true;
@@ -893,10 +932,6 @@ function isVariableAfter(after) {
 
 function isDotBefore(before) {
   return before.slice(-1) === ".";
-}
-
-function isProtocolBefore(before) {
-  return before.search(/https?:/) !== -1;
 }
 
 function isFunctionBefore(before) {
