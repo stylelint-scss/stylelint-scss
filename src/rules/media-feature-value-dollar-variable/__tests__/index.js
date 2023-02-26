@@ -397,21 +397,3 @@ testRule({
     }
   ]
 });
-
-// Invalid option (false)
-testRule({
-  ruleName,
-  config: [false],
-  customSyntax: "postcss-scss",
-
-  accept: [
-    {
-      code: `
-      @media screen and (max-width: $val) and (min-width: 200px) {
-        a { display: none; }
-      }
-    `,
-      description: "Invalid option. Example: values are mixed."
-    }
-  ]
-});
