@@ -23,6 +23,78 @@ testRule({
     },
     {
       code: "a { color: color.adjust(#6b717f, $red: 15); }"
+    },
+    {
+      code: `
+      @use 'mymodule';
+
+      .foobar {
+        property: mymodule.myfunction();
+      }
+      `,
+      description: "@use namespaced function. issue #760"
+    },
+    {
+      code: `
+      @use "mymodule";
+
+      .foobar {
+        property: mymodule.myfunction();
+      }
+      `,
+      description: "@use namespaced function. issue #760"
+    },
+    {
+      code: `
+      @use "src/mymodule";
+
+      .foobar {
+        property: mymodule.myfunction();
+      }
+      `,
+      description:
+        "@use namespaced function (By default, the namespace is just the last component of the module's URL.) issue #760"
+    },
+    {
+      code: `
+      @use "src/mymodule" as m;
+
+      .foobar {
+        property: m.myfunction();
+      }
+      `,
+      description: "@use namespaced function, 'as' keyword. issue #760"
+    },
+    {
+      code: `
+      @use 'library' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+
+      .foobar {
+        property: library.fn();
+      }
+      `,
+      description: "@use namespaced function, 'with' keyword. issue #760"
+    },
+    {
+      code: `
+      @use 'sass:math';
+
+      $half: math.percentage(1/2);
+      `,
+      description: "@use built-in function."
+    },
+    {
+      code: `
+      @use 'sass:map';
+      @use 'sass:string';
+
+      $map-get: map.get(('key': 'value'), 'key');
+      $str-index: string.index('string', 'i');
+      `,
+      description: "@use built-in function."
     }
   ],
 
@@ -38,6 +110,32 @@ testRule({
       message: messages.rejected("color.unknown"),
       line: 1,
       column: 12
+    },
+    {
+      code: `
+      @use 'mymodule';
+
+      .foobar {
+        property: othermodule.myfunction();
+      }
+      `,
+      message: messages.rejected("othermodule.myfunction"),
+      line: 5,
+      column: 19,
+      description: "non-matching @use namespace"
+    },
+    {
+      code: `
+      @use 'something' as *
+
+      .class {
+        color: myFn();
+      }
+      `,
+      message: messages.rejected("myFn"),
+      line: 5,
+      column: 16,
+      description: "@use without a namespace"
     }
   ]
 });
