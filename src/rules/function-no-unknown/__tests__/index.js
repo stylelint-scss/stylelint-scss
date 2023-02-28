@@ -126,6 +126,19 @@ testRule({
     },
     {
       code: `
+      @use "mymodule" as m;
+
+      .foobar {
+        property: c.myfunction();
+      }
+      `,
+      message: messages.rejected("c.myfunction"),
+      line: 5,
+      column: 19,
+      description: "non-matching @use namespace, 'as' keyword"
+    },
+    {
+      code: `
       @use 'something' as *
 
       .class {
