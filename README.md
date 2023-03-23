@@ -1,10 +1,10 @@
 # stylelint-scss
 
-[![npm version](https://img.shields.io/npm/v/stylelint-scss.svg)](https://www.npmjs.com/package/stylelint-scss)
-[![Build Status](https://github.com/stylelint-scss/stylelint-scss/workflows/Tests/badge.svg)](https://github.com/stylelint-scss/stylelint-scss/actions?workflow=Tests)
-[![Coverage Status](https://img.shields.io/coveralls/github/stylelint-scss/stylelint-scss/master.svg)](https://coveralls.io/github/stylelint-scss/stylelint-scss?branch=master)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
-[![Downloads per month](https://img.shields.io/npm/dm/stylelint-scss.svg)](https://npmcharts.com/compare/stylelint-scss)
+[![npm version](https://img.shields.io/npm/v/stylelint-scss?logo=npm&logoColor=fff)](https://www.npmjs.com/package/stylelint-scss)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/stylelint-scss/stylelint-scss/test.yml?branch=master&label=tests&logo=github)](https://github.com/stylelint-scss/stylelint-scss/actions?workflow=Tests)
+[![Coverage Status](https://img.shields.io/coveralls/github/stylelint-scss/stylelint-scss/master?logo=coveralls&logoColor=fff)](https://coveralls.io/github/stylelint-scss/stylelint-scss?branch=master)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
+[![Downloads per month](https://img.shields.io/npm/dm/stylelint-scss)](https://npmcharts.com/compare/stylelint-scss)
 
 A collection of SCSS specific linting rules for [Stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
 
