@@ -1,6 +1,6 @@
 # at-import-partial-extension-blacklist
 
-Specify blacklist of disallowed file extensions for partial names in `@import` commands.
+Specify a blacklist of disallowed file extensions for partial names in `@import` commands.
 
 ```scss
 @import "file.scss"

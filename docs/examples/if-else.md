@@ -1,6 +1,6 @@
 # `@if`/`@else`
 
-A stylesheet author might want to treat `@if` and `@else` in a special manner, for example `@else` should be on the same line as its `@if`'s closing brace while all the other blocks and at-rules has to have newline after their closing brace. stylelint-scss has some rules for this, but from the core stylelint's point of view, `@if` and `@else` SCSS statements are pretty much regular at-rules, so they comply to corresponding `at-rule-...` and `block-...` rules. Below are some configurations that might help you achieve the needed patterns.
+A stylesheet author might want to treat `@if` and `@else` in a special manner, for example `@else` should be on the same line as its `@if`'s closing brace while all the other blocks and at-rules has to have newline after their closing brace. stylelint-scss has some rules for this, but from the core Stylelint's point of view, `@if` and `@else` SCSS statements are pretty much regular at-rules, so they comply to corresponding `at-rule-...` and `block-...` rules. Below are some configurations that might help you achieve the needed patterns.
 
 ---
 
