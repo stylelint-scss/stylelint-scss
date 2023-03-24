@@ -1,14 +1,14 @@
+import { utils } from "stylelint";
 import {
+  blockString,
   hasEmptyLine,
+  isBoolean,
   isSingleLineString,
   namespace,
   optionsHaveException,
   optionsHaveIgnored,
-  blockString,
   ruleUrl
 } from "../../utils";
-import { utils } from "stylelint";
-import { isBoolean } from "lodash";
 
 export const ruleName = namespace("dollar-variable-empty-line-before");
 

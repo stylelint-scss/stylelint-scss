@@ -1,6 +1,11 @@
-import { isRegExp, isString } from "lodash";
 import { utils } from "stylelint";
-import { namespace, optionsHaveIgnored, ruleUrl } from "../../utils";
+import {
+  isRegExp,
+  isString,
+  namespace,
+  optionsHaveIgnored,
+  ruleUrl
+} from "../../utils";
 
 export const ruleName = namespace("dollar-variable-pattern");
 

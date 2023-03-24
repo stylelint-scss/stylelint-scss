@@ -1,6 +1,5 @@
-import { namespace, ruleUrl } from "../../utils";
 import { utils } from "stylelint";
-import { isBoolean } from "lodash";
+import { isBoolean, namespace, ruleUrl } from "../../utils";
 import { sassConditionalBraceNLAfterChecker } from "../at-if-closing-brace-newline-after";
 
 export const ruleName = namespace("at-else-closing-brace-newline-after");

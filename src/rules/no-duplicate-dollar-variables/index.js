@@ -1,6 +1,5 @@
 import { utils } from "stylelint";
-import { isString, isBoolean } from "lodash";
-import { namespace, ruleUrl } from "../../utils";
+import { isBoolean, isString, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("no-duplicate-dollar-variables");
 

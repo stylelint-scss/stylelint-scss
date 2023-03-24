@@ -1,7 +1,6 @@
-import { isRegExp, isString } from "lodash";
-import { utils } from "stylelint";
-import { namespace, ruleUrl } from "../../utils";
 import nodeJsPath from "path";
+import { utils } from "stylelint";
+import { isRegExp, isString, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-import-partial-extension-blacklist");
 
