@@ -1,4 +1,3 @@
-import delve from "dlv";
 import isCustomPropertySet from "./isCustomPropertySet";
 import isStandardSyntaxSelector from "./isStandardSelector";
 
@@ -10,7 +9,7 @@ import isStandardSyntaxSelector from "./isStandardSelector";
  */
 export default function (rule) {
   // Get full selector
-  const selector = delve(rule, "raws.selector.raw", rule.selector);
+  const selector = rule?.raws?.selector?.raw || rule.selector;
 
   if (!isStandardSyntaxSelector(rule.selector)) {
     return false;
