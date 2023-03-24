@@ -11,7 +11,7 @@ Require a single space or disallow whitespace after the closing brace of `@if` s
 
 The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule.
 
-This rule might have conflicts with stylelint's core [`block-closing-brace-space-after`](https://stylelint.io/user-guide/rules/block-closing-brace-space-after) rule if the latter is set up in your `.stylelintrc` config file.
+This rule might have conflicts with Stylelint's core [`block-closing-brace-space-after`](https://stylelint.io/user-guide/rules/block-closing-brace-space-after) rule if the latter is set up in your `.stylelintrc` config file.
 
 ## Options
 

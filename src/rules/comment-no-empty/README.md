@@ -1,6 +1,6 @@
 # comment-no-empty
 
-Disallow empty comments. Should be used **instead of** the stylelint's [comment-no-empty](https://stylelint.io/user-guide/rules/comment-no-empty) because the core rule ignores SCSS-like comments.
+Disallow empty comments. Should be used **instead of** the Stylelint's [comment-no-empty](https://stylelint.io/user-guide/rules/comment-no-empty) because the core rule ignores SCSS-like comments.
 
 <!-- prettier-ignore -->
 ```scss

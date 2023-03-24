@@ -1,6 +1,6 @@
 {
   "name": "stylelint-scss",
-  "description": "A collection of SCSS specific rules for Stylelint",
+  "description": "A collection of SCSS-specific rules for Stylelint",
   "version": "4.5.0",
   "author": "Krister Kari",
   "babel": {

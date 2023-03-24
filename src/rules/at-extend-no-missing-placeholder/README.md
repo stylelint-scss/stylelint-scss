@@ -4,8 +4,6 @@ Disallow at-extends (`@extend`) with missing placeholders.
 
 Using a class selector with the `@extend` directive usually results in more generated CSS than when using a placeholder selector. Furthermore, Sass specifically introduced placeholder selectors in order to be used with `@extend`.
 
-See [Mastering Sass extends and placeholders](http://8gramgorilla.com/mastering-sass-extends-and-placeholders/).
-
 ```scss
 .foo {
   @extend %bar
