@@ -10,11 +10,11 @@ A collection of SCSS-specific linting rules for [Stylelint](https://github.com/s
 
 ## Purpose
 
-Stylelint by itself supports [SCSS syntax](https://stylelint.io/user-guide/css-processors#parsing-non-standard-syntax) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](https://stylelint.io/user-guide/rules/max-nesting-depth), control the way [`@-rules`](https://stylelint.io/user-guide/rules#at-rule) are written. Yet Stylelint is in general focused on standard CSS.
+Stylelint by itself supports [SCSS syntax](https://stylelint.io/user-guide/get-started) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](https://stylelint.io/user-guide/rules/max-nesting-depth), control the way [`@-rules`](https://stylelint.io/user-guide/rules#at-rule) are written. Yet Stylelint is in general focused on standard CSS.
 
 stylelint-scss introduces rules specific to SCSS syntax. That said, the rules from this plugin can be used with other syntaxes, like Less or some PostCSS syntaxes. That's why the rules' names are not tied to SCSS only (`at-function-pattern` instead of `scss-function-pattern`).
 
-The plugin follows Stylelint's guidelines (about [rule names](https://stylelint.io/user-guide/about-rules), testing and [so on](https://github.com/stylelint/stylelint/tree/master/docs/developer-guide)).
+The plugin follows Stylelint's guidelines (about [rule names](https://stylelint.io/user-guide/rules), testing and [so on](https://github.com/stylelint/stylelint/tree/main/docs/developer-guide)).
 
 ## Installation and usage
 
@@ -49,7 +49,7 @@ Please refer to [Stylelint docs](https://stylelint.io/user-guide/get-started) fo
 
 ## List of rules
 
-Here are stylelint-scss' rules, grouped by the _thing_ they apply to (just like in [Stylelint](https://stylelint.io/user-guide/about-rules)).
+Here are stylelint-scss' rules, grouped by the _thing_ they apply to (just like in [Stylelint](https://stylelint.io/user-guide/rules)).
 
 Please also see the [example configs](./docs/examples/) for special cases.
 
@@ -182,7 +182,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 The work on the plugin's rules is still in progress, so if you feel like it, you're welcome to help out with any of these (the plugin follows Stylelint guidelines so most of this is based on its docs):
 
-- Create, enhance, and debug rules (see Stylelint's guide to "[Working on rules](https://github.com/stylelint/stylelint/blob/master/docs/developer-guide/rules.md)").
+- Create, enhance, and debug rules (see Stylelint's guide to "[Working on rules](https://github.com/stylelint/stylelint/blob/main/docs/developer-guide/rules.md)").
 - Improve documentation.
 - Chime in on any open issue or pull request.
 - Open new issues about your ideas on new rules, or for how to improve the existing ones, and pull requests to show us how your idea works.
