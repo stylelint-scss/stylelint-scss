@@ -1,3 +1,10 @@
+# 4.6.0
+
+- Fixed: docs - fix broken links and wording tweaks
+- Removed: Lodash dependency
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v4.5.0...v4.6.0
+
 # 4.5.0
 
 - Fixed: `operator-no-unspaced` make data uri regex less strict (#767).
