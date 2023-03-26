@@ -8,8 +8,8 @@
 # 4.5.0
 
 - Fixed: `operator-no-unspaced` make data uri regex less strict (#767).
-- Changed: `operator-no-unspaced` add support for :has (#768).
-- Changed: `function-no-unknown` add support for @use (#773).
+- Changed: `operator-no-unspaced` add support for `:has` (#768).
+- Changed: `function-no-unknown` add support for `@use` (#773).
 
 # 4.4.0
 
