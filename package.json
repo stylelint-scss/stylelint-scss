@@ -3,10 +3,11 @@
   "description": "A collection of SCSS-specific rules for Stylelint",
   "version": "4.5.0",
   "author": "Krister Kari",
-  "babel": {
-    "presets": [
-      "@babel/env"
-    ]
+  "repository": "stylelint-scss/stylelint-scss",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "peerDependencies": {
+    "stylelint": "^14.5.1 || ^15.0.0"
   },
   "dependencies": {
     "dlv": "^1.1.3",
@@ -36,43 +37,6 @@
     "rimraf": "^4.4.1",
     "stylelint": "^15.3.0"
   },
-  "peerDependencies": {
-    "stylelint": "^14.5.1 || ^15.0.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 6
-    },
-    "env": {
-      "es6": true,
-      "jest": true,
-      "node": true
-    },
-    "globals": {
-      "dedent": true,
-      "testRule": true
-    },
-    "rules": {
-      "eqeqeq": "error",
-      "no-use-before-define": [
-        "error",
-        "nofunc"
-      ],
-      "strict": [
-        "error",
-        "global"
-      ],
-      "arrow-spacing": "error",
-      "no-var": "error",
-      "object-shorthand": "error",
-      "prefer-const": "error",
-      "template-curly-spacing": "error"
-    }
-  },
   "files": [
     "dist/**/*.js",
     "!**/__tests__/**"
@@ -82,48 +46,10 @@
     "csslint",
     "lint",
     "linter",
+    "scss",
     "stylelint",
     "stylelint-plugin"
   ],
-  "license": "MIT",
-  "main": "dist/index.js",
-  "repository": "stylelint-scss/stylelint-scss",
-  "jest": {
-    "preset": "jest-preset-stylelint",
-    "clearMocks": true,
-    "collectCoverage": false,
-    "collectCoverageFrom": [
-      "src/**/*.js"
-    ],
-    "coverageDirectory": "./.coverage/",
-    "coverageReporters": [
-      "lcov",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 75,
-        "functions": 75,
-        "lines": 75,
-        "statements": 75
-      }
-    },
-    "setupFiles": [
-      "./jest-setup.js"
-    ],
-    "testEnvironment": "node",
-    "roots": [
-      "src"
-    ],
-    "testRegex": ".*\\.test\\.js$|src/.*/__tests__/.*\\.js$"
-  },
-  "prettier": {
-    "trailingComma": "none",
-    "tabWidth": 2,
-    "semi": true,
-    "singleQuote": false,
-    "arrowParens": "avoid"
-  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "babel src --out-dir dist",
@@ -139,10 +65,5 @@
     "test-util": "npm run jest",
     "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html",
     "prepare": "husky install"
-  },
-  "lint-staged": {
-    "**/*.{js,json}": [
-      "prettier --write"
-    ]
   }
 }
