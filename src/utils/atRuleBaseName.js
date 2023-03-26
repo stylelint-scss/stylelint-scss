@@ -4,6 +4,6 @@
  * @param {AtRule} atRule
  * @return {string} The name
  */
-export default function(atRule) {
+export default function (atRule) {
   return atRule.params.replace(/\([^)]*\)/, "").trim();
 }

@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 import valueParser from "postcss-value-parser";
 
 export const ruleName = namespace("dollar-variable-no-missing-interpolation");
@@ -8,6 +8,10 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: (n, v) =>
     `Expected variable ${v} to be interpolated when using it with ${n}`
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
 // https://developer.mozilla.org/en/docs/Web/CSS/custom-ident#Lists_of_excluded_values
 const customIdentProps = [
@@ -50,7 +54,7 @@ function toRegex(arr) {
   return new RegExp(`(${arr.join("|")})`);
 }
 
-export default function(actual) {
+export default function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -133,3 +137,7 @@ export default function(actual) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

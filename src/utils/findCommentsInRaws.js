@@ -83,9 +83,10 @@ export default function findCommentsInRaws(rawString) {
           break;
         }
 
-        const functionNameRegSearch = /(?:^|[\n\r]|\s-|[:\s,.(){}*+/%])([\w-]*)$/.exec(
-          rawString.substring(0, i)
-        );
+        const functionNameRegSearch =
+          /(?:^|[\n\r]|\s-|[:\s,.(){}*+/%])([\w-]*)$/.exec(
+            rawString.substring(0, i)
+          );
 
         // A `\S(` can be in, say, `@media(`
         if (!functionNameRegSearch) {

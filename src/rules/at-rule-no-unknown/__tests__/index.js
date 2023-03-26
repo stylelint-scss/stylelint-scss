@@ -43,31 +43,25 @@ testRule({
       code: "@supports (--foo: green) { body { color: green; } }"
     },
     {
-      code:
-        "@supports ( (perspective: 10px) or (-webkit-perspective: 10px) ) { font-size: 10pt }"
+      code: "@supports ( (perspective: 10px) or (-webkit-perspective: 10px) ) { font-size: 10pt }"
     },
     {
-      code:
-        "@counter-style win-list { system: fixed; symbols: url(gold-medal.svg); suffix: ' ';}"
+      code: "@counter-style win-list { system: fixed; symbols: url(gold-medal.svg); suffix: ' ';}"
     },
     {
-      code:
-        "@document url(http://www.w3.org/), url-prefix(http://www.w3.org/Style/), domain(mozilla.org), regexp('https:.*')"
+      code: "@document url(http://www.w3.org/), url-prefix(http://www.w3.org/Style/), domain(mozilla.org), regexp('https:.*')"
     },
     {
       code: "@page :left { margin-left: 4cm; }"
     },
     {
-      code:
-        '@font-face { font-family: MyHelvetica; src: local("Helvetica"), url(MgOpenModern.ttf); }'
+      code: '@font-face { font-family: MyHelvetica; src: local("Helvetica"), url(MgOpenModern.ttf); }'
     },
     {
-      code:
-        "@keyframes identifier { 0% { top: 0; left: 0; } 30% { top: 50px; } 68%, 100% { top: 100px; left: 100%; } }"
+      code: "@keyframes identifier { 0% { top: 0; left: 0; } 30% { top: 50px; } 68%, 100% { top: 100px; left: 100%; } }"
     },
     {
-      code:
-        "@-webkit-keyframes identifier { 0% { top: 0; left: 0; } 30% { top: 50px; } 68%, 100% { top: 100px; left: 100%; } }"
+      code: "@-webkit-keyframes identifier { 0% { top: 0; left: 0; } 30% { top: 50px; } 68%, 100% { top: 100px; left: 100%; } }"
     },
     {
       code: "@viewport { min-width: 640px; max-width: 800px; }"
@@ -76,8 +70,7 @@ testRule({
       code: "@viewport { orientation: landscape; }"
     },
     {
-      code:
-        '@counter-style winners-list { system: fixed; symbols: url(gold-medal.svg); suffix: " "; }'
+      code: '@counter-style winners-list { system: fixed; symbols: url(gold-medal.svg); suffix: " "; }'
     },
     {
       code: "@font-feature-values Font One { @styleset { nice-style: 12; } }"
@@ -110,10 +103,13 @@ testRule({
 
   reject: [
     {
-      code: `
-      @funciton floo ($n) {}
-    `,
-      line: 2,
+      code: dedent`
+        @funciton floo ($n) {}
+      `,
+      line: 1,
+      column: 1,
+      endLine: 1,
+      endColumn: 10,
       description: "",
       message: messages.rejected("@funciton")
     },

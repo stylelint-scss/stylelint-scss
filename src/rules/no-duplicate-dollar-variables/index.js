@@ -1,6 +1,5 @@
 import { utils } from "stylelint";
-import { isString, isBoolean } from "lodash";
-import { namespace } from "../../utils";
+import { isBoolean, isString, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("no-duplicate-dollar-variables");
 
@@ -8,7 +7,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: variable => `Unexpected duplicate dollar variable ${variable}`
 });
 
-export default function(value, secondaryOptions) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(value, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -178,3 +181,7 @@ export default function(value, secondaryOptions) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

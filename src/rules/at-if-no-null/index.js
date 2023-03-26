@@ -1,4 +1,4 @@
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 import { utils } from "stylelint";
 
 export const ruleName = namespace("at-if-no-null");
@@ -8,7 +8,11 @@ export const messages = utils.ruleMessages(ruleName, {
   not_equals_null: "Expected @if statement rather than @if statement != null"
 });
 
-export default function(expectation) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -47,3 +51,7 @@ export default function(expectation) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

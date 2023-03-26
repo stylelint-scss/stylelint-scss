@@ -1,4 +1,4 @@
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 import { utils } from "stylelint";
 
 export const ruleName = namespace("at-if-closing-brace-space-after");
@@ -8,7 +8,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: 'Unexpected space after "}" of @if statement'
 });
 
-export default function(expectation, _, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -91,3 +95,7 @@ export function sassConditionalBraceSpaceAfterChecker({
     }
   });
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace, whitespaceChecker } from "../../utils";
+import { namespace, ruleUrl, whitespaceChecker } from "../../utils";
 
 export const ruleName = namespace("at-function-parentheses-space-before");
 
@@ -10,7 +10,11 @@ export const messages = utils.ruleMessages(ruleName, {
     "Expected a single space before parentheses in function declaration"
 });
 
-export default function(value, _, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -41,3 +45,7 @@ export default function(value, _, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

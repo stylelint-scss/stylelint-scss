@@ -1,6 +1,5 @@
-import { isRegExp, isString } from "lodash";
 import { rules, utils } from "stylelint";
-import { namespace } from "../../utils";
+import { isRegExp, isString, namespace, ruleUrl } from "../../utils";
 
 const sassAtRules = [
   "at-root",
@@ -37,7 +36,11 @@ export const messages = utils.ruleMessages(ruleName, {
   }
 });
 
-export default function(primaryOption, secondaryOptions) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(primaryOption, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -79,11 +82,15 @@ export default function(primaryOption, secondaryOptions) {
             ruleName,
             result,
             node: warning.node,
-            line: warning.line,
-            column: warning.column
+            start: { line: warning.line, column: warning.column },
+            end: { line: warning.endLine, column: warning.endColumn }
           });
         }
       }
     );
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

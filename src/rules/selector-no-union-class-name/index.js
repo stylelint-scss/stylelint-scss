@@ -7,13 +7,17 @@ import {
   isPseudoElement
 } from "postcss-selector-parser";
 import { utils } from "stylelint";
-import { namespace, parseSelector } from "../../utils";
+import { namespace, parseSelector, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("selector-no-union-class-name");
 
 export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected union class name with the parent selector (&)"
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
 const validNestingTypes = [
   isClassName,
@@ -24,7 +28,7 @@ const validNestingTypes = [
   isPseudoElement
 ];
 
-export default function(actual) {
+export default function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -69,6 +73,10 @@ export default function(actual) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
 
 /**
  * Searches for the closest rule which

@@ -1,7 +1,12 @@
-import { isRegExp, isString } from "lodash";
-import { rules, utils } from "stylelint";
 import valueParser from "postcss-value-parser";
-import { namespace, ALL_FUNCTIONS } from "../../utils";
+import { rules, utils } from "stylelint";
+import {
+  ALL_FUNCTIONS,
+  isRegExp,
+  isString,
+  namespace,
+  ruleUrl
+} from "../../utils";
 
 const ruleToCheckAgainst = "function-no-unknown";
 
@@ -14,6 +19,36 @@ export const messages = utils.ruleMessages(ruleName, {
       .replace(` (${ruleToCheckAgainst})`, "");
   }
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+function isNamespacedFunction(fn) {
+  const namespacedFunc = /^\w+\.\w+$/;
+  return namespacedFunc.test(fn);
+}
+
+function isAtUseAsSyntax(nodes) {
+  const [first, second, third] = nodes.slice(-3);
+  return (
+    first.type === "word" &&
+    first.value === "as" &&
+    second.type === "space" &&
+    third.type === "word"
+  );
+}
+
+function getAtUseNamespace(nodes) {
+  if (isAtUseAsSyntax(nodes)) {
+    const [last] = nodes.slice(-1);
+    return last.value;
+  }
+  const [first] = nodes;
+  const parts = first.value.split("/");
+  const [last] = parts.slice(-1);
+  return last;
+}
 
 export default function rule(primaryOption, secondaryOptions) {
   return (root, result) => {
@@ -61,6 +96,22 @@ export default function rule(primaryOption, secondaryOptions) {
             return;
           }
 
+          if (isNamespacedFunction(funcName)) {
+            const atUseNamespaces = [];
+
+            root.walkAtRules(/^use$/i, atRule => {
+              const { nodes } = valueParser(atRule.params);
+              atUseNamespaces.push(getAtUseNamespace(nodes));
+            });
+
+            if (atUseNamespaces.length) {
+              const [namespace] = funcName.split(".");
+              if (atUseNamespaces.includes(namespace)) {
+                return;
+              }
+            }
+          }
+
           if (!ignoreFunctionsAsSet.has(funcName)) {
             utils.report({
               message: messages.rejected(funcName),
@@ -75,3 +126,7 @@ export default function rule(primaryOption, secondaryOptions) {
     );
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

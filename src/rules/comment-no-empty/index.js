@@ -1,5 +1,5 @@
 import { rules, utils } from "stylelint";
-import { isInlineComment, namespace } from "../../utils";
+import { isInlineComment, namespace, ruleUrl } from "../../utils";
 
 const coreRuleName = "comment-no-empty";
 
@@ -12,7 +12,11 @@ export const messages = utils.ruleMessages(ruleName, {
   )
 });
 
-function rule(primary) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -65,6 +69,10 @@ function rule(primary) {
   };
 }
 
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
+
 function isStandaloneDoubleSlashComment(node) {
   return (
     node &&
@@ -79,5 +87,3 @@ function isStandaloneDoubleSlashComment(node) {
 function isEmptyComment(comment) {
   return comment.text === "";
 }
-
-export default rule;

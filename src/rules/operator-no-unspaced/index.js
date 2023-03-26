@@ -7,7 +7,8 @@ import {
   findCommentsInRaws,
   findOperators,
   isWhitespace,
-  namespace
+  namespace,
+  ruleUrl
 } from "../../utils";
 
 export const ruleName = namespace("operator-no-unspaced");
@@ -16,6 +17,10 @@ export const messages = utils.ruleMessages(ruleName, {
   expectedAfter: operator => `Expected single space after "${operator}"`,
   expectedBefore: operator => `Expected single space before "${operator}"`
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
 /**
  * The actual check for are there (un)necessary whitespaces
@@ -72,7 +77,7 @@ function newlineBefore(str, startIndex) {
   return false;
 }
 
-export default function(expectation) {
+export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -99,6 +104,10 @@ export default function(expectation) {
     }
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
 
 /**
  * The core rule logic function. This one can be imported by some other rules
@@ -147,7 +156,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     return results;
   }
 
-  const dataURIRegex = /^url\(\s*['"]?data:.+;base64,.+['"]?\s*\)$/;
+  const dataURIRegex = /^url\(\s*['"]?data:.+['"]?\s*\)/;
 
   root.walk(item => {
     if (item.prop === "unicode-range") {

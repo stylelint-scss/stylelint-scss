@@ -1,7 +1,6 @@
-import { isRegExp, isString } from "lodash";
-import { utils } from "stylelint";
-import { namespace } from "../../utils";
 import nodeJsPath from "path";
+import { utils } from "stylelint";
+import { isRegExp, isString, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-import-partial-extension-blacklist");
 
@@ -9,7 +8,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: ext => `Unexpected extension ".${ext}" in imported partial name`
 });
 
-export default function(blacklistOption) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(blacklistOption) {
   const blacklist = [].concat(blacklistOption);
 
   return (root, result) => {
@@ -70,3 +73,7 @@ export default function(blacklistOption) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

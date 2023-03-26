@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace, optionsHaveIgnored } from "../../utils";
+import { namespace, optionsHaveIgnored, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("media-feature-value-dollar-variable");
 
@@ -9,7 +9,11 @@ export const messages = utils.ruleMessages(ruleName, {
     "Expected a dollar-variable (e.g. $var) to be used as a media feature value"
 });
 
-export default function(expectation, options) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -37,9 +41,9 @@ export default function(expectation, options) {
     // and parse it again afterwards to remove trailing junk
     const valueRegexGlobal = new RegExp(valueRegex.source, "g");
     // `$var-name_sth`
-    const variableRegex = /^\$[\w-]+$/;
+    const variableRegex = /^(\w+\.)?\$[\w-]+$/;
     // `#{$var-name_sth}`
-    const interpolationVarRegex = /^#{\s*\$\w+\s*}$/;
+    const interpolationVarRegex = /^#{\s*(\w+\.)?\$\w+\s*}$/;
     // `none`, `dark`
     const keywordValueRegex = /^[a-z][a-z\d-]*$/;
 
@@ -93,3 +97,7 @@ export default function(expectation, options) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

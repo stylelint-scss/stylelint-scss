@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace, optionsHaveIgnored } from "../../utils";
+import { namespace, optionsHaveIgnored, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-mixin-named-arguments");
 
@@ -8,10 +8,14 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected a named parameter in at-include call"
 });
 
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
 const hasArgumentsRegExp = /\((.*)\)$/;
 const isScssVarRegExp = /^\$\S*/;
 
-export default function(expectation, options) {
+export default function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -109,3 +113,7 @@ export default function(expectation, options) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

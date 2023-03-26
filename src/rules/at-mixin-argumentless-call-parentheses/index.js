@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-mixin-argumentless-call-parentheses");
 
@@ -9,7 +9,11 @@ export const messages = utils.ruleMessages(ruleName, {
     `Unexpected parentheses in argumentless mixin "${mixin}" call`
 });
 
-export default function(value, _, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -44,9 +48,8 @@ export default function(value, _, context) {
       const mixinName = /\s*(\S*?)\s*(?:\(|$)/.exec(mixinCall.params)[1];
 
       utils.report({
-        message: messages[value === "never" ? "rejected" : "expected"](
-          mixinName
-        ),
+        message:
+          messages[value === "never" ? "rejected" : "expected"](mixinName),
         node: mixinCall,
         result,
         ruleName
@@ -54,3 +57,7 @@ export default function(value, _, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

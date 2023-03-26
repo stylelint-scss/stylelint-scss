@@ -62,6 +62,43 @@ testRule({
           font-family: $font;
         }
       `
+    },
+    {
+      code: `
+      $area-row: "1";
+      @if $template {
+        $template: $template quote($area-row);
+      }
+      @else {
+        $template: quote($area-row);
+      }
+      `,
+      description: "issue #633",
+      warnings: [
+        {
+          column: 30,
+          endColumn: 31,
+          endLine: 4,
+          line: 4,
+          message: messages.rejected
+        },
+        {
+          column: 20,
+          endColumn: 21,
+          endLine: 7,
+          line: 7,
+          message: messages.rejected
+        }
+      ],
+      fixed: `
+      $area-row: "1";
+      @if $template {
+        $template: $template $area-row;
+      }
+      @else {
+        $template: $area-row;
+      }
+      `
     }
   ]
 });

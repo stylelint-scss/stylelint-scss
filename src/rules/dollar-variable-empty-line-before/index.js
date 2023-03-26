@@ -1,13 +1,14 @@
+import { utils } from "stylelint";
 import {
+  blockString,
   hasEmptyLine,
+  isBoolean,
   isSingleLineString,
   namespace,
   optionsHaveException,
   optionsHaveIgnored,
-  blockString
+  ruleUrl
 } from "../../utils";
-import { utils } from "stylelint";
-import { isBoolean } from "lodash";
 
 export const ruleName = namespace("dollar-variable-empty-line-before");
 
@@ -16,7 +17,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected empty line before $-variable"
 });
 
-export default function(expectation, options, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -29,7 +34,11 @@ export default function(expectation, options, context) {
         actual: options,
         possible: {
           except: ["first-nested", "after-comment", "after-dollar-variable"],
-          ignore: ["after-comment", "inside-single-line-block"],
+          ignore: [
+            "after-comment",
+            "inside-single-line-block",
+            "after-dollar-variable"
+          ],
           disableFix: isBoolean
         },
         optional: true
@@ -73,6 +82,15 @@ export default function(expectation, options, context) {
         optionsHaveIgnored(options, "inside-single-line-block") &&
         decl.parent.type !== "root" &&
         isSingleLineString(blockString(decl.parent))
+      ) {
+        return;
+      }
+
+      // if ignoring after another $-variable
+      if (
+        optionsHaveIgnored(options, "after-dollar-variable") &&
+        decl.prev() &&
+        isDollarVar(decl.prev())
       ) {
         return;
       }
@@ -146,6 +164,10 @@ export default function(expectation, options, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
 
 function isDollarVar(node) {
   return node.prop && node.prop[0] === "$";

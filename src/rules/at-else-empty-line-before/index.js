@@ -1,4 +1,4 @@
-import { hasEmptyLine, namespace } from "../../utils";
+import { hasEmptyLine, namespace, ruleUrl } from "../../utils";
 import { utils } from "stylelint";
 
 export const ruleName = namespace("at-else-empty-line-before");
@@ -7,7 +7,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected empty line before @else"
 });
 
-export default function(expectation, _, context) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -45,3 +49,7 @@ export default function(expectation, _, context) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

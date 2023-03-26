@@ -1,6 +1,6 @@
 # at-rule-no-unknown
 
-Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown).
+Disallow unknown at-rules. Should be used **instead of** Stylelint's [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown).
 
 ```css
     @unknown (max-width: 960px) {}
@@ -8,7 +8,7 @@ Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no
  * At-rules like this */
 ```
 
-This rule is basically a wrapper around the mentioned core rule, but with added SCSS-specific `@`-directives. So if you use the core rule, `@if`, `@extend` and other Sass-y things will get warnings. You must disable stylelint's core rule to make this rule work:
+This rule is basically a wrapper around the mentioned core rule, but with added SCSS-specific `@`-directives. So if you use the core rule, `@if`, `@extend` and other Sass-y things will get warnings. You must disable Stylelint's core rule to make this rule work:
 
 ```json
 {

@@ -85,7 +85,8 @@ export default {
   "comment-no-empty": commentNoEmpty,
   "comment-no-loud": commentNoLoud,
   "declaration-nested-properties": declarationNestedProperties,
-  "declaration-nested-properties-no-divided-groups": declarationNestedPropertiesNoDividedGroups,
+  "declaration-nested-properties-no-divided-groups":
+    declarationNestedPropertiesNoDividedGroups,
   "dimension-no-non-numeric-values": dimensionNoNonNumeric,
   "dollar-variable-colon-newline-after": dollarVariableColonNewlineAfter,
   "dollar-variable-colon-space-after": dollarVariableColonSpaceAfter,
@@ -94,8 +95,10 @@ export default {
   "dollar-variable-empty-line-after": dollarVariableEmptyLineAfter,
   "dollar-variable-empty-line-before": dollarVariableEmptyLineBefore,
   "dollar-variable-first-in-block": dollarVariableFirstInBlock,
-  "dollar-variable-no-missing-interpolation": dollarVariableNoMissingInterpolation,
-  "dollar-variable-no-namespaced-assignment": dollarVariableNoNamespacedAssignment,
+  "dollar-variable-no-missing-interpolation":
+    dollarVariableNoMissingInterpolation,
+  "dollar-variable-no-namespaced-assignment":
+    dollarVariableNoNamespacedAssignment,
   "dollar-variable-pattern": dollarVariablePattern,
   "double-slash-comment-empty-line-before": doubleSlashCommentEmptyLineBefore,
   "double-slash-comment-inline": doubleSlashCommentInline,

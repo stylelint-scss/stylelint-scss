@@ -1,6 +1,6 @@
 import valueParser from "postcss-value-parser";
 import { utils } from "stylelint";
-import { declarationValueIndex, namespace } from "../../utils";
+import { declarationValueIndex, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("dimension-no-non-numeric-values");
 
@@ -8,6 +8,10 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: unit =>
     `Expected "$value * 1${unit}" instead of "#{$value}${unit}". Consider writing "value" in terms of ${unit} originally.`
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
 export const units = [
   // Font-relative lengths:
@@ -112,6 +116,10 @@ export default function rule(primary) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
 
 function isInterpolated(value) {
   let boolean = false;

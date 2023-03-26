@@ -1,6 +1,6 @@
 import nodeJsPath from "path";
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-import-partial-extension");
 
@@ -8,6 +8,10 @@ export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected @import to have an extension",
   rejected: ext => `Unexpected extension ".${ext}" in @import`
 });
+
+export const meta = {
+  url: ruleUrl(ruleName)
+};
 
 // https://drafts.csswg.org/mediaqueries/#media-types
 const mediaQueryTypes = [
@@ -28,7 +32,7 @@ const mediaQueryTypesRE = new RegExp(`(${mediaQueryTypes.join("|")})$`, "i");
 const stripPath = path =>
   path.replace(/^\s*(["'])\s*/, "").replace(/\s*(["'])\s*$/, "");
 
-export default function(expectation) {
+export default function rule(expectation, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -71,7 +75,15 @@ export default function(expectation) {
           return;
         }
 
-        if (extension && expectation === "never") {
+        const isScssPartial = extension === "scss";
+        if (extension && isScssPartial && expectation === "never") {
+          if (context.fix) {
+            const extPattern = new RegExp(`\\.${extension}(['" ]*)$`, "g");
+            decl.params = decl.params.replace(extPattern, "$1");
+
+            return;
+          }
+
           utils.report({
             message: messages.rejected(extension),
             node: decl,
@@ -84,3 +96,7 @@ export default function(expectation) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

@@ -1,4 +1,4 @@
-import { eachRoot, findCommentsInRaws, namespace } from "../../utils";
+import { eachRoot, findCommentsInRaws, namespace, ruleUrl } from "../../utils";
 import { utils } from "stylelint";
 
 export const ruleName = namespace("double-slash-comment-whitespace-inside");
@@ -8,7 +8,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected space after //"
 });
 
-export default function(expectation) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -63,3 +67,7 @@ export default function(expectation) {
     }
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

@@ -1,11 +1,13 @@
 import { utils } from "stylelint";
 import optionsMatches from "stylelint/lib/utils/optionsMatches";
-import { isString, isRegExp } from "lodash";
 import {
+  hasNestedSibling,
+  isRegExp,
+  isString,
+  isType,
   namespace,
   parseSelector,
-  hasNestedSibling,
-  isType
+  ruleUrl
 } from "../../utils";
 
 export const ruleName = namespace("selector-no-redundant-nesting-selector");
@@ -14,7 +16,11 @@ export const messages = utils.ruleMessages(ruleName, {
   rejected: "Unnecessary nesting selector (&)"
 });
 
-export default function(actual, options) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(actual, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -79,3 +85,7 @@ export default function(actual, options) {
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

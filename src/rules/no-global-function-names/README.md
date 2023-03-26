@@ -2,7 +2,7 @@
 
 Disallows the use of global function names, as these global functions are now located inside built-in Sass modules.
 
-A full list of disallowed names (and their alternatives) is located [here](https://github.com/sass/sass/blob/master/accepted/module-system.md#built-in-modules-1)
+A full list of disallowed names (and their alternatives) is located [here](https://github.com/sass/sass/blob/main/accepted/module-system.md#built-in-modules-1)
 
 It is recommended to use the [Sass migrator](https://sass-lang.com/documentation/cli/migrator) to change these global function names automatically.
 

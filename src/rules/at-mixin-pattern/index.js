@@ -1,6 +1,5 @@
-import { isRegExp, isString } from "lodash";
 import { utils } from "stylelint";
-import { namespace } from "../../utils";
+import { isRegExp, isString, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-mixin-pattern");
 
@@ -8,7 +7,11 @@ export const messages = utils.ruleMessages(ruleName, {
   expected: "Expected @mixin name to match specified pattern"
 });
 
-export default function(pattern) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(pattern) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: pattern,
@@ -33,12 +36,21 @@ export default function(pattern) {
         return;
       }
 
+      const mixinTopLine = Object.assign({}, decl.source.start);
+      mixinTopLine.line += 1;
+      mixinTopLine.column = 0;
+
       utils.report({
         message: messages.expected,
         node: decl,
         result,
-        ruleName
+        ruleName,
+        end: mixinTopLine
       });
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;

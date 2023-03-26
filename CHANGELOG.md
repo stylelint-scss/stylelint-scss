@@ -1,3 +1,25 @@
+# 4.5.0
+
+- Fixed: `operator-no-unspaced` make data uri regex less strict (#767).
+- Changed: `operator-no-unspaced` add support for :has (#768).
+- Changed: `function-no-unknown` add support for @use (#773).
+
+# 4.4.0
+
+- Added: support for stylelint version 15.
+- Added: `at-rule-no-unknown` and `at-each-key-value-single-line` rules support for end positions (#655, #689).
+- Fixed: `at-function-pattern` and `at-mixin-pattern`, fix warnings to range only one line (#639).
+- Fixed: `at-import-partial-extension` autofix incorrectly replacing the filename (#643).
+- Fixed: `media-feature-value-dollar-variable` add support for `@use` (#715).
+- Fixed: `function-quote-no-quoted-strings-inside` bug with autofix (#740).
+
+# 4.3.0
+
+- Added: options ignore: "after-dollar-variable" to `dollar-variable-empty-line-before` (#604)
+- Fixed: Make filenames with dots work with `at-import-partial-extension` rule (#612)
+- Added: `meta` property for all rules (#602)
+- Added: `at-import-partial-extension` autofix only when `"never"` (#608)
+
 # 4.2.0
 
 - Added: `function-no-unknown` rule (#591).

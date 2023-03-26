@@ -134,6 +134,12 @@ testRule({
       @import "screen.scss";
     `,
       description: "Import with a name that matches a media query type."
+    },
+    {
+      code: `
+      @import "colors.variables.scss";
+    `,
+      description: "Import a filename with a dot."
     }
   ],
 
@@ -182,6 +188,7 @@ testRule({
   ruleName,
   config: ["never"],
   customSyntax: "postcss-scss",
+  fix: true,
 
   accept: [
     {
@@ -293,6 +300,12 @@ testRule({
       @import _file.scss tv,screen;
     `,
       description: "Import CSS (with media queries - multiple, no spaces)."
+    },
+    {
+      code: `
+      @import "colors.variables";
+    `,
+      description: "Import a style file with a dot in the name."
     }
   ],
 
@@ -300,7 +313,10 @@ testRule({
     {
       code: `
       @import "fff.scss";
-    `,
+     `,
+      fixed: `
+      @import "fff";
+     `,
       line: 2,
       column: 20,
       message: messages.rejected("scss"),
@@ -309,6 +325,9 @@ testRule({
     {
       code: `
       @import "screen.scss";
+    `,
+      fixed: `
+      @import "screen";
     `,
       line: 2,
       column: 23,
@@ -319,6 +338,9 @@ testRule({
       code: `
       @import "fff.scss ";
     `,
+      fixed: `
+      @import "fff ";
+    `,
       line: 2,
       column: 20,
       message: messages.rejected("scss"),
@@ -327,6 +349,9 @@ testRule({
     {
       code: `
       @import " fff.scss ";
+    `,
+      fixed: `
+      @import " fff ";
     `,
       line: 2,
       column: 21,
@@ -337,6 +362,9 @@ testRule({
       code: `
       @import "df/fff.scss";
     `,
+      fixed: `
+      @import "df/fff";
+    `,
       line: 2,
       column: 23,
       message: messages.rejected("scss"),
@@ -345,6 +373,9 @@ testRule({
     {
       code: `
       @import "df\\fff.scss";
+    `,
+      fixed: `
+      @import "df\\fff";
     `,
       line: 2,
       column: 23,
@@ -356,10 +387,38 @@ testRule({
       code: `
       @import "df/fff", '_1.scss';
     `,
+      fixed: `
+      @import "df/fff", '_1';
+    `,
       line: 2,
       column: 29,
       message: messages.rejected("scss"),
       description: "Two files, path with dir, has extension."
+    },
+    {
+      code: `
+      @import "colors.variables.scss";
+    `,
+      fixed: `
+      @import "colors.variables";
+    `,
+      line: 2,
+      column: 33,
+      message: messages.rejected("scss"),
+      description: "Single file, has .scss extension and a dot in the name."
+    },
+    {
+      code: `
+      @import "component.scss-theme.scss";
+    `,
+      fixed: `
+      @import "component.scss-theme";
+    `,
+      line: 2,
+      column: 26,
+      message: messages.rejected("scss"),
+      description:
+        "Single file, has .scss extension and a .scss in the filename."
     }
   ]
 });

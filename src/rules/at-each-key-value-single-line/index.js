@@ -1,5 +1,5 @@
 import { utils } from "stylelint";
-import { moduleNamespace, namespace } from "../../utils";
+import { moduleNamespace, namespace, ruleUrl } from "../../utils";
 
 export const ruleName = namespace("at-each-key-value-single-line");
 
@@ -8,7 +8,11 @@ export const messages = utils.ruleMessages(ruleName, {
     "Use @each $key, $value in $map syntax instead of $value: map-get($map, $key)"
 });
 
-export default function(primary) {
+export const meta = {
+  url: ruleUrl(ruleName)
+};
+
+export default function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -61,12 +65,17 @@ export default function(primary) {
           message: messages.expected,
           node: rule,
           result,
-          ruleName
+          ruleName,
+          word: rule.params
         });
       });
     });
   };
 }
+
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
 
 // Takes in a param string from node.params
 // Returns: [[key variable, value variable], map_decl] (all Strings)

@@ -1,28 +1,28 @@
 # stylelint-scss
 
-[![npm version](https://img.shields.io/npm/v/stylelint-scss.svg)](https://www.npmjs.com/package/stylelint-scss)
-[![Build Status](https://github.com/stylelint-scss/stylelint-scss/workflows/Tests/badge.svg)](https://github.com/stylelint-scss/stylelint-scss/actions?workflow=Tests)
-[![Coverage Status](https://img.shields.io/coveralls/github/stylelint-scss/stylelint-scss/master.svg)](https://coveralls.io/github/stylelint-scss/stylelint-scss?branch=master)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
-[![Downloads per month](https://img.shields.io/npm/dm/stylelint-scss.svg)](https://npmcharts.com/compare/stylelint-scss)
+[![npm version](https://img.shields.io/npm/v/stylelint-scss?logo=npm&logoColor=fff)](https://www.npmjs.com/package/stylelint-scss)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/stylelint-scss/stylelint-scss/test.yml?branch=master&label=tests&logo=github)](https://github.com/stylelint-scss/stylelint-scss/actions?workflow=Tests)
+[![Coverage Status](https://img.shields.io/coveralls/github/stylelint-scss/stylelint-scss/master?logo=coveralls&logoColor=fff)](https://coveralls.io/github/stylelint-scss/stylelint-scss?branch=master)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
+[![Downloads per month](https://img.shields.io/npm/dm/stylelint-scss)](https://npmcharts.com/compare/stylelint-scss)
 
-A collection of SCSS specific linting rules for [Stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
+A collection of SCSS-specific linting rules for [Stylelint](https://github.com/stylelint/stylelint) (in a form of a plugin).
 
 ## Purpose
 
-Stylelint by itself supports [SCSS syntax](https://stylelint.io/user-guide/css-processors#parsing-non-standard-syntax) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](https://stylelint.io/user-guide/rules/max-nesting-depth), control the way [`@-rules`](https://stylelint.io/user-guide/rules#at-rule) are written. Yet stylelint is in general focused on standard CSS.
+Stylelint by itself supports [SCSS syntax](https://stylelint.io/user-guide/get-started) very well (as well as other preprocessors' syntaxes). Moreover, it introduces some specific rules that can be used to lint SCSS, e.g. to limit [`nesting`](https://stylelint.io/user-guide/rules/max-nesting-depth), control the way [`@-rules`](https://stylelint.io/user-guide/rules#at-rule) are written. Yet Stylelint is in general focused on standard CSS.
 
 stylelint-scss introduces rules specific to SCSS syntax. That said, the rules from this plugin can be used with other syntaxes, like Less or some PostCSS syntaxes. That's why the rules' names are not tied to SCSS only (`at-function-pattern` instead of `scss-function-pattern`).
 
-The plugin follows stylelint's guidelines (about [rule names](https://stylelint.io/user-guide/about-rules), testing and [so on](https://github.com/stylelint/stylelint/tree/master/docs/developer-guide)).
+The plugin follows Stylelint's guidelines (about [rule names](https://stylelint.io/user-guide/rules), testing and [so on](https://github.com/stylelint/stylelint/tree/main/docs/developer-guide)).
 
 ## Installation and usage
 
 This plugin is used in the [stylelint-config-standard-scss shared config](https://github.com/stylelint-scss/stylelint-config-standard-scss). We recommend using that shared config, rather than installing this plugin directly.
 
-However, the plugin can still be used in you're crafting a config from the ground up. First, install stylelint-scss (and stylelint, if you haven't done so yet) via NPM:
+However, the plugin can still be used in you're crafting a config from the ground up. First, install `stylelint-scss` (and `stylelint`, if you haven't done so yet) via npm:
 
-```
+```sh
 npm install stylelint stylelint-scss
 ```
 
@@ -37,8 +37,7 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
     // recommended rules
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true,
-    ...
-    ...
+    // ...
     // any other rules you'd want to change e.g.
     "scss/dollar-variable-pattern": "^foo",
     "scss/selector-no-redundant-nesting-selector": true,
@@ -46,11 +45,11 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
 }
 ```
 
-Please refer to [stylelint docs](https://stylelint.io/user-guide/get-started) for the detailed info on using this linter.
+Please refer to [Stylelint docs](https://stylelint.io/user-guide/get-started) for detailed info on using this linter.
 
 ## List of rules
 
-Here are stylelint-scss' rules, grouped by the [_thing_](http://apps.workflower.fi/vocabs/css/en) they apply to (just like in [stylelint](https://stylelint.io/user-guide/about-rules)).
+Here are stylelint-scss' rules, grouped by the _thing_ they apply to (just like in [Stylelint](https://stylelint.io/user-guide/rules)).
 
 Please also see the [example configs](./docs/examples/) for special cases.
 
@@ -84,9 +83,9 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### `@`-import
 
 - [`at-import-no-partial-leading-underscore`](./src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
-- [`at-import-partial-extension`](./src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands.
-- [`at-import-partial-extension-blacklist`](./src/rules/at-import-partial-extension-blacklist/README.md): Specify blacklist of disallowed file extensions for partial names in `@import` commands.
-- [`at-import-partial-extension-whitelist`](./src/rules/at-import-partial-extension-whitelist/README.md): Specify whitelist of allowed file extensions for partial names in `@import` commands.
+- [`at-import-partial-extension`](./src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands (Autofixable).
+- [`at-import-partial-extension-blacklist`](./src/rules/at-import-partial-extension-blacklist/README.md): Specify a blacklist of disallowed file extensions for partial names in `@import` commands.
+- [`at-import-partial-extension-whitelist`](./src/rules/at-import-partial-extension-whitelist/README.md): Specify a whitelist of allowed file extensions for partial names in `@import` commands.
 
 ### `@`-mixin
 
@@ -98,7 +97,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### `@`-rule
 
 - [`at-rule-conditional-no-parentheses`](./src/rules/at-rule-conditional-no-parentheses/README.md): Disallow parentheses in conditional @ rules (if, elsif, while) (Autofixable).
-- [`at-rule-no-unknown`](./src/rules/at-rule-no-unknown/README.md): Disallow unknown at-rules. Should be used **instead of** stylelint's [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown).
+- [`at-rule-no-unknown`](./src/rules/at-rule-no-unknown/README.md): Disallow unknown at-rules. Should be used **instead of** Stylelint's [at-rule-no-unknown](https://stylelint.io/user-guide/rules/at-rule-no-unknown).
 
 ### `@`-use
 
@@ -135,7 +134,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### Declaration
 
 - [`declaration-nested-properties`](./src/rules/declaration-nested-properties/README.md): Require or disallow properties with `-` in their names to be in a form of a nested group.
-- [`declaration-nested-properties-no-divided-groups`](./src/rules/declaration-nested-properties-no-divided-groups/README.md): Disallow nested properties of the same "namespace" be divided into multiple groups.
+- [`declaration-nested-properties-no-divided-groups`](./src/rules/declaration-nested-properties-no-divided-groups/README.md): Disallow nested properties of the same "namespace" to be divided into multiple groups.
 
 ### Dimension
 
@@ -181,20 +180,20 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ## Help out
 
-There work on the plugin's rules is still in progress, so if you feel like it, you're welcome to help out in any of these (the plugin follows stylelint guidelines so most part of this is based on its docs):
+The work on the plugin's rules is still in progress, so if you feel like it, you're welcome to help out with any of these (the plugin follows Stylelint guidelines so most of this is based on its docs):
 
-- Create, enhance, and debug rules (see stylelint's guide to "[Working on rules](https://github.com/stylelint/stylelint/blob/master/docs/developer-guide/rules.md)").
+- Create, enhance, and debug rules (see Stylelint's guide to "[Working on rules](https://github.com/stylelint/stylelint/blob/main/docs/developer-guide/rules.md)").
 - Improve documentation.
 - Chime in on any open issue or pull request.
 - Open new issues about your ideas on new rules, or for how to improve the existing ones, and pull requests to show us how your idea works.
 - Add new tests to absolutely anything.
 - Work on improving performance of rules.
-- Contribute to [stylelint](https://github.com/stylelint/stylelint)
+- Contribute to [Stylelint](https://github.com/stylelint/stylelint)
 - Spread the word.
 
 We communicate via [issues](https://github.com/stylelint-scss/stylelint-scss/issues) and [pull requests](https://github.com/stylelint-scss/stylelint-scss/pulls).
 
-There is also [stackoverflow](https://stackoverflow.com/questions/tagged/stylelint), which would be the preferred QA forum.
+There is also [StackOverflow](https://stackoverflow.com/questions/tagged/stylelint), which would be the preferred QA forum.
 
 ## Contributors
 
@@ -223,20 +222,20 @@ Thanks goes to these wonderful people:
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/ybiquitous"><img alt="ybiquitous" src="https://avatars.githubusercontent.com/u/473530?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/stof"><img alt="stof" src="https://avatars.githubusercontent.com/u/439401?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/niksy"><img alt="niksy" src="https://avatars.githubusercontent.com/u/389286?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/kaysonwu"><img alt="kaysonwu" src="https://avatars.githubusercontent.com/u/14865584?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/srawlins"><img alt="srawlins" src="https://avatars.githubusercontent.com/u/103167?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/ybiquitous"><img alt="ybiquitous" src="https://avatars.githubusercontent.com/u/473530?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/pipopotamasu"><img alt="pipopotamasu" src="https://avatars.githubusercontent.com/u/14048211?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/ybiquitous">ybiquitous</a></td>
 <td align="center"><a href="https://github.com/stof">stof</a></td>
 <td align="center"><a href="https://github.com/niksy">niksy</a></td>
 <td align="center"><a href="https://github.com/kaysonwu">kaysonwu</a></td>
 <td align="center"><a href="https://github.com/srawlins">srawlins</a></td>
-<td align="center"><a href="https://github.com/ybiquitous">ybiquitous</a></td>
 <td align="center"><a href="https://github.com/pipopotamasu">pipopotamasu</a></td>
 </tr>
 </tbody></table>
@@ -288,7 +287,7 @@ Thanks goes to these wonderful people:
 <th align="center"><a href="https://github.com/Calme1709"><img alt="Calme1709" src="https://avatars.githubusercontent.com/u/30140939?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/Deimos"><img alt="Deimos" src="https://avatars.githubusercontent.com/u/9033?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars.githubusercontent.com/u/5973294?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/EvanHahn"><img alt="EvanHahn" src="https://avatars.githubusercontent.com/u/777712?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/lithiumlron"><img alt="lithiumlron" src="https://avatars.githubusercontent.com/u/101921280?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
@@ -297,45 +296,59 @@ Thanks goes to these wonderful people:
 <td align="center"><a href="https://github.com/Calme1709">Calme1709</a></td>
 <td align="center"><a href="https://github.com/Deimos">Deimos</a></td>
 <td align="center"><a href="https://github.com/diego-codes">diego-codes</a></td>
-<td align="center"><a href="https://github.com/EvanHahn">EvanHahn</a></td>
+<td align="center"><a href="https://github.com/lithiumlron">lithiumlron</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/EvanHahn"><img alt="EvanHahn" src="https://avatars.githubusercontent.com/u/777712?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/guoyunhe"><img alt="guoyunhe" src="https://avatars.githubusercontent.com/u/5836790?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/jantimon"><img alt="jantimon" src="https://avatars.githubusercontent.com/u/4113649?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/stormwarning"><img alt="stormwarning" src="https://avatars.githubusercontent.com/u/999825?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/keegan-lillo"><img alt="keegan-lillo" src="https://avatars.githubusercontent.com/u/3537963?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/manovotny"><img alt="manovotny" src="https://avatars.githubusercontent.com/u/446260?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/paulgv"><img alt="paulgv" src="https://avatars.githubusercontent.com/u/4895885?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/EvanHahn">EvanHahn</a></td>
 <td align="center"><a href="https://github.com/guoyunhe">guoyunhe</a></td>
 <td align="center"><a href="https://github.com/jantimon">jantimon</a></td>
 <td align="center"><a href="https://github.com/stormwarning">stormwarning</a></td>
 <td align="center"><a href="https://github.com/keegan-lillo">keegan-lillo</a></td>
 <td align="center"><a href="https://github.com/manovotny">manovotny</a></td>
-<td align="center"><a href="https://github.com/paulgv">paulgv</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/paulgv"><img alt="paulgv" src="https://avatars.githubusercontent.com/u/4895885?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/sajadtorkamani"><img alt="sajadtorkamani" src="https://avatars.githubusercontent.com/u/9380313?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/YozhikM"><img alt="YozhikM" src="https://avatars.githubusercontent.com/u/27273025?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/AM-77"><img alt="AM-77" src="https://avatars.githubusercontent.com/u/18232579?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/kersh"><img alt="kersh" src="https://avatars.githubusercontent.com/u/621330?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/YodaDaCoda"><img alt="YodaDaCoda" src="https://avatars.githubusercontent.com/u/365349?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/freezy-sk"><img alt="freezy-sk" src="https://avatars.githubusercontent.com/u/661637?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/paulgv">paulgv</a></td>
 <td align="center"><a href="https://github.com/sajadtorkamani">sajadtorkamani</a></td>
 <td align="center"><a href="https://github.com/YozhikM">YozhikM</a></td>
 <td align="center"><a href="https://github.com/AM-77">AM-77</a></td>
+<td align="center"><a href="https://github.com/kersh">kersh</a></td>
 <td align="center"><a href="https://github.com/YodaDaCoda">YodaDaCoda</a></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="https://github.com/freezy-sk"><img alt="freezy-sk" src="https://avatars.githubusercontent.com/u/661637?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/qmhc"><img alt="qmhc" src="https://avatars.githubusercontent.com/u/40221744?v=4&s=80" width="80"></a></th>
+</tr>
+</thead>
+<tbody><tr>
 <td align="center"><a href="https://github.com/freezy-sk">freezy-sk</a></td>
+<td align="center"><a href="https://github.com/qmhc">qmhc</a></td>
 </tr>
 </tbody></table>
 

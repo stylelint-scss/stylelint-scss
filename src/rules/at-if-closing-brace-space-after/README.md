@@ -9,9 +9,9 @@ Require a single space or disallow whitespace after the closing brace of `@if` s
  * The space after this brace */
 ```
 
-The `--fix` option on the [command line](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/cli.md#autofixing-errors) can automatically fix all of the problems reported by this rule.
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule.
 
-This rule might have conflicts with stylelint's core [`block-closing-brace-space-after`](https://stylelint.io/user-guide/rules/block-closing-brace-space-after) rule if the latter is set up in your `.stylelintrc` config file.
+This rule might have conflicts with Stylelint's core [`block-closing-brace-space-after`](https://stylelint.io/user-guide/rules/block-closing-brace-space-after) rule if the latter is set up in your `.stylelintrc` config file.
 
 ## Options
 
@@ -36,7 +36,7 @@ The following patterns are considered warnings:
 // `@if` has a space and a newline after the closing brace
 @if ($x == 1) {
   // ...
-} 
+}
 @else { }
 
 @if ($x == 1) {
@@ -86,7 +86,7 @@ The following patterns are *not* considered warnings:
 @if ($x == 1) {
   // ...
 }@else {}
-      
+
 a {
   @if ($x == 1) {}
   width: 10px;

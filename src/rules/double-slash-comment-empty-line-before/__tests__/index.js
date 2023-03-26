@@ -83,8 +83,7 @@ const alwaysGeneralTests = {
       message: messages.expected
     },
     {
-      code:
-        "a { color: pink;\r\n// comment w/o empty lines, Win style\r\ntop: 0; }",
+      code: "a { color: pink;\r\n// comment w/o empty lines, Win style\r\ntop: 0; }",
       fixed:
         "a { color: pink;\r\n\r\n// comment w/o empty lines, Win style\r\ntop: 0; }",
       description: "One Windows newline before comment.",
