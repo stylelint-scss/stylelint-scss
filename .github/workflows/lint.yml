@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - '!dependabot/**'
+      - "!dependabot/**"
   pull_request:
   workflow_dispatch:
 
@@ -25,7 +25,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '${{ env.NODE }}'
+          node-version: "${{ env.NODE }}"
           cache: npm
 
       - name: Install npm dependencies
