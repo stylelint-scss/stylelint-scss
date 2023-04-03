@@ -1,5 +1,3 @@
-import delve from "dlv";
-
 /**
  * Check whether a Node is a custom property set
  *
@@ -7,8 +5,8 @@ import delve from "dlv";
  * @returns {boolean}
  */
 export default function (node) {
-  const prop = delve(node, "raws.prop.raw", node.prop);
-  const value = delve(node, "raws.value.raw", node.value);
+  const prop = node?.raws?.prop?.raw || node.prop;
+  const value = node?.raws?.value?.raw || node.value;
 
   return (
     node.type === "decl" &&
