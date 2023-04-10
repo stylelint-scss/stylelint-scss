@@ -4,7 +4,7 @@ A stylesheet author might want to treat `@if` and `@else` in a special manner, f
 
 ---
 
-**Config 1**: `@else` is on the same line as the preceding `@if`/`@else`'s `}`, space between them. Empty line before all at-rules (except `@else`), space before `{`, newline after all `}` except `@if`'s and `@else`'s. 
+**Config 1**: `@else` is on the same line as the preceding `@if`/`@else`'s `}`, space between them. Empty line before all at-rules (except `@else`), space before `{`, newline after all `}` except `@if`'s and `@else`'s.
 
 ```json
 {
@@ -35,6 +35,7 @@ A stylesheet author might want to treat `@if` and `@else` in a special manner, f
 ```
 
 This code is considered **valid**
+
 ```scss
 @if {
   // ...
@@ -77,6 +78,7 @@ These patterns are considered **non-valid**:
   // ...
 } a {}
 ```
+
 ```scss
 @if {
   // ...
@@ -84,6 +86,7 @@ These patterns are considered **non-valid**:
   // ...
 }
 ```
+
 ```scss
 @if {
   // ...
@@ -93,6 +96,7 @@ These patterns are considered **non-valid**:
   // ...
 }
 ```
+
 ```scss
 @if {
   // ...
@@ -105,7 +109,7 @@ These patterns are considered **non-valid**:
 
 ---
 
-**Config 2**: `@else` is on a newline, no empty line before it. 
+**Config 2**: `@else` is on a newline, no empty line before it.
 
 ```json
 {
@@ -127,6 +131,7 @@ These patterns are considered **non-valid**:
 ```
 
 This code is considered **valid**:
+
 ```scss
 @if {
   // ...
@@ -137,6 +142,7 @@ This code is considered **valid**:
 ```
 
 This code is considered **non-valid**:
+
 ```scss
 @if {
   // ...

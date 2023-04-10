@@ -28,7 +28,7 @@ npm install stylelint stylelint-scss
 
 Create the `.stylelintrc.json` config file (or open the existing one), add `stylelint-scss` to the plugins array and the rules you need to the rules list. All rules from stylelint-scss need to be namespaced with `scss`.
 
-```js
+```jsonc
 {
   "plugins": [
     "stylelint-scss"
