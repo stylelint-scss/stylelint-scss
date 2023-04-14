@@ -6,21 +6,28 @@
   },
   "env": {
     "es6": true,
-    "jest": true,
     "node": true
   },
-  "globals": {
-    "dedent": true,
-    "testRule": true
-  },
   "rules": {
+    "arrow-spacing": "error",
     "eqeqeq": "error",
     "no-use-before-define": ["error", "nofunc"],
-    "strict": ["error", "global"],
-    "arrow-spacing": "error",
     "no-var": "error",
     "object-shorthand": "error",
     "prefer-const": "error",
+    "strict": "error",
     "template-curly-spacing": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**"],
+      "env": {
+        "jest": true
+      },
+      "globals": {
+        "dedent": true,
+        "testRule": true
+      }
+    }
+  ]
 }
