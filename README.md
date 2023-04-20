@@ -40,7 +40,7 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
     // ...
     // any other rules you'd want to change e.g.
     "scss/dollar-variable-pattern": "^foo",
-    "scss/selector-no-redundant-nesting-selector": true,
+    "scss/selector-no-redundant-nesting-selector": true
   }
 }
 ```
