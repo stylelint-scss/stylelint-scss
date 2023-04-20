@@ -29,12 +29,12 @@
     "jest-preset-stylelint": "^6.1.0",
     "lint-staged": "^13.2.1",
     "np": "^7.7.0",
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.23",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.6",
     "prettier": "^2.8.7",
     "rimraf": "^5.0.0",
-    "stylelint": "^15.4.0"
+    "stylelint": "^15.5.0"
   },
   "files": [
     "dist/**/*.js",
