@@ -1,5 +1,5 @@
 import { rules, utils } from "stylelint";
-import { namespace, ruleUrl } from "../../utils";
+import { isInlineComment, namespace, ruleUrl } from "../../utils";
 
 const coreRuleName = "comment-no-empty";
 
@@ -26,14 +26,44 @@ export default function rule(primary) {
       return;
     }
 
+    let doubleSlashCommentBlockState = null;
+
     root.walkComments(comment => {
-      if (isEmptyComment(comment)) {
-        utils.report({
-          message: messages.rejected,
-          node: comment,
-          result,
-          ruleName
-        });
+      const isEmpty = isEmptyComment(comment);
+
+      // postcss considers multiple double-slash comments in a row to be separate comments,
+      // but for this rule's purposes we want to track them as one combined comment block.
+      if (isStandaloneDoubleSlashComment(comment)) {
+        if (doubleSlashCommentBlockState) {
+          doubleSlashCommentBlockState.isBlockEmptySoFar &= isEmpty;
+        } else {
+          doubleSlashCommentBlockState = {
+            firstCommentInBlock: comment,
+            isBlockEmptySoFar: isEmpty
+          };
+        }
+
+        if (!isStandaloneDoubleSlashComment(comment.next())) {
+          if (doubleSlashCommentBlockState.isBlockEmptySoFar) {
+            utils.report({
+              message: messages.rejected,
+              node: doubleSlashCommentBlockState.firstCommentInBlock,
+              result,
+              ruleName
+            });
+          }
+          doubleSlashCommentBlockState = null;
+        }
+      } else {
+        if (isEmptyComment(comment)) {
+          utils.report({
+            message: messages.rejected,
+            node: comment,
+            result,
+            ruleName
+          });
+        }
+        doubleSlashCommentBlockState = null;
       }
     });
   };
@@ -42,6 +72,17 @@ export default function rule(primary) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+function isStandaloneDoubleSlashComment(node) {
+  return (
+    node &&
+    node.type === "comment" &&
+    // Must be a double-slash comment
+    (node.raws.inline || node.inline) &&
+    // Must be standalone
+    !isInlineComment(node)
+  );
+}
 
 function isEmptyComment(comment) {
   return comment.text === "";
