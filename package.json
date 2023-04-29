@@ -1,7 +1,7 @@
 {
   "name": "stylelint-scss",
   "description": "A collection of SCSS-specific rules for Stylelint",
-  "version": "4.6.0",
+  "version": "4.7.0",
   "author": "Krister Kari",
   "repository": "stylelint-scss/stylelint-scss",
   "license": "MIT",
