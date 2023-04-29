@@ -1,26 +1,26 @@
-import {
-  eachRoot,
-  findCommentsInRaws,
-  namespace,
-  optionsHaveIgnored,
-  ruleUrl
-} from "../../utils";
-import { utils } from "stylelint";
+"use strict";
 
-export const ruleName = namespace("double-slash-comment-inline");
+const { utils } = require("stylelint");
+const eachRoot = require("../../utils/eachRoot");
+const findCommentsInRaws = require("../../utils/findCommentsInRaws");
+const namespace = require("../../utils/namespace");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("double-slash-comment-inline");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected //-comment to be inline comment",
   rejected: "Unexpected inline //-comment"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
 const stylelintCommandPrefix = "stylelint-";
 
-export default function rule(expectation, options) {
+function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -93,3 +93,5 @@ export default function rule(expectation, options) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

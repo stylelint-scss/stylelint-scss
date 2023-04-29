@@ -1,28 +1,28 @@
-import { utils } from "stylelint";
-import {
-  addEmptyLineBefore,
-  isInlineComment,
-  namespace,
-  optionsHaveException,
-  optionsHaveIgnored,
-  removeEmptyLinesBefore,
-  ruleUrl
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("double-slash-comment-empty-line-before");
+const { utils } = require("stylelint");
+const addEmptyLineBefore = require("../../utils/addEmptyLineBefore");
+const isInlineComment = require("../../utils/isInlineComment");
+const namespace = require("../../utils/namespace");
+const optionsHaveException = require("../../utils/optionsHaveException");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const removeEmptyLinesBefore = require("../../utils/removeEmptyLinesBefore");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("double-slash-comment-empty-line-before");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected empty line before comment",
   rejected: "Unexpected empty line before comment"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
 const stylelintCommandPrefix = "stylelint-";
 
-export default function rule(expectation, options, context) {
+function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -147,3 +147,5 @@ export default function rule(expectation, options, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

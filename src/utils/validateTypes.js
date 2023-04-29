@@ -1,9 +1,11 @@
+"use strict";
+
 /**
  * Checks if the value is a boolean or a Boolean object.
  * @param {unknown} value
  * @returns {value is boolean}
  */
-export function isBoolean(value) {
+function isBoolean(value) {
   return typeof value === "boolean" || value instanceof Boolean;
 }
 
@@ -12,7 +14,7 @@ export function isBoolean(value) {
  * @param {unknown} value
  * @returns {value is number}
  */
-export function isNumber(value) {
+function isNumber(value) {
   return typeof value === "number" || value instanceof Number;
 }
 
@@ -21,7 +23,7 @@ export function isNumber(value) {
  * @param {unknown} value
  * @returns {value is RegExp}
  */
-export function isRegExp(value) {
+function isRegExp(value) {
   return value instanceof RegExp;
 }
 
@@ -30,6 +32,13 @@ export function isRegExp(value) {
  * @param {unknown} value
  * @returns {value is string}
  */
-export function isString(value) {
+function isString(value) {
   return typeof value === "string" || value instanceof String;
 }
+
+module.exports = {
+  isBoolean,
+  isNumber,
+  isRegExp,
+  isString
+};

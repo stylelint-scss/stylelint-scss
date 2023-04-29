@@ -1,5 +1,9 @@
-import { rules, utils } from "stylelint";
-import { isRegExp, isString, namespace, ruleUrl } from "../../utils";
+"use strict";
+
+const { rules, utils } = require("stylelint");
+const { isRegExp, isString } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
 const sassAtRules = [
   "at-root",
@@ -26,9 +30,9 @@ const sassAtRules = [
 
 const ruleToCheckAgainst = "at-rule-no-unknown";
 
-export const ruleName = namespace(ruleToCheckAgainst);
+const ruleName = namespace(ruleToCheckAgainst);
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejected: (...args) => {
     return rules[ruleToCheckAgainst].messages
       .rejected(...args)
@@ -36,11 +40,11 @@ export const messages = utils.ruleMessages(ruleName, {
   }
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(primaryOption, secondaryOptions) {
+function rule(primaryOption, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -94,3 +98,5 @@ export default function rule(primaryOption, secondaryOptions) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

@@ -1,18 +1,22 @@
-import nodeJsPath from "path";
-import { utils } from "stylelint";
-import { isRegExp, isString, namespace, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-import-partial-extension-blacklist");
+const nodeJsPath = require("path");
+const { utils } = require("stylelint");
+const { isRegExp, isString } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-import-partial-extension-blacklist");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: ext => `Unexpected extension ".${ext}" in imported partial name`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(blacklistOption) {
+function rule(blacklistOption) {
   const blacklist = [].concat(blacklistOption);
 
   return (root, result) => {
@@ -77,3 +81,5 @@ export default function rule(blacklistOption) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

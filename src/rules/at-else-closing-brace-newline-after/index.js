@@ -1,19 +1,26 @@
-import { utils } from "stylelint";
-import { isBoolean, namespace, ruleUrl } from "../../utils";
-import { sassConditionalBraceNLAfterChecker } from "../at-if-closing-brace-newline-after";
+"use strict";
 
-export const ruleName = namespace("at-else-closing-brace-newline-after");
+const { utils } = require("stylelint");
+const { isBoolean } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const {
+  sassConditionalBraceNLAfterChecker
+} = require("../at-if-closing-brace-newline-after");
+
+const ruleName = namespace("at-else-closing-brace-newline-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: 'Expected newline after "}" of @else statement',
   rejected: 'Unexpected newline after "}" of @else statement'
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation, options, context) {
+function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -51,3 +58,5 @@ export default function rule(expectation, options, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

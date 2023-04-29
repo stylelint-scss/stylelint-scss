@@ -1,14 +1,18 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import { declarationValueIndex, namespace, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("function-color-relative");
+const valueParser = require("postcss-value-parser");
+const { utils } = require("stylelint");
+const declarationValueIndex = require("../../utils/declarationValueIndex");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("function-color-relative");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Expected the scale-color function to be used"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
@@ -27,7 +31,7 @@ function isColorFunction(node) {
   return node.type === "function" && function_names.includes(node.value);
 }
 
-export default function rule(primary) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -74,3 +78,5 @@ export default function rule(primary) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

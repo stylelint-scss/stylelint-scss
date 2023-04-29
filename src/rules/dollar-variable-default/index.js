@@ -1,17 +1,21 @@
-import { utils } from "stylelint";
-import { namespace, optionsHaveIgnored, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-default");
+const { utils } = require("stylelint");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-default");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: variable => `Expected !default flag for "${variable}"`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(primaryOption, secondaryOptions) {
+function rule(primaryOption, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -63,3 +67,5 @@ export default function rule(primaryOption, secondaryOptions) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

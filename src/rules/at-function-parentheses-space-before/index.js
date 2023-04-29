@@ -1,20 +1,24 @@
-import { utils } from "stylelint";
-import { namespace, ruleUrl, whitespaceChecker } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-function-parentheses-space-before");
+const { utils } = require("stylelint");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
+const whitespaceChecker = require("../../utils/whitespaceChecker");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-function-parentheses-space-before");
+
+const messages = utils.ruleMessages(ruleName, {
   rejectedBefore: () =>
     "Unexpected whitespace before parentheses in function declaration",
   expectedBefore: () =>
     "Expected a single space before parentheses in function declaration"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(value, _, context) {
+function rule(value, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -49,3 +53,5 @@ export default function rule(value, _, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

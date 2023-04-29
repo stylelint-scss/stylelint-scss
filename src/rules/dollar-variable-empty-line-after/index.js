@@ -1,27 +1,27 @@
-import { utils } from "stylelint";
-import {
-  blockString,
-  hasEmptyLine,
-  isBoolean,
-  isSingleLineString,
-  namespace,
-  optionsHaveException,
-  optionsHaveIgnored,
-  ruleUrl
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-empty-line-after");
+const { utils } = require("stylelint");
+const blockString = require("../../utils/blockString");
+const hasEmptyLine = require("../../utils/hasEmptyLine");
+const isSingleLineString = require("../../utils/isSingleLineString");
+const namespace = require("../../utils/namespace");
+const optionsHaveException = require("../../utils/optionsHaveException");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const ruleUrl = require("../../utils/ruleUrl");
+const { isBoolean } = require("../../utils/validateTypes");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-empty-line-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected an empty line after $-variable",
   rejected: "Unexpected empty line after $-variable"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation, options, context) {
+function rule(expectation, options, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -247,3 +247,5 @@ export default function rule(expectation, options, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

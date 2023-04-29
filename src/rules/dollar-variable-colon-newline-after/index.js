@@ -1,26 +1,26 @@
-import { utils } from "stylelint";
-import {
-  declarationValueIndex,
-  isBoolean,
-  isSingleLineString,
-  namespace,
-  ruleUrl,
-  whitespaceChecker
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-colon-newline-after");
+const { utils } = require("stylelint");
+const declarationValueIndex = require("../../utils/declarationValueIndex");
+const isSingleLineString = require("../../utils/isSingleLineString");
+const whitespaceChecker = require("../../utils/whitespaceChecker");
+const { isBoolean } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-colon-newline-after");
+
+const messages = utils.ruleMessages(ruleName, {
   expectedAfter: () => 'Expected newline after ":"',
   expectedAfterMultiLine: () =>
     'Expected newline after ":" with a multi-line value'
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation, options, context) {
+function rule(expectation, options, context) {
   const checker = whitespaceChecker("newline", expectation, messages);
 
   return (root, result) => {
@@ -119,3 +119,5 @@ export default function rule(expectation, options, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

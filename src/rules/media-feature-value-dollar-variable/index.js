@@ -1,19 +1,23 @@
-import { utils } from "stylelint";
-import { namespace, optionsHaveIgnored, ruleUrl } from "../../utils";
+"use strict";
 
-export const ruleName = namespace("media-feature-value-dollar-variable");
+const { utils } = require("stylelint");
+const namespace = require("../../utils/namespace");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("media-feature-value-dollar-variable");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected dollar-variable as a media feature value",
   expected:
     "Expected a dollar-variable (e.g. $var) to be used as a media feature value"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation, options) {
+function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -101,3 +105,5 @@ export default function rule(expectation, options) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

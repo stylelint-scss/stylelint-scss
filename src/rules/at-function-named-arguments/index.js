@@ -1,28 +1,30 @@
-import valueParser from "postcss-value-parser";
-import { utils } from "stylelint";
-import {
-  isNativeCssFunction,
-  isString,
-  namespace,
-  optionsHaveIgnored,
-  parseFunctionArguments,
-  ruleUrl
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("at-function-named-arguments");
+const valueParser = require("postcss-value-parser");
+const { utils } = require("stylelint");
+const isNativeCssFunction = require("../../utils/isNativeCssFunction");
+const { isString } = require("../../utils/validateTypes");
+const namespace = require("../../utils/namespace");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const {
+  parseFunctionArguments
+} = require("../../utils/parseFunctionArguments");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("at-function-named-arguments");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected a named parameter to be used in function call",
   rejected: "Unexpected a named parameter in function call"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
 const isScssVarRegExp = /^\$\S*/;
 
-export default function rule(expectation, options) {
+function rule(expectation, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -125,3 +127,5 @@ export default function rule(expectation, options) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

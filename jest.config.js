@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = {
   preset: "jest-preset-stylelint",
   clearMocks: true,

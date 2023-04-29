@@ -1,4 +1,6 @@
-import rules from "../index";
+"use strict";
+
+const rules = require("../index");
 
 const ruleEntries = Object.entries(rules);
 

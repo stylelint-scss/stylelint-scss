@@ -1,4 +1,6 @@
-import { isInsideFunctionCall } from "../sassValueParser";
+"use strict";
+
+const { isInsideFunctionCall } = require("../sassValueParser");
 
 describe("isInsideFunctionCall", () => {
   it("should handle operators/signs inside url functions", () => {

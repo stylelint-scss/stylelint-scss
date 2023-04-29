@@ -1,24 +1,24 @@
-import mediaQueryParser from "postcss-media-query-parser";
-import { utils } from "stylelint";
-import {
-  atRuleParamIndex,
-  declarationValueIndex,
-  eachRoot,
-  findCommentsInRaws,
-  findOperators,
-  isWhitespace,
-  namespace,
-  ruleUrl
-} from "../../utils";
+"use strict";
 
-export const ruleName = namespace("operator-no-unspaced");
+const mediaQueryParser = require("postcss-media-query-parser").default;
+const { utils } = require("stylelint");
+const atRuleParamIndex = require("../../utils/atRuleParamIndex");
+const declarationValueIndex = require("../../utils/declarationValueIndex");
+const eachRoot = require("../../utils/eachRoot");
+const findCommentsInRaws = require("../../utils/findCommentsInRaws");
+const findOperators = require("../../utils/sassValueParser");
+const isWhitespace = require("../../utils/isWhitespace");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("operator-no-unspaced");
+
+const messages = utils.ruleMessages(ruleName, {
   expectedAfter: operator => `Expected single space after "${operator}"`,
   expectedBefore: operator => `Expected single space before "${operator}"`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
@@ -77,7 +77,7 @@ function newlineBefore(str, startIndex) {
   return false;
 }
 
-export default function rule(expectation) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -127,7 +127,7 @@ rule.meta = meta;
  *    {PostCSS Node} cbArgs.node -- for stylelint.utils.report
  *    {PostCSS Result} cbArgs.result -- for stylelint.utils.report
  */
-export function calculationOperatorSpaceChecker({ root, result, checker }) {
+function calculationOperatorSpaceChecker({ root, result, checker }) {
   /**
    * Takes a string, finds all occurrences of Sass interpolation in it, then
    * finds all operators inside that interpolation
@@ -302,3 +302,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     });
   });
 }
+
+rule.calculationOperatorSpaceChecker = calculationOperatorSpaceChecker;
+
+module.exports = rule;

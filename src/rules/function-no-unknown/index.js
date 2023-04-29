@@ -1,18 +1,17 @@
-import valueParser from "postcss-value-parser";
-import { rules, utils } from "stylelint";
-import {
-  ALL_FUNCTIONS,
-  isRegExp,
-  isString,
-  namespace,
-  ruleUrl
-} from "../../utils";
+"use strict";
+
+const valueParser = require("postcss-value-parser");
+const { rules, utils } = require("stylelint");
+const { ALL_FUNCTIONS } = require("../../utils/functions");
+const namespace = require("../../utils/namespace");
+const { isRegExp, isString } = require("../../utils/validateTypes");
+const ruleUrl = require("../../utils/ruleUrl");
 
 const ruleToCheckAgainst = "function-no-unknown";
 
-export const ruleName = namespace(ruleToCheckAgainst);
+const ruleName = namespace(ruleToCheckAgainst);
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   rejected: (...args) => {
     return rules[ruleToCheckAgainst].messages
       .rejected(...args)
@@ -20,7 +19,7 @@ export const messages = utils.ruleMessages(ruleName, {
   }
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
@@ -50,7 +49,7 @@ function getAtUseNamespace(nodes) {
   return last;
 }
 
-export default function rule(primaryOption, secondaryOptions) {
+function rule(primaryOption, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -130,3 +129,5 @@ export default function rule(primaryOption, secondaryOptions) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

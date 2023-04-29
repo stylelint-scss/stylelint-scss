@@ -1,22 +1,24 @@
-import { utils } from "stylelint";
-import { namespace, parseNestedPropRoot, ruleUrl } from "../../utils";
+"use strict";
+
+const { utils } = require("stylelint");
+const parseNestedPropRoot = require("../../utils/parseNestedPropRoot");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
 
-export const ruleName = namespace(
-  "declaration-nested-properties-no-divided-groups"
-);
+const ruleName = namespace("declaration-nested-properties-no-divided-groups");
 
-export const messages = utils.ruleMessages(ruleName, {
+const messages = utils.ruleMessages(ruleName, {
   expected: prop =>
     `Expected all nested properties of "${prop}" namespace to be in one nested group`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(expectation) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -74,3 +76,5 @@ export default function rule(expectation) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

@@ -1,14 +1,19 @@
-import { utils } from "stylelint";
-import { eachRoot, namespace, isWhitespace, ruleUrl } from "../../utils";
-import { calculationOperatorSpaceChecker } from "../operator-no-unspaced";
+"use strict";
 
-export const ruleName = namespace("operator-no-newline-after");
+const { utils } = require("stylelint");
+const eachRoot = require("../../utils/eachRoot");
+const isWhitespace = require("../../utils/isWhitespace");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
+const { calculationOperatorSpaceChecker } = require("../operator-no-unspaced");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("operator-no-newline-after");
+
+const messages = utils.ruleMessages(ruleName, {
   rejected: operator => `Unexpected newline after "${operator}"`
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
@@ -48,7 +53,7 @@ function checkNewlineBefore({
   }
 }
 
-export default function rule(expectation) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation
@@ -73,3 +78,5 @@ export default function rule(expectation) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;

@@ -1,22 +1,22 @@
-import {
-  namespace,
-  optionsHaveException,
-  optionsHaveIgnored,
-  ruleUrl
-} from "../../utils";
-import { utils } from "stylelint";
+"use strict";
 
-export const ruleName = namespace("dollar-variable-first-in-block");
+const { utils } = require("stylelint");
+const optionsHaveException = require("../../utils/optionsHaveException");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
 
-export const messages = utils.ruleMessages(ruleName, {
+const ruleName = namespace("dollar-variable-first-in-block");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: "Expected $-variable to be first in block"
 });
 
-export const meta = {
+const meta = {
   url: ruleUrl(ruleName)
 };
 
-export default function rule(primary, options) {
+function rule(primary, options) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
@@ -121,3 +121,5 @@ export default function rule(primary, options) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
+
+module.exports = rule;
