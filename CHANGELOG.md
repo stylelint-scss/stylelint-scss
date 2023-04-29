@@ -1,3 +1,10 @@
+# 4.7.0
+
+- Fixed: docs - small formatting fixes
+- Removed: `dlv` dependency
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v4.6.0...v4.7.0
+
 # 4.6.0
 
 - Fixed: docs - fix broken links and wording tweaks
