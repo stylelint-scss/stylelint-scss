@@ -1,3 +1,7 @@
+# 5.0.0
+
+- Removed: `Babel` dependency to remove an extra build step and reduce complexity
+
 # 4.7.0
 
 - Fixed: docs - small formatting fixes
