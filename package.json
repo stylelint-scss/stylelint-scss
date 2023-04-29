@@ -16,7 +16,6 @@
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.46.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^8.0.3",
     "jest": "^29.6.2",
@@ -26,8 +25,9 @@
     "postcss": "^8.4.27",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.6",
-    "prettier": "^3.0.0",
-    "stylelint": "^15.7.0"
+    "prettier": "^2.8.8",
+    "stylelint": "^15.7.0",
+    "xo": "^0.54.2"
   },
   "files": [
     "src/**/*.js",
@@ -44,7 +44,8 @@
     "stylelint-plugin"
   ],
   "scripts": {
-    "lint": "eslint . --ignore-path .gitignore",
+    "lint": "xo",
+    "fix": "xo --fix",
     "prettify": "prettier --write \"src/**/*.js\" --ignore-path=.prettierignore",
     "pretest": "npm run lint",
     "release": "np",
@@ -55,5 +56,42 @@
     "test-util": "npm run jest",
     "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html",
     "prepare": "husky install"
+  },
+  "xo": {
+    "space": true,
+    "prettier": true,
+    "rules": {
+      "capitalized-comments": "off",
+      "curly": [
+        "error",
+        "multi-line"
+      ],
+      "func-names": "off",
+      "spaced-comment": "off",
+      "template-curly-spacing": "error",
+      "unicorn/filename-case": "off",
+      "unicorn/no-array-reduce": "off",
+      "unicorn/no-negated-condition": "off",
+      "unicorn/prefer-module": "off",
+      "unicorn/prefer-number-properties": "off",
+      "unicorn/prefer-regexp-test": "off",
+      "unicorn/prefer-string-slice": "off",
+      "unicorn/prefer-top-level-await": "off",
+      "unicorn/prevent-abbreviations": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/**"
+        ],
+        "envs": [
+          "jest"
+        ],
+        "globals": [
+          "dedent",
+          "testRule"
+        ]
+      }
+    ]
   }
 }
