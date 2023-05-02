@@ -74,7 +74,6 @@
       "unicorn/no-negated-condition": "off",
       "unicorn/prefer-module": "off",
       "unicorn/prefer-number-properties": "off",
-      "unicorn/prefer-regexp-test": "off",
       "unicorn/prefer-string-slice": "off",
       "unicorn/prefer-top-level-await": "off",
       "unicorn/prevent-abbreviations": "off"

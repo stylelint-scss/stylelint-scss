@@ -55,14 +55,14 @@ function rule(primary, _unused, context) {
       // params are of format "`if (cond)` or `if cond`
       // instead of `(cond)` or `cond`"
       if (atrule.name === "else") {
-        if (atrule.params.match(/ ?if ?\(.*\) ?$/)) {
+        if (/ ?if ?\(.*\) ?$/.test(atrule.params)) {
           if (context.fix) {
             fix(atrule);
           } else {
             report(atrule, result);
           }
         }
-      } else if (atrule.params.trim().match(/^\(.*\)$/)) {
+      } else if (/^\(.*\)$/.test(atrule.params.trim())) {
         if (context.fix) {
           fix(atrule);
         } else {

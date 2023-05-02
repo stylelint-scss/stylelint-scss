@@ -131,14 +131,14 @@ function isInterpolated(value) {
   // ValueParser breaks up interpolation with math into multiple, fragmented
   // segments (#{$value, +, 2}px). The easiest way to detect this is to look for a fragmented
   // interpolated section.
-  if (value.match(/^#{\$[a-z]*$/)) {
+  if (/^#{\$[a-z]*$/.test(value)) {
     return true;
   }
 
   for (const unit of units) {
     const regex = new RegExp(`^#{[$a-z_0-9 +-]*}${unit};?$`);
 
-    if (value.match(regex)) {
+    if (regex.test(value)) {
       boolean = true;
     }
   }
