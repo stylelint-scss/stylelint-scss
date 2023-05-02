@@ -61,7 +61,7 @@ module.exports = function parseNestedPropRoot(propString) {
     ) {
       const propValueStr = propString.substring(i + 1);
 
-      if (propValueStr.length) {
+      if (propValueStr.length > 0) {
         const propValue = {
           before: /^(\s*)/.exec(propValueStr)[1],
           value: propValueStr.trim()

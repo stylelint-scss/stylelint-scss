@@ -4,7 +4,7 @@ const {
   groupByKeyValue,
   mapToKeyValue,
   parseFunctionArguments
-} = require("../parseFunctionArguments");
+} = require("../parseFunctionArguments.js");
 
 describe("groupByKeyValue", () => {
   it("should group key with values", () => {

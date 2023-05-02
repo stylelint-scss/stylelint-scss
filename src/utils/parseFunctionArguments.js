@@ -68,7 +68,7 @@ function parseFunctionArguments(value) {
   }
 
   return parsed.nodes.map(node =>
-    groupByKeyValue(node.nodes).map(mapToKeyValue)
+    groupByKeyValue(node.nodes).map(n => mapToKeyValue(n))
   )[0];
 }
 

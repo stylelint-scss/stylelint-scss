@@ -1,6 +1,6 @@
 "use strict";
 
-const matchesStringOrRegExp = require("./matchesStringOrRegExp");
+const matchesStringOrRegExp = require("./matchesStringOrRegExp.js");
 
 /**
  * Check if an options object's propertyName contains a user-defined string or

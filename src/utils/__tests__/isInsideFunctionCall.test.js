@@ -1,6 +1,6 @@
 "use strict";
 
-const { isInsideFunctionCall } = require("../sassValueParser");
+const { isInsideFunctionCall } = require("../sassValueParser/index.js");
 
 describe("isInsideFunctionCall", () => {
   it("should handle operators/signs inside url functions", () => {
@@ -48,9 +48,9 @@ describe("isInsideFunctionCall", () => {
       }
     ];
 
-    urlFunctions.forEach(test => {
+    for (const test of urlFunctions) {
       expect(isInsideFunctionCall(test.string, test.index).fn).toBe("url");
-    });
+    }
   });
 
   it("should handle operators/signs inside translate function", () => {

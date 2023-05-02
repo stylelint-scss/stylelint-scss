@@ -1,6 +1,6 @@
 "use strict";
 
-const isStandardSyntaxProperty = require("../isStandardSyntaxProperty");
+const isStandardSyntaxProperty = require("../isStandardSyntaxProperty.js");
 
 describe("isStandardSyntaxProperty", () => {
   it("single word", () => {

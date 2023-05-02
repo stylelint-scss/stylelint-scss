@@ -11,7 +11,7 @@
 module.exports = function isInlineComment(comment) {
   const nextNode = comment.next();
   const isBeforeSomething =
-    !!nextNode &&
+    Boolean(nextNode) &&
     nextNode.type !== "comment" &&
     comment.source.end.line === nextNode.source.start.line;
   const isAfterSomething = comment.raws.before.search(/\n/) === -1;

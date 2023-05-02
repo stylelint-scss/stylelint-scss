@@ -25,7 +25,7 @@ module.exports = function findOperators({
   isAfterColon,
   callback
 }) {
-  const mathOperators = ["+", "/", "-", "*", "%"];
+  const mathOperators = new Set(["+", "/", "-", "*", "%"]);
   // A stack of modes activated for the current char: string, interpolation
   // Calculations inside strings are not processed, so spaces are not linted
   const modesEntered = [
@@ -87,7 +87,7 @@ module.exports = function findOperators({
 
     // If it's a math operator
     if (
-      (mathOperators.includes(character) &&
+      (mathOperators.has(character) &&
         mathOperatorCharType(string, i, isAfterColon) === "op") ||
       // or is "<" or ">"
       substringStartingWithIndex.search(/^[<>]([^=]|$)/) !== -1
@@ -479,17 +479,16 @@ function checkMinus(string, index) {
     // console.log('no spaces')
     // `<something>-1`, `<something>-10px`
     if (
-      (isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
-      (isNumberAfter_.is && !isNumberAfter_.opsBetween)
-    ) {
+      ((isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
+        (isNumberAfter_.is && !isNumberAfter_.opsBetween)) &&
       // `10px-1`, `1-10px`, `1-1`, `1x-1x`
-      if (isValueWithUnitBefore_ || isNumberBefore_) {
-        // console.log("-, op: 1-10px")
-        return "op";
-      }
-
-      // The - could be a "sign" here, but for now "char" does the job
+      (isValueWithUnitBefore_ || isNumberBefore_)
+    ) {
+      // console.log("-, op: 1-10px")
+      return "op";
     }
+
+    // The - could be a "sign" here, but for now "char" does the job
 
     // `1-$var`
     if (isNumberBefore_ && after[0] === "$") {
@@ -558,6 +557,7 @@ function checkSlash(string, index, isAfterColon) {
     if (isInsideInterpolation(string, index)) {
       return "op";
     }
+
     return "char";
   }
 

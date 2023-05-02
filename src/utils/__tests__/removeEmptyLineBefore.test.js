@@ -1,7 +1,7 @@
 "use strict";
 
 const postcss = require("postcss");
-const removeEmptyLinesBefore = require("../removeEmptyLinesBefore");
+const removeEmptyLinesBefore = require("../removeEmptyLinesBefore.js");
 
 describe("removeEmptyLineBefore", () => {
   it("removes single newline from the newline at the beginning", () => {

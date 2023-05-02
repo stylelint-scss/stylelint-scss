@@ -1,10 +1,10 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const optionsHaveException = require("../../utils/optionsHaveException");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const optionsHaveException = require("../../utils/optionsHaveException.js");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("dollar-variable-first-in-block");
 
@@ -55,9 +55,9 @@ function rule(primary, options) {
 
       // If selected, ignore declarations in different types of at-rules.
       // ----------------------------------------------------------------
-      if (decl.parent.type === "atrule") {
-        if (
-          optionsHaveException(options, "at-rule") ||
+      if (
+        decl.parent.type === "atrule" &&
+        (optionsHaveException(options, "at-rule") ||
           (optionsHaveException(options, "function") &&
             decl.parent.name === "function") ||
           (optionsHaveException(options, "mixin") &&
@@ -67,10 +67,9 @@ function rule(primary, options) {
           (optionsHaveException(options, "loops") &&
             (decl.parent.name === "each" ||
               decl.parent.name === "for" ||
-              decl.parent.name === "while"))
-        ) {
-          return;
-        }
+              decl.parent.name === "while")))
+      ) {
+        return;
       }
 
       const previous = decl.prev();
@@ -86,7 +85,7 @@ function rule(primary, options) {
       let precededOnlyByAllowed = true;
       const allowComments = optionsHaveIgnored(options, "comments");
       const allowImports = optionsHaveIgnored(options, "imports");
-      const importAtRules = ["import", "use", "forward"];
+      const importAtRules = new Set(["import", "use", "forward"]);
 
       for (const sibling of decl.parent.nodes) {
         if (sibling === decl) {
@@ -97,7 +96,7 @@ function rule(primary, options) {
             (allowComments && sibling.type === "comment") ||
             (allowImports &&
               sibling.type === "atrule" &&
-              importAtRules.includes(sibling.name))
+              importAtRules.has(sibling.name))
           )
         ) {
           precededOnlyByAllowed = false;

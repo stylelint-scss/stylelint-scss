@@ -28,13 +28,18 @@ module.exports = function moduleNamespace(root, module) {
     const customNamespace = getCustomNamespace(module, rule);
 
     switch (customNamespace) {
-      case null:
+      case null: {
         return;
-      case "*":
+      }
+
+      case "*": {
         moduleNamespace = null;
         return;
-      default:
+      }
+
+      default: {
         moduleNamespace = customNamespace;
+      }
     }
   });
 

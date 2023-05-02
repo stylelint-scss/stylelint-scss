@@ -1,7 +1,7 @@
 "use strict";
 
 const postcss = require("postcss");
-const moduleNamespace = require("../moduleNamespace");
+const moduleNamespace = require("../moduleNamespace.js");
 
 describe("moduleNamespace", () => {
   it("should return 'map' when module import was not found", () => {

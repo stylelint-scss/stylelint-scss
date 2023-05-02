@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const hasEmptyLine = require("../../utils/hasEmptyLine");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const hasEmptyLine = require("../../utils/hasEmptyLine.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-else-empty-line-before");
 

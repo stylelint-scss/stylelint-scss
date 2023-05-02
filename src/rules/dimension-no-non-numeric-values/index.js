@@ -2,9 +2,9 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const declarationValueIndex = require("../../utils/declarationValueIndex.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("dimension-no-non-numeric-values");
 
@@ -135,13 +135,13 @@ function isInterpolated(value) {
     return true;
   }
 
-  units.forEach(unit => {
+  for (const unit of units) {
     const regex = new RegExp(`^#{[$a-z_0-9 +-]*}${unit};?$`);
 
     if (value.match(regex)) {
       boolean = true;
     }
-  });
+  }
 
   return boolean;
 }

@@ -1,12 +1,12 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
-const isSingleLineString = require("../../utils/isSingleLineString");
-const whitespaceChecker = require("../../utils/whitespaceChecker");
-const { isBoolean } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const declarationValueIndex = require("../../utils/declarationValueIndex.js");
+const isSingleLineString = require("../../utils/isSingleLineString.js");
+const whitespaceChecker = require("../../utils/whitespaceChecker.js");
+const { isBoolean } = require("../../utils/validateTypes.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("dollar-variable-colon-newline-after");
 
@@ -84,7 +84,7 @@ function rule(expectation, options, context) {
           source: propPlusColon,
           index: indexToCheck,
           lineCheckStr: decl.value,
-          err: m => {
+          err(message) {
             if (shouldFix) {
               const nextLinePrefix =
                 expectation === "always"
@@ -102,7 +102,7 @@ function rule(expectation, options, context) {
             }
 
             utils.report({
-              message: m,
+              message,
               node: decl,
               index: indexToCheck,
               result,

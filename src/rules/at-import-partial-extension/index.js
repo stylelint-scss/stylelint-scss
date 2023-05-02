@@ -1,9 +1,9 @@
 "use strict";
 
-const nodeJsPath = require("path");
+const nodeJsPath = require("node:path");
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-import-partial-extension");
 
@@ -52,7 +52,7 @@ function rule(expectation, _, context) {
         .filter(path => !mediaQueryTypesRE.test(path.trim()));
 
       // Processing comma-separated lists of import paths
-      paths.forEach(path => {
+      for (const path of paths) {
         // Stripping trailing quotes and whitespaces, if any
         const pathStripped = stripPath(path);
 
@@ -62,7 +62,7 @@ function rule(expectation, _, context) {
           pathStripped.slice(-4) === ".css" ||
           pathStripped.search("//") !== -1
         ) {
-          return;
+          continue;
         }
 
         const extension = nodeJsPath.extname(pathStripped).slice(1);
@@ -75,7 +75,7 @@ function rule(expectation, _, context) {
             ruleName
           });
 
-          return;
+          continue;
         }
 
         const isScssPartial = extension === "scss";
@@ -84,7 +84,7 @@ function rule(expectation, _, context) {
             const extPattern = new RegExp(`\\.${extension}(['" ]*)$`, "g");
             decl.params = decl.params.replace(extPattern, "$1");
 
-            return;
+            continue;
           }
 
           utils.report({
@@ -95,7 +95,7 @@ function rule(expectation, _, context) {
             ruleName
           });
         }
-      });
+      }
     });
   };
 }

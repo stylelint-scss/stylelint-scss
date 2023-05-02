@@ -1,11 +1,11 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const postcss = require("postcss");
-const rule = require("..");
+const rule = require("../index.js");
 
 function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
+  console.log(err.stack);
 }
 
 test("No file specified", done => {

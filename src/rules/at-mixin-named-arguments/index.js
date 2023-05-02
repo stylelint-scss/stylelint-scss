@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-mixin-named-arguments");
 
@@ -83,11 +83,11 @@ function rule(expectation, options) {
         return;
       }
 
-      args.forEach(arg => {
+      for (const arg of args) {
         switch (expectation) {
           case "never": {
             if (!arg.key) {
-              return;
+              continue;
             }
 
             utils.report({
@@ -101,7 +101,7 @@ function rule(expectation, options) {
 
           case "always": {
             if (arg.key && isScssVarRegExp.test(arg.key)) {
-              return;
+              continue;
             }
 
             utils.report({
@@ -112,8 +112,11 @@ function rule(expectation, options) {
             });
             break;
           }
+
+          default:
+          // nothing
         }
-      });
+      }
     });
   };
 }

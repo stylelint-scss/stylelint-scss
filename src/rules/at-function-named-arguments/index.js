@@ -2,14 +2,14 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const isNativeCssFunction = require("../../utils/isNativeCssFunction");
-const { isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const isNativeCssFunction = require("../../utils/isNativeCssFunction.js");
+const { isString } = require("../../utils/validateTypes.js");
+const namespace = require("../../utils/namespace.js");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored.js");
 const {
   parseFunctionArguments
-} = require("../../utils/parseFunctionArguments");
-const ruleUrl = require("../../utils/ruleUrl");
+} = require("../../utils/parseFunctionArguments.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-function-named-arguments");
 
@@ -88,11 +88,11 @@ function rule(expectation, options) {
           return;
         }
 
-        args.forEach(arg => {
+        for (const arg of args) {
           switch (expectation) {
             case "never": {
               if (!arg.key) {
-                return;
+                continue;
               }
 
               utils.report({
@@ -106,7 +106,7 @@ function rule(expectation, options) {
 
             case "always": {
               if (arg.key && isScssVarRegExp.test(arg.key)) {
-                return;
+                continue;
               }
 
               utils.report({
@@ -117,8 +117,11 @@ function rule(expectation, options) {
               });
               break;
             }
+
+            default:
+            // nothing
           }
-        });
+        }
       });
     });
   };

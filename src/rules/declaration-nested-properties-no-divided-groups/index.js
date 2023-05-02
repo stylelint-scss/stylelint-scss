@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const parseNestedPropRoot = require("../../utils/parseNestedPropRoot");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const parseNestedPropRoot = require("../../utils/parseNestedPropRoot.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
 
@@ -54,21 +54,21 @@ function rule(expectation) {
         }
       });
 
-      Object.keys(nestedGroups).forEach(namespace => {
+      for (const namespace of Object.keys(nestedGroups)) {
         // Only warn if there are more than one nested groups with equal namespaces
         if (nestedGroups[namespace].length === 1) {
-          return;
+          continue;
         }
 
-        nestedGroups[namespace].forEach(group => {
+        for (const group of nestedGroups[namespace]) {
           utils.report({
             message: messages.expected(namespace),
             node: group,
             result,
             ruleName
           });
-        });
-      });
+        }
+      }
     });
   };
 }

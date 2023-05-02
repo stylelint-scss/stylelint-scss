@@ -1,11 +1,11 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const eachRoot = require("../../utils/eachRoot");
-const findCommentsInRaws = require("../../utils/findCommentsInRaws");
-const namespace = require("../../utils/namespace");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const ruleUrl = require("../../utils/ruleUrl");
+const eachRoot = require("../../utils/eachRoot.js");
+const findCommentsInRaws = require("../../utils/findCommentsInRaws.js");
+const namespace = require("../../utils/namespace.js");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("double-slash-comment-inline");
 
@@ -53,10 +53,10 @@ function rule(expectation, options) {
 
       const comments = findCommentsInRaws(rootString);
 
-      comments.forEach(comment => {
+      for (const comment of comments) {
         // Only process // comments
         if (comment.type !== "double-slash") {
-          return;
+          continue;
         }
 
         // Optionally ignore stylelint commands
@@ -64,7 +64,7 @@ function rule(expectation, options) {
           comment.text.indexOf(stylelintCommandPrefix) === 0 &&
           optionsHaveIgnored(options, "stylelint-commands")
         ) {
-          return;
+          continue;
         }
 
         const isInline = comment.inlineAfter || comment.inlineBefore;
@@ -75,7 +75,7 @@ function rule(expectation, options) {
         } else if (!isInline && expectation === "always") {
           message = messages.expected;
         } else {
-          return;
+          continue;
         }
 
         utils.report({
@@ -85,7 +85,7 @@ function rule(expectation, options) {
           result,
           ruleName
         });
-      });
+      }
     }
   };
 }

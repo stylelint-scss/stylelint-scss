@@ -1,8 +1,8 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-import-no-partial-leading-underscore");
 
@@ -53,9 +53,9 @@ function rule(actual) {
 
     root.walkAtRules("import", decl => {
       // Processing comma-separated lists of import paths
-      decl.params.split(",").forEach(path => {
+      for (const path of decl.params.split(",")) {
         checkPathForUnderscore(path, decl);
-      });
+      }
     });
   };
 }

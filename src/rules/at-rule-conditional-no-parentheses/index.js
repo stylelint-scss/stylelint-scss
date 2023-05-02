@@ -1,8 +1,8 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-rule-conditional-no-parentheses");
 
@@ -15,7 +15,7 @@ const meta = {
 };
 
 // postcss picks up else-if as else.
-const conditional_rules = ["if", "while", "else"];
+const conditionalRules = new Set(["if", "while", "else"]);
 
 function report(atrule, result) {
   utils.report({
@@ -47,7 +47,7 @@ function rule(primary, _unused, context) {
 
     root.walkAtRules(atrule => {
       // Check if this is a conditional rule.
-      if (!conditional_rules.includes(atrule.name)) {
+      if (!conditionalRules.has(atrule.name)) {
         return;
       }
 
@@ -62,13 +62,11 @@ function rule(primary, _unused, context) {
             report(atrule, result);
           }
         }
-      } else {
-        if (atrule.params.trim().match(/^\(.*\)$/)) {
-          if (context.fix) {
-            fix(atrule);
-          } else {
-            report(atrule, result);
-          }
+      } else if (atrule.params.trim().match(/^\(.*\)$/)) {
+        if (context.fix) {
+          fix(atrule);
+        } else {
+          report(atrule, result);
         }
       }
     });

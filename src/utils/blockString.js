@@ -1,8 +1,8 @@
 "use strict";
 
-const beforeBlockString = require("./beforeBlockString");
-const hasBlock = require("./hasBlock");
-const rawNodeString = require("./rawNodeString");
+const beforeBlockString = require("./beforeBlockString.js");
+const hasBlock = require("./hasBlock.js");
+const rawNodeString = require("./rawNodeString.js");
 
 /**
  * Return a CSS statement's block -- the string that starts with `{` and ends with `}`.

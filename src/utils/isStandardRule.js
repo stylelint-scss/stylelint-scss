@@ -1,7 +1,7 @@
 "use strict";
 
-const isCustomPropertySet = require("./isCustomPropertySet");
-const isStandardSyntaxSelector = require("./isStandardSelector");
+const isCustomPropertySet = require("./isCustomPropertySet.js");
+const isStandardSyntaxSelector = require("./isStandardSelector.js");
 
 /**
  * Check whether a Node is a standard rule

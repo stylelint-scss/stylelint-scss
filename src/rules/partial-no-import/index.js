@@ -1,9 +1,9 @@
 "use strict";
 
-const nodeJsPath = require("path");
+const nodeJsPath = require("node:path");
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("partial-no-import");
 
@@ -75,9 +75,9 @@ function rule(on) {
     root.walkAtRules("import", mixinCall => {
       // Check if @import is treated as CSS import; report only if not
       // Processing comma-separated lists of import paths
-      mixinCall.params.split(/["']\s*,/).forEach(path => {
+      for (const path of mixinCall.params.split(/["']\s*,/)) {
         checkImportForCSS(path, mixinCall);
-      });
+      }
     });
   };
 }

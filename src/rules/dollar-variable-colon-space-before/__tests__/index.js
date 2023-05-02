@@ -1,6 +1,7 @@
 "use strict";
 
-const { messages, ruleName } = require("..");
+const { messages, ruleName } = require("../index.js");
+
 testRule({
   ruleName,
   config: ["always"],

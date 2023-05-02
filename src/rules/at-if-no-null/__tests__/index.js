@@ -1,6 +1,6 @@
 "use strict";
 
-const { messages, ruleName } = require("..");
+const { messages, ruleName } = require("../index.js");
 
 testRule({
   ruleName,
@@ -34,7 +34,7 @@ testRule({
       @if $x == null {}
     }`,
       description: "uses the == null format",
-      message: messages.equals_null,
+      message: messages.equalsNull,
       line: 2
     },
     {
@@ -42,7 +42,7 @@ testRule({
       @if $x != null {}
     }`,
       description: "uses the != null format",
-      message: messages.not_equals_null,
+      message: messages.notEqualsNull,
       line: 2
     }
   ]

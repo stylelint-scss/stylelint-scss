@@ -1,13 +1,13 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const optionsMatches = require("../../utils/optionsMatches");
-const hasNestedSibling = require("../../utils/hasNestedSibling");
-const isType = require("../../utils/isType");
-const parseSelector = require("../../utils/parseSelector");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const optionsMatches = require("../../utils/optionsMatches.js");
+const hasNestedSibling = require("../../utils/hasNestedSibling.js");
+const isType = require("../../utils/isType.js");
+const parseSelector = require("../../utils/parseSelector.js");
+const { isRegExp, isString } = require("../../utils/validateTypes.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("selector-no-redundant-nesting-selector");
 

@@ -2,9 +2,9 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const declarationValueIndex = require("../../utils/declarationValueIndex.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("function-color-relative");
 
@@ -16,7 +16,7 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-const function_names = [
+const functionNames = new Set([
   "saturate",
   "desaturate",
   "darken",
@@ -25,10 +25,10 @@ const function_names = [
   "fade-in",
   "transparentize",
   "fade-out"
-];
+]);
 
 function isColorFunction(node) {
-  return node.type === "function" && function_names.includes(node.value);
+  return node.type === "function" && functionNames.has(node.value);
 }
 
 function rule(primary) {
@@ -53,14 +53,14 @@ function rule(primary) {
         const isDSFilterColorFunction =
           isFilter &&
           node.value === "drop-shadow" &&
-          node.nodes.some(isColorFunction);
+          node.nodes.some(n => isColorFunction(n));
 
         if (isSassColorFunction || isDSFilterColorFunction) {
           const nodes = isDSFilterColorFunction
-            ? node.nodes.filter(isColorFunction)
+            ? node.nodes.filter(n => isColorFunction(n))
             : [node];
 
-          nodes.forEach(node => {
+          for (const node of nodes) {
             utils.report({
               message: messages.rejected,
               node: decl,
@@ -68,7 +68,7 @@ function rule(primary) {
               result,
               ruleName
             });
-          });
+          }
         }
       });
     });

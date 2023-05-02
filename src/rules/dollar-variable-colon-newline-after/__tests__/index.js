@@ -1,6 +1,6 @@
 "use strict";
 
-const { messages, ruleName } = require("..");
+const { messages, ruleName } = require("../index.js");
 
 testRule({
   ruleName,
@@ -249,8 +249,8 @@ testRule({
 
   accept: [
     {
-      code: "a {\n" + "  $var1: 100px\n" + "}",
-      description: "a {\\n" + "  $var1: 100px\\n" + "}"
+      code: "a {\n  $var1: 100px\n}",
+      description: "a {\\n  $var1: 100px\\n}"
     },
     {
       code:
@@ -425,8 +425,8 @@ testRule({
 
   accept: [
     {
-      code: "a {\n" + "  $var1: 100px\n" + "}",
-      description: "a {\\n" + "  $var1: 100px\\n" + "}"
+      code: "a {\n  $var1: 100px\n}",
+      description: "a {\\n  $var1: 100px\\n}"
     },
     {
       code:

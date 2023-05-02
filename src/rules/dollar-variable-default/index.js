@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("dollar-variable-default");
 

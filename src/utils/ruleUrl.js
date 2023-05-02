@@ -13,5 +13,6 @@ module.exports = function ruleUrl(ruleName) {
   if (name.includes("/")) {
     [, name] = name.split("/", 2);
   }
+
   return `https://github.com/stylelint-scss/stylelint-scss/blob/${revision}/src/rules/${name}`;
 };

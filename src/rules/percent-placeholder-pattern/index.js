@@ -2,13 +2,13 @@
 
 const resolveNestedSelector = require("postcss-resolve-nested-selector");
 const { utils } = require("stylelint");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const hasInterpolatingAmpersand = require("../../utils/hasInterpolatingAmpersand");
-const isStandardRule = require("../../utils/isStandardRule");
-const isStandardSelector = require("../../utils/isStandardSelector");
-const parseSelector = require("../../utils/parseSelector");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { isRegExp, isString } = require("../../utils/validateTypes.js");
+const hasInterpolatingAmpersand = require("../../utils/hasInterpolatingAmpersand.js");
+const isStandardRule = require("../../utils/isStandardRule.js");
+const isStandardSelector = require("../../utils/isStandardSelector.js");
+const parseSelector = require("../../utils/parseSelector.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("percent-placeholder-pattern");
 
@@ -61,7 +61,9 @@ function rule(pattern) {
 
       // Only resolve selectors that have an interpolating "&"
       if (hasInterpolatingAmpersand(selector)) {
-        resolveNestedSelector(selector, rule).forEach(parse);
+        for (const sel of resolveNestedSelector(selector, rule)) {
+          parse(sel);
+        }
       } else {
         parse(selector);
       }

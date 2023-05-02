@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { isRegExp, isString } = require("../../utils/validateTypes.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-mixin-pattern");
 

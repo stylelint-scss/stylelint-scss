@@ -1,6 +1,6 @@
 "use strict";
 
-const ruleUrl = require("../ruleUrl");
+const ruleUrl = require("../ruleUrl.js");
 
 test("returning a rule URL", () => {
   expect(ruleUrl("at-function-pattern")).toEqual(

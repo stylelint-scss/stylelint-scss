@@ -1,6 +1,6 @@
 "use strict";
 
-const hasInterpolation = require("./hasInterpolation");
+const hasInterpolation = require("./hasInterpolation.js");
 
 /**
  * Check whether a selector is standard

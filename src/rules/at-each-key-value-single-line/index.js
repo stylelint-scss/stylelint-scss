@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const moduleNamespace = require("../../utils/moduleNamespace");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const moduleNamespace = require("../../utils/moduleNamespace.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-each-key-value-single-line");
 
@@ -53,15 +53,15 @@ function rule(primary) {
         }
 
         // Check map_name + key_name match.
-        const map_get_parts = mapGetParameters(innerDecl.value, mapNamespace);
+        const mapGetParts = mapGetParameters(innerDecl.value, mapNamespace);
 
         // Check map names match.
-        if (map_get_parts[0] !== mapName(parts[1], mapNamespace)) {
+        if (mapGetParts[0] !== mapName(parts[1], mapNamespace)) {
           return;
         }
 
         // Match key names match.
-        if (map_get_parts[1] !== parts[0][0]) {
+        if (mapGetParts[1] !== parts[0][0]) {
           return;
         }
 

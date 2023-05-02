@@ -2,10 +2,10 @@
 
 const postcss = require("postcss");
 const scss = require("postcss-scss");
-const isInlineComment = require("../isInlineComment");
+const isInlineComment = require("../isInlineComment.js");
 
 function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
+  console.log(err.stack);
 }
 
 test("Single-line comment, after ruleset.", () => {

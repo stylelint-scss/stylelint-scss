@@ -1,10 +1,10 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const { isBoolean } = require("../../utils/validateTypes");
-const { isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { isBoolean } = require("../../utils/validateTypes.js");
+const { isString } = require("../../utils/validateTypes.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("no-duplicate-dollar-variables");
 
@@ -96,7 +96,9 @@ function rule(value, secondaryOptions) {
       if (isDefault) {
         if (Number.isFinite(ignoreDefaults)) {
           return variableData.defaultCount >= ignoreDefaults;
-        } else if (ignoreDefaults) {
+        }
+
+        if (ignoreDefaults) {
           return false;
         }
       }

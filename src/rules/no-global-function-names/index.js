@@ -2,9 +2,9 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const declarationValueIndex = require("../../utils/declarationValueIndex.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const interpolationPrefix = /^#{\s*/m;
 
@@ -80,7 +80,7 @@ const rules = {
   transparentize: "color"
 };
 
-const new_rule_names = {
+const newRuleNames = {
   "adjust-color": "adjust",
   "scale-color": "scale",
   "change-color": "change",
@@ -112,7 +112,7 @@ const new_rule_names = {
   transparentize: "adjust"
 };
 
-const rule_mapping = {
+const ruleMapping = {
   lighten: ["lighten($color, $amount)", "adjust($color, $lightness: $amount)"],
   "adjust-hue": [
     "adjust-hue($color, $amount)",
@@ -146,21 +146,21 @@ const meta = {
 };
 
 function errorMessage(name) {
-  const sass_package = rules[name];
-  const rename = new_rule_names[name];
-  const map_rule = rule_mapping[name];
+  const sassPackage = rules[name];
+  const rename = newRuleNames[name];
+  const mapRule = ruleMapping[name];
 
   if (rename) {
-    if (map_rule) {
-      const [old_rule, new_rule] = map_rule;
+    if (mapRule) {
+      const [oldRule, newRule] = mapRule;
 
-      return `Expected ${sass_package}.${new_rule} instead of ${old_rule}`;
+      return `Expected ${sassPackage}.${newRule} instead of ${oldRule}`;
     }
 
-    return `Expected ${sass_package}.${rename} instead of ${name}`;
-  } else {
-    return `Expected ${sass_package}.${name} instead of ${name}`;
+    return `Expected ${sassPackage}.${rename} instead of ${name}`;
   }
+
+  return `Expected ${sassPackage}.${name} instead of ${name}`;
 }
 
 function rule(value) {

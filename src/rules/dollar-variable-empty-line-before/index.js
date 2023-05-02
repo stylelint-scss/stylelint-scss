@@ -1,14 +1,14 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const blockString = require("../../utils/blockString");
-const hasEmptyLine = require("../../utils/hasEmptyLine");
-const isSingleLineString = require("../../utils/isSingleLineString");
-const namespace = require("../../utils/namespace");
-const optionsHaveException = require("../../utils/optionsHaveException");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const ruleUrl = require("../../utils/ruleUrl");
-const { isBoolean } = require("../../utils/validateTypes");
+const blockString = require("../../utils/blockString.js");
+const hasEmptyLine = require("../../utils/hasEmptyLine.js");
+const isSingleLineString = require("../../utils/isSingleLineString.js");
+const namespace = require("../../utils/namespace.js");
+const optionsHaveException = require("../../utils/optionsHaveException.js");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
+const { isBoolean } = require("../../utils/validateTypes.js");
 
 const ruleName = namespace("dollar-variable-empty-line-before");
 

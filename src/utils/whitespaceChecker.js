@@ -1,8 +1,8 @@
 "use strict";
 
-const configurationError = require("./configurationError");
-const isSingleLineString = require("./isSingleLineString");
-const isWhitespace = require("./isWhitespace");
+const configurationError = require("./configurationError.js");
+const isSingleLineString = require("./isSingleLineString.js");
+const isWhitespace = require("./isWhitespace.js");
 
 /**
  * Create a whitespaceChecker, which exposes the following functions:
@@ -82,42 +82,55 @@ module.exports = function (targetWhitespace, expectation, messages) {
     };
 
     switch (expectation) {
-      case "always":
+      case "always": {
         expectBefore();
         break;
-      case "never":
+      }
+
+      case "never": {
         rejectBefore();
         break;
-      case "always-single-line":
+      }
+
+      case "always-single-line": {
         if (!isSingleLineString(lineCheckStr || source)) {
           return;
         }
 
         expectBefore(messages.expectedBeforeSingleLine);
         break;
-      case "never-single-line":
+      }
+
+      case "never-single-line": {
         if (!isSingleLineString(lineCheckStr || source)) {
           return;
         }
 
         rejectBefore(messages.rejectedBeforeSingleLine);
         break;
-      case "always-multi-line":
+      }
+
+      case "always-multi-line": {
         if (isSingleLineString(lineCheckStr || source)) {
           return;
         }
 
         expectBefore(messages.expectedBeforeMultiLine);
         break;
-      case "never-multi-line":
+      }
+
+      case "never-multi-line": {
         if (isSingleLineString(lineCheckStr || source)) {
           return;
         }
 
         rejectBefore(messages.rejectedBeforeMultiLine);
         break;
-      default:
+      }
+
+      default: {
         throw configurationError(`Unknown expectation "${expectation}"`);
+      }
     }
   }
 
@@ -138,45 +151,60 @@ module.exports = function (targetWhitespace, expectation, messages) {
     activeArgs = { source, index, err, errTarget, onlyOneChar };
 
     switch (expectation) {
-      case "always":
+      case "always": {
         expectAfter();
         break;
-      case "never":
+      }
+
+      case "never": {
         rejectAfter();
         break;
-      case "always-single-line":
+      }
+
+      case "always-single-line": {
         if (!isSingleLineString(lineCheckStr || source)) {
           return;
         }
 
         expectAfter(messages.expectedAfterSingleLine);
         break;
-      case "never-single-line":
+      }
+
+      case "never-single-line": {
         if (!isSingleLineString(lineCheckStr || source)) {
           return;
         }
 
         rejectAfter(messages.rejectedAfterSingleLine);
         break;
-      case "always-multi-line":
+      }
+
+      case "always-multi-line": {
         if (isSingleLineString(lineCheckStr || source)) {
           return;
         }
 
         expectAfter(messages.expectedAfterMultiLine);
         break;
-      case "never-multi-line":
+      }
+
+      case "never-multi-line": {
         if (isSingleLineString(lineCheckStr || source)) {
           return;
         }
 
         rejectAfter(messages.rejectedAfterMultiLine);
         break;
-      case "at-least-one-space":
+      }
+
+      case "at-least-one-space": {
         expectAfter(messages.expectedAfterAtLeast);
         break;
-      default:
+      }
+
+      default: {
         throw configurationError(`Unknown expectation "${expectation}"`);
+      }
     }
   }
 
@@ -201,29 +229,33 @@ module.exports = function (targetWhitespace, expectation, messages) {
 
     if (targetWhitespace === "newline") {
       // If index is preceeded by a Windows CR-LF ...
-      if (oneCharBefore === "\n" && twoCharsBefore === "\r") {
-        if (activeArgs.onlyOneChar || !isWhitespace(source[index - 3])) {
-          return;
-        }
+      if (
+        oneCharBefore === "\n" &&
+        twoCharsBefore === "\r" &&
+        (activeArgs.onlyOneChar || !isWhitespace(source[index - 3]))
+      ) {
+        return;
       }
 
       // If index is followed by a Unix LF ...
-      if (oneCharBefore === "\n" && twoCharsBefore !== "\r") {
-        if (activeArgs.onlyOneChar || !isWhitespace(twoCharsBefore)) {
-          return;
-        }
-      }
-    }
-
-    if (targetWhitespace === "space" && oneCharBefore === " ") {
-      if (activeArgs.onlyOneChar || !isWhitespace(twoCharsBefore)) {
+      if (
+        oneCharBefore === "\n" &&
+        twoCharsBefore !== "\r" &&
+        (activeArgs.onlyOneChar || !isWhitespace(twoCharsBefore))
+      ) {
         return;
       }
     }
 
-    activeArgs.err(
-      messageFunc(activeArgs.errTarget ? activeArgs.errTarget : source[index])
-    );
+    if (
+      targetWhitespace === "space" &&
+      oneCharBefore === " " &&
+      (activeArgs.onlyOneChar || !isWhitespace(twoCharsBefore))
+    ) {
+      return;
+    }
+
+    activeArgs.err(messageFunc(activeArgs.errTarget ?? source[index]));
   }
 
   function expectBeforeAllowingIndentation(
@@ -247,9 +279,7 @@ module.exports = function (targetWhitespace, expectation, messages) {
         continue;
       }
 
-      err(
-        messageFunc(activeArgs.errTarget ? activeArgs.errTarget : source[index])
-      );
+      err(messageFunc(activeArgs.errTarget ?? source[index]));
 
       return;
     }
@@ -260,9 +290,7 @@ module.exports = function (targetWhitespace, expectation, messages) {
     const oneCharBefore = source[index - 1];
 
     if (isValue(oneCharBefore) && isWhitespace(oneCharBefore)) {
-      activeArgs.err(
-        messageFunc(activeArgs.errTarget ? activeArgs.errTarget : source[index])
-      );
+      activeArgs.err(messageFunc(activeArgs.errTarget ?? source[index]));
     }
   }
 
@@ -292,26 +320,25 @@ module.exports = function (targetWhitespace, expectation, messages) {
       }
 
       // If index is followed by a Unix LF ...
-      if (oneCharAfter === "\n") {
-        if (activeArgs.onlyOneChar || !isWhitespace(twoCharsAfter)) {
-          return;
-        }
-      }
-    }
-
-    if (targetWhitespace === "space" && oneCharAfter === " ") {
       if (
-        expectation === "at-least-one-space" ||
-        activeArgs.onlyOneChar ||
-        !isWhitespace(twoCharsAfter)
+        oneCharAfter === "\n" &&
+        (activeArgs.onlyOneChar || !isWhitespace(twoCharsAfter))
       ) {
         return;
       }
     }
 
-    activeArgs.err(
-      messageFunc(activeArgs.errTarget ? activeArgs.errTarget : source[index])
-    );
+    if (
+      targetWhitespace === "space" &&
+      oneCharAfter === " " &&
+      (expectation === "at-least-one-space" ||
+        activeArgs.onlyOneChar ||
+        !isWhitespace(twoCharsAfter))
+    ) {
+      return;
+    }
+
+    activeArgs.err(messageFunc(activeArgs.errTarget ?? source[index]));
   }
 
   function rejectAfter(messageFunc = messages.rejectedAfter) {
@@ -319,9 +346,7 @@ module.exports = function (targetWhitespace, expectation, messages) {
     const oneCharAfter = index + 1 < source.length ? source[index + 1] : "";
 
     if (isValue(oneCharAfter) && isWhitespace(oneCharAfter)) {
-      activeArgs.err(
-        messageFunc(activeArgs.errTarget ? activeArgs.errTarget : source[index])
-      );
+      activeArgs.err(messageFunc(activeArgs.errTarget ?? source[index]));
     }
   }
 

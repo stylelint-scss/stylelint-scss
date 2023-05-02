@@ -1,13 +1,12 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const { isBoolean } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-
+const { isBoolean } = require("../../utils/validateTypes.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 const {
   sassConditionalBraceNLAfterChecker
-} = require("../at-if-closing-brace-newline-after");
+} = require("../at-if-closing-brace-newline-after/index.js");
 
 const ruleName = namespace("at-else-closing-brace-newline-after");
 

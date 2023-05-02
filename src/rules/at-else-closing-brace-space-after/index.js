@@ -1,11 +1,11 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 const {
   sassConditionalBraceSpaceAfterChecker
-} = require("../at-if-closing-brace-space-after");
+} = require("../at-if-closing-brace-space-after/index.js");
 
 const ruleName = namespace("at-else-closing-brace-space-after");
 

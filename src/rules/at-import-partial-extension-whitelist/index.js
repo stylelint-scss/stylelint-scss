@@ -1,10 +1,10 @@
 "use strict";
 
-const nodeJsPath = require("path");
+const nodeJsPath = require("node:path");
 const { utils } = require("stylelint");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { isRegExp, isString } = require("../../utils/validateTypes.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-import-partial-extension-whitelist");
 
@@ -17,7 +17,7 @@ const meta = {
 };
 
 function rule(whitelistOption) {
-  const whitelist = [].concat(whitelistOption);
+  const whitelist = [whitelistOption].flat();
 
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -75,9 +75,9 @@ function rule(whitelistOption) {
 
     root.walkAtRules("import", atRule => {
       // Processing comma-separated lists of import paths
-      atRule.params.split(",").forEach(path => {
+      for (const path of atRule.params.split(",")) {
         checkPathForUnderscore(path, atRule);
-      });
+      }
     });
   };
 }

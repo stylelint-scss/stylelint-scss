@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const parseSelector = require("../../utils/parseSelector");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const parseSelector = require("../../utils/parseSelector.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("selector-nest-combinators");
 
@@ -42,14 +42,14 @@ function rule(expectation) {
     }
 
     // attribute, class, combinator, comment, id, nesting, pseudo, root, selector, string, tag, or universal
-    const chainingTypes = [
+    const chainingTypes = new Set([
       "attribute",
       "class",
       "id",
       "pseudo",
       "tag",
       "universal"
-    ];
+    ]);
 
     const interpolationRe = /#{.+?}$/;
 
@@ -101,26 +101,23 @@ function rule(expectation) {
             }
 
             if (node.type === "combinator") {
-              if (node.next() && !chainingTypes.includes(node.next().type)) {
+              if (node.next() && !chainingTypes.has(node.next().type)) {
                 return;
               }
 
-              if (!chainingTypes.includes(node.prev().type)) {
+              if (!chainingTypes.has(node.prev().type)) {
                 return;
               }
             }
 
             if (
-              chainingTypes.includes(node.type) &&
-              !chainingTypes.includes(node.prev().type)
+              chainingTypes.has(node.type) &&
+              !chainingTypes.has(node.prev().type)
             ) {
               return;
             }
 
-            if (
-              node.type !== "combinator" &&
-              !chainingTypes.includes(node.type)
-            ) {
+            if (node.type !== "combinator" && !chainingTypes.has(node.type)) {
               return;
             }
 
@@ -130,11 +127,9 @@ function rule(expectation) {
               return;
             }
 
-            if (hasInterpolation) {
-              message = messages.expectedInterpolation;
-            } else {
-              message = messages.expected(node.value, node.type);
-            }
+            message = hasInterpolation
+              ? messages.expectedInterpolation
+              : messages.expected(node.value, node.type);
           }
 
           if (expectation === "never") {

@@ -3,10 +3,10 @@
 const { utils } = require("stylelint");
 const {
   variableColonSpaceChecker
-} = require("../dollar-variable-colon-space-after");
-const whitespaceChecker = require("../../utils/whitespaceChecker");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+} = require("../dollar-variable-colon-space-after/index.js");
+const whitespaceChecker = require("../../utils/whitespaceChecker.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("dollar-variable-colon-space-before");
 

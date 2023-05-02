@@ -1,10 +1,10 @@
 "use strict";
 
-const nodeJsPath = require("path");
+const nodeJsPath = require("node:path");
 const { utils } = require("stylelint");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { isRegExp, isString } = require("../../utils/validateTypes.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("at-import-partial-extension-blacklist");
 
@@ -17,7 +17,7 @@ const meta = {
 };
 
 function rule(blacklistOption) {
-  const blacklist = [].concat(blacklistOption);
+  const blacklist = [blacklistOption].flat();
 
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -53,7 +53,7 @@ function rule(blacklistOption) {
         return;
       }
 
-      blacklist.forEach(ext => {
+      for (const ext of blacklist) {
         if (
           (isString(ext) && extensionNormalized === ext) ||
           (isRegExp(ext) && extensionNormalized.search(ext) !== -1)
@@ -66,14 +66,14 @@ function rule(blacklistOption) {
             ruleName
           });
         }
-      });
+      }
     }
 
     root.walkAtRules("import", atRule => {
       // Processing comma-separated lists of import paths
-      atRule.params.split(",").forEach(path => {
+      for (const path of atRule.params.split(",")) {
         checkPathForUnderscore(path, atRule);
-      });
+      }
     });
   };
 }

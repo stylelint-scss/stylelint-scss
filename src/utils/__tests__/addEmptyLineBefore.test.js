@@ -1,7 +1,7 @@
 "use strict";
 
-const addEmptyLineBefore = require("../addEmptyLineBefore");
 const postcss = require("postcss");
+const addEmptyLineBefore = require("../addEmptyLineBefore.js");
 
 describe("addEmptyLineBefore", () => {
   it("adds single newline to the newline at the beginning", () => {

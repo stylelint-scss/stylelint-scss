@@ -1,10 +1,10 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const isSingleLineString = require("../../utils/isSingleLineString");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const { isBoolean } = require("../../utils/validateTypes");
+const isSingleLineString = require("../../utils/isSingleLineString.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
+const { isBoolean } = require("../../utils/validateTypes.js");
 
 const ruleName = namespace("at-if-closing-brace-newline-after");
 
@@ -117,10 +117,8 @@ function sassConditionalBraceNLAfterChecker({
         if (hasNewLinesBeforeNext) {
           complain(atrule, messages.rejected, reportIndex, " ");
         }
-      } else {
-        if (!hasNewLinesBeforeNext) {
-          complain(atrule, messages.expected, reportIndex, context.newline);
-        }
+      } else if (!hasNewLinesBeforeNext) {
+        complain(atrule, messages.expected, reportIndex, context.newline);
       }
     }
   });

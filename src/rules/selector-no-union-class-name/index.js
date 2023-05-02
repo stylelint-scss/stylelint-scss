@@ -9,9 +9,9 @@ const {
   isPseudoElement
 } = require("postcss-selector-parser");
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const parseSelector = require("../../utils/parseSelector");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const parseSelector = require("../../utils/parseSelector.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("selector-no-union-class-name");
 

@@ -2,10 +2,10 @@
 
 const postcss = require("postcss");
 const scss = require("postcss-scss");
-const findCommentsInRaws = require("../findCommentsInRaws");
+const findCommentsInRaws = require("../findCommentsInRaws.js");
 
 function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
+  console.log(err.stack);
 }
 
 test("// is the first statement in the file", () => {

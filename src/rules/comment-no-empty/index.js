@@ -1,8 +1,8 @@
 "use strict";
 
 const { rules, utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const coreRuleName = "comment-no-empty";
 

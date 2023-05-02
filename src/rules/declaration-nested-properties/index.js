@@ -1,11 +1,11 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const isStandardSyntaxProperty = require("../../utils/isStandardSyntaxProperty");
-const optionsHaveException = require("../../utils/optionsHaveException");
-const namespace = require("../../utils/namespace");
-const parseNestedPropRoot = require("../../utils/parseNestedPropRoot");
-const ruleUrl = require("../../utils/ruleUrl");
+const isStandardSyntaxProperty = require("../../utils/isStandardSyntaxProperty.js");
+const optionsHaveException = require("../../utils/optionsHaveException.js");
+const namespace = require("../../utils/namespace.js");
+const parseNestedPropRoot = require("../../utils/parseNestedPropRoot.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
 
@@ -99,34 +99,33 @@ function rule(expectation, options) {
         });
 
         // Now check if the found properties deserve warnings
-        Object.keys(warningCandidates).forEach(namespace => {
+        for (const namespace of Object.keys(warningCandidates)) {
           const exceptIfOnlyOfNs = optionsHaveException(
             options,
             "only-of-namespace"
           );
           const moreThanOneProp = warningCandidates[namespace].length > 1;
 
-          warningCandidates[namespace].forEach(candidate => {
+          for (const candidate of warningCandidates[namespace]) {
             if (candidate.nested === true) {
-              if (exceptIfOnlyOfNs) {
+              if (
+                exceptIfOnlyOfNs &&
                 // If there is only one prop inside a nested prop - warn (reverse "always")
-                if (
-                  candidate.nested === true &&
-                  candidate.node.nodes.length === 1
-                ) {
-                  utils.report({
-                    message: messages.rejected(namespace),
-                    node: candidate.node,
-                    result,
-                    ruleName
-                  });
-                }
+                candidate.nested === true &&
+                candidate.node.nodes.length === 1
+              ) {
+                utils.report({
+                  message: messages.rejected(namespace),
+                  node: candidate.node,
+                  result,
+                  ruleName
+                });
               }
             } else {
               // Don't warn on non-nested namespaced props if there are
               // less than 2 of them, and except: "only-of-namespace" is set
               if (exceptIfOnlyOfNs && !moreThanOneProp) {
-                return;
+                continue;
               }
 
               utils.report({
@@ -136,8 +135,8 @@ function rule(expectation, options) {
                 ruleName
               });
             }
-          });
-        });
+          }
+        }
       });
     } else if (expectation === "never") {
       root.walk(item => {

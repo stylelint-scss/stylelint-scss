@@ -2,17 +2,17 @@
 
 const valueParser = require("postcss-value-parser");
 const { rules, utils } = require("stylelint");
-const { ALL_FUNCTIONS } = require("../../utils/functions");
-const namespace = require("../../utils/namespace");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const ruleUrl = require("../../utils/ruleUrl");
+const { ALL_FUNCTIONS } = require("../../utils/functions.js");
+const namespace = require("../../utils/namespace.js");
+const { isRegExp, isString } = require("../../utils/validateTypes.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleToCheckAgainst = "function-no-unknown";
 
 const ruleName = namespace(ruleToCheckAgainst);
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: (...args) => {
+  rejected(...args) {
     return rules[ruleToCheckAgainst].messages
       .rejected(...args)
       .replace(` (${ruleToCheckAgainst})`, "");
@@ -43,6 +43,7 @@ function getAtUseNamespace(nodes) {
     const [last] = nodes.slice(-1);
     return last.value;
   }
+
   const [first] = nodes;
   const parts = first.value.split("/");
   const [last] = parts.slice(-1);
@@ -103,7 +104,7 @@ function rule(primaryOption, secondaryOptions) {
               atUseNamespaces.push(getAtUseNamespace(nodes));
             });
 
-            if (atUseNamespaces.length) {
+            if (atUseNamespaces.length > 0) {
               const [namespace] = funcName.split(".");
               if (atUseNamespaces.includes(namespace)) {
                 return;

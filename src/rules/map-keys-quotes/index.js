@@ -2,8 +2,8 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("map-keys-quotes");
 
@@ -15,7 +15,7 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-const mathOperators = ["+", "/", "-", "*", "%"];
+const mathOperators = new Set(["+", "/", "-", "*", "%"]);
 
 function rule(primary) {
   return (root, result) => {
@@ -42,12 +42,12 @@ function rule(primary) {
           // Identify all of the map-keys and see if they're strings (not words).
           const mapKeys = returnMapKeys(node.nodes);
 
-          mapKeys.forEach(map_key => {
-            if (mathOperators.includes(map_key.value)) {
-              return;
+          for (const mapKey of mapKeys) {
+            if (mathOperators.has(mapKey.value)) {
+              continue;
             }
 
-            if (map_key.type === "word" && isNaN(map_key.value)) {
+            if (mapKey.type === "word" && isNaN(mapKey.value)) {
               utils.report({
                 message: messages.expected,
                 node: decl,
@@ -55,7 +55,7 @@ function rule(primary) {
                 ruleName
               });
             }
-          });
+          }
         }
       });
     });
@@ -89,13 +89,13 @@ function isMap(nodes) {
 }
 
 function returnMapKeys(array) {
-  const new_array = [];
+  const newArray = [];
 
   for (let i = 0; i < array.length; i += 4) {
-    new_array.push(array[i]);
+    newArray.push(array[i]);
   }
 
-  return new_array;
+  return newArray;
 }
 
 module.exports = rule;

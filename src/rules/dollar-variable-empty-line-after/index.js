@@ -1,14 +1,14 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const blockString = require("../../utils/blockString");
-const hasEmptyLine = require("../../utils/hasEmptyLine");
-const isSingleLineString = require("../../utils/isSingleLineString");
-const namespace = require("../../utils/namespace");
-const optionsHaveException = require("../../utils/optionsHaveException");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const ruleUrl = require("../../utils/ruleUrl");
-const { isBoolean } = require("../../utils/validateTypes");
+const blockString = require("../../utils/blockString.js");
+const hasEmptyLine = require("../../utils/hasEmptyLine.js");
+const isSingleLineString = require("../../utils/isSingleLineString.js");
+const namespace = require("../../utils/namespace.js");
+const optionsHaveException = require("../../utils/optionsHaveException.js");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
+const { isBoolean } = require("../../utils/validateTypes.js");
 
 const ruleName = namespace("dollar-variable-empty-line-after");
 
@@ -59,7 +59,7 @@ function rule(expectation, options, context) {
       );
     };
 
-    const hasNewline = str => str.indexOf(context.newline) > -1;
+    const hasNewline = str => str.includes(context.newline);
     const isDollarVar = node => node.prop && node.prop[0] === "$";
 
     root.walkDecls(decl => {
@@ -185,7 +185,9 @@ function rule(expectation, options, context) {
             }
 
             return;
-          } else if (
+          }
+
+          if (
             (expectEmptyLineAfter &&
               exceptBeforeComment &&
               nextIsComment &&
@@ -200,7 +202,9 @@ function rule(expectation, options, context) {
             fixNext(next, context.newline + context.newline, context.newline);
 
             return;
-          } else if (
+          }
+
+          if (
             (!expectEmptyLineAfter &&
               exceptBeforeComment &&
               nextIsComment &&
@@ -225,7 +229,9 @@ function rule(expectation, options, context) {
             fixParent(decl, context.newline, context.newline + context.newline);
 
             return;
-          } else if (!expectEmptyLineAfter && hasEmptyLineAfter) {
+          }
+
+          if (!expectEmptyLineAfter && hasEmptyLineAfter) {
             fixParent(decl, "\\n\\r\\n", "\r\n");
             fixParent(decl, context.newline + context.newline, context.newline);
 

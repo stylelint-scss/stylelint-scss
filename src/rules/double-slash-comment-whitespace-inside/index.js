@@ -1,10 +1,10 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const eachRoot = require("../../utils/eachRoot");
-const findCommentsInRaws = require("../../utils/findCommentsInRaws");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const eachRoot = require("../../utils/eachRoot.js");
+const findCommentsInRaws = require("../../utils/findCommentsInRaws.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("double-slash-comment-whitespace-inside");
 
@@ -39,16 +39,16 @@ function rule(expectation) {
 
       const comments = findCommentsInRaws(rootString);
 
-      comments.forEach(comment => {
+      for (const comment of comments) {
         // Only process // comments
         if (comment.type !== "double-slash") {
-          return;
+          continue;
         }
 
         // if it's `//` - no warning whatsoever; if `// ` - then trailing
         // whitespace rule will govern this
         if (comment.text === "") {
-          return;
+          continue;
         }
 
         let message;
@@ -58,7 +58,7 @@ function rule(expectation) {
         } else if (comment.raws.left === "" && expectation === "always") {
           message = messages.expected;
         } else {
-          return;
+          continue;
         }
 
         utils.report({
@@ -68,7 +68,7 @@ function rule(expectation) {
           result,
           ruleName
         });
-      });
+      }
     }
   };
 }

@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const atRuleBaseName = require("../../utils/atRuleBaseName");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const atRuleBaseName = require("../../utils/atRuleBaseName.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("no-duplicate-mixins");
 

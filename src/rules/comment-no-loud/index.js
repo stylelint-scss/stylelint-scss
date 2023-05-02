@@ -1,8 +1,8 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("comment-no-loud");
 
@@ -42,7 +42,7 @@ rule.messages = messages;
 rule.meta = meta;
 
 function isLoudComment(comment) {
-  const regex = new RegExp(/^[ \t\n]*\/\*/);
+  const regex = /^[ \t\n]*\/\*/;
 
   const splitComment = comment.source.input.css.split("\n");
   const commentFirstLine = splitComment[comment.source.start.line - 1];

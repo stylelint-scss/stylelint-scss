@@ -1,9 +1,9 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const ruleUrl = require("../../utils/ruleUrl");
+const namespace = require("../../utils/namespace.js");
+const optionsHaveIgnored = require("../../utils/optionsHaveIgnored.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("media-feature-value-dollar-variable");
 
@@ -51,28 +51,28 @@ function rule(expectation, options) {
     // `none`, `dark`
     const keywordValueRegex = /^[a-z][a-z\d-]*$/;
 
+    // Just a shorthand to stylelint.utils.report()
+    function complain(message, node, word) {
+      utils.report({
+        ruleName,
+        result,
+        node,
+        word,
+        message
+      });
+    }
+
     root.walkAtRules("media", atRule => {
       const found = atRule.params.match(valueRegexGlobal);
 
       // If there are no values
-      if (!found || !found.length) {
+      if (!found || found.length === 0) {
         return;
       }
 
-      found.forEach(found => {
+      for (const f of found) {
         // ... parse `: 10px )` to `10px`
-        const valueParsed = found.match(valueRegex)[1];
-
-        // Just a shorthand to stylelint.utils.report()
-        function complain(message) {
-          utils.report({
-            ruleName,
-            result,
-            node: atRule,
-            word: valueParsed,
-            message
-          });
-        }
+        const valueParsed = f.match(valueRegex)[1];
 
         // Keyword values, like `none`, should always be fine if keywords are
         // ignored.
@@ -80,7 +80,7 @@ function rule(expectation, options) {
           keywordValueRegex.test(valueParsed) &&
           optionsHaveIgnored(options, "keywords")
         ) {
-          return;
+          continue;
         }
 
         // A value should be a single variable
@@ -92,12 +92,12 @@ function rule(expectation, options) {
             interpolationVarRegex.test(valueParsed)
           )
         ) {
-          complain(messages.expected);
+          complain(messages.expected, atRule, valueParsed);
         } else if (expectation === "never" && valueParsed.includes("$")) {
           // "Never" means no variables at all (functions allowed)
-          complain(messages.rejected);
+          complain(messages.rejected, atRule, valueParsed);
         }
-      });
+      }
     });
   };
 }

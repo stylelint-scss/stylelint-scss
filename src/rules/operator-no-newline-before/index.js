@@ -1,11 +1,13 @@
 "use strict";
 
 const { utils } = require("stylelint");
-const eachRoot = require("../../utils/eachRoot");
-const isWhitespace = require("../../utils/isWhitespace");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const { calculationOperatorSpaceChecker } = require("../operator-no-unspaced");
+const eachRoot = require("../../utils/eachRoot.js");
+const isWhitespace = require("../../utils/isWhitespace.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
+const {
+  calculationOperatorSpaceChecker
+} = require("../operator-no-unspaced/index.js");
 
 const ruleName = namespace("operator-no-newline-before");
 

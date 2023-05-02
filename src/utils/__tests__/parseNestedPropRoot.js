@@ -1,6 +1,6 @@
 "use strict";
 
-const parseNestedPropRoot = require("../parseNestedPropRoot");
+const parseNestedPropRoot = require("../parseNestedPropRoot.js");
 
 // --------------------------------------------------------------------------
 // nested props

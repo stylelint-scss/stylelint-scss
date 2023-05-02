@@ -2,10 +2,10 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
-const isNativeCssFunction = require("../../utils/isNativeCssFunction");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const declarationValueIndex = require("../../utils/declarationValueIndex.js");
+const isNativeCssFunction = require("../../utils/isNativeCssFunction.js");
+const namespace = require("../../utils/namespace.js");
+const ruleUrl = require("../../utils/ruleUrl.js");
 
 const ruleName = namespace("function-unquote-no-unquoted-strings-inside");
 
