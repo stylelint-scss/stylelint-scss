@@ -40,7 +40,7 @@ function rule(pattern) {
         return;
       }
 
-      const funcTopLine = Object.assign({}, decl.source.start);
+      const funcTopLine = { ...decl.source.start };
       funcTopLine.line += 1;
       funcTopLine.column = 0;
 

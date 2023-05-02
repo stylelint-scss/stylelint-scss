@@ -67,9 +67,10 @@ function rule(primaryOption, secondaryOptions) {
 
     const optionsAtRules = secondaryOptions && secondaryOptions.ignoreAtRules;
     const ignoreAtRules = sassAtRules.concat(optionsAtRules || []);
-    const defaultedOptions = Object.assign({}, secondaryOptions, {
+    const defaultedOptions = {
+      ...secondaryOptions,
       ignoreAtRules
-    });
+    };
 
     utils.checkAgainstRule(
       {

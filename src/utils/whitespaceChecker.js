@@ -209,7 +209,7 @@ module.exports = function (targetWhitespace, expectation, messages) {
   }
 
   function beforeAllowingIndentation(obj) {
-    before(Object.assign({}, obj, { allowIndentation: true }));
+    before({ ...obj, allowIndentation: true });
   }
 
   function expectBefore(messageFunc = messages.expectedBefore) {
@@ -295,7 +295,7 @@ module.exports = function (targetWhitespace, expectation, messages) {
   }
 
   function afterOneOnly(obj) {
-    after(Object.assign({}, obj, { onlyOneChar: true }));
+    after({ ...obj, onlyOneChar: true });
   }
 
   function expectAfter(messageFunc = messages.expectedAfter) {

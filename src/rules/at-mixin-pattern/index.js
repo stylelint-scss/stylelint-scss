@@ -40,7 +40,7 @@ function rule(pattern) {
         return;
       }
 
-      const mixinTopLine = Object.assign({}, decl.source.start);
+      const mixinTopLine = { ...decl.source.start };
       mixinTopLine.line += 1;
       mixinTopLine.column = 0;
 

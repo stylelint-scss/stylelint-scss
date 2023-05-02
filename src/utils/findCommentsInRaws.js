@@ -193,7 +193,7 @@ module.exports = function findCommentsInRaws(rawString) {
           comment.text = matches[3];
           comment.inlineBefore =
             rawString.substring(i + 2).search(/^\s*\S+\s*?\n/) !== -1;
-          result.push(Object.assign({}, comment));
+          result.push({ ...comment });
           comment = {};
           // Skip the next loop as the / in */ is already checked
           i++;
@@ -230,7 +230,7 @@ module.exports = function findCommentsInRaws(rawString) {
           };
           comment.text = matches[3];
           comment.inlineBefore = false;
-          result.push(Object.assign({}, comment));
+          result.push({ ...comment });
           comment = {};
           // Compensate for the `*/` added by postcss-scss
           offset += 2;

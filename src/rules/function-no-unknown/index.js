@@ -75,9 +75,10 @@ function rule(primaryOption, secondaryOptions) {
       (secondaryOptions && secondaryOptions.ignoreFunctions) || [];
     const ignoreFunctions = ALL_FUNCTIONS.concat(optionsFunctions);
     const ignoreFunctionsAsSet = new Set(ignoreFunctions);
-    const newSecondaryOptions = Object.assign({}, secondaryOptions, {
+    const newSecondaryOptions = {
+      ...secondaryOptions,
       ignoreFunctions
-    });
+    };
 
     utils.checkAgainstRule(
       {
