@@ -16,7 +16,7 @@
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.39.0",
+    "eslint": "^8.41.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^8.0.3",
     "jest": "^29.5.0",
