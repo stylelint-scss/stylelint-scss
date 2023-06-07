@@ -12,7 +12,7 @@
   "dependencies": {
     "postcss-media-query-parser": "^0.2.3",
     "postcss-resolve-nested-selector": "^0.1.1",
-    "postcss-selector-parser": "^6.0.12",
+    "postcss-selector-parser": "^6.0.13",
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
