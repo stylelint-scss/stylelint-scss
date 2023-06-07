@@ -91,7 +91,7 @@ function rule(primaryOption, secondaryOptions) {
         valueParser(node.value).walk(valueNode => {
           const { type, value: funcName } = valueNode;
 
-          if (type !== "function") {
+          if (type !== "function" || funcName.trim() === "") {
             return;
           }
 

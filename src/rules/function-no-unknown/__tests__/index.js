@@ -111,7 +111,7 @@ testRule({
       code: "a { color: color.unknown(#6b717f, $red: 15); }",
       message: messages.rejected("color.unknown"),
       line: 1,
-      column: 12
+      column: 18
     },
     {
       code: `
@@ -123,7 +123,7 @@ testRule({
       `,
       message: messages.rejected("othermodule.myfunction"),
       line: 5,
-      column: 19,
+      column: 31,
       description: "non-matching @use namespace"
     },
     {
@@ -136,7 +136,7 @@ testRule({
       `,
       message: messages.rejected("c.myfunction"),
       line: 5,
-      column: 19,
+      column: 21,
       description: "non-matching @use namespace, 'as' keyword"
     },
     {
