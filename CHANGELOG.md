@@ -1,3 +1,9 @@
+# 5.0.1
+
+- Fixed: `function-no-unknown` ignore empty function names (#826).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.0.0...v5.0.1
+
 # 5.0.0
 
 - Removed: `Babel` dependency to remove an extra build step and reduce complexity
