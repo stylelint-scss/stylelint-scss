@@ -1,6 +1,6 @@
 # function-no-unknown
 
-Disallow unknown functions. Should be used **instead of** Stylelint's [function-no-unknown](https://stylelint.io/user-guide/rules/list/at-rule-no-unknown).
+Disallow unknown functions. Should be used **instead of** Stylelint's [function-no-unknown](https://stylelint.io/user-guide/rules/function-no-unknown).
 
 ```css
 a { color: unknown(1); }
