@@ -28,7 +28,7 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.6",
     "prettier": "^2.8.8",
-    "stylelint": "^15.7.0"
+    "stylelint": "^15.9.0"
   },
   "files": [
     "src/**/*.js",
