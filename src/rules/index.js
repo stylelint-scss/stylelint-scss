@@ -42,6 +42,7 @@ const rules = {
   "double-slash-comment-empty-line-before": require("./double-slash-comment-empty-line-before"),
   "double-slash-comment-inline": require("./double-slash-comment-inline"),
   "double-slash-comment-whitespace-inside": require("./double-slash-comment-whitespace-inside"),
+  "function-disallowed-list": require("./function-disallowed-list"),
   "function-color-relative": require("./function-color-relative"),
   "function-no-unknown": require("./function-no-unknown"),
   "function-quote-no-quoted-strings-inside": require("./function-quote-no-quoted-strings-inside"),

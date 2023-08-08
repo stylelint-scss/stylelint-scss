@@ -1,3 +1,7 @@
+# 5.0.2
+
+- Added: `function-disallowed-list` rule support to ban specific built-in functions (#422).
+
 # 5.0.1
 
 - Fixed: `function-no-unknown` ignore empty function names (#826).
