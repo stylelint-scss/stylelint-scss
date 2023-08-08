@@ -1,6 +1,8 @@
-# 5.0.2
+# 5.1.0
 
-- Added: `function-disallowed-list` rule support to ban specific built-in functions (#422).
+- Added: `function-disallowed-list` rule support to ban specific built-in functions (#422, #844).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.0.1...v5.1.0
 
 # 5.0.1
 
