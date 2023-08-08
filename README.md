@@ -248,7 +248,7 @@ Thanks goes to these wonderful people:
 <th align="center"><a href="https://github.com/ntwb"><img alt="ntwb" src="https://avatars.githubusercontent.com/u/1016458?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/ricardogobbosouza"><img alt="ricardogobbosouza" src="https://avatars.githubusercontent.com/u/13064722?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/jeddy3"><img alt="jeddy3" src="https://avatars.githubusercontent.com/u/808227?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/bjankord"><img alt="bjankord" src="https://avatars.githubusercontent.com/u/633148?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/kevindew"><img alt="kevindew" src="https://avatars.githubusercontent.com/u/282717?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
@@ -257,27 +257,27 @@ Thanks goes to these wonderful people:
 <td align="center"><a href="https://github.com/ntwb">ntwb</a></td>
 <td align="center"><a href="https://github.com/ricardogobbosouza">ricardogobbosouza</a></td>
 <td align="center"><a href="https://github.com/jeddy3">jeddy3</a></td>
-<td align="center"><a href="https://github.com/bjankord">bjankord</a></td>
+<td align="center"><a href="https://github.com/kevindew">kevindew</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/kevindew"><img alt="kevindew" src="https://avatars.githubusercontent.com/u/282717?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/thibaudcolas"><img alt="thibaudcolas" src="https://avatars.githubusercontent.com/u/877585?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/chimurai"><img alt="chimurai" src="https://avatars.githubusercontent.com/u/655241?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/AndyOGo"><img alt="AndyOGo" src="https://avatars.githubusercontent.com/u/914443?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/bjankord"><img alt="bjankord" src="https://avatars.githubusercontent.com/u/633148?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/chalkygames123"><img alt="chalkygames123" src="https://avatars.githubusercontent.com/u/5608239?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/xboy2012"><img alt="xboy2012" src="https://avatars.githubusercontent.com/u/7540144?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/alexander-akait"><img alt="alexander-akait" src="https://avatars.githubusercontent.com/u/4567934?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><a href="https://github.com/kevindew">kevindew</a></td>
 <td align="center"><a href="https://github.com/thibaudcolas">thibaudcolas</a></td>
+<td align="center"><a href="https://github.com/chimurai">chimurai</a></td>
 <td align="center"><a href="https://github.com/AndyOGo">AndyOGo</a></td>
+<td align="center"><a href="https://github.com/bjankord">bjankord</a></td>
 <td align="center"><a href="https://github.com/chalkygames123">chalkygames123</a></td>
 <td align="center"><a href="https://github.com/xboy2012">xboy2012</a></td>
-<td align="center"><a href="https://github.com/alexander-akait">alexander-akait</a></td>
 </tr>
 </tbody></table>
 <table>
@@ -323,31 +323,35 @@ Thanks goes to these wonderful people:
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/nlydv"><img alt="nlydv" src="https://avatars.githubusercontent.com/u/39429628?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/pamelalozano16"><img alt="pamelalozano16" src="https://avatars.githubusercontent.com/u/30474787?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/paulgv"><img alt="paulgv" src="https://avatars.githubusercontent.com/u/4895885?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/sajadtorkamani"><img alt="sajadtorkamani" src="https://avatars.githubusercontent.com/u/9380313?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/YozhikM"><img alt="YozhikM" src="https://avatars.githubusercontent.com/u/27273025?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/AM-77"><img alt="AM-77" src="https://avatars.githubusercontent.com/u/18232579?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/kersh"><img alt="kersh" src="https://avatars.githubusercontent.com/u/621330?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/YodaDaCoda"><img alt="YodaDaCoda" src="https://avatars.githubusercontent.com/u/365349?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/nlydv">nlydv</a></td>
+<td align="center"><a href="https://github.com/pamelalozano16">pamelalozano16</a></td>
 <td align="center"><a href="https://github.com/paulgv">paulgv</a></td>
 <td align="center"><a href="https://github.com/sajadtorkamani">sajadtorkamani</a></td>
 <td align="center"><a href="https://github.com/YozhikM">YozhikM</a></td>
 <td align="center"><a href="https://github.com/AM-77">AM-77</a></td>
-<td align="center"><a href="https://github.com/kersh">kersh</a></td>
-<td align="center"><a href="https://github.com/YodaDaCoda">YodaDaCoda</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/kersh"><img alt="kersh" src="https://avatars.githubusercontent.com/u/621330?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/YodaDaCoda"><img alt="YodaDaCoda" src="https://avatars.githubusercontent.com/u/365349?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/freezy-sk"><img alt="freezy-sk" src="https://avatars.githubusercontent.com/u/661637?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/qmhc"><img alt="qmhc" src="https://avatars.githubusercontent.com/u/40221744?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/kersh">kersh</a></td>
+<td align="center"><a href="https://github.com/YodaDaCoda">YodaDaCoda</a></td>
 <td align="center"><a href="https://github.com/freezy-sk">freezy-sk</a></td>
 <td align="center"><a href="https://github.com/qmhc">qmhc</a></td>
 </tr>
