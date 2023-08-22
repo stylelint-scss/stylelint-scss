@@ -1,5 +1,11 @@
 # 5.1.0
 
+- Added: `at-root-no-redundant` rule to ban unnecessary `@at-root` rule (#601).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.1.0...v5.2.0
+
+# 5.1.0
+
 - Added: `function-disallowed-list` rule support to ban specific built-in functions (#422, #844).
 
 **Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.0.1...v5.1.0
