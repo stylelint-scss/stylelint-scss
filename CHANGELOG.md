@@ -1,3 +1,9 @@
+# 5.2.0
+
+- Added: `property-no-unknown` rule to disallow unknown properties. (#490).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.2.0...v5.1.0
+
 # 5.1.0
 
 - Added: `function-disallowed-list` rule support to ban specific built-in functions (#422, #844).

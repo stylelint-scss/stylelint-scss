@@ -30,9 +30,7 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
 
 ```jsonc
 {
-  "plugins": [
-    "stylelint-scss"
-  ],
+  "plugins": ["stylelint-scss"],
   "rules": {
     // recommended rules
     "at-rule-no-unknown": null,
@@ -135,6 +133,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`declaration-nested-properties`](./src/rules/declaration-nested-properties/README.md): Require or disallow properties with `-` in their names to be in a form of a nested group.
 - [`declaration-nested-properties-no-divided-groups`](./src/rules/declaration-nested-properties-no-divided-groups/README.md): Disallow nested properties of the same "namespace" to be divided into multiple groups.
+- [`property-no-unknown`](./src/rules/property-no-unknown/README.md): Disallow unknown properties, including [nested properties](https://sass-lang.com/documentation/style-rules/declarations/#nesting).
 
 ### Dimension
 
