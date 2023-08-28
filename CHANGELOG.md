@@ -1,3 +1,9 @@
+# 5.2.0
+
+- Added: `at-use-no-redundant-alias` rule to disallow redundant namespace aliases (#445).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.1.0...v5.2.0
+
 # 5.1.0
 
 - Added: `function-disallowed-list` rule support to ban specific built-in functions (#422, #844).

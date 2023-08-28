@@ -30,9 +30,7 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
 
 ```jsonc
 {
-  "plugins": [
-    "stylelint-scss"
-  ],
+  "plugins": ["stylelint-scss"],
   "rules": {
     // recommended rules
     "at-rule-no-unknown": null,
@@ -102,6 +100,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### `@`-use
 
 - [`at-use-no-unnamespaced`](./src/rules/at-use-no-unnamespaced/README.md): Disallow `@use` without a namespace (i.e. `@use "..." as *`).
+- [`at-use-no-redundant-alias`](./src/rules/at-use-no-redundant-alias/README.md): Disallow redundant namespace aliases (i.e. `@use "foo" as foo`).
 
 ### `$`-variable
 
