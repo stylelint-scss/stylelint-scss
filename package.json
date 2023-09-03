@@ -25,7 +25,7 @@
     "np": "^8.0.4",
     "postcss": "^8.4.27",
     "postcss-less": "^6.0.0",
-    "postcss-scss": "^4.0.6",
+    "postcss-scss": "^4.0.7",
     "prettier": "^3.0.0",
     "stylelint": "^15.7.0"
   },
