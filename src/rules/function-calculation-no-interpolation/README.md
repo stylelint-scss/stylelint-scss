@@ -1,6 +1,6 @@
 # function-calculation-no-interpolation
 
-Disallow interpolation in `calc()`, `clamp()`, `min()`, and `max()`.
+Disallow interpolation in `calc()`, `clamp()`, `min()`, and `max()` functions.
 
 <!-- prettier-ignore -->
 ```scss
