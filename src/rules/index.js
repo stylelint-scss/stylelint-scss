@@ -60,6 +60,7 @@ const rules = {
   "operator-no-unspaced": require("./operator-no-unspaced"),
   "partial-no-import": require("./partial-no-import"),
   "percent-placeholder-pattern": require("./percent-placeholder-pattern"),
+  "property-no-unknown": require("./property-no-unknown"),
   "selector-nest-combinators": require("./selector-nest-combinators"),
   "selector-no-redundant-nesting-selector": require("./selector-no-redundant-nesting-selector"),
   "selector-no-union-class-name": require("./selector-no-union-class-name")

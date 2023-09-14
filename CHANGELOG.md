@@ -1,5 +1,6 @@
 # 5.2.0
 
+- Added: `property-no-unknown` rule to disallow unknown properties. (#490).
 - Added: `at-use-no-redundant-alias` rule to disallow redundant namespace aliases (#445).
 - Added: `function-calculation-no-interpolation` rule to forbid interpolation in calc functions (#539).
 
