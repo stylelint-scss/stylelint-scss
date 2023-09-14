@@ -44,6 +44,7 @@ const rules = {
   "double-slash-comment-inline": require("./double-slash-comment-inline"),
   "double-slash-comment-whitespace-inside": require("./double-slash-comment-whitespace-inside"),
   "function-disallowed-list": require("./function-disallowed-list"),
+  "function-calculation-no-interpolation": require("./function-calculation-no-interpolation"),
   "function-color-relative": require("./function-color-relative"),
   "function-no-unknown": require("./function-no-unknown"),
   "function-quote-no-quoted-strings-inside": require("./function-quote-no-quoted-strings-inside"),
