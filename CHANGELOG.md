@@ -1,5 +1,6 @@
 # 5.2.0
 
+- Added: `at-use-no-redundant-alias` rule to disallow redundant namespace aliases (#445).
 - Added: `function-calculation-no-interpolation` rule to forbid interpolation in calc functions (#539).
 
 **Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.1.0...v5.2.0
