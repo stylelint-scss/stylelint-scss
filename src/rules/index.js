@@ -22,6 +22,7 @@ const rules = {
   "at-mixin-parentheses-space-before": require("./at-mixin-parentheses-space-before"),
   "at-mixin-pattern": require("./at-mixin-pattern"),
   "at-rule-conditional-no-parentheses": require("./at-rule-conditional-no-parentheses"),
+  "at-root-no-redundant": require("./at-root-no-redundant"),
   "at-rule-no-unknown": require("./at-rule-no-unknown"),
   "at-use-no-redundant-alias": require("./at-use-no-redundant-alias"),
   "at-use-no-unnamespaced": require("./at-use-no-unnamespaced"),
