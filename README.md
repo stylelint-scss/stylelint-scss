@@ -30,9 +30,7 @@ Create the `.stylelintrc.json` config file (or open the existing one), add `styl
 
 ```jsonc
 {
-  "plugins": [
-    "stylelint-scss"
-  ],
+  "plugins": ["stylelint-scss"],
   "rules": {
     // recommended rules
     "at-rule-no-unknown": null,
@@ -145,6 +143,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`function-color-relative`](./src/rules/function-color-relative/README.md): Encourage the use of the [scale-color](https://sass-lang.com/documentation/modules/color#scale-color) function over regular color functions.
 - [`function-disallowed-list`](./src/rules/function-disallowed-list/README.md): Specify a list of disallowed functions. Should be used **instead of** Stylelint's [function-disallowed-list](https://stylelint.io/user-guide/rules/function-disallowed-list).
 - [`function-no-unknown`](./src/rules/function-no-unknown/README.md): Disallow unknown functions. Should be used **instead of** Stylelint's [function-no-unknown](https://stylelint.io/user-guide/rules/function-no-unknown).
+- [`function-calculation-no-interpolation`](./src/rules/function-calculation-no-interpolation/README.md): Forbids interpolation in `calc()`, `clamp()`, `min()`, and `max()` functions.
 - [`function-quote-no-quoted-strings-inside`](./src/rules/function-quote-no-quoted-strings-inside/README.md): Disallow quoted strings inside the [quote function](https://sass-lang.com/documentation/modules/string#quote) (Autofixable).
 - [`function-unquote-no-unquoted-strings-inside`](./src/rules/function-unquote-no-unquoted-strings-inside/README.md): Disallow unquoted strings inside the [unquote function](https://sass-lang.com/documentation/modules/string#unquote) (Autofixable).
 
