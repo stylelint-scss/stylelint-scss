@@ -1,3 +1,9 @@
+# 5.2.1
+
+- Fixed: add missing `known-css-properties` dependency (#857).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.2.0...v5.2.1
+
 # 5.2.0
 
 - Added: `at-root-no-redundant` rule to ban unnecessary `@at-root` rule (#846).
