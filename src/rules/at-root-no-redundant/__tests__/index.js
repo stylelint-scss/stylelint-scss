@@ -38,7 +38,7 @@ testRule({
             from {
               transform: translateX(0%);
             }
-          
+
             to {
               transform: translateX(100%);
             }
@@ -50,13 +50,13 @@ testRule({
     {
       code: `
       @mixin foo {}
-      
+
       @keyframes slidein {
         from {
           @include foo;
           transform: translateX(0%);
         }
-      
+
         to {
           transform: translateX(100%);
         }
@@ -100,7 +100,7 @@ testRule({
         @at-root from {
           transform: translateX(0%);
         }
-      
+
         to {
           transform: translateX(100%);
         }
@@ -122,13 +122,81 @@ testRule({
                 transform: translateX(0%);
               }
         }
-      
+
         to {
           transform: translateX(100%);
         }
       }`,
       line: 5,
       column: 14,
+      message: messages.rejected,
+      description: "@at-root inside a @keyframes block, nested."
+    }
+  ]
+});
+
+// Test with fix
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
+  fix: true,
+  only: true,
+
+  accept: [
+    {
+      code: `
+      .a { @at-root .b { c: d } }
+      `,
+      description: "@at-root rule is nested."
+    }
+  ],
+  reject: [
+    {
+      code: `
+      .a { @at-root .b { c: d } }
+      @at-root .a { b: c; }`,
+      fixed: `
+      .a { @at-root .b { c: d } }
+      .a { b: c; }`,
+      line: 3,
+      column: 7,
+      message: messages.rejected,
+      description: "@at-root rule is already in the root."
+    },
+    {
+      code: `
+      .a { @at-root .b & { c: d; } }`,
+      fixed: `
+      .a { .b & { c: d; } }`,
+      line: 2,
+      column: 12,
+      message: messages.rejected,
+      description: "@at-root is followed by a `&` outside an interpolation."
+    },
+    {
+      code: `
+      @keyframes slidein {
+        @at-root from {
+          transform: translateX(0%);
+        }
+
+        to {
+          transform: translateX(100%);
+        }
+      }`,
+      fixed: `
+      @keyframes slidein {
+        from {
+          transform: translateX(0%);
+        }
+
+        to {
+          transform: translateX(100%);
+        }
+      }`,
+      line: 3,
+      column: 9,
       message: messages.rejected,
       description: "@at-root inside a @keyframes block, nested."
     }

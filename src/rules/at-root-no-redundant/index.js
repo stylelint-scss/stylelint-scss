@@ -25,7 +25,7 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-function rule(actual) {
+function rule(actual, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual
@@ -41,6 +41,12 @@ function rule(actual) {
         node.params.replace(/#{.*}/g, "").includes("&") ||
         isWithinKeyframes(node)
       ) {
+        if (context.fix) {
+          node.after(node.toString().replace(/@at-root\s/, ""));
+          node.next().raws = node.raws;
+          node.remove();
+          return;
+        }
         utils.report({
           message: messages.rejected,
           node,
