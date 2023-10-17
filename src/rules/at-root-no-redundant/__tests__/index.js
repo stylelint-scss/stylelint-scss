@@ -62,6 +62,18 @@ testRule({
         }
       }`,
       description: "Other at-rules nested inside @keyframes block."
+    },
+    {
+      code: `
+      .foo {
+        @at-root .bar,
+        &baz {
+          a: b;
+        }
+      }
+      `,
+      description:
+        "@at-root is followed by a nested selector containing`&` outside interpolation."
     }
   ],
   reject: [
@@ -131,6 +143,21 @@ testRule({
       column: 14,
       message: messages.rejected,
       description: "@at-root inside a @keyframes block, nested."
+    },
+    {
+      code: `
+      .foo {
+        @at-root &.bar,
+        &baz {
+          a: b;
+        }
+      }
+      `,
+      line: 3,
+      column: 9,
+      message: messages.rejected,
+      description:
+        "@at-root is followed by selectors all containing `&` outside interpolation."
     }
   ]
 });
@@ -141,7 +168,6 @@ testRule({
   config: [true],
   customSyntax: "postcss-scss",
   fix: true,
-  only: true,
 
   accept: [
     {
@@ -199,6 +225,29 @@ testRule({
       column: 9,
       message: messages.rejected,
       description: "@at-root inside a @keyframes block, nested."
+    },
+    {
+      code: `
+      .foo {
+        @at-root &.bar,
+        &baz {
+          a: b;
+        }
+      }
+      `,
+      fixed: `
+      .foo {
+        &.bar,
+        &baz {
+          a: b;
+        }
+      }
+      `,
+      line: 3,
+      column: 9,
+      message: messages.rejected,
+      description:
+        "@at-root is followed by selectors all containing `&` outside interpolation."
     }
   ]
 });
