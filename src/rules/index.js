@@ -26,6 +26,7 @@ const rules = {
   "at-rule-no-unknown": require("./at-rule-no-unknown"),
   "at-use-no-redundant-alias": require("./at-use-no-redundant-alias"),
   "at-use-no-unnamespaced": require("./at-use-no-unnamespaced"),
+  "block-no-unnecessary-nesting": require("./block-no-unnecessary-nesting"),
   "comment-no-empty": require("./comment-no-empty"),
   "comment-no-loud": require("./comment-no-loud"),
   "declaration-nested-properties-no-divided-groups": require("./declaration-nested-properties-no-divided-groups"),
