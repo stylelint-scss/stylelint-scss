@@ -141,7 +141,6 @@ testRule({
   config: [true],
   customSyntax: "postcss-scss",
   fix: true,
-  only: true,
 
   accept: [
     {

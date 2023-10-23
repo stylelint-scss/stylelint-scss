@@ -24,7 +24,7 @@ function separateEachParams(paramString) {
   return parts;
 }
 
-function rule(actual) {
+function rule(actual, _, context) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -35,6 +35,12 @@ function rule(actual) {
     root.walkAtRules("use", decl => {
       const parts = separateEachParams(decl.params);
       if (parts && getDefaultNamespace(parts[0]) === parts[1]) {
+        if (context.fix) {
+          decl.after(decl.toString().replace(/\s*as\s* [^\s*]+\s*/, " "));
+          decl.next().raws = decl.raws;
+          decl.remove();
+          return;
+        }
         utils.report({
           message: messages.rejected,
           node: decl,
