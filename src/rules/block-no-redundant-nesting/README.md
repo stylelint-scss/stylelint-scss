@@ -1,4 +1,4 @@
-# block-no-unnecessary-nesting
+# block-no-redundant-nesting
 
 Disallow nesting a single block if it could be merged with its parent block.
 

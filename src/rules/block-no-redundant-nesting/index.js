@@ -5,7 +5,7 @@ const { utils } = require("stylelint");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
-const ruleName = namespace("block-no-unnecessary-nesting");
+const ruleName = namespace("block-no-redundant-nesting");
 
 const messages = utils.ruleMessages(ruleName, {
   rejected: "Unexpected nesting for single child block"
