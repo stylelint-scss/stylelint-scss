@@ -80,7 +80,6 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `@`-import
 
-- [`at-import-no-partial-leading-underscore`](./src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
 - [`at-import-partial-extension`](./src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands (Autofixable).
 - [`at-import-partial-extension-blacklist`](./src/rules/at-import-partial-extension-blacklist/README.md): Specify a blacklist of disallowed file extensions for partial names in `@import` commands.
 - [`at-import-partial-extension-whitelist`](./src/rules/at-import-partial-extension-whitelist/README.md): Specify a whitelist of allowed file extensions for partial names in `@import` commands.
@@ -176,12 +175,21 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`selector-no-redundant-nesting-selector`](./src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
 - [`selector-no-union-class-name`](./src/rules/selector-no-union-class-name/README.md): Disallow union class names with the parent selector (`&`).
 
+### Load
+
+- [`load-no-partial-leading-underscore`](./src/rules/load-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`, `@use`, `@forward`, and [`meta.load-css`](https://sass-lang.com/documentation/modules/meta/#load-css) `$url` parameter.
+
 ### General / Sheet
 
 - [`no-dollar-variables`](./src/rules/no-dollar-variables/README.md): Disallow dollar variables within a stylesheet.
 - [`no-duplicate-dollar-variables`](./src/rules/no-duplicate-dollar-variables/README.md): Disallow duplicate dollar variables within a stylesheet.
 - [`no-duplicate-mixins`](./src/rules/no-duplicate-mixins/README.md): Disallow duplicate mixins within a stylesheet.
 - [`no-global-function-names`](./src/rules/no-global-function-names/README.md): Disallows the use of global function names, as these global functions are now located inside built-in Sass modules.
+
+## Deprecated
+These rules are deprecated — we won't fix bugs nor add options, and we will remove them in the next major release. We recommend you use a pretty printer (like Prettier) alongside Stylelint rather than these rules.
+
+- [`at-import-no-partial-leading-underscore`](https://github.com/stylelint-scss/stylelint-scss/blob/v5.2.1/src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
 
 ## Help out
 
