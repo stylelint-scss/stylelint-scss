@@ -4,34 +4,24 @@ const { utils } = require("stylelint");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
-const ruleName = namespace("at-import-no-partial-leading-underscore");
+const ruleName = namespace("load-no-partial-leading-underscore");
 
 const messages = utils.ruleMessages(ruleName, {
   expected: "Unexpected leading underscore in imported partial name"
 });
 
 const meta = {
-  url: ruleUrl(ruleName),
-  deprecated: true
+  url: ruleUrl(ruleName)
 };
 
 function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
+    const hasArgumentsRegExp = /\(\s*([^)]+?)\s*\)/;
 
     if (!validOptions) {
       return;
     }
-
-    result.warn(
-      "'at-import-no-partial-leading-underscore' has been deprecated, " +
-        "and will be removed in '6.0'. Use 'load-no-partial-leading-underscore' instead.",
-      {
-        stylelintType: "deprecation",
-        stylelintReference:
-          "https://github.com/stylelint-scss/stylelint-scss/blob/v5.2.1/src/rules/at-import-no-partial-leading-underscore/README.md"
-      }
-    );
 
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
@@ -62,11 +52,27 @@ function rule(actual) {
       });
     }
 
-    root.walkAtRules("import", decl => {
-      // Processing comma-separated lists of import paths
-      decl.params.split(",").forEach(path => {
-        checkPathForUnderscore(path, decl);
-      });
+    root.walkAtRules(atrule => {
+      if (
+        atrule.name === "import" ||
+        atrule.name === "use" ||
+        atrule.name === "forward"
+      ) {
+        // Processing comma-separated lists of import paths
+        atrule.params.split(",").forEach(path => {
+          checkPathForUnderscore(path, atrule);
+        });
+      }
+      if (atrule.name === "include") {
+        // Processing meta.load-css url
+        if (atrule.params.match(/load-css/)) {
+          const args = hasArgumentsRegExp.exec(atrule.params);
+          if (args) {
+            const arg = args[0].split(",");
+            checkPathForUnderscore(arg[0].replace(/\(|\)/, ""), atrule);
+          }
+        }
+      }
     });
   };
 }

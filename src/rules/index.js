@@ -14,6 +14,7 @@ const rules = {
   "at-if-closing-brace-space-after": require("./at-if-closing-brace-space-after"),
   "at-if-no-null": require("./at-if-no-null"),
   "at-import-no-partial-leading-underscore": require("./at-import-no-partial-leading-underscore"),
+  "load-no-partial-leading-underscore": require("./load-no-partial-leading-underscore"),
   "at-import-partial-extension-blacklist": require("./at-import-partial-extension-blacklist"),
   "at-import-partial-extension-whitelist": require("./at-import-partial-extension-whitelist"),
   "at-import-partial-extension": require("./at-import-partial-extension"),
