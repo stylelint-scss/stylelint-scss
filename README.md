@@ -125,6 +125,10 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`double-slash-comment-inline`](./src/rules/double-slash-comment-inline/README.md): Require or disallow `//`-comments to be inline comments.
 - [`double-slash-comment-whitespace-inside`](./src/rules/double-slash-comment-whitespace-inside/README.md): Require or disallow whitespace after the `//` in `//`-comments
 
+### Block
+
+- [`block-no-redundant-nesting`](./src/rules/block-no-redundant-nesting/README.md): Disallow nesting a single block if it could be merged with its parent block.
+
 ### Comment
 
 - [`comment-no-empty`](./src/rules/comment-no-empty/README.md): Disallow empty comments.
