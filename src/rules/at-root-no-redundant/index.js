@@ -38,7 +38,10 @@ function rule(actual, _, context) {
     root.walkAtRules("at-root", node => {
       if (
         node.parent.type === "root" ||
-        node.params.replace(/#{.*}/g, "").includes("&") ||
+        node.params
+          .replace(/#{.*}/g, "")
+          .split(",")
+          .every(param => param.includes("&")) ||
         isWithinKeyframes(node)
       ) {
         if (context.fix) {
