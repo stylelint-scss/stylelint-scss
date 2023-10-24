@@ -21,11 +21,9 @@ function processRuleNode(ruleNode, result, context) {
   }
 
   const nestedRuleNode = ruleNode.nodes[0];
-  if (nestedRuleNode.type !== "rule") {
-    return;
-  }
-
   if (
+    nestedRuleNode.type !== "rule" ||
+    nestedRuleNode.selector.endsWith(":") ||
     ruleNode.selectors.length !== 1 ||
     nestedRuleNode.selectors.length !== 1
   ) {

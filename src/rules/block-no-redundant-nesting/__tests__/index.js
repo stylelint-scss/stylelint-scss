@@ -64,6 +64,16 @@ testRule({
         }
       `,
       description: "at-rule and single child block"
+    },
+    {
+      code: `
+        .foo {
+          font: {
+            size: 16px;
+          }
+        }
+      `,
+      description: "Sass' nested properties"
     }
   ],
 
