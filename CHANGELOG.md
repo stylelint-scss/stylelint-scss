@@ -1,3 +1,14 @@
+# 5.3.0
+
+- Added: `block-no-redundant-nesting` rule (#872).
+- Added: `load-no-partial-leading-underscore` rule, and deprecated `at-import-no-partial-leading-underscore` rule (#867).
+- Added: autofix to `at-root-no-redundant` rule (#860).
+- Added: autofix to `at-use-no-redundant-alias` rule (#866).
+- Fixed: `at-root-no-redundant` check if all selectors followed by `@at-root` include '&' outside interpolation (#870).
+- Fixed: add `styleLintType: "parseError"` when `parseSelector` fails (#858).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.2.1...v5.3.0
+
 # 5.2.1
 
 - Fixed: add missing `known-css-properties` dependency (#857).
