@@ -10,7 +10,7 @@
     "stylelint": "^14.5.1 || ^15.0.0"
   },
   "dependencies": {
-    "known-css-properties": "^0.28.0",
+    "known-css-properties": "^0.29.0",
     "postcss-media-query-parser": "^0.2.3",
     "postcss-resolve-nested-selector": "^0.1.1",
     "postcss-selector-parser": "^6.0.13",
