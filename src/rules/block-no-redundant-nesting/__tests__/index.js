@@ -109,7 +109,7 @@ testRule({
       `,
       fixed: `
         .foo-bar {
-            color: red
+            color: red;
         }
       `,
       description: "single child block with &-prefix and property",
@@ -161,7 +161,7 @@ testRule({
         .foo .bar {
         }
         .foo-bar-baz {
-              color: red
+              color: red;
         }
       `,
       description: "multiple single child blocks",
@@ -205,7 +205,7 @@ testRule({
       fixed: `
         .foo {
           &-bar-baz {
-              color: red
+              color: red;
           }
 
           .bar {}

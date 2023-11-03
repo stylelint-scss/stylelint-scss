@@ -42,6 +42,7 @@ function processRuleNode(ruleNode, result, context) {
       nestedRuleNode.selector
     );
     ruleNode.nodes = nestedRuleNode.nodes;
+    ruleNode.raws.semicolon = nestedRuleNode.raws.semicolon;
 
     if (ruleNode.nodes.length === 1) {
       for (const rule of ruleNode.nodes) {
