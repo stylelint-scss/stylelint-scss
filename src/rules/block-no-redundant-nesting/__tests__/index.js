@@ -188,6 +188,39 @@ testRule({
           message: messages.rejected
         }
       ]
+    },
+    {
+      // https://github.com/stylelint-scss/stylelint-scss/issues/875
+      code: `
+        .foo {
+          &-bar {
+            &-baz {
+              color: red;
+            }
+          }
+
+          .bar {}
+        }
+      `,
+      fixed: `
+        .foo {
+          &-bar-baz {
+              color: red
+          }
+
+          .bar {}
+        }
+      `,
+      description: "selector should not be fully resolved",
+      warnings: [
+        {
+          line: 4,
+          column: 13,
+          endLine: 6,
+          endColumn: 14,
+          message: messages.rejected
+        }
+      ]
     }
   ]
 });
