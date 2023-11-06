@@ -109,7 +109,7 @@ testRule({
       `,
       fixed: `
         .foo-bar {
-            color: red
+            color: red;
         }
       `,
       description: "single child block with &-prefix and property",
@@ -161,7 +161,7 @@ testRule({
         .foo .bar {
         }
         .foo-bar-baz {
-              color: red
+              color: red;
         }
       `,
       description: "multiple single child blocks",
@@ -184,6 +184,39 @@ testRule({
           line: 7,
           column: 13,
           endLine: 9,
+          endColumn: 14,
+          message: messages.rejected
+        }
+      ]
+    },
+    {
+      // https://github.com/stylelint-scss/stylelint-scss/issues/875
+      code: `
+        .foo {
+          &-bar {
+            &-baz {
+              color: red;
+            }
+          }
+
+          .bar {}
+        }
+      `,
+      fixed: `
+        .foo {
+          &-bar-baz {
+              color: red;
+          }
+
+          .bar {}
+        }
+      `,
+      description: "selector should not be fully resolved",
+      warnings: [
+        {
+          line: 4,
+          column: 13,
+          endLine: 6,
           endColumn: 14,
           message: messages.rejected
         }

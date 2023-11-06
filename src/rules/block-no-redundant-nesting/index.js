@@ -1,6 +1,5 @@
 "use strict";
 
-const resolveNestedSelector = require("postcss-resolve-nested-selector");
 const { utils } = require("stylelint");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
@@ -14,6 +13,13 @@ const messages = utils.ruleMessages(ruleName, {
 const meta = {
   url: ruleUrl(ruleName)
 };
+
+function resolveNestedSelector(parentSelector, nestedSelector) {
+  if (nestedSelector.includes("&")) {
+    return nestedSelector.replace(/&/g, parentSelector);
+  }
+  return [parentSelector, nestedSelector].join(" ");
+}
 
 function processRuleNode(ruleNode, result, context) {
   if (ruleNode.nodes.length !== 1) {
@@ -32,10 +38,11 @@ function processRuleNode(ruleNode, result, context) {
 
   if (context.fix) {
     ruleNode.selector = resolveNestedSelector(
-      nestedRuleNode.selector,
-      nestedRuleNode
-    )[0];
+      ruleNode.selector,
+      nestedRuleNode.selector
+    );
     ruleNode.nodes = nestedRuleNode.nodes;
+    ruleNode.raws.semicolon = nestedRuleNode.raws.semicolon;
 
     if (ruleNode.nodes.length === 1) {
       for (const rule of ruleNode.nodes) {
