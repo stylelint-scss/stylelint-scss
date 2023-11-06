@@ -1,3 +1,9 @@
+# 5.3.1
+
+- Fixed: improve `block-no-redundant-nesting` autofix (#883).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.3.0...v5.3.1
+
 # 5.3.0
 
 - Added: `block-no-redundant-nesting` rule (#872).
