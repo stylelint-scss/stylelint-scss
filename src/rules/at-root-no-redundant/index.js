@@ -39,9 +39,8 @@ function rule(actual, _, context) {
       if (
         node.parent.type === "root" ||
         node.params
-          .replace(/#{.*}/g, "")
           .split(",")
-          .every(param => param.includes("&")) ||
+          .every(elem => elem.replace(/#{.*}/g, "").includes("&")) ||
         isWithinKeyframes(node)
       ) {
         if (context.fix) {
