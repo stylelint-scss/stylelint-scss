@@ -74,6 +74,12 @@ testRule({
       `,
       description:
         "@at-root is followed by a nested selector containing`&` outside interpolation."
+    },
+    {
+      code: `
+      .a { @at-root c &, .a#{&}.b { c: d } }
+      `,
+      description: "selector list, contains interpolation"
     }
   ],
   reject: [
@@ -158,6 +164,15 @@ testRule({
       message: messages.rejected,
       description:
         "@at-root is followed by selectors all containing `&` outside interpolation."
+    },
+    {
+      code: `
+      .a { @at-root .a & .b, .c & { c: d } }
+      `,
+      line: 2,
+      column: 12,
+      message: messages.rejected,
+      description: "selector list, all redundant"
     }
   ]
 });
