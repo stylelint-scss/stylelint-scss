@@ -23,9 +23,9 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-function isNamespacedFunction(fn) {
-  const namespacedFunc = /^\w+\.\w+$/;
-  return namespacedFunc.test(fn);
+function extractNamespaceFromFunction(fn) {
+  const matched = fn.match(/^(\w+)\.\w+$/);
+  return matched ? matched[1] : undefined;
 }
 
 function isAtUseAsSyntax(nodes) {
@@ -78,6 +78,14 @@ function rule(primaryOption, secondaryOptions) {
       ignoreFunctions
     });
 
+    const atUseNamespaces = new Set();
+    root.walkAtRules(/^use$/i, atRule => {
+      const { nodes } = valueParser(atRule.params);
+      atUseNamespaces.add(getAtUseNamespace(nodes));
+    });
+
+    const namespaceWarnings = new Set();
+
     utils.checkAgainstRule(
       {
         ruleName: ruleToCheckAgainst,
@@ -85,44 +93,60 @@ function rule(primaryOption, secondaryOptions) {
         root
       },
       warning => {
-        const { node, index } = warning;
+        const { node: decl } = warning;
 
         // NOTE: Using `valueParser` is necessary for extracting a function name. This may be a performance waste.
-        valueParser(node.value).walk(valueNode => {
+        valueParser(decl.value).walk(valueNode => {
           const { type, value: funcName } = valueNode;
 
-          if (type !== "function" || funcName.trim() === "") {
-            return;
-          }
+          if (type !== "function" || funcName.trim() === "") return;
 
-          if (isNamespacedFunction(funcName)) {
-            const atUseNamespaces = [];
+          // TODO: For backward compatibility with Stylelint 15.7.0 or less.
+          // We can remove this code when dropping support for old version.
+          const namespace = extractNamespaceFromFunction(funcName);
+          if (namespace && atUseNamespaces.has(namespace)) return;
 
-            root.walkAtRules(/^use$/i, atRule => {
-              const { nodes } = valueParser(atRule.params);
-              atUseNamespaces.push(getAtUseNamespace(nodes));
-            });
+          if (ignoreFunctionsAsSet.has(funcName)) return;
 
-            if (atUseNamespaces.length) {
-              const [namespace] = funcName.split(".");
-              if (atUseNamespaces.includes(namespace)) {
-                return;
-              }
-            }
-          }
+          utils.report({
+            message: messages.rejected(funcName),
+            ruleName,
+            result,
+            node: decl,
+            word: funcName
+          });
 
-          if (!ignoreFunctionsAsSet.has(funcName)) {
-            utils.report({
-              message: messages.rejected(funcName),
-              ruleName,
-              result,
-              node,
-              index
-            });
-          }
+          namespaceWarnings.add(warning);
         });
       }
     );
+
+    // NOTE: Since Stylelint 15.8.0, the built-in `function-no-unknown` rule has ignored SCSS functions with namespace.
+    // See https://github.com/stylelint/stylelint/releases/tag/15.8.0
+    // See https://github.com/stylelint/stylelint/pull/6921
+    if (namespaceWarnings.size === 0) {
+      root.walkDecls(decl => {
+        valueParser(decl.value).walk(valueNode => {
+          const { type, value: funcName } = valueNode;
+
+          if (type !== "function" || funcName.trim() === "") return;
+
+          const namespace = extractNamespaceFromFunction(funcName);
+          if (!namespace) return;
+          if (atUseNamespaces.has(namespace)) return;
+
+          if (ignoreFunctionsAsSet.has(funcName)) return;
+
+          utils.report({
+            message: messages.rejected(funcName),
+            ruleName,
+            result,
+            node: decl,
+            word: funcName
+          });
+        });
+      });
+    }
   };
 }
 
