@@ -41,7 +41,7 @@ const meta = {
 };
 
 function rule(primaryOption, secondaryOptions) {
-  return (root, result) => {
+  return async (root, result) => {
     const validOptions = utils.validateOptions(
       result,
       ruleName,
@@ -67,7 +67,7 @@ function rule(primaryOption, secondaryOptions) {
       ignoreAtRules
     });
 
-    utils.checkAgainstRule(
+    await utils.checkAgainstRule(
       {
         ruleName: ruleToCheckAgainst,
         ruleSettings: [primaryOption, defaultedOptions],

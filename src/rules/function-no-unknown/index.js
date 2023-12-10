@@ -46,7 +46,7 @@ function getAtUseNamespace(nodes) {
 }
 
 function rule(primaryOption, secondaryOptions) {
-  return (root, result) => {
+  return async (root, result) => {
     const validOptions = utils.validateOptions(
       result,
       ruleName,
@@ -82,7 +82,7 @@ function rule(primaryOption, secondaryOptions) {
 
     const namespaceWarnings = new Set();
 
-    utils.checkAgainstRule(
+    await utils.checkAgainstRule(
       {
         ruleName: ruleToCheckAgainst,
         ruleSettings: [primaryOption, newSecondaryOptions],

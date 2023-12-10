@@ -6,8 +6,11 @@
   "repository": "stylelint-scss/stylelint-scss",
   "license": "MIT",
   "main": "src/index.js",
+  "engines": {
+    "node": ">=18.12.0"
+  },
   "peerDependencies": {
-    "stylelint": "^14.5.1 || ^15.0.0"
+    "stylelint": "^16.0.2"
   },
   "dependencies": {
     "known-css-properties": "^0.29.0",
@@ -17,18 +20,19 @@
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^8.54.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^8.0.3",
     "jest": "^29.7.0",
-    "jest-preset-stylelint": "^6.3.2",
+    "jest-preset-stylelint": "^7.0.0",
     "lint-staged": "^14.0.1",
     "np": "^9.0.0",
     "postcss": "^8.4.31",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.1.0",
-    "stylelint": "^15.11.0"
+    "stylelint": "^16.0.2"
   },
   "files": [
     "src/**/*.js",
@@ -49,7 +53,7 @@
     "prettify": "prettier --write \"src/**/*.js\" --ignore-path=.prettierignore",
     "pretest": "npm run lint",
     "release": "np",
-    "jest": "jest",
+    "jest": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
     "test": "npm run jest -- --coverage",
     "watch": "npm run jest -- --watch",
     "test-rule": "npm run jest",
