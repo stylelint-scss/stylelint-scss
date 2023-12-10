@@ -1,3 +1,10 @@
+# 5.3.2
+
+- Fixed: `function-no-unknown` false negatives for functions with namespace (#888)
+- Fixed: `at-root-no-redundant` check selector list for parent selectors (#886)
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.3.1...v5.3.2
+
 # 5.3.1
 
 - Fixed: improve `block-no-redundant-nesting` autofix (#883).
