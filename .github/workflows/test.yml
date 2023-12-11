@@ -10,7 +10,7 @@ on:
 
 env:
   FORCE_COLOR: 2
-  NODE_COV: 18 # The Node.js version to run coverage on
+  NODE_COV: 20 # The Node.js version to run coverage on
 
 permissions:
   contents: read
@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [21]
+        node: [20]
         os: [ubuntu-latest, windows-latest]
 
     steps:
