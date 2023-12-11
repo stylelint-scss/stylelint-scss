@@ -28,28 +28,20 @@ function rule(pattern) {
 
     const regexpPattern = isString(pattern) ? new RegExp(pattern) : pattern;
 
-    root.walkAtRules(decl => {
-      if (decl.name !== "function") {
-        return;
-      }
-
+    root.walkAtRules("function", atRule => {
       // Stripping the function of its arguments
-      const funcName = decl.params.replace(/(\s*)\([\s\S]*\)/g, "");
+      const funcName = atRule.params.replace(/(\s*)\([\s\S]*\)/g, "");
 
       if (regexpPattern.test(funcName)) {
         return;
       }
 
-      const funcTopLine = Object.assign({}, decl.source.start);
-      funcTopLine.line += 1;
-      funcTopLine.column = 0;
-
       utils.report({
         message: messages.expected,
-        node: decl,
+        node: atRule,
         result,
         ruleName,
-        end: funcTopLine
+        word: funcName
       });
     });
   };
