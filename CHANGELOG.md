@@ -1,3 +1,10 @@
+# 6.0.0
+
+- Added: `stylelint@16` support.
+- Removed: `stylelint@14` and `stylelint@15` support.
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v5.3.2...v6.0.0
+
 # 5.3.2
 
 - Fixed: `function-no-unknown` false negatives for functions with namespace (#888)
