@@ -1,6 +1,6 @@
 "use strict";
 
-const { rules, utils } = require("stylelint");
+const { utils } = require("stylelint");
 const { isRegExp, isString } = require("../../utils/validateTypes");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
@@ -33,11 +33,7 @@ const ruleToCheckAgainst = "at-rule-no-unknown";
 const ruleName = namespace(ruleToCheckAgainst);
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: (...args) => {
-    return rules[ruleToCheckAgainst].messages
-      .rejected(...args)
-      .replace(` (${ruleToCheckAgainst})`, "");
-  }
+  rejected: atRule => `Unexpected unknown at-rule "${atRule}"`
 });
 
 const meta = {

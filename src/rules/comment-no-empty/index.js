@@ -1,6 +1,6 @@
 "use strict";
 
-const { rules, utils } = require("stylelint");
+const { utils } = require("stylelint");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
@@ -9,10 +9,7 @@ const coreRuleName = "comment-no-empty";
 const ruleName = namespace(coreRuleName);
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: rules[coreRuleName].messages.rejected.replace(
-    ` (${coreRuleName})`,
-    ""
-  )
+  rejected: "Unexpected empty comment"
 });
 
 const meta = {
