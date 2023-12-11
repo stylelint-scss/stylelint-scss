@@ -43,6 +43,9 @@ testRule({
       }
     `,
       line: 3,
+      column: 17,
+      endLine: 3,
+      endColumn: 21,
       message: messages.rejected,
       description: "when extending with an element"
     },
