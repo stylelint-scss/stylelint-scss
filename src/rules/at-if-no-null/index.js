@@ -25,30 +25,29 @@ function rule(expectation) {
       return;
     }
 
-    root.walkAtRules(atrule => {
-      // Do nothing if it's not an @if
-      if (atrule.name !== "if") {
-        return;
-      }
+    root.walkAtRules("if", atrule => {
+      const { params } = atrule;
 
       // If rule != null and (expr), skip
-      if (atrule.params.match(/.* != null and .*/)) {
+      if (params.match(/.* != null and .*/)) {
         return;
       }
 
-      if (atrule.params.match(/.* == null[ \t]*\)?/)) {
+      if (params.match(/.* == null[ \t]*\)?/)) {
         utils.report({
           message: messages.equals_null,
           node: atrule,
           result,
-          ruleName
+          ruleName,
+          word: params
         });
-      } else if (atrule.params.match(/.* != null[ \t]*\)?/)) {
+      } else if (params.match(/.* != null[ \t]*\)?/)) {
         utils.report({
           message: messages.not_equals_null,
           node: atrule,
           result,
-          ruleName
+          ruleName,
+          word: params
         });
       }
     });
