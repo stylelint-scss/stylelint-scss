@@ -35,7 +35,10 @@ testRule({
     }`,
       description: "uses the == null format",
       message: messages.equals_null,
-      line: 2
+      line: 2,
+      column: 11,
+      endLine: 2,
+      endColumn: 21
     },
     {
       code: `a {
@@ -43,7 +46,10 @@ testRule({
     }`,
       description: "uses the != null format",
       message: messages.not_equals_null,
-      line: 2
+      line: 2,
+      column: 11,
+      endLine: 2,
+      endColumn: 21
     }
   ]
 });
