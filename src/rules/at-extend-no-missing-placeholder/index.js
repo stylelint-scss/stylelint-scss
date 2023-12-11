@@ -15,6 +15,8 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
+const INTERPOLATION_PATTERN = /^#{.+}/;
+
 function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
@@ -24,17 +26,20 @@ function rule(actual) {
     }
 
     root.walkAtRules("extend", atrule => {
-      const isPlaceholder = atrule.params.trim()[0] === "%";
-      const isInterpolation = /^#{.+}/.test(atrule.params.trim());
+      const param = atrule.params.trim();
 
-      if (!isPlaceholder && !isInterpolation) {
-        utils.report({
-          ruleName,
-          result,
-          node: atrule,
-          message: messages.rejected
-        });
-      }
+      // Placeholder
+      if (param.startsWith("%")) return;
+
+      if (INTERPOLATION_PATTERN.test(param)) return;
+
+      utils.report({
+        ruleName,
+        result,
+        node: atrule,
+        message: messages.rejected,
+        word: param
+      });
     });
   };
 }
