@@ -1,7 +1,7 @@
 "use strict";
 
 const valueParser = require("postcss-value-parser");
-const { rules, utils } = require("stylelint");
+const { utils } = require("stylelint");
 const { ALL_FUNCTIONS } = require("../../utils/functions");
 const namespace = require("../../utils/namespace");
 const { isRegExp, isString } = require("../../utils/validateTypes");
@@ -12,11 +12,7 @@ const ruleToCheckAgainst = "function-no-unknown";
 const ruleName = namespace(ruleToCheckAgainst);
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: (...args) => {
-    return rules[ruleToCheckAgainst].messages
-      .rejected(...args)
-      .replace(` (${ruleToCheckAgainst})`, "");
-  }
+  rejected: name => `Unexpected unknown function "${name}"`
 });
 
 const meta = {
