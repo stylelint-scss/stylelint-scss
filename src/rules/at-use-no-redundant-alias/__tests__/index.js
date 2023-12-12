@@ -40,7 +40,9 @@ testRule({
       @use "foo" as foo;
     `,
       line: 2,
-      column: 7,
+      column: 18,
+      endLine: 2,
+      endColumn: 24,
       message: messages.rejected,
       description: "Without url"
     },
@@ -49,7 +51,9 @@ testRule({
       @use "src/corners" as corners;
     `,
       line: 2,
-      column: 7,
+      column: 26,
+      endLine: 2,
+      endColumn: 36,
       message: messages.rejected,
       description: "With url"
     },
@@ -58,7 +62,9 @@ testRule({
       @use "sass:math" as math;
     `,
       line: 2,
-      column: 7,
+      column: 24,
+      endLine: 2,
+      endColumn: 31,
       message: messages.rejected,
       description: "Built-in module"
     },
@@ -67,7 +73,9 @@ testRule({
       @use "foo"   as   foo;
     `,
       line: 2,
-      column: 7,
+      column: 20,
+      endLine: 2,
+      endColumn: 28,
       message: messages.rejected,
       description: "Without space"
     },
@@ -76,7 +84,9 @@ testRule({
       @use "foo" as foo with ($baz: 1px);
     `,
       line: 2,
-      column: 7,
+      column: 18,
+      endLine: 2,
+      endColumn: 24,
       message: messages.rejected,
       description: "Configured"
     },
@@ -87,7 +97,9 @@ testRule({
       );
     `,
       line: 2,
-      column: 7,
+      column: 25,
+      endLine: 2,
+      endColumn: 33,
       message: messages.rejected,
       description: "Configured multiline"
     }
@@ -114,7 +126,9 @@ testRule({
       code: `@use "foo" as foo;`,
       fixed: `@use "foo";`,
       line: 1,
-      column: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 18,
       message: messages.rejected,
       description: "Without url"
     },
@@ -122,7 +136,9 @@ testRule({
       code: `@use "src/corners" as corners;`,
       fixed: `@use "src/corners";`,
       line: 1,
-      column: 1,
+      column: 20,
+      endLine: 1,
+      endColumn: 30,
       message: messages.rejected,
       description: "With url"
     },
@@ -130,7 +146,9 @@ testRule({
       code: `@use "sass:math" as math;`,
       fixed: `@use "sass:math";`,
       line: 1,
-      column: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 25,
       message: messages.rejected,
       description: "Built-in module"
     },
@@ -138,7 +156,9 @@ testRule({
       code: `@use "foo"   as   foo;`,
       fixed: `@use "foo";`,
       line: 1,
-      column: 1,
+      column: 14,
+      endLine: 1,
+      endColumn: 22,
       message: messages.rejected,
       description: "Without space"
     },
@@ -146,7 +166,9 @@ testRule({
       code: `@use "foo" as foo with ($baz: 1px);`,
       fixed: `@use "foo" with ($baz: 1px);`,
       line: 1,
-      column: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 18,
       message: messages.rejected,
       description: "Configured"
     },
@@ -162,7 +184,9 @@ testRule({
       );
     `,
       line: 2,
-      column: 7,
+      column: 25,
+      endLine: 2,
+      endColumn: 33,
       message: messages.rejected,
       description: "Configured multiline"
     }

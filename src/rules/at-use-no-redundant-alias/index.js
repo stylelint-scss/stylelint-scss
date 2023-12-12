@@ -1,6 +1,7 @@
 "use strict";
 
 const { utils } = require("stylelint");
+const atRuleParamIndex = require("../../utils/atRuleParamIndex");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
@@ -32,20 +33,27 @@ function rule(actual, _, context) {
       return;
     }
 
-    root.walkAtRules("use", decl => {
-      const parts = separateEachParams(decl.params);
+    root.walkAtRules("use", atRule => {
+      const parts = separateEachParams(atRule.params);
       if (parts && getDefaultNamespace(parts[0]) === parts[1]) {
         if (context.fix) {
-          decl.after(decl.toString().replace(/\s*as\s* [^\s*]+\s*/, " "));
-          decl.next().raws = decl.raws;
-          decl.remove();
+          atRule.after(atRule.toString().replace(/\s*as\s* [^\s*]+\s*/, " "));
+          atRule.next().raws = atRule.raws;
+          atRule.remove();
           return;
         }
+
+        const matchedAlias = atRule.params.match(/as\s+\S+/);
+        if (!matchedAlias) return;
+
+        const index = atRuleParamIndex(atRule) + matchedAlias.index;
         utils.report({
           message: messages.rejected,
-          node: decl,
+          node: atRule,
           result,
-          ruleName
+          ruleName,
+          index,
+          endIndex: index + matchedAlias[0].length
         });
       }
     });
