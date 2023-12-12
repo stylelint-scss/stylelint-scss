@@ -71,8 +71,6 @@ function rule(expectation) {
       }
 
       parseSelector(rule.selector, result, rule, fullSelector => {
-        let message;
-
         fullSelector.walk(node => {
           if (node.value === "}") {
             return;
@@ -130,11 +128,21 @@ function rule(expectation) {
               return;
             }
 
+            let message;
             if (hasInterpolation) {
               message = messages.expectedInterpolation;
             } else {
               message = messages.expected(node.value, node.type);
             }
+
+            utils.report({
+              ruleName,
+              result,
+              node: rule,
+              message,
+              word: node.toString()
+            });
+            return;
           }
 
           if (expectation === "never") {
@@ -142,16 +150,17 @@ function rule(expectation) {
               return;
             }
 
-            message = messages.rejected;
-          }
+            if (node.type !== "selector") return;
 
-          utils.report({
-            ruleName,
-            result,
-            node: rule,
-            message,
-            index: node.sourceIndex
-          });
+            utils.report({
+              ruleName,
+              result,
+              node: rule,
+              message: messages.rejected,
+              word: node.toString()
+            });
+            return;
+          }
         });
       });
     });

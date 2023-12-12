@@ -144,7 +144,9 @@ testRule({
       description: "when a child combinator is used instead of nesting",
       message: messages.expected(" ", "combinator"),
       line: 2,
-      column: 11
+      column: 11,
+      endLine: 2,
+      endColumn: 12
     },
     {
       code: `
@@ -153,7 +155,9 @@ testRule({
       description: "when a selector is chained with another",
       message: messages.expected("bar", "class"),
       line: 2,
-      column: 11
+      column: 11,
+      endLine: 2,
+      endColumn: 15
     },
     {
       code: `
@@ -163,7 +167,9 @@ testRule({
         "when a direct descendant combinator is used without nesting",
       message: messages.expected(">", "combinator"),
       line: 2,
-      column: 12
+      column: 11,
+      endLine: 2,
+      endColumn: 14
     },
     {
       code: `
@@ -172,7 +178,9 @@ testRule({
       description: "when pseudo classes are used without nesting",
       message: messages.expected(":hover", "pseudo"),
       line: 2,
-      column: 11
+      column: 11,
+      endLine: 2,
+      endColumn: 17
     },
     {
       code: `
@@ -181,7 +189,9 @@ testRule({
       description: "when universal selectors are used with a combinator",
       message: messages.expected("+", "combinator"),
       line: 2,
-      column: 9
+      column: 8,
+      endLine: 2,
+      endColumn: 11
     },
     {
       code: `
@@ -190,7 +200,9 @@ testRule({
       description: "when pseudo selectors only are chained",
       message: messages.expected(":last-child", "pseudo"),
       line: 2,
-      column: 25
+      column: 25,
+      endLine: 2,
+      endColumn: 36
     },
     {
       code: `
@@ -199,7 +211,9 @@ testRule({
       description: "when interpolation is used",
       message: messages.expectedInterpolation,
       line: 2,
-      column: 18
+      column: 18,
+      endLine: 2,
+      endColumn: 19
     }
   ]
 });
@@ -312,18 +326,11 @@ testRule({
       }
       `,
       description: "when child combinators are nested",
-      warnings: [
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        }
-      ]
+      message: messages.rejected,
+      line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 13
     },
     {
       code: `
@@ -332,23 +339,11 @@ testRule({
       }
       `,
       description: "when chained combinators are nested",
-      warnings: [
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 10
-        }
-      ]
+      message: messages.rejected,
+      line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 14
     },
     {
       code: `
@@ -357,28 +352,11 @@ testRule({
       }
       `,
       description: "when direct descendant combinators are nested",
-      warnings: [
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 11
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 13
-        }
-      ]
+      message: messages.rejected,
+      line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 16
     },
     {
       code: `
@@ -393,32 +371,16 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 10
+          column: 9,
+          endLine: 3,
+          endColumn: 13
         },
         {
           message: messages.rejected,
           line: 4,
-          column: 11
-        },
-        {
-          message: messages.rejected,
-          line: 4,
-          column: 11
-        },
-        {
-          message: messages.rejected,
-          line: 4,
-          column: 12
+          column: 11,
+          endLine: 4,
+          endColumn: 15
         }
       ]
     },
@@ -435,32 +397,16 @@ testRule({
         {
           message: messages.rejected,
           line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 10
+          column: 9,
+          endLine: 3,
+          endColumn: 15
         },
         {
           message: messages.rejected,
           line: 4,
-          column: 11
-        },
-        {
-          message: messages.rejected,
-          line: 4,
-          column: 11
-        },
-        {
-          message: messages.rejected,
-          line: 4,
-          column: 12
+          column: 11,
+          endLine: 4,
+          endColumn: 17
         }
       ]
     },
@@ -471,23 +417,11 @@ testRule({
       }
       `,
       description: "when pseudo classes are nested",
-      warnings: [
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 9
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 10
-        }
-      ]
+      message: messages.rejected,
+      line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 16
     },
     {
       code: `
@@ -498,18 +432,11 @@ testRule({
       }
       `,
       description: "when interpolation is used",
-      warnings: [
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 8
-        },
-        {
-          message: messages.rejected,
-          line: 3,
-          column: 8
-        }
-      ]
+      message: messages.rejected,
+      line: 3,
+      column: 8,
+      endLine: 3,
+      endColumn: 25
     }
   ]
 });
