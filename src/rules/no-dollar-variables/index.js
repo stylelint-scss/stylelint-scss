@@ -33,7 +33,8 @@ function rule(value) {
         message: messages.rejected(decl.prop),
         node: decl,
         result,
-        ruleName
+        ruleName,
+        word: decl.prop
       });
     });
   };
