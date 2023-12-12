@@ -28,7 +28,9 @@ testRule({
       @use "foo" as *;
     `,
       line: 2,
-      column: 7,
+      column: 18,
+      endLine: 2,
+      endColumn: 22,
       message: messages.rejected,
       description: "Without namespace"
     },
@@ -37,7 +39,9 @@ testRule({
       @use "foo"as*;
     `,
       line: 2,
-      column: 7,
+      column: 17,
+      endLine: 2,
+      endColumn: 20,
       message: messages.rejected,
       description: "Without space"
     },
@@ -46,7 +50,9 @@ testRule({
       @use "foo"   as   *  ;
     `,
       line: 2,
-      column: 7,
+      column: 20,
+      endLine: 2,
+      endColumn: 26,
       message: messages.rejected,
       description: "With many spaces"
     },
@@ -55,7 +61,9 @@ testRule({
       @use "foo" as * with ($baz: 1px);
     `,
       line: 2,
-      column: 7,
+      column: 18,
+      endLine: 2,
+      endColumn: 22,
       message: messages.rejected,
       description: "Configured"
     },
@@ -66,7 +74,9 @@ testRule({
       );
     `,
       line: 2,
-      column: 7,
+      column: 18,
+      endLine: 2,
+      endColumn: 22,
       message: messages.rejected,
       description: "Configured multiline"
     }
