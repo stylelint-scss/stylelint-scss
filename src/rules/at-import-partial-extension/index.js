@@ -2,6 +2,7 @@
 
 const nodeJsPath = require("path");
 const { utils } = require("stylelint");
+const atRuleParamIndex = require("../../utils/atRuleParamIndex");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
@@ -46,8 +47,8 @@ function rule(expectation, _, context) {
       return;
     }
 
-    root.walkAtRules("import", decl => {
-      const paths = decl.params
+    root.walkAtRules("import", atRule => {
+      const paths = atRule.params
         .split(/["']\s*,/)
         .filter(path => !mediaQueryTypesRE.test(path.trim()));
 
@@ -70,9 +71,10 @@ function rule(expectation, _, context) {
         if (!extension && expectation === "always") {
           utils.report({
             message: messages.expected,
-            node: decl,
+            node: atRule,
             result,
-            ruleName
+            ruleName,
+            word: pathStripped
           });
 
           return;
@@ -82,15 +84,20 @@ function rule(expectation, _, context) {
         if (extension && isScssPartial && expectation === "never") {
           if (context.fix) {
             const extPattern = new RegExp(`\\.${extension}(['" ]*)$`, "g");
-            decl.params = decl.params.replace(extPattern, "$1");
+            atRule.params = atRule.params.replace(extPattern, "$1");
 
             return;
           }
 
+          const dotExt = `.${extension}`;
+          const index =
+            atRuleParamIndex(atRule) + atRule.params.lastIndexOf(dotExt);
+
           utils.report({
             message: messages.rejected(extension),
-            node: decl,
-            word: extension,
+            node: atRule,
+            index,
+            endIndex: index + dotExt.length,
             result,
             ruleName
           });
