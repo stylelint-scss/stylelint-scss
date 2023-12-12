@@ -42,17 +42,18 @@ function rule(primary) {
           // Identify all of the map-keys and see if they're strings (not words).
           const mapKeys = returnMapKeys(node.nodes);
 
-          mapKeys.forEach(map_key => {
-            if (mathOperators.includes(map_key.value)) {
+          mapKeys.forEach(mapKey => {
+            if (mathOperators.includes(mapKey.value)) {
               return;
             }
 
-            if (map_key.type === "word" && isNaN(map_key.value)) {
+            if (mapKey.type === "word" && isNaN(mapKey.value)) {
               utils.report({
                 message: messages.expected,
                 node: decl,
                 result,
-                ruleName
+                ruleName,
+                word: mapKey.value
               });
             }
           });

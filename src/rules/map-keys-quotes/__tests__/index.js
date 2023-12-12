@@ -121,12 +121,16 @@ testRule({
       warnings: [
         {
           line: 2,
-          column: 9,
+          column: 17,
+          endLine: 2,
+          endColumn: 26,
           message: messages.expected
         },
         {
           line: 2,
-          column: 9,
+          column: 34,
+          endLine: 2,
+          endColumn: 39,
           message: messages.expected
         }
       ],
