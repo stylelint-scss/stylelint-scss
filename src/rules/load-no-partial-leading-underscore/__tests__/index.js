@@ -143,6 +143,9 @@ testRule({
       @import "_fff";
     `,
       line: 2,
+      column: 16,
+      endLine: 2,
+      endColumn: 20,
       message: messages.expected,
       description: "@import one file, underscore at the start."
     },
@@ -151,6 +154,9 @@ testRule({
       @import "_fff ";
     `,
       line: 2,
+      column: 16,
+      endLine: 2,
+      endColumn: 20,
       message: messages.expected,
       description:
         "@import one file, underscore at the start, trailing space at the end."
@@ -160,6 +166,9 @@ testRule({
       @import " _fff";
     `,
       line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 21,
       message: messages.expected,
       description:
         "@import one file, underscore at the start, trailing space at the start."
@@ -169,6 +178,9 @@ testRule({
       @import "df/_fff";
     `,
       line: 2,
+      column: 16,
+      endLine: 2,
+      endColumn: 23,
       message: messages.expected,
       description: "@import one file, path with dir, underscore at the start."
     },
@@ -177,6 +189,9 @@ testRule({
       @import "df\\_fff";
     `,
       line: 2,
+      column: 16,
+      endLine: 2,
+      endColumn: 23,
       message: messages.expected,
       description: "@import one file, path with dir, windows delimiters."
     },
@@ -185,6 +200,9 @@ testRule({
       @import "df/fff", '_1.scss';
     `,
       line: 2,
+      column: 26,
+      endLine: 2,
+      endColumn: 33,
       message: messages.expected,
       description: "@import two files, path with dir, underscore at the start."
     },
@@ -193,6 +211,9 @@ testRule({
       @use "_fff";
     `,
       line: 2,
+      column: 13,
+      endLine: 2,
+      endColumn: 17,
       message: messages.expected,
       description: "@use one file, underscore at the start."
     },
@@ -201,6 +222,9 @@ testRule({
       @use "_fff ";
     `,
       line: 2,
+      column: 13,
+      endLine: 2,
+      endColumn: 17,
       message: messages.expected,
       description:
         "@use one file, underscore at the start, trailing space at the end."
@@ -210,6 +234,9 @@ testRule({
       @use " _fff";
     `,
       line: 2,
+      column: 14,
+      endLine: 2,
+      endColumn: 18,
       message: messages.expected,
       description:
         "@use one file, underscore at the start, trailing space at the start."
@@ -219,6 +246,9 @@ testRule({
       @use "df/_fff";
     `,
       line: 2,
+      column: 13,
+      endLine: 2,
+      endColumn: 20,
       message: messages.expected,
       description: "@use one file, path with dir, underscore at the start."
     },
@@ -227,6 +257,9 @@ testRule({
       @use "df\\_fff";
     `,
       line: 2,
+      column: 13,
+      endLine: 2,
+      endColumn: 20,
       message: messages.expected,
       description: "@use one file, path with dir, windows delimiters."
     },
@@ -235,6 +268,9 @@ testRule({
       @use "df/fff", '_1.scss';
     `,
       line: 2,
+      column: 23,
+      endLine: 2,
+      endColumn: 30,
       message: messages.expected,
       description: "@use two files, path with dir, underscore at the start."
     },
@@ -243,6 +279,9 @@ testRule({
       @forward "_fff";
     `,
       line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 21,
       message: messages.expected,
       description: "@forward one file, underscore at the start."
     },
@@ -251,6 +290,9 @@ testRule({
       @forward "_fff ";
     `,
       line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 21,
       message: messages.expected,
       description:
         "@forward one file, underscore at the start, trailing space at the end."
@@ -260,6 +302,9 @@ testRule({
       @forward " _fff";
     `,
       line: 2,
+      column: 18,
+      endLine: 2,
+      endColumn: 22,
       message: messages.expected,
       description:
         "@forward one file, underscore at the start, trailing space at the start."
@@ -269,6 +314,9 @@ testRule({
       @forward "df/_fff";
     `,
       line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 24,
       message: messages.expected,
       description: "@forward one file, path with dir, underscore at the start."
     },
@@ -277,6 +325,9 @@ testRule({
       @forward "df\\_fff";
     `,
       line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 24,
       message: messages.expected,
       description: "@forward one file, path with dir, windows delimiters."
     },
@@ -285,6 +336,9 @@ testRule({
       @forward "df/fff", '_1.scss';
     `,
       line: 2,
+      column: 27,
+      endLine: 2,
+      endColumn: 34,
       message: messages.expected,
       description: "@forward two files, path with dir, underscore at the start."
     },
@@ -296,6 +350,9 @@ testRule({
       }
     `,
       line: 4,
+      column: 33,
+      endLine: 4,
+      endColumn: 40,
       message: messages.expected,
       description:
         "meta.load-css two params, path with dir, windows delimiters."
@@ -308,6 +365,9 @@ testRule({
       }
     `,
       line: 4,
+      column: 33,
+      endLine: 4,
+      endColumn: 37,
       message: messages.expected,
       description:
         "meta.load-css two params, underscore at the start, trailing space at the start."
@@ -320,6 +380,9 @@ testRule({
       }
     `,
       line: 4,
+      column: 33,
+      endLine: 4,
+      endColumn: 37,
       message: messages.expected,
       description:
         "meta.load-css one param, underscore at the start, trailing space at the start."
