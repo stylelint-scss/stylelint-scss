@@ -302,6 +302,8 @@ testRule({
     `,
       line: 3,
       column: 21,
+      endLine: 3,
+      endColumn: 24,
       message: messages.rejected("red"),
       description: "red"
     },
@@ -471,7 +473,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 21,
+      column: 23,
+      endLine: 3,
+      endColumn: 35,
       message: messages.rejected("change-color"),
       description: "change-color"
     },
