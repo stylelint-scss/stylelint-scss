@@ -43,14 +43,18 @@ testRule({
       `,
     message: messages.rejected("%unit%"),
     line: 3,
-    column: 27,
+    column: 18,
+    endLine: 3,
+    endColumn: 33,
     description: "Rejects interpolation with %unit%"
   }).concat([
     {
       code: "$pad: 2; $padAndMore: #{$pad + 5}px;",
       description: "reports lint when expression used in interpolation",
       line: 1,
-      column: 34,
+      column: 23,
+      endLine: 1,
+      endColumn: 36,
       message: messages.rejected("px")
     },
     {
@@ -61,7 +65,9 @@ testRule({
       `,
       description: "reports lint when mixing accepted and rejected syntax",
       line: 3,
-      column: 39,
+      column: 32,
+      endLine: 3,
+      endColumn: 41,
       message: messages.rejected("px")
     },
     {
@@ -72,7 +78,9 @@ testRule({
       `,
       description: "reports lint when mixing accepted and rejected syntax",
       line: 3,
-      column: 39,
+      column: 32,
+      endLine: 3,
+      endColumn: 41,
       message: messages.rejected("px")
     },
     {
@@ -83,7 +91,9 @@ testRule({
       `,
       description: "reports lint when mixing normal unit and rejected syntax",
       line: 3,
-      column: 29,
+      column: 22,
+      endLine: 3,
+      endColumn: 33,
       message: messages.rejected("vmin")
     },
     {
@@ -94,7 +104,9 @@ testRule({
       `,
       description: "reports lint when mixing normal unit and rejected syntax",
       line: 3,
-      column: 29,
+      column: 22,
+      endLine: 3,
+      endColumn: 33,
       message: messages.rejected("vmin")
     }
   ])

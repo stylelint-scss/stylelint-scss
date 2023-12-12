@@ -2,7 +2,6 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
@@ -107,13 +106,11 @@ function rule(primary) {
         }
 
         const unit = matchUnit[1];
-        const offset = decl.value.indexOf(unit);
-
         utils.report({
           ruleName,
           result,
           message: messages.rejected(unit),
-          index: declarationValueIndex(decl) + offset,
+          word: matchUnit[0],
           node: decl
         });
       });
