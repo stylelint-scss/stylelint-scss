@@ -70,7 +70,7 @@ function rule(pattern) {
     function checkSelector(fullSelector, rule) {
       // postcss-selector-parser gives %placeholders' nodes a "tag" type
       fullSelector.walkTags(compoundSelector => {
-        const { value, sourceIndex } = compoundSelector;
+        const { value } = compoundSelector;
 
         if (value[0] !== "%") {
           return;
@@ -87,7 +87,7 @@ function rule(pattern) {
           ruleName,
           message: messages.expected(placeholder),
           node: rule,
-          index: sourceIndex
+          word: value
         });
       });
     }
