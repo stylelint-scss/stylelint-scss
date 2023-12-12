@@ -3,6 +3,7 @@
 const path = require("path");
 const postcss = require("postcss");
 const rule = require("..");
+const { messages } = rule;
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console
@@ -40,7 +41,7 @@ test("Import a file from non-partial .scss", done => {
 });
 
 test("Import a file from a partial .scss", done => {
-  expect.assertions(1);
+  expect.assertions(2);
   postcss([rule()])
     .process("@import 'file.scss';", {
       from: path.join(__dirname, "_test.scss")
@@ -49,6 +50,13 @@ test("Import a file from a partial .scss", done => {
       const warnings = result.warnings();
 
       expect(warnings).toHaveLength(1);
+      expect(warnings[0]).toMatchObject({
+        text: messages.expected,
+        line: 1,
+        column: 10,
+        endLine: 1,
+        endColumn: 19
+      });
       done();
     });
 });
