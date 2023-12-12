@@ -28,28 +28,20 @@ function rule(pattern) {
 
     const regexpPattern = isString(pattern) ? new RegExp(pattern) : pattern;
 
-    root.walkAtRules(decl => {
-      if (decl.name !== "mixin") {
-        return;
-      }
-
+    root.walkAtRules("mixin", atRule => {
       // Stripping the mixin of its arguments
-      const mixinName = decl.params.replace(/(\s*)\([\s\S]*\)/g, "");
+      const mixinName = atRule.params.replace(/(\s*)\([\s\S]*\)/g, "");
 
       if (regexpPattern.test(mixinName)) {
         return;
       }
 
-      const mixinTopLine = Object.assign({}, decl.source.start);
-      mixinTopLine.line += 1;
-      mixinTopLine.column = 0;
-
       utils.report({
         message: messages.expected,
-        node: decl,
+        node: atRule,
         result,
         ruleName,
-        end: mixinTopLine
+        word: mixinName
       });
     });
   };
