@@ -150,6 +150,9 @@ testRule({
       }
     `,
       line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 10,
       message: messages.rejected,
       description: "when an ampersand precedes a direct descendant operator"
     },
@@ -343,6 +346,9 @@ testRule({
       }
     `,
       line: 4,
+      column: 9,
+      endLine: 4,
+      endColumn: 10,
       message: messages.rejected,
       description:
         "when an ampersand is used in a comma sequence followed by a class"
@@ -363,11 +369,15 @@ testRule({
         {
           line: 4,
           column: 9,
+          endLine: 4,
+          endColumn: 10,
           message: messages.rejected
         },
         {
           line: 7,
           column: 9,
+          endLine: 7,
+          endColumn: 10,
           message: messages.rejected
         }
       ],
