@@ -27,21 +27,16 @@ function rule(value) {
 
     const mixins = {};
 
-    root.walkAtRules(decl => {
-      const isMixin = decl.name === "mixin";
-
-      if (!isMixin) {
-        return;
-      }
-
-      const mixinName = atRuleBaseName(decl);
+    root.walkAtRules("mixin", atRule => {
+      const mixinName = atRuleBaseName(atRule);
 
       if (mixins[mixinName]) {
         utils.report({
           message: messages.rejected(mixinName),
-          node: decl,
+          node: atRule,
           result,
-          ruleName
+          ruleName,
+          word: mixinName
         });
       }
 
