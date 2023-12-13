@@ -65,12 +65,20 @@ testRule({
     {
       code: "@if(true) {}",
       fixed: "@if true {}",
+      line: 1,
+      column: 4,
+      endLine: 1,
+      endColumn: 10,
       message: messages.rejected,
       description: "does not accept @if with parentheses"
     },
     {
       code: "@while(true) {}",
       fixed: "@while true {}",
+      line: 1,
+      column: 7,
+      endLine: 1,
+      endColumn: 13,
       message: messages.rejected,
       description: "does not accept @while with parentheses"
     },
@@ -80,6 +88,10 @@ testRule({
       fixed: `@if true {}
       @else if true {}`,
       message: messages.rejected,
+      line: 2,
+      column: 15,
+      endLine: 2,
+      endColumn: 21,
       description: "does not accept @else if with parentheses"
     }
   ]
