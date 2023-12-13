@@ -40,6 +40,9 @@ testRule({
     {
       code: "%floo { top: 1em; }",
       line: 1,
+      column: 1,
+      endLine: 1,
+      endColumn: 6,
       message: messages.expected("floo"),
       description: "Regexp: sequence part. Example: symbol in between."
     }
@@ -113,6 +116,9 @@ testRule({
     {
       code: "% foo { top: 1em; }",
       line: 1,
+      column: 1,
+      endLine: 1,
+      endColumn: 2,
       message: messages.expected(""),
       description:
         "Regexp: strict match. Example: matches, but has a space after '%'."
@@ -223,7 +229,10 @@ testRule({
       a,
       &1oo {}
     }`,
-      line: 3,
+      line: 2,
+      column: 7,
+      endLine: 3,
+      endColumn: 14,
       message: messages.expected("Foo-bar1oo"),
       description:
         "Regexp: SUIT component. Example: nesting, only lv1 part comply."
@@ -235,6 +244,9 @@ testRule({
       }
     }`,
       line: 1,
+      column: 1,
+      endLine: 1,
+      endColumn: 4,
       message: messages.expected("Fo"),
       description:
         "Regexp: pattern at the beginning. Example: nesting, with nesting selector; first lv doesn't comply."
