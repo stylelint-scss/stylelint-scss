@@ -73,7 +73,10 @@ testRule({
       foo ($n) {
       }
     `,
-      line: 2,
+      line: 4,
+      column: 7,
+      endLine: 4,
+      endColumn: 8,
       message: messages.expectedBefore(),
       description: "Newline after mixin name"
     },
@@ -190,7 +193,10 @@ testRule({
       foo($n) {
       }
     `,
-      line: 2,
+      line: 4,
+      column: 7,
+      endLine: 4,
+      endColumn: 8,
       message: messages.rejectedBefore(),
       description: "Newline after mixin name"
     },
