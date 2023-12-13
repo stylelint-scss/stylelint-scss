@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Check whether a selector has an interpolating ampersand
  * An "interpolating ampersand" is an "&" used to interpolate within another
@@ -9,7 +7,7 @@
  * @param {string} selector
  * @return {boolean} If `true`, the selector has an interpolating ampersand
  */
-module.exports = function (selector) {
+export default function hasInterpolatingAmpersand(selector) {
   for (let i = 0; i < selector.length; i++) {
     if (selector[i] !== "&") {
       continue;
@@ -25,7 +23,7 @@ module.exports = function (selector) {
   }
 
   return false;
-};
+}
 
 function isCombinator(x) {
   return /[\s+>~]/.test(x);

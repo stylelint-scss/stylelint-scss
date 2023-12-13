@@ -1,9 +1,7 @@
-"use strict";
-
-const uniteSets = require("../utils/uniteSets.js");
+import uniteSets from "../utils/uniteSets.js";
 
 // https://www.w3.org/TR/css-nesting-1/#conditionals
-const nestingSupportedAtKeywords = new Set([
+export const nestingSupportedAtKeywords = new Set([
   "container",
   "layer",
   "media",
@@ -33,30 +31,31 @@ const pageMarginAtKeywords = new Set([
 ]);
 
 // https://developer.mozilla.org/en/docs/Web/CSS/At-rule
-const atKeywords = uniteSets(nestingSupportedAtKeywords, pageMarginAtKeywords, [
-  "annotation",
-  "apply",
-  "character-variant",
-  "charset",
-  "counter-style",
-  "custom-media",
-  "custom-selector",
-  "document",
-  "font-face",
-  "font-feature-values",
-  "import",
-  "keyframes",
-  "namespace",
-  "nest",
-  "ornaments",
-  "page",
-  "property",
-  "scroll-timeline",
-  "styleset",
-  "stylistic",
-  "swash",
-  "viewport"
-]);
-
-exports.atKeywords = atKeywords;
-exports.nestingSupportedAtKeywords = nestingSupportedAtKeywords;
+export const atKeywords = uniteSets(
+  nestingSupportedAtKeywords,
+  pageMarginAtKeywords,
+  [
+    "annotation",
+    "apply",
+    "character-variant",
+    "charset",
+    "counter-style",
+    "custom-media",
+    "custom-selector",
+    "document",
+    "font-face",
+    "font-feature-values",
+    "import",
+    "keyframes",
+    "namespace",
+    "nest",
+    "ornaments",
+    "page",
+    "property",
+    "scroll-timeline",
+    "styleset",
+    "stylistic",
+    "swash",
+    "viewport"
+  ]
+);
