@@ -38,6 +38,9 @@ testRule({
       @include foo ;
     `,
       line: 2,
+      column: 16,
+      endLine: 2,
+      endColumn: 19,
       message: messages.rejected("foo"),
       description: "With parens, no space between them."
     },
@@ -121,6 +124,9 @@ testRule({
       @include foo ();
     `,
       line: 2,
+      column: 16,
+      endLine: 2,
+      endColumn: 19,
       message: messages.expected("foo"),
       description: "No parens."
     },
