@@ -36,7 +36,7 @@ function rule(on) {
     const fileName = nodeJsPath.basename(root.source.input.file);
     const extName = nodeJsPath.extname(root.source.input.file);
 
-    function checkImportForCSS(path, decl) {
+    function checkImportForCSS(path, atRule) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path
         .replace(/^\s*(["'])\s*/, "")
@@ -55,8 +55,8 @@ function rule(on) {
 
       utils.report({
         message: messages.expected,
-        node: decl,
-        index: decl.params.indexOf(path),
+        node: atRule,
+        word: pathStripped,
         result,
         ruleName
       });
