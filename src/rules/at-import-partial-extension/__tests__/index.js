@@ -151,7 +151,9 @@ testRule({
       @import "fff";
     `,
       line: 2,
-      column: 7,
+      column: 16,
+      endLine: 2,
+      endColumn: 19,
       message: messages.expected,
       description: "Single file, no extension."
     },
@@ -161,7 +163,9 @@ testRule({
           "fff.ruthless";
     `,
       line: 2,
-      column: 7,
+      column: 16,
+      endLine: 2,
+      endColumn: 19,
       message: messages.expected,
       description: "Multiple files, one without extension."
     },
@@ -172,12 +176,16 @@ testRule({
       warnings: [
         {
           line: 2,
-          column: 7,
+          column: 16,
+          endLine: 2,
+          endColumn: 19,
           message: messages.expected
         },
         {
           line: 2,
-          column: 7,
+          column: 23,
+          endLine: 2,
+          endColumn: 28,
           message: messages.expected
         }
       ],
@@ -320,7 +328,9 @@ testRule({
       @import "fff";
      `,
       line: 2,
-      column: 20,
+      column: 19,
+      endLine: 2,
+      endColumn: 24,
       message: messages.rejected("scss"),
       description: "Single file, .scss extension."
     },
@@ -332,7 +342,9 @@ testRule({
       @import "screen";
     `,
       line: 2,
-      column: 23,
+      column: 22,
+      endLine: 2,
+      endColumn: 27,
       message: messages.rejected("scss"),
       description: "Single file with media query type as name, .scss extension."
     },
@@ -344,7 +356,9 @@ testRule({
       @import "fff ";
     `,
       line: 2,
-      column: 20,
+      column: 19,
+      endLine: 2,
+      endColumn: 24,
       message: messages.rejected("scss"),
       description: "Single file, has extension, space at the end."
     },
@@ -356,7 +370,9 @@ testRule({
       @import " fff ";
     `,
       line: 2,
-      column: 21,
+      column: 20,
+      endLine: 2,
+      endColumn: 25,
       message: messages.rejected("scss"),
       description: "Single file, has extension, trailing spaces."
     },
@@ -368,7 +384,9 @@ testRule({
       @import "df/fff";
     `,
       line: 2,
-      column: 23,
+      column: 22,
+      endLine: 2,
+      endColumn: 27,
       message: messages.rejected("scss"),
       description: "Single file, path with dir, has extension."
     },
@@ -380,7 +398,9 @@ testRule({
       @import "df\\fff";
     `,
       line: 2,
-      column: 23,
+      column: 22,
+      endLine: 2,
+      endColumn: 27,
       message: messages.rejected("scss"),
       description:
         "Single file, path with dir, has extension, windows delimiters."
@@ -393,7 +413,9 @@ testRule({
       @import "df/fff", '_1';
     `,
       line: 2,
-      column: 29,
+      column: 28,
+      endLine: 2,
+      endColumn: 33,
       message: messages.rejected("scss"),
       description: "Two files, path with dir, has extension."
     },
@@ -405,7 +427,9 @@ testRule({
       @import "colors.variables";
     `,
       line: 2,
-      column: 33,
+      column: 32,
+      endLine: 2,
+      endColumn: 37,
       message: messages.rejected("scss"),
       description: "Single file, has .scss extension and a dot in the name."
     },
@@ -417,7 +441,9 @@ testRule({
       @import "component.scss-theme";
     `,
       line: 2,
-      column: 26,
+      column: 36,
+      endLine: 2,
+      endColumn: 41,
       message: messages.rejected("scss"),
       description:
         "Single file, has .scss extension and a .scss in the filename."
