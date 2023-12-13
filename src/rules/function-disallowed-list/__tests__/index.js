@@ -24,7 +24,9 @@ testRule({
             .a { margin-left: math.random(100); }
           `,
       line: 3,
-      column: 18,
+      column: 36,
+      endLine: 3,
+      endColumn: 42,
       message: messages.rejected("random"),
       description: "Math library function, not allowed."
     }
@@ -60,7 +62,9 @@ testRule({
           .a { margin-left: math.random(100); }
         `,
       line: 3,
-      column: 16,
+      column: 34,
+      endLine: 3,
+      endColumn: 40,
       message: messages.rejected("random"),
       description: "Math library function, not allowed."
     },
@@ -70,7 +74,9 @@ testRule({
         .a { margin-left: test(3); }
       `,
       line: 3,
-      column: 14,
+      column: 27,
+      endLine: 3,
+      endColumn: 31,
       message: messages.rejected("test"),
       description: "Declared function is not allowed (regex)."
     },
@@ -80,7 +86,9 @@ testRule({
         .a { margin-left: random(5); }
       `,
       line: 3,
-      column: 14,
+      column: 27,
+      endLine: 3,
+      endColumn: 33,
       message: messages.rejected("random"),
       description: "Declared function is not allowed."
     }

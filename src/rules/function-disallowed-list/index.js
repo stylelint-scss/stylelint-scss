@@ -51,7 +51,7 @@ function rule(disallowedOption) {
             utils.report({
               message: messages.rejected(nameWithoutNamespace),
               node: decl,
-              word: decl.name,
+              word: nameWithoutNamespace,
               result,
               ruleName
             });
