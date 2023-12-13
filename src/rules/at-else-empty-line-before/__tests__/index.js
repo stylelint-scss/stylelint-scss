@@ -49,7 +49,10 @@ testRule({
     }`,
       description: "never (one empty line before @else)",
       message: messages.rejected,
-      line: 6
+      line: 6,
+      column: 7,
+      endLine: 6,
+      endColumn: 12
     },
     {
       code: "a { @if ($x == 1) { } \n\n @else if ($x == 2) { } \n @else { } }",
