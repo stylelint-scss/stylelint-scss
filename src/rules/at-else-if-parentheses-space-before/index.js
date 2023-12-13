@@ -1,6 +1,7 @@
 "use strict";
 
 const { utils } = require("stylelint");
+const atRuleParamIndex = require("../../utils/atRuleParamIndex");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 const whitespaceChecker = require("../../utils/whitespaceChecker");
@@ -34,20 +35,30 @@ function rule(value, _, context) {
 
     const checker = whitespaceChecker("space", value, messages).before;
 
-    root.walkAtRules("else", decl => {
+    root.walkAtRules("else", atRule => {
       // return early if the else-if statement is not surrounded by parentheses
-      if (!match.test(decl.params)) {
+      if (!match.test(atRule.params)) {
         return;
       }
 
       if (context.fix) {
-        decl.params = decl.params.replace(match, replacement);
+        atRule.params = atRule.params.replace(match, replacement);
       }
 
+      const index = atRule.params.indexOf("(");
+      const paramIndex = atRuleParamIndex(atRule);
+
       checker({
-        source: decl.params,
-        index: decl.params.indexOf("("),
-        err: message => utils.report({ message, node: decl, result, ruleName })
+        source: atRule.params,
+        index,
+        err: message =>
+          utils.report({
+            message,
+            node: atRule,
+            result,
+            ruleName,
+            index: paramIndex + index
+          })
       });
     });
   };
