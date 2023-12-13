@@ -53,7 +53,8 @@ function rule(actual, _, context) {
           message: messages.rejected,
           node,
           result,
-          ruleName
+          ruleName,
+          word: `@${node.name}`
         });
       }
     });

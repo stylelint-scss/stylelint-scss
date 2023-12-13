@@ -89,6 +89,8 @@ testRule({
       `,
       line: 2,
       column: 7,
+      endLine: 2,
+      endColumn: 15,
       message: messages.rejected,
       description: "@at-root rule is already in the root."
     },
