@@ -1,9 +1,9 @@
-"use strict";
+import stylelint from "stylelint";
+import atRuleParamIndex from "../../utils/atRuleParamIndex.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const atRuleParamIndex = require("../../utils/atRuleParamIndex");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("at-use-no-redundant-alias");
 
@@ -64,4 +64,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

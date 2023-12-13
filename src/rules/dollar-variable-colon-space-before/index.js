@@ -1,12 +1,10 @@
-"use strict";
+import stylelint from "stylelint";
+import { variableColonSpaceChecker } from "../dollar-variable-colon-space-after/index.js";
+import whitespaceChecker from "../../utils/whitespaceChecker.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const {
-  variableColonSpaceChecker
-} = require("../dollar-variable-colon-space-after");
-const whitespaceChecker = require("../../utils/whitespaceChecker");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("dollar-variable-colon-space-before");
 
@@ -48,4 +46,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

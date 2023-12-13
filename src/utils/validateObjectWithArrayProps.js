@@ -1,6 +1,4 @@
-"use strict";
-
-const isPlainObject = require("is-plain-object");
+import * as isPlainObject from "is-plain-object";
 
 /**
  * Check whether the variable is an object and all its properties are one or more values
@@ -18,7 +16,7 @@ const isPlainObject = require("is-plain-object");
  * @param {...Validator} validators
  * @returns {Validator}
  */
-function validateObjectWithArrayProps(...validators) {
+export default function validateObjectWithArrayProps(...validators) {
   return value => {
     if (isPlainObject.isPlainObject(value) || !value) {
       return false;
@@ -29,5 +27,3 @@ function validateObjectWithArrayProps(...validators) {
       .every(item => validators.some(v => v(item)));
   };
 }
-
-module.exports = validateObjectWithArrayProps;
