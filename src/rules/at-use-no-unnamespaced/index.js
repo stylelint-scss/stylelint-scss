@@ -22,15 +22,17 @@ function rule(actual) {
       return;
     }
 
-    root.walkAtRules("use", decl => {
-      if (/as\s*\*\s*(?:$|with\s*\()/.test(decl.params)) {
-        utils.report({
-          message: messages.rejected,
-          node: decl,
-          result,
-          ruleName
-        });
-      }
+    root.walkAtRules("use", atRule => {
+      const matched = atRule.params.match(/(as\s*\*)\s*(?:$|with\s*\()/);
+      if (!matched) return;
+
+      utils.report({
+        message: messages.rejected,
+        node: atRule,
+        result,
+        ruleName,
+        word: matched[1]
+      });
     });
   };
 }
