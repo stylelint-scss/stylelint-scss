@@ -77,9 +77,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
-      endLine: 3,
-      endColumn: 0,
+      column: 14,
+      endLine: 2,
+      endColumn: 18,
       message: messages.expected,
       description: "Regexp: sequence part. Example: symbol in between."
     }
@@ -123,9 +123,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
-      endLine: 3,
-      endColumn: 0,
+      column: 14,
+      endLine: 2,
+      endColumn: 18,
       message: messages.expected,
       description: "String: sequence part. Example: symbol in between."
     },
@@ -135,9 +135,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
-      endLine: 3,
-      endColumn: 0,
+      column: 14,
+      endLine: 2,
+      endColumn: 16,
       message: messages.expected,
       description: "String: sequence part. Example: not a full sequence."
     }
@@ -209,9 +209,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
-      endLine: 3,
-      endColumn: 0,
+      column: 14,
+      endLine: 2,
+      endColumn: 18,
       message: messages.expected,
       description: "Regexp: strict match. Example: matches at the end."
     },
@@ -221,9 +221,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
-      endLine: 3,
-      endColumn: 0,
+      column: 14,
+      endLine: 2,
+      endColumn: 18,
       message: messages.expected,
       description: "Regexp: strict match. Example: matches at the beginning."
     },
@@ -233,9 +233,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
-      endLine: 3,
-      endColumn: 0,
+      column: 14,
+      endLine: 2,
+      endColumn: 18,
       message: messages.expected,
       description: "Regexp: strict match. Example: symbol in between."
     },
@@ -247,9 +247,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
+      column: 14,
       endLine: 3,
-      endColumn: 0,
+      endColumn: 10,
       message: messages.expected,
       description:
         "Regexp: strict match. Example: mixin name divided by newlines."
@@ -288,9 +288,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
-      endLine: 3,
-      endColumn: 0,
+      column: 14,
+      endLine: 2,
+      endColumn: 18,
       message: messages.expected,
       description:
         "Regexp: pattern at the beginning. Example: matches at the end."
@@ -301,9 +301,9 @@ testRule({
       }
     `,
       line: 2,
-      column: 7,
-      endLine: 3,
-      endColumn: 0,
+      column: 14,
+      endLine: 2,
+      endColumn: 18,
       message: messages.expected,
       description:
         "Regexp: pattern at the beginning. Example: symbol in between."
@@ -332,9 +332,9 @@ testRule({
     {
       code: "@mixin boo-Foo-bar ( $p) {}",
       line: 1,
-      column: 1,
-      endLine: 2,
-      endColumn: 0,
+      column: 8,
+      endLine: 1,
+      endColumn: 19,
       message: messages.expected,
       description:
         "Regexp: SUIT component. Example: starts with lowercase, two elements"
@@ -342,18 +342,18 @@ testRule({
     {
       code: "@mixin foo-bar ($p) {}",
       line: 1,
-      column: 1,
-      endLine: 2,
-      endColumn: 0,
+      column: 8,
+      endLine: 1,
+      endColumn: 15,
       message: messages.expected,
       description: "Regexp: SUIT component. Example: starts with lowercase"
     },
     {
       code: "@mixin Foo-Bar ($p) {}",
       line: 1,
-      column: 1,
-      endLine: 2,
-      endColumn: 0,
+      column: 8,
+      endLine: 1,
+      endColumn: 15,
       message: messages.expected,
       description:
         "Regexp: SUIT component. Example: element starts with uppercase"
