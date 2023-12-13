@@ -17,13 +17,14 @@ const meta = {
 function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
-    const hasArgumentsRegExp = /\(\s*([^)]+?)\s*\)/;
 
     if (!validOptions) {
       return;
     }
 
-    function checkPathForUnderscore(path, decl) {
+    const hasArgumentsRegExp = /\(\s*([^)]+?)\s*\)/;
+
+    function checkPathForUnderscore(path, atrule) {
       // Stripping trailing quotes and whitespaces, if any
       const pathStripped = path
         .replace(/^\s*(["'])\s*/, "")
@@ -46,9 +47,10 @@ function rule(actual) {
 
       utils.report({
         message: messages.expected,
-        node: decl,
+        node: atrule,
         result,
-        ruleName
+        ruleName,
+        word: pathStripped
       });
     }
 
@@ -69,7 +71,7 @@ function rule(actual) {
           const args = hasArgumentsRegExp.exec(atrule.params);
           if (args) {
             const arg = args[0].split(",");
-            checkPathForUnderscore(arg[0].replace(/\(|\)/, ""), atrule);
+            checkPathForUnderscore(arg[0].replace(/[()]/g, ""), atrule);
           }
         }
       }
