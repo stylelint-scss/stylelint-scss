@@ -22,7 +22,8 @@ function report(atrule, result) {
     message: messages.rejected,
     node: atrule,
     result,
-    ruleName
+    ruleName,
+    word: atrule.params.replace(/\bif\b/, "") // Remove 'if' from '@else if'.
   });
 }
 
