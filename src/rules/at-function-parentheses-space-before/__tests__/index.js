@@ -66,7 +66,10 @@ testRule({
       foo ($n) {
       }
     `,
-      line: 2,
+      line: 4,
+      column: 7,
+      endLine: 4,
+      endColumn: 8,
       message: messages.expectedBefore(),
       description: "Newline after function name"
     },
@@ -80,6 +83,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 20,
+      endLine: 2,
+      endColumn: 21,
       message: messages.expectedBefore(),
       description: "No space before parentheses."
     },
@@ -93,6 +99,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 21,
+      endLine: 2,
+      endColumn: 22,
       message: messages.expectedBefore(),
       description: "Extra spaces after @function."
     },
@@ -106,6 +115,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 24,
+      endLine: 2,
+      endColumn: 25,
       message: messages.expectedBefore(),
       description: "No space before parentheses, hyphenated name."
     }
@@ -176,7 +188,10 @@ testRule({
       foo($n) {
       }
     `,
-      line: 2,
+      line: 4,
+      column: 7,
+      endLine: 4,
+      endColumn: 8,
       message: messages.rejectedBefore(),
       description: "Newline after function name"
     },
@@ -190,6 +205,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 21,
+      endLine: 2,
+      endColumn: 22,
       message: messages.rejectedBefore(),
       description: "Single space before parentheses."
     },
@@ -203,6 +221,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 22,
+      endLine: 2,
+      endColumn: 23,
       message: messages.rejectedBefore(),
       description: "Multiple spaces before parentheses."
     },
@@ -216,6 +237,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 25,
+      endLine: 2,
+      endColumn: 26,
       message: messages.rejectedBefore(),
       description: "Single space before parentheses, hyphenated name."
     }
