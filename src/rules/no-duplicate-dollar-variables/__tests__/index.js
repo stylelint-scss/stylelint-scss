@@ -148,6 +148,8 @@ testRule({
     `,
       line: 3,
       column: 7,
+      endLine: 3,
+      endColumn: 9,
       message: messages.rejected("$a"),
       description: "Two dollar variables with the same name."
     },

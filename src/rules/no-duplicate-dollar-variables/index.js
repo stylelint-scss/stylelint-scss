@@ -174,7 +174,8 @@ function rule(value, secondaryOptions) {
           message: messages.rejected(decl.prop),
           node: decl,
           result,
-          ruleName
+          ruleName,
+          word: decl.prop
         });
       }
 
