@@ -1,8 +1,8 @@
-"use strict";
+import stylelint from "stylelint";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const coreRuleName = "comment-no-empty";
 
@@ -47,4 +47,4 @@ function isEmptyComment(comment) {
   return comment.text === "";
 }
 
-module.exports = rule;
+export default rule;

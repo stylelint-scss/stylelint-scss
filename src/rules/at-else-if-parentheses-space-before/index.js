@@ -1,10 +1,10 @@
-"use strict";
+import stylelint from "stylelint";
+import atRuleParamIndex from "../../utils/atRuleParamIndex.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import whitespaceChecker from "../../utils/whitespaceChecker.js";
 
-const { utils } = require("stylelint");
-const atRuleParamIndex = require("../../utils/atRuleParamIndex");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const whitespaceChecker = require("../../utils/whitespaceChecker");
+const { utils } = stylelint;
 
 const ruleName = namespace("at-else-if-parentheses-space-before");
 
@@ -68,4 +68,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

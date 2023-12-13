@@ -1,14 +1,14 @@
-"use strict";
+import resolveNestedSelector from "postcss-resolve-nested-selector";
+import stylelint from "stylelint";
+import { isRegExp, isString } from "../../utils/validateTypes.js";
+import hasInterpolatingAmpersand from "../../utils/hasInterpolatingAmpersand.js";
+import isStandardRule from "../../utils/isStandardRule.js";
+import isStandardSelector from "../../utils/isStandardSelector.js";
+import parseSelector from "../../utils/parseSelector.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const resolveNestedSelector = require("postcss-resolve-nested-selector");
-const { utils } = require("stylelint");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const hasInterpolatingAmpersand = require("../../utils/hasInterpolatingAmpersand");
-const isStandardRule = require("../../utils/isStandardRule");
-const isStandardSelector = require("../../utils/isStandardSelector");
-const parseSelector = require("../../utils/parseSelector");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("percent-placeholder-pattern");
 
@@ -98,4 +98,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

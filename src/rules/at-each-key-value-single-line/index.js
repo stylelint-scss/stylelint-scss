@@ -1,9 +1,10 @@
-"use strict";
+import stylelint from "stylelint";
+import moduleNamespace from "../../utils/moduleNamespace.js";
 
-const { utils } = require("stylelint");
-const moduleNamespace = require("../../utils/moduleNamespace");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+
+const { utils } = stylelint;
 
 const ruleName = namespace("at-each-key-value-single-line");
 
@@ -125,4 +126,4 @@ function getNamespacedPattern(pattern, namespace) {
   return namespace !== null ? `(?:${namespace}\\.|map-)${pattern}` : pattern;
 }
 
-module.exports = rule;
+export default rule;

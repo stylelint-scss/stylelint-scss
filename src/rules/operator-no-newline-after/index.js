@@ -1,11 +1,11 @@
-"use strict";
+import stylelint from "stylelint";
+import eachRoot from "../../utils/eachRoot.js";
+import isWhitespace from "../../utils/isWhitespace.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import { calculationOperatorSpaceChecker } from "../operator-no-unspaced/index.js";
 
-const { utils } = require("stylelint");
-const eachRoot = require("../../utils/eachRoot");
-const isWhitespace = require("../../utils/isWhitespace");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const { calculationOperatorSpaceChecker } = require("../operator-no-unspaced");
+const { utils } = stylelint;
 
 const ruleName = namespace("operator-no-newline-after");
 
@@ -81,4 +81,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

@@ -1,6 +1,6 @@
-"use strict";
+import rule from "../index.js";
 
-const { ruleName, messages } = require("..");
+const { ruleName, messages } = rule;
 
 // Required ("always")
 testRule({

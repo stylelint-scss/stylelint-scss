@@ -1,9 +1,9 @@
-"use strict";
+import valueParser from "postcss-value-parser";
+import stylelint from "stylelint";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const valueParser = require("postcss-value-parser");
-const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("map-keys-quotes");
 
@@ -99,4 +99,4 @@ function returnMapKeys(array) {
   return new_array;
 }
 
-module.exports = rule;
+export default rule;

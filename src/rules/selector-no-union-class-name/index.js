@@ -1,5 +1,10 @@
-"use strict";
+import selectorParser from "postcss-selector-parser";
+import stylelint from "stylelint";
+import namespace from "../../utils/namespace.js";
+import parseSelector from "../../utils/parseSelector.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
+const { utils } = stylelint;
 const {
   isAttribute,
   isClassName,
@@ -7,11 +12,7 @@ const {
   isIdentifier,
   isPseudoClass,
   isPseudoElement
-} = require("postcss-selector-parser");
-const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const parseSelector = require("../../utils/parseSelector");
-const ruleUrl = require("../../utils/ruleUrl");
+} = selectorParser;
 
 const ruleName = namespace("selector-no-union-class-name");
 
@@ -101,4 +102,4 @@ function getSelectorFromRule(rule) {
   }
 }
 
-module.exports = rule;
+export default rule;

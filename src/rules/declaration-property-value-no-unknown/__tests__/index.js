@@ -1,7 +1,7 @@
-"use strict";
+import rule from "../index.js";
+import { stripIndent } from "common-tags";
 
-const { ruleName, messages } = require("..");
-const { stripIndent } = require("common-tags");
+const { ruleName, messages } = rule;
 
 testRule({
   ruleName,

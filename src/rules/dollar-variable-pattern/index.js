@@ -1,10 +1,10 @@
-"use strict";
+import stylelint from "stylelint";
+import { isRegExp, isString } from "../../utils/validateTypes.js";
+import namespace from "../../utils/namespace.js";
+import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("dollar-variable-pattern");
 
@@ -75,4 +75,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

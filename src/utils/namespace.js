@@ -1,7 +1,5 @@
-"use strict";
-
 const prefix = "scss";
 
-module.exports = function namespace(ruleName) {
+export default function namespace(ruleName) {
   return `${prefix}/${ruleName}`;
-};
+}

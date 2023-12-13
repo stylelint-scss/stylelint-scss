@@ -1,9 +1,9 @@
-"use strict";
+import valueParser from "postcss-value-parser";
+import stylelint from "stylelint";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const valueParser = require("postcss-value-parser");
-const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("dimension-no-non-numeric-values");
 
@@ -16,7 +16,7 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-const units = [
+export const units = [
   // Font-relative lengths:
   // https://www.w3.org/TR/css-values-4/#font-relative-lengths
   "em",
@@ -143,5 +143,4 @@ function isInterpolated(value) {
   return boolean;
 }
 
-module.exports = rule;
-module.exports.units = units;
+export default rule;

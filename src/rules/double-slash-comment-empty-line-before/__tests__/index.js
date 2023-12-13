@@ -1,6 +1,6 @@
-"use strict";
+import rule from "../index.js";
 
-const { messages, ruleName } = require("..");
+const { ruleName, messages } = rule;
 
 // Used in all "always" tests
 const alwaysGeneralTests = {

@@ -1,6 +1,4 @@
-"use strict";
-
-const isStandardSyntaxSelector = require("../isStandardSyntaxSelector");
+import isStandardSyntaxSelector from "../isStandardSyntaxSelector.js";
 
 describe("isStandardSyntaxSelector", () => {
   it("type", () => {
