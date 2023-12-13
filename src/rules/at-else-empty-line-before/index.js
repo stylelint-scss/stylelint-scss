@@ -26,11 +26,7 @@ function rule(expectation, _, context) {
       return;
     }
 
-    root.walkAtRules(atrule => {
-      if (atrule.name !== "else") {
-        return;
-      }
-
+    root.walkAtRules("else", atrule => {
       // Don't need to ignore "the first rule in a stylesheet", etc, cases
       // because @else should always go after @if
 
@@ -48,7 +44,8 @@ function rule(expectation, _, context) {
         message: messages.rejected,
         node: atrule,
         result,
-        ruleName
+        ruleName,
+        word: `@${atrule.name}`
       });
     });
   };
