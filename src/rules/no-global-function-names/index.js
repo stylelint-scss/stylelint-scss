@@ -2,7 +2,6 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
@@ -182,11 +181,11 @@ function rule(value) {
           return;
         }
 
-        if (Object.keys(rules).includes(cleanValue)) {
+        if (rules[cleanValue]) {
           utils.report({
             message: messages.rejected(cleanValue),
             node: decl,
-            index: declarationValueIndex(decl) + node.sourceIndex,
+            word: cleanValue,
             result,
             ruleName
           });
