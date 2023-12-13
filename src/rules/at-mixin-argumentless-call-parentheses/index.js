@@ -55,7 +55,8 @@ function rule(value, _, context) {
           messages[value === "never" ? "rejected" : "expected"](mixinName),
         node: mixinCall,
         result,
-        ruleName
+        ruleName,
+        word: mixinName
       });
     });
   };
