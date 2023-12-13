@@ -70,7 +70,8 @@ function rule(actual) {
             result,
             node: rule,
             message: messages.rejected,
-            index: node.sourceIndex
+            index: node.sourceIndex,
+            endIndex: node.sourceIndex + rule.selector.length
           });
         });
       });

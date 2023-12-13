@@ -122,6 +122,9 @@ testRule({
       }
     `,
       line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 16,
       message: messages.rejected,
       description: "when an ampersand is chained with union class name (hyphen)"
     },
