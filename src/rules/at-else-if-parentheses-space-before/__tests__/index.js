@@ -73,7 +73,10 @@ testRule({
       if ($foo) {
       }
     `,
-      line: 2,
+      line: 4,
+      column: 7,
+      endLine: 4,
+      endColumn: 8,
       message: messages.expectedBefore(),
       description: "Newline after if"
     },
@@ -87,6 +90,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 15,
+      endLine: 2,
+      endColumn: 16,
       message: messages.expectedBefore(),
       description: "No space before parentheses. Simple condition."
     },
@@ -190,7 +196,10 @@ testRule({
       if($foo) {
       }
     `,
-      line: 2,
+      line: 4,
+      column: 7,
+      endLine: 4,
+      endColumn: 8,
       message: messages.rejectedBefore(),
       description: "Newline after if"
     },
@@ -204,6 +213,9 @@ testRule({
       }
     `,
       line: 2,
+      column: 16,
+      endLine: 2,
+      endColumn: 17,
       message: messages.rejectedBefore(),
       description: "Single space before parentheses. Simple condition."
     },
