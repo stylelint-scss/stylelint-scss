@@ -1,6 +1,7 @@
 "use strict";
 
 const { utils } = require("stylelint");
+const atRuleParamIndex = require("../../utils/atRuleParamIndex");
 const whitespaceChecker = require("../../utils/whitespaceChecker");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
@@ -34,17 +35,27 @@ function rule(value, _, context) {
 
     const checker = whitespaceChecker("space", value, messages).before;
 
-    root.walkAtRules("mixin", decl => {
+    root.walkAtRules("mixin", atRule => {
       if (context.fix) {
-        decl.params = decl.params.replace(match, replacement);
+        atRule.params = atRule.params.replace(match, replacement);
 
         return;
       }
 
+      const parenIndex = atRule.params.indexOf("(");
+      const baseIndex = atRuleParamIndex(atRule);
+
       checker({
-        source: decl.params,
-        index: decl.params.indexOf("("),
-        err: message => utils.report({ message, node: decl, result, ruleName })
+        source: atRule.params,
+        index: parenIndex,
+        err: message =>
+          utils.report({
+            message,
+            node: atRule,
+            result,
+            ruleName,
+            index: baseIndex + parenIndex
+          })
       });
     });
   };
