@@ -42,6 +42,8 @@ function rule(primary) {
     }
 
     root.walkDecls(decl => {
+      const declValueIndex = declarationValueIndex(decl);
+
       valueParser(decl.value).walk(node => {
         // Verify that we're only looking at functions.
         if (node.type !== "function" || node.value === "") {
@@ -56,15 +58,17 @@ function rule(primary) {
           node.nodes.some(isColorFunction);
 
         if (isSassColorFunction || isDSFilterColorFunction) {
-          const nodes = isDSFilterColorFunction
+          const funcNodes = isDSFilterColorFunction
             ? node.nodes.filter(isColorFunction)
             : [node];
 
-          nodes.forEach(node => {
+          funcNodes.forEach(funcNode => {
+            const index = declValueIndex + funcNode.sourceIndex;
             utils.report({
               message: messages.rejected,
               node: decl,
-              index: declarationValueIndex(decl) + node.sourceIndex,
+              index,
+              endIndex: index + funcNode.value.length,
               result,
               ruleName
             });

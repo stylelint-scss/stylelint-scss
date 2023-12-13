@@ -44,7 +44,9 @@ testRule({
       description: "does not accept the saturate function",
       message: messages.rejected,
       line: 3,
-      column: 18
+      column: 18,
+      endLine: 3,
+      endColumn: 26
     },
     {
       code: `
@@ -55,7 +57,9 @@ testRule({
       description: "does not accept the desaturate function",
       message: messages.rejected,
       line: 3,
-      column: 18
+      column: 18,
+      endLine: 3,
+      endColumn: 28
     },
     {
       code: `
@@ -66,7 +70,9 @@ testRule({
       description: "does not accept the darken function",
       message: messages.rejected,
       line: 3,
-      column: 18
+      column: 18,
+      endLine: 3,
+      endColumn: 24
     },
     {
       code: `
@@ -77,7 +83,9 @@ testRule({
       description: "does not accept the lighten function",
       message: messages.rejected,
       line: 3,
-      column: 18
+      column: 18,
+      endLine: 3,
+      endColumn: 25
     },
     {
       code: `
@@ -88,7 +96,9 @@ testRule({
       description: "does not accept the opacify function",
       message: messages.rejected,
       line: 3,
-      column: 18
+      column: 18,
+      endLine: 3,
+      endColumn: 25
     },
     {
       code: `
@@ -99,7 +109,9 @@ testRule({
       description: "does not accept the fade-in function",
       message: messages.rejected,
       line: 3,
-      column: 18
+      column: 18,
+      endLine: 3,
+      endColumn: 25
     },
     {
       code: `
@@ -110,7 +122,9 @@ testRule({
       description: "does not accept the transparentize function",
       message: messages.rejected,
       line: 3,
-      column: 18
+      column: 18,
+      endLine: 3,
+      endColumn: 32
     },
     {
       code: `
@@ -121,7 +135,9 @@ testRule({
       description: "does not accept the fade-out function",
       message: messages.rejected,
       line: 3,
-      column: 18
+      column: 18,
+      endLine: 3,
+      endColumn: 26
     },
     {
       code: `
@@ -133,7 +149,9 @@ testRule({
         "does not accept color functions inside a drop-shadow filter",
       message: messages.rejected,
       line: 3,
-      column: 39
+      column: 39,
+      endLine: 3,
+      endColumn: 47
     },
     {
       code: `
@@ -145,7 +163,9 @@ testRule({
         "does not accept color functions inside a drop-shadow filter when multiple filters are used",
       message: messages.rejected,
       line: 3,
-      column: 54
+      column: 54,
+      endLine: 3,
+      endColumn: 62
     },
     {
       code: `
@@ -157,7 +177,9 @@ testRule({
         "does not accept color functions inside a drop-shadow filter when multiple filters are used",
       message: messages.rejected,
       line: 3,
-      column: 53
+      column: 53,
+      endLine: 3,
+      endColumn: 61
     },
     {
       code: `
@@ -169,7 +191,9 @@ testRule({
         "does not accept color functions inside a drop-shadow filter when multiple filters are used",
       message: messages.rejected,
       line: 3,
-      column: 39
+      column: 39,
+      endLine: 3,
+      endColumn: 47
     }
   ]
 });
