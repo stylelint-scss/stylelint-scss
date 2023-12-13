@@ -27,23 +27,22 @@ function rule(actual) {
 
     root.walkDecls(decl => {
       valueParser(decl.value).walk(node => {
-        if (node.type !== "function" || node.value === "") {
-          return;
-        }
-        if (
-          calculationFunctions.includes(node.value) &&
-          node.nodes.some(
-            args => args.type === "word" && /^#{.*|\s*}/.test(args.value)
-          )
-        ) {
-          utils.report({
-            message: messages.rejected(node.value),
-            node: decl,
-            word: decl.name,
-            result,
-            ruleName
-          });
-        }
+        if (node.type !== "function" || node.value === "") return;
+
+        if (!calculationFunctions.includes(node.value)) return;
+
+        const interpolation = node.nodes.find(
+          ({ type, value }) => type === "word" && /^#{.*|\s*}/.test(value)
+        );
+        if (!interpolation) return;
+
+        utils.report({
+          message: messages.rejected(node.value),
+          node: decl,
+          word: interpolation.value,
+          result,
+          ruleName
+        });
       });
     });
   };
