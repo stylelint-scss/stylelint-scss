@@ -1,15 +1,15 @@
-"use strict";
+import mediaQueryParser from "postcss-media-query-parser";
+import stylelint from "stylelint";
+import atRuleParamIndex from "../../utils/atRuleParamIndex.js";
+import declarationValueIndex from "../../utils/declarationValueIndex.js";
+import eachRoot from "../../utils/eachRoot.js";
+import findCommentsInRaws from "../../utils/findCommentsInRaws.js";
+import findOperators from "../../utils/sassValueParser/index.js";
+import isWhitespace from "../../utils/isWhitespace.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const mediaQueryParser = require("postcss-media-query-parser").default;
-const { utils } = require("stylelint");
-const atRuleParamIndex = require("../../utils/atRuleParamIndex");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
-const eachRoot = require("../../utils/eachRoot");
-const findCommentsInRaws = require("../../utils/findCommentsInRaws");
-const findOperators = require("../../utils/sassValueParser");
-const isWhitespace = require("../../utils/isWhitespace");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("operator-no-unspaced");
 
@@ -131,7 +131,7 @@ rule.meta = meta;
  *    {PostCSS Node} cbArgs.node -- for stylelint.utils.report
  *    {PostCSS Result} cbArgs.result -- for stylelint.utils.report
  */
-function calculationOperatorSpaceChecker({ root, result, checker }) {
+export function calculationOperatorSpaceChecker({ root, result, checker }) {
   /**
    * Takes a string, finds all occurrences of Sass interpolation in it, then
    * finds all operators inside that interpolation
@@ -307,6 +307,4 @@ function calculationOperatorSpaceChecker({ root, result, checker }) {
   });
 }
 
-rule.calculationOperatorSpaceChecker = calculationOperatorSpaceChecker;
-
-module.exports = rule;
+export default rule;

@@ -1,13 +1,13 @@
-"use strict";
+import stylelint from "stylelint";
+import addEmptyLineBefore from "../../utils/addEmptyLineBefore.js";
+import isInlineComment from "../../utils/isInlineComment.js";
+import namespace from "../../utils/namespace.js";
+import optionsHaveException from "../../utils/optionsHaveException.js";
+import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
+import removeEmptyLinesBefore from "../../utils/removeEmptyLinesBefore.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const addEmptyLineBefore = require("../../utils/addEmptyLineBefore");
-const isInlineComment = require("../../utils/isInlineComment");
-const namespace = require("../../utils/namespace");
-const optionsHaveException = require("../../utils/optionsHaveException");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const removeEmptyLinesBefore = require("../../utils/removeEmptyLinesBefore");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("double-slash-comment-empty-line-before");
 
@@ -148,4 +148,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

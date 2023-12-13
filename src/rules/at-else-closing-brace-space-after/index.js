@@ -1,11 +1,9 @@
-"use strict";
+import stylelint from "stylelint";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import { sassConditionalBraceSpaceAfterChecker } from "../at-if-closing-brace-space-after/index.js";
 
-const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const {
-  sassConditionalBraceSpaceAfterChecker
-} = require("../at-if-closing-brace-space-after");
+const { utils } = stylelint;
 
 const ruleName = namespace("at-else-closing-brace-space-after");
 
@@ -45,4 +43,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;
