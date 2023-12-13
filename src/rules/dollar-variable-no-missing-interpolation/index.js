@@ -111,7 +111,8 @@ function rule(actual) {
         ruleName,
         result,
         node,
-        message: messages.rejected(nodeName, value)
+        message: messages.rejected(nodeName, value),
+        word: value
       });
     }
 

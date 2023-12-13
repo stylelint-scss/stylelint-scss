@@ -170,6 +170,9 @@ testRule({
       }
     `,
       line: 4,
+      column: 25,
+      endLine: 4,
+      endColumn: 29,
       message: messages.rejected("animation-name", "$var"),
       description:
         "when variable is a string and it is not interpolated in animation-name property"
@@ -207,6 +210,9 @@ testRule({
       @keyframes $var {}
     `,
       line: 4,
+      column: 18,
+      endLine: 4,
+      endColumn: 22,
       message: messages.rejected("@keyframes", "$var"),
       description: "when variable is not a string and it is used in @keyframes"
     },
@@ -244,6 +250,9 @@ testRule({
       }
     `,
       line: 4,
+      column: 22,
+      endLine: 4,
+      endColumn: 26,
       message: messages.rejected("@counter-style", "$var"),
       description: "when variable is a string and it is used in @counter-style"
     },
@@ -272,6 +281,9 @@ testRule({
       }
     `,
       line: 4,
+      column: 34,
+      endLine: 4,
+      endColumn: 38,
       message: messages.rejected("@supports", "$var"),
       description: "when variable is a string and it is used in @supports"
     },
