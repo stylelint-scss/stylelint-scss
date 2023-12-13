@@ -28,6 +28,8 @@ testRule({
     `,
       line: 2,
       column: 7,
+      endLine: 2,
+      endColumn: 9,
       message: messages.rejected("$a"),
       description: "A dollar variable"
     },
