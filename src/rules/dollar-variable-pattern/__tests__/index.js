@@ -43,6 +43,9 @@ testRule({
       }
     `,
       line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 14,
       message: messages.expected,
       description: "Regexp: sequence part. Example: symbol in between."
     }

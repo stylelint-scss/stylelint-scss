@@ -64,7 +64,8 @@ function rule(pattern, options) {
         message: messages.expected,
         node: decl,
         result,
-        ruleName
+        ruleName,
+        word: prop
       });
     });
   };
