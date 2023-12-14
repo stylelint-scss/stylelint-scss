@@ -54,18 +54,19 @@ function rule(expectation) {
         }
       });
 
-      Object.keys(nestedGroups).forEach(namespace => {
+      Object.entries(nestedGroups).forEach(([namespace, groups]) => {
         // Only warn if there are more than one nested groups with equal namespaces
-        if (nestedGroups[namespace].length === 1) {
+        if (groups.length === 1) {
           return;
         }
 
-        nestedGroups[namespace].forEach(group => {
+        groups.forEach(group => {
           utils.report({
             message: messages.expected(namespace),
             node: group,
             result,
-            ruleName
+            ruleName,
+            word: namespace
           });
         });
       });
