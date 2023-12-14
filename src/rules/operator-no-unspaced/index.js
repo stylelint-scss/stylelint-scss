@@ -1,4 +1,4 @@
-import mediaQueryParser from "postcss-media-query-parser";
+import mediaQueryParserModule from "postcss-media-query-parser";
 import stylelint from "stylelint";
 import atRuleParamIndex from "../../utils/atRuleParamIndex.js";
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
@@ -10,6 +10,7 @@ import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 
 const { utils } = stylelint;
+const mediaQueryParser = mediaQueryParserModule.default;
 
 const ruleName = namespace("operator-no-unspaced");
 

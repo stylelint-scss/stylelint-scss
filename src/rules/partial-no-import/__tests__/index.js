@@ -1,8 +1,7 @@
-"use strict";
+import * as path from "node:path";
+import postcss from "postcss";
+import rule from "../index.js";
 
-const path = require("path");
-const postcss = require("postcss");
-const rule = require("..");
 const { messages } = rule;
 
 function logError(err) {
@@ -30,7 +29,7 @@ test("Import a file from non-partial .scss", done => {
   expect.assertions(1);
   postcss([rule()])
     .process("@import 'file.scss';", {
-      from: path.join(__dirname, "test.scss")
+      from: "test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -44,7 +43,7 @@ test("Import a file from a partial .scss", done => {
   expect.assertions(2);
   postcss([rule()])
     .process("@import 'file.scss';", {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -65,7 +64,7 @@ test("Import a file from a partial .scss 2", done => {
   expect.assertions(1);
   postcss([rule()])
     .process('@import "file.scss";', {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -79,7 +78,7 @@ test("Ignores empty imports (Sass will throw an error instead)", done => {
   expect.assertions(1);
   postcss([rule()])
     .process("@import '';", {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -93,7 +92,7 @@ test("Ignores empty imports (Sass will throw an error instead) 2", done => {
   expect.assertions(1);
   postcss([rule()])
     .process('@import " ";', {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -107,7 +106,7 @@ test("Import a file from a partial .scss; omitting extension", done => {
   expect.assertions(1);
   postcss([rule()])
     .process("@import 'file';", {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -121,7 +120,7 @@ test("Import comma separated files from a partial .scss; omitting extension", do
   expect.assertions(1);
   postcss([rule()])
     .process("@import 'file','file2';", {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -135,7 +134,7 @@ test("Import comma separated files from a partial .scss; omitting extension 2", 
   expect.assertions(1);
   postcss([rule()])
     .process('@import "file" , "file2";', {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -150,7 +149,7 @@ test("Import a file from CSS", done => {
   expect.assertions(1);
   postcss([rule()])
     .process("@import 'file.scss';", {
-      from: path.join(__dirname, "_test.css")
+      from: "_test.css"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -164,7 +163,7 @@ test("Import a CSS from a partial .scss", done => {
   expect.assertions(1);
   postcss([rule()])
     .process("@import 'file.css';", {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -178,7 +177,7 @@ test("Import a CSS (url) from a partial .scss", done => {
   expect.assertions(1);
   postcss([rule()])
     .process("@import url('file.scss');", {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -192,7 +191,7 @@ test("Import a CSS (with protocol) from a partial .scss", done => {
   expect.assertions(1);
   postcss([rule()])
     .process("@import '//file.scss;'", {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -208,7 +207,7 @@ test("Import a CSS file (font URL with https) from a partial .scss", done => {
     .process(
       "@import 'https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700';",
       {
-        from: path.join(__dirname, "_test.scss")
+        from: "_test.scss"
       }
     )
     .then(result => {
@@ -225,7 +224,7 @@ test("Import a local file and a CSS file (font URL with https) from a partial .s
     .process(
       "@import 'file', 'https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700';",
       {
-        from: path.join(__dirname, "_test.scss")
+        from: "_test.scss"
       }
     )
     .then(result => {
@@ -242,7 +241,7 @@ test("Import a local file and a CSS file (font URL with https) from a partial .s
     .process(
       '@import "file", "https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700";',
       {
-        from: path.join(__dirname, "_test.scss")
+        from: "_test.scss"
       }
     )
     .then(result => {
@@ -259,7 +258,7 @@ test("Import a local file and a CSS file (font URL with https) from a partial .s
     .process(
       '@import "https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700", "file";',
       {
-        from: path.join(__dirname, "_test.scss")
+        from: "_test.scss"
       }
     )
     .then(result => {
@@ -274,7 +273,7 @@ test("Import a CSS (with media) from a partial .scss", done => {
   expect.assertions(1);
   postcss([rule()])
     .process("@import 'file.scss' screen", {
-      from: path.join(__dirname, "_test.scss")
+      from: "_test.scss"
     })
     .then(result => {
       const warnings = result.warnings();
@@ -290,7 +289,7 @@ test("Multiple imports in a partial.", done => {
     .process(
       '@import "_bootstrap/variables";\n@import "_font-awesome/variables";',
       {
-        from: path.join(__dirname, "_variables.scss")
+        from: "_variables.scss"
       }
     )
     .then(result => {
@@ -307,7 +306,7 @@ test("Import from a non-partial SCSS-file.", done => {
     .process(
       '@import "bootstrap/variables";\n@import "font-awesome/variables";',
       {
-        from: path.join(__dirname, "_der", "variables.scss")
+        from: path.join("_der", "variables.scss")
       }
     )
     .then(result => {

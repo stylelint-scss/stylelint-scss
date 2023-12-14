@@ -16,7 +16,7 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-const units = [
+export const units = [
   // Font-relative lengths:
   // https://www.w3.org/TR/css-values-4/#font-relative-lengths
   "em",
