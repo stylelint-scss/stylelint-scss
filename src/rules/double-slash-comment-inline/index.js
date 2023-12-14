@@ -82,6 +82,7 @@ function rule(expectation, options) {
           message,
           node: root,
           index: comment.source.start,
+          endIndex: comment.source.end + 1,
           result,
           ruleName
         });

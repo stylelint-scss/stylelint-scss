@@ -50,7 +50,9 @@ testRule({
       description: "Non-inline comment (after a ruleset)",
       message: messages.expected,
       line: 3,
-      column: 7
+      column: 7,
+      endLine: 3,
+      endColumn: 46
     },
     {
       code: `
@@ -61,7 +63,9 @@ testRule({
       description: "Non-inline comment between selectors.",
       message: messages.expected,
       line: 3,
-      column: 7
+      column: 7,
+      endLine: 3,
+      endColumn: 46
     },
     {
       code: `
@@ -73,7 +77,9 @@ testRule({
       description: "Non-inline comment (before a decl)",
       message: messages.expected,
       line: 3,
-      column: 9
+      column: 9,
+      endLine: 3,
+      endColumn: 46
     }
   ]
 });
@@ -189,7 +195,9 @@ testRule({
       message: messages.rejected,
       description: "Inline comment, inside a ruleset.",
       line: 3,
-      column: 34
+      column: 34,
+      endLine: 3,
+      endColumn: 70
     },
     {
       code: `
@@ -201,7 +209,9 @@ testRule({
       message: messages.rejected,
       description: "Inline comment, between selectors.",
       line: 2,
-      column: 10
+      column: 10,
+      endLine: 2,
+      endColumn: 47
     }
   ]
 });
