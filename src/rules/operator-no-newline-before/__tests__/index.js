@@ -81,7 +81,9 @@ testRule({
       description: "Newline-indentation-operator: 10px\\n        + 1.",
       message: messages.rejected("+"),
       line: 4,
-      column: 9
+      column: 9,
+      endLine: 4,
+      endColumn: 10
     },
     {
       code: `

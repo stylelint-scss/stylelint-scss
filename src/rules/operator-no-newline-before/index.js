@@ -43,12 +43,14 @@ function checkNewlineBefore({
   }
 
   if (newLineBefore) {
+    const index = globalIndex + startIndex;
     utils.report({
       ruleName,
       result,
       node,
       message: messages.rejected(symbol),
-      index: endIndex + globalIndex
+      index,
+      endIndex: index + symbol.length
     });
   }
 }
