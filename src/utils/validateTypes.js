@@ -8,15 +8,6 @@ export function isBoolean(value) {
 }
 
 /**
- * Checks if the value is a number or a Number object.
- * @param {unknown} value
- * @returns {value is number}
- */
-export function isNumber(value) {
-  return typeof value === "number" || value instanceof Number;
-}
-
-/**
  * Checks if the value is a regular expression.
  * @param {unknown} value
  * @returns {value is RegExp}
@@ -32,16 +23,6 @@ export function isRegExp(value) {
  */
 export function isString(value) {
   return typeof value === "string" || value instanceof String;
-}
-
-/**
- * Checks if the value is a function
- * @param {unknown} value
- * @returns {value is Function}
- */
-export function isFunctionCall(value) {
-  const functionCallPattern = /[a-zA-Z0-9_-]+\s*\(\s*(.*)\s*\)/g;
-  return functionCallPattern.test(value);
 }
 
 /**
