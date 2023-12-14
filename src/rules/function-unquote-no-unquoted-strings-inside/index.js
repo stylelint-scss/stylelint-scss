@@ -67,10 +67,12 @@ function rule(primary, _, context) {
 
             decl.value = contents[1];
           } else {
+            const index = declarationValueIndex(decl) + node.sourceIndex;
             utils.report({
               message: messages.rejected,
               node: decl,
-              index: declarationValueIndex(decl) + node.sourceIndex,
+              index,
+              endIndex: index + node.value.length,
               result,
               ruleName
             });

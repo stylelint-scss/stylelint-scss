@@ -40,6 +40,8 @@ testRule({
       message: messages.rejected,
       line: 3,
       column: 24,
+      endLine: 3,
+      endColumn: 31,
       fixed: `
         p {
           font-family: Helvetica;
@@ -58,6 +60,8 @@ testRule({
       message: messages.rejected,
       line: 4,
       column: 24,
+      endLine: 4,
+      endColumn: 31,
       fixed: `
         $font: Helvetica;
         p {
