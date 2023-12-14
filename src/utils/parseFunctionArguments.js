@@ -1,6 +1,6 @@
 import valueParser from "postcss-value-parser";
 
-function groupByKeyValue(nodes) {
+export function groupByKeyValue(nodes) {
   if (!nodes) {
     return [];
   }
@@ -29,7 +29,7 @@ function groupByKeyValue(nodes) {
   }, []);
 }
 
-function mapToKeyValue(nodes) {
+export function mapToKeyValue(nodes) {
   const keyVal = nodes.reduce((acc, currentNode, i) => {
     if (acc.length === 1) {
       return acc;

@@ -1,10 +1,8 @@
-"use strict";
-
-const {
+import {
   groupByKeyValue,
   mapToKeyValue,
   parseFunctionArguments
-} = require("../parseFunctionArguments");
+} from "../parseFunctionArguments.js";
 
 describe("groupByKeyValue", () => {
   it("should group key with values", () => {

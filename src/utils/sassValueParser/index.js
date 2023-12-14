@@ -749,7 +749,7 @@ function isInsideInterpolation(string, index) {
  *    {Boolean} return.is - if inside a function arguments
  *    {String} return.fn - function name
  */
-function isInsideFunctionCall(string, index) {
+export function isInsideFunctionCall(string, index) {
   const result = { is: false, fn: null };
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
