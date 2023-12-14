@@ -120,7 +120,9 @@ testRule({
       description: "Op, -. width: 1- +1.",
       message: messages.expectedBefore("-"),
       line: 2,
-      column: 15
+      column: 15,
+      endLine: 2,
+      endColumn: 16
     },
     {
       code: "a { width: #{1 +1}; }",
@@ -1830,7 +1832,7 @@ testRule({
       code: "a { width: $var !=1; }",
       description: "Op: $var !=1.",
       message: messages.expectedAfter("!="),
-      column: 18
+      column: 17
     },
     {
       code: "a { width: $var< 1; }",
@@ -1848,7 +1850,7 @@ testRule({
       code: "a { width: $var ==1; }",
       description: "Op: $var ==1.",
       message: messages.expectedAfter("=="),
-      column: 18
+      column: 17
     },
     {
       code: "a { width: string== string; }",
@@ -1860,7 +1862,7 @@ testRule({
       code: "a { width: string ==string; }",
       description: "Op: string ==string.",
       message: messages.expectedAfter("=="),
-      column: 20
+      column: 19
     }
   ]
 });
@@ -2042,11 +2044,15 @@ testRule({
         {
           line: 1,
           column: 16,
+          endLine: 1,
+          endColumn: 18,
           message: messages.expectedBefore("==")
         },
         {
           line: 1,
-          column: 17,
+          column: 16,
+          endLine: 1,
+          endColumn: 18,
           message: messages.expectedAfter("==")
         }
       ]
@@ -2058,11 +2064,15 @@ testRule({
         {
           line: 1,
           column: 15,
+          endLine: 1,
+          endColumn: 17,
           message: messages.expectedBefore("==")
         },
         {
           line: 1,
-          column: 16,
+          column: 15,
+          endLine: 1,
+          endColumn: 17,
           message: messages.expectedAfter("==")
         }
       ]
@@ -2088,7 +2098,7 @@ testRule({
         },
         {
           line: 1,
-          column: 17,
+          column: 16,
           message: messages.expectedAfter("==")
         }
       ]
@@ -2104,7 +2114,7 @@ testRule({
         },
         {
           line: 1,
-          column: 16,
+          column: 15,
           message: messages.expectedAfter("==")
         }
       ]
