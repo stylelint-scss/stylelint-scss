@@ -32,7 +32,7 @@ function groupByKeyValue(nodes) {
 }
 
 function mapToKeyValue(nodes) {
-  const keyVal = nodes.reduce((acc, curr, i) => {
+  const keyVal = nodes.reduce((acc, currentNode, i) => {
     if (acc.length === 1) {
       return acc;
     }
@@ -43,15 +43,19 @@ function mapToKeyValue(nodes) {
 
     if (isNextNodeColon) {
       acc.push({
-        key: valueParser.stringify(nodes[i]),
-        value: valueParser.stringify(nodes.slice(2))
+        key: valueParser.stringify(currentNode),
+        value: valueParser.stringify(nodes.slice(2)),
+        index: currentNode.sourceIndex,
+        endIndex: nodes.at(-1).sourceEndIndex
       });
 
       return acc;
     }
 
     acc.push({
-      value: valueParser.stringify(nodes)
+      value: valueParser.stringify(nodes),
+      index: currentNode.sourceIndex,
+      endIndex: nodes.at(-1).sourceEndIndex
     });
 
     return acc;
@@ -61,15 +65,14 @@ function mapToKeyValue(nodes) {
 }
 
 function parseFunctionArguments(value) {
-  const parsed = valueParser(value);
+  const { nodes } = valueParser(value);
+  const [firstNode] = nodes;
 
-  if (!parsed.nodes[0] || parsed.nodes[0].type !== "function") {
+  if (!firstNode || firstNode.type !== "function") {
     return [];
   }
 
-  return parsed.nodes.map(node =>
-    groupByKeyValue(node.nodes).map(mapToKeyValue)
-  )[0];
+  return nodes.map(node => groupByKeyValue(node.nodes).map(mapToKeyValue))[0];
 }
 
 module.exports = {

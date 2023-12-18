@@ -1,7 +1,11 @@
 "use strict";
 
 const { utils } = require("stylelint");
+const atRuleParamIndex = require("../../utils/atRuleParamIndex");
 const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
+const {
+  parseFunctionArguments
+} = require("../../utils/parseFunctionArguments");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
@@ -60,33 +64,17 @@ function rule(expectation, options) {
         return;
       }
 
-      const args = argsString[1]
-        // Create array of arguments.
-        .split(",")
-        // Create a key-value array for every argument.
-        .map(argsString =>
-          argsString.split(":").map(argsKeyValuePair => argsKeyValuePair.trim())
-        )
-        .reduce((resultArray, keyValuePair) => {
-          const pair = { value: keyValuePair[1] || keyValuePair[0] };
+      const mixinArgs = parseFunctionArguments(atRule.params);
 
-          if (keyValuePair[1]) {
-            pair.key = keyValuePair[0];
-          }
+      if (mixinArgs.length === 0) return;
+      if (mixinArgs.length === 1 && shouldIgnoreSingleArgument) return;
 
-          return [...resultArray, pair];
-        }, []);
+      const baseIndex = atRuleParamIndex(atRule);
 
-      const isSingleArgument = args.length === 1;
-
-      if (isSingleArgument && shouldIgnoreSingleArgument) {
-        return;
-      }
-
-      args.forEach(arg => {
+      mixinArgs.forEach(({ key, index, endIndex }) => {
         switch (expectation) {
           case "never": {
-            if (!arg.key) {
+            if (!key) {
               return;
             }
 
@@ -94,13 +82,15 @@ function rule(expectation, options) {
               message: messages.rejected,
               node: atRule,
               result,
-              ruleName
+              ruleName,
+              index: baseIndex + index,
+              endIndex: baseIndex + endIndex
             });
             break;
           }
 
           case "always": {
-            if (arg.key && isScssVarRegExp.test(arg.key)) {
+            if (key && isScssVarRegExp.test(key)) {
               return;
             }
 
@@ -108,7 +98,9 @@ function rule(expectation, options) {
               message: messages.expected,
               node: atRule,
               result,
-              ruleName
+              ruleName,
+              index: baseIndex + index,
+              endIndex: baseIndex + endIndex
             });
             break;
           }
