@@ -2,6 +2,7 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
+const declarationValueIndex = require("../../utils/declarationValueIndex");
 const isNativeCssFunction = require("../../utils/isNativeCssFunction");
 const { isString } = require("../../utils/validateTypes");
 const namespace = require("../../utils/namespace");
@@ -53,6 +54,8 @@ function rule(expectation, options) {
     );
 
     root.walkDecls(decl => {
+      const declValueIndex = declarationValueIndex(decl);
+
       valueParser(decl.value).walk(node => {
         if (
           node.type !== "function" ||
@@ -88,10 +91,12 @@ function rule(expectation, options) {
           return;
         }
 
-        args.forEach(arg => {
+        const baseIndex = declValueIndex + node.sourceIndex;
+
+        args.forEach(({ key, index, endIndex }) => {
           switch (expectation) {
             case "never": {
-              if (!arg.key) {
+              if (!key) {
                 return;
               }
 
@@ -99,13 +104,15 @@ function rule(expectation, options) {
                 message: messages.rejected,
                 node: decl,
                 result,
-                ruleName
+                ruleName,
+                index: baseIndex + index,
+                endIndex: baseIndex + endIndex
               });
               break;
             }
 
             case "always": {
-              if (arg.key && isScssVarRegExp.test(arg.key)) {
+              if (key && isScssVarRegExp.test(key)) {
                 return;
               }
 
@@ -113,7 +120,9 @@ function rule(expectation, options) {
                 message: messages.expected,
                 node: decl,
                 result,
-                ruleName
+                ruleName,
+                index: baseIndex + index,
+                endIndex: baseIndex + endIndex
               });
               break;
             }
