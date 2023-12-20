@@ -40,12 +40,14 @@ function checkSpaces({
     newlineBefore(string, startIndex - 1);
 
   if (!beforeOk) {
+    const index = globalIndex + startIndex;
     utils.report({
       ruleName,
       result,
       node,
       message: messages.expectedBefore(symbol),
-      index: startIndex + globalIndex
+      index,
+      endIndex: index + symbol.length
     });
   }
 
@@ -55,12 +57,14 @@ function checkSpaces({
     string.substr(endIndex + 1, 2) === "\r\n";
 
   if (!afterOk) {
+    const index = globalIndex + startIndex;
     utils.report({
       ruleName,
       result,
       node,
       message: messages.expectedAfter(symbol),
-      index: endIndex + globalIndex
+      index,
+      endIndex: index + symbol.length
     });
   }
 }
