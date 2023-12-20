@@ -113,7 +113,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 28,
       message: messages.expected,
       description: "Always. Example: single argument that is not named."
     },
@@ -126,12 +128,16 @@ testRule({
       warnings: [
         {
           line: 3,
-          column: 9,
+          column: 24,
+          endLine: 3,
+          endColumn: 28,
           message: messages.expected
         },
         {
           line: 3,
-          column: 9,
+          column: 30,
+          endLine: 3,
+          endColumn: 34,
           message: messages.expected
         }
       ],
@@ -148,13 +154,17 @@ testRule({
     `,
       warnings: [
         {
-          line: 3,
-          column: 9,
+          line: 4,
+          column: 11,
+          endLine: 4,
+          endColumn: 15,
           message: messages.expected
         },
         {
-          line: 3,
-          column: 9,
+          line: 5,
+          column: 11,
+          endLine: 5,
+          endColumn: 15,
           message: messages.expected
         }
       ],
@@ -168,7 +178,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 33,
       message: messages.expected,
       description:
         "Always. Example: single argument is a variable but is not named."
@@ -180,7 +192,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 33,
       message: messages.expected,
       description:
         "Always. Example: single argument is a calculated value but is not named."
@@ -194,12 +208,16 @@ testRule({
       warnings: [
         {
           line: 3,
-          column: 9,
+          column: 38,
+          endLine: 3,
+          endColumn: 42,
           message: messages.expected
         },
         {
           line: 3,
-          column: 9,
+          column: 44,
+          endLine: 3,
+          endColumn: 51,
           message: messages.expected
         }
       ],
@@ -215,12 +233,16 @@ testRule({
       warnings: [
         {
           line: 3,
-          column: 9,
+          column: 24,
+          endLine: 3,
+          endColumn: 28,
           message: messages.expected
         },
         {
           line: 3,
-          column: 9,
+          column: 44,
+          endLine: 3,
+          endColumn: 51,
           message: messages.expected
         }
       ],
@@ -231,7 +253,9 @@ testRule({
       @include reset(40px);
     `,
       line: 2,
-      column: 7,
+      column: 22,
+      endLine: 2,
+      endColumn: 26,
       message: messages.expected,
       description:
         "Always. Example: single argument is not named in standalone mixin."
@@ -243,12 +267,16 @@ testRule({
       warnings: [
         {
           line: 2,
-          column: 7,
+          column: 22,
+          endLine: 2,
+          endColumn: 26,
           message: messages.expected
         },
         {
           line: 2,
-          column: 7,
+          column: 28,
+          endLine: 2,
+          endColumn: 32,
           message: messages.expected
         }
       ],
@@ -378,7 +406,9 @@ testRule({
       }
       `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 36,
       message: messages.rejected,
       description: "Never. Example: single argument is named."
     },
@@ -389,7 +419,9 @@ testRule({
       }
       `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 44,
       message: messages.rejected,
       description: "Never. Example: single argument is a variable."
     },
@@ -400,7 +432,9 @@ testRule({
       }
       `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 47,
       message: messages.rejected,
       description: "Never. Example: single argument is an interpolated value."
     },
@@ -411,7 +445,9 @@ testRule({
       }
       `,
       line: 3,
-      column: 9,
+      column: 28,
+      endLine: 3,
+      endColumn: 48,
       message: messages.rejected,
       description: "Never. Example: single argument is a calculated value."
     },
@@ -422,7 +458,9 @@ testRule({
       }
       `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 39,
       message: messages.rejected,
       description: "Never. Example: single argument is a quoted string."
     },
@@ -433,7 +471,9 @@ testRule({
       }
       `,
       line: 3,
-      column: 9,
+      column: 28,
+      endLine: 3,
+      endColumn: 48,
       message: messages.rejected,
       description: "Never. Example: single argument is an unquoted string."
     },
@@ -442,7 +482,9 @@ testRule({
       @include reset($value: 40px);
       `,
       line: 2,
-      column: 7,
+      column: 22,
+      endLine: 2,
+      endColumn: 34,
       message: messages.rejected,
       description: "Never. Example: standalone mixin."
     },
@@ -455,17 +497,23 @@ testRule({
       warnings: [
         {
           line: 3,
-          column: 9,
+          column: 24,
+          endLine: 3,
+          endColumn: 36,
           message: messages.rejected
         },
         {
           line: 3,
-          column: 9,
+          column: 38,
+          endLine: 3,
+          endColumn: 57,
           message: messages.rejected
         },
         {
           line: 3,
-          column: 9,
+          column: 59,
+          endLine: 3,
+          endColumn: 74,
           message: messages.rejected
         }
       ],
@@ -483,18 +531,24 @@ testRule({
       `,
       warnings: [
         {
-          line: 3,
-          column: 9,
+          line: 4,
+          column: 11,
+          endLine: 4,
+          endColumn: 23,
           message: messages.rejected
         },
         {
-          line: 3,
-          column: 9,
+          line: 5,
+          column: 11,
+          endLine: 5,
+          endColumn: 30,
           message: messages.rejected
         },
         {
-          line: 3,
-          column: 9,
+          line: 6,
+          column: 11,
+          endLine: 6,
+          endColumn: 26,
           message: messages.rejected
         }
       ],
@@ -508,7 +562,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 36,
       message: messages.rejected,
       description:
         "Never. Example: first argument is named but remaining are not."
@@ -520,7 +576,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 9,
+      column: 30,
+      endLine: 3,
+      endColumn: 42,
       message: messages.rejected,
       description: "Never. Example: mixed named arguments."
     }
@@ -668,12 +726,16 @@ testRule({
       warnings: [
         {
           line: 2,
-          column: 7,
+          column: 22,
+          endLine: 2,
+          endColumn: 26,
           message: messages.expected
         },
         {
           line: 2,
-          column: 7,
+          column: 28,
+          endLine: 2,
+          endColumn: 32,
           message: messages.expected
         }
       ],
@@ -687,7 +749,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 9,
+      column: 38,
+      endLine: 3,
+      endColumn: 42,
       message: messages.expected,
       description:
         "Always and ignore single argument. Example: first argument is named but remaining are not."
@@ -701,8 +765,10 @@ testRule({
         );
       }
     `,
-      line: 3,
-      column: 9,
+      line: 5,
+      column: 11,
+      endLine: 5,
+      endColumn: 15,
       message: messages.expected,
       description:
         "Always and ignore single argument. Example: first argument is named but remaining are not in multiline mixin call."
@@ -716,12 +782,16 @@ testRule({
       warnings: [
         {
           line: 3,
-          column: 9,
+          column: 24,
+          endLine: 3,
+          endColumn: 28,
           message: messages.expected
         },
         {
           line: 3,
-          column: 9,
+          column: 44,
+          endLine: 3,
+          endColumn: 51,
           message: messages.expected
         }
       ],
@@ -737,12 +807,16 @@ testRule({
       warnings: [
         {
           line: 3,
-          column: 9,
+          column: 38,
+          endLine: 3,
+          endColumn: 42,
           message: messages.expected
         },
         {
           line: 3,
-          column: 9,
+          column: 44,
+          endLine: 3,
+          endColumn: 51,
           message: messages.expected
         }
       ],
@@ -758,12 +832,16 @@ testRule({
       warnings: [
         {
           line: 3,
-          column: 9,
+          column: 24,
+          endLine: 3,
+          endColumn: 28,
           message: messages.expected
         },
         {
           line: 3,
-          column: 9,
+          column: 44,
+          endLine: 3,
+          endColumn: 51,
           message: messages.expected
         }
       ],
@@ -949,17 +1027,23 @@ testRule({
       warnings: [
         {
           line: 3,
-          column: 9,
+          column: 24,
+          endLine: 3,
+          endColumn: 36,
           message: messages.rejected
         },
         {
           line: 3,
-          column: 9,
+          column: 38,
+          endLine: 3,
+          endColumn: 57,
           message: messages.rejected
         },
         {
           line: 3,
-          column: 9,
+          column: 59,
+          endLine: 3,
+          endColumn: 74,
           message: messages.rejected
         }
       ],
@@ -978,18 +1062,24 @@ testRule({
       `,
       warnings: [
         {
-          line: 3,
-          column: 9,
+          line: 4,
+          column: 11,
+          endLine: 4,
+          endColumn: 23,
           message: messages.rejected
         },
         {
-          line: 3,
-          column: 9,
+          line: 5,
+          column: 11,
+          endLine: 5,
+          endColumn: 30,
           message: messages.rejected
         },
         {
-          line: 3,
-          column: 9,
+          line: 6,
+          column: 11,
+          endLine: 6,
+          endColumn: 26,
           message: messages.rejected
         }
       ],
@@ -1003,7 +1093,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 9,
+      column: 24,
+      endLine: 3,
+      endColumn: 36,
       message: messages.rejected,
       description:
         "Never and ignore single argument. Example: first argument is named but remaining are not."
@@ -1015,7 +1107,9 @@ testRule({
       }
     `,
       line: 3,
-      column: 9,
+      column: 30,
+      endLine: 3,
+      endColumn: 42,
       message: messages.rejected,
       description:
         "Never and ignore single argument. Example: mixed named arguments."
