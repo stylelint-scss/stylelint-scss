@@ -124,11 +124,15 @@ testRule({
         {
           line: 3,
           column: 9,
+          endLine: 3,
+          endColumn: 19,
           message: messages.expected("background")
         },
         {
           line: 6,
           column: 9,
+          endLine: 6,
+          endColumn: 19,
           message: messages.expected("background")
         }
       ]
