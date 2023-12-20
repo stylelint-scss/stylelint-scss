@@ -155,10 +155,10 @@ describe("mapToKeyValue", () => {
         { after: " ", before: "", sourceIndex: 12, type: "div", value: ":" },
         { sourceIndex: 14, type: "word", value: "40px" }
       ])
-    ).toEqual({ key: "$value", value: "40px" });
+    ).toEqual({ key: "$value", value: "40px", index: 6 });
     expect(
       mapToKeyValue([{ sourceIndex: 20, type: "word", value: "10px" }])
-    ).toEqual({ value: "10px" });
+    ).toEqual({ value: "10px", index: 20 });
   });
 });
 
@@ -178,7 +178,9 @@ describe("parseFunctionArguments", () => {
   it("parses number as the value", () => {
     expect(parseFunctionArguments("func(1)")).toEqual([
       {
-        value: "1"
+        value: "1",
+        index: 5,
+        endIndex: 6
       }
     ]);
   });
@@ -186,7 +188,9 @@ describe("parseFunctionArguments", () => {
   it("parses calculation as the value", () => {
     expect(parseFunctionArguments("func(30 * 25ms)")).toEqual([
       {
-        value: "30 * 25ms"
+        value: "30 * 25ms",
+        index: 5,
+        endIndex: 14
       }
     ]);
   });
@@ -194,10 +198,14 @@ describe("parseFunctionArguments", () => {
   it("parses multiple args", () => {
     expect(parseFunctionArguments("func(1, 2)")).toEqual([
       {
-        value: "1"
+        value: "1",
+        index: 5,
+        endIndex: 6
       },
       {
-        value: "2"
+        value: "2",
+        index: 8,
+        endIndex: 9
       }
     ]);
   });
@@ -205,10 +213,14 @@ describe("parseFunctionArguments", () => {
   it("parses trailing commas", () => {
     expect(parseFunctionArguments("func(1, 2,)")).toEqual([
       {
-        value: "1"
+        value: "1",
+        index: 5,
+        endIndex: 6
       },
       {
-        value: "2"
+        value: "2",
+        index: 8,
+        endIndex: 9
       }
     ]);
   });
@@ -217,7 +229,9 @@ describe("parseFunctionArguments", () => {
     expect(parseFunctionArguments("func($var: 1)")).toEqual([
       {
         key: "$var",
-        value: "1"
+        value: "1",
+        index: 5,
+        endIndex: 12
       }
     ]);
   });
@@ -230,7 +244,9 @@ describe("parseFunctionArguments", () => {
     ).toEqual([
       {
         key: "$foo",
-        value: 'url("data:image/svg+xml;charset=utf8,%3C")'
+        value: 'url("data:image/svg+xml;charset=utf8,%3C")',
+        index: 5,
+        endIndex: 53
       }
     ]);
   });
@@ -239,7 +255,9 @@ describe("parseFunctionArguments", () => {
     expect(parseFunctionArguments("reset($value: #{$other-value})")).toEqual([
       {
         key: "$value",
-        value: "#{$other-value}"
+        value: "#{$other-value}",
+        index: 6,
+        endIndex: 29
       }
     ]);
   });
@@ -248,7 +266,9 @@ describe("parseFunctionArguments", () => {
     expect(parseFunctionArguments("anim($duration: 30 * 25ms)")).toEqual([
       {
         key: "$duration",
-        value: "30 * 25ms"
+        value: "30 * 25ms",
+        index: 5,
+        endIndex: 25
       }
     ]);
   });
@@ -257,11 +277,15 @@ describe("parseFunctionArguments", () => {
     expect(parseFunctionArguments("func($var: 1, $foo: bar)")).toEqual([
       {
         key: "$var",
-        value: "1"
+        value: "1",
+        index: 5,
+        endIndex: 12
       },
       {
         key: `$foo`,
-        value: "bar"
+        value: "bar",
+        index: 14,
+        endIndex: 23
       }
     ]);
   });
@@ -274,15 +298,21 @@ describe("parseFunctionArguments", () => {
     ).toEqual([
       {
         key: "$value",
-        value: "40px"
+        value: "40px",
+        index: 6,
+        endIndex: 18
       },
       {
         key: "$second-value",
-        value: "10px"
+        value: "10px",
+        index: 20,
+        endIndex: 39
       },
       {
         key: "$color",
-        value: "'black'"
+        value: "'black'",
+        index: 41,
+        endIndex: 56
       }
     ]);
   });
@@ -294,19 +324,29 @@ describe("parseFunctionArguments", () => {
       )
     ).toEqual([
       {
-        value: "to left"
+        value: "to left",
+        index: 16,
+        endIndex: 23
       },
       {
-        value: "#333"
+        value: "#333",
+        index: 25,
+        endIndex: 29
       },
       {
-        value: "#333 50%"
+        value: "#333 50%",
+        index: 31,
+        endIndex: 39
       },
       {
-        value: "#eee 75%"
+        value: "#eee 75%",
+        index: 41,
+        endIndex: 49
       },
       {
-        value: "#333 75%"
+        value: "#333 75%",
+        index: 51,
+        endIndex: 59
       }
     ]);
   });
