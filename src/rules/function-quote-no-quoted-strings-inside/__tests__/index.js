@@ -40,6 +40,8 @@ testRule({
       message: messages.rejected,
       line: 3,
       column: 24,
+      endLine: 3,
+      endColumn: 29,
       fixed: `
         p {
           font-family: "Helvetica";
@@ -57,6 +59,8 @@ testRule({
         "does not accept variables representing strings that are quoted.",
       line: 4,
       column: 24,
+      endLine: 4,
+      endColumn: 29,
       message: messages.rejected,
       fixed: `
         $font: "Helvetica";
@@ -79,14 +83,14 @@ testRule({
       warnings: [
         {
           column: 30,
-          endColumn: 31,
+          endColumn: 35,
           endLine: 4,
           line: 4,
           message: messages.rejected
         },
         {
           column: 20,
-          endColumn: 21,
+          endColumn: 25,
           endLine: 7,
           line: 7,
           message: messages.rejected
