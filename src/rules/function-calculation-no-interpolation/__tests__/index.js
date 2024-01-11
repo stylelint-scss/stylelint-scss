@@ -25,6 +25,14 @@ testRule({
       .a { .b: calc(abc(#{$c})); }
       `,
       description: "Allowed function with interpolation nested in `calc`"
+    },
+    {
+      code: `
+      $c: 1;
+      --test-d: calc(#{$c} + 1);
+      `,
+      description:
+        "Custom property declaration with interpolation inside `calc`"
     }
   ],
   reject: [
@@ -41,7 +49,6 @@ testRule({
       description: "`calc` function one argument interpolated"
     },
     {
-      only: true,
       code: `
       $c: 1;
       .a { .b: calc(#{$c + 1}); }
