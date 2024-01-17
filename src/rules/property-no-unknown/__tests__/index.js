@@ -105,6 +105,14 @@ testRule({
     {
       code: ".foo { border: { style: solid; } }",
       description: "ignore nested properties"
+    },
+    {
+      code: ".foo { border: { style: solid; } }",
+      description: "ignore nested properties"
+    },
+    {
+      code: ".foo { background: { position: { x: left; } } }",
+      description: "ignore deeper nested properties"
     }
   ]
 });

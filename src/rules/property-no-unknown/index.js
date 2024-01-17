@@ -97,14 +97,16 @@ function rule(primary, secondaryOptions) {
       }
 
       // Nested properties
-      if (
-        parent &&
-        isType(parent, "rule") &&
-        parent.selector &&
-        parent.selector[parent.selector.length - 1] === ":" &&
-        parent.selector.substring(0, 2) !== "--"
+      let pointer = parent;
+      while (
+        pointer &&
+        isType(pointer, "rule") &&
+        pointer.selector &&
+        pointer.selector[pointer.selector.length - 1] === ":" &&
+        pointer.selector.substring(0, 2) !== "--"
       ) {
-        prop = parent.selector.replace(":", "") + "-" + prop;
+        prop = pointer.selector.replace(":", "") + "-" + prop;
+        pointer = pointer.parent;
       }
 
       if (allValidProperties.has(prop.toLowerCase())) {
