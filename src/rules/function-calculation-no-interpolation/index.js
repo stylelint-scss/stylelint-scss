@@ -31,6 +31,9 @@ function rule(actual) {
 
         if (!calculationFunctions.includes(node.value)) return;
 
+        // Interpolation is valid in SassScript.
+        if (decl.type === "decl" && decl.prop.startsWith("--")) return;
+
         const interpolation = node.nodes.find(
           ({ type, value }) => type === "word" && /^#{.*|\s*}/.test(value)
         );

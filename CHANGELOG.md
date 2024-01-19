@@ -1,3 +1,9 @@
+# 6.0.1
+
+- `function-calculation-no-interpolation` allows calc function interpolation in SassScript when declaring CSS custom properties.
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.0.0...v6.0.1
+
 # 6.0.0
 
 - Added: `stylelint@16` support.
