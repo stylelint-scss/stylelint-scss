@@ -58,6 +58,7 @@ const rules = {
   "no-duplicate-dollar-variables": require("./no-duplicate-dollar-variables"),
   "no-duplicate-mixins": require("./no-duplicate-mixins"),
   "no-global-function-names": require("./no-global-function-names"),
+  "no-unused-private-members": require("./no-unused-private-members"),
   "operator-no-newline-after": require("./operator-no-newline-after"),
   "operator-no-newline-before": require("./operator-no-newline-before"),
   "operator-no-unspaced": require("./operator-no-unspaced"),

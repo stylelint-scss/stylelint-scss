@@ -1,3 +1,9 @@
+# 6.1.0
+
+- Added: `no-unused-private-members` rule (#884).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.0.0...v6.1.0
+
 # 6.0.1
 
 - `function-calculation-no-interpolation` allows calc function interpolation in SassScript when declaring CSS custom properties.
