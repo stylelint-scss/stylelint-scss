@@ -10,7 +10,7 @@
     "node": ">=18.12.0"
   },
   "peerDependencies": {
-    "stylelint": "^16.1.0"
+    "stylelint": "^16.2.0"
   },
   "dependencies": {
     "known-css-properties": "^0.29.0",
@@ -32,7 +32,7 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.2.4",
-    "stylelint": "^16.1.0"
+    "stylelint": "^16.2.0"
   },
   "files": [
     "src/**/*.js",
