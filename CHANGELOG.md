@@ -1,14 +1,11 @@
 # 6.1.0
 
 - Added: `no-unused-private-members` rule (#884).
+- Added: support end positions for warnings (#899, #900, #901, #902, #903, #904, #905, #906, #907, #908, #909, #910, #911, #912, #913, #914, #915, #916, #917, #918, #919, #920, #921, #922, #923, #925, #926, #927, #928, #929, #930, #932, #933, #934, #935, #936, #937, #938, #939, #940).
+- Fixed: `function-calculation-no-interpolation` allow calc function interpolation in SassScript (#947)
+- Fixed: `property-no-unknown` support deeper nested properties (#948)
 
 **Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.0.0...v6.1.0
-
-# 6.0.1
-
-- `function-calculation-no-interpolation` allows calc function interpolation in SassScript when declaring CSS custom properties.
-
-**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.0.0...v6.0.1
 
 # 6.0.0
 
