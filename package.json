@@ -31,7 +31,7 @@
     "postcss": "^8.4.31",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.4",
     "stylelint": "^16.1.0"
   },
   "files": [
