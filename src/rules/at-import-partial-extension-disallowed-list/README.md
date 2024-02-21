@@ -1,11 +1,11 @@
-# at-import-partial-extension-blacklist
+# at-import-partial-extension-disallowed-list
 
-Specify a blacklist of disallowed file extensions for partial names in `@import` commands.
+Specify a list of disallowed file extensions for partial names in `@import` commands.
 
 ```scss
 @import "file.scss"
 /**           ↑
- * Blacklist of these */
+ * Disallowed list of these */
 ```
 
 The rule ignores [cases](https://sass-lang.com/documentation/at-rules/import) when Sass considers an `@import` command just a plain CSS import:

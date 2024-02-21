@@ -37,32 +37,32 @@ testRule({
       code: `
       @import "fff.scss ";
     `,
-      description: "One file, whitelisted extension, space at the end."
+      description: "One file, allow-listed extension, space at the end."
     },
     {
       code: `
       @import " fff.scss ";
     `,
-      description: "One file, whitelisted extension, trailing spaces."
+      description: "One file, allow-listed extension, trailing spaces."
     },
     {
       code: `
       @import "df/fff.scss";
     `,
-      description: "One file, path with dir, whitelisted extension."
+      description: "One file, path with dir, allow-listed extension."
     },
     {
       code: `
       @import "df\\fff.scss";
     `,
       description:
-        "One file, path with dir, whitelisted extension, windows delimiters."
+        "One file, path with dir, allow-listed extension, windows delimiters."
     },
     {
       code: `
       @import "df/fff", '_1.scss';
     `,
-      description: "Two files, path with dir, whitelisted extension."
+      description: "Two files, path with dir, allow-listed extension."
     }
   ],
 
@@ -74,7 +74,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("less"),
-      description: "One file, ext not from a whitelist-string."
+      description: "One file, ext not from an allowed list."
     },
     {
       code: `
@@ -84,7 +84,7 @@ testRule({
       column: 20,
       message: messages.rejected("scssy"),
       description:
-        "One file, ext not from a whitelist-string, space at the end."
+        "One file, ext not from an allowed list, space at the end."
     },
     {
       code: `
@@ -93,7 +93,7 @@ testRule({
       line: 2,
       column: 21,
       message: messages.rejected("less"),
-      description: "One file, ext not from a whitelist-string, trailing spaces."
+      description: "One file, ext not from an allowed list, trailing spaces."
     },
     {
       code: `
@@ -102,7 +102,7 @@ testRule({
       line: 2,
       column: 23,
       message: messages.rejected("less"),
-      description: "One file, path with dir, ext not from a whitelist-string."
+      description: "One file, path with dir, ext not from an allowed list."
     },
     {
       code: `
@@ -112,7 +112,7 @@ testRule({
       column: 23,
       message: messages.rejected("less"),
       description:
-        "One file, path with dir, ext not from a whitelist-string, windows delimiters."
+        "One file, path with dir, ext not from an allowed list, windows delimiters."
     },
     {
       code: `
@@ -121,7 +121,7 @@ testRule({
       line: 2,
       column: 29,
       message: messages.rejected("less"),
-      description: "Two files, path with dir, ext not from a whitelist-string."
+      description: "Two files, path with dir, ext not from an allowed list."
     }
   ]
 });
@@ -215,25 +215,25 @@ testRule({
       code: `
       @import "fff.scss";
     `,
-      description: "One file, ext from a whitelist array (string)."
+      description: "One file, ext from a allowed list (string)."
     },
     {
       code: `
       @import "fff.SCsS";
     `,
-      description: "One file, ext from a whitelist array (string), messed case."
+      description: "One file, ext from a allowed list (string), messed case."
     },
     {
       code: `
       @import "fff.less";
     `,
-      description: "One file, ext from a whitelist array (regex)."
+      description: "One file, ext from a allowed list (regex)."
     },
     {
       code: `
       @import "fff.LESS";
     `,
-      description: "One file, ext from a whitelist array (regex), messed case."
+      description: "One file, ext from a allowlist (regex), messed case."
     },
     {
       code: `
@@ -241,7 +241,7 @@ testRule({
           "fff.ruthless";
     `,
       description:
-        "Multiple files, ext from a whitelist array (regex), partial match."
+        "Multiple files, ext from a allowlist (regex), partial match."
     }
   ],
 
@@ -253,7 +253,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("foo"),
-      description: "Single file, extension not from a whitelist."
+      description: "Single file, extension not from a allowed list."
     },
     {
       code: `
@@ -263,7 +263,7 @@ testRule({
       column: 21,
       message: messages.rejected("scss1"),
       description:
-        "Single file, extension not from a whitelist, trailing whitespaces."
+        "Single file, extension not from a allowed list, trailing whitespaces."
     },
     {
       code: `
@@ -272,7 +272,7 @@ testRule({
       line: 2,
       column: 27,
       message: messages.rejected("moi"),
-      description: "Multiple files, ext not from a whitelist."
+      description: "Multiple files, ext not from a allowed list."
     }
   ]
 });

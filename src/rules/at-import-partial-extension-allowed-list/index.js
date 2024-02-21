@@ -6,7 +6,7 @@ const { isRegExp, isString } = require("../../utils/validateTypes");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
-const ruleName = namespace("at-import-partial-extension-whitelist");
+const ruleName = namespace("at-import-partial-extension-allowed-list");
 
 const messages = utils.ruleMessages(ruleName, {
   rejected: ext => `Unexpected extension ".${ext}" in imported partial name`
@@ -16,12 +16,12 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-function rule(whitelistOption) {
-  const whitelist = [].concat(whitelistOption);
+function rule(allowedListOption) {
+  const allowedList = [].concat(allowedListOption);
 
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: whitelistOption,
+      actual: allowedListOption,
       possible: [isString, isRegExp]
     });
 
@@ -54,7 +54,7 @@ function rule(whitelistOption) {
       }
 
       if (
-        whitelist.some(ext => {
+        allowedList.some(ext => {
           return (
             (isString(ext) && extensionNormalized === ext) ||
             (isRegExp(ext) && extensionNormalized.search(ext) !== -1)

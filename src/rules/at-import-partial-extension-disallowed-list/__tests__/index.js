@@ -111,7 +111,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("scss"),
-      description: "One file, ext is blacklisted."
+      description: "One file, ext is disallowed."
     },
     {
       code: `
@@ -178,20 +178,20 @@ testRule({
       code: `
       @import "fff.foo";
     `,
-      description: "Single file, extension not from a blacklist."
+      description: "Single file, extension not from a disallowed list."
     },
     {
       code: `
       @import " fff.scss1 ";
     `,
       description:
-        "Single file, extension not from a blacklist, trailing whitespaces."
+        "Single file, extension not from a disallowed list, trailing whitespaces."
     },
     {
       code: `
       @import "fff", "fff.moi";
     `,
-      description: "Multiple files, ext not from a blacklist."
+      description: "Multiple files, ext not from a disallowed list."
     }
   ],
 
@@ -203,7 +203,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("scss"),
-      description: "One file, ext from a blacklist array."
+      description: "One file, ext from a disallowed list."
     },
     {
       code: `
@@ -212,7 +212,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("SCsS"),
-      description: "One file, ext from a blacklist array, messed case."
+      description: "One file, ext from a disallowed list, messed case."
     },
     {
       code: `
@@ -221,7 +221,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("less"),
-      description: "One file, ext from a blacklist array #2 (regex)."
+      description: "One file, ext from a disallowed list #2 (regex)."
     },
     {
       code: `
@@ -231,7 +231,7 @@ testRule({
       column: 20,
       message: messages.rejected("LESS"),
       description:
-        "One file, ext from a blacklist array #2 (regex), messed case."
+        "One file, ext from a disallowed list #2 (regex), messed case."
     },
     {
       code: `
@@ -241,7 +241,7 @@ testRule({
       line: 3,
       column: 16,
       message: messages.rejected("ruthless"),
-      description: "Multiple files, ext from a blacklist array."
+      description: "Multiple files, ext from a disallowed list."
     }
   ]
 });

@@ -81,8 +81,8 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### `@`-import
 
 - [`at-import-partial-extension`](./src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands (Autofixable).
-- [`at-import-partial-extension-blacklist`](./src/rules/at-import-partial-extension-blacklist/README.md): Specify a blacklist of disallowed file extensions for partial names in `@import` commands.
-- [`at-import-partial-extension-whitelist`](./src/rules/at-import-partial-extension-whitelist/README.md): Specify a whitelist of allowed file extensions for partial names in `@import` commands.
+- [`at-import-partial-extension-allowed-list`](./src/rules/at-import-partial-extension-allowed-list/README.md): Specify a list of allowed file extensions for partial names in `@import` commands.
+- [`at-import-partial-extension-disallowed-list`](./src/rules/at-import-partial-extension-disallowed-list/README.md): Specify a list of disallowed file extensions for partial names in `@import` commands.
 
 ### `@`-mixin
 

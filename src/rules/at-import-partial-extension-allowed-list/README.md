@@ -1,11 +1,11 @@
-# at-import-partial-extension-whitelist
+# at-import-partial-extension-allowed-list
 
-Specify a whitelist of allowed file extensions for partial names in `@import` commands.
+Specify a list of allowed file extensions for partial names in `@import` commands.
 
 ```scss
 @import "file.scss"
 /**           ↑
- * Whitelist of these */
+ * Allowed list of these */
 ```
 
 The rule ignores [cases](https://sass-lang.com/documentation/at-rules/import) when Sass considers an `@import` command just a plain CSS import:
