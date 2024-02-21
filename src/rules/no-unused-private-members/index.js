@@ -16,8 +16,13 @@ const meta = {
 };
 
 function extractFunctionName(inputString) {
-  const matches = inputString.matchAll(/(?:\s*([\w$]+)\s*)?\(/g);
-  return [...matches].flat();
+  const matches = [...inputString.matchAll(/(?:\s*([\w\-$]+)\s*)?\(/g)].flat();
+  return matches;
+}
+
+function extractFunctionArgs(inputString) {
+  const matches = [...inputString.matchAll(/\(([^()]*)\)/g)].flat();
+  return matches.length > 0 ? matches[1].split(",") : [];
 }
 
 function rule(primaryOption) {
@@ -37,10 +42,12 @@ function rule(primaryOption) {
       mixins: new Map()
     };
 
-    root.walk(node => {
-      // Skip for files using @import
-      if (node.type === "atrule" && node.name === "import") return;
+    // Skip for files using @import.
+    let hasImport = false;
+    root.walkAtRules("import", () => (hasImport = true));
+    if (hasImport) return;
 
+    root.walk(node => {
       // Private placeholder selectors
       const isPrivatePlaceholderSelector =
         node.type === "rule" &&
@@ -83,7 +90,11 @@ function rule(primaryOption) {
         node.name === "mixin" &&
         (node.params.startsWith("-") || node.params.startsWith("_"));
       if (isPrivateMixin) {
-        privateMembers.mixins.set(node.params, node);
+        const match = extractFunctionName(node.params);
+        privateMembers.mixins.set(
+          match.length < 2 ? node.params : match[1],
+          node
+        );
       }
     });
 
@@ -91,8 +102,28 @@ function rule(primaryOption) {
       if (node.name === "extend" && privateMembers.selectors.has(node.params)) {
         privateMembers.selectors.delete(node.params);
       }
-      if (node.name === "include" && privateMembers.mixins.has(node.params)) {
-        privateMembers.mixins.delete(node.params);
+
+      const param = extractFunctionName(node.params)[1]
+        ? extractFunctionName(node.params)[1]
+        : node.params;
+      if (node.name === "include" && privateMembers.mixins.has(param)) {
+        privateMembers.mixins.delete(param);
+      }
+
+      const params = extractFunctionArgs(node.params);
+      if (node.name === "include" && params) {
+        params.forEach(param => {
+          const isThemeDeclaration = param.split(":");
+          if (isThemeDeclaration.length > 1) {
+            const value = isThemeDeclaration[1].trim();
+            if (privateMembers.variables.has(value)) {
+              privateMembers.variables.delete(value);
+            }
+          }
+          if (privateMembers.variables.has(param)) {
+            privateMembers.variables.delete(param);
+          }
+        });
       }
     });
 
@@ -103,6 +134,16 @@ function rule(primaryOption) {
           privateMembers.functions.delete(func);
         }
       });
+
+      // Functions in values like map.get
+      const params = extractFunctionArgs(decls.value);
+      if (params) {
+        params.forEach(param => {
+          if (privateMembers.variables.has(param)) {
+            privateMembers.variables.delete(param);
+          }
+        });
+      }
 
       if (privateMembers.variables.has(decls.value)) {
         privateMembers.variables.delete(decls.value);
