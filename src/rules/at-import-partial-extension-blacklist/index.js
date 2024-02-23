@@ -36,7 +36,7 @@ function rule(blacklistOption) {
       {
         stylelintType: "deprecation",
         stylelintReference:
-          "https://github.com/stylelint-scss/stylelint-scss/blob/v6.2.0/src/rules/at-import-partial-extension-disallowed-list/README.md"
+          "https://github.com/stylelint-scss/stylelint-scss/blob/v6.1.0/src/rules/at-import-partial-extension-disallowed-list/README.md"
       }
     );
 
