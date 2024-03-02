@@ -33,6 +33,10 @@ function fix(atrule) {
   // 2 regex groups: 'if ' and cond.
   const groups = atrule.params.match(regex).slice(1);
 
+  if (atrule.name !== "else") {
+    atrule.raws.afterName = "";
+  }
+
   atrule.params = [...new Set(groups)].join(" ");
 }
 
