@@ -160,7 +160,7 @@ function calculationOperatorSpaceChecker({ root, result, checker }) {
     return results;
   }
 
-  const dataURIRegex = /^url\(\s*['"]?data:.+['"]?\s*\)/;
+  const dataURIRegex = /url\(\s*['"]?data:.+['"]?\s*\)/;
 
   root.walk(item => {
     if (item.prop === "unicode-range") {
