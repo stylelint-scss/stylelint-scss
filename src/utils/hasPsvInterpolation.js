@@ -6,5 +6,5 @@
  * @param {string} string
  */
 module.exports = function (string) {
-  return /\$\(.+?\)/.test(string);
+  return /\$\([\s\S]*?\)/.test(string);
 };
