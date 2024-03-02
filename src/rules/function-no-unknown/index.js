@@ -6,6 +6,7 @@ const { ALL_FUNCTIONS } = require("../../utils/functions");
 const namespace = require("../../utils/namespace");
 const { isRegExp, isString } = require("../../utils/validateTypes");
 const ruleUrl = require("../../utils/ruleUrl");
+const hasInterpolation = require("../../utils/hasInterpolation");
 
 const ruleToCheckAgainst = "function-no-unknown";
 
@@ -123,12 +124,17 @@ function rule(primaryOption, secondaryOptions) {
     if (namespaceWarnings.size === 0) {
       root.walkDecls(decl => {
         valueParser(decl.value).walk(valueNode => {
-          const { type, value: funcName } = valueNode;
+          const { type, value } = valueNode;
 
-          if (type !== "function" || funcName.trim() === "") return;
+          if (type !== "function" || value.trim() === "") return;
+
+          const interpolationRegex = /^#{/;
+          const funcName = value.replace(interpolationRegex, "");
 
           const namespace = extractNamespaceFromFunction(funcName);
-          if (!namespace) return;
+
+          if (!namespace && !hasInterpolation(decl.value)) return;
+
           if (atUseNamespaces.has(namespace)) return;
 
           if (ignoreFunctionsAsSet.has(funcName)) return;

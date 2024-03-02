@@ -97,6 +97,15 @@ testRule({
       $str-index: string.index('string', 'i');
       `,
       description: "@use built-in function."
+    },
+    {
+      code: `
+      --background-mark-yellow: #{color.adjust(
+        $mdn-color-light-theme-yellow-30,
+        $alpha: -0.6
+      )};
+      `,
+      description: "built-in function inside interpolation, issue #817"
     }
   ],
 
@@ -151,6 +160,18 @@ testRule({
       line: 5,
       column: 16,
       description: "@use without a namespace"
+    },
+    {
+      code: `
+      --background-mark-yellow: #{some-fn(
+        $mdn-color-light-theme-yellow-30,
+        $alpha: -0.6
+      )};
+      `,
+      description: "unknown function inside interpolation, issue #817",
+      message: messages.rejected("some-fn"),
+      line: 2,
+      column: 35
     }
   ]
 });
@@ -172,6 +193,15 @@ testRule({
     },
     {
       code: "a { color: bar(1); }"
+    },
+    {
+      code: `
+      --background-mark-yellow: #{bar(
+        $mdn-color-light-theme-yellow-30,
+        $alpha: -0.6
+      )};
+      `,
+      description: "ignored function inside interpolation, issue #817"
     }
   ],
 
