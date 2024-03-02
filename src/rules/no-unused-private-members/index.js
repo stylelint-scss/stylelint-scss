@@ -20,9 +20,9 @@ function extractFunctionName(inputString) {
   return matches;
 }
 
-function extractFunctionArgs(inputString) {
-  const matches = [...inputString.matchAll(/\(([^()]*)\)/g)].flat();
-  return matches.length > 0 ? matches[1].split(",") : [];
+function getPrivateMembers(inputString) {
+  const matches = inputString.match(/([$%]*[-_]+[\w\d-_]+)/g);
+  return matches;
 }
 
 function rule(primaryOption) {
@@ -98,55 +98,37 @@ function rule(primaryOption) {
       }
     });
 
-    root.walkAtRules(node => {
-      if (node.name === "extend" && privateMembers.selectors.has(node.params)) {
-        privateMembers.selectors.delete(node.params);
-      }
-
-      const param = extractFunctionName(node.params)[1]
-        ? extractFunctionName(node.params)[1]
-        : node.params;
-      if (node.name === "include" && privateMembers.mixins.has(param)) {
-        privateMembers.mixins.delete(param);
-      }
-
-      const params = extractFunctionArgs(node.params);
-      if (node.name === "include" && params) {
-        params.forEach(param => {
-          const isThemeDeclaration = param.split(":");
-          if (isThemeDeclaration.length > 1) {
-            const value = isThemeDeclaration[1].trim();
-            if (privateMembers.variables.has(value)) {
-              privateMembers.variables.delete(value);
-            }
-          }
-          if (privateMembers.variables.has(param)) {
-            privateMembers.variables.delete(param);
-          }
-        });
+    root.walk(node => {
+      if (node.type === "atrule" || node.type === "rule") {
+        const value = node.type === "rule" ? node.selector : node.params;
+        const valuePrivateMembers = getPrivateMembers(value);
+        if (valuePrivateMembers) {
+          valuePrivateMembers.forEach(privateMember => {
+            if (privateMembers.mixins.get(privateMember) !== node)
+              privateMembers.mixins.delete(privateMember);
+            if (
+              privateMembers.selectors.get(privateMember) !== node &&
+              node.type === "atrule"
+            )
+              privateMembers.selectors.delete(privateMember);
+            if (privateMembers.variables.get(privateMember) !== node)
+              privateMembers.variables.delete(privateMember);
+            if (privateMembers.functions.get(privateMember) !== node)
+              privateMembers.functions.delete(privateMember);
+          });
+        }
       }
     });
 
     root.walkDecls(decls => {
-      const hasFunctions = extractFunctionName(decls.value);
-      hasFunctions.forEach(func => {
-        if (privateMembers.functions.has(func)) {
-          privateMembers.functions.delete(func);
-        }
-      });
-
-      // Functions in values like map.get
-      const params = extractFunctionArgs(decls.value);
-      if (params) {
-        params.forEach(param => {
-          if (privateMembers.variables.has(param)) {
-            privateMembers.variables.delete(param);
-          }
+      const valuePrivateMembers = getPrivateMembers(decls.value);
+      if (valuePrivateMembers) {
+        valuePrivateMembers.forEach(privateMember => {
+          if (privateMembers.variables.get(privateMember) !== decls)
+            privateMembers.variables.delete(privateMember);
+          if (privateMembers.functions.get(privateMember) !== decls)
+            privateMembers.functions.delete(privateMember);
         });
-      }
-
-      if (privateMembers.variables.has(decls.value)) {
-        privateMembers.variables.delete(decls.value);
       }
     });
 

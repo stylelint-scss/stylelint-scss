@@ -96,10 +96,11 @@ testRule({
     },
     {
       code: `
-      $-radius: 3px;
+      $-a: 3px;
+      $_b: 1px;
       
       .action-buttons {
-        margin: map.get($-radius);
+        margin: $-a map.get($_b);
       }
       `,
       description: "map.get uses variable"
@@ -119,6 +120,55 @@ testRule({
           );
       }`,
       description: "Is in theme declaration"
+    },
+    {
+      code: `
+      $_app-bar-height: 65px;
+      $_header-height: 70px;
+      $_explorer-margin: 64px;
+      $_total-offset: $_app-bar-height + $_header-height + $_explorer-margin;
+
+      . b {
+        margin: $_total-offset;
+      }
+      `,
+      description: "Is in theme declaration"
+    },
+    {
+      code: `
+      @function _add-one($n1) { @return $n1 + 1 }
+      @function _add-two($n1) { @return $n1 + 2 }
+      @function _add-three($n1) {
+      @return _add-two (
+        _add-one($n1)
+      )}
+      
+      .b {
+        margin: _add-three(10);
+      }`,
+      description: "Is in theme declaration"
+    },
+    {
+      code: `
+      $_a: false;
+
+      .btn {
+        @if ($_a) {
+          margin: 0px;
+        }
+      }`,
+      description: "Is used in @if"
+    },
+    {
+      code: `
+      $_gm-toolbar-item-state-offset: 0.5 * 3;
+      @mixin _position-offset($offset: $_gm-toolbar-item-state-offset) {
+        top: $offset;
+      }
+      .b {
+        @include _position-offset;
+      }`,
+      description: "Is used as a mixin default parameter"
     }
   ],
 
@@ -232,7 +282,7 @@ testRule({
       $_b: 900;
       
       .action-buttons {
-        margin: map.get($_a);
+        margin: 5px map.get($_a);
       }
       `,
       message: messages.expected("$_b"),
@@ -258,6 +308,36 @@ testRule({
       line: 3,
       column: 7,
       description: "Is in theme declaration"
+    },
+    {
+      code: `
+      $_a: false;
+      $_b: true;
+
+      .btn {
+        @if ($_a) {
+          margin: 0px;
+        }
+      }`,
+      message: messages.expected("$_b"),
+      line: 3,
+      column: 7,
+      description: "Is used in @if"
+    },
+    {
+      code: `
+      $_a: '&:hover';
+      $_b: '&:not(:disabled):active';
+
+      .@mixin states-selector() {
+        #{$_a} {
+          margin: 0px;
+        }
+      }`,
+      message: messages.expected("$_b"),
+      line: 3,
+      column: 7,
+      description: "Variable in interpolated selector."
     }
   ]
 });
