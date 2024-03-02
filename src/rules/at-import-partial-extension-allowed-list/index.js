@@ -6,39 +6,28 @@ const { isRegExp, isString } = require("../../utils/validateTypes");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
-const ruleName = namespace("at-import-partial-extension-blacklist");
+const ruleName = namespace("at-import-partial-extension-allowed-list");
 
 const messages = utils.ruleMessages(ruleName, {
   rejected: ext => `Unexpected extension ".${ext}" in imported partial name`
 });
 
 const meta = {
-  url: ruleUrl(ruleName),
-  deprecated: true
+  url: ruleUrl(ruleName)
 };
 
-function rule(blacklistOption) {
-  const blacklist = [].concat(blacklistOption);
+function rule(allowedListOption) {
+  const allowedList = [].concat(allowedListOption);
 
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: blacklistOption,
+      actual: allowedListOption,
       possible: [isString, isRegExp]
     });
 
     if (!validOptions) {
       return;
     }
-
-    result.warn(
-      "'at-import-partial-extension-blacklist' has been deprecated, " +
-        "and will be removed in '7.0'. Use 'at-import-partial-extension-disallowed-list' instead.",
-      {
-        stylelintType: "deprecation",
-        stylelintReference:
-          "https://github.com/stylelint-scss/stylelint-scss/blob/v6.1.0/src/rules/at-import-partial-extension-blacklist/README.md"
-      }
-    );
 
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
@@ -64,19 +53,23 @@ function rule(blacklistOption) {
         return;
       }
 
-      blacklist.forEach(ext => {
-        if (
-          (isString(ext) && extensionNormalized === ext) ||
-          (isRegExp(ext) && extensionNormalized.search(ext) !== -1)
-        ) {
-          utils.report({
-            message: messages.rejected(extension),
-            node: decl,
-            word: extension,
-            result,
-            ruleName
-          });
-        }
+      if (
+        allowedList.some(ext => {
+          return (
+            (isString(ext) && extensionNormalized === ext) ||
+            (isRegExp(ext) && extensionNormalized.search(ext) !== -1)
+          );
+        })
+      ) {
+        return;
+      }
+
+      utils.report({
+        message: messages.rejected(extension),
+        node: decl,
+        word: extension,
+        result,
+        ruleName
       });
     }
 

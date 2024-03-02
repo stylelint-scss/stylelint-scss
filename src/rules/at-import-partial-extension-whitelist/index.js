@@ -13,7 +13,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  deprecated: true
 };
 
 function rule(whitelistOption) {
@@ -28,6 +29,16 @@ function rule(whitelistOption) {
     if (!validOptions) {
       return;
     }
+
+    result.warn(
+      "'at-import-partial-extension-whitelist' has been deprecated, " +
+        "and will be removed in '7.0'. Use 'at-import-partial-extension-allowed-list' instead.",
+      {
+        stylelintType: "deprecation",
+        stylelintReference:
+          "https://github.com/stylelint-scss/stylelint-scss/blob/v6.1.0/src/rules/at-import-partial-extension-whitelist/README.md"
+      }
+    );
 
     function checkPathForUnderscore(path, decl) {
       // Stripping trailing quotes and whitespaces, if any
