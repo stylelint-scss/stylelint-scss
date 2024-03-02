@@ -73,6 +73,16 @@ testRule({
       description: "does not accept @if with parentheses"
     },
     {
+      code: "@if (true) {}",
+      fixed: "@if true {}",
+      line: 1,
+      column: 5,
+      endLine: 1,
+      endColumn: 11,
+      message: messages.rejected,
+      description: "fixes @if correctly, issue #887"
+    },
+    {
       code: "@while(true) {}",
       fixed: "@while true {}",
       line: 1,
@@ -81,6 +91,16 @@ testRule({
       endColumn: 13,
       message: messages.rejected,
       description: "does not accept @while with parentheses"
+    },
+    {
+      code: "@while (true) {}",
+      fixed: "@while true {}",
+      line: 1,
+      column: 8,
+      endLine: 1,
+      endColumn: 14,
+      message: messages.rejected,
+      description: "fixes @while correctly, issue #887"
     },
     {
       code: `@if true {}
@@ -93,6 +113,29 @@ testRule({
       endLine: 2,
       endColumn: 21,
       description: "does not accept @else if with parentheses"
+    },
+    {
+      code: `@if(true) {}
+      @else if(true) {}`,
+      fixed: `@if true {}
+      @else if true {}`,
+      warnings: [
+        {
+          message: messages.rejected,
+          line: 1,
+          column: 4,
+          endLine: 1,
+          endColumn: 10
+        },
+        {
+          message: messages.rejected,
+          line: 2,
+          column: 15,
+          endLine: 2,
+          endColumn: 21
+        }
+      ],
+      description: "fixes @else if correctly, issue #887"
     }
   ]
 });
