@@ -108,6 +108,12 @@ testRule({
        $accordion-button-active-icon: url("data:image/svg+xml;charset=utf-8,<svg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 512 512' xml:space='preserve'><style>.st0{fill:#{$accordion-icon-color-active};stroke:%231d4dcd;stroke-width:32;stroke-linecap:round;stroke-linejoin:round}</style><path class='st0' d='M256 112v288M400 256H112'/></svg>") !default;
       `,
       description: "data uri inside a variable, issue #605"
+    },
+    {
+      code: `
+      div { background: #e6375d url(data:image/png;base64,iVBOR////+LBpLMAA); }
+      `,
+      description: "data uri in background shorthand, issue #961"
     }
   ],
 
