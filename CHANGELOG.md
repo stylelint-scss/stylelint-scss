@@ -1,3 +1,18 @@
+# 6.2.0
+
+- Added: `at-import-partial-extension-allowed-list` rule, and deprecated `at-import-partial-extension-whitelist` rule (#958).
+- Added: `at-import-partial-extension-disallowed-list` rule, and deprecated `at-import-partial-extension-blacklist` rule (#958).
+- Fixed: `no-unused-private-members` check variables used as parameters and skip files using `@import` (#957).
+- Fixed: `no-unused-private-members` refactor variable search to match regex in atRules params and declaration values (#962).
+- Fixed: `operator-no-unspaced` fix data uri in background shorthand (#968).
+- Fixed: `at-rule-conditional-no-parentheses` remove extra autofix space (#969).
+- Fixed: `function-no-unknown` handle functions inside interpolation (#970).
+- Fixed: `operator-no-unspaced` fix function calls inside interpolation (#972).
+- Fixed: `at-function-named-arguments` handle interpolation in ignored function names (#973).
+- Fixed: `at-import-no-partial-leading-underscore` fix version in deprecation message (#974).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.1.0...v6.2.0
+
 # 6.1.0
 
 - Added: `no-unused-private-members` rule (#884).
