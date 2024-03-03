@@ -385,11 +385,15 @@ function checkMinus(string, index) {
         return "op";
       }
 
-      if (
-        isInsideFunctionCall_.is &&
-        ((isValueWithUnitAfter_.is && !isValueWithUnitAfter_.opsBetween) ||
-          (isNumberAfter_.is && !isNumberAfter_.opsBetween))
-      ) {
+      /*
+      e.g.
+      $fooBar: #{color.scale(
+        #000000,
+        $lightness: -50%,
+        $alpha: -50%
+      )};
+      */
+      if (isInsideFunctionCall_.is) {
         return "sign";
       }
 
@@ -740,7 +744,7 @@ function isInsideFunctionCall(string, index) {
     /(?:[a-zA-Z_-][\w-]*\()?(:?[a-zA-Z_-][\w-]*)\(/
   );
 
-  if (beforeMatch && beforeMatch[0] && after.search(/^[^(,]+\)/) !== -1) {
+  if (beforeMatch && beforeMatch[0] && after.search(/^[^(]+\)/g) !== -1) {
     result.is = true;
     result.fn = beforeMatch[1];
   }
