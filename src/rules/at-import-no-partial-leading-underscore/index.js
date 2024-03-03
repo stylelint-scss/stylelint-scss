@@ -25,7 +25,7 @@ function rule(actual) {
 
     result.warn(
       "'at-import-no-partial-leading-underscore' has been deprecated, " +
-        "and will be removed in '6.0'. Use 'load-no-partial-leading-underscore' instead.",
+        "and will be removed in '7.0'. Use 'load-no-partial-leading-underscore' instead.",
       {
         stylelintType: "deprecation",
         stylelintReference:
