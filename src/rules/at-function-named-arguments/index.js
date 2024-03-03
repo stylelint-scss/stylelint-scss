@@ -69,15 +69,17 @@ function rule(expectation, options) {
           options &&
           options.ignoreFunctions &&
           options.ignoreFunctions.some(f => {
+            const interpolationRegex = /^#{/;
+            const funcName = node.value.replace(interpolationRegex, "");
             const isRegex = /^\/.*\//.test(f);
 
             if (!isRegex) {
-              return f === node.value;
+              return f === funcName;
             }
 
             const parts = f.split("/");
 
-            return new RegExp(parts[1], parts[2] || "").test(node.value);
+            return new RegExp(parts[1], parts[2] || "").test(funcName);
           });
 
         if (hasFuncIgnored) {
