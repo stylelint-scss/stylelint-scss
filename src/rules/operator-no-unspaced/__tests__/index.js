@@ -928,6 +928,22 @@ testRule({
     {
       code: '@forward "src/list" as list-*;',
       description: "should ignore @forward"
+    },
+    {
+      code: `
+      $fooBar: #{color.scale(
+        #000000,
+        $lightness: -50%,
+        $alpha: -50%
+      )};
+      `,
+      description:
+        "should ignore function call inside interpolation, issue #803"
+    },
+    {
+      code: "$c: #{color.scale(#000000, $lightness: -50%, $alpha: -50%)};",
+      description:
+        "should ignore function call inside interpolation, issue #803"
     }
   ]
 });
