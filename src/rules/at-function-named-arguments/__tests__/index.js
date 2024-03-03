@@ -1406,3 +1406,85 @@ testRule({
     }
   ]
 });
+
+testRule({
+  ruleName,
+  config: ["never", { ignoreFunctions: ["scale-color"] }],
+  customSyntax: "postcss-scss",
+
+  accept: [
+    {
+      code: `
+      .b {
+        --my-var: scale-color(#fff, $lightness: -75%);
+    }
+    `,
+      description: "Never. No interpolation, issue #451"
+    },
+    {
+      code: `
+      .b {
+        --my-var: #{scale-color(#fff, $lightness: -75%)};
+    }
+    `,
+      description: "Never. With interpolation, issue #451"
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      .b {
+        --my-var: color(#fff, $lightness: -75%);
+      }
+      `,
+      line: 3,
+      column: 31,
+      endLine: 3,
+      endColumn: 47,
+      message: messages.rejected,
+      description: "Never. Function not ignored, issue #451"
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: ["never", { ignoreFunctions: ["/^scale-color/"] }],
+  customSyntax: "postcss-scss",
+
+  accept: [
+    {
+      code: `
+      .b {
+        --my-var: scale-color(#fff, $lightness: -75%);
+    }
+    `,
+      description: "Never. No interpolation, issue #451"
+    },
+    {
+      code: `
+      .b {
+        --my-var: #{scale-color(#fff, $lightness: -75%)};
+    }
+    `,
+      description: "Never. With interpolation, issue #451"
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      .b {
+        --my-var: color(#fff, $lightness: -75%);
+      }
+      `,
+      line: 3,
+      column: 31,
+      endLine: 3,
+      endColumn: 47,
+      message: messages.rejected,
+      description: "Never. Function not ignored, issue #451"
+    }
+  ]
+});
