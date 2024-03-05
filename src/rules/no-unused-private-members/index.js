@@ -3,6 +3,7 @@
 const { utils } = require("stylelint");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
+const { isBoolean } = require("../../utils/validateTypes");
 
 const ruleName = namespace("no-unused-private-members");
 
@@ -25,11 +26,22 @@ function getPrivateMembers(inputString) {
   return matches;
 }
 
-function rule(primaryOption) {
+function rule(primaryOption, secondaryOptions, context) {
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primaryOption
-    });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      {
+        actual: primaryOption
+      },
+      {
+        actual: secondaryOptions,
+        possible: {
+          enableAutoFix: [isBoolean]
+        },
+        optional: true
+      }
+    );
 
     if (!validOptions) {
       return;
@@ -133,10 +145,14 @@ function rule(primaryOption) {
     });
 
     for (const types in privateMembers) {
-      for (const [key, value] of privateMembers[types].entries()) {
+      for (const [key, node] of privateMembers[types].entries()) {
+        if (context.fix && secondaryOptions?.enableAutoFix) {
+          node.remove();
+          return;
+        }
         utils.report({
           message: messages.expected(key),
-          node: value,
+          node,
           result,
           ruleName
         });
