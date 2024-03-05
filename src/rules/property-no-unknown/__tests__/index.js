@@ -5,6 +5,7 @@ const { messages, ruleName } = require("..");
 testRule({
   ruleName,
   config: [true],
+  customSyntax: "postcss-scss",
 
   accept: [
     {
@@ -36,6 +37,13 @@ testRule({
     },
     {
       code: ".foo { --custom-property-set: { colr: blue; } }",
+      description: "ignore custom property sets"
+    },
+    {
+      code: `
+      $custom-property-set: '--custom-property-set';
+      .b { #{$custom-property-set}: blue; }
+      `,
       description: "ignore custom property sets"
     }
   ],
