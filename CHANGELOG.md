@@ -1,3 +1,9 @@
+# 6.2.1
+
+- Fixed: function-no-unknown: fix falsely reported CSS functions (#976).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.2.0...v6.2.1
+
 # 6.2.0
 
 - Added: `at-import-partial-extension-allowed-list` rule, and deprecated `at-import-partial-extension-whitelist` rule (#958).
