@@ -6,7 +6,6 @@ const { ALL_FUNCTIONS } = require("../../utils/functions");
 const namespace = require("../../utils/namespace");
 const { isRegExp, isString } = require("../../utils/validateTypes");
 const ruleUrl = require("../../utils/ruleUrl");
-const hasInterpolation = require("../../utils/hasInterpolation");
 
 const ruleToCheckAgainst = "function-no-unknown";
 
@@ -133,7 +132,7 @@ function rule(primaryOption, secondaryOptions) {
 
           const namespace = extractNamespaceFromFunction(funcName);
 
-          if (!namespace && !hasInterpolation(decl.value)) return;
+          if (!namespace) return;
 
           if (atUseNamespaces.has(namespace)) return;
 
