@@ -7,6 +7,7 @@ const isType = require("../../utils/isType");
 const optionsMatches = require("../../utils/optionsMatches");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
+const hasInterpolation = require("../../utils/hasInterpolation");
 const properties = require("known-css-properties").all;
 
 const { utils } = require("stylelint");
@@ -67,6 +68,7 @@ function rule(primary, secondaryOptions) {
         !isStandardSyntaxDeclaration(decl) ||
         isCustomPropertySet(prop) ||
         prop.startsWith("--") ||
+        hasInterpolation(prop) ||
         (!shouldCheckPrefixed && vendorPrefix(prop)) ||
         optionsMatches(secondaryOptions, "ignoreProperties", prop)
       ) {
