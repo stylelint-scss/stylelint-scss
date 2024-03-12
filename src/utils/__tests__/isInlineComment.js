@@ -1,8 +1,6 @@
-"use strict";
-
-const postcss = require("postcss");
-const scss = require("postcss-scss");
-const isInlineComment = require("../isInlineComment");
+import postcss from "postcss";
+import * as scss from "postcss-scss";
+import isInlineComment from "../isInlineComment.js";
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console

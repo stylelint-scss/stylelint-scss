@@ -1,7 +1,5 @@
-"use strict";
-
 // Add an empty line before a node. Mutates the node.
-module.exports = function addEmptyLineBefore(
+export default function addEmptyLineBefore(
   node /*: postcss$node*/,
   newline /*: '\n' | '\r\n'*/
 ) /*: postcss$node*/ {
@@ -12,4 +10,4 @@ module.exports = function addEmptyLineBefore(
   }
 
   return node;
-};
+}

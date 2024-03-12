@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Processes a string and finds Sass operators in it
  *
@@ -19,7 +17,7 @@
  * @return {Array} array of { symbol, globalIndex, startIndex, endIndex }
  *    for each operator found within a string
  */
-module.exports = function findOperators({
+export default function findOperators({
   string,
   globalIndex,
   isAfterColon,
@@ -121,7 +119,7 @@ module.exports = function findOperators({
 
   // result.length > 0 && console.log(string, result)
   return result;
-};
+}
 
 /**
  * Checks if a character is an operator, a sign (+ or -), or part of a string
@@ -736,7 +734,7 @@ function isInsideInterpolation(string, index) {
  *    {Boolean} return.is - if inside a function arguments
  *    {String} return.fn - function name
  */
-function isInsideFunctionCall(string, index) {
+export function isInsideFunctionCall(string, index) {
   const result = { is: false, fn: null };
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
@@ -1020,6 +1018,3 @@ function isPrecedingOperator(string, index) {
 
   return false;
 }
-
-module.exports.mathOperatorCharType = mathOperatorCharType;
-module.exports.isInsideFunctionCall = isInsideFunctionCall;

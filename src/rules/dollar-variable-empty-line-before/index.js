@@ -1,14 +1,14 @@
-"use strict";
+import stylelint from "stylelint";
+import blockString from "../../utils/blockString.js";
+import hasEmptyLine from "../../utils/hasEmptyLine.js";
+import isSingleLineString from "../../utils/isSingleLineString.js";
+import namespace from "../../utils/namespace.js";
+import optionsHaveException from "../../utils/optionsHaveException.js";
+import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import { isBoolean } from "../../utils/validateTypes.js";
 
-const { utils } = require("stylelint");
-const blockString = require("../../utils/blockString");
-const hasEmptyLine = require("../../utils/hasEmptyLine");
-const isSingleLineString = require("../../utils/isSingleLineString");
-const namespace = require("../../utils/namespace");
-const optionsHaveException = require("../../utils/optionsHaveException");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const ruleUrl = require("../../utils/ruleUrl");
-const { isBoolean } = require("../../utils/validateTypes");
+const { utils } = stylelint;
 
 const ruleName = namespace("dollar-variable-empty-line-before");
 
@@ -173,4 +173,4 @@ function isDollarVar(node) {
   return node.prop && node.prop[0] === "$";
 }
 
-module.exports = rule;
+export default rule;
