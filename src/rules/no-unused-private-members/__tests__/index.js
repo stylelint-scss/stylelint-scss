@@ -80,7 +80,7 @@ testRule({
       code: `
       @import 'foo';
 
-      %-toolbelt:hover {
+      %_toolbelt:hover {
         color: red;
       }
 
@@ -96,7 +96,7 @@ testRule({
     },
     {
       code: `
-      $-a: 3px;
+      $_a: 3px;
       $_b: 1px;
       
       .action-buttons {
@@ -124,7 +124,7 @@ testRule({
     {
       code: `
       $_app-bar-height: 65px;
-      $_header-height: 70px;
+      $-header_height: 70px;
       $_explorer-margin: 64px;
       $_total-offset: $_app-bar-height + $_header-height + $_explorer-margin;
 
@@ -137,9 +137,9 @@ testRule({
     {
       code: `
       @function _add-one($n1) { @return $n1 + 1 }
-      @function _add-two($n1) { @return $n1 + 2 }
-      @function _add-three($n1) {
-      @return _add-two (
+      @function -add-two($n1) { @return $n1 + 2 }
+      @function _add_three($n1) {
+      @return _add_two (
         _add-one($n1)
       )}
       
@@ -162,11 +162,19 @@ testRule({
     {
       code: `
       $_gm-toolbar-item-state-offset: 0.5 * 3;
-      @mixin _position-offset($offset: $_gm-toolbar-item-state-offset) {
+      @mixin _position_offset($offset: $_gm-toolbar-item-state-offset) {
         top: $offset;
       }
       .b {
         @include _position-offset;
+      }`,
+      description: "Is used as a mixin default parameter"
+    },
+    {
+      code: `
+      $_a-b: 1px;
+      .b {
+        margin: $-a-b;
       }`,
       description: "Is used as a mixin default parameter"
     }
@@ -187,7 +195,7 @@ testRule({
         margin-left: _addNums(4, 6);
       }
       `,
-      message: messages.expected("_one"),
+      message: messages.expected("-one"),
       description: "Private function",
       line: 6,
       column: 7
@@ -203,7 +211,7 @@ testRule({
         margin: 0;
       }      
       `,
-      message: messages.expected("_reset-list"),
+      message: messages.expected("-reset-list"),
       description: "Private mixin",
       line: 2,
       column: 7
@@ -271,7 +279,7 @@ testRule({
         @include column($_a);
         @include footer();
       }`,
-      message: messages.expected("$_c"),
+      message: messages.expected("$-c"),
       line: 4,
       column: 7,
       description: "Variables used as function parameters"
@@ -285,7 +293,7 @@ testRule({
         margin: 5px map.get($_a);
       }
       `,
-      message: messages.expected("$_b"),
+      message: messages.expected("$-b"),
       line: 3,
       column: 7,
       description: "map.get uses variable"
@@ -304,7 +312,7 @@ testRule({
             )
           );
       }`,
-      message: messages.expected("$_a-color"),
+      message: messages.expected("$-a-color"),
       line: 3,
       column: 7,
       description: "Is in theme declaration"
@@ -319,7 +327,7 @@ testRule({
           margin: 0px;
         }
       }`,
-      message: messages.expected("$_b"),
+      message: messages.expected("$-b"),
       line: 3,
       column: 7,
       description: "Is used in @if"
@@ -334,7 +342,7 @@ testRule({
           margin: 0px;
         }
       }`,
-      message: messages.expected("$_b"),
+      message: messages.expected("$-b"),
       line: 3,
       column: 7,
       description: "Variable in interpolated selector."

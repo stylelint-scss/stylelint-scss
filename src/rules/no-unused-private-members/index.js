@@ -25,6 +25,10 @@ function getPrivateMembers(inputString) {
   return matches;
 }
 
+function matchUnderscores(inputString) {
+  return inputString.replaceAll("_", "-");
+}
+
 function rule(primaryOption) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -60,7 +64,7 @@ function rule(primaryOption) {
           );
         selectors.forEach(selector => {
           if (!privateMembers.selectors.has(selector)) {
-            privateMembers.selectors.set(selector, node);
+            privateMembers.selectors.set(matchUnderscores(selector), node);
           }
         });
       }
@@ -70,7 +74,7 @@ function rule(primaryOption) {
         node.type === "decl" &&
         (node.prop.startsWith("$-") || node.prop.startsWith("$_"));
       if (isPrivateVariable) {
-        privateMembers.variables.set(node.prop, node);
+        privateMembers.variables.set(matchUnderscores(node.prop), node);
       }
 
       // Private functions
@@ -81,7 +85,7 @@ function rule(primaryOption) {
       if (isPrivateFunction) {
         const match = extractFunctionName(node.params);
         if (match.length < 2) return;
-        privateMembers.functions.set(match[1], node);
+        privateMembers.functions.set(matchUnderscores(match[1]), node);
       }
 
       // Private mixins
@@ -92,7 +96,7 @@ function rule(primaryOption) {
       if (isPrivateMixin) {
         const match = extractFunctionName(node.params);
         privateMembers.mixins.set(
-          match.length < 2 ? node.params : match[1],
+          matchUnderscores(match.length < 2 ? node.params : match[1]),
           node
         );
       }
@@ -104,6 +108,7 @@ function rule(primaryOption) {
         const valuePrivateMembers = getPrivateMembers(value);
         if (valuePrivateMembers) {
           valuePrivateMembers.forEach(privateMember => {
+            privateMember = matchUnderscores(privateMember);
             if (privateMembers.mixins.get(privateMember) !== node)
               privateMembers.mixins.delete(privateMember);
             if (
@@ -124,6 +129,7 @@ function rule(primaryOption) {
       const valuePrivateMembers = getPrivateMembers(decls.value);
       if (valuePrivateMembers) {
         valuePrivateMembers.forEach(privateMember => {
+          privateMember = matchUnderscores(privateMember);
           if (privateMembers.variables.get(privateMember) !== decls)
             privateMembers.variables.delete(privateMember);
           if (privateMembers.functions.get(privateMember) !== decls)
