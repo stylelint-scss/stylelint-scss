@@ -177,6 +177,15 @@ testRule({
         margin: $-a-b;
       }`,
       description: "Is used as a mixin default parameter"
+    },
+    {
+      code: `
+      @mixin foo {
+        $_a-b: 1px;
+      }
+      @include foo
+      `,
+      description: "Is used as a mixin default parameter"
     }
   ],
 

@@ -29,6 +29,17 @@ function matchUnderscores(inputString) {
   return inputString.replaceAll("_", "-");
 }
 
+function isWithinMixin(node) {
+  let parent = node.parent;
+  while (parent) {
+    if (parent.type === "atrule" && parent.name === "mixin") {
+      return true;
+    }
+    parent = parent.parent;
+  }
+  return false;
+}
+
 function rule(primaryOption) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -72,7 +83,8 @@ function rule(primaryOption) {
       // Private variables
       const isPrivateVariable =
         node.type === "decl" &&
-        (node.prop.startsWith("$-") || node.prop.startsWith("$_"));
+        (node.prop.startsWith("$-") || node.prop.startsWith("$_")) &&
+        !isWithinMixin(node);
       if (isPrivateVariable) {
         privateMembers.variables.set(matchUnderscores(node.prop), node);
       }
@@ -139,10 +151,10 @@ function rule(primaryOption) {
     });
 
     for (const types in privateMembers) {
-      for (const [key, value] of privateMembers[types].entries()) {
+      for (const [key, node] of privateMembers[types].entries()) {
         utils.report({
           message: messages.expected(key),
-          node: value,
+          node,
           result,
           ruleName
         });
