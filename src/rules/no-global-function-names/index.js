@@ -2,6 +2,7 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
+const getAtRuleParams = require("stylelint/lib/utils/getAtRuleParams.cjs");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
@@ -173,7 +174,15 @@ function rule(value) {
     }
 
     root.walkDecls(decl => {
-      valueParser(decl.value).walk(node => {
+      checkValue(decl, decl.value);
+    });
+    root.walkAtRules(atRule => {
+      const params = getAtRuleParams(atRule);
+      checkValue(atRule, params);
+    });
+
+    function checkValue(parentNode, value) {
+      valueParser(value).walk(node => {
         const cleanValue = node.value.replace(interpolationPrefix, "");
 
         // Verify that we're only looking at functions.
@@ -184,14 +193,14 @@ function rule(value) {
         if (rules[cleanValue]) {
           utils.report({
             message: messages.rejected(cleanValue),
-            node: decl,
+            node: parentNode,
             word: cleanValue,
             result,
             ruleName
           });
         }
       });
-    });
+    }
   };
 }
 
