@@ -2,7 +2,7 @@
 
 const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
-const getAtRuleParams = require("stylelint/lib/utils/getAtRuleParams.cjs");
+const getAtRuleParams = require("../../utils/getAtRuleParams");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
