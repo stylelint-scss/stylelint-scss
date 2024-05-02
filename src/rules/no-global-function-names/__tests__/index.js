@@ -290,6 +290,26 @@ testRule({
       @debug string.unique-id()
       `,
       description: "string.unique-id"
+    },
+    {
+      code: `
+      @use "sass:meta"
+      @function is-number($value) {
+        @return meta.type-of($value) == 'number'
+      }
+      `,
+      description: "Allowed non-global function in @return"
+    },
+    {
+      code: `
+      @use "sass:meta"
+      @mixin foo($name) {
+        @if meta.type-of($name) != 'string' {
+          @error 'name must be a string, but was ' + meta.type-of($name)
+        }
+      }
+      `,
+      description: "Allowed non-global function in @if and @error"
     }
   ],
 
@@ -491,6 +511,41 @@ testRule({
         "Expected color.adjust($color, $lightness: $amount) instead of lighten($color, $amount)"
       ),
       description: "lighten"
+    },
+    {
+      code: `
+      @function is-number($value) {
+        @return type-of($value) == 'number'
+      }
+      `,
+      line: 3,
+      column: 17,
+      message: messages.rejected("type-of"),
+      description: "Global function in @return"
+    },
+    {
+      code: `
+      @mixin foo($name) {
+        @if type-of($name) != 'string' {
+          @error 'name must be a test(string), but was' + type-of($name)
+        }
+      }
+      `,
+      warnings: [
+        {
+          line: 3,
+          column: 13,
+          message: messages.rejected("type-of"),
+          description: "Global function in @if"
+        },
+        {
+          line: 4,
+          column: 59,
+          message: messages.rejected("type-of"),
+          description: "Global function in @error"
+        }
+      ],
+      description: "Global function in @if and @error"
     }
   ]
 });

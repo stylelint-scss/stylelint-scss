@@ -83,8 +83,7 @@ testRule({
       line: 2,
       column: 20,
       message: messages.rejected("scssy"),
-      description:
-        "One file, ext not from an allowed list, space at the end."
+      description: "One file, ext not from an allowed list, space at the end."
     },
     {
       code: `
