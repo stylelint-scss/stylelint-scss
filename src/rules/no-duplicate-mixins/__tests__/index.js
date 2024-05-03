@@ -26,6 +26,29 @@ testRule({
       }
     `,
       description: "Two mixins with different names."
+    },
+    {
+      code: `
+      .ComponentA {
+        @mixin activeState() {
+          background: #000;
+        }
+        .button {
+          @include activeState;
+        }
+      }
+
+      .ComponentB {
+        @mixin activeState() {
+          background: #fff;
+        }
+        .button {
+          @include activeState;
+        }
+      }
+      `,
+      description:
+        "Two mixins with the same name in different scopes, issue #761"
     }
   ],
 
@@ -44,7 +67,7 @@ testRule({
       endLine: 5,
       endColumn: 31,
       message: messages.rejected("font-size-default"),
-      description: "Two mixins with the same names."
+      description: "Two mixins with the same name."
     },
     {
       code: `
@@ -63,7 +86,7 @@ testRule({
       endLine: 8,
       endColumn: 31,
       message: messages.rejected("font-size-default"),
-      description: "Three mixins including two with the same names."
+      description: "Three mixins including two with the same name."
     },
     {
       code: `
@@ -80,7 +103,7 @@ testRule({
       endColumn: 23,
       message: messages.rejected("font-size"),
       description:
-        "Two mixins with the same names including one accepting arguments."
+        "Two mixins with the same name including one accepting arguments."
     },
     {
       code: `
@@ -96,7 +119,7 @@ testRule({
       endLine: 5,
       endColumn: 23,
       message: messages.rejected("font-size"),
-      description: "Two mixins with the same names accepting arguments."
+      description: "Two mixins with the same name accepting arguments."
     },
     {
       code: `
@@ -116,7 +139,26 @@ testRule({
       endLine: 7,
       endColumn: 25,
       message: messages.rejected("font-size"),
-      description: "Two mixins with the same names accepting arguments."
+      description: "Two mixins with the same name, one nested inside a class."
+    },
+    {
+      code: `
+      .b {
+        @mixin font-size {
+          color: blue;
+        }
+        @mixin font-size {
+          color: red;
+        }
+        @include font-size;
+      }
+    `,
+      line: 6,
+      column: 16,
+      endLine: 6,
+      endColumn: 25,
+      message: messages.rejected("font-size"),
+      description: "Two mixins with the same name nested inside the same class."
     }
   ]
 });

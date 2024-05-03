@@ -25,12 +25,21 @@ function rule(value) {
       return;
     }
 
-    const mixins = {};
+    let mixins = {};
 
     root.walkAtRules("mixin", atRule => {
       const mixinName = atRuleBaseName(atRule);
 
       if (mixins[mixinName]) {
+        const areInDifferentScopes =
+          mixins[mixinName].parent !== atRule.parent &&
+          mixins[mixinName].parent.type !== "root" &&
+          atRule.parent.type !== "root";
+
+        if (areInDifferentScopes) {
+          return;
+        }
+
         utils.report({
           message: messages.rejected(mixinName),
           node: atRule,
@@ -38,10 +47,17 @@ function rule(value) {
           ruleName,
           word: mixinName
         });
+        // cleanup after reporting
+        delete mixins[mixinName];
       }
 
-      mixins[mixinName] = true;
+      mixins[mixinName] = {
+        parent: atRule.parent
+      };
     });
+
+    // cleanup after walking mixins
+    mixins = {};
   };
 }
 
