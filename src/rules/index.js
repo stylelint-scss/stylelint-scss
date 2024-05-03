@@ -24,6 +24,7 @@ const rules = {
   "at-mixin-named-arguments": require("./at-mixin-named-arguments"),
   "at-mixin-parentheses-space-before": require("./at-mixin-parentheses-space-before"),
   "at-mixin-pattern": require("./at-mixin-pattern"),
+  "at-mixin-no-risky-nesting-selector": require("./at-mixin-no-risky-nesting-selector"),
   "at-rule-conditional-no-parentheses": require("./at-rule-conditional-no-parentheses"),
   "at-root-no-redundant": require("./at-root-no-redundant"),
   "at-rule-no-unknown": require("./at-rule-no-unknown"),
