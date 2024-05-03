@@ -1359,6 +1359,17 @@ testRule({
       }
       `,
       description: "issue #709"
+    },
+    {
+      code: `
+      @scope([class*="my-selector-"]) {
+        :scope {
+          // Override the default theme variables
+          --d-font-size-base: 14;
+        }
+      }
+      `,
+      description: "issue #989"
     }
   ],
 
