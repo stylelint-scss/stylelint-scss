@@ -1,3 +1,14 @@
+# 6.3.0
+
+- Added: `at-mixin-no-risky-nesting-selector` rule (#985).
+- Fixed: `property-no-unknown` ignore interpolated properties (#977).
+- Fixed: `no-unused-private-members` treat hyphens and underscores as equals (#987).
+- Fixed: `no-global-function-names` report errors inside at-rules (#988).
+- Fixed: `operator-no-unspaced` ignore operators inside `@scope` (#995).
+- Fixed: `no-duplicate-mixins` allow using the same mixin name in different scope (#997).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.2.1...v6.3.0
+
 # 6.2.1
 
 - Fixed: function-no-unknown: fix falsely reported CSS functions (#976).
