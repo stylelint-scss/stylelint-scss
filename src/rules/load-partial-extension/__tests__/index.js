@@ -387,6 +387,199 @@ testRule({
   ]
 });
 
+// Always : forward
+testRule({
+  ruleName,
+  config: ["always"],
+  customSyntax: "postcss-scss",
+
+  accept: [
+    {
+      code: `
+      @forward "fff.scss";
+    `,
+      description: "Single file, .scss extension"
+    },
+    {
+      code: `
+      @forward "path/fff.scss";
+    `,
+      description: "Single file, path with dir, .scss extension"
+    },
+    {
+      code: `
+      @forward "df\\fff.scss";
+    `,
+      description:
+        "Single file, path with dir, has extension, windows delimiters."
+    },
+    {
+      code: `
+      @forward 'fff.scss';
+    `,
+      description: "Single file, .scss extension, single quotes."
+    },
+    {
+      code: `
+      @forward "fff.foo";
+    `,
+      description: "Single file, .foo extension."
+    },
+    {
+      code: `
+      @forward " fff.scss1 ";
+    `,
+      description: "Single file, extension, trailing whitespaces."
+    },
+    {
+      code: `
+      @forward "fff.scss", "fff.moi";
+    `,
+      description: "Multiple files with extensions."
+    },
+    {
+      code: `
+      @forward url("path/_file.css");
+    `,
+      description: "forward CSS with url()."
+    },
+    {
+      code: `
+      @forward "_file.css";
+    `,
+      description: "forward CSS by extension."
+    },
+    {
+      code: `
+      @forward "http://_file.scss";
+    `,
+      description: "forward CSS from the web, http://."
+    },
+    {
+      code: `
+      @forward " https://_file.scss ";
+    `,
+      description:
+        "forward CSS from the web, https://, trailing spaces inside quotes"
+    },
+    {
+      code: `
+      @forward 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
+    `,
+      description: "forward CSS from the web, https:// with comma"
+    },
+    {
+      code: `
+      @forward "//_file.scss";
+    `,
+      description: "forward CSS from the web, no protocol."
+    },
+    {
+      code: `
+      @forward "_file.scss" screen;
+    `,
+      description: "forward CSS (with media queries)."
+    },
+    {
+      code: `
+      @forward "_file.scss"screen;
+    `,
+      description: "forward CSS (with media queries)."
+    },
+    {
+      code: `
+      @forward "_file.scss "screen;
+    `,
+      description:
+        "forward CSS (with media queries), trailing space inside quotes."
+    },
+    {
+      code: `
+      @forward url(_lol.scss) screen;
+    `,
+      description: "forward CSS (with media queries - url + media)."
+    },
+    {
+      code: `
+      @forward url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+    `,
+      description: "forward CSS from the web, https:// with comma"
+    },
+    {
+      code: `
+      @forward _file.scss tv, screen;
+    `,
+      description: "forward CSS (with media queries - multiple)."
+    },
+    {
+      code: `
+      @forward _file.scss tv,screen;
+    `,
+      description: "forward CSS (with media queries - multiple, no spaces)."
+    },
+    {
+      code: `
+      @forward "screen.scss";
+    `,
+      description: "forward with a name that matches a media query type."
+    },
+    {
+      code: `
+      @forward "colors.variables.scss";
+    `,
+      description: "forward a filename with a dot."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      @forward "fff";
+    `,
+      line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 20,
+      message: messages.expected,
+      description: "Single file, no extension."
+    },
+    {
+      code: `
+      @forward "fff",
+          "fff.ruthless";
+    `,
+      line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 20,
+      message: messages.expected,
+      description: "Multiple files, one without extension."
+    },
+    {
+      code: `
+      @forward "fff", "score";
+    `,
+      warnings: [
+        {
+          line: 2,
+          column: 17,
+          endLine: 2,
+          endColumn: 20,
+          message: messages.expected
+        },
+        {
+          line: 2,
+          column: 24,
+          endLine: 2,
+          endColumn: 29,
+          message: messages.expected
+        }
+      ],
+      description: "Two files, no extensions."
+    }
+  ]
+});
+
 // Never: Import
 testRule({
   ruleName,
@@ -910,6 +1103,278 @@ testRule({
       endLine: 2,
       endColumn: 38,
       message: messages.rejected("scss", "use"),
+      description:
+        "Single file, has .scss extension and a .scss in the filename."
+    }
+  ]
+});
+
+// Never: forward
+testRule({
+  ruleName,
+  config: ["never"],
+  customSyntax: "postcss-scss",
+  fix: true,
+
+  accept: [
+    {
+      code: `
+      @forward "fff";
+    `,
+      description: "Single file, no extension, double quotes."
+    },
+    {
+      code: `
+      @forward 'fff';
+    `,
+      description: "Single file, no extension, single quotes."
+    },
+    {
+      code: `
+      @forward ' fff ';
+    `,
+      description: "Single file, no extension, trailing spaces inside quotes."
+    },
+    {
+      code: `
+      @forward "fff", "score";
+    `,
+      description: "Two files, no extension, double quotes."
+    },
+    {
+      code: `
+      @forward "screen";
+    `,
+      description: "forward with a name that matches a media query type."
+    },
+    {
+      code: `
+      @forward url("path/_file.css");
+    `,
+      description: "forward CSS with url()."
+    },
+    {
+      code: `
+      @forward "_file.css";
+    `,
+      description: "forward CSS by extension."
+    },
+    {
+      code: `
+      @forward "http://_file.scss";
+    `,
+      description: "forward CSS from the web, http://."
+    },
+    {
+      code: `
+      @forward " https://_file.scss ";
+    `,
+      description:
+        "forward CSS from the web, https://, trailing spaces inside quotes"
+    },
+    {
+      code: `
+      @forward 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
+    `,
+      description: "forward CSS from the web, https:// with comma"
+    },
+    {
+      code: `
+      @forward "//_file.scss";
+    `,
+      description: "forward CSS from the web, no protocol."
+    },
+    {
+      code: `
+      @forward "_file.scss" screen;
+    `,
+      description: "forward CSS (with media queries)."
+    },
+    {
+      code: `
+      @forward "_file.scss"screen;
+    `,
+      description: "forward CSS (with media queries)."
+    },
+    {
+      code: `
+      @forward "_file.scss "screen;
+    `,
+      description:
+        "forward CSS (with media queries), trailing space inside quotes."
+    },
+    {
+      code: `
+      @forward url(_lol.scss) screen;
+    `,
+      description: "forward CSS (with media queries - url + media)."
+    },
+    {
+      code: `
+      @forward url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+    `,
+      description: "forward CSS from the web, https:// with comma"
+    },
+    {
+      code: `
+      @forward _file.scss tv, screen;
+    `,
+      description: "forward CSS (with media queries - multiple)."
+    },
+    {
+      code: `
+      @forward _file.scss tv,screen;
+    `,
+      description: "forward CSS (with media queries - multiple, no spaces)."
+    },
+    {
+      code: `
+      @forward "colors.variables";
+    `,
+      description: "forward a style file with a dot in the name."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      @forward "fff.scss";
+     `,
+      fixed: `
+      @forward "fff";
+     `,
+      line: 2,
+      column: 20,
+      endLine: 2,
+      endColumn: 25,
+      message: messages.rejected("scss", "forward"),
+      description: "Single file, .scss extension."
+    },
+    {
+      code: `
+      @forward "fff.scss";
+     `,
+      fixed: `
+      @forward "fff";
+     `,
+      line: 2,
+      column: 20,
+      endLine: 2,
+      endColumn: 25,
+      message: messages.rejected("scss", "forward"),
+      description: "Single file, .scss extension."
+    },
+    {
+      code: `
+      @forward "screen.scss";
+    `,
+      fixed: `
+      @forward "screen";
+    `,
+      line: 2,
+      column: 23,
+      endLine: 2,
+      endColumn: 28,
+      message: messages.rejected("scss", "forward"),
+      description: "Single file with media query type as name, .scss extension."
+    },
+    {
+      code: `
+      @forward "fff.scss ";
+    `,
+      fixed: `
+      @forward "fff ";
+    `,
+      line: 2,
+      column: 20,
+      endLine: 2,
+      endColumn: 25,
+      message: messages.rejected("scss", "forward"),
+      description: "Single file, has extension, space at the end."
+    },
+    {
+      code: `
+      @forward " fff.scss ";
+    `,
+      fixed: `
+      @forward " fff ";
+    `,
+      line: 2,
+      column: 21,
+      endLine: 2,
+      endColumn: 26,
+      message: messages.rejected("scss", "forward"),
+      description: "Single file, has extension, trailing spaces."
+    },
+    {
+      code: `
+      @forward "df/fff.scss";
+    `,
+      fixed: `
+      @forward "df/fff";
+    `,
+      line: 2,
+      column: 23,
+      endLine: 2,
+      endColumn: 28,
+      message: messages.rejected("scss", "forward"),
+      description: "Single file, path with dir, has extension."
+    },
+    {
+      code: `
+      @forward "df\\fff.scss";
+    `,
+      fixed: `
+      @forward "df\\fff";
+    `,
+      line: 2,
+      column: 23,
+      endLine: 2,
+      endColumn: 28,
+      message: messages.rejected("scss", "forward"),
+      description:
+        "Single file, path with dir, has extension, windows delimiters."
+    },
+    {
+      code: `
+      @forward "df/fff", '_1.scss';
+    `,
+      fixed: `
+      @forward "df/fff", '_1';
+    `,
+      line: 2,
+      column: 29,
+      endLine: 2,
+      endColumn: 34,
+      message: messages.rejected("scss", "forward"),
+      description: "Two files, path with dir, has extension."
+    },
+    {
+      code: `
+      @forward "colors.variables.scss";
+    `,
+      fixed: `
+      @forward "colors.variables";
+    `,
+      line: 2,
+      column: 33,
+      endLine: 2,
+      endColumn: 38,
+      message: messages.rejected("scss", "forward"),
+      description: "Single file, has .scss extension and a dot in the name."
+    },
+    {
+      code: `
+      @forward "component.scss-theme.scss";
+    `,
+      fixed: `
+      @forward "component.scss-theme";
+    `,
+      line: 2,
+      column: 37,
+      endLine: 2,
+      endColumn: 42,
+      message: messages.rejected("scss", "forward"),
       description:
         "Single file, has .scss extension and a .scss in the filename."
     }
