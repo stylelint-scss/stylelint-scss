@@ -155,7 +155,7 @@ testRule({
       column: 16,
       endLine: 2,
       endColumn: 19,
-      message: messages.expected,
+      message: messages.expected(),
       description: "Single file, no extension."
     },
     {
@@ -167,7 +167,7 @@ testRule({
       column: 16,
       endLine: 2,
       endColumn: 19,
-      message: messages.expected,
+      message: messages.expected(),
       description: "Multiple files, one without extension."
     },
     {
@@ -180,14 +180,14 @@ testRule({
           column: 16,
           endLine: 2,
           endColumn: 19,
-          message: messages.expected
+          message: messages.expected()
         },
         {
           line: 2,
           column: 23,
           endLine: 2,
           endColumn: 28,
-          message: messages.expected
+          message: messages.expected()
         }
       ],
       description: "Two files, no extensions."
@@ -347,7 +347,7 @@ testRule({
       column: 13,
       endLine: 2,
       endColumn: 16,
-      message: messages.expected,
+      message: messages.expected("use"),
       description: "Single file, no extension."
     },
     {
@@ -359,7 +359,7 @@ testRule({
       column: 13,
       endLine: 2,
       endColumn: 16,
-      message: messages.expected,
+      message: messages.expected("use"),
       description: "Multiple files, one without extension."
     },
     {
@@ -372,14 +372,14 @@ testRule({
           column: 13,
           endLine: 2,
           endColumn: 16,
-          message: messages.expected
+          message: messages.expected("use")
         },
         {
           line: 2,
           column: 20,
           endLine: 2,
           endColumn: 25,
-          message: messages.expected
+          message: messages.expected("use")
         }
       ],
       description: "Two files, no extensions."
@@ -540,7 +540,7 @@ testRule({
       column: 17,
       endLine: 2,
       endColumn: 20,
-      message: messages.expected,
+      message: messages.expected("forward"),
       description: "Single file, no extension."
     },
     {
@@ -552,7 +552,7 @@ testRule({
       column: 17,
       endLine: 2,
       endColumn: 20,
-      message: messages.expected,
+      message: messages.expected("forward"),
       description: "Multiple files, one without extension."
     },
     {
@@ -565,17 +565,163 @@ testRule({
           column: 17,
           endLine: 2,
           endColumn: 20,
-          message: messages.expected
+          message: messages.expected("forward")
         },
         {
           line: 2,
           column: 24,
           endLine: 2,
           endColumn: 29,
-          message: messages.expected
+          message: messages.expected("forward")
         }
       ],
       description: "Two files, no extensions."
+    }
+  ]
+});
+
+// Always : meta.load-css
+testRule({
+  ruleName,
+  config: ["always"],
+  customSyntax: "postcss-scss",
+
+  accept: [
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("fff.scss", $with: ("border-contrast": true));
+      }
+    `,
+      description: "Single file, .scss extension"
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("paths/fff.scss", $with: ("border-contrast": true));
+      }
+    `,
+      description: "Single file, path with dir, .scss extension"
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("df\\fff.scss", $with: ("border-contrast": true));
+      }
+    `,
+      description:
+        "Single file, path with dir, has extension, windows delimiters."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css('fff.scss', $with: ("border-contrast": true));
+      }
+    `,
+      description: "Single file, .scss extension, single quotes."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("fff.foo", $with: ("border-contrast": true));
+      }
+    `,
+      description: "Single file, .foo extension."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(" fff.scss1 ", $with: ("border-contrast": true));
+      }
+    `,
+      description: "Single file, extension, trailing whitespaces."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("path/_file.css", $with: ("border-contrast": true));
+      }
+    `,
+      description: "forward CSS with url()."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("_file.css", $with: ("border-contrast": true));
+      }
+    `,
+      description: "forward CSS by extension."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("http://_file.scss", $with: ("border-contrast": true));
+      }
+    `,
+      description: "forward CSS from the web, http://."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(" https://_file.scss ", $with: ("border-contrast": true));
+      }
+    `,
+      description:
+        "forward CSS from the web, https://, trailing spaces inside quotes"
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("//_file.scss", $with: ("border-contrast": true));
+      }
+    `,
+      description: "forward CSS from the web, no protocol."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap'), $with: ("border-contrast": true));
+      }
+    `,
+      description: "forward CSS from the web, https:// with comma"
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("colors.variables.scss", $with: ("border-contrast": true));
+      }
+    `,
+      description: "forward a filename with a dot."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("fff", $with: ("border-contrast": true));
+      }
+    `,
+      line: 4,
+      column: 33,
+      endLine: 4,
+      endColumn: 36,
+      message: messages.expected("meta.load-css"),
+      description: "Single file, no extension."
     }
   ]
 });
@@ -1375,6 +1521,262 @@ testRule({
       endLine: 2,
       endColumn: 42,
       message: messages.rejected("scss", "forward"),
+      description:
+        "Single file, has .scss extension and a .scss in the filename."
+    }
+  ]
+});
+
+// Never: meta.load-css
+testRule({
+  ruleName,
+  config: ["never"],
+  customSyntax: "postcss-scss",
+  fix: true,
+
+  accept: [
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("fff", $with: ("border-contrast": true));
+      }
+    `,
+      description: "Single file, no extension, double quotes."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css('fff', $with: ("border-contrast": true));
+      }
+    `,
+      description: "Single file, no extension, single quotes."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(' fff ', $with: ("border-contrast": true));
+      }
+    `,
+      description: "Single file, no extension, trailing spaces inside quotes."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(url("path/_file.css"), $with: ("border-contrast": true));
+      }
+    `,
+      description: "meta.load-css CSS with url()."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("_file.css", $with: ("border-contrast": true));
+      }
+    `,
+      description: "meta.load-css CSS by extension."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("http://_file.scss", $with: ("border-contrast": true));
+      }
+    `,
+      description: "meta.load-css CSS from the web, http://."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(" https://_file.scss ", $with: ("border-contrast": true));
+      }
+    `,
+      description:
+        "meta.load-css CSS from the web, https://, trailing spaces inside quotes"
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap', $with: ("border-contrast": true));
+      }
+    `,
+      description: "meta.load-css CSS from the web, https:// with comma"
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("//_file.scss", $with: ("border-contrast": true));
+      }
+    `,
+      description: "meta.load-css CSS from the web, no protocol."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap'), $with: ("border-contrast": true));
+      }
+    `,
+      description: "meta.load-css CSS from the web, https:// with comma"
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("colors.variables", $with: ("border-contrast": true));
+      }
+    `,
+      description: "meta.load-css a style file with a dot in the name."
+    }
+  ],
+
+  reject: [
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("fff.scss", $with: ("border-contrast": true));
+      }
+     `,
+      fixed: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("fff", $with: ("border-contrast": true));
+      }
+     `,
+      line: 4,
+      column: 36,
+      endLine: 4,
+      endColumn: 41,
+      message: messages.rejected("scss", "meta.load-css"),
+      description: "Single file, .scss extension."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("fff.scss  ", $with: ("border-contrast": true));
+      }
+    `,
+      fixed: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("fff  ", $with: ("border-contrast": true));
+      }
+    `,
+      line: 4,
+      column: 36,
+      endLine: 4,
+      endColumn: 41,
+      message: messages.rejected("scss", "meta.load-css"),
+      description: "Single file, has extension, space at the end."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(" fff.scss ", $with: ("border-contrast": true));
+      }
+    `,
+      fixed: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css(" fff ", $with: ("border-contrast": true));
+      }
+    `,
+      line: 4,
+      column: 37,
+      endLine: 4,
+      endColumn: 42,
+      message: messages.rejected("scss", "meta.load-css"),
+      description: "Single file, has extension, trailing spaces."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("df/fff.scss", $with: ("border-contrast": true));
+      }
+    `,
+      fixed: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("df/fff", $with: ("border-contrast": true));
+      }
+    `,
+      line: 4,
+      column: 39,
+      endLine: 4,
+      endColumn: 44,
+      message: messages.rejected("scss", "meta.load-css"),
+      description: "Single file, path with dir, has extension."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("df\\fff.scss", $with: ("border-contrast": true));
+      }
+    `,
+      fixed: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("df\\fff", $with: ("border-contrast": true));
+      }
+    `,
+      line: 4,
+      column: 39,
+      endLine: 4,
+      endColumn: 44,
+      message: messages.rejected("scss", "meta.load-css"),
+      description:
+        "Single file, path with dir, has extension, windows delimiters."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("colors.variables.scss", $with: ("border-contrast": true));
+      }
+    `,
+      fixed: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("colors.variables", $with: ("border-contrast": true));
+      }
+    `,
+      line: 4,
+      column: 49,
+      endLine: 4,
+      endColumn: 54,
+      message: messages.rejected("scss", "meta.load-css"),
+      description: "Single file, has .scss extension and a dot in the name."
+    },
+    {
+      code: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("component.scss-theme.scss", $with: ("border-contrast": true));
+      }
+    `,
+      fixed: `
+      @use "sass:meta";
+      .a {
+        @include meta.load-css("component.scss-theme", $with: ("border-contrast": true));
+      }
+    `,
+      line: 4,
+      column: 53,
+      endLine: 4,
+      endColumn: 58,
+      message: messages.rejected("scss", "meta.load-css"),
       description:
         "Single file, has .scss extension and a .scss in the filename."
     }

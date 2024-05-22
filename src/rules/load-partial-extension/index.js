@@ -9,7 +9,7 @@ const ruleUrl = require("../../utils/ruleUrl");
 const ruleName = namespace("load-partial-extension");
 
 const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected @import to have an extension",
+  expected: (rule = "import") => `Expected @${rule} to have an extension`,
   rejected: (ext, rule = "import") =>
     `Unexpected extension ".${ext}" in @${rule}`
 });
@@ -65,10 +65,12 @@ function rule(expectation, _, context) {
         if (atRule.params.match(/load-css/)) {
           isLoadCss = true;
           name = "meta.load-css";
-          paths = hasArgumentsRegExp
-            .exec(atRule.params)[0]
-            .split(",")
-            .map(arg => arg.replace(/[()]/g, ""));
+          paths = [
+            hasArgumentsRegExp
+              .exec(atRule.params)[0]
+              .split(",")[0]
+              .replace(/[()]/g, "")
+          ];
         }
 
         // Processing comma-separated lists of import paths
@@ -80,7 +82,8 @@ function rule(expectation, _, context) {
           if (
             pathStripped.slice(0, 4) === "url(" ||
             pathStripped.slice(-4) === ".css" ||
-            pathStripped.search("//") !== -1
+            pathStripped.search("//") !== -1 ||
+            pathStripped.search(":") !== -1
           ) {
             return;
           }
@@ -89,7 +92,7 @@ function rule(expectation, _, context) {
 
           if (!extension && expectation === "always") {
             utils.report({
-              message: messages.expected,
+              message: messages.expected(name),
               node: atRule,
               result,
               ruleName,
