@@ -15,6 +15,7 @@ const rules = {
   "at-if-no-null": require("./at-if-no-null"),
   "at-import-no-partial-leading-underscore": require("./at-import-no-partial-leading-underscore"),
   "load-no-partial-leading-underscore": require("./load-no-partial-leading-underscore"),
+  "load-partial-extension": require("./load-partial-extension"),
   "at-import-partial-extension-allowed-list": require("./at-import-partial-extension-allowed-list"),
   "at-import-partial-extension-blacklist": require("./at-import-partial-extension-blacklist"),
   "at-import-partial-extension-disallowed-list": require("./at-import-partial-extension-disallowed-list"),
