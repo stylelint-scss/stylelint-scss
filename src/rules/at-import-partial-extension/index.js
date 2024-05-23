@@ -14,7 +14,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  deprecated: true
 };
 
 // https://drafts.csswg.org/mediaqueries/#media-types
@@ -46,6 +47,16 @@ function rule(expectation, _, context) {
     if (!validOptions) {
       return;
     }
+
+    result.warn(
+      "'at-import-partial-extension has been deprecated, " +
+        "and will be removed in '7.0'. Use 'load-partial-extension' instead.",
+      {
+        stylelintType: "deprecation",
+        stylelintReference:
+          "https://github.com/stylelint-scss/stylelint-scss/blob/v6.3.0/src/rules/at-import-partial-extension/README.md"
+      }
+    );
 
     root.walkAtRules("import", atRule => {
       const paths = atRule.params

@@ -35,6 +35,7 @@ const mediaQueryTypes = [
 
 const mediaQueryTypesRE = new RegExp(`(${mediaQueryTypes.join("|")})$`, "i");
 const hasArgumentsRegExp = /\(\s*([^)]+?)\s*\)/;
+const loadAtRules = ["import", "use", "forward", "include"];
 const stripPath = path =>
   path.replace(/^\s*(["'])\s*/, "").replace(/\s*(["'])\s*$/, "");
 
@@ -44,26 +45,20 @@ function rule(expectation, _, context) {
       actual: expectation,
       possible: ["always", "never"]
     });
-    let isLoadCss = false;
 
     if (!validOptions) {
       return;
     }
 
     root.walkAtRules(atRule => {
-      if (
-        atRule.name === "import" ||
-        atRule.name === "use" ||
-        atRule.name === "forward" ||
-        atRule.name === "include"
-      ) {
+      if (loadAtRules.includes(atRule.name)) {
         let name = atRule.name;
         let paths = atRule.params
           .split(/["']\s*,/)
           .filter(path => !mediaQueryTypesRE.test(path.trim()));
 
-        if (atRule.params.match(/load-css/)) {
-          isLoadCss = true;
+        const isLoadCss = !!atRule.params.match(/load-css/);
+        if (isLoadCss) {
           name = "meta.load-css";
           paths = [
             hasArgumentsRegExp
@@ -108,8 +103,8 @@ function rule(expectation, _, context) {
               const extPattern = new RegExp(`\\.${extension}(['" ]*)$`, "g");
               if (isLoadCss) {
                 atRule.params = atRule.params.replace(
-                  paths[0],
-                  paths[0].replace(extPattern, "$1")
+                  path,
+                  path.replace(extPattern, "$1")
                 );
               }
               atRule.params = atRule.params.replace(extPattern, "$1");

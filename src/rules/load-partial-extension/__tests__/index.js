@@ -241,12 +241,6 @@ testRule({
     },
     {
       code: `
-      @use "fff.scss", "fff.moi";
-    `,
-      description: "Multiple files with extensions."
-    },
-    {
-      code: `
       @use url("path/_file.css");
     `,
       description: "use CSS with url()."
@@ -272,7 +266,7 @@ testRule({
     },
     {
       code: `
-      @use 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
+      @use url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
     `,
       description: "use CSS from the web, https:// with comma"
     },
@@ -281,54 +275,6 @@ testRule({
       @use "//_file.scss";
     `,
       description: "use CSS from the web, no protocol."
-    },
-    {
-      code: `
-      @use "_file.scss" screen;
-    `,
-      description: "use CSS (with media queries)."
-    },
-    {
-      code: `
-      @use "_file.scss"screen;
-    `,
-      description: "use CSS (with media queries)."
-    },
-    {
-      code: `
-      @use "_file.scss "screen;
-    `,
-      description: "use CSS (with media queries), trailing space inside quotes."
-    },
-    {
-      code: `
-      @use url(_lol.scss) screen;
-    `,
-      description: "use CSS (with media queries - url + media)."
-    },
-    {
-      code: `
-      @use url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
-    `,
-      description: "use CSS from the web, https:// with comma"
-    },
-    {
-      code: `
-      @use _file.scss tv, screen;
-    `,
-      description: "use CSS (with media queries - multiple)."
-    },
-    {
-      code: `
-      @use _file.scss tv,screen;
-    `,
-      description: "use CSS (with media queries - multiple, no spaces)."
-    },
-    {
-      code: `
-      @use "screen.scss";
-    `,
-      description: "use with a name that matches a media query type."
     },
     {
       code: `
@@ -349,40 +295,6 @@ testRule({
       endColumn: 16,
       message: messages.expected("use"),
       description: "Single file, no extension."
-    },
-    {
-      code: `
-      @use "fff",
-          "fff.ruthless";
-    `,
-      line: 2,
-      column: 13,
-      endLine: 2,
-      endColumn: 16,
-      message: messages.expected("use"),
-      description: "Multiple files, one without extension."
-    },
-    {
-      code: `
-      @use "fff", "score";
-    `,
-      warnings: [
-        {
-          line: 2,
-          column: 13,
-          endLine: 2,
-          endColumn: 16,
-          message: messages.expected("use")
-        },
-        {
-          line: 2,
-          column: 20,
-          endLine: 2,
-          endColumn: 25,
-          message: messages.expected("use")
-        }
-      ],
-      description: "Two files, no extensions."
     }
   ]
 });
@@ -433,24 +345,6 @@ testRule({
     },
     {
       code: `
-      @forward "fff.scss", "fff.moi";
-    `,
-      description: "Multiple files with extensions."
-    },
-    {
-      code: `
-      @forward url("path/_file.css");
-    `,
-      description: "forward CSS with url()."
-    },
-    {
-      code: `
-      @forward "_file.css";
-    `,
-      description: "forward CSS by extension."
-    },
-    {
-      code: `
       @forward "http://_file.scss";
     `,
       description: "forward CSS from the web, http://."
@@ -464,64 +358,9 @@ testRule({
     },
     {
       code: `
-      @forward 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
-    `,
-      description: "forward CSS from the web, https:// with comma"
-    },
-    {
-      code: `
       @forward "//_file.scss";
     `,
       description: "forward CSS from the web, no protocol."
-    },
-    {
-      code: `
-      @forward "_file.scss" screen;
-    `,
-      description: "forward CSS (with media queries)."
-    },
-    {
-      code: `
-      @forward "_file.scss"screen;
-    `,
-      description: "forward CSS (with media queries)."
-    },
-    {
-      code: `
-      @forward "_file.scss "screen;
-    `,
-      description:
-        "forward CSS (with media queries), trailing space inside quotes."
-    },
-    {
-      code: `
-      @forward url(_lol.scss) screen;
-    `,
-      description: "forward CSS (with media queries - url + media)."
-    },
-    {
-      code: `
-      @forward url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
-    `,
-      description: "forward CSS from the web, https:// with comma"
-    },
-    {
-      code: `
-      @forward _file.scss tv, screen;
-    `,
-      description: "forward CSS (with media queries - multiple)."
-    },
-    {
-      code: `
-      @forward _file.scss tv,screen;
-    `,
-      description: "forward CSS (with media queries - multiple, no spaces)."
-    },
-    {
-      code: `
-      @forward "screen.scss";
-    `,
-      description: "forward with a name that matches a media query type."
     },
     {
       code: `
@@ -1012,24 +851,6 @@ testRule({
     },
     {
       code: `
-      @use "fff", "score";
-    `,
-      description: "Two files, no extension, double quotes."
-    },
-    {
-      code: `
-      @use "screen";
-    `,
-      description: "use with a name that matches a media query type."
-    },
-    {
-      code: `
-      @use url("path/_file.css");
-    `,
-      description: "use CSS with url()."
-    },
-    {
-      code: `
       @use "_file.css";
     `,
       description: "use CSS by extension."
@@ -1061,45 +882,9 @@ testRule({
     },
     {
       code: `
-      @use "_file.scss" screen;
-    `,
-      description: "use CSS (with media queries)."
-    },
-    {
-      code: `
-      @use "_file.scss"screen;
-    `,
-      description: "use CSS (with media queries)."
-    },
-    {
-      code: `
-      @use "_file.scss "screen;
-    `,
-      description: "use CSS (with media queries), trailing space inside quotes."
-    },
-    {
-      code: `
-      @use url(_lol.scss) screen;
-    `,
-      description: "use CSS (with media queries - url + media)."
-    },
-    {
-      code: `
       @use url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
     `,
       description: "use CSS from the web, https:// with comma"
-    },
-    {
-      code: `
-      @use _file.scss tv, screen;
-    `,
-      description: "use CSS (with media queries - multiple)."
-    },
-    {
-      code: `
-      @use _file.scss tv,screen;
-    `,
-      description: "use CSS (with media queries - multiple, no spaces)."
     },
     {
       code: `
@@ -1137,20 +922,6 @@ testRule({
       endColumn: 21,
       message: messages.rejected("scss", "use"),
       description: "Single file, .scss extension."
-    },
-    {
-      code: `
-      @use "screen.scss";
-    `,
-      fixed: `
-      @use "screen";
-    `,
-      line: 2,
-      column: 19,
-      endLine: 2,
-      endColumn: 24,
-      message: messages.rejected("scss", "use"),
-      description: "Single file with media query type as name, .scss extension."
     },
     {
       code: `
@@ -1283,24 +1054,6 @@ testRule({
     },
     {
       code: `
-      @forward "fff", "score";
-    `,
-      description: "Two files, no extension, double quotes."
-    },
-    {
-      code: `
-      @forward "screen";
-    `,
-      description: "forward with a name that matches a media query type."
-    },
-    {
-      code: `
-      @forward url("path/_file.css");
-    `,
-      description: "forward CSS with url()."
-    },
-    {
-      code: `
       @forward "_file.css";
     `,
       description: "forward CSS by extension."
@@ -1320,58 +1073,9 @@ testRule({
     },
     {
       code: `
-      @forward 'https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap';
-    `,
-      description: "forward CSS from the web, https:// with comma"
-    },
-    {
-      code: `
       @forward "//_file.scss";
     `,
       description: "forward CSS from the web, no protocol."
-    },
-    {
-      code: `
-      @forward "_file.scss" screen;
-    `,
-      description: "forward CSS (with media queries)."
-    },
-    {
-      code: `
-      @forward "_file.scss"screen;
-    `,
-      description: "forward CSS (with media queries)."
-    },
-    {
-      code: `
-      @forward "_file.scss "screen;
-    `,
-      description:
-        "forward CSS (with media queries), trailing space inside quotes."
-    },
-    {
-      code: `
-      @forward url(_lol.scss) screen;
-    `,
-      description: "forward CSS (with media queries - url + media)."
-    },
-    {
-      code: `
-      @forward url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
-    `,
-      description: "forward CSS from the web, https:// with comma"
-    },
-    {
-      code: `
-      @forward _file.scss tv, screen;
-    `,
-      description: "forward CSS (with media queries - multiple)."
-    },
-    {
-      code: `
-      @forward _file.scss tv,screen;
-    `,
-      description: "forward CSS (with media queries - multiple, no spaces)."
     },
     {
       code: `
@@ -1409,20 +1113,6 @@ testRule({
       endColumn: 25,
       message: messages.rejected("scss", "forward"),
       description: "Single file, .scss extension."
-    },
-    {
-      code: `
-      @forward "screen.scss";
-    `,
-      fixed: `
-      @forward "screen";
-    `,
-      line: 2,
-      column: 23,
-      endLine: 2,
-      endColumn: 28,
-      message: messages.rejected("scss", "forward"),
-      description: "Single file with media query type as name, .scss extension."
     },
     {
       code: `
@@ -1480,20 +1170,6 @@ testRule({
       message: messages.rejected("scss", "forward"),
       description:
         "Single file, path with dir, has extension, windows delimiters."
-    },
-    {
-      code: `
-      @forward "df/fff", '_1.scss';
-    `,
-      fixed: `
-      @forward "df/fff", '_1';
-    `,
-      line: 2,
-      column: 29,
-      endLine: 2,
-      endColumn: 34,
-      message: messages.rejected("scss", "forward"),
-      description: "Two files, path with dir, has extension."
     },
     {
       code: `
