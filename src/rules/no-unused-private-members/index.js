@@ -153,7 +153,7 @@ function rule(primaryOption) {
     for (const types in privateMembers) {
       for (const [key, node] of privateMembers[types].entries()) {
         utils.report({
-          message: messages.expected(key),
+          message: messages.expected(node.type === "decl" ? node.prop : key),
           node,
           result,
           ruleName
