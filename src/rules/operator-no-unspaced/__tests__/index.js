@@ -1370,6 +1370,16 @@ testRule({
       }
       `,
       description: "issue #989"
+    },
+    {
+      code: `
+      @layer components {
+        .fullWidthChildren {
+            @apply *:w-full;
+        }
+      }
+      `,
+      description: "issue #999"
     }
   ],
 
