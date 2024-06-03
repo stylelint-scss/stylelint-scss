@@ -288,7 +288,7 @@ testRule({
         @include column($_a);
         @include footer();
       }`,
-      message: messages.expected("$-c"),
+      message: messages.expected("$_c"),
       line: 4,
       column: 7,
       description: "Variables used as function parameters"
@@ -302,7 +302,7 @@ testRule({
         margin: 5px map.get($_a);
       }
       `,
-      message: messages.expected("$-b"),
+      message: messages.expected("$_b"),
       line: 3,
       column: 7,
       description: "map.get uses variable"
@@ -321,7 +321,7 @@ testRule({
             )
           );
       }`,
-      message: messages.expected("$-a-color"),
+      message: messages.expected("$_a-color"),
       line: 3,
       column: 7,
       description: "Is in theme declaration"
@@ -336,7 +336,7 @@ testRule({
           margin: 0px;
         }
       }`,
-      message: messages.expected("$-b"),
+      message: messages.expected("$_b"),
       line: 3,
       column: 7,
       description: "Is used in @if"
@@ -351,7 +351,7 @@ testRule({
           margin: 0px;
         }
       }`,
-      message: messages.expected("$-b"),
+      message: messages.expected("$_b"),
       line: 3,
       column: 7,
       description: "Variable in interpolated selector."
