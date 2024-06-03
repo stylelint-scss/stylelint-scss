@@ -139,6 +139,30 @@ testRule({
       }
     `,
       description: "when BEM syntax modifier is used"
+    },
+    {
+      code: `
+      .my-input {
+        border-color: red;
+
+        &::placeholder {
+          color: gray;    
+        }
+      }
+      `,
+      description: "ampersand with pseudo-element selector, issue #1000"
+    },
+    {
+      code: `
+      .my-input {
+        border-color: red;
+
+        :where(&)::placeholder {
+          color: gray;    
+        }
+      }
+      `,
+      description: ":where, followed by a pseudo-element selector, issue #1000"
     }
   ],
 
