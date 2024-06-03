@@ -194,7 +194,13 @@ function mathOperatorCharType(string, index, isAfterColon) {
  *    • false - if it is none from above (most likely an error)
  */
 function checkMultiplication(string, index) {
+  const after = string.substring(index + 1);
   const insideFn = isInsideFunctionCall(string, index);
+
+  // e.g. Tailwind @apply *:w-full;
+  if (after[0] === ":") {
+    return "char";
+  }
 
   if (insideFn.is && insideFn.fn) {
     const fnArgsReg = new RegExp(insideFn.fn + "\\(([^)]+)\\)");
