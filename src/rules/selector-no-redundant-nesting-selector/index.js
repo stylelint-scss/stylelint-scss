@@ -54,6 +54,10 @@ function rule(actual, options) {
             return;
           }
 
+          if (!next && node.parent.parent.type === "pseudo") {
+            return;
+          }
+
           if (next && next.type !== "combinator") {
             return;
           }
