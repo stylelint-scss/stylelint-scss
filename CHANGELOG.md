@@ -1,3 +1,11 @@
+# 6.3.1
+
+- Fixed: `selector-no-redundant-nesting-selector` handle pseudo selectors (#1008).
+- Fixed: `operator-no-unspaced` handle Tailwind CSS direct children styling (#1007).
+- Fixed: `no-unused-private-members` fix changes from hyphen to underscore in debug message (#1002).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.3.0...v6.3.1
+
 # 6.3.0
 
 - Added: `at-mixin-no-risky-nesting-selector` rule (#985).
