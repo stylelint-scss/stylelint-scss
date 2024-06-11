@@ -141,6 +141,19 @@ testRule({
       }
     `,
       description: "Complex selector in mixin, nested, no following class."
+    },
+    {
+      code: `
+      @mixin theme {
+        .a {
+          &:focus,
+          &:hover {
+            background-color: #0000;
+          }
+        }
+      }
+    `,
+      description: "Complex selector in mixin, nested, no following class."
     }
   ],
 

@@ -30,7 +30,8 @@ function hasNestedParentSelector(selectors) {
     .split(",")
     .some(
       selector =>
-        selector.includes("&") && /.+&/.test(selector.replace(" ", ""))
+        selector.includes("&") &&
+        /\s*[^\s]+\s*&/.test(selector.replace(" ", ""))
     );
 }
 
