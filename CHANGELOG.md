@@ -1,3 +1,10 @@
+# 6.3.2
+
+- Fixed: `at-mixin-no-risky-nesting-selector` fix false positives (#1010).
+- Fixed: `operator-no-unspaced` handle variables with unary negation (#1011).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.3.1...v6.3.2
+
 # 6.3.1
 
 - Fixed: `selector-no-redundant-nesting-selector` handle pseudo selectors (#1008).
