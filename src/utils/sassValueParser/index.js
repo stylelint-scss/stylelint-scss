@@ -445,13 +445,18 @@ function checkMinus(string, index) {
       return "op";
     }
 
-    // If the - is before a variable, than it's most likely an operator
     if (after[0] === "$") {
       if (isPrecedingOperator_) {
         // console.log("-, sign: -$var, another operator before")
         return "sign";
       }
 
+      // e.g. inset: -$top -$right -$bottom -$left;
+      if (isVariableBefore(before)) {
+        return "sign";
+      }
+
+      // If the - is before a variable, then it's most likely an operator
       // console.log("-, op: -$var, NO other operator before")
       return "op";
     }

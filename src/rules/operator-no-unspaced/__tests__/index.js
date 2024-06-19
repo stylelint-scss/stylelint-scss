@@ -637,6 +637,17 @@ testRule({
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
 
+  accept: [
+    {
+      code: "a { inset: -$top; }",
+      description: "issue #286"
+    },
+    {
+      code: "a { inset: -$top -$right -$bottom -$left; }",
+      description: "issue #286"
+    }
+  ],
+
   reject: [
     {
       code: "a { b: 1 -$var; }",
