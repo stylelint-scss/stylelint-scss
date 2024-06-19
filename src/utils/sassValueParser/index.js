@@ -451,8 +451,8 @@ function checkMinus(string, index) {
         return "sign";
       }
 
-      // e.g. inset: -$top -$right -$bottom -$left;
-      if (isVariableBefore(before)) {
+      // e.g. prop: -$margin-offset;
+      if (isAtStart_) {
         return "sign";
       }
 

@@ -639,11 +639,15 @@ testRule({
 
   accept: [
     {
-      code: "a { inset: -$top; }",
+      code: "a { prop: -$margin-offset; }",
       description: "issue #286"
     },
     {
-      code: "a { inset: -$top -$right -$bottom -$left; }",
+      code: "a { inset: (-$top) (-$right) (-$bottom) (-$left); }",
+      description: "issue #286"
+    },
+    {
+      code: "a { inset: -#{$top} -#{$right} -#{$bottom} -#{$left}; }",
       description: "issue #286"
     }
   ],
