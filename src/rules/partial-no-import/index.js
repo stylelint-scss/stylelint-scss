@@ -8,7 +8,9 @@ const ruleUrl = require("../../utils/ruleUrl");
 const ruleName = namespace("partial-no-import");
 
 const messages = utils.ruleMessages(ruleName, {
-  expected: "Unexpected @import in a partial"
+  expected: "Unexpected @import in a partial",
+  expectedActualFile:
+    "This rule won't work if linting in a code string without an actual file"
 });
 
 const meta = {
@@ -26,9 +28,14 @@ function rule(on) {
     }
 
     if (root.source.input.file === undefined || !root.source.input.file) {
-      result.warn(
-        "The 'partial-no-import' rule won't work if linting in a code string without an actual file."
-      );
+      utils.report({
+        message: messages.expectedActualFile,
+        node: root,
+        index: 1,
+        endIndex: 2,
+        result,
+        ruleName
+      });
 
       return;
     }

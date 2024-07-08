@@ -1,319 +1,204 @@
 "use strict";
 
 const path = require("path");
-const postcss = require("postcss");
 const rule = require("..");
-const { messages } = rule;
+const { messages, ruleName } = rule;
 
-function logError(err) {
-  console.log(err.stack); // eslint-disable-line no-console
-}
+testRule({
+  ruleName,
+  config: [true],
 
-test("No file specified", done => {
-  expect.assertions(2);
+  accept: [
+    {
+      description: "Import a file from non-partial .scss",
+      code: "@import 'file.scss';",
+      codeFilename: path.join(__dirname, "test.scss")
+    },
+    {
+      description: "Ignores empty imports (Sass will throw an error instead)",
+      code: "@import '';",
+      codeFilename: path.join(__dirname, "_test.scss")
+    },
+    {
+      description: "Ignores empty imports (Sass will throw an error instead) 2",
+      code: '@import " ";',
+      codeFilename: path.join(__dirname, "_test.scss")
+    },
+    {
+      description: "Import a file from CSS",
+      code: "@import 'file.scss';",
+      codeFilename: path.join(__dirname, "_test.css")
+    },
+    {
+      description: "Import a CSS from a partial .scss",
+      code: "@import 'file.css';",
+      codeFilename: path.join(__dirname, "_test.scss")
+    },
+    {
+      description: "Import a CSS (url) from a partial .scss",
+      code: "@import url('file.css');",
+      codeFilename: path.join(__dirname, "_test.scss")
+    },
+    {
+      description: "Import a CSS (with protocol) from a partial .scss",
+      code: "@import '//file.css';",
+      codeFilename: path.join(__dirname, "_test.scss")
+    },
+    {
+      description:
+        "Import a CSS file (font URL with https) from a partial .scss",
+      code: "@import 'https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700';",
+      codeFilename: path.join(__dirname, "_test.scss")
+    },
+    {
+      description: "Import a CSS (with media) from a partial .scss",
+      code: "@import 'file.scss' screen",
+      codeFilename: path.join(__dirname, "_test.scss")
+    },
+    {
+      description: "Import from a non-partial SCSS-file.",
+      code: '@import "bootstrap/variables";\n@import "font-awesome/variables";',
+      codeFilename: path.join(__dirname, "_der", "variables.scss")
+    }
+  ],
 
-  postcss([rule()])
-    .process("@import 'file.scss';", { from: undefined })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-      expect(warnings[0].text).toBe(
-        "The 'partial-no-import' rule won't work if linting in a code string without an actual file."
-      );
-      done();
-    })
-    .catch(logError);
-});
-
-test("Import a file from non-partial .scss", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import 'file.scss';", {
-      from: path.join(__dirname, "test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Import a file from a partial .scss", done => {
-  expect.assertions(2);
-  postcss([rule()])
-    .process("@import 'file.scss';", {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-      expect(warnings[0]).toMatchObject({
-        text: messages.expected,
-        line: 1,
-        column: 10,
-        endLine: 1,
-        endColumn: 19
-      });
-      done();
-    });
-});
-
-test("Import a file from a partial .scss 2", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process('@import "file.scss";', {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-      done();
-    });
-});
-
-test("Ignores empty imports (Sass will throw an error instead)", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import '';", {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Ignores empty imports (Sass will throw an error instead) 2", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process('@import " ";', {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Import a file from a partial .scss; omitting extension", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import 'file';", {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-      done();
-    });
-});
-
-test("Import comma separated files from a partial .scss; omitting extension", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import 'file','file2';", {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      done();
-    });
-});
-
-test("Import comma separated files from a partial .scss; omitting extension 2", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process('@import "file" , "file2";', {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      done();
-    });
-});
-
-// Exceptions
-test("Import a file from CSS", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import 'file.scss';", {
-      from: path.join(__dirname, "_test.css")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Import a CSS from a partial .scss", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import 'file.css';", {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Import a CSS (url) from a partial .scss", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import url('file.scss');", {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Import a CSS (with protocol) from a partial .scss", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import '//file.scss;'", {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Import a CSS file (font URL with https) from a partial .scss", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process(
-      "@import 'https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700';",
-      {
-        from: path.join(__dirname, "_test.scss")
-      }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import)", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process(
-      "@import 'file', 'https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700';",
-      {
-        from: path.join(__dirname, "_test.scss")
-      }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-      done();
-    });
-});
-
-test("Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import) 2", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process(
-      '@import "file", "https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700";',
-      {
-        from: path.join(__dirname, "_test.scss")
-      }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-      done();
-    });
-});
-
-test("Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import) 3", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process(
-      '@import "https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700", "file";',
-      {
-        from: path.join(__dirname, "_test.scss")
-      }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(1);
-      done();
-    });
-});
-
-test("Import a CSS (with media) from a partial .scss", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process("@import 'file.scss' screen", {
-      from: path.join(__dirname, "_test.scss")
-    })
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
-});
-
-test("Multiple imports in a partial.", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process(
-      '@import "_bootstrap/variables";\n@import "_font-awesome/variables";',
-      {
-        from: path.join(__dirname, "_variables.scss")
-      }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(2);
-      done();
-    });
-});
-
-test("Import from a non-partial SCSS-file.", done => {
-  expect.assertions(1);
-  postcss([rule()])
-    .process(
-      '@import "bootstrap/variables";\n@import "font-awesome/variables";',
-      {
-        from: path.join(__dirname, "_der", "variables.scss")
-      }
-    )
-    .then(result => {
-      const warnings = result.warnings();
-
-      expect(warnings).toHaveLength(0);
-      done();
-    });
+  reject: [
+    {
+      description: "No file specified",
+      code: "@import 'file.scss';",
+      message: messages.expectedActualFile,
+      line: 1,
+      column: 2,
+      endLine: 1,
+      endColumn: 3
+    },
+    {
+      description: "Import a file from a partial .scss",
+      code: "@import 'file.scss';",
+      codeFilename: path.join(__dirname, "_test.scss"),
+      message: messages.expected,
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 19
+    },
+    {
+      description: "Import a file from a partial .scss 2",
+      code: '@import "file.scss";',
+      codeFilename: path.join(__dirname, "_test.scss"),
+      message: messages.expected,
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 19
+    },
+    {
+      description: "Import a file from a partial .scss; omitting extension",
+      code: "@import 'file';",
+      codeFilename: path.join(__dirname, "_test.scss"),
+      message: messages.expected,
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 14
+    },
+    {
+      description:
+        "Import comma separated files from a partial .scss; omitting extension",
+      code: "@import 'file','file2';",
+      codeFilename: path.join(__dirname, "_test.scss"),
+      warnings: [
+        {
+          message: messages.expected,
+          line: 1,
+          column: 10,
+          endLine: 1,
+          endColumn: 14
+        },
+        {
+          message: messages.expected,
+          line: 1,
+          column: 17,
+          endLine: 1,
+          endColumn: 22
+        }
+      ]
+    },
+    {
+      description:
+        "Import comma separated files from a partial .scss; omitting extension 2",
+      code: '@import "file" , "file2";',
+      codeFilename: path.join(__dirname, "_test.scss"),
+      warnings: [
+        {
+          message: messages.expected,
+          line: 1,
+          column: 10,
+          endLine: 1,
+          endColumn: 14
+        },
+        {
+          message: messages.expected,
+          line: 1,
+          column: 19,
+          endLine: 1,
+          endColumn: 24
+        }
+      ]
+    },
+    {
+      description:
+        "Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import)",
+      code: "@import 'file', 'https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700';",
+      codeFilename: path.join(__dirname, "_test.scss"),
+      message: messages.expected,
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 14
+    },
+    {
+      description:
+        "Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import) 2",
+      code: '@import "file", "https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700";',
+      codeFilename: path.join(__dirname, "_test.scss"),
+      message: messages.expected,
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 14
+    },
+    {
+      description:
+        "Import a local file and a CSS file (font URL with https) from a partial .scss (warn for local file, but not https import) 3",
+      code: '@import "https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700", "file";',
+      codeFilename: path.join(__dirname, "_test.scss"),
+      message: messages.expected,
+      line: 1,
+      column: 79,
+      endLine: 1,
+      endColumn: 83
+    },
+    {
+      description: "Multiple imports from a partial .scss",
+      code: '@import "_bootstrap/variables";\n@import "_font-awesome/variables";',
+      codeFilename: path.join(__dirname, "_variables.scss"),
+      warnings: [
+        {
+          message: messages.expected,
+          line: 1,
+          column: 10,
+          endLine: 1,
+          endColumn: 30
+        },
+        {
+          message: messages.expected,
+          line: 2,
+          column: 10,
+          endLine: 2,
+          endColumn: 33
+        }
+      ]
+    }
+  ]
 });
