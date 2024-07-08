@@ -80,7 +80,6 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### `@`-import
 
-- [`at-import-partial-extension`](./src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands (Autofixable).
 - [`at-import-partial-extension-allowed-list`](./src/rules/at-import-partial-extension-allowed-list/README.md): Specify a list of allowed file extensions for partial names in `@import` commands.
 - [`at-import-partial-extension-disallowed-list`](./src/rules/at-import-partial-extension-disallowed-list/README.md): Specify a list of disallowed file extensions for partial names in `@import` commands.
 
@@ -183,6 +182,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### Load
 
 - [`load-no-partial-leading-underscore`](./src/rules/load-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`, `@use`, `@forward`, and [`meta.load-css`](https://sass-lang.com/documentation/modules/meta/#load-css) `$url` parameter.
+- [`load-partial-extension`](./src/rules/load-partial-extension/README.md): Require or disallow extension in `@import`, `@use`, `@forward`, and [`meta.load-css`] commands (Autofixable).
 
 ### General / Sheet
 
@@ -197,6 +197,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 These rules are deprecated — we won't fix bugs nor add options, and we will remove them in the next major release. We recommend you use a pretty printer (like Prettier) alongside Stylelint rather than these rules.
 
 - [`at-import-no-partial-leading-underscore`](https://github.com/stylelint-scss/stylelint-scss/blob/v5.2.1/src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
+- [`at-import-partial-extension`](https://github.com/stylelint-scss/stylelint-scss/blob/v6.3.0/src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands.
 - [`at-import-partial-extension-blacklist`](https://github.com/stylelint-scss/stylelint-scss/blob/v6.1.0/src/rules/at-import-partial-extension-blacklist/README.md): Specify a blacklist of disallowed file extensions for partial names in `@import` commands.
 - [`at-import-partial-extension-whitelist`](https://github.com/stylelint-scss/stylelint-scss/blob/v6.1.0/src/rules/at-import-partial-extension-whitelist/README.md): Specify a whitelist of allowed file extensions for partial names in `@import` commands.
 
