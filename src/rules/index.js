@@ -36,6 +36,7 @@ const rules = {
   "comment-no-loud": require("./comment-no-loud"),
   "declaration-nested-properties-no-divided-groups": require("./declaration-nested-properties-no-divided-groups"),
   "declaration-nested-properties": require("./declaration-nested-properties"),
+  "declaration-property-value-no-unknown": require("./declaration-property-value-no-unknown"),
   "dimension-no-non-numeric-values": require("./dimension-no-non-numeric-values"),
   "dollar-variable-colon-newline-after": require("./dollar-variable-colon-newline-after"),
   "dollar-variable-colon-space-after": require("./dollar-variable-colon-space-after"),
