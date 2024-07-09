@@ -1,3 +1,10 @@
+# 6.4.0
+
+- Added: `load-partial-extension` rule, and deprecated `at-import-partial-extension` rule (#998).
+- Fixed: `partial-no-import` message to include more accurate rule name (#1019).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.3.2...v6.4.0
+
 # 6.3.2
 
 - Fixed: `at-mixin-no-risky-nesting-selector` fix false positives (#1010).
