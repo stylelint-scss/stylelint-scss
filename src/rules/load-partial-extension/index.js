@@ -66,6 +66,8 @@ function rule(expectation, _, context) {
               .split(",")[0]
               .replace(/[()]/g, "")
           ];
+        } else if (atRule.name === "include") {
+          return;
         }
 
         // Processing comma-separated lists of import paths

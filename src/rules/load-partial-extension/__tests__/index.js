@@ -544,6 +544,12 @@ testRule({
       }
     `,
       description: "forward a filename with a dot."
+    },
+    {
+      code: `
+      @include button-variant(primary);
+    `,
+      description: "Include a mixin without meta.load-css."
     }
   ],
 
@@ -1310,6 +1316,12 @@ testRule({
       }
     `,
       description: "meta.load-css a style file with a dot in the name."
+    },
+    {
+      code: `
+      @include button-variant(primary);
+    `,
+      description: "Include a mixin without meta.load-css."
     }
   ],
 
