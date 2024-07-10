@@ -1,3 +1,9 @@
+# 6.4.1
+
+- Fixed: false positive for mixins in `load-partial-extension` (#1021).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.4.0...v6.4.1
+
 # 6.4.0
 
 - Added: `load-partial-extension` rule, and deprecated `at-import-partial-extension` rule (#998).
