@@ -54,6 +54,35 @@ testRule({
     },
     {
       code: "a { font-size: max(1rem, 3rem); }"
+    },
+    {
+      code: `
+      @function get-color() {
+        @return #336699;
+      }
+      .element {
+        color: get-color();
+      }
+    `,
+      description: "Function call as value"
+    },
+    {
+      code: `
+      $var1: 1px;
+      a {
+        margin: 2px $var1;
+      }
+    `,
+      description: "SCSS variable as value"
+    },
+    {
+      code: `
+      $rounded-corners: false;
+      .button {
+        border-radius: if($rounded-corners, 5px, null);
+      }
+    `,
+      description: "Hidden declarations as value"
     }
   ],
 
@@ -153,6 +182,21 @@ testRule({
       column: 13,
       endLine: 1,
       endColumn: 30
+    },
+    {
+      code: `
+      a {
+        color: red;
+        font: {
+          size: red;
+        }
+      }
+    `,
+      message: messages.rejected("font-size", "red"),
+      line: 4,
+      column: 9,
+      endLine: 6,
+      endColumn: 10
     }
   ]
 });

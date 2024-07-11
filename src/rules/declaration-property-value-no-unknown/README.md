@@ -1,68 +1,141 @@
-# declaration-nested-properties-no-divided-groups
+# declaration-property-value-no-unknown
 
-Disallow nested properties of the same "namespace" be divided into multiple groups.
+Disallow unknown values for properties within declarations.
 
-```scss
-/* Such groups: */
-font: { /* `font` is a "namespace" */
-  size: 16px;
-  weight: 700;
+<!-- prettier-ignore -->
+```css
+a { top: unknown; }
+/** ↑    ↑
+ * property and value pairs like these */
+```
+
+This rule considers values for properties defined within the CSS specifications to be known. You can use the `propertiesSyntax` and `typesSyntax` secondary options to extend the syntax.
+
+This rule is only appropriate for CSS. You should not turn it on for CSS-like languages, such as Sass or Less, as they have their own syntaxes.
+
+This rule is experimental with some false negatives that we'll patch in minor releases.
+
+It sometimes overlaps with:
+
+- [`color-no-invalid-hex`](../color-no-invalid-hex/README.md)
+- [`function-no-unknown`](../function-no-unknown/README.md)
+- [`string-no-newline`](../string-no-newline/README.md)
+- [`unit-no-unknown`](../unit-no-unknown/README.md)
+
+If duplicate problems are flagged, you can turn off the corresponding rule.
+
+## Options
+
+### `true`
+
+The following patterns are considered problems:
+
+<!-- prettier-ignore -->
+```css
+a { top: red; }
+```
+
+<!-- prettier-ignore -->
+```css
+a { top: unknown; }
+```
+
+The following patterns are _not_ considered problems:
+
+<!-- prettier-ignore -->
+```css
+a { top: 0; }
+```
+
+<!-- prettier-ignore -->
+```css
+a { top: var(--foo); }
+```
+
+## Optional secondary options
+
+### `ignoreProperties: { "property": ["/regex/", /regex/, "non-regex"]|"/regex/"|/regex/|"non-regex" }`
+
+Ignore the specified property and value pairs. Keys in the object indicate property names. If a string in the object is surrounded with `"/"`, it's interpreted as a regular expression. For example, `"/.+/"` matches any strings.
+
+Given:
+
+```json
+{
+  "top": ["unknown"],
+  "/^margin-/": "/^--foo/",
+  "padding": "/.+/",
+  "/.+/": "--unknown-value"
 }
 ```
 
-A "namespace" is everything before the first `-` in property names, e.g. `margin` in `margin-bottom`. It is the "namespace" that is used as a root identifier for a nested properties group (`font` in the example above).
+The following patterns are _not_ considered problems:
 
-[Sass official docs on nested properties](https://sass-lang.com/documentation/style-rules/declarations#nesting).
+<!-- prettier-ignore -->
+```css
+a { top: unknown; }
+```
 
-The following patterns are considered warnings:
+<!-- prettier-ignore -->
+```css
+a { margin-top: --foo-bar; }
+```
 
-```scss
-a {
-  background: url(img.png) center {
-    size: auto;
-  }
-  background: {
-    repeat: no-repeat;
-  }
+<!-- prettier-ignore -->
+```css
+a { padding: invalid; }
+```
+
+<!-- prettier-ignore -->
+```css
+a { width: --unknown-value; }
+```
+
+### `propertiesSyntax: { property: syntax }`
+
+Extend or alter the properties syntax dictionary. [CSS Value Definition Syntax](https://github.com/csstree/csstree/blob/master/docs/definition-syntax.md) is used to define a value's syntax. If a definition starts with `|` it is added to the [existing definition value](https://csstree.github.io/docs/syntax/) if any.
+
+Given:
+
+```json
+{ "size": "<length-percentage>" }
+```
+
+The following patterns are _not_ considered problems:
+
+<!-- prettier-ignore -->
+```css
+a { size: 0; }
+```
+
+<!-- prettier-ignore -->
+```css
+a { size: 10px }
+```
+
+### `typesSyntax: { type: syntax }`
+
+Extend or alter the types syntax dictionary. [CSS Value Definition Syntax](https://github.com/csstree/csstree/blob/master/docs/definition-syntax.md) is used to define a value's syntax. If a definition starts with `|` it is added to the [existing definition value](https://csstree.github.io/docs/syntax/) if any.
+
+Types are something like a preset which allows you to reuse a definition across other definitions. So, you'll likely want to also use the `propertiesSyntax` option when using this option.
+
+Given:
+
+```json
+{
+  "propertiesSyntax": { "top": "| <--foo()>" },
+  "typesSyntax": { "--foo()": "--foo( <length-percentage> )" }
 }
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered problems:
 
-```scss
-a {
-  background: url(img.png) center {
-    size: auto;
-  }
-  background-repeat: no-repeat;
-}
+<!-- prettier-ignore -->
+```css
+a { top: --foo(0); }
 ```
 
-```scss
-a {
-  background: url(img.png) center no-repeat {
-    color: red;
-  }
-  margin: 10px {
-    left: 1px;
-  }
-}
-```
-
-```scss
-a {
-  background: url(img.png) center {
-    size: auto;
-  }
-  background :red {
-    repeat: no-repeat;
-  }
-}
-/* There is no space after the colon in `background :red` so it is considered A SELECTOR and is compiled into: 
-
-a background :red {
-  color: blue;
-}
-
-*/
+<!-- prettier-ignore -->
+```css
+a { top: --foo(10px); }
 ```
