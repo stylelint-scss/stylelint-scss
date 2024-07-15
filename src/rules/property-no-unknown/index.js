@@ -111,6 +111,17 @@ function rule(primary, secondaryOptions) {
         pointer = pointer.parent;
       }
 
+      // Support `nested-property:value { property: value};
+      while (
+        pointer &&
+        isType(pointer, "decl") &&
+        pointer.isNested &&
+        pointer.prop
+      ) {
+        prop = pointer.prop + "-" + prop;
+        pointer = pointer.parent;
+      }
+
       if (allValidProperties.has(prop.toLowerCase())) {
         return;
       }

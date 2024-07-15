@@ -9,6 +9,24 @@ testRule({
 
   accept: [
     {
+      code: `
+      button {
+        border: none {
+            block-end: 2px solid red;
+        }
+      }
+      `
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
+
+  accept: [
+    {
       code: ".foo { color: green; }"
     },
     {
