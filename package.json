@@ -28,7 +28,7 @@
     "jest-preset-stylelint": "^7.1.0",
     "lint-staged": "^14.0.1",
     "np": "^10.0.7",
-    "postcss": "^8.4.39",
+    "postcss": "^8.4.40",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.3.3",
