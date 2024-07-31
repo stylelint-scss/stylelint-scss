@@ -366,6 +366,10 @@ function checkMinus(string, index) {
   const isPrecedingOperator_ = isPrecedingOperator(string, index);
   const isInsideFunctionCall_ = isInsideFunctionCall(string, index);
 
+  if (isComparisonOperatorBefore(before)) {
+    return "sign";
+  }
+
   if (isAtStart_) {
     // console.log("-, -<sth> or - <sth>")
     return "sign";
@@ -972,6 +976,10 @@ function isFunctionAfter(after) {
   }
 
   return result;
+}
+
+function isComparisonOperatorBefore(before) {
+  return before.search(/([><=!]=|[<>])\s+$/) !== -1;
 }
 
 /**
