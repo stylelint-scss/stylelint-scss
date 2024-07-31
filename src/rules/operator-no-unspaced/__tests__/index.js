@@ -649,6 +649,23 @@ testRule({
     {
       code: "a { inset: -#{$top} -#{$right} -#{$bottom} -#{$left}; }",
       description: "issue #286"
+    },
+    {
+      code: `
+      $lhs: 1;
+      $rhs: 2;
+
+      // https://sass-lang.com/documentation/operators/equality/
+      @if $lhs == -$rhs {}
+      @if $lhs != -$rhs {}
+
+      // https://sass-lang.com/documentation/operators/relational/
+      @if $lhs <= -$rhs {}
+      @if $lhs >= -$rhs {}
+      @if $lhs < -$rhs {}
+      @if $lhs > -$rhs {}
+      `,
+      description: "issue #286"
     }
   ],
 
