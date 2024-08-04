@@ -137,6 +137,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 - [`declaration-nested-properties`](./src/rules/declaration-nested-properties/README.md): Require or disallow properties with `-` in their names to be in a form of a nested group.
 - [`declaration-nested-properties-no-divided-groups`](./src/rules/declaration-nested-properties-no-divided-groups/README.md): Disallow nested properties of the same "namespace" to be divided into multiple groups.
+- [`declaration-property-value-no-unknown`](./src/rules/declaration-property-value-no-unknown/README.md): Disallow unknown values for properties within declarations.
 
 ### Dimension
 
