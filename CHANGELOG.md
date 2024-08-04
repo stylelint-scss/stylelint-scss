@@ -1,3 +1,11 @@
+# 6.5.0
+
+- Added: `property-no-unknown` add support for nested declarations (#1024).
+- Added: `declaration-property-value-no-unknown` rule (#1023).
+- Fixed: `operator-no-unspaced` fix false positives with comparison operators (#1037).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.4.1...v6.5.0
+
 # 6.4.1
 
 - Fixed: false positive for mixins in `load-partial-extension` (#1021).
