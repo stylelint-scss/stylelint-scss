@@ -39,6 +39,10 @@ function rule(actual, options) {
     }
 
     root.walkRules(/&/, rule => {
+      if (rule.selector === "&") {
+        return;
+      }
+
       parseSelector(rule.selector, result, rule, fullSelector => {
         // "Ampersand followed by a combinator followed by non-combinator non-ampersand and not the selector end"
         fullSelector.walkNesting(node => {

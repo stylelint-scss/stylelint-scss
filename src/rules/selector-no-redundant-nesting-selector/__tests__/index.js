@@ -163,6 +163,43 @@ testRule({
       }
       `,
       description: ":where, followed by a pseudo-element selector, issue #1000"
+    },
+    {
+      code: `
+      .example {
+        color: red;
+
+        a {
+          font-weight: bold;
+        }
+
+        & {
+          font-weight: normal;
+        }
+      }
+      `,
+      description:
+        "Dart Sass 1.77.7: https://sass-lang.com/documentation/breaking-changes/mixed-decls/"
+    },
+    {
+      code: `
+      p {
+        & {}
+      }
+    `,
+      description:
+        "when an ampersand is used by itself." +
+        "Dart Sass 1.77.7: https://sass-lang.com/documentation/breaking-changes/mixed-decls/"
+    },
+    {
+      code: `
+      p {
+          &   {}
+      }
+    `,
+      description:
+        "when an ampersand is used by itself and there are extra spaces." +
+        "Dart Sass 1.77.7: https://sass-lang.com/documentation/breaking-changes/mixed-decls/"
     }
   ],
 
@@ -327,27 +364,6 @@ testRule({
       line: 3,
       message: messages.rejected,
       description: "ampersand followed by newline and tag selector"
-    },
-    {
-      code: `
-      p {
-        & {}
-      }
-    `,
-      line: 3,
-      message: messages.rejected,
-      description: "when an ampersand is used by itself"
-    },
-    {
-      code: `
-      p {
-          &   {}
-      }
-    `,
-      line: 3,
-      message: messages.rejected,
-      description:
-        "when an ampersand is used by itself and there are extra spaces"
     },
     {
       code: `
