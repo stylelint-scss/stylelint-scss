@@ -1,9 +1,9 @@
-"use strict";
+import stylelint from "stylelint";
+import atRuleBaseName from "../../utils/atRuleBaseName.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const atRuleBaseName = require("../../utils/atRuleBaseName");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("no-duplicate-mixins");
 
@@ -65,4 +65,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Compares a string to a second value that, if it fits a certain convention,
  * is converted to a regular expression before the comparison.
@@ -13,7 +11,7 @@
  *
  * @returns {false | {match: string, pattern: (string | RegExp), substring: string}}
  */
-module.exports = function matchesStringOrRegExp(input, comparison) {
+export default function matchesStringOrRegExp(input, comparison) {
   if (!Array.isArray(input)) {
     return testAgainstStringOrRegExpOrArray(input, comparison);
   }
@@ -27,7 +25,7 @@ module.exports = function matchesStringOrRegExp(input, comparison) {
   }
 
   return false;
-};
+}
 
 /**
  * @param {string} value

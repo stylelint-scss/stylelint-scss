@@ -1,16 +1,14 @@
-"use strict";
+import valueParser from "postcss-value-parser";
+import stylelint from "stylelint";
+import declarationValueIndex from "../../utils/declarationValueIndex.js";
+import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
+import { isString } from "../../utils/validateTypes.js";
+import namespace from "../../utils/namespace.js";
+import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
+import { parseFunctionArguments } from "../../utils/parseFunctionArguments.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const valueParser = require("postcss-value-parser");
-const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
-const isNativeCssFunction = require("../../utils/isNativeCssFunction");
-const { isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const {
-  parseFunctionArguments
-} = require("../../utils/parseFunctionArguments");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("at-function-named-arguments");
 
@@ -139,4 +137,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

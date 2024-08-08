@@ -1,6 +1,4 @@
-"use strict";
-
-const hasInterpolation = require("./hasInterpolation");
+import hasInterpolation from "./hasInterpolation.js";
 
 /**
  * Check whether a property is standard
@@ -8,7 +6,7 @@ const hasInterpolation = require("./hasInterpolation");
  * @param {string} property
  * @returns {boolean}
  */
-module.exports = function (property) {
+export default function isStandardSyntaxProperty(property) {
   // SCSS var (e.g. $var: x), list (e.g. $list: (x)) or map (e.g. $map: (key:value))
   if (property.startsWith("$")) {
     return false;
@@ -30,4 +28,4 @@ module.exports = function (property) {
   }
 
   return true;
-};
+}

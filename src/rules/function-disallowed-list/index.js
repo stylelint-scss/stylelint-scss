@@ -1,11 +1,11 @@
-"use strict";
+import stylelint from "stylelint";
+import { isRegExp, isString } from "../../utils/validateTypes.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import valueParser from "postcss-value-parser";
+import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
 
-const { utils } = require("stylelint");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const valueParser = require("postcss-value-parser");
-const isNativeCssFunction = require("../../utils/isNativeCssFunction");
+const { utils } = stylelint;
 
 const ruleName = namespace("function-disallowed-list");
 
@@ -66,4 +66,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

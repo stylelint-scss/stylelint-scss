@@ -1,17 +1,17 @@
-"use strict";
+import isCustomPropertySet from "../../utils/isCustomPropertySet.js";
+import isStandardSyntaxProperty from "../../utils/isStandardSyntaxProperty.js";
+import isStandardSyntaxDeclaration from "../../utils/isStandardSyntaxDeclaration.js";
+import isType from "../../utils/isType.js";
+import optionsMatches from "../../utils/optionsMatches.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import hasInterpolation from "../../utils/hasInterpolation.js";
+import { all as properties } from "known-css-properties";
 
-const isCustomPropertySet = require("../../utils/isCustomPropertySet");
-const isStandardSyntaxProperty = require("../../utils/isStandardSyntaxProperty");
-const isStandardSyntaxDeclaration = require("../../utils/isStandardSyntaxDeclaration");
-const isType = require("../../utils/isType");
-const optionsMatches = require("../../utils/optionsMatches");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const hasInterpolation = require("../../utils/hasInterpolation");
-const properties = require("known-css-properties").all;
+import stylelint from "stylelint";
+import { isBoolean, isRegExp, isString } from "../../utils/validateTypes.js";
 
-const { utils } = require("stylelint");
-const { isBoolean, isRegExp, isString } = require("../../utils/validateTypes");
+const { utils } = stylelint;
 
 const ruleName = namespace("property-no-unknown");
 
@@ -140,4 +140,4 @@ function rule(primary, secondaryOptions) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
-module.exports = rule;
+export default rule;

@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * @see https://sass-lang.com/documentation/modules#global-functions
  */
@@ -233,7 +231,7 @@ const STRING_FUNCTIONS = Object.freeze([
   "string.unquote"
 ]);
 
-const ALL_FUNCTIONS = Object.freeze([
+export const ALL_FUNCTIONS = Object.freeze([
   ...GLOBAL_FUNCTIONS,
   ...COLOR_FUNCTIONS,
   ...LIST_FUNCTIONS,
@@ -243,15 +241,3 @@ const ALL_FUNCTIONS = Object.freeze([
   ...SELECTOR_FUNCTIONS,
   ...STRING_FUNCTIONS
 ]);
-
-module.exports = {
-  GLOBAL_FUNCTIONS,
-  COLOR_FUNCTIONS,
-  LIST_FUNCTIONS,
-  MAP_FUNCTIONS,
-  MATH_FUNCTIONS,
-  META_FUNCTIONS,
-  SELECTOR_FUNCTIONS,
-  STRING_FUNCTIONS,
-  ALL_FUNCTIONS
-};
