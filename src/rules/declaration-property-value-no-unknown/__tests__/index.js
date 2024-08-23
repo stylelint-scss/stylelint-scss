@@ -83,6 +83,68 @@ testRule({
       }
     `,
       description: "Hidden declarations as value"
+    },
+    {
+      code: `
+      a {
+        margin: 3px + 10px;
+      }
+      `,
+      description: "Plus operator"
+    },
+    {
+      code: `
+      a {
+        margin: 3px - 10px;
+      }
+      `,
+      description: "Less operator"
+    },
+    {
+      code: `
+      a {
+        margin: 1 + 2 * 3 == 1 + (2 * 3);
+      }
+      `,
+      description: "Several operators"
+    },
+    {
+      code: `
+      a {
+        padding: 1px +2px;
+      }
+      `,
+      description: "Several operators"
+    },
+    {
+      code: `
+      .transparent-blue {
+        filter: opacity(10% + 25%);
+      }
+      `,
+      description: "Operators as function arguments"
+    },
+    {
+      code: `
+      $var1: minmax($var1, max-content);
+      a {
+        grid-template-columns: repeat(
+          auto-fit,
+          $var1
+        );
+      }`,
+      description: "Var in nested functions"
+    },
+    {
+      code: `
+      $var1: 3px;
+      a {
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax($var1, max-content)
+        );
+      }`,
+      description: "Var in nested functions"
     }
   ],
 

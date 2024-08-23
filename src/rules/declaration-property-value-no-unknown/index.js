@@ -12,6 +12,11 @@ const matchesStringOrRegExp = require("../../utils/matchesStringOrRegExp.js");
 const atKeywords = require("../../utils/atKeywords.js");
 const validateObjectWithArrayProps = require("../../utils/validateObjectWithArrayProps.js");
 const { utils } = require("stylelint");
+const { isFunctionCall } = require("../../utils/validateTypes");
+const findOperators = require("../../utils/sassValueParser");
+const {
+  parseFunctionArguments
+} = require("../../utils/parseFunctionArguments");
 const {
   isDollarVar,
   isIfStatement,
@@ -40,7 +45,16 @@ function extractFunctionName(inputString) {
   return matches;
 }
 
+function hasDollarVarArg(functionCall) {
+  for (const i of parseFunctionArguments(functionCall)) {
+    if (isFunctionCall(i.value)) return hasDollarVarArg(i.value);
+    if (isDollarVar(i.value)) return true;
+  }
+  return false;
+}
+
 const unsupportedFunctions = ["clamp", "min", "max", "env"];
+const mathOperators = ["+", "/", "-", "*", "%"];
 
 function rule(primary, secondaryOptions) {
   return (root, result) => {
@@ -175,6 +189,14 @@ function rule(primary, secondaryOptions) {
 
         // Hidden declarations
         if (isIfStatement(value)) return;
+        if (hasDollarVarArg(value)) return;
+        const operators = findOperators({ string: value }).map(o => o.symbol);
+
+        for (const operator of operators) {
+          if (mathOperators.includes(operator)) {
+            return;
+          }
+        }
 
         utils.report({
           message: messages.rejectedParseError(prop, value),
@@ -218,6 +240,13 @@ function rule(primary, secondaryOptions) {
       );
       const index = declarationValueIndex(decl) + mismatchOffset;
       const endIndex = index + mismatchLength;
+      const operators = findOperators({ string: value }).map(o => o.symbol);
+
+      for (const operator of operators) {
+        if (mathOperators.includes(operator)) {
+          return;
+        }
+      }
 
       utils.report({
         message: messages.rejected(prop, mismatchValue),
