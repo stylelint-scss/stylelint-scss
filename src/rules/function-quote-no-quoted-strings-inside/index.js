@@ -60,8 +60,7 @@ function rule(primary, _, context) {
         // postcss-value-parser represents quoted strings as type 'string' (as opposed to word)
         if (node.nodes[0].quote || vars[node.nodes[0].value] === "string") {
           if (context.fix) {
-            const contents = decl.value.match(/quote\((.*)\)/);
-            decl.value = decl.value.replace(/quote\(.*\)/, contents[1]);
+            decl.value = decl.value.replace(/quote\((.*)\)/, "$1");
           } else {
             const index = declarationValueIndex(decl) + node.sourceIndex;
             utils.report({

@@ -68,6 +68,24 @@ testRule({
           font-family: $font;
         }
       `
+    },
+    {
+      code: `
+      a {
+        border: outset unquote(#f33);
+      }
+      `,
+      description: "#1040",
+      message: messages.rejected,
+      line: 3,
+      column: 24,
+      endLine: 3,
+      endColumn: 31,
+      fixed: `
+      a {
+        border: outset #f33;
+      }
+      `
     }
   ]
 });
