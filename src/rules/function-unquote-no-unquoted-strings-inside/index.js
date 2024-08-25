@@ -51,7 +51,7 @@ function rule(primary, _, context) {
           return;
         }
 
-        // Verify we're only looking at quote() calls.
+        // Verify we're only looking at unquote() calls.
         if (node.value !== "unquote") {
           return;
         }
@@ -63,9 +63,7 @@ function rule(primary, _, context) {
           vars[node.nodes[0].value] === "word"
         ) {
           if (context.fix) {
-            const contents = /unquote\((.*)\)/.exec(decl.value);
-
-            decl.value = contents[1];
+            decl.value = decl.value.replace(/unquote\((.*)\)/, "$1");
           } else {
             const index = declarationValueIndex(decl) + node.sourceIndex;
             utils.report({
