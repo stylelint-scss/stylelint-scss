@@ -1,3 +1,9 @@
+# 6.5.1
+
+- Fixed: `function-quote-no-quoted-strings-inside` fix broken autofix (#1043).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.5.0...v6.5.1
+
 # 6.5.0
 
 - Added: `property-no-unknown` add support for nested declarations (#1024).
