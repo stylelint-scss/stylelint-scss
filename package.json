@@ -18,7 +18,7 @@
     "known-css-properties": "^0.34.0",
     "postcss-media-query-parser": "^0.2.3",
     "postcss-resolve-nested-selector": "^0.1.6",
-    "postcss-selector-parser": "^6.1.1",
+    "postcss-selector-parser": "^6.1.2",
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
