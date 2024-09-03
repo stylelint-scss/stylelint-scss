@@ -176,6 +176,17 @@ testRule({
     },
     {
       code: `
+      @function get-color() {
+        @return #336699;
+      }
+      .element {
+        backround: border-box get-color();
+      }
+    `,
+      description: "Function call as value in shorthand format"
+    },
+    {
+      code: `
       $var1: 1px;
       a {
         margin: 2px $var1;
@@ -241,7 +252,7 @@ testRule({
           $var1
         );
       }`,
-      description: "Var in nested functions"
+      description: "Var as argument in function"
     },
     {
       code: `
@@ -252,7 +263,21 @@ testRule({
           minmax($var1, max-content)
         );
       }`,
-      description: "Var in nested functions"
+      description: "Var as argument in nested functions"
+    },
+    {
+      code: `
+        background: transparent
+        linear-gradient(
+          to right,
+          rgba($mat-gray-300, 0) 0%,
+          rgba($mat-gray-300, 0.2) 20%,
+          rgba($mat-gray-300, 0.5) 50%,
+          rgba($mat-gray-300, 0.2) 80%,
+          rgba($mat-gray-300, 0) 100%
+        )
+        repeat-y;`,
+      description: "Function call in shorthand format"
     }
   ],
 

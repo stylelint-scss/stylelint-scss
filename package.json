@@ -13,7 +13,6 @@
     "stylelint": "^16.0.2"
   },
   "dependencies": {
-    "common-tags": "^1.8.2",
     "css-tree": "2.3.1",
     "is-plain-object": "5.0.0",
     "known-css-properties": "^0.34.0",
@@ -23,6 +22,7 @@
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
+    "common-tags": "^1.8.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "github-contributors-list": "^1.2.5",

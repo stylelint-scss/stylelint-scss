@@ -92,8 +92,6 @@ function rule(primary, secondaryOptions) {
     };
 
     const propertiesSyntax = {
-      // Take a shallow clone as this object will be appended to.
-      ...(secondaryOptions?.propertiesSyntax ?? {}),
       overflow: "| overlay", // csstree/csstree#248
       width:
         "| min-intrinsic | -moz-min-content | -moz-available | -webkit-fill-available", // csstree/csstree#242
@@ -172,8 +170,8 @@ function rule(primary, secondaryOptions) {
     root.walkDecls(decl => {
       const { prop, value, parent } = decl;
 
+      //csstree/csstree#243
       // NOTE: CSSTree's `fork()` doesn't support `-moz-initial`, but it may be possible in the future.
-      // See https://github.com/stylelint/stylelint/pull/6511#issuecomment-1412921062
       if (/^-moz-initial$/i.test(value)) return;
 
       if (!isStandardSyntaxDeclaration(decl)) return;
@@ -188,8 +186,10 @@ function rule(primary, secondaryOptions) {
 
       // Unless we tracked values of variables, they're all valid.
       if (value.split(" ").some(val => isDollarVar(val))) return;
+      if (value.split(" ").some(val => hasDollarVarArg(val))) return;
+      if (value.split(" ").some(val => containsCustomFunction(val))) return;
 
-      // https://github.com/mdn/data/pull/674
+      // mdn/data#674
       // `initial-value` has an incorrect syntax definition.
       // In reality everything is valid.
       if (
@@ -318,8 +318,6 @@ function rule(primary, secondaryOptions) {
  *
  * @see csstree/csstree#164 min, max, clamp
  * @see csstree/csstree#245 env
- * @see https://github.com/stylelint/stylelint/pull/6511#issuecomment-1412921062
- * @see https://github.com/stylelint/stylelint/issues/6635#issuecomment-1425787649
  *
  * @param {import('css-tree').CssNode} cssTreeNode
  * @returns {boolean}
