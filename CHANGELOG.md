@@ -1,3 +1,10 @@
+# 6.6.0
+
+- Added: `declaration-property-value-no-unknown`: add support for first-class operators (#1042).
+- Added: `declaration-property-value-no-unknown`: add support SCSS variables as arguments in nested functions (#1042).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.5.1...v6.6.0
+
 # 6.5.1
 
 - Fixed: `function-quote-no-quoted-strings-inside` fix broken autofix (#1043).
