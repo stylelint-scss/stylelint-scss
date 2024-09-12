@@ -22,6 +22,7 @@
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
+    "common-tags": "^1.8.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "github-contributors-list": "^1.2.5",

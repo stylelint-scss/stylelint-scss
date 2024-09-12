@@ -12,6 +12,11 @@ const matchesStringOrRegExp = require("../../utils/matchesStringOrRegExp.js");
 const atKeywords = require("../../utils/atKeywords.js");
 const validateObjectWithArrayProps = require("../../utils/validateObjectWithArrayProps.js");
 const { utils } = require("stylelint");
+const { isFunctionCall } = require("../../utils/validateTypes");
+const findOperators = require("../../utils/sassValueParser");
+const {
+  parseFunctionArguments
+} = require("../../utils/parseFunctionArguments");
 const {
   isDollarVar,
   isIfStatement,
@@ -33,14 +38,23 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-const SYNTAX_PROPERTY = /^syntax$/i;
+const SYNTAX_DESCRIPTOR = /^syntax$/i;
 
 function extractFunctionName(inputString) {
   const matches = [...inputString.matchAll(/(?:\s*([\w\-$]+)\s*)?\(/g)].flat();
   return matches;
 }
 
+function hasDollarVarArg(functionCall) {
+  for (const i of parseFunctionArguments(functionCall)) {
+    if (isFunctionCall(i.value)) return hasDollarVarArg(i.value);
+    if (isDollarVar(i.value)) return true;
+  }
+  return false;
+}
+
 const unsupportedFunctions = ["clamp", "min", "max", "env"];
+const mathOperators = ["+", "/", "-", "*", "%"];
 
 function rule(primary, secondaryOptions) {
   return (root, result) => {
@@ -78,10 +92,31 @@ function rule(primary, secondaryOptions) {
     };
 
     const propertiesSyntax = {
-      // Take a shallow clone as this object will be appended to.
-      ...(secondaryOptions?.propertiesSyntax ?? {})
+      overflow: "| overlay", // csstree/csstree#248
+      width:
+        "| min-intrinsic | -moz-min-content | -moz-available | -webkit-fill-available", // csstree/csstree#242
+      "anchor-name": "none | <custom-property-name>#",
+      "field-sizing": "content | fixed",
+      "text-box-edge":
+        "auto | [ text | cap | ex | ideographic | ideographic-ink ] [ text | alphabetic | ideographic | ideographic-ink ]?",
+      "text-box-trim": "none | trim-start | trim-end | trim-both",
+      "text-spacing-trim": "normal | space-all | space-first | trim-start",
+      "text-wrap-mode": "wrap | nowrap",
+      "text-wrap-style": "auto | balance | pretty | stable",
+      "text-wrap": "<'text-wrap-mode'> || <'text-wrap-style'>",
+      "view-timeline-axis": "[ block | inline | x | y ]#",
+      "view-timeline-inset": "[ [ auto | <length-percentage> ]{1,2} ]#",
+      "view-timeline-name": "[ none | <custom-property-name> ]#",
+      "view-timeline":
+        "[ <'view-timeline-name'> [ <'view-timeline-axis'> || <'view-timeline-inset'> ]? ]#",
+      // <custom-ident> represents any valid CSS identifier that would not be misinterpreted as a pre-defined keyword in that property’s value definition
+      // i.e. reserved keywords don't have to be excluded explicitly
+      // w3c/csswg-drafts#9895
+      "view-transition-name": "none | <custom-ident>",
+      "word-break": "| auto-phrase",
+      ...secondaryOptions?.propertiesSyntax
     };
-    const typesSyntax = secondaryOptions?.typesSyntax ?? {};
+    const typesSyntax = { ...secondaryOptions?.typesSyntax };
 
     /** @type {Map<string, string>} */
     const typedCustomPropertyNames = new Map();
@@ -97,7 +132,10 @@ function rule(primary, secondaryOptions) {
       if (!propName || !atRule.nodes || !isCustomProperty(propName)) return;
 
       for (const node of atRule.nodes) {
-        if (typeGuards.isDeclaration(node) && SYNTAX_PROPERTY.test(node.prop)) {
+        if (
+          typeGuards.isDeclaration(node) &&
+          SYNTAX_DESCRIPTOR.test(node.prop)
+        ) {
           const value = node.value.trim();
           const unquoted = cssTree.string.decode(value);
 
@@ -132,8 +170,8 @@ function rule(primary, secondaryOptions) {
     root.walkDecls(decl => {
       const { prop, value, parent } = decl;
 
+      //csstree/csstree#243
       // NOTE: CSSTree's `fork()` doesn't support `-moz-initial`, but it may be possible in the future.
-      // See https://github.com/stylelint/stylelint/pull/6511#issuecomment-1412921062
       if (/^-moz-initial$/i.test(value)) return;
 
       if (!isStandardSyntaxDeclaration(decl)) return;
@@ -148,8 +186,10 @@ function rule(primary, secondaryOptions) {
 
       // Unless we tracked values of variables, they're all valid.
       if (value.split(" ").some(val => isDollarVar(val))) return;
+      if (value.split(" ").some(val => hasDollarVarArg(val))) return;
+      if (value.split(" ").some(val => containsCustomFunction(val))) return;
 
-      // https://github.com/mdn/data/pull/674
+      // mdn/data#674
       // `initial-value` has an incorrect syntax definition.
       // In reality everything is valid.
       if (
@@ -175,6 +215,14 @@ function rule(primary, secondaryOptions) {
 
         // Hidden declarations
         if (isIfStatement(value)) return;
+        if (hasDollarVarArg(value)) return;
+        const operators = findOperators({ string: value }).map(o => o.symbol);
+
+        for (const operator of operators) {
+          if (mathOperators.includes(operator)) {
+            return;
+          }
+        }
 
         utils.report({
           message: messages.rejectedParseError(prop, value),
@@ -218,6 +266,13 @@ function rule(primary, secondaryOptions) {
       );
       const index = declarationValueIndex(decl) + mismatchOffset;
       const endIndex = index + mismatchLength;
+      const operators = findOperators({ string: value }).map(o => o.symbol);
+
+      for (const operator of operators) {
+        if (mathOperators.includes(operator)) {
+          return;
+        }
+      }
 
       utils.report({
         message: messages.rejected(prop, mismatchValue),
@@ -263,8 +318,6 @@ function rule(primary, secondaryOptions) {
  *
  * @see csstree/csstree#164 min, max, clamp
  * @see csstree/csstree#245 env
- * @see https://github.com/stylelint/stylelint/pull/6511#issuecomment-1412921062
- * @see https://github.com/stylelint/stylelint/issues/6635#issuecomment-1425787649
  *
  * @param {import('css-tree').CssNode} cssTreeNode
  * @returns {boolean}

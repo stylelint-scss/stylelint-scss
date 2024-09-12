@@ -1,6 +1,7 @@
 "use strict";
 
 const { ruleName, messages } = require("..");
+const { stripIndent } = require("common-tags");
 
 testRule({
   ruleName,
@@ -56,6 +57,113 @@ testRule({
       code: "a { font-size: max(1rem, 3rem); }"
     },
     {
+      code: "a { word-break: auto-phrase; }"
+    },
+    {
+      code: "a { field-sizing: content; }"
+    },
+    {
+      code: "a  { text-wrap: wrap; }"
+    },
+    {
+      code: "a  { text-wrap-mode: nowrap; }"
+    },
+    {
+      code: "a { overflow: overlay; }"
+    },
+    {
+      code: "a { width: min-intrinsic; }"
+    },
+    {
+      code: "a { view-timeline-name: --foo; }"
+    },
+    {
+      code: "a { view-timeline: --bar x; }"
+    },
+    {
+      code: "a { view-transition-name: qux-baz; }"
+    },
+    {
+      code: "a { anchor-name: --bar, --qux; }"
+    },
+    {
+      code: stripIndent`
+				a { font-weight: bolder; }
+				@font-face { font-weight: 100 200; }
+			`,
+      description:
+        "at-rule descriptor and property with the same name but different syntaxes"
+    },
+    {
+      code: stripIndent`
+				a { --foo: red; }
+
+				@property --foo {
+					syntax: "<color>";
+					inherits: false;
+					initial-value: #c0ffee;
+				}
+			`
+    },
+    {
+      code: stripIndent`
+				a { --foo: 10px; }
+				a { --foo: 10%; }
+
+				@property --foo {
+					syntax: "<length> | <percentage>";
+					inherits: false;
+					initial-value: 10px;
+				}
+			`
+    },
+    {
+      code: stripIndent`
+				a { --foo: bigger; }
+				a { --foo: BIGGER; }
+
+				@property --foo {
+					syntax: "big | bigger | BIGGER";
+					inherits: false;
+					initial-value: big;
+				}
+			`
+    },
+    {
+      code: stripIndent`
+				a { --foo: 10px; }
+				a { --foo: 10px 10vh; }
+
+				@property --foo {
+					syntax: "<length>+";
+					inherits: false;
+					initial-value: 10px;
+				}
+			`
+    },
+    {
+      code: stripIndent`
+				a { --foo: red; }
+				a { --foo: 10px 10vh; }
+
+				@property --foo {
+					syntax: "*";
+					inherits: false;
+					initial-value: 10px;
+				}
+			`
+    },
+    {
+      code: stripIndent`
+				a { --foo: var(--bar); }
+				@property --foo {
+					syntax: "<color>";
+					inherits: false;
+					initial-value: #c0ffee;
+				}
+			`
+    },
+    {
       code: `
       @function get-color() {
         @return #336699;
@@ -65,6 +173,17 @@ testRule({
       }
     `,
       description: "Function call as value"
+    },
+    {
+      code: `
+      @function get-color() {
+        @return #336699;
+      }
+      .element {
+        backround: border-box get-color();
+      }
+    `,
+      description: "Function call as value in shorthand format"
     },
     {
       code: `
@@ -83,10 +202,94 @@ testRule({
       }
     `,
       description: "Hidden declarations as value"
+    },
+    {
+      code: `
+      a {
+        margin: 3px + 10px;
+      }
+      `,
+      description: "Plus operator"
+    },
+    {
+      code: `
+      a {
+        margin: 3px - 10px;
+      }
+      `,
+      description: "Less operator"
+    },
+    {
+      code: `
+      a {
+        margin: 1 + 2 * 3 == 1 + (2 * 3);
+      }
+      `,
+      description: "Several operators"
+    },
+    {
+      code: `
+      a {
+        padding: 1px +2px;
+      }
+      `,
+      description: "Several operators"
+    },
+    {
+      code: `
+      .transparent-blue {
+        filter: opacity(10% + 25%);
+      }
+      `,
+      description: "Operators as function arguments"
+    },
+    {
+      code: `
+      $var1: minmax($var1, max-content);
+      a {
+        grid-template-columns: repeat(
+          auto-fit,
+          $var1
+        );
+      }`,
+      description: "Var as argument in function"
+    },
+    {
+      code: `
+      $var1: 3px;
+      a {
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax($var1, max-content)
+        );
+      }`,
+      description: "Var as argument in nested functions"
+    },
+    {
+      code: `
+        background: transparent
+        linear-gradient(
+          to right,
+          rgba($mat-gray-300, 0) 0%,
+          rgba($mat-gray-300, 0.2) 20%,
+          rgba($mat-gray-300, 0.5) 50%,
+          rgba($mat-gray-300, 0.2) 80%,
+          rgba($mat-gray-300, 0) 100%
+        )
+        repeat-y;`,
+      description: "Function call in shorthand format"
     }
   ],
 
   reject: [
+    {
+      code: "a { text-box-edge: text ex; }",
+      message: messages.rejected("text-box-edge", "ex"),
+      line: 1,
+      column: 25,
+      endLine: 1,
+      endColumn: 27
+    },
     {
       code: "a { top: unknown; }",
       message: messages.rejected("top", "unknown"),
@@ -185,18 +388,48 @@ testRule({
     },
     {
       code: `
-      a {
-        color: red;
-        font: {
-          size: red;
+        a {
+          color: red;
+          font: {
+            size: red;
+          }
         }
-      }
-    `,
+      `,
       message: messages.rejected("font-size", "red"),
       line: 4,
-      column: 9,
+      column: 11,
       endLine: 6,
-      endColumn: 10
+      endColumn: 12
+    },
+    // {
+    // 	code: stripIndent`
+    // 		a { --foo: 10px; }
+    // 		@property --foo {
+    // 			syntax: "<color>";
+    // 			inherits: false;
+    // 			initial-value: #c0ffee;
+    // 		}
+    // 	`,
+    // 	message: messages.rejected('--foo', '10px'),
+    // 	line: 1,
+    // 	column: 12,
+    // 	endLine: 1,
+    // 	endColumn: 16,
+    // },
+    {
+      code: stripIndent`
+				a { --foo: 10px; }
+				@property --foo {
+					syntax: not-a-string;
+					inherits: false;
+					initial-value: #c0ffee;
+				}
+			`,
+      message: messages.rejected("syntax", "not-a-string"),
+      line: 3,
+      column: 10,
+      endLine: 3,
+      endColumn: 22
     }
   ]
 });
@@ -264,6 +497,21 @@ testRule({
   accept: [
     {
       code: "a { size: 10px; }"
+    },
+    {
+      code: "a { text-box-edge: ideographic-ink; }"
+    },
+    {
+      code: "a { text-box-edge: ex text; }"
+    },
+    {
+      code: "a { text-box-trim: none; }"
+    },
+    {
+      code: "a { text-spacing-trim: space-first; }"
+    },
+    {
+      code: "a { text-wrap-style: stable; }"
     }
   ],
 
@@ -321,6 +569,16 @@ testRule({
     },
     {
       code: "a { top: #{foo}; }"
+    },
+    {
+      // https://github.com/stylelint/stylelint/issues/7403
+      code: stripIndent`
+				a {
+					top: #{
+						foo
+					};
+				}
+			`
     }
   ]
 });
