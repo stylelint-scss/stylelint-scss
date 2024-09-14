@@ -8,15 +8,6 @@ export function isBoolean(value) {
 }
 
 /**
- * Checks if the value is a number or a Number object.
- * @param {unknown} value
- * @returns {value is number}
- */
-export function isNumber(value) {
-  return typeof value === "number" || value instanceof Number;
-}
-
-/**
  * Checks if the value is a regular expression.
  * @param {unknown} value
  * @returns {value is RegExp}
