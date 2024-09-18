@@ -41,6 +41,7 @@ const COLOR_FUNCTIONS = Object.freeze([
   "color.blackness",
   "color.blue",
   "color.change",
+  "color.channel",
   "color.complement",
   "color.grayscale",
   "color.green",
