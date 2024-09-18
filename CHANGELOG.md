@@ -1,3 +1,9 @@
+# 6.7.0
+
+- Added: `function-no-unknown`: add support for Sass v1.78 `color.channel` function (#1052).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.6.0...v6.7.0
+
 # 6.6.0
 
 - Added: `declaration-property-value-no-unknown`: add support for first-class operators (#1042).
