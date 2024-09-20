@@ -1,9 +1,9 @@
-"use strict";
+import stylelint from "stylelint";
+import hasEmptyLine from "../../utils/hasEmptyLine.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const hasEmptyLine = require("../../utils/hasEmptyLine");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("at-else-empty-line-before");
 
@@ -55,4 +55,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

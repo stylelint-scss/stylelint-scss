@@ -1,29 +1,27 @@
-"use strict";
-
-const cssTree = require("css-tree");
-const isPlainObject = require("is-plain-object");
-const typeGuards = require("../../utils/typeGuards.js");
-const declarationValueIndex = require("../../utils/declarationValueIndex.js");
-const isCustomProperty = require("../../utils/isCustomPropertySet.js");
-const isStandardSyntaxDeclaration = require("../../utils/isStandardSyntaxDeclaration.js");
-const isStandardSyntaxProperty = require("../../utils/isStandardSyntaxProperty.js");
-const isStandardSyntaxValue = require("../../utils/isStandardSyntaxValue.js");
-const matchesStringOrRegExp = require("../../utils/matchesStringOrRegExp.js");
-const atKeywords = require("../../utils/atKeywords.js");
-const validateObjectWithArrayProps = require("../../utils/validateObjectWithArrayProps.js");
-const { utils } = require("stylelint");
-const { isFunctionCall } = require("../../utils/validateTypes");
-const findOperators = require("../../utils/sassValueParser");
-const {
-  parseFunctionArguments
-} = require("../../utils/parseFunctionArguments");
-const {
+import * as cssTree from "css-tree";
+import * as isPlainObject from "is-plain-object";
+import * as typeGuards from "../../utils/typeGuards.js";
+import declarationValueIndex from "../../utils/declarationValueIndex.js";
+import isCustomProperty from "../../utils/isCustomPropertySet.js";
+import isStandardSyntaxDeclaration from "../../utils/isStandardSyntaxDeclaration.js";
+import isStandardSyntaxProperty from "../../utils/isStandardSyntaxProperty.js";
+import isStandardSyntaxValue from "../../utils/isStandardSyntaxValue.js";
+import matchesStringOrRegExp from "../../utils/matchesStringOrRegExp.js";
+import * as atKeywords from "../../utils/atKeywords.js";
+import validateObjectWithArrayProps from "../../utils/validateObjectWithArrayProps.js";
+import stylelint from "stylelint";
+import { isFunctionCall } from "../../utils/validateTypes.js";
+import findOperators from "../../utils/sassValueParser/index.js";
+import { parseFunctionArguments } from "../../utils/parseFunctionArguments.js";
+import {
   isDollarVar,
   isIfStatement,
   isNestedProperty
-} = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+} from "../../utils/validateTypes.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+
+const { utils } = stylelint;
 
 const ruleName = namespace("declaration-property-value-no-unknown");
 
@@ -347,4 +345,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;
