@@ -16,7 +16,7 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-const function_names = [
+const functionNames = [
   "saturate",
   "desaturate",
   "darken",
@@ -28,7 +28,7 @@ const function_names = [
 ];
 
 function isColorFunction(node) {
-  return node.type === "function" && function_names.includes(node.value);
+  return node.type === "function" && functionNames.includes(node.value);
 }
 
 function rule(primary) {
