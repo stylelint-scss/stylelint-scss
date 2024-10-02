@@ -13,7 +13,7 @@ testRule({
           color: scale-color(blue, $alpha: -40%);
         }
       `,
-      description: "accepts the scalar-color function"
+      description: "accepts the scale-color function"
     },
     {
       code: `
