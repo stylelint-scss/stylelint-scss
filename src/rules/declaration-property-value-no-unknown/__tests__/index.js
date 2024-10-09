@@ -272,6 +272,13 @@ testRule({
         )
         repeat-y;`,
       description: "Function call in shorthand format"
+    },
+    {
+      code: `
+      @use 'foo';
+      .b {
+        font-size: foo.bar(26px);
+      }`
     }
   ],
 

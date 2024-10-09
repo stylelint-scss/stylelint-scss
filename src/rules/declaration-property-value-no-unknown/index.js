@@ -1,6 +1,7 @@
 "use strict";
 
 const cssTree = require("css-tree");
+const syntaxes = require("mdn-data/css/syntaxes");
 const isPlainObject = require("is-plain-object");
 const typeGuards = require("../../utils/typeGuards.js");
 const declarationValueIndex = require("../../utils/declarationValueIndex.js");
@@ -310,7 +311,9 @@ function containsCustomFunction(cssTreeNode) {
     cssTree.find(
       cssTreeNode,
       node =>
-        node.type === "Function" && unsupportedFunctions.includes(node.name)
+        node.type === "Function" &&
+        (unsupportedFunctions.includes(node.name) ||
+          !syntaxes[node.name + "()"])
     )
   );
 }
