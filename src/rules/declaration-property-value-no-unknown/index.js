@@ -1,6 +1,7 @@
 "use strict";
 
 const cssTree = require("css-tree");
+const mdnData = require("mdn-data");
 const isPlainObject = require("is-plain-object");
 const typeGuards = require("../../utils/typeGuards.js");
 const declarationValueIndex = require("../../utils/declarationValueIndex.js");
@@ -259,7 +260,6 @@ function rule(primary, secondaryOptions) {
       if (name !== "SyntaxMatchError") return;
 
       if (rawMessage !== "Mismatch") return;
-
       const mismatchValue = value.slice(
         mismatchOffset,
         mismatchOffset + mismatchLength
@@ -338,7 +338,9 @@ function containsCustomFunction(cssTreeNode) {
     cssTree.find(
       cssTreeNode,
       node =>
-        node.type === "Function" && unsupportedFunctions.includes(node.name)
+        node.type === "Function" &&
+        (unsupportedFunctions.includes(node.name) ||
+          !mdnData.css.syntaxes[node.name + "()"])
     )
   );
 }
