@@ -92,28 +92,11 @@ function rule(primary, secondaryOptions) {
     };
 
     const propertiesSyntax = {
-      overflow: "| overlay", // csstree/csstree#248
-      width:
-        "| min-intrinsic | -moz-min-content | -moz-available | -webkit-fill-available", // csstree/csstree#242
-      "anchor-name": "none | <custom-property-name>#",
-      "field-sizing": "content | fixed",
       "text-box-edge":
         "auto | [ text | cap | ex | ideographic | ideographic-ink ] [ text | alphabetic | ideographic | ideographic-ink ]?",
       "text-box-trim": "none | trim-start | trim-end | trim-both",
-      "text-spacing-trim": "normal | space-all | space-first | trim-start",
-      "text-wrap-mode": "wrap | nowrap",
-      "text-wrap-style": "auto | balance | pretty | stable",
-      "text-wrap": "<'text-wrap-mode'> || <'text-wrap-style'>",
-      "view-timeline-axis": "[ block | inline | x | y ]#",
-      "view-timeline-inset": "[ [ auto | <length-percentage> ]{1,2} ]#",
-      "view-timeline-name": "[ none | <custom-property-name> ]#",
       "view-timeline":
         "[ <'view-timeline-name'> [ <'view-timeline-axis'> || <'view-timeline-inset'> ]? ]#",
-      // <custom-ident> represents any valid CSS identifier that would not be misinterpreted as a pre-defined keyword in that property’s value definition
-      // i.e. reserved keywords don't have to be excluded explicitly
-      // w3c/csswg-drafts#9895
-      "view-transition-name": "none | <custom-ident>",
-      "word-break": "| auto-phrase",
       ...secondaryOptions?.propertiesSyntax
     };
     const typesSyntax = { ...secondaryOptions?.typesSyntax };
@@ -188,18 +171,6 @@ function rule(primary, secondaryOptions) {
       if (value.split(" ").some(val => isDollarVar(val))) return;
       if (value.split(" ").some(val => hasDollarVarArg(val))) return;
       if (value.split(" ").some(val => containsCustomFunction(val))) return;
-
-      // mdn/data#674
-      // `initial-value` has an incorrect syntax definition.
-      // In reality everything is valid.
-      if (
-        /^initial-value$/i.test(prop) &&
-        decl.parent &&
-        typeGuards.isAtRule(decl.parent) &&
-        /^property$/i.test(decl.parent.name)
-      ) {
-        return;
-      }
 
       /** @type {import('css-tree').CssNode} */
       let cssTreeValueNode;
