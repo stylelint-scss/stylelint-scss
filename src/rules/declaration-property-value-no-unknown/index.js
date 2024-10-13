@@ -4,6 +4,7 @@ const cssTree = require("css-tree");
 const isPlainObject = require("is-plain-object");
 const typeGuards = require("../../utils/typeGuards.js");
 const declarationValueIndex = require("../../utils/declarationValueIndex.js");
+const getDeclarationValue = require("../../utils/getDeclarationValue.js");
 const isCustomProperty = require("../../utils/isCustomPropertySet.js");
 const isStandardSyntaxDeclaration = require("../../utils/isStandardSyntaxDeclaration.js");
 const isStandardSyntaxProperty = require("../../utils/isStandardSyntaxProperty.js");
@@ -151,7 +152,8 @@ function rule(primary, secondaryOptions) {
     }).lexer;
 
     root.walkDecls(decl => {
-      const { prop, value, parent } = decl;
+      const { prop, parent } = decl;
+      const value = getDeclarationValue(decl);
 
       //csstree/csstree#243
       // NOTE: CSSTree's `fork()` doesn't support `-moz-initial`, but it may be possible in the future.
@@ -176,7 +178,10 @@ function rule(primary, secondaryOptions) {
       let cssTreeValueNode;
 
       try {
-        cssTreeValueNode = cssTree.parse(value, { context: "value" });
+        cssTreeValueNode = cssTree.parse(value, {
+          context: "value",
+          positions: true
+        });
 
         if (containsCustomFunction(cssTreeValueNode)) return;
         if (containsUnsupportedFunction(cssTreeValueNode)) return;
@@ -225,18 +230,14 @@ function rule(primary, secondaryOptions) {
 
       if (!("mismatchLength" in error)) return;
 
-      const { mismatchLength, mismatchOffset, name, rawMessage } = error;
+      const { name, rawMessage, loc } = error;
 
       if (name !== "SyntaxMatchError") return;
 
       if (rawMessage !== "Mismatch") return;
 
-      const mismatchValue = value.slice(
-        mismatchOffset,
-        mismatchOffset + mismatchLength
-      );
-      const index = declarationValueIndex(decl) + mismatchOffset;
-      const endIndex = index + mismatchLength;
+      const valueIndex = declarationValueIndex(decl);
+      const mismatchValue = value.slice(loc.start.offset, loc.end.offset);
       const operators = findOperators({ string: value }).map(o => o.symbol);
 
       for (const operator of operators) {
@@ -248,8 +249,8 @@ function rule(primary, secondaryOptions) {
       utils.report({
         message: messages.rejected(prop, mismatchValue),
         node: decl,
-        index,
-        endIndex,
+        index: valueIndex + loc.start.offset,
+        endIndex: valueIndex + loc.end.offset,
         result,
         ruleName
       });

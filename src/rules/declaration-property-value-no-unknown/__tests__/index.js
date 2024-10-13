@@ -152,6 +152,12 @@ testRule({
 			`
     },
     {
+      code: stripIndent`a {
+				top: /* stylelint-disable-next-line scss/declaration-property-value-no-unknown */
+					red;
+			}`
+    },
+    {
       code: `
       @function get-color() {
         @return #336699;
@@ -367,12 +373,23 @@ testRule({
       endColumn: 13
     },
     {
+      code: stripIndent`a {
+				top: /* a comment */
+					red;
+			}`,
+      message: messages.rejected("top", "red"),
+      line: 3,
+      column: 6,
+      endLine: 3,
+      endColumn: 9
+    },
+    {
       code: "a { color: ; }",
       message: messages.rejected("color", ""),
       line: 1,
-      column: 11,
+      column: 12,
       endLine: 1,
-      endColumn: 12
+      endColumn: 13
     },
     {
       code: "a { padding: auto; }",
@@ -474,6 +491,22 @@ testRule({
       column: 10,
       endLine: 3,
       endColumn: 22
+    },
+    {
+      code: 'a { font-family: "Foo" serif; }',
+      message: messages.rejected("font-family", "serif"),
+      line: 1,
+      column: 24,
+      endLine: 1,
+      endColumn: 29
+    },
+    {
+      code: 'a { font-family: "Foo"  serif; }',
+      message: messages.rejected("font-family", "serif"),
+      line: 1,
+      column: 25,
+      endLine: 1,
+      endColumn: 30
     }
   ]
 });
