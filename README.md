@@ -146,6 +146,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 ### Function
 
 - [`function-calculation-no-interpolation`](./src/rules/function-calculation-no-interpolation/README.md): Disallow interpolation in `calc()`, `clamp()`, `min()`, and `max()` functions.
+- [`function-color-channel`](./src/rules/function-color-channel/README.md): Encourage the use of the [color.channel](https://sass-lang.com/documentation/modules/color#channel) function over related deprecated color functions.
 - [`function-color-relative`](./src/rules/function-color-relative/README.md): Encourage the use of the [scale-color](https://sass-lang.com/documentation/modules/color#scale-color) function over regular color functions.
 - [`function-disallowed-list`](./src/rules/function-disallowed-list/README.md): Specify a list of disallowed functions. Should be used **instead of** Stylelint's [function-disallowed-list](https://stylelint.io/user-guide/rules/function-disallowed-list).
 - [`function-no-unknown`](./src/rules/function-no-unknown/README.md): Disallow unknown functions. Should be used **instead of** Stylelint's [function-no-unknown](https://stylelint.io/user-guide/rules/function-no-unknown).

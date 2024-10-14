@@ -1,6 +1,6 @@
 # function-color-channel
 
-Encourage the use of the [color.channel](https://sass-lang.com/documentation/modules/color#channel) over:
+Encourage the use of the [color.channel](https://sass-lang.com/documentation/modules/color#channel) function over related deprecated color functions:
 
 - [color.alpha](https://sass-lang.com/documentation/modules/color#alpha) / [alpha](https://sass-lang.com/documentation/modules/color#alpha) / [opacity](https://sass-lang.com/documentation/modules/color#opacity)
 - [color.blackness](https://sass-lang.com/documentation/modules/color#blackness) / [blackness](https://sass-lang.com/documentation/modules/color#blackness)
