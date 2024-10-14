@@ -13,7 +13,7 @@ testRule({
           color: scale-color(blue, $alpha: -40%);
         }
       `,
-      description: "accepts the scalar-color function"
+      description: "accepts the scale-color function"
     },
     {
       code: `
@@ -42,7 +42,7 @@ testRule({
         }
       `,
       description: "does not accept the saturate function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 18,
       endLine: 3,
@@ -55,7 +55,7 @@ testRule({
         }
       `,
       description: "does not accept the desaturate function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 18,
       endLine: 3,
@@ -68,7 +68,7 @@ testRule({
         }
       `,
       description: "does not accept the darken function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 18,
       endLine: 3,
@@ -81,7 +81,7 @@ testRule({
         }
       `,
       description: "does not accept the lighten function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 18,
       endLine: 3,
@@ -94,7 +94,7 @@ testRule({
         }
       `,
       description: "does not accept the opacify function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 18,
       endLine: 3,
@@ -107,7 +107,7 @@ testRule({
         }
       `,
       description: "does not accept the fade-in function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 18,
       endLine: 3,
@@ -120,7 +120,7 @@ testRule({
         }
       `,
       description: "does not accept the transparentize function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 18,
       endLine: 3,
@@ -133,7 +133,7 @@ testRule({
         }
       `,
       description: "does not accept the fade-out function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 18,
       endLine: 3,
@@ -147,7 +147,7 @@ testRule({
       `,
       description:
         "does not accept color functions inside a drop-shadow filter",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 39,
       endLine: 3,
@@ -161,7 +161,7 @@ testRule({
       `,
       description:
         "does not accept color functions inside a drop-shadow filter when multiple filters are used",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 54,
       endLine: 3,
@@ -175,7 +175,7 @@ testRule({
       `,
       description:
         "does not accept color functions inside a drop-shadow filter when multiple filters are used",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 53,
       endLine: 3,
@@ -189,7 +189,7 @@ testRule({
       `,
       description:
         "does not accept color functions inside a drop-shadow filter when multiple filters are used",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 39,
       endLine: 3,
