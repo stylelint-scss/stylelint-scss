@@ -1,9 +1,11 @@
 "use strict";
 
 const cssTree = require("css-tree");
+const syntaxes = require("mdn-data/css/syntaxes");
 const isPlainObject = require("is-plain-object");
 const typeGuards = require("../../utils/typeGuards.js");
 const declarationValueIndex = require("../../utils/declarationValueIndex.js");
+const getDeclarationValue = require("../../utils/getDeclarationValue.js");
 const isCustomProperty = require("../../utils/isCustomPropertySet.js");
 const isStandardSyntaxDeclaration = require("../../utils/isStandardSyntaxDeclaration.js");
 const isStandardSyntaxProperty = require("../../utils/isStandardSyntaxProperty.js");
@@ -92,28 +94,11 @@ function rule(primary, secondaryOptions) {
     };
 
     const propertiesSyntax = {
-      overflow: "| overlay", // csstree/csstree#248
-      width:
-        "| min-intrinsic | -moz-min-content | -moz-available | -webkit-fill-available", // csstree/csstree#242
-      "anchor-name": "none | <custom-property-name>#",
-      "field-sizing": "content | fixed",
       "text-box-edge":
         "auto | [ text | cap | ex | ideographic | ideographic-ink ] [ text | alphabetic | ideographic | ideographic-ink ]?",
       "text-box-trim": "none | trim-start | trim-end | trim-both",
-      "text-spacing-trim": "normal | space-all | space-first | trim-start",
-      "text-wrap-mode": "wrap | nowrap",
-      "text-wrap-style": "auto | balance | pretty | stable",
-      "text-wrap": "<'text-wrap-mode'> || <'text-wrap-style'>",
-      "view-timeline-axis": "[ block | inline | x | y ]#",
-      "view-timeline-inset": "[ [ auto | <length-percentage> ]{1,2} ]#",
-      "view-timeline-name": "[ none | <custom-property-name> ]#",
       "view-timeline":
         "[ <'view-timeline-name'> [ <'view-timeline-axis'> || <'view-timeline-inset'> ]? ]#",
-      // <custom-ident> represents any valid CSS identifier that would not be misinterpreted as a pre-defined keyword in that property’s value definition
-      // i.e. reserved keywords don't have to be excluded explicitly
-      // w3c/csswg-drafts#9895
-      "view-transition-name": "none | <custom-ident>",
-      "word-break": "| auto-phrase",
       ...secondaryOptions?.propertiesSyntax
     };
     const typesSyntax = { ...secondaryOptions?.typesSyntax };
@@ -168,7 +153,8 @@ function rule(primary, secondaryOptions) {
     }).lexer;
 
     root.walkDecls(decl => {
-      const { prop, value, parent } = decl;
+      const { prop, parent } = decl;
+      const value = getDeclarationValue(decl);
 
       //csstree/csstree#243
       // NOTE: CSSTree's `fork()` doesn't support `-moz-initial`, but it may be possible in the future.
@@ -189,23 +175,14 @@ function rule(primary, secondaryOptions) {
       if (value.split(" ").some(val => hasDollarVarArg(val))) return;
       if (value.split(" ").some(val => containsCustomFunction(val))) return;
 
-      // mdn/data#674
-      // `initial-value` has an incorrect syntax definition.
-      // In reality everything is valid.
-      if (
-        /^initial-value$/i.test(prop) &&
-        decl.parent &&
-        typeGuards.isAtRule(decl.parent) &&
-        /^property$/i.test(decl.parent.name)
-      ) {
-        return;
-      }
-
       /** @type {import('css-tree').CssNode} */
       let cssTreeValueNode;
 
       try {
-        cssTreeValueNode = cssTree.parse(value, { context: "value" });
+        cssTreeValueNode = cssTree.parse(value, {
+          context: "value",
+          positions: true
+        });
 
         if (containsCustomFunction(cssTreeValueNode)) return;
         if (containsUnsupportedFunction(cssTreeValueNode)) return;
@@ -254,18 +231,14 @@ function rule(primary, secondaryOptions) {
 
       if (!("mismatchLength" in error)) return;
 
-      const { mismatchLength, mismatchOffset, name, rawMessage } = error;
+      const { name, rawMessage, loc } = error;
 
       if (name !== "SyntaxMatchError") return;
 
       if (rawMessage !== "Mismatch") return;
 
-      const mismatchValue = value.slice(
-        mismatchOffset,
-        mismatchOffset + mismatchLength
-      );
-      const index = declarationValueIndex(decl) + mismatchOffset;
-      const endIndex = index + mismatchLength;
+      const valueIndex = declarationValueIndex(decl);
+      const mismatchValue = value.slice(loc.start.offset, loc.end.offset);
       const operators = findOperators({ string: value }).map(o => o.symbol);
 
       for (const operator of operators) {
@@ -277,8 +250,8 @@ function rule(primary, secondaryOptions) {
       utils.report({
         message: messages.rejected(prop, mismatchValue),
         node: decl,
-        index,
-        endIndex,
+        index: valueIndex + loc.start.offset,
+        endIndex: valueIndex + loc.end.offset,
         result,
         ruleName
       });
@@ -338,7 +311,9 @@ function containsCustomFunction(cssTreeNode) {
     cssTree.find(
       cssTreeNode,
       node =>
-        node.type === "Function" && unsupportedFunctions.includes(node.name)
+        node.type === "Function" &&
+        (unsupportedFunctions.includes(node.name) ||
+          !syntaxes[node.name + "()"])
     )
   );
 }

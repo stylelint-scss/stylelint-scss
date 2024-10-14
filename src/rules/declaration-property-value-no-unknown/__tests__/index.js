@@ -60,28 +60,16 @@ testRule({
       code: "a { word-break: auto-phrase; }"
     },
     {
-      code: "a { field-sizing: content; }"
-    },
-    {
-      code: "a  { text-wrap: wrap; }"
-    },
-    {
-      code: "a  { text-wrap-mode: nowrap; }"
-    },
-    {
       code: "a { overflow: overlay; }"
     },
     {
       code: "a { width: min-intrinsic; }"
     },
     {
-      code: "a { view-timeline-name: --foo; }"
-    },
-    {
       code: "a { view-timeline: --bar x; }"
     },
     {
-      code: "a { view-transition-name: qux-baz; }"
+      code: "a { view-timeline: --qux inline 1px 2px; }"
     },
     {
       code: "a { anchor-name: --bar, --qux; }"
@@ -162,6 +150,12 @@ testRule({
 					initial-value: #c0ffee;
 				}
 			`
+    },
+    {
+      code: stripIndent`a {
+				top: /* stylelint-disable-next-line scss/declaration-property-value-no-unknown */
+					red;
+			}`
     },
     {
       code: `
@@ -278,6 +272,13 @@ testRule({
         )
         repeat-y;`,
       description: "Function call in shorthand format"
+    },
+    {
+      code: `
+      @use 'foo';
+      .b {
+        font-size: foo.bar(26px);
+      }`
     }
   ],
 
@@ -289,6 +290,62 @@ testRule({
       column: 25,
       endLine: 1,
       endColumn: 27
+    },
+    {
+      code: "a { text-box-trim: foo; }",
+      message: messages.rejected("text-box-trim", "foo"),
+      line: 1,
+      column: 20,
+      endLine: 1,
+      endColumn: 23
+    },
+    {
+      code: "a { text-spacing-trim: bar; }",
+      message: messages.rejected("text-spacing-trim", "bar"),
+      line: 1,
+      column: 24,
+      endLine: 1,
+      endColumn: 27
+    },
+    {
+      code: "a { text-wrap: foo; }",
+      message: messages.rejected("text-wrap", "foo"),
+      line: 1,
+      column: 16,
+      endLine: 1,
+      endColumn: 19
+    },
+    {
+      code: "a { view-timeline-name: foo; }",
+      message: messages.rejected("view-timeline-name", "foo"),
+      line: 1,
+      column: 25,
+      endLine: 1,
+      endColumn: 28
+    },
+    {
+      code: "a { view-transition-name:; }",
+      message: messages.rejected("view-transition-name", ""),
+      line: 1,
+      column: 26,
+      endLine: 1,
+      endColumn: 27
+    },
+    {
+      code: "a { anchor-name: foo; }",
+      message: messages.rejected("anchor-name", "foo"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 21
+    },
+    {
+      code: "a { field-sizing: bar; }",
+      message: messages.rejected("field-sizing", "bar"),
+      line: 1,
+      column: 19,
+      endLine: 1,
+      endColumn: 22
     },
     {
       code: "a { top: unknown; }",
@@ -323,12 +380,23 @@ testRule({
       endColumn: 13
     },
     {
+      code: stripIndent`a {
+				top: /* a comment */
+					red;
+			}`,
+      message: messages.rejected("top", "red"),
+      line: 3,
+      column: 6,
+      endLine: 3,
+      endColumn: 9
+    },
+    {
       code: "a { color: ; }",
       message: messages.rejected("color", ""),
       line: 1,
-      column: 11,
+      column: 12,
       endLine: 1,
-      endColumn: 12
+      endColumn: 13
     },
     {
       code: "a { padding: auto; }",
@@ -430,6 +498,22 @@ testRule({
       column: 10,
       endLine: 3,
       endColumn: 22
+    },
+    {
+      code: 'a { font-family: "Foo" serif; }',
+      message: messages.rejected("font-family", "serif"),
+      line: 1,
+      column: 24,
+      endLine: 1,
+      endColumn: 29
+    },
+    {
+      code: 'a { font-family: "Foo"  serif; }',
+      message: messages.rejected("font-family", "serif"),
+      line: 1,
+      column: 25,
+      endLine: 1,
+      endColumn: 30
     }
   ]
 });
@@ -497,21 +581,6 @@ testRule({
   accept: [
     {
       code: "a { size: 10px; }"
-    },
-    {
-      code: "a { text-box-edge: ideographic-ink; }"
-    },
-    {
-      code: "a { text-box-edge: ex text; }"
-    },
-    {
-      code: "a { text-box-trim: none; }"
-    },
-    {
-      code: "a { text-spacing-trim: space-first; }"
-    },
-    {
-      code: "a { text-wrap-style: stable; }"
     }
   ],
 
