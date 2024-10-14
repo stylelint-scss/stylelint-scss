@@ -52,7 +52,7 @@ testRule({
         }
       `,
       description: "does not accept the color.alpha function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,
@@ -65,7 +65,7 @@ testRule({
         }
       `,
       description: "does not accept the alpha function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -78,7 +78,7 @@ testRule({
         }
       `,
       description: "does not accept the opacity function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -92,7 +92,7 @@ testRule({
         }
       `,
       description: "does not accept the color.blackness function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,
@@ -105,7 +105,7 @@ testRule({
         }
       `,
       description: "does not accept the blackness function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -119,7 +119,7 @@ testRule({
         }
       `,
       description: "does not accept the color.blue function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,
@@ -132,7 +132,7 @@ testRule({
         }
       `,
       description: "does not accept the blue function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -146,7 +146,7 @@ testRule({
         }
       `,
       description: "does not accept the color.green function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,
@@ -159,7 +159,7 @@ testRule({
         }
       `,
       description: "does not accept the green function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -173,7 +173,7 @@ testRule({
         }
       `,
       description: "does not accept the color.hue function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,
@@ -186,7 +186,7 @@ testRule({
         }
       `,
       description: "does not accept the hue function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -200,7 +200,7 @@ testRule({
         }
       `,
       description: "does not accept the color.lightness function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,
@@ -213,7 +213,7 @@ testRule({
         }
       `,
       description: "does not accept the lightness function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -227,7 +227,7 @@ testRule({
         }
       `,
       description: "does not accept the color.red function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,
@@ -240,7 +240,7 @@ testRule({
         }
       `,
       description: "does not accept the red function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -254,7 +254,7 @@ testRule({
         }
       `,
       description: "does not accept the color.saturation function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,
@@ -267,7 +267,7 @@ testRule({
         }
       `,
       description: "does not accept the saturation function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 3,
       column: 20,
       endLine: 3,
@@ -281,7 +281,7 @@ testRule({
         }
       `,
       description: "does not accept the color.whiteness function",
-      message: messages.rejected,
+      message: messages.expected,
       line: 4,
       column: 20,
       endLine: 4,

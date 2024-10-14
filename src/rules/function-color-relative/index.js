@@ -9,7 +9,7 @@ const ruleUrl = require("../../utils/ruleUrl");
 const ruleName = namespace("function-color-relative");
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: "Expected the scale-color function to be used"
+  expected: "Expected the scale-color function to be used"
 });
 
 const meta = {
@@ -65,7 +65,7 @@ function rule(primary) {
           funcNodes.forEach(funcNode => {
             const index = declValueIndex + funcNode.sourceIndex;
             utils.report({
-              message: messages.rejected,
+              message: messages.expected,
               node: decl,
               index,
               endIndex: index + funcNode.value.length,

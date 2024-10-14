@@ -9,7 +9,7 @@ const ruleUrl = require("../../utils/ruleUrl");
 const ruleName = namespace("function-color-channel");
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: "Expected the color.channel function to be used"
+  expected: "Expected the color.channel function to be used"
 });
 
 const meta = {
@@ -65,7 +65,7 @@ function rule(primary) {
         if (isSassColorFunction) {
           const index = declValueIndex + node.sourceIndex;
           utils.report({
-            message: messages.rejected,
+            message: messages.expected,
             node: decl,
             index,
             endIndex: index + node.value.length,
