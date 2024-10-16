@@ -296,7 +296,7 @@ testRule({
         foo.$bar;
       }
       `,
-      description: "Value is a explicit namespace variable."
+      description: "Multi-line value is a explicit namespace variable."
     }
   ],
 
