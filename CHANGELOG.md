@@ -1,3 +1,14 @@
+# 6.8.0
+
+- Added: `function-color-channel` rule (#1060).
+- Added: `selector-no-redundant-nesting-selector` support for Dart Sass deprecation (#1022).
+- Fixed: `declaration-property-value-no-unknown` include explicit namespace variables in `isDollarVar()` (#1062).
+- Fixed: `declaration-property-value-no-unknown` fix false positives for imported custom functions (#1061).
+- Fixed: `declaration-property-value-no-unknown` reported ranges and message ([stylelint/stylelint#8003](https://github.com/stylelint/stylelint/pull/8003), #1066).
+- Fixed: `declaration-property-value-no-unknown` false negatives/positives via [`css-tree@3.0.0`](https://github.com/csstree/csstree/releases/tag/v3.0.0) ([stylelint/stylelint#7993](https://github.com/stylelint/stylelint/pull/7993), #1065).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.7.0...v6.8.0
+
 # 6.7.0
 
 - Added: `function-no-unknown`: add support for Sass v1.78 `color.channel` function (#1052).
