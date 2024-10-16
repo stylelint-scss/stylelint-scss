@@ -297,7 +297,34 @@ testRule({
       }
       `,
       description: "Multi-line value is a explicit namespace variable."
+    },
+    {
+    code: `
+    $acx-white: "#fff";
+    .b {
+        background: {
+          clip: padding-box;
+          color: $acx-white;
+        }
     }
+    `,
+    description: "Nested properties in nested declarations."
+  },
+  {
+    code: `
+    @use "foo";
+    @function color(){
+      @return 'blue';
+    }
+    .b {
+        background: {
+          clip: foo.clip();
+          color: color();
+        }
+    }
+    `,
+    description: "Nested properties in nested declarations using functions."
+  }
   ],
 
   reject: [
@@ -482,10 +509,10 @@ testRule({
         }
       `,
       message: messages.rejected("font-size", "red"),
-      line: 4,
-      column: 11,
-      endLine: 6,
-      endColumn: 12
+      line: 5,
+      column: 19,
+      endLine: 5,
+      endColumn: 22
     },
     // {
     // 	code: stripIndent`
