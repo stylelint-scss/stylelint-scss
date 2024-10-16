@@ -279,6 +279,24 @@ testRule({
       .b {
         font-size: foo.bar(26px);
       }`
+    },
+    {
+      code: `
+      @use foo;
+      .b {
+        background-color: foo.$color;
+      }`,
+      description: "Value is a explicit namespace variable."
+    },
+    {
+      code: `
+      @use 'foo';
+      .b {
+        transition: background-color 0.3s 
+        foo.$bar;
+      }
+      `,
+      description: "Value is a explicit namespace variable."
     }
   ],
 
