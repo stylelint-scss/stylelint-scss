@@ -1,3 +1,9 @@
+# 6.8.1
+
+- Fixed: `declaration-property-value-no-unknown` fix false positives for nested properties in nested declarations (#1068).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.8.0...v6.8.1
+
 # 6.8.0
 
 - Added: `function-color-channel` rule (#1060).
