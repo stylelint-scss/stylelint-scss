@@ -153,8 +153,24 @@ function rule(primary, secondaryOptions) {
     }).lexer;
 
     root.walkDecls(decl => {
-      const { prop, parent } = decl;
+      let { prop } = decl;
+      const { parent } = decl;
       const value = getDeclarationValue(decl);
+
+      // Handle nested properties by reasigning `prop` to the compound property.
+      if (parent.selector && isNestedProperty(parent.selector)) {
+        let pointer = parent;
+        prop = String(decl.prop);
+        while (
+          pointer &&
+          pointer.selector &&
+          pointer.selector[pointer.selector.length - 1] === ":" &&
+          pointer.selector.substring(0, 2) !== "--"
+        ) {
+          prop = pointer.selector.replace(":", "") + "-" + prop;
+          pointer = pointer.parent;
+        }
+      }
 
       //csstree/csstree#243
       // NOTE: CSSTree's `fork()` doesn't support `-moz-initial`, but it may be possible in the future.
@@ -254,34 +270,6 @@ function rule(primary, secondaryOptions) {
         endIndex: valueIndex + loc.end.offset,
         result,
         ruleName
-      });
-    });
-
-    // Handle nested properties
-    root.walkRules(node => {
-      if (!isNestedProperty(node.selector)) return;
-      node.each(decl => {
-        let pointer = node;
-        let prop = String(decl.prop);
-        while (
-          pointer &&
-          pointer.selector &&
-          pointer.selector[pointer.selector.length - 1] === ":" &&
-          pointer.selector.substring(0, 2) !== "--"
-        ) {
-          prop = pointer.selector.replace(":", "") + "-" + prop;
-          pointer = pointer.parent;
-        }
-        const { error } = forkedLexer.matchProperty(prop, String(decl.value));
-
-        if (!error) return;
-
-        utils.report({
-          message: messages.rejected(prop, decl.value),
-          node,
-          result,
-          ruleName
-        });
       });
     });
   };
