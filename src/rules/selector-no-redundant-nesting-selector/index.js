@@ -1,13 +1,13 @@
-"use strict";
+import stylelint from "stylelint";
+import optionsMatches from "../../utils/optionsMatches.js";
+import hasNestedSibling from "../../utils/hasNestedSibling.js";
+import isType from "../../utils/isType.js";
+import parseSelector from "../../utils/parseSelector.js";
+import { isRegExp, isString } from "../../utils/validateTypes.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const optionsMatches = require("../../utils/optionsMatches");
-const hasNestedSibling = require("../../utils/hasNestedSibling");
-const isType = require("../../utils/isType");
-const parseSelector = require("../../utils/parseSelector");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("selector-no-redundant-nesting-selector");
 
@@ -98,4 +98,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Returns the namespace of an imported module or `null` if the namespace is removed.
  *
@@ -21,7 +19,7 @@
  *
  * Have a look at the tests for more examples.
  */
-module.exports = function moduleNamespace(root, module) {
+export default function moduleNamespace(root, module) {
   let moduleNamespace = getDefaultNamespace(module);
 
   root.walkAtRules("use", rule => {
@@ -39,7 +37,7 @@ module.exports = function moduleNamespace(root, module) {
   });
 
   return moduleNamespace;
-};
+}
 
 function getDefaultNamespace(module) {
   return module.match(/([^/:]+)$/)[1].replace(/\.[^.]+$/, "");

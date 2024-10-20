@@ -1,10 +1,8 @@
-"use strict";
-
 /**
  * Check whether a string has scss interpolation
  *
  * @param {string} string
  */
-module.exports = function (string) {
+export default function hasScssInterpolation(string) {
   return /#{[\s\S]*?}/.test(string);
-};
+}

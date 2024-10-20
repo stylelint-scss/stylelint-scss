@@ -1,12 +1,10 @@
-"use strict";
-
 /**
  * Stringify PostCSS node including its raw "before" string.
  *
  * @param {Node} node - Any PostCSS node
  * @return {string}
  */
-module.exports = function (node) {
+export default function rawNodeString(node) {
   let result = "";
 
   if (node.raws.before) {
@@ -16,4 +14,4 @@ module.exports = function (node) {
   result += node.toString();
 
   return result;
-};
+}

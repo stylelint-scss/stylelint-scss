@@ -1,10 +1,10 @@
-"use strict";
+import stylelint from "stylelint";
+import isSingleLineString from "../../utils/isSingleLineString.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import { isBoolean } from "../../utils/validateTypes.js";
 
-const { utils } = require("stylelint");
-const isSingleLineString = require("../../utils/isSingleLineString");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const { isBoolean } = require("../../utils/validateTypes");
+const { utils } = stylelint;
 
 const ruleName = namespace("at-if-closing-brace-newline-after");
 
@@ -64,7 +64,7 @@ function rule(expectation, options, context) {
  * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
  * @return {undefined}
  */
-function sassConditionalBraceNLAfterChecker({
+export function sassConditionalBraceNLAfterChecker({
   root,
   result,
   ruleName,
@@ -129,6 +129,5 @@ function sassConditionalBraceNLAfterChecker({
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
-rule.sassConditionalBraceNLAfterChecker = sassConditionalBraceNLAfterChecker;
 
-module.exports = rule;
+export default rule;

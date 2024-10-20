@@ -1,12 +1,10 @@
-"use strict";
-
 /**
  * Check whether a declaration is standard
  *
  * @param {Object} decl
  * @returns {boolean}
  */
-module.exports = function (decl) {
+export default function isStandardSyntaxDeclaration(decl) {
   const prop = decl.prop;
   const parent = decl.parent;
 
@@ -47,4 +45,4 @@ module.exports = function (decl) {
   }
 
   return true;
-};
+}
