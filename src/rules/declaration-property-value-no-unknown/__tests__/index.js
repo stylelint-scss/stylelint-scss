@@ -299,7 +299,7 @@ testRule({
       description: "Multi-line value is a explicit namespace variable."
     },
     {
-    code: `
+      code: `
     $acx-white: "#fff";
     .b {
         background: {
@@ -308,10 +308,10 @@ testRule({
         }
     }
     `,
-    description: "Nested properties in nested declarations."
-  },
-  {
-    code: `
+      description: "Nested properties in nested declarations."
+    },
+    {
+      code: `
     @use "foo";
     @function color(){
       @return 'blue';
@@ -323,8 +323,18 @@ testRule({
         }
     }
     `,
-    description: "Nested properties in nested declarations using functions."
-  }
+      description: "Nested properties in nested declarations using functions."
+    },
+    {
+      code: `
+    div {
+      border: solid #000 {
+        width: 1px 1px 1px 7px;
+      }
+    }
+    `,
+      description: "Nested properties and shorthand values."
+    }
   ],
 
   reject: [

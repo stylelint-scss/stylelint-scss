@@ -69,7 +69,8 @@ const isDollarVar = value =>
  * @param {unknown} selector
  * @returns {selector is variable}
  */
-const isNestedProperty = selector => selector[selector.length - 1] === ":";
+const isNestedProperty = selector =>
+  selector.split(" ").some(selector => selector[selector.length - 1] === ":");
 
 module.exports = {
   isBoolean,

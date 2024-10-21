@@ -160,15 +160,16 @@ function rule(primary, secondaryOptions) {
       // Handle nested properties by reasigning `prop` to the compound property.
       if (parent.selector && isNestedProperty(parent.selector)) {
         let pointer = parent;
+        let parentSelector = pointer.selector
+          ?.split(" ")
+          ?.filter(sel => sel[sel.length - 1] === ":")[0];
         prop = String(decl.prop);
-        while (
-          pointer &&
-          pointer.selector &&
-          pointer.selector[pointer.selector.length - 1] === ":" &&
-          pointer.selector.substring(0, 2) !== "--"
-        ) {
-          prop = pointer.selector.replace(":", "") + "-" + prop;
+        while (parentSelector && parentSelector.substring(0, 2) !== "--") {
+          prop = parentSelector.replace(":", "") + "-" + prop;
           pointer = pointer.parent;
+          parentSelector = pointer?.selector
+            ?.split(" ")
+            .filter(sel => sel[sel.length - 1] === ":")[0];
         }
       }
 
