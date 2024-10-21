@@ -1435,13 +1435,13 @@ testRule({
     {
       code: `
       .b {
-        --my-var: color(#fff, $lightness: -75%);
+        --my-var: color.scale(#fff, $lightness: -75%);
       }
       `,
       line: 3,
-      column: 31,
+      column: 37,
       endLine: 3,
-      endColumn: 47,
+      endColumn: 53,
       message: messages.rejected,
       description: "Never. Function not ignored, issue #451"
     }
@@ -1476,13 +1476,13 @@ testRule({
     {
       code: `
       .b {
-        --my-var: color(#fff, $lightness: -75%);
+        --my-var: color.scale(#fff, $lightness: -75%);
       }
       `,
       line: 3,
-      column: 31,
+      column: 37,
       endLine: 3,
-      endColumn: 47,
+      endColumn: 53,
       message: messages.rejected,
       description: "Never. Function not ignored, issue #451"
     }
