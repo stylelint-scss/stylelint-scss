@@ -18,7 +18,7 @@ function isWithinKeyframes(node) {
 }
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: "Unexpected @at-root rule."
+  rejected: "Unexpected @at-root rule"
 });
 
 const meta = {

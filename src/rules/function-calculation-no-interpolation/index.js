@@ -8,7 +8,7 @@ const valueParser = require("postcss-value-parser");
 const ruleName = namespace("function-calculation-no-interpolation");
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: func => `Unexpected interpolation in "${func}".`
+  rejected: func => `Unexpected interpolation in "${func}"`
 });
 
 const meta = {
