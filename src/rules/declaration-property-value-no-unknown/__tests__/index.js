@@ -334,6 +334,16 @@ testRule({
     }
     `,
       description: "Nested properties and shorthand values."
+    },
+    {
+      code: `
+      @use "qux";
+      .b {
+        margin: $foo;
+        margin: (-$foo);
+        margin: qux.$f-123;
+      }
+      `
     }
   ],
 
@@ -569,6 +579,15 @@ testRule({
       column: 25,
       endLine: 1,
       endColumn: 30
+    },
+    {
+      code: `
+      $var1: 1px;
+      a {
+        margin: 10px $ var1;
+      }
+    `,
+      message: messages.rejectedParseError("margin", "10px $ var1")
     }
   ]
 });

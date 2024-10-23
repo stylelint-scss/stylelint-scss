@@ -188,7 +188,7 @@ function rule(primary, secondaryOptions) {
       if (isPropIgnored(prop, value)) return;
 
       // Unless we tracked values of variables, they're all valid.
-      if (value.split(" ").some(val => isDollarVar(val))) return;
+      if (value.match(/\$[A-Za-z0-9_-]+/)?.some(isDollarVar)) return;
       if (value.split(" ").some(val => hasDollarVarArg(val))) return;
       if (value.split(" ").some(val => containsCustomFunction(val))) return;
 
