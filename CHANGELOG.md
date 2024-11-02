@@ -1,3 +1,5 @@
+- Added: `no-import` rule.
+
 # 6.8.1
 
 - Fixed: `declaration-property-value-no-unknown` fix false positives for nested properties in nested declarations (#1068).

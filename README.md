@@ -193,6 +193,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`no-duplicate-mixins`](./src/rules/no-duplicate-mixins/README.md): Disallow duplicate mixins within a stylesheet.
 - [`no-global-function-names`](./src/rules/no-global-function-names/README.md): Disallows the use of global function names, as these global functions are now located inside built-in Sass modules.
 - [`no-unused-private-members`](./src/rules/no-unused-private-members/README.md): Disallow unused private members such as functions, mixins, variables or placeholder selectors.
+- [`no-import`](./src/rules/no-import/README.md): Disallow import declarations.
 
 ## Deprecated
 
