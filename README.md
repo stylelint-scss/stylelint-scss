@@ -267,18 +267,18 @@ Thanks goes to these wonderful people:
 <table>
 <thead>
 <tr>
-<th align="center"><a href="https://github.com/pipopotamasu"><img alt="pipopotamasu" src="https://avatars.githubusercontent.com/u/14048211?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/FloEdelmann"><img alt="FloEdelmann" src="https://avatars.githubusercontent.com/u/202916?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/jhae-de"><img alt="jhae-de" src="https://avatars.githubusercontent.com/u/28291021?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/FloEdelmann"><img alt="FloEdelmann" src="https://avatars.githubusercontent.com/u/202916?v=4&s=80" width="80"></a></th>
+<th align="center"><a href="https://github.com/pipopotamasu"><img alt="pipopotamasu" src="https://avatars.githubusercontent.com/u/14048211?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/OriR"><img alt="OriR" src="https://avatars.githubusercontent.com/u/2384068?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/ntwb"><img alt="ntwb" src="https://avatars.githubusercontent.com/u/1016458?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/ricardogobbosouza"><img alt="ricardogobbosouza" src="https://avatars.githubusercontent.com/u/13064722?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><a href="https://github.com/pipopotamasu">pipopotamasu</a></td>
-<td align="center"><a href="https://github.com/FloEdelmann">FloEdelmann</a></td>
 <td align="center"><a href="https://github.com/jhae-de">jhae-de</a></td>
+<td align="center"><a href="https://github.com/FloEdelmann">FloEdelmann</a></td>
+<td align="center"><a href="https://github.com/pipopotamasu">pipopotamasu</a></td>
 <td align="center"><a href="https://github.com/OriR">OriR</a></td>
 <td align="center"><a href="https://github.com/ntwb">ntwb</a></td>
 <td align="center"><a href="https://github.com/ricardogobbosouza">ricardogobbosouza</a></td>
