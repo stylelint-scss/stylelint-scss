@@ -1,3 +1,10 @@
+# 6.9.0
+
+- Added: missing native functions (#1070).
+- Fixed: unify rule messages (#1072).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.8.1...v6.9.0
+
 # 6.8.1
 
 - Fixed: `declaration-property-value-no-unknown` fix false positives for nested properties in nested declarations (#1068).
