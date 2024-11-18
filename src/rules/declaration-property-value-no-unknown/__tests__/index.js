@@ -344,6 +344,15 @@ testRule({
         margin: qux.$f-123;
       }
       `
+    },
+    {
+      code: `
+        .a {
+          box-shadow: half(-1px) 0px half(1px) half(2px) 
+            colors.get('first');
+        }
+      `,
+      description: "Multiline values with function calls."
     }
   ],
 
