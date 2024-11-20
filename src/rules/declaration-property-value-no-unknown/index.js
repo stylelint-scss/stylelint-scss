@@ -155,7 +155,7 @@ function rule(primary, secondaryOptions) {
     root.walkDecls(decl => {
       let { prop } = decl;
       const { parent } = decl;
-      const value = getDeclarationValue(decl);
+      const value = getDeclarationValue(decl).replace(/\n+\s+/, ""); // Strip multiline values.
 
       // Handle nested properties by reasigning `prop` to the compound property.
       if (parent.selector && isNestedProperty(parent.selector)) {
