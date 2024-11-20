@@ -299,7 +299,7 @@ testRule({
       description: "Multi-line value is a explicit namespace variable."
     },
     {
-    code: `
+      code: `
     $acx-white: "#fff";
     .b {
         background: {
@@ -308,10 +308,10 @@ testRule({
         }
     }
     `,
-    description: "Nested properties in nested declarations."
-  },
-  {
-    code: `
+      description: "Nested properties in nested declarations."
+    },
+    {
+      code: `
     @use "foo";
     @function color(){
       @return 'blue';
@@ -323,8 +323,28 @@ testRule({
         }
     }
     `,
-    description: "Nested properties in nested declarations using functions."
-  }
+      description: "Nested properties in nested declarations using functions."
+    },
+    {
+      code: `
+    div {
+      border: solid #000 {
+        width: 1px 1px 1px 7px;
+      }
+    }
+    `,
+      description: "Nested properties and shorthand values."
+    },
+    {
+      code: `
+      @use "qux";
+      .b {
+        margin: $foo;
+        margin: (-$foo);
+        margin: qux.$f-123;
+      }
+      `
+    }
   ],
 
   reject: [
@@ -559,6 +579,15 @@ testRule({
       column: 25,
       endLine: 1,
       endColumn: 30
+    },
+    {
+      code: `
+      $var1: 1px;
+      a {
+        margin: 10px $ var1;
+      }
+    `,
+      message: messages.rejectedParseError("margin", "10px $ var1")
     }
   ]
 });
