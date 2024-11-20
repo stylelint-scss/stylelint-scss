@@ -95,9 +95,9 @@ testRule({
       code: ".foo { *wdth: 100px; }",
       message: messages.rejected("wdth"),
       line: 1,
-      column: 8,
+      column: 9,
       endLine: 1,
-      endColumn: 12
+      endColumn: 13
     },
     {
       code: ":export { my-property: red; }",
