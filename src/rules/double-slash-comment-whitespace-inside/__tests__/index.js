@@ -75,8 +75,8 @@ testRule({
     `,
       description: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space.",
       message: messages.expected,
-      line: 9,
-      column: 36
+      line: 11,
+      column: 1
     },
     {
       code: `
@@ -89,8 +89,8 @@ testRule({
     `,
       description: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space.",
       message: messages.expected,
-      line: 6,
-      column: 36
+      line: 7,
+      column: 1
     }
   ]
 });
