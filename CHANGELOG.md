@@ -1,3 +1,10 @@
+# 6.10.0
+
+- Added: `declaration-property-value-no-unknown` support nested properties with shorthand values (#1071).
+- Fixed: `declaration-property-value-no-unknown` fix multiline values parsing (#1085).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.9.0...v6.10.0
+
 # 6.9.0
 
 - Added: missing native functions (#1070).
