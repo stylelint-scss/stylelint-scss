@@ -348,7 +348,7 @@ testRule({
     {
       code: `
         .a {
-          box-shadow: half(-1px) 0px half(1px) half(2px) 
+          box-shadow: half(-1px) 0px half(1px) half(2px)
             colors.get('first');
         }
       `,
