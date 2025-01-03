@@ -273,6 +273,16 @@ describe("parseFunctionArguments", () => {
     ]);
   });
 
+  it("parses arbitrary arguments", () => {
+    expect(parseFunctionArguments("func($args...)")).toEqual([
+      {
+        value: "$args...",
+        index: 5,
+        endIndex: 13
+      }
+    ]);
+  });
+
   it("parses 2 key value parameters", () => {
     expect(parseFunctionArguments("func($var: 1, $foo: bar)")).toEqual([
       {
