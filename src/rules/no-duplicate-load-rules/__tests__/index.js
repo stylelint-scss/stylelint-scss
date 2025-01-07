@@ -205,3 +205,39 @@ testRule({
     }
   ]
 });
+
+// @use
+testRule({
+  ruleName,
+  config: [true],
+
+  accept: [
+    {
+      code: '@use "a.css";'
+    }
+  ],
+  reject: [
+    {
+      code: `
+      @use "a.css";
+      @use "a.css";
+      `,
+      message: messages.rejected("a.css"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 19
+    },
+    {
+      code: `
+      @use "sass:math" as abc;
+      @use "sass:math" as xyz;
+      `,
+      message: messages.rejected("sass:math"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 30
+    }
+  ]
+});

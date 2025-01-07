@@ -2,23 +2,22 @@
 
 const { utils } = require("stylelint");
 const valueParser = require("postcss-value-parser");
-const { isBoolean } = require("../../utils/validateTypes");
 const getAtRuleParams = require("../../utils/getAtRuleParams");
-const { isString } = require("../../utils/validateTypes");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
 const ruleName = namespace("no-duplicate-load-rules");
+const loadAtRules = ["import", "use"];
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: atImport => `Unexpected duplicate @import rule ${atImport}`
+  rejected: duplicate => `Unexpected duplicate load rule ${duplicate}`
 });
 
 const meta = {
   url: ruleUrl(ruleName)
 };
 
-function rule(primary, secondaryOptions) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -29,10 +28,23 @@ function rule(primary, secondaryOptions) {
     }
 
     const imports = {};
+    const hasExplicitNamespace = new RegExp(/\s+as\s+[A-Za-z0-9]+/g);
 
-    root.walkAtRules(/^import$/i, atRule => {
+    root.walkAtRules(atRule => {
+      if (!loadAtRules.includes(atRule.name.toLowerCase())) {
+        return;
+      }
+
+      // Ignore explicit namespaces for @use
       const [firstParam, ...restParams] = valueParser(
-        getAtRuleParams(atRule)
+        getAtRuleParams(
+          atRule.name === "use"
+            ? {
+                ...atRule,
+                params: atRule.params.replace(hasExplicitNamespace, "")
+              }
+            : atRule
+        )
       ).nodes;
 
       if (!firstParam) {
