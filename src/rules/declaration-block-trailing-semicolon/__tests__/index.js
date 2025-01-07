@@ -2,6 +2,23 @@
 
 const { ruleName, messages } = require("..");
 
+// testRule({
+//   ruleName,
+//   customSyntax: "postcss-scss",
+//   config: [`always`],
+//   accept: [
+//     {
+//       code:
+//       `div {
+//         border: solid {
+//           width: 1px 1px 1px 7px;
+//         }
+//       }`,
+//       description: `nested property`
+//     },
+//   ]
+// })
+
 testRule({
   ruleName,
   customSyntax: "postcss-scss",
@@ -23,6 +40,23 @@ testRule({
     {
       code: `a { color: red; &:hover { color: pink; }}`,
       description: `nesting with first-level decl`
+    },
+    {
+      code: `div {
+        border: {
+          width: 1px 1px 1px 7px;
+        }
+      }`,
+      description: `nested property`
+    },
+    {
+      code: `div {
+        border: solid #000 {
+          width: 1px 1px 1px 7px;
+        }
+        height: auto;
+      }`,
+      description: `shorthand value and nested property`
     }
   ],
 

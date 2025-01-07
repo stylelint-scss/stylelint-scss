@@ -64,7 +64,10 @@ function rule(primary, secondaryOptions, context) {
       if (!node.parent) {
         throw new Error(`A parent node must be present`);
       }
-
+      const isNestedProperty =
+        node.isNested &&
+        node.type === "decl" &&
+        node.raws.between.includes(":");
       const hasSemicolon = node.parent.raws.semicolon;
       const ignoreSingleDeclaration = optionsMatches(
         secondaryOptions,
@@ -78,7 +81,7 @@ function rule(primary, secondaryOptions, context) {
 
       let message;
 
-      if (primary === `always` && !hasSemicolon) {
+      if (primary === `always` && !hasSemicolon && !isNestedProperty) {
         message = messages.expected;
       } else if (primary === `never` && hasSemicolon) {
         message = messages.rejected;
