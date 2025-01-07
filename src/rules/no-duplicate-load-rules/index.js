@@ -7,8 +7,6 @@ const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
 
 const ruleName = namespace("no-duplicate-load-rules");
-const loadAtRules = ["import", "use"];
-
 const messages = utils.ruleMessages(ruleName, {
   rejected: duplicate => `Unexpected duplicate load rule ${duplicate}`
 });
@@ -28,17 +26,15 @@ function rule(primary) {
     }
 
     const imports = {};
-    const hasExplicitNamespace = new RegExp(/\s+as\s+[A-Za-z0-9]+/g);
+    const hasExplicitNamespace = new RegExp(
+      /\s+(as|with|show|hide)\s+\(?[^;]*\)?/g
+    );
 
-    root.walkAtRules(atRule => {
-      if (!loadAtRules.includes(atRule.name.toLowerCase())) {
-        return;
-      }
-
+    root.walkAtRules(/^(forward|import|use)$/i, atRule => {
       // Ignore explicit namespaces for @use
       const [firstParam, ...restParams] = valueParser(
         getAtRuleParams(
-          atRule.name === "use"
+          atRule.name !== "forward"
             ? {
                 ...atRule,
                 params: atRule.params.replace(hasExplicitNamespace, "")
