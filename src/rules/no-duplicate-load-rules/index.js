@@ -4,6 +4,8 @@ const { utils } = require("stylelint");
 const valueParser = require("postcss-value-parser");
 const getAtRuleParams = require("../../utils/getAtRuleParams");
 const namespace = require("../../utils/namespace");
+const isPlainObject = require("is-plain-object");
+const { isBoolean } = require("../../utils/validateTypes");
 const ruleUrl = require("../../utils/ruleUrl");
 
 const ruleName = namespace("no-duplicate-load-rules");
@@ -17,18 +19,35 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-function rule(primary) {
+function rule(primary, secondaryOptions) {
   return (root, result) => {
-    const validOptions = utils.validateOptions(result, ruleName, {
-      actual: primary
-    });
+    const validOptions = utils.validateOptions(
+      result,
+      ruleName,
+      {
+        actual: primary
+      },
+      {
+        actual: secondaryOptions,
+        possible: {
+          includeForward: isBoolean,
+          includeConfigurations: [isPlainObject.isPlainObject]
+        },
+        optional: true
+      }
+    );
 
     if (!validOptions) {
       return;
     }
 
     const imports = {};
-    const hasExplicitNamespace = new RegExp(/\s+as\s+[A-Za-z0-9]+/g);
+    const hasExplicitNamespace = new RegExp(
+      /\s+(as|with|show|hide)\s+\(?[^;]*\)?/g
+    );
+    if (secondaryOptions?.includeForward) {
+      loadAtRules.push("forward");
+    }
 
     root.walkAtRules(atRule => {
       if (!loadAtRules.includes(atRule.name.toLowerCase())) {
@@ -38,7 +57,7 @@ function rule(primary) {
       // Ignore explicit namespaces for @use
       const [firstParam, ...restParams] = valueParser(
         getAtRuleParams(
-          atRule.name === "use"
+          !secondaryOptions?.includeConfigurations?.[atRule.name]
             ? {
                 ...atRule,
                 params: atRule.params.replace(hasExplicitNamespace, "")

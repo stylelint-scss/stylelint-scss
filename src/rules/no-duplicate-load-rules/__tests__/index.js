@@ -213,7 +213,34 @@ testRule({
 
   accept: [
     {
-      code: '@use "a.css";'
+      code: '@use "a";'
+    },
+    {
+      code: '@use "a";\n@use "b";'
+    },
+    {
+      code: `
+      @use "sass:map" as abc;
+      @use "sass:math" as xyz;
+      `,
+      message: messages.rejected("sass:math"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 30
+    },
+    {
+      code: `
+      @use 'library' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+      @use 'lib' with ($blue: #333);`,
+      message: messages.rejected("library"),
+      line: 6,
+      column: 7,
+      endLine: 6,
+      endColumn: 40
     }
   ],
   reject: [
@@ -230,6 +257,17 @@ testRule({
     },
     {
       code: `
+      @use "a";
+      @use "a";
+      `,
+      message: messages.rejected("a"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 15
+    },
+    {
+      code: `
       @use "sass:math" as abc;
       @use "sass:math" as xyz;
       `,
@@ -238,6 +276,323 @@ testRule({
       column: 7,
       endLine: 3,
       endColumn: 30
+    },
+    {
+      code: `
+      @use 'library' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+      @use 'library' with ($blue: #333);`,
+      message: messages.rejected("library"),
+      line: 6,
+      column: 7,
+      endLine: 6,
+      endColumn: 40
+    }
+  ]
+});
+
+// @forward
+testRule({
+  ruleName,
+  config: [
+    true,
+    {
+      includeForward: true
+    }
+  ],
+
+  accept: [
+    {
+      code: '@forward "src/list";'
+    },
+    {
+      code: '@forward "a";\n@forward "b";'
+    },
+    {
+      code: `
+      @forward "a" as list-*;
+      @forward "b" as list-2;
+      `
+    },
+    {
+      code: `
+      @forward "a" hide list-reset, $horizontal-list-gap;
+      @forward "b" hide $vertical-list-gap;
+      `
+    },
+    {
+      code: `
+      @forward "a" show list-reset, $horizontal-list-gap;
+      @forward "b" show $vertical-list-gap;
+      `
+    },
+    {
+      code: `
+      @forward 'a' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+      @forward 'b' with ($blue: #333);`
+    }
+  ],
+  reject: [
+    {
+      code: '@forward "src/list";\n@forward "src/list";',
+      message: messages.rejected("src/list"),
+      line: 2,
+      column: 1,
+      endLine: 2,
+      endColumn: 20
+    },
+    {
+      code: `
+      @forward "src/list" as list-*;
+      @forward "src/list" as list-2;
+      `,
+      message: messages.rejected("src/list"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 36
+    },
+    {
+      code: `
+      @forward "a" hide list-reset, $horizontal-list-gap;
+      @forward "a" hide $vertical-list-gap;
+      `,
+      message: messages.rejected("a"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 43
+    },
+    {
+      code: `
+      @forward "a" show list-reset, $horizontal-list-gap;
+      @forward "a" show $vertical-list-gap;
+      `,
+      message: messages.rejected("a"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 43
+    },
+    {
+      code: `
+      @forward 'src/list' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+      @forward 'src/list' with ($blue: #333);`,
+      message: messages.rejected("src/list"),
+      line: 6,
+      column: 7,
+      endLine: 6,
+      endColumn: 45
+    }
+  ]
+});
+
+// @use with configurations
+testRule({
+  ruleName,
+  config: [
+    true,
+    {
+      includeConfigurations: {
+        use: true
+      }
+    }
+  ],
+
+  accept: [
+    {
+      code: '@use "a";'
+    },
+    {
+      code: '@use "a";\n@use "b";'
+    },
+    {
+      code: `
+      @use "sass:map" as abc;
+      @use "sass:map" as xyz;
+      `,
+      message: messages.rejected("sass:math"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 30
+    },
+    {
+      code: `
+      @use 'library' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+      @use 'library' with ($blue: #333);`,
+      message: messages.rejected("library"),
+      line: 6,
+      column: 7,
+      endLine: 6,
+      endColumn: 40
+    }
+  ],
+  reject: [
+    {
+      code: `
+      @use "a.css";
+      @use "a.css";
+      `,
+      message: messages.rejected("a.css"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 19
+    },
+    {
+      code: `
+      @use "a";
+      @use "a";
+      `,
+      message: messages.rejected("a"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 15
+    },
+    {
+      code: `
+      @use "sass:math" as abc;
+      @use "sass:math" as abc;
+      `,
+      message: messages.rejected("sass:math"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 30
+    },
+    {
+      code: `
+      @use 'library' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+      @use 'library' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );`,
+      message: messages.rejected("library"),
+      line: 6,
+      column: 7,
+      endLine: 9,
+      endColumn: 8
+    }
+  ]
+});
+
+// @forward with configurations
+testRule({
+  ruleName,
+  config: [
+    true,
+    {
+      includeForward: true,
+      includeConfigurations: {
+        forward: true
+      }
+    }
+  ],
+
+  accept: [
+    {
+      code: '@forward "a";\n@forward "b";'
+    },
+    {
+      code: `
+      @forward "a" as list-*;
+      @forward "a" as list-2;
+      `
+    },
+    {
+      code: `
+      @forward "a" hide list-reset, $horizontal-list-gap;
+      @forward "a" hide $vertical-list-gap;
+      `
+    },
+    {
+      code: `
+      @forward "a" show list-reset, $horizontal-list-gap;
+      @forward "a" show $vertical-list-gap;
+      `
+    },
+    {
+      code: `
+      @forward 'a' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+      @forward 'a' with ($blue: #333);`
+    }
+  ],
+  reject: [
+    {
+      code: '@forward "src/list";\n@forward "src/list";',
+      message: messages.rejected("src/list"),
+      line: 2,
+      column: 1,
+      endLine: 2,
+      endColumn: 20
+    },
+    {
+      code: `
+      @forward "src/list" as list-*;
+      @forward "src/list" as list-*;
+      `,
+      message: messages.rejected("src/list"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 36
+    },
+    {
+      code: `
+      @forward "a" hide list-reset, $horizontal-list-gap;
+      @forward "a" hide list-reset, $horizontal-list-gap;
+      `,
+      message: messages.rejected("a"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 57
+    },
+    {
+      code: `
+      @forward "a" show list-reset, $horizontal-list-gap;
+      @forward "a" show list-reset, $horizontal-list-gap;
+      `,
+      message: messages.rejected("a"),
+      line: 3,
+      column: 7,
+      endLine: 3,
+      endColumn: 57
+    },
+    {
+      code: `
+      @forward 'src/list' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );
+      @forward 'src/list' with (
+        $black: #222,
+        $border-radius: 0.1rem
+      );`,
+      message: messages.rejected("src/list"),
+      line: 6,
+      column: 7,
+      endLine: 9,
+      endColumn: 8
     }
   ]
 });
