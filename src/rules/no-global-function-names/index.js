@@ -37,7 +37,6 @@ const rules = {
   "to-lower-case": "string",
   "unique-id": "string",
   percentage: "math",
-  round: "math",
   ceil: "math",
   floor: "math",
   abs: "math",
