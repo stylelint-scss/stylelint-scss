@@ -387,12 +387,14 @@ Thanks goes to these wonderful people:
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/davidwarrington"><img alt="davidwarrington" src="https://avatars.githubusercontent.com/u/9138568?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/Deimos"><img alt="Deimos" src="https://avatars.githubusercontent.com/u/9033?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/Calme1709"><img alt="Calme1709" src="https://avatars.githubusercontent.com/u/30140939?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/SterlingVix"><img alt="SterlingVix" src="https://avatars.githubusercontent.com/u/7531113?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/davidwarrington">davidwarrington</a></td>
 <td align="center"><a href="https://github.com/Deimos">Deimos</a></td>
 <td align="center"><a href="https://github.com/Calme1709">Calme1709</a></td>
 <td align="center"><a href="https://github.com/SterlingVix">SterlingVix</a></td>
