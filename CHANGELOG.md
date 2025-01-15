@@ -1,3 +1,10 @@
+# 6.10.1
+
+- Fixed: `declaration-property-value-no-unknown` fix trailing whitespace in value parsing (#1089).
+- Fixed: `no-global-function-names` allow CSS round function (#1097).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.10.0...v6.10.1
+
 # 6.10.0
 
 - Added: `declaration-property-value-no-unknown` support nested properties with shorthand values (#1071).
