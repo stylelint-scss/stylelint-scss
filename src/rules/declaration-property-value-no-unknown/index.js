@@ -297,13 +297,14 @@ function containsUnsupportedFunction(cssTreeNode) {
 
 function containsCustomFunction(cssTreeNode) {
   return Boolean(
-    cssTree.find(
-      cssTreeNode,
-      node =>
-        node.type === "Function" &&
-        (unsupportedFunctions.includes(node.name) ||
-          !syntaxes[node.name + "()"])
-    )
+    /[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\(.*\)/g.test(cssTreeNode) ||
+      cssTree.find(
+        cssTreeNode,
+        node =>
+          node.type === "Function" &&
+          (unsupportedFunctions.includes(node.name) ||
+            !syntaxes[node.name + "()"])
+      )
   );
 }
 
