@@ -353,6 +353,20 @@ testRule({
         }
       `,
       description: "Multiline values with function calls."
+    },
+    {
+      code: `
+        @use 'foo/bar';
+        .a {
+          background-image: linear-gradient(
+            to right,
+            bar.get('blue') 27%,
+            bar.get('red') 73%
+          );
+        }
+      `,
+      description:
+        "Multiline values with explicit namespace function calls within a function."
     }
   ],
 
