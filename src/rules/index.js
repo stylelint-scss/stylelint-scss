@@ -62,6 +62,7 @@ const rules = {
   "media-feature-value-dollar-variable": require("./media-feature-value-dollar-variable"),
   "no-dollar-variables": require("./no-dollar-variables"),
   "no-duplicate-dollar-variables": require("./no-duplicate-dollar-variables"),
+  "no-duplicate-load-rules": require("./no-duplicate-load-rules"),
   "no-duplicate-mixins": require("./no-duplicate-mixins"),
   "no-global-function-names": require("./no-global-function-names"),
   "no-unused-private-members": require("./no-unused-private-members"),
