@@ -1,3 +1,10 @@
+# 6.11.0
+
+- Added: `no-duplicate-load-rules` rule (#1103).
+- Fixed: `declaration-property-value-no-unknown` allow functions from explicit namespaces (#1113).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.10.1...v6.11.0
+
 # 6.10.1
 
 - Fixed: `declaration-property-value-no-unknown` fix trailing whitespace in value parsing (#1089).
