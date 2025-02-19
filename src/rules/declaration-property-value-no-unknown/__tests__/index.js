@@ -367,6 +367,14 @@ testRule({
       `,
       description:
         "Multiline values with explicit namespace function calls within a function."
+    },
+    {
+      code: `
+        .a {
+          background-color: rgba(#000, 0.59);
+        }
+      `,
+      description: "Sass rgba() function supporting hex values."
     }
   ],
 
