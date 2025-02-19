@@ -101,7 +101,12 @@ function rule(primary, secondaryOptions) {
         "[ <'view-timeline-name'> [ <'view-timeline-axis'> || <'view-timeline-inset'> ]? ]#",
       ...secondaryOptions?.propertiesSyntax
     };
-    const typesSyntax = { ...secondaryOptions?.typesSyntax };
+    const typesSyntax = {
+      // Sass supports rgba(color, alpha).
+      // https://sass-lang.com/documentation/modules/#rgb
+      "rgba()": "| rgba( <hex-color> , <alpha-value>? )",
+      ...secondaryOptions?.typesSyntax
+    };
 
     /** @type {Map<string, string>} */
     const typedCustomPropertyNames = new Map();
