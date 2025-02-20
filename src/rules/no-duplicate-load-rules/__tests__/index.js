@@ -346,6 +346,17 @@ testRule({
         $border-radius: 0.1rem
       );
       @forward 'src/list' with ($blue: #333);`
+    },
+    {
+      code: `
+      @use 'src/list';
+      @forward 'src/list' with ($blue: #333);`
+    },
+    {
+      code: `
+      @use 'src/list';
+      @forward 'src/list';
+      `
     }
   ],
   reject: [
