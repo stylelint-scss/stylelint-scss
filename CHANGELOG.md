@@ -1,3 +1,10 @@
+# 6.11.1
+
+- Fixed: `no-duplicate-load-rules` fix false positive when using `@use` and `@forward` for the same stylesheet (#1124).
+- Fixed: `declaration-property-value-no-unknown` add support for Sass' `rgba()` function with a hex value (#1123).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.11.0...v6.11.1
+
 # 6.11.0
 
 - Added: `no-duplicate-load-rules` rule (#1103).
