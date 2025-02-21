@@ -56,8 +56,9 @@ function rule(primary) {
           : firstParam.value;
 
       const media = listImportConditions(restParams);
+      const atRuleName = atRule.name.toLowerCase();
 
-      let importedUris = imports[uri];
+      let importedUris = imports[atRuleName]?.[uri];
       const isDuplicate = media.length
         ? media.some(q => importedUris && importedUris.includes(q))
         : importedUris;
@@ -76,7 +77,10 @@ function rule(primary) {
       }
 
       if (!importedUris) {
-        importedUris = imports[uri] = [];
+        if (!imports[atRuleName]) {
+          imports[atRuleName] = {};
+        }
+        importedUris = imports[atRuleName][uri] = [];
       }
 
       importedUris.push(...media);
