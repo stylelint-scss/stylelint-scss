@@ -22,6 +22,12 @@ testRule({
     },
     {
       code: `
+      @use 'foo/bar' as foo;
+    `,
+      description: "Different namespace, single quotes"
+    },
+    {
+      code: `
       @use "sass:math" as *;
     `,
       description: "Without namespace"
@@ -102,6 +108,17 @@ testRule({
       endColumn: 33,
       message: messages.rejected,
       description: "Configured multiline"
+    },
+    {
+      code: `
+      @use 'foo' as foo;
+    `,
+      line: 2,
+      column: 18,
+      endLine: 2,
+      endColumn: 24,
+      message: messages.rejected,
+      description: "Same namespace, single quotes. "
     }
   ]
 });
@@ -131,6 +148,16 @@ testRule({
       endColumn: 18,
       message: messages.rejected,
       description: "Without url"
+    },
+    {
+      code: `@use 'foo' as foo;`,
+      fixed: `@use 'foo';`,
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 18,
+      message: messages.rejected,
+      description: "Without url, single quotes."
     },
     {
       code: `@use "src/corners" as corners;`,
