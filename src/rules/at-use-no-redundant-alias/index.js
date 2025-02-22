@@ -16,11 +16,12 @@ const meta = {
 };
 
 function getDefaultNamespace(module) {
-  return module.match(/([^/:]+)$/)[1].replace(/\.[^.]|["]+$/, "");
+  const namespace = module.match(/([^/:]+)$/)?.[1];
+  return namespace ? namespace.replace(/\.[^.]|["]+$/, "") : "";
 }
 
 function separateEachParams(paramString) {
-  const parts = paramString.replace(/"/g, "").split(/\s+as\s+|\s+with\s+/);
+  const parts = paramString.replace(/"|'/g, "").split(/\s+as\s+|\s+with\s+/);
   if (parts.length < 2) return;
   return parts;
 }
