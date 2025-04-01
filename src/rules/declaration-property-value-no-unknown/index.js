@@ -163,18 +163,25 @@ function rule(primary, secondaryOptions) {
       const value = getDeclarationValue(decl).replace(/\n+\s+/, " "); // Strip multiline values.
 
       // Handle nested properties by reasigning `prop` to the compound property.
-      if (parent.selector && isNestedProperty(parent.selector)) {
+      if (
+        (parent.selector && isNestedProperty(parent.selector)) ||
+        parent.type === "decl"
+      ) {
         let pointer = parent;
         let parentSelector = pointer.selector
-          ?.split(" ")
-          ?.filter(sel => sel[sel.length - 1] === ":")[0];
+          ? pointer.selector
+              .split(" ")
+              ?.filter(sel => sel[sel.length - 1] === ":")[0]
+          : parent.prop;
         prop = String(decl.prop);
         while (parentSelector && parentSelector.substring(0, 2) !== "--") {
           prop = parentSelector.replace(":", "") + "-" + prop;
           pointer = pointer.parent;
-          parentSelector = pointer?.selector
-            ?.split(" ")
-            .filter(sel => sel[sel.length - 1] === ":")[0];
+          parentSelector = pointer.selector
+            ? pointer.selector
+                .split(" ")
+                .filter(sel => sel[sel.length - 1] === ":")[0]
+            : pointer.prop;
         }
       }
 
