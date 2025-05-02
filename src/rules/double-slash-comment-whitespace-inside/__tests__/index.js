@@ -11,6 +11,7 @@ testRule({
   config: ["always"],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
+  fix: true,
 
   accept: [
     {
@@ -49,14 +50,14 @@ testRule({
   reject: [
     {
       code: "//Comment with no whitespace",
-      description: "{always} //Comment with no whitespace",
+      fixed: "// Comment with no whitespace",
       message: messages.expected,
       line: 1,
       column: 3
     },
     {
       code: "///3-slash comment with no whitespace",
-      description: "{always} ///3-slash comment with no whitespace",
+      fixed: "/// 3-slash comment with no whitespace",
       message: messages.expected,
       line: 1,
       column: 4
@@ -73,10 +74,20 @@ testRule({
         box-sizing: content-box; //2
       }
     `,
-      description: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space.",
+      fixed: `
+      //
+      // 1. Address appearance set to searchfield in Safari and Chrome.
+      // 2. Address box-sizing set to border-box in Safari and Chrome.
+      //
+
+      input[type="search"] {
+        -webkit-appearance: textfield; // 1
+        box-sizing: content-box; // 2
+      }
+    `,
       message: messages.expected,
-      line: 11,
-      column: 1
+      line: 9,
+      column: 36
     },
     {
       code: `
@@ -87,10 +98,17 @@ testRule({
         box-sizing: content-box; //2
       }
     `,
-      description: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space.",
+      fixed: `
+
+      input[type="search"] {
+
+        -webkit-appearance: textfield; // 1
+        box-sizing: content-box; // 2
+      }
+    `,
       message: messages.expected,
-      line: 7,
-      column: 1
+      line: 6,
+      column: 36
     }
   ]
 });
@@ -138,6 +156,7 @@ testRule({
   config: ["never"],
   customSyntax: "postcss-scss",
   skipBasicChecks: true,
+  fix: true,
 
   accept: [
     {
@@ -165,28 +184,28 @@ testRule({
   reject: [
     {
       code: "// Comment with one space",
-      description: "{never} // Comment with one space.",
+      fixed: "//Comment with one space",
       message: messages.rejected,
       line: 1,
       column: 3
     },
     {
       code: "//    Comment with multiple spaces",
-      description: "{never} //    Comment with multiple spaces.",
+      fixed: "//Comment with multiple spaces",
       message: messages.rejected,
       line: 1,
       column: 3
     },
     {
       code: "\n\n\n\n  /// 3-slash comment with space",
-      description: "\n\n\n\n  /// 3-slash comment with space.",
+      fixed: "\n\n\n\n  ///3-slash comment with space",
       message: messages.rejected,
       line: 5,
       column: 6
     },
     {
       code: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space",
-      description: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space.",
+      fixed: "\r\n\r\n\r\n\r\n  ///3-slash comment with space",
       message: messages.rejected,
       line: 5,
       column: 6
@@ -198,7 +217,12 @@ testRule({
 
       /// 3-slash comment with space
     `,
-      description: "\r\n\r\n\r\n\r\n  /// 3-slash comment with space.",
+      fixed: `
+
+
+
+      ///3-slash comment with space
+    `,
       message: messages.rejected,
       line: 5,
       column: 10
