@@ -1,3 +1,12 @@
+# 6.12.0
+
+- Added: `double-slash-comment-whitespace-inside` add autofix and fix incorrect error locations (#1146).
+- Added: `declaration-property-value-no-unknown` add support for nested properties with shorthand values (#1142).
+- Fixed: `operator-no-unspaced` don't check Tailwind Directives (#1147).
+- Fixed: `at-use-no-redundant-alias` fix false negative for single quotes (#1130).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.11.1...v6.12.0
+
 # 6.11.1
 
 - Fixed: `no-duplicate-load-rules` fix false positive when using `@use` and `@forward` for the same stylesheet (#1124).
