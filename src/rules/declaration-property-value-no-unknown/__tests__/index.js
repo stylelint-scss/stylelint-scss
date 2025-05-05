@@ -375,6 +375,14 @@ testRule({
         }
       `,
       description: "Sass rgba() function supporting hex values."
+    },
+    {
+      code: `
+        border: solid #000 {
+          width: 1px 1px 1px 7px;
+        }
+      `,
+      description: "Nested properties and shorthand values."
     }
   ],
 
