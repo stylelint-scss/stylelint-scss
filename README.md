@@ -368,26 +368,27 @@ Thanks goes to these wonderful people:
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/CvX"><img alt="CvX" src="https://avatars.githubusercontent.com/u/66961?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/jantimon"><img alt="jantimon" src="https://avatars.githubusercontent.com/u/4113649?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/guoyunhe"><img alt="guoyunhe" src="https://avatars.githubusercontent.com/u/5836790?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/G-Rath"><img alt="G-Rath" src="https://avatars.githubusercontent.com/u/3151613?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/EvanHahn"><img alt="EvanHahn" src="https://avatars.githubusercontent.com/u/777712?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/lithiumlron"><img alt="lithiumlron" src="https://avatars.githubusercontent.com/u/101921280?v=4&s=80" width="80"></a></th>
-<th align="center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars.githubusercontent.com/u/5973294?v=4&s=80" width="80"></a></th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/CvX">CvX</a></td>
 <td align="center"><a href="https://github.com/jantimon">jantimon</a></td>
 <td align="center"><a href="https://github.com/guoyunhe">guoyunhe</a></td>
 <td align="center"><a href="https://github.com/G-Rath">G-Rath</a></td>
 <td align="center"><a href="https://github.com/EvanHahn">EvanHahn</a></td>
 <td align="center"><a href="https://github.com/lithiumlron">lithiumlron</a></td>
-<td align="center"><a href="https://github.com/diego-codes">diego-codes</a></td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
+<th align="center"><a href="https://github.com/diego-codes"><img alt="diego-codes" src="https://avatars.githubusercontent.com/u/5973294?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/davidwarrington"><img alt="davidwarrington" src="https://avatars.githubusercontent.com/u/9138568?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/Deimos"><img alt="Deimos" src="https://avatars.githubusercontent.com/u/9033?v=4&s=80" width="80"></a></th>
 <th align="center"><a href="https://github.com/Calme1709"><img alt="Calme1709" src="https://avatars.githubusercontent.com/u/30140939?v=4&s=80" width="80"></a></th>
@@ -395,6 +396,7 @@ Thanks goes to these wonderful people:
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><a href="https://github.com/diego-codes">diego-codes</a></td>
 <td align="center"><a href="https://github.com/davidwarrington">davidwarrington</a></td>
 <td align="center"><a href="https://github.com/Deimos">Deimos</a></td>
 <td align="center"><a href="https://github.com/Calme1709">Calme1709</a></td>
