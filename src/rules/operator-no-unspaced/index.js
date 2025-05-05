@@ -206,6 +206,20 @@ function calculationOperatorSpaceChecker({ root, result, checker }) {
         return;
       }
 
+      // Tailwind-specific at-rules (Directives)
+      // https://tailwindcss.com/docs/functions-and-directives#directives
+      if (
+        item.name === "apply" ||
+        item.name === "custom-variant" ||
+        item.name === "reference" ||
+        item.name === "source" ||
+        item.name === "theme" ||
+        item.name === "utility" ||
+        item.name === "variant"
+      ) {
+        return;
+      }
+
       // Media queries
       if (item.name === "media" || item.name === "import") {
         mediaQueryParser(item.params).walk(node => {
