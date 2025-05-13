@@ -106,6 +106,7 @@ function variableColonSpaceChecker({
             message: m,
             node: decl,
             index: i,
+            endIndex: i,
             result,
             ruleName: checkedRuleName
           });

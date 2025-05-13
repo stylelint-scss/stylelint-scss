@@ -70,6 +70,7 @@ function rule(expectation, options, context) {
         message,
         node: root,
         index: comment.source.start.offset + 2 + extraSlashes,
+        endIndex: comment.source.start.offset + 2 + extraSlashes,
         result,
         ruleName
       });

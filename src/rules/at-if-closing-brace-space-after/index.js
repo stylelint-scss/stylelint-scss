@@ -71,7 +71,8 @@ function sassConditionalBraceSpaceAfterChecker({
       ruleName,
       node,
       message,
-      index
+      index,
+      endIndex: index
     });
   }
 
