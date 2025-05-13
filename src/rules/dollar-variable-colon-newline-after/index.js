@@ -105,6 +105,7 @@ function rule(expectation, options, context) {
               message: m,
               node: decl,
               index: indexToCheck,
+              endIndex: indexToCheck,
               result,
               ruleName
             });

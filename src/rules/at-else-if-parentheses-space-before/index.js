@@ -57,7 +57,8 @@ function rule(value, _, context) {
             node: atRule,
             result,
             ruleName,
-            index: paramIndex + index
+            index: paramIndex + index,
+            endIndex: paramIndex + index
           })
       });
     });
