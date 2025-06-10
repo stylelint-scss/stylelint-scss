@@ -30,7 +30,7 @@
     "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-preset-stylelint": "^7.3.0",
-    "lint-staged": "^14.0.1",
+    "lint-staged": "^16.1.0",
     "np": "^10.2.0",
     "postcss": "^8.5.3",
     "postcss-less": "^6.0.0",
