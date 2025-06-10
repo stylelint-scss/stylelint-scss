@@ -1,3 +1,9 @@
+# 6.12.1
+
+- Fixed: `stylelint` deprecation warnings by adding `endIndex` to report objects in multiple rules (#1150).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.12.0...v6.12.1
+
 # 6.12.0
 
 - Added: `double-slash-comment-whitespace-inside` add autofix and fix incorrect error locations (#1146).
