@@ -3,7 +3,10 @@
   "description": "A collection of SCSS-specific rules for Stylelint",
   "version": "6.12.0",
   "author": "Krister Kari",
-  "repository": "stylelint-scss/stylelint-scss",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stylelint-scss/stylelint-scss.git"
+  },
   "license": "MIT",
   "main": "src/index.js",
   "engines": {
