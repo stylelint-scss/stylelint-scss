@@ -54,7 +54,8 @@ function rule(value, _, context) {
             node: atRule,
             result,
             ruleName,
-            index: baseIndex + paranIndex
+            index: baseIndex + paranIndex,
+            endIndex: baseIndex + paranIndex
           })
       });
     });
