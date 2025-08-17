@@ -265,9 +265,60 @@ testRule({
       description: "Ignore local variable (not matching the pattern)."
     },
     {
+      code: "a { font-size: myFontSize($oo-bar: 4px); }",
+      description:
+        "Ignore local variable (function call argument, not matching the pattern)."
+    },
+    {
+      code: `a { font-size: myFontSize($oo-bar...); }`,
+      description:
+        "Ignore local variable (function call with arbitrary arguments, not matching the pattern)"
+    },
+    {
+      code: "a { @include myFontSize($oo-bar: 4px); }",
+      description:
+        "Ignore local variable (include call with keyword argument, not matching the pattern)."
+    },
+    {
       code: "$Foo-barBaz: 0;",
       description:
         "Ignore local variable (passing global, matching the pattern)."
+    },
+    {
+      code: `
+      @mixin myFontSize($oo-bar) {
+        font-size: $oo-bar;
+      }
+      `,
+      description:
+        "Ignore local variable (mixin argument, not matching the pattern)"
+    },
+    {
+      code: `
+      @mixin myFontSize($oo-bar...) {
+        font-size: $oo-bar;
+      }
+      `,
+      description:
+        "Ignore local variable (mixin arbitrary arguments, not matching the pattern)"
+    },
+    {
+      code: `
+      @function myFontSize($oo-bar) {
+        font-size: $oo-bar;
+      }
+      `,
+      description:
+        "Ignore local variable (function argument, not matching the pattern)"
+    },
+    {
+      code: `
+      @function myFontSize($oo-bar...) {
+        font-size: $oo-bar;
+      }
+      `,
+      description:
+        "Ignore local variable (function arbitrary arguments, not matching the pattern)"
     }
   ],
 
@@ -275,9 +326,41 @@ testRule({
     {
       code: "$boo-Foo-bar: 0;",
       line: 1,
+      endLine: 1,
+      endColumn: 13,
       message: messages.expected,
       description:
         "Ignore local variable (passing global, not matching the pattern)."
+    },
+    {
+      code: `font-size: myFontSize($oo-bar: 4px);`,
+      description:
+        "Ignore local variable (function call with keyword argument, global, not matching the pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 23,
+      endLine: 1,
+      endColumn: 30
+    },
+    {
+      code: `font-size: myFontSize($oo-bar...);`,
+      description:
+        "Ignore local variable (function call with arbitrary arguments, global, not matching the pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 23,
+      endLine: 1,
+      endColumn: 33
+    },
+    {
+      code: `@include myFontSize($oo-bar: 4px);`,
+      description:
+        "Ignore local variable (include call with keyword argument, global, not matching the pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 21,
+      endLine: 1,
+      endColumn: 28
     }
   ]
 });
@@ -296,6 +379,44 @@ testRule({
       code: "a { $Foo-barBaz: 0; }",
       description:
         "Ignore global variable (passing local, matching the pattern)."
+    },
+    {
+      code: `
+      @mixin myFontSize($Foo-barBaz) {
+        font-size: $Foo-barBaz;
+      }
+      `,
+      description:
+        "Ignore global variable (mixin with argument, local, matching the pattern)"
+    },
+    {
+      code: `
+      @function myFontSize($Foo-barBaz) {
+        font-size: $Foo-barBaz;
+      }
+      `,
+      description:
+        "Ignore global variable (function with argument, local, matching the pattern)"
+    },
+    {
+      code: `@include myFontSize($oo-bar: 4px);`,
+      description:
+        "Ignore global variable (include call with keyword argument, global, not matching the pattern)"
+    },
+    {
+      code: `@include myFontSize($Foo-barBaz: 4px);`,
+      description:
+        "Ignore global variable (include call with keyword argument, global, matching the pattern)"
+    },
+    {
+      code: `font-size: myFontSize($oo-bar: 4px);`,
+      description:
+        "Ignore global variable (function call with keyword argument, global, not matching the pattern)"
+    },
+    {
+      code: `font-size: myFontSize($Foo-barBaz: 4px);`,
+      description:
+        "Ignore global variable (function call with keyword argument, global, matching the pattern)"
     }
   ],
 
@@ -306,6 +427,278 @@ testRule({
       message: messages.expected,
       description:
         "Ignore global variable (passing local, not matching the pattern)."
+    },
+    {
+      code: `
+      @mixin myFontSize($oo-bar) {
+        font-size: $oo-bar;
+      }
+      `,
+      description:
+        "Ignore global variable (mixin with argument, not matching the pattern)",
+      message: messages.expected,
+      line: 2,
+      column: 25,
+      endLine: 2,
+      endColumn: 32
+    },
+    {
+      code: `
+      @function myFontSize($oo-bar) {
+        font-size: $oo-bar;
+      }
+      `,
+      description:
+        "Ignore global variable (function with argument, not matching the pattern)",
+      message: messages.expected,
+      line: 2,
+      column: 28,
+      endLine: 2,
+      endColumn: 35
+    },
+    {
+      code: `div { @include myFontSize($oo-bar: 4px) };`,
+      description:
+        "Ignore global variable (include call with keyword argument, local, not matching the pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 27,
+      endLine: 1,
+      endColumn: 34
+    },
+    {
+      code: `div { font-size: myFontSize($oo-bar: 4px); }`,
+      description:
+        "Ignore global variable (function call with keyword argument, local, not matching the pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 29,
+      endLine: 1,
+      endColumn: 36
+    },
+    {
+      code: `div { font-size: myFontSize($oo-bar...); }`,
+      description:
+        "Ignore global variable (function call with arbitrary arguments, local, not matching the pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 29,
+      endLine: 1,
+      endColumn: 39
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: [/^[a-z]+([A-Z][a-z]+)+$/],
+  customSyntax: "postcss-scss",
+
+  accept: [
+    {
+      code: `$fontSize: 1;`,
+      description: "Sass variable (valid pattern)"
+    },
+    {
+      code: `
+      @mixin myFontSize($fontSize) {
+        font-size: $fontSize;
+      }
+      `,
+      description: "mixin with argument (valid pattern)"
+    },
+    {
+      code: `
+      @mixin myFontSize($fontSize: 1) {
+        font-size: $fontSize;
+      }
+      `,
+      description: "mixin with optional argument (valid pattern)"
+    },
+    {
+      code: `
+      @mixin myFontSize($mySizes...) {}
+      `,
+      description: "mixin with arbitrary arguments (valid pattern)"
+    },
+    {
+      code: `
+      @mixin myFontSize($fontSize, $mySizes...) {}
+      `,
+      description:
+        "mixin with arbitrary arguments as the second argument (valid pattern)"
+    },
+    {
+      code: `
+      @function myFontSize($fontSize) {
+        font-size: $fontSize;
+      }
+      `,
+      description: "function with argument (valid pattern)"
+    },
+    {
+      code: `
+      @function myFontSize($fontSize: 1) {
+        font-size: $fontSize;
+      }
+      `,
+      description: "function with optional argument (valid pattern)"
+    },
+    {
+      code: `
+      @function myFontSize($mySizes...) {}
+      `,
+      description: "function with arbitrary arguments (valid pattern)"
+    },
+    {
+      code: `
+        @include myFontSize($fontSize: 4px);
+      `,
+      description: "include call with keyword argument (valid pattern)"
+    },
+    {
+      code: `div { font-size: myFontSize($fontSize: 4px); }`,
+      description: "function call with keyword argument (valid pattern)"
+    },
+    {
+      code: `div { font-size: myFontSize($mySizes...); }`,
+      description: "function call with arbitrary arguments (valid pattern)"
+    }
+  ],
+
+  reject: [
+    {
+      code: `$font-size: 1;`,
+      description: "Sass variable (invalid pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 1,
+      endLine: 1,
+      endColumn: 11
+    },
+    {
+      code: `
+      @mixin my-font-size($font-size) {
+        font-size: $font-size;
+      }
+      `,
+      description: "mixin with argument (invalid pattern)",
+      message: messages.expected,
+      line: 2,
+      column: 27,
+      endLine: 2,
+      endColumn: 37
+    },
+    {
+      code: `
+      @mixin my-font-size($font-size: 1) {
+        font-size: $font-size;
+      }
+      `,
+      description: "mixin with optional argument (invalid pattern)",
+      message: messages.expected,
+      line: 2,
+      column: 27,
+      endLine: 2,
+      endColumn: 37
+    },
+    {
+      code: `
+      @mixin myFontSize($my-sizes...) {}
+      `,
+      description: "mixin with arbitrary arguments (invalid pattern)",
+      message: messages.expected,
+      line: 2,
+      column: 25,
+      endLine: 2,
+      endColumn: 37
+    },
+    {
+      code: `
+      @mixin myFontSize($font-size, $my-sizes...) {}
+      `,
+      description:
+        "mixin with arbitrary arguments as the second argument (2 warnings, invalid pattern)",
+      warnings: [
+        {
+          message: messages.expected,
+          line: 2,
+          column: 25,
+          endLine: 2,
+          endColumn: 35
+        },
+        {
+          message: messages.expected,
+          line: 2,
+          column: 37,
+          endLine: 2,
+          endColumn: 49
+        }
+      ]
+    },
+    {
+      code: `
+      @function my-font-size($font-size) {
+        font-size: $font-size;
+      }
+      `,
+      description: "function with argument (invalid pattern)",
+      message: messages.expected,
+      line: 2,
+      column: 30,
+      endLine: 2,
+      endColumn: 40
+    },
+    {
+      code: `
+      @function my-font-size($font-size: 1) {
+        font-size: $font-size;
+      }
+      `,
+      description: "function with optional argument (invalid pattern)",
+      message: messages.expected,
+      line: 2,
+      column: 30,
+      endLine: 2,
+      endColumn: 40
+    },
+    {
+      code: `
+      @function myFontSize($my-sizes...) {}
+      `,
+      description: "function with arbitrary arguments (invalid pattern)",
+      message: messages.expected,
+      line: 2,
+      column: 28,
+      endLine: 2,
+      endColumn: 40
+    },
+    {
+      code: `@include myFontSize($font-size: 4px);`,
+      description: "include call with keyword argument (invalid pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 21,
+      endLine: 1,
+      endColumn: 31
+    },
+    {
+      code: `div { font-size: myFontSize($font-size: 4px); }`,
+      description: "function call with keyword argument (invalid pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 29,
+      endLine: 1,
+      endColumn: 39
+    },
+    {
+      code: `div { font-size: myFontSize($my-sizes...); }`,
+      description: "function call with arbitrary arguments (invalid pattern)",
+      message: messages.expected,
+      line: 1,
+      column: 29,
+      endLine: 1,
+      endColumn: 41
     }
   ]
 });
