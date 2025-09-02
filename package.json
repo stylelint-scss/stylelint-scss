@@ -31,7 +31,7 @@
     "eslint": "^8.57.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^9.1.7",
-    "jest": "^30.0.5",
+    "jest": "^30.1.2",
     "jest-preset-stylelint": "^8.0.0",
     "lint-staged": "^16.1.2",
     "np": "^10.2.0",
