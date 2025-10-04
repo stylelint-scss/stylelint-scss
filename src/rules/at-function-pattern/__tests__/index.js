@@ -11,63 +11,63 @@ testRule({
   accept: [
     {
       code: `
-      @function foo () {
-      }
-    `,
+        @function foo () {
+        }
+      `,
       description: "Regexp: sequence part. Example: full match."
     },
     {
       code: `
-      @function foo ($links: 10){
-      }
-    `,
+        @function foo ($links: 10){
+        }
+      `,
       description: "Regexp: sequence part. Example: full match, with params."
     },
     {
       code: `
-      @function _foo ($n) {
-      }
-    `,
+        @function _foo ($n) {
+        }
+      `,
       description: "Regexp: sequence part. Example: matches at the end."
     },
     {
       code: `
-      @function food ($n) {
-      }
-    `,
+        @function food ($n) {
+        }
+      `,
       description: "Regexp: sequence part. Example: matches at the beginning."
     },
     {
       code: `
-      @function  foo ($n) {
-      }
-    `,
+        @function  foo ($n) {
+        }
+      `,
       description: "Regexp: sequence part. Example: space after @function."
     },
     {
       code: `
-      @functio1n fowdo ($n) {
-      }
-    `,
+        @functio1n fowdo ($n) {
+        }
+      `,
       description: "Any pattern. Example: not a SCSS function, skipping."
     },
     {
       code: `
-      @function
-      foo
-      ($n) {
-      }
-    `,
+        @function
+        foo
+        ($n) {
+        }
+      `,
       description:
         "Regexp: sequence part. Example: newlines around a function name."
     },
     {
       code: `
-      @function
-      foo (
-        $n
-      ) {}
-    `,
+        @function
+        foo (
+          $n
+        ) {}
+      `,
       description: "Regexp: sequence part. Example: newline after a brace."
     }
   ],
@@ -75,14 +75,14 @@ testRule({
   reject: [
     {
       code: `
-      @function floo ($n) {
-      }
-    `,
+        @function floo ($n) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 2,
-      endColumn: 21,
-      message: messages.expected,
+      endColumn: 23,
+      message: messages.expected("floo", /foo/),
       description: "Regexp: sequence part. Example: symbol in between."
     }
   ]
@@ -97,23 +97,23 @@ testRule({
   accept: [
     {
       code: `
-      @function foo ($p) {
-      }
-    `,
+        @function foo ($p) {
+        }
+      `,
       description: "String: sequence part. Example: full match."
     },
     {
       code: `
-      @function _foo ($p) {
-      }
-    `,
+        @function _foo ($p) {
+        }
+      `,
       description: "String: sequence part. Example: matches at the end."
     },
     {
       code: `
-      @function food ($p) {
-      }
-    `,
+        @function food ($p) {
+        }
+      `,
       description: "String: sequence part. Example: matches at the beginning."
     }
   ],
@@ -121,26 +121,26 @@ testRule({
   reject: [
     {
       code: `
-      @function floo ($p) {
-      }
-    `,
+        @function floo ($p) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 2,
-      endColumn: 21,
-      message: messages.expected,
+      endColumn: 23,
+      message: messages.expected("floo", "foo"),
       description: "String: sequence part. Example: symbol in between."
     },
     {
       code: `
-      @function fo ($p) {
-      }
-    `,
+        @function fo ($p) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 2,
-      endColumn: 19,
-      message: messages.expected,
+      endColumn: 21,
+      message: messages.expected("fo", "foo"),
       description: "String: sequence part. Example: not a full sequence."
     }
   ]
@@ -155,41 +155,41 @@ testRule({
   accept: [
     {
       code: `
-      @function foo ($options: ()) {}
-    `,
+        @function foo ($options: ()) {}
+      `,
       description:
         "Regexp: strict match. Example: function with params that have parens INSIDE."
     },
     {
       code: `
-      @function foo ($options: (), $lol: ()) {}
-    `,
+        @function foo ($options: (), $lol: ()) {}
+      `,
       description:
         "Regexp: strict match. Example: function with params that have parens INSIDE #2."
     },
     {
       code: `
-      @function foo ($a: (), $b: .1meh, $c: foo(buzzz)) {
-        color: red;
-      }
-    `,
+        @function foo ($a: (), $b: .1meh, $c: foo(buzzz)) {
+          color: red;
+        }
+      `,
       description:
         "Regexp: strict match. Example: function with params that have parens INSIDE #3."
     },
     {
       code: `
-      @function foo ($p) {
-      }
-    `,
+        @function foo ($p) {
+        }
+      `,
       description: "Regexp: strict match. Example: matches."
     },
     {
       code: `
-      @function
-      foo
-      ($p) {
-      }
-    `,
+        @function
+        foo
+        ($p) {
+        }
+      `,
       description:
         "Regexp: strict match. Example: newlines around a function name."
     }
@@ -198,52 +198,52 @@ testRule({
   reject: [
     {
       code: `
-      @function _foo ($p) {
-      }
-    `,
+        @function _foo ($p) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 2,
-      endColumn: 21,
-      message: messages.expected,
+      endColumn: 23,
+      message: messages.expected("_foo", /^foo$/),
       description: "Regexp: strict match. Example: matches at the end."
     },
     {
       code: `
-      @function food ($p) {
-      }
-    `,
+        @function food ($p) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 2,
-      endColumn: 21,
-      message: messages.expected,
+      endColumn: 23,
+      message: messages.expected("food", /^foo$/),
       description: "Regexp: strict match. Example: matches at the beginning."
     },
     {
       code: `
-      @function floo ($p) {
-      }
-    `,
+        @function floo ($p) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 2,
-      endColumn: 21,
-      message: messages.expected,
+      endColumn: 23,
+      message: messages.expected("floo", /^foo$/),
       description: "Regexp: strict match. Example: symbol in between."
     },
     {
       code: `
-      @function 1
-      foo
-      ($p) {
-      }
-    `,
+        @function 1
+        foo
+        ($p) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 3,
-      endColumn: 10,
-      message: messages.expected,
+      endColumn: 12,
+      message: messages.expected("1\n        foo", /^foo$/),
       description:
         "Regexp: strict match. Example: function name divided by newlines."
     }
@@ -259,16 +259,16 @@ testRule({
   accept: [
     {
       code: `
-      @function foo ($p) {
-      }
-    `,
+        @function foo ($p) {
+        }
+      `,
       description: "Regexp: pattern at the beginning. Example: matches."
     },
     {
       code: `
-      @function food ($p) {
-      }
-    `,
+        @function food ($p) {
+        }
+      `,
       description:
         "Regexp: pattern at the beginning. Example: matches at the beginning."
     }
@@ -277,27 +277,27 @@ testRule({
   reject: [
     {
       code: `
-      @function _foo ($p) {
-      }
-    `,
+        @function _foo ($p) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 2,
-      endColumn: 21,
-      message: messages.expected,
+      endColumn: 23,
+      message: messages.expected("_foo", /^foo/),
       description:
         "Regexp: pattern at the beginning. Example: matches at the end."
     },
     {
       code: `
-      @function floo ($p) {
-      }
-    `,
+        @function floo ($p) {
+        }
+      `,
       line: 2,
-      column: 17,
+      column: 19,
       endLine: 2,
-      endColumn: 21,
-      message: messages.expected,
+      endColumn: 23,
+      message: messages.expected("floo", /^foo/),
       description:
         "Regexp: pattern at the beginning. Example: symbol in between."
     }
@@ -328,7 +328,7 @@ testRule({
       column: 11,
       endLine: 1,
       endColumn: 22,
-      message: messages.expected,
+      message: messages.expected("boo-Foo-bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Regexp: SUIT component. Example: starts with lowercase, two elements"
     },
@@ -338,7 +338,7 @@ testRule({
       column: 11,
       endLine: 1,
       endColumn: 18,
-      message: messages.expected,
+      message: messages.expected("foo-bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description: "Regexp: SUIT component. Example: starts with lowercase"
     },
     {
@@ -347,7 +347,7 @@ testRule({
       column: 11,
       endLine: 1,
       endColumn: 18,
-      message: messages.expected,
+      message: messages.expected("Foo-Bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Regexp: SUIT component. Example: element starts with uppercase"
     }
