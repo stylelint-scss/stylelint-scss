@@ -11,26 +11,26 @@ testRule({
   accept: [
     {
       code: `
-      p {
-        $foo: 10px;
-      }
-    `,
+        p {
+          $foo: 10px;
+        }
+      `,
       description: "Regexp: sequence part. Example: full match."
     },
     {
       code: `
-      p {
-        $_foo: 10px;
-      }
-    `,
+        p {
+          $_foo: 10px;
+        }
+      `,
       description: "Regexp: sequence part. Example: matches at the end."
     },
     {
       code: `
-      p {
-        $food: 10px;
-      }
-    `,
+        p {
+          $food: 10px;
+        }
+      `,
       description: "Regexp: sequence part. Example: matches at the beginning."
     }
   ],
@@ -38,15 +38,15 @@ testRule({
   reject: [
     {
       code: `
-      p {
-        $floo: 10px;
-      }
-    `,
+        p {
+          $floo: 10px;
+        }
+      `,
       line: 3,
-      column: 9,
+      column: 11,
       endLine: 3,
-      endColumn: 14,
-      message: messages.expected,
+      endColumn: 16,
+      message: messages.expected("floo", /foo/),
       description: "Regexp: sequence part. Example: symbol in between."
     }
   ]
@@ -61,26 +61,26 @@ testRule({
   accept: [
     {
       code: `
-      p {
-        $foo: 10px;
-      }
-    `,
+        p {
+          $foo: 10px;
+        }
+      `,
       description: "String: sequence part. Example: full match."
     },
     {
       code: `
-      p {
-        $_foo: 10px;
-      }
-    `,
+        p {
+          $_foo: 10px;
+        }
+      `,
       description: "String: sequence part. Example: matches at the end."
     },
     {
       code: `
-      p {
-        $food: 10px;
-      }
-    `,
+        p {
+          $food: 10px;
+        }
+      `,
       description: "String: sequence part. Example: matches at the beginning."
     }
   ],
@@ -88,22 +88,22 @@ testRule({
   reject: [
     {
       code: `
-      p {
-        $floo: 10px;
-      }
-    `,
+        p {
+          $floo: 10px;
+        }
+      `,
       line: 3,
-      message: messages.expected,
+      message: messages.expected("floo", "foo"),
       description: "String: sequence part. Example: symbol in between."
     },
     {
       code: `
-      p {
-        $fo: 10px;
-      }
-    `,
+        p {
+          $fo: 10px;
+        }
+      `,
       line: 3,
-      message: messages.expected,
+      message: messages.expected("fo", "foo"),
       description: "String: sequence part. Example: not a full sequence."
     }
   ]
@@ -118,10 +118,10 @@ testRule({
   accept: [
     {
       code: `
-      p {
-        $foo: 10px;
-      }
-    `,
+        p {
+          $foo: 10px;
+        }
+      `,
       description: "Regexp: strict pattern. Example: matches."
     }
   ],
@@ -129,32 +129,32 @@ testRule({
   reject: [
     {
       code: `
-      p {
-        $_foo: 10px;
-      }
-    `,
+        p {
+          $_foo: 10px;
+        }
+      `,
       line: 3,
-      message: messages.expected,
+      message: messages.expected("_foo", /^foo$/),
       description: "Regexp: strict pattern. Example: matches at the end."
     },
     {
       code: `
-      p {
-        $food: 10px;
-      }
-    `,
+        p {
+          $food: 10px;
+        }
+      `,
       line: 3,
-      message: messages.expected,
+      message: messages.expected("food", /^foo$/),
       description: "Regexp: strict pattern. Example: matches at the beginning."
     },
     {
       code: `
-      p {
-        $floo: 10px;
-      }
-    `,
+        p {
+          $floo: 10px;
+        }
+      `,
       line: 3,
-      message: messages.expected,
+      message: messages.expected("floo", /^foo$/),
       description: "Regexp: strict pattern. Example: symbol in between."
     }
   ]
@@ -169,18 +169,18 @@ testRule({
   accept: [
     {
       code: `
-      p {
-        $foo: 10px;
-      }
-    `,
+        p {
+          $foo: 10px;
+        }
+      `,
       description: "Regexp: pattern at the beginning. Example: matches."
     },
     {
       code: `
-      p {
-        $food: 10px;
-      }
-    `,
+        p {
+          $food: 10px;
+        }
+      `,
       description:
         "Regexp: pattern at the beginning. Example: matches at the beginning."
     }
@@ -189,23 +189,23 @@ testRule({
   reject: [
     {
       code: `
-      p {
-        $_foo: 10px;
-      }
-    `,
+        p {
+          $_foo: 10px;
+        }
+      `,
       line: 3,
-      message: messages.expected,
+      message: messages.expected("_foo", /^foo/),
       description:
         "Regexp: pattern at the beginning. Example: matches at the end."
     },
     {
       code: `
-      p {
-        $floo: 10px;
-      }
-    `,
+        p {
+          $floo: 10px;
+        }
+      `,
       line: 3,
-      message: messages.expected,
+      message: messages.expected("floo", /^foo/),
       description:
         "Regexp: pattern at the beginning. Example: symbol in between."
     }
@@ -233,20 +233,20 @@ testRule({
     {
       code: "a { $boo-Foo-bar: 0; }",
       line: 1,
-      message: messages.expected,
+      message: messages.expected("boo-Foo-bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Regexp: SUIT component. Example: starts with lowercase, two elements"
     },
     {
       code: "a { $foo-bar: 0; }",
       line: 1,
-      message: messages.expected,
+      message: messages.expected("foo-bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description: "Regexp: SUIT component. Example: starts with lowercase"
     },
     {
       code: "a { $Foo-Bar: 0; }",
       line: 1,
-      message: messages.expected,
+      message: messages.expected("Foo-Bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Regexp: SUIT component. Example: element starts with uppercase"
     }
@@ -275,7 +275,7 @@ testRule({
     {
       code: "$boo-Foo-bar: 0;",
       line: 1,
-      message: messages.expected,
+      message: messages.expected("boo-Foo-bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Ignore local variable (passing global, not matching the pattern)."
     }
@@ -303,7 +303,7 @@ testRule({
     {
       code: "a { $boo-Foo-bar: 0; }",
       line: 1,
-      message: messages.expected,
+      message: messages.expected("boo-Foo-bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Ignore global variable (passing local, not matching the pattern)."
     }

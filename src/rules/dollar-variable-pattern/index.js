@@ -9,7 +9,8 @@ const ruleUrl = require("../../utils/ruleUrl");
 const ruleName = namespace("dollar-variable-pattern");
 
 const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected $ variable name to match specified pattern"
+  expected: (variableName, pattern) =>
+    `Expected "${variableName}" to match pattern "${pattern}"`
 });
 
 const meta = {
@@ -56,12 +57,15 @@ function rule(pattern, options) {
         return;
       }
 
-      if (regexpPattern.test(prop.slice(1))) {
+      const variableName = prop.slice(1);
+
+      if (regexpPattern.test(variableName)) {
         return;
       }
 
       utils.report({
         message: messages.expected,
+        messageArgs: [variableName, pattern],
         node: decl,
         result,
         ruleName,
