@@ -43,7 +43,7 @@ testRule({
       column: 1,
       endLine: 1,
       endColumn: 6,
-      message: messages.expected("floo"),
+      message: messages.expected("floo", /foo/),
       description: "Regexp: sequence part. Example: symbol in between."
     }
   ]
@@ -74,13 +74,13 @@ testRule({
     {
       code: "%floo { top: 1em; }",
       line: 1,
-      message: messages.expected("floo"),
+      message: messages.expected("floo", "foo"),
       description: "String: sequence part. Example: symbol in between."
     },
     {
       code: "%fo { top: 1em; }",
       line: 1,
-      message: messages.expected("fo"),
+      message: messages.expected("fo", "foo"),
       description: "String: sequence part. Example: not a full sequence."
     }
   ]
@@ -99,9 +99,9 @@ testRule({
     },
     {
       code: `%foo
-    {
-      top: 1em;
-    }`,
+      {
+        top: 1em;
+      }`,
       description: "Regexp: strict match. Example: newline after a selector."
     }
   ],
@@ -110,7 +110,7 @@ testRule({
     {
       code: "%_foo { top: 1em; }",
       line: 1,
-      message: messages.expected("_foo"),
+      message: messages.expected("_foo", /^foo$/),
       description: "Regexp: strict match. Example: matches at the end."
     },
     {
@@ -119,20 +119,20 @@ testRule({
       column: 1,
       endLine: 1,
       endColumn: 2,
-      message: messages.expected(""),
+      message: messages.expected("", /^foo$/),
       description:
         "Regexp: strict match. Example: matches, but has a space after '%'."
     },
     {
       code: "%food { top: 1em; }",
       line: 1,
-      message: messages.expected("food"),
+      message: messages.expected("food", /^foo$/),
       description: "Regexp: strict match. Example: matches at the beginning."
     },
     {
       code: "%floo { top: 1em; }",
       line: 1,
-      message: messages.expected("floo"),
+      message: messages.expected("floo", /^foo$/),
       description: "Regexp: strict match. Example: symbol in between."
     }
   ]
@@ -160,14 +160,14 @@ testRule({
     {
       code: "%_foo { top: 1em; }",
       line: 1,
-      message: messages.expected("_foo"),
+      message: messages.expected("_foo", /^foo/),
       description:
         "Regexp: pattern at the beginning. Example: matches at the end."
     },
     {
       code: "%floo { top: 1em; }",
       line: 1,
-      message: messages.expected("floo"),
+      message: messages.expected("floo", /^foo/),
       description:
         "Regexp: pattern at the beginning. Example: symbol in between."
     }
@@ -191,8 +191,8 @@ testRule({
     },
     {
       code: `%Foo-bar {
-      &barBaz {}
-    }`,
+        &barBaz {}
+      }`,
       description:
         "Regexp: SUIT component. Example: comply, nesting, both levels comply."
     },
@@ -207,47 +207,47 @@ testRule({
     {
       code: "%boo-Foo-bar {}",
       line: 1,
-      message: messages.expected("boo-Foo-bar"),
+      message: messages.expected("boo-Foo-bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Regexp: SUIT component. Example: starts with lowercase, two elements."
     },
     {
       code: "%foo-bar {}",
       line: 1,
-      message: messages.expected("foo-bar"),
+      message: messages.expected("foo-bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description: "Regexp: SUIT component. Example: starts with lowercase."
     },
     {
       code: "%Foo-Bar {}",
       line: 1,
-      message: messages.expected("Foo-Bar"),
+      message: messages.expected("Foo-Bar", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Regexp: SUIT component. Example: element starts with uppercase."
     },
     {
       code: `%Foo-bar {
-      a,
-      &1oo {}
-    }`,
+        a,
+        &1oo {}
+      }`,
       line: 2,
-      column: 7,
+      column: 9,
       endLine: 3,
-      endColumn: 14,
-      message: messages.expected("Foo-bar1oo"),
+      endColumn: 16,
+      message: messages.expected("Foo-bar1oo", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Regexp: SUIT component. Example: nesting, only lv1 part comply."
     },
     {
       code: `%Fo {
-      &o-bar {
-        color: red;
-      }
-    }`,
+        &o-bar {
+          color: red;
+        }
+      }`,
       line: 1,
       column: 1,
       endLine: 1,
       endColumn: 4,
-      message: messages.expected("Fo"),
+      message: messages.expected("Fo", /^[A-Z][a-z]+-[a-z][a-zA-Z]+$/),
       description:
         "Regexp: pattern at the beginning. Example: nesting, with nesting selector; first lv doesn't comply."
     }

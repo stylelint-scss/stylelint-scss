@@ -13,8 +13,8 @@ const ruleUrl = require("../../utils/ruleUrl");
 const ruleName = namespace("percent-placeholder-pattern");
 
 const messages = utils.ruleMessages(ruleName, {
-  expected: placeholder =>
-    `Expected %-placeholder "%${placeholder}" to match specified pattern`
+  expected: (placeholderName, pattern) =>
+    `Expected "${placeholderName}" to match pattern "${pattern}"`
 });
 
 const meta = {
@@ -32,9 +32,7 @@ function rule(pattern) {
       return;
     }
 
-    const placeholderPattern = isString(pattern)
-      ? new RegExp(pattern)
-      : pattern;
+    const regexpPattern = isString(pattern) ? new RegExp(pattern) : pattern;
 
     // Checking placeholder definitions (looking among regular rules)
     root.walkRules(rule => {
@@ -76,16 +74,17 @@ function rule(pattern) {
           return;
         }
 
-        const placeholder = value.slice(1);
+        const placeholderName = value.slice(1);
 
-        if (placeholderPattern.test(placeholder)) {
+        if (regexpPattern.test(placeholderName)) {
           return;
         }
 
         utils.report({
           result,
           ruleName,
-          message: messages.expected(placeholder),
+          message: messages.expected,
+          messageArgs: [placeholderName, pattern],
           node: rule,
           word: value
         });
