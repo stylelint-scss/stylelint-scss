@@ -22,6 +22,7 @@ const rules = {
   "at-import-partial-extension-whitelist": require("./at-import-partial-extension-whitelist"),
   "at-import-partial-extension": require("./at-import-partial-extension"),
   "at-mixin-argumentless-call-parentheses": require("./at-mixin-argumentless-call-parentheses"),
+  "at-mixin-call-parentheses-space-before": require("./at-mixin-call-parentheses-space-before"),
   "at-mixin-named-arguments": require("./at-mixin-named-arguments"),
   "at-mixin-parentheses-space-before": require("./at-mixin-parentheses-space-before"),
   "at-mixin-pattern": require("./at-mixin-pattern"),
