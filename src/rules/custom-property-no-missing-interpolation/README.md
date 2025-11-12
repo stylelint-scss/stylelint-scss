@@ -4,9 +4,9 @@ Require interpolation for SCSS variables used in CSS custom property values.
 
 <!-- prettier-ignore -->
 ```scss
-:root {
-  --size: $base-margin;
-/**        ↑
+a {
+  --foo: $bar;
+/**       ↑
  * This SCSS variable requires interpolation */
 }
 ```
@@ -23,22 +23,22 @@ The following patterns are considered warnings:
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  --size: $base-margin;
+a {
+  --foo: $bar;
 }
 ```
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  --size: calc(100% - $base-margin);
+a {
+  --foo: calc(100% - $bar);
 }
 ```
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  --size: calc($var1 + $var2);
+a {
+  --foo: calc($bar + $baz);
 }
 ```
 
@@ -46,43 +46,43 @@ The following patterns are _not_ considered warnings:
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  --size: #{$base-margin};
+a {
+  --foo: #{$bar};
 }
 ```
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  --size: calc(100% - #{$base-margin});
+a {
+  --foo: calc(100% - #{$bar});
 }
 ```
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  --size: calc(#{$var1} + #{$var2});
+a {
+  --foo: calc(#{$bar} + #{$baz});
 }
 ```
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  --size: var(--base-margin);
+a {
+  --foo: var(--bar);
 }
 ```
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  margin: $base-margin; // Not a custom property
+a {
+  color: $bar; // Not a custom property
 }
 ```
 
 <!-- prettier-ignore -->
 ```scss
-.foo {
-  --size: #{calculate-scale($index)}; // Variable already inside interpolation
+a {
+  --foo: #{calculate-scale($i)}; // Variable already inside interpolation
 }
 ```
 
