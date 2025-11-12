@@ -1,10 +1,20 @@
-import stylelint from "stylelint";
+"use strict";
 
-const ruleName = "custom/scss-custom-property-interpolation";
-const messages = stylelint.utils.ruleMessages(ruleName, {
+const { utils } = require("stylelint");
+const namespace = require("../../utils/namespace");
+const ruleUrl = require("../../utils/ruleUrl");
+
+const ruleName = namespace("custom-property-no-missing-interpolation");
+
+const messages = utils.ruleMessages(ruleName, {
   expected: variable =>
     `SCSS variables in custom properties require interpolation: use #{${variable}} instead of ${variable}`
 });
+
+const meta = {
+  url: ruleUrl(ruleName),
+  fixable: true
+};
 
 const SCSS_VARIABLE_PATTERN = /\$[a-zA-Z0-9_-]+/g;
 
@@ -51,19 +61,23 @@ function fixValue(value) {
   return fixed;
 }
 
-const ruleFunction = primary => {
+function rule(primary, secondaryOptions, context) {
   return (root, result) => {
-    const validOptions = stylelint.utils.validateOptions(result, ruleName, {
+    const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary,
       possible: [true]
     });
 
     // istanbul ignore if
-    if (!validOptions) return;
+    if (!validOptions) {
+      return;
+    }
 
     root.walkDecls(decl => {
       // Only check custom properties (CSS variables starting with --)
-      if (!decl.prop.startsWith("--")) return;
+      if (!decl.prop.startsWith("--")) {
+        return;
+      }
 
       const matches = [...decl.value.matchAll(SCSS_VARIABLE_PATTERN)];
 
@@ -71,28 +85,30 @@ const ruleFunction = primary => {
         const variable = match[0];
         const varIndex = match.index;
 
-        if (isInsideInterpolationBlock(decl.value, varIndex)) continue;
+        if (isInsideInterpolationBlock(decl.value, varIndex)) {
+          continue;
+        }
 
-        stylelint.utils.report({
+        utils.report({
           message: messages.expected(variable),
           node: decl,
           result,
           ruleName,
           word: variable,
-          fix() {
-            decl.value = fixValue(decl.value);
-          }
+          fix:
+            context.fix || context.newline
+              ? () => {
+                  decl.value = fixValue(decl.value);
+                }
+              : null
         });
       }
     });
   };
-};
+}
 
-ruleFunction.ruleName = ruleName;
-ruleFunction.messages = messages;
-ruleFunction.meta = {
-  url: "https://sass-lang.com/documentation/style-rules/declarations/#custom-properties",
-  fixable: true
-};
+rule.ruleName = ruleName;
+rule.messages = messages;
+rule.meta = meta;
 
-export default stylelint.createPlugin(ruleName, ruleFunction);
+module.exports = rule;
