@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "common-tags": "^1.8.2",
-    "cross-env": "^10.0.0",
+    "cross-env": "^10.1.0",
     "eslint": "^8.57.0",
     "github-contributors-list": "^1.2.5",
     "husky": "^9.1.7",
