@@ -72,6 +72,8 @@ function variableColonSpaceChecker({
         return;
       }
 
+      if (!decl.raws.between) return;
+
       if (position === "before") {
         const replacement = expectation === "never" ? ":" : " :";
 
