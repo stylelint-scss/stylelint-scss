@@ -7,15 +7,13 @@ This rule flags four situations in which Sass variables require interpolation:
 3. Variables in `@supports` conditions, and
 4. Variables in CSS custom properties.
 
-The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule. This rule can only check for variables that are defined inside the same file where they are used.
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule. 
 
-**Note:** For scenarios 1 and 3 below (string-valued variables), this rule can only check variables that are defined in the same file where they are used, since it needs to determine if the variable's value is a string. Scenarios 2 and 4 check all variables regardless of where they are defined.
+**Note:** For scenarios 1 and 3 regarding string-valued variables, this rule can only check variables that are defined in the same file where they are used, since it needs to determine if the variable's value is a string. Scenarios 2 and 4 check all variables regardless of where they are defined.
 
 ## 1. String-valued variables with custom identifier properties
 
 Sass variables that contain a custom identifier as a **string** require interpolation when used with properties that accept custom identifiers (such as [`animation-name`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name), [`counter-reset`](https://developer.mozilla.org/en-US/docs/Web/CSS/counter-reset), [`counter-increment`](https://developer.mozilla.org/en-US/docs/Web/CSS/counter-increment), [`list-style-type`](https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type), and [`will-change`](https://developer.mozilla.org/en-US/docs/Web/CSS/will-change)).
-
-**Key point:** This check only applies when the variable's value is a string (wrapped in quotes). Non-string variables do not require interpolation for these properties.
 
 For example, if you store a custom identifier as a string:
 
