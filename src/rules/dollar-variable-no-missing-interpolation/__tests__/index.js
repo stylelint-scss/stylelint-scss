@@ -174,6 +174,27 @@ testRule({
       @keyframes #{$var_with_underscore} {}
     `,
       description: "when variable with underscore is properly interpolated"
+    },
+    {
+      code: `
+      $color: "red";
+
+      .class {
+        --custom-color: #{$color};
+      }
+    `,
+      description: "when variable is interpolated in CSS custom property"
+    },
+    {
+      code: `
+      $size: 10px;
+
+      .class {
+        --custom-size: #{$size};
+      }
+    `,
+      description:
+        "when non-string variable is interpolated in CSS custom property"
     }
   ],
 
@@ -328,6 +349,32 @@ testRule({
       message: messages.rejected("@keyframes", "$var"),
       description:
         "when variable is a string and it is not interpolated in @keyframes inside a mixin"
+    },
+    {
+      code: `
+      $color: "red";
+
+      .class {
+        --custom-color: $color;
+      }
+    `,
+      line: 5,
+      message: messages.rejected("--custom-color", "$color"),
+      description:
+        "when variable is used in CSS custom property without interpolation"
+    },
+    {
+      code: `
+      $size: 10px;
+
+      .class {
+        --custom-size: $size;
+      }
+    `,
+      line: 5,
+      message: messages.rejected("--custom-size", "$size"),
+      description:
+        "when non-string variable is used in CSS custom property without interpolation"
     }
   ]
 });
@@ -590,6 +637,79 @@ testRule({
     `,
       message: messages.rejected("@keyframes", "$var_with_underscore"),
       description: "should fix variable with underscore in @keyframes"
+    },
+    {
+      code: `
+      $color: "red";
+
+      .class {
+        --custom-color: $color;
+      }
+    `,
+      fixed: `
+      $color: "red";
+
+      .class {
+        --custom-color: #{$color};
+      }
+    `,
+      message: messages.rejected("--custom-color", "$color"),
+      description: "should fix string variable in CSS custom property"
+    },
+    {
+      code: `
+      $size: 10px;
+
+      .class {
+        --custom-size: $size;
+      }
+    `,
+      fixed: `
+      $size: 10px;
+
+      .class {
+        --custom-size: #{$size};
+      }
+    `,
+      message: messages.rejected("--custom-size", "$size"),
+      description: "should fix non-string variable in CSS custom property"
+    },
+    {
+      code: `
+      $primary: "blue";
+      $secondary: "green";
+
+      .class {
+        --color-primary: $primary;
+        --color-secondary: $secondary;
+      }
+    `,
+      fixed: `
+      $primary: "blue";
+      $secondary: "green";
+
+      .class {
+        --color-primary: #{$primary};
+        --color-secondary: #{$secondary};
+      }
+    `,
+      warnings: [
+        {
+          message: messages.rejected("--color-primary", "$primary"),
+          line: 6,
+          column: 26,
+          endLine: 6,
+          endColumn: 34
+        },
+        {
+          message: messages.rejected("--color-secondary", "$secondary"),
+          line: 7,
+          column: 28,
+          endLine: 7,
+          endColumn: 38
+        }
+      ],
+      description: "should fix multiple variables in CSS custom properties"
     }
   ]
 });
