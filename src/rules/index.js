@@ -34,7 +34,6 @@ const rules = {
   "block-no-redundant-nesting": require("./block-no-redundant-nesting"),
   "comment-no-empty": require("./comment-no-empty"),
   "comment-no-loud": require("./comment-no-loud"),
-  "custom-property-no-missing-interpolation": require("./custom-property-no-missing-interpolation"),
   "declaration-nested-properties-no-divided-groups": require("./declaration-nested-properties-no-divided-groups"),
   "declaration-nested-properties": require("./declaration-nested-properties"),
   "declaration-property-value-no-unknown": require("./declaration-property-value-no-unknown"),
