@@ -7,33 +7,28 @@ This rule flags four situations in which Sass variables require interpolation:
 3. Variables in `@supports` conditions, and
 4. Variables in CSS custom properties.
 
-The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule. This rule can only check for variables that are defined inside the same file where they are used.
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule. 
 
-**Note:** For scenarios 1 and 3 below (string-valued variables), this rule can only check variables that are defined in the same file where they are used, since it needs to determine if the variable's value is a string. Scenarios 2 and 4 check all variables regardless of where they are defined.
+**Note:** For scenarios 1 and 3 regarding string-valued variables, this rule can only check variables that are defined in the same file where they are used, since it needs to determine if the variable's value is a string. Scenarios 2 and 4 check all variables regardless of where they are defined.
 
 ## 1. String-valued variables with custom identifier properties
 
 Sass variables that contain a custom identifier as a **string** require interpolation when used with properties that accept custom identifiers (such as [`animation-name`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name), [`counter-reset`](https://developer.mozilla.org/en-US/docs/Web/CSS/counter-reset), [`counter-increment`](https://developer.mozilla.org/en-US/docs/Web/CSS/counter-increment), [`list-style-type`](https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type), and [`will-change`](https://developer.mozilla.org/en-US/docs/Web/CSS/will-change)).
 
-**Key point:** This check only applies when the variable's value is a string (wrapped in quotes). Non-string variables do not require interpolation for these properties.
-
 For example, if you store a custom identifier as a string:
 
-<!-- prettier-ignore -->
 ```scss
 $myVar: "myAnim";
 ```
 
 Then you must interpolate it when using it with custom identifier properties:
 
-<!-- prettier-ignore -->
 ```scss
 animation: #{$myVar} 5s;
 ```
 
 Without interpolation, Sass will compile the variable to a quoted string, producing invalid CSS:
 
-<!-- prettier-ignore -->
 ```scss
 animation: "myAnim" 5s; // Invalid!
 ```
@@ -42,7 +37,6 @@ animation: "myAnim" 5s; // Invalid!
 
 The following patterns are considered warnings:
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-anim"; // String value
 
@@ -51,7 +45,6 @@ $var: "my-anim"; // String value
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-counter"; // String value
 
@@ -60,7 +53,6 @@ body {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-anim"; // String value
 
@@ -71,7 +63,6 @@ $var: "my-anim"; // String value
 
 The following patterns are _not_ considered warnings:
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-anim"; // String value
 
@@ -80,7 +71,6 @@ $var: "my-anim"; // String value
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-anim"; // String value
 
@@ -89,7 +79,6 @@ $var: "my-anim"; // String value
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: my-counter; // Non-string value
 
@@ -98,7 +87,6 @@ body {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: my-anim; // Non-string value
 
@@ -113,21 +101,18 @@ Certain CSS [at-rules](https://css-tricks.com/the-at-rules-of-css/) that accept 
 
 The following patterns are considered warnings:
 
-<!-- prettier-ignore -->
 ```scss
 $var: my-anim; // Non-string value
 
 @keyframes $var {} // ✗ Requires interpolation (even for non-string)
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-anim"; // String value
 
 @keyframes $var {} // ✗ Requires interpolation
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "circled-digits"; // String value
 
@@ -139,7 +124,6 @@ $var: "circled-digits"; // String value
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: circled-digits; // Non-string value
 
@@ -151,21 +135,18 @@ $var: circled-digits; // Non-string value
 
 The following patterns are _not_ considered warnings:
 
-<!-- prettier-ignore -->
 ```scss
 $var: my-anim; // Non-string value
 
 @keyframes #{$var} {} // ✓ Properly interpolated
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-anim"; // String value
 
 @keyframes #{$var} {} // ✓ Properly interpolated
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: circled-digits; // Non-string value
 
@@ -177,7 +158,6 @@ $var: circled-digits; // Non-string value
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "circled-digits"; // String value
 
@@ -193,7 +173,6 @@ Variables used in [`@supports`](https://developer.mozilla.org/en-US/docs/Web/CSS
 
 The following patterns are considered warnings:
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-anim"; // String value
 
@@ -202,7 +181,6 @@ $var: "my-anim"; // String value
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-counter"; // String value
 
@@ -213,7 +191,6 @@ $var: "my-counter"; // String value
 
 The following patterns are _not_ considered warnings:
 
-<!-- prettier-ignore -->
 ```scss
 $var: "my-anim"; // String value
 
@@ -222,7 +199,6 @@ $var: "my-anim"; // String value
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: my-anim; // Non-string value
 
@@ -231,7 +207,6 @@ $var: my-anim; // Non-string value
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: my-counter; // Non-string value
 
@@ -246,7 +221,6 @@ SCSS variables used in [CSS custom properties](https://developer.mozilla.org/en-
 
 The following patterns are considered warnings:
 
-<!-- prettier-ignore -->
 ```scss
 $var: 2rem; // Non-string value
 
@@ -255,7 +229,6 @@ a {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "2rem"; // String value
 
@@ -264,7 +237,6 @@ a {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $primary: #007bff; // Non-string value
 $secondary: #6c757d; // Non-string value
@@ -275,7 +247,6 @@ a {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $bar: 10px; // Non-string value
 $baz: 20px; // Non-string value
@@ -287,7 +258,6 @@ a {
 
 The following patterns are _not_ considered warnings:
 
-<!-- prettier-ignore -->
 ```scss
 $var: 2rem; // Non-string value
 
@@ -296,7 +266,6 @@ a {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: "2rem"; // String value
 
@@ -305,7 +274,6 @@ a {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $primary: #007bff; // Non-string value
 $secondary: #6c757d; // Non-string value
@@ -316,7 +284,6 @@ a {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $bar: 10px; // Non-string value
 $baz: 20px; // Non-string value
@@ -326,14 +293,12 @@ a {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 a {
   --foo: var(--bar); // ✓ CSS variable reference, not an SCSS variable
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $var: 2rem; // Non-string value
 
@@ -342,7 +307,6 @@ a {
 }
 ```
 
-<!-- prettier-ignore -->
 ```scss
 $i: 5;
 
