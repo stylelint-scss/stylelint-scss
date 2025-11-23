@@ -8,8 +8,8 @@ const ruleUrl = require("../../utils/ruleUrl");
 const ruleName = namespace("dollar-variable-no-missing-interpolation");
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: (n, v) =>
-    `Expected variable ${v} to be interpolated when using it with ${n}`
+  rejected: (nodeName, variableName) =>
+    `Expected variable ${variableName} to be interpolated when using it with ${nodeName}`
 });
 
 const meta = {
@@ -19,8 +19,7 @@ const meta = {
 
 const SCSS_VARIABLE_PATTERN = /\$[a-zA-Z0-9_-]+/g;
 
-// https://developer.mozilla.org/en/docs/Web/CSS/custom-ident#Lists_of_excluded_values
-const customIdentProps = [
+const CUSTOM_IDENT_PROPERTIES = [
   "animation",
   "animation-name",
   "counter-reset",
@@ -29,19 +28,18 @@ const customIdentProps = [
   "will-change"
 ];
 
-// https://developer.mozilla.org/en/docs/Web/CSS/At-rule
-const customIdentAtRules = ["counter-style", "keyframes", "supports"];
+const CUSTOM_IDENT_AT_RULES = ["counter-style", "keyframes", "supports"];
 
 function isAtRule(type) {
   return type === "atrule";
 }
 
 function isCustomIdentAtRule(node) {
-  return isAtRule(node.type) && customIdentAtRules.includes(node.name);
+  return isAtRule(node.type) && CUSTOM_IDENT_AT_RULES.includes(node.name);
 }
 
 function isCustomIdentProp(node) {
-  return customIdentProps.includes(node.prop);
+  return CUSTOM_IDENT_PROPERTIES.includes(node.prop);
 }
 
 function isAtSupports(node) {
@@ -53,17 +51,9 @@ function isCustomProperty(node) {
 }
 
 /**
- * Check if a variable at the given index is inside an interpolation block.
- *
  * Variables inside #{...} blocks are already interpolated and should not be flagged.
- * For example, in "animation-name: #{$bar} $baz", $bar should not be flagged but $baz should.
- *
- * This function handles nested interpolation blocks by tracking depth.
- * For example: #{outer(#{inner($var)})} - $var is correctly detected as interpolated.
- *
- * @param {string} value - The full property value string
- * @param {number} variableIndex - The index where the variable starts
- * @returns {boolean} True if the variable is inside a #{...} block
+ * Example: "animation-name: #{$bar} $baz" - $bar is interpolated, $baz is not.
+ * Handles nested blocks: #{outer(#{inner($var)})}
  */
 function isInsideInterpolationBlock(value, variableIndex) {
   let depth = 0;
@@ -77,7 +67,6 @@ function isInsideInterpolationBlock(value, variableIndex) {
       i++; // Skip the '{' to avoid double-counting
     } else if (value[i] === "}") {
       depth--;
-      // istanbul ignore else
       if (depth === 0) {
         insideBlock = false;
       }
@@ -87,17 +76,21 @@ function isInsideInterpolationBlock(value, variableIndex) {
   return insideBlock && depth > 0;
 }
 
+function isSassVariable(value) {
+  return value && value[0] === "$";
+}
+
+function isStringValue(value) {
+  return /^(["']).*(["'])$/.test(value);
+}
+
 /**
- * Wrap all uninterpolated SCSS variables in the value with interpolation syntax.
- *
- * Transforms: "animation-name: $bar" → "animation-name: #{$bar}"
- * Transforms: "animation: $a 5s, $b 3s" → "animation: #{$a} 5s, #{$b} 3s"
- * Preserves: "animation-name: #{$bar}" → "animation-name: #{$bar}" (already interpolated)
- *
- * @param {string} value - The property value to fix
- * @returns {string} The fixed value with all variables interpolated
+ * Wrap uninterpolated SCSS variables with interpolation syntax.
+ * Examples:
+ *   "animation-name: $bar" → "animation-name: #{$bar}"
+ *   "animation: $a 5s, $b 3s" → "animation: #{$a} 5s, #{$b} 3s"
  */
-function fixValue(value) {
+function wrapVariablesWithInterpolation(value) {
   let fixed = value;
   const matches = [...value.matchAll(SCSS_VARIABLE_PATTERN)];
 
@@ -109,7 +102,10 @@ function fixValue(value) {
     const variable = match[0];
     const varIndex = match.index;
 
-    if (isInsideInterpolationBlock(value, varIndex)) continue;
+    // Skip variables that are already interpolated
+    if (isInsideInterpolationBlock(value, varIndex)) {
+      continue;
+    }
 
     // Wrap the variable with interpolation syntax: $var → #{$var}
     fixed =
@@ -121,30 +117,145 @@ function fixValue(value) {
   return fixed;
 }
 
-function isSassVar(value) {
-  return value[0] === "$";
-}
-
-function isStringVal(value) {
-  return /^(["']).*(["'])$/.test(value);
-}
-
-function toRegex(arr) {
+function createMatchingRegex(arr) {
   return new RegExp(`(${arr.join("|")})`);
 }
 
 /**
- * Rule implementation: Check for SCSS variables that need interpolation in four scenarios:
- *
+ * Collect all SCSS variables, separating string-valued ones for different reporting rules.
+ */
+function collectVariables(root) {
+  const stringValuedVars = [];
+  const allVars = [];
+
+  function findVariablesInNode(node) {
+    node.walkDecls(decl => {
+      const { prop, value } = decl;
+
+      // Skip if not a SCSS variable or already collected
+      if (!isSassVariable(prop) || allVars.includes(prop)) {
+        return;
+      }
+
+      // Track string-valued variables separately
+      if (isStringValue(value)) {
+        stringValuedVars.push(prop);
+      }
+
+      allVars.push(prop);
+    });
+  }
+
+  // Collect variables from root and all rules
+  findVariablesInNode(root);
+  root.walkRules(findVariablesInNode);
+
+  return {
+    stringValuedVars,
+    allVars
+  };
+}
+
+/**
+ * Reporting rules:
+ * 1. String-valued variables in custom identifier properties → report
+ * 2. String-valued variables in @supports → report
+ * 3. All variables in custom identifier at-rules → report
+ * 4. All variables in CSS custom properties → report
+ */
+function shouldReportVariable(node, variableName, stringValuedVars, allVars) {
+  // Custom identifier properties and @supports require string-valued variables
+  if (isAtSupports(node) || isCustomIdentProp(node)) {
+    return stringValuedVars.includes(variableName);
+  }
+
+  // Custom identifier at-rules require all variables to be interpolated
+  if (isCustomIdentAtRule(node)) {
+    return allVars.includes(variableName);
+  }
+
+  // CSS custom properties always require interpolation for all variables
+  if (isCustomProperty(node)) {
+    return allVars.includes(variableName);
+  }
+
+  return false;
+}
+
+function reportViolation(node, variableName, result, context) {
+  const { name, prop, type } = node;
+  const nodeName = isAtRule(type) ? `@${name}` : prop;
+
+  utils.report({
+    ruleName,
+    result,
+    node,
+    message: messages.rejected(nodeName, variableName),
+    word: variableName,
+    fix:
+      context.fix || context.newline
+        ? () => {
+            // Apply the fix by wrapping all variables in the value
+            if (type === "atrule") {
+              node.params = wrapVariablesWithInterpolation(node.params);
+            } else {
+              node.value = wrapVariablesWithInterpolation(node.value);
+            }
+          }
+        : null
+  });
+}
+
+function shouldSkipValueNode(node) {
+  return node.type !== "word" || !node.value;
+}
+
+function checkValueForVariables(
+  node,
+  value,
+  reportedNodes,
+  stringValuedVars,
+  allVars,
+  result,
+  context
+) {
+  // Skip if we've already reported this node
+  if (reportedNodes.has(node)) {
+    return;
+  }
+
+  let firstViolatingVariable = null;
+
+  // Parse the value and check each word token
+  valueParser(value).walk(valueNode => {
+    const { value: tokenValue } = valueNode;
+
+    if (
+      shouldSkipValueNode(valueNode) ||
+      !shouldReportVariable(node, tokenValue, stringValuedVars, allVars)
+    ) {
+      return;
+    }
+
+    // Store the first variable we find for reporting
+    if (!firstViolatingVariable) {
+      firstViolatingVariable = tokenValue;
+    }
+  });
+
+  // Only report once per node, using the first variable found
+  if (firstViolatingVariable) {
+    reportedNodes.add(node);
+    reportViolation(node, firstViolatingVariable, result, context);
+  }
+}
+
+/**
+ * Check for SCSS variables that need interpolation in:
  * 1. String-valued variables with custom identifier properties (animation-name, counter-reset, etc.)
  * 2. All variables in custom identifier at-rules (@keyframes, @counter-style)
- * 3. String-valued variables in @supports conditions with custom identifier properties
+ * 3. String-valued variables in @supports with custom identifier properties
  * 4. All variables in CSS custom properties (--*)
- *
- * @param {boolean} actual - Primary option (always true for this rule)
- * @param {object} secondaryOptions - Secondary options (unused)
- * @param {object} context - Context object with fix/newline flags
- * @returns {function} PostCSS plugin function
  */
 function rule(actual, secondaryOptions, context) {
   return (root, result) => {
@@ -154,119 +265,55 @@ function rule(actual, secondaryOptions, context) {
       return;
     }
 
-    const stringVars = [];
-    const vars = [];
-    const reportedNodes = new Set();
+    // Collect all SCSS variables defined in the stylesheet
+    const { stringValuedVars, allVars } = collectVariables(root);
 
-    function findVars(node) {
-      node.walkDecls(decl => {
-        const { prop, value } = decl;
-
-        if (!isSassVar(prop) || vars.includes(prop)) {
-          return;
-        }
-
-        if (isStringVal(value)) {
-          stringVars.push(prop);
-        }
-
-        vars.push(prop);
-      });
-    }
-
-    findVars(root);
-    root.walkRules(findVars);
-
-    if (!vars.length) {
+    // Early exit if no variables found
+    if (allVars.length === 0) {
       return;
     }
 
-    function shouldReport(node, value) {
-      if (isAtSupports(node) || isCustomIdentProp(node)) {
-        return stringVars.includes(value);
-      }
+    // Track nodes we've already reported to avoid duplicates
+    const reportedNodes = new Set();
 
-      if (isCustomIdentAtRule(node)) {
-        return vars.includes(value);
-      }
-
-      // CSS custom properties always require interpolation for all variables
-      if (isCustomProperty(node)) {
-        return vars.includes(value);
-      }
-
-      return false;
-    }
-
-    function report(node, value) {
-      const { name, prop, type } = node;
-      const nodeName = isAtRule(type) ? `@${name}` : prop;
-
-      // Only provide fix function if we haven't already fixed this node
-      utils.report({
-        ruleName,
+    // Check custom identifier properties (animation-name, counter-reset, etc.)
+    root.walkDecls(createMatchingRegex(CUSTOM_IDENT_PROPERTIES), decl => {
+      checkValueForVariables(
+        decl,
+        decl.value,
+        reportedNodes,
+        stringValuedVars,
+        allVars,
         result,
-        node,
-        message: messages.rejected(nodeName, value),
-        word: value,
-        fix:
-          context.fix || context.newline
-            ? () => {
-                // Apply the fix by wrapping all variables in the value
-                if (type === "atrule") {
-                  node.params = fixValue(node.params);
-                } else {
-                  node.value = fixValue(node.value);
-                }
-              }
-            : null
-      });
-    }
-
-    function exitEarly(node) {
-      return node.type !== "word" || !node.value;
-    }
-
-    function walkValues(node, value) {
-      // Skip if we've already reported this node
-      if (reportedNodes.has(node)) {
-        return;
-      }
-
-      let foundVariable = null;
-
-      valueParser(value).walk(valNode => {
-        const { value: varValue } = valNode;
-
-        if (exitEarly(valNode) || !shouldReport(node, varValue)) {
-          return;
-        }
-
-        // Store the first variable we find for reporting
-        if (!foundVariable) {
-          foundVariable = varValue;
-        }
-      });
-
-      // Only report once per node, using the first variable found
-      if (foundVariable) {
-        reportedNodes.add(node);
-        report(node, foundVariable, value);
-      }
-    }
-
-    root.walkDecls(toRegex(customIdentProps), decl => {
-      walkValues(decl, decl.value);
+        context
+      );
     });
 
-    root.walkAtRules(toRegex(customIdentAtRules), atRule => {
-      walkValues(atRule, atRule.params);
+    // Check custom identifier at-rules (@keyframes, @counter-style, @supports)
+    root.walkAtRules(createMatchingRegex(CUSTOM_IDENT_AT_RULES), atRule => {
+      checkValueForVariables(
+        atRule,
+        atRule.params,
+        reportedNodes,
+        stringValuedVars,
+        allVars,
+        result,
+        context
+      );
     });
 
-    // Check all declarations for CSS custom properties (--*)
+    // Check all CSS custom properties (--*)
     root.walkDecls(decl => {
       if (isCustomProperty(decl)) {
-        walkValues(decl, decl.value);
+        checkValueForVariables(
+          decl,
+          decl.value,
+          reportedNodes,
+          stringValuedVars,
+          allVars,
+          result,
+          context
+        );
       }
     });
   };
