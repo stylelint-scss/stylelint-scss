@@ -18,19 +18,19 @@ Sass variables that contain a custom identifier as a **string** require interpol
 For example, if you store a custom identifier as a string:
 
 ```scss
-$myVar: "myAnim";
+$foo: "bar";
 ```
 
 Then you must interpolate it when using it with custom identifier properties:
 
 ```scss
-animation: #{$myVar} 5s;
+animation: #{$foo} 5s;
 ```
 
 Without interpolation, Sass will compile the variable to a quoted string, producing invalid CSS:
 
 ```scss
-animation: "myAnim" 5s; // Invalid!
+animation: "bar" 5s; // Invalid!
 ```
 
 ### Examples
@@ -38,60 +38,60 @@ animation: "myAnim" 5s; // Invalid!
 The following patterns are considered warnings:
 
 ```scss
-$var: "my-anim"; // String value
+$foo: "bar"; // String value
 
 .class {
-  animation-name: $var; // ✗ Requires interpolation
+  animation-name: $foo; // ✗ Requires interpolation
 }
 ```
 
 ```scss
-$var: "my-counter"; // String value
+$foo: "baz"; // String value
 
 body {
-  counter-reset: $var; // ✗ Requires interpolation
+  counter-reset: $foo; // ✗ Requires interpolation
 }
 ```
 
 ```scss
-$var: "my-anim"; // String value
+$foo: "bar"; // String value
 
 .class {
-  animation: $var 5s; // ✗ Requires interpolation
+  animation: $foo 5s; // ✗ Requires interpolation
 }
 ```
 
 The following patterns are _not_ considered warnings:
 
 ```scss
-$var: "my-anim"; // String value
+$foo: "bar"; // String value
 
 .class {
-  animation-name: #{$var}; // ✓ Properly interpolated
+  animation-name: #{$foo}; // ✓ Properly interpolated
 }
 ```
 
 ```scss
-$var: "my-anim"; // String value
+$foo: "bar"; // String value
 
 .class {
-  animation: #{$var} 5s ease-in-out; // ✓ Properly interpolated
+  animation: #{$foo} 5s ease-in-out; // ✓ Properly interpolated
 }
 ```
 
 ```scss
-$var: my-counter; // Non-string value
+$foo: baz; // Non-string value
 
 body {
-  counter-reset: $var; // ✓ No interpolation needed for non-string
+  counter-reset: $foo; // ✓ No interpolation needed for non-string
 }
 ```
 
 ```scss
-$var: my-anim; // Non-string value
+$foo: bar; // Non-string value
 
 .class {
-  animation-name: $var; // ✓ No interpolation needed for non-string
+  animation-name: $foo; // ✓ No interpolation needed for non-string
 }
 ```
 
@@ -102,21 +102,21 @@ Certain CSS [at-rules](https://css-tricks.com/the-at-rules-of-css/) that accept 
 The following patterns are considered warnings:
 
 ```scss
-$var: my-anim; // Non-string value
+$foo: bar; // Non-string value
 
-@keyframes $var {} // ✗ Requires interpolation (even for non-string)
+@keyframes $foo {} // ✗ Requires interpolation (even for non-string)
 ```
 
 ```scss
-$var: "my-anim"; // String value
+$foo: "bar"; // String value
 
-@keyframes $var {} // ✗ Requires interpolation
+@keyframes $foo {} // ✗ Requires interpolation
 ```
 
 ```scss
-$var: "circled-digits"; // String value
+$foo: "baz"; // String value
 
-@counter-style $var { // ✗ Requires interpolation
+@counter-style $foo { // ✗ Requires interpolation
   system: fixed;
   symbols: ➀ ➁ ➂;
   suffix: ' ';
@@ -125,9 +125,9 @@ $var: "circled-digits"; // String value
 ```
 
 ```scss
-$var: circled-digits; // Non-string value
+$foo: baz; // Non-string value
 
-@counter-style $var { // ✗ Requires interpolation (even for non-string)
+@counter-style $foo { // ✗ Requires interpolation (even for non-string)
   system: fixed;
   symbols: ➀ ➁ ➂;
 }
@@ -136,21 +136,21 @@ $var: circled-digits; // Non-string value
 The following patterns are _not_ considered warnings:
 
 ```scss
-$var: my-anim; // Non-string value
+$foo: bar; // Non-string value
 
-@keyframes #{$var} {} // ✓ Properly interpolated
+@keyframes #{$foo} {} // ✓ Properly interpolated
 ```
 
 ```scss
-$var: "my-anim"; // String value
+$foo: "bar"; // String value
 
-@keyframes #{$var} {} // ✓ Properly interpolated
+@keyframes #{$foo} {} // ✓ Properly interpolated
 ```
 
 ```scss
-$var: circled-digits; // Non-string value
+$foo: baz; // Non-string value
 
-@counter-style #{$var} { // ✓ Properly interpolated
+@counter-style #{$foo} { // ✓ Properly interpolated
   system: fixed;
   symbols: ➀ ➁ ➂;
   suffix: ' ';
@@ -159,9 +159,9 @@ $var: circled-digits; // Non-string value
 ```
 
 ```scss
-$var: "circled-digits"; // String value
+$foo: "baz"; // String value
 
-@counter-style #{$var} { // ✓ Properly interpolated
+@counter-style #{$foo} { // ✓ Properly interpolated
   system: fixed;
   symbols: ➀ ➁ ➂;
 }
@@ -174,44 +174,44 @@ Variables used in [`@supports`](https://developer.mozilla.org/en-US/docs/Web/CSS
 The following patterns are considered warnings:
 
 ```scss
-$var: "my-anim"; // String value
+$foo: "bar"; // String value
 
-@supports (animation-name: $var) { // ✗ Requires interpolation
+@supports (animation-name: $foo) { // ✗ Requires interpolation
   @keyframes {}
 }
 ```
 
 ```scss
-$var: "my-counter"; // String value
+$foo: "baz"; // String value
 
-@supports (counter-reset: $var) { // ✗ Requires interpolation
-  body { counter-reset: #{$var}; }
+@supports (counter-reset: $foo) { // ✗ Requires interpolation
+  body { counter-reset: #{$foo}; }
 }
 ```
 
 The following patterns are _not_ considered warnings:
 
 ```scss
-$var: "my-anim"; // String value
+$foo: "bar"; // String value
 
-@supports (animation-name: #{$var}) { // ✓ Properly interpolated
+@supports (animation-name: #{$foo}) { // ✓ Properly interpolated
   @keyframes {}
 }
 ```
 
 ```scss
-$var: my-anim; // Non-string value
+$foo: bar; // Non-string value
 
-@supports (animation-name: $var) { // ✓ No interpolation needed for non-string
+@supports (animation-name: $foo) { // ✓ No interpolation needed for non-string
   @keyframes {}
 }
 ```
 
 ```scss
-$var: my-counter; // Non-string value
+$foo: baz; // Non-string value
 
-@supports (counter-reset: $var) { // ✓ No interpolation needed for non-string
-  body { counter-reset: $var; }
+@supports (counter-reset: $foo) { // ✓ No interpolation needed for non-string
+  body { counter-reset: $foo; }
 }
 ```
 
@@ -222,28 +222,28 @@ SCSS variables used in [CSS custom properties](https://developer.mozilla.org/en-
 The following patterns are considered warnings:
 
 ```scss
-$var: 2rem; // Non-string value
+$foo: 2rem; // Non-string value
 
 a {
-  --spacing: $var; // ✗ Requires interpolation (even for non-string)
+  --spacing: $foo; // ✗ Requires interpolation (even for non-string)
 }
 ```
 
 ```scss
-$var: "2rem"; // String value
+$foo: "2rem"; // String value
 
 a {
-  --spacing: $var; // ✗ Requires interpolation
+  --spacing: $foo; // ✗ Requires interpolation
 }
 ```
 
 ```scss
-$primary: #007bff; // Non-string value
-$secondary: #6c757d; // Non-string value
+$foo: #007bff; // Non-string value
+$bar: #6c757d; // Non-string value
 
 a {
-  --color-primary: $primary; // ✗ Requires interpolation
-  --color-secondary: $secondary; // ✗ Requires interpolation
+  --color-primary: $foo; // ✗ Requires interpolation
+  --color-secondary: $bar; // ✗ Requires interpolation
 }
 ```
 
@@ -259,28 +259,28 @@ a {
 The following patterns are _not_ considered warnings:
 
 ```scss
-$var: 2rem; // Non-string value
+$foo: 2rem; // Non-string value
 
 a {
-  --spacing: #{$var}; // ✓ Properly interpolated
+  --spacing: #{$foo}; // ✓ Properly interpolated
 }
 ```
 
 ```scss
-$var: "2rem"; // String value
+$foo: "2rem"; // String value
 
 a {
-  --spacing: #{$var}; // ✓ Properly interpolated
+  --spacing: #{$foo}; // ✓ Properly interpolated
 }
 ```
 
 ```scss
-$primary: #007bff; // Non-string value
-$secondary: #6c757d; // Non-string value
+$foo: #007bff; // Non-string value
+$bar: #6c757d; // Non-string value
 
 a {
-  --color-primary: #{$primary}; // ✓ Properly interpolated
-  --color-secondary: #{$secondary}; // ✓ Properly interpolated
+  --color-primary: #{$foo}; // ✓ Properly interpolated
+  --color-secondary: #{$bar}; // ✓ Properly interpolated
 }
 ```
 
@@ -300,18 +300,18 @@ a {
 ```
 
 ```scss
-$var: 2rem; // Non-string value
+$foo: 2rem; // Non-string value
 
 a {
-  padding: $var; // ✓ Not a custom property, no interpolation needed
+  padding: $foo; // ✓ Not a custom property, no interpolation needed
 }
 ```
 
 ```scss
-$i: 5;
+$foo: 5;
 
 a {
-  --scale: #{calculate-scale($i)}; // ✓ Variable already inside interpolation
+  --scale: #{calculate-scale($foo)}; // ✓ Variable already inside interpolation
 }
 ```
 
