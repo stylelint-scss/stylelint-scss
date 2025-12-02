@@ -19,7 +19,7 @@
     "css-tree": "^3.0.1",
     "is-plain-object": "^5.0.0",
     "known-css-properties": "^0.37.0",
-    "mdn-data": "^2.24.0",
+    "mdn-data": "^2.25.0",
     "postcss-media-query-parser": "^0.2.3",
     "postcss-resolve-nested-selector": "^0.1.6",
     "postcss-selector-parser": "^7.1.1",
