@@ -1,6 +1,6 @@
 # load-partial-extension
 
-Require or disallow extension in `@import`, `@use`, `@forward`, and [`meta.load-css`] commands.
+Require or disallow extension in `@import`, `@use`, `@forward`, and [`meta.load-css`](https://sass-lang.com/documentation/modules/meta/#load-css) commands.
 
 ```scss
 @use "file.scss";
