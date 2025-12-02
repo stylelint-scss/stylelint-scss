@@ -18,7 +18,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 function rule(expectation, options, context) {
@@ -170,7 +171,7 @@ function rule(expectation, options, context) {
 
       const isFixDisabled = options && options.disableFix === true;
 
-      if (context.fix && !isFixDisabled) {
+      const fixCallback = () => {
         if (next) {
           const nextBefore = next.raws.before;
           const hasEmptyLineAfter = hasEmptyLine(nextBefore);
@@ -232,13 +233,14 @@ function rule(expectation, options, context) {
             return;
           }
         }
-      }
+      };
 
       utils.report({
         message: expectEmptyLineAfter ? messages.expected : messages.rejected,
         node: decl,
         result,
-        ruleName
+        ruleName,
+        fix: isFixDisabled ? undefined : fixCallback
       });
     });
   };

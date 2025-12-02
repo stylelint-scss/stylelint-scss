@@ -16,10 +16,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(value, _, context) {
+function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -36,11 +37,9 @@ function rule(value, _, context) {
     const checker = whitespaceChecker("space", value, messages).before;
 
     root.walkAtRules("function", atRule => {
-      if (context.fix) {
+      const fix = () => {
         atRule.params = atRule.params.replace(match, replacement);
-
-        return;
-      }
+      };
 
       const paranIndex = atRule.params.indexOf("(");
       const baseIndex = atRuleParamIndex(atRule);
@@ -55,7 +54,8 @@ function rule(value, _, context) {
             result,
             ruleName,
             index: baseIndex + paranIndex,
-            endIndex: baseIndex + paranIndex
+            endIndex: baseIndex + paranIndex,
+            fix
           })
       });
     });

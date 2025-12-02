@@ -17,7 +17,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 const stylelintCommandPrefix = "stylelint-";
@@ -116,7 +117,7 @@ function rule(expectation, options, context) {
         return;
       }
 
-      if (context.fix) {
+      const fix = () => {
         if (expectEmptyLineBefore && !hasEmptyLineBefore) {
           addEmptyLineBefore(comment, context.newline);
 
@@ -128,7 +129,7 @@ function rule(expectation, options, context) {
 
           return;
         }
-      }
+      };
 
       const message = expectEmptyLineBefore
         ? messages.expected
@@ -138,7 +139,8 @@ function rule(expectation, options, context) {
         message,
         node: comment,
         result,
-        ruleName
+        ruleName,
+        fix
       });
     });
   };

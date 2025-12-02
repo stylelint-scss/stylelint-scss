@@ -12,7 +12,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 function getDefaultNamespace(module) {
@@ -26,7 +27,7 @@ function separateEachParams(paramString) {
   return parts;
 }
 
-function rule(actual, _, context) {
+function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -37,12 +38,11 @@ function rule(actual, _, context) {
     root.walkAtRules("use", atRule => {
       const parts = separateEachParams(atRule.params);
       if (parts && getDefaultNamespace(parts[0]) === parts[1]) {
-        if (context.fix) {
+        const fix = () => {
           atRule.after(atRule.toString().replace(/\s*as\s* [^\s*]+\s*/, " "));
           atRule.next().raws = atRule.raws;
           atRule.remove();
-          return;
-        }
+        };
 
         const matchedAlias = atRule.params.match(/as\s+\S+/);
         if (!matchedAlias) return;
@@ -54,7 +54,8 @@ function rule(actual, _, context) {
           result,
           ruleName,
           index,
-          endIndex: index + matchedAlias[0].length
+          endIndex: index + matchedAlias[0].length,
+          fix
         });
       }
     });

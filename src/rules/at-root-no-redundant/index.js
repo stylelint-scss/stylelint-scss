@@ -22,10 +22,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(actual, _, context) {
+function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual
@@ -43,18 +44,19 @@ function rule(actual, _, context) {
           .every(elem => elem.replace(/#{.*}/g, "").includes("&")) ||
         isWithinKeyframes(node)
       ) {
-        if (context.fix) {
+        const fix = () => {
           node.after(node.toString().replace(/@at-root\s/, ""));
           node.next().raws = node.raws;
           node.remove();
-          return;
-        }
+        };
+
         utils.report({
           message: messages.rejected,
           node,
           result,
           ruleName,
-          word: `@${node.name}`
+          word: `@${node.name}`,
+          fix
         });
       }
     });

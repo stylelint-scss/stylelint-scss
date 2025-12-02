@@ -16,7 +16,7 @@ const meta = {
   fixable: true
 };
 
-function rule(expectation, options, context) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -54,15 +54,14 @@ function rule(expectation, options, context) {
         return;
       }
 
-      if (context.fix) {
+      const fix = () => {
         if (expectation === "always") {
           comment.raws.text = comment.raws.text.replace(/^(\/*)/, "$1 ");
         } else {
           comment.raws.left = "";
           comment.raws.text = comment.raws.text.replace(/^(\/*)\s+/, "$1");
         }
-        return;
-      }
+      };
 
       const extraSlashes = comment.raws.text.match(/^\/+/)?.[0]?.length || 0;
 
@@ -72,7 +71,8 @@ function rule(expectation, options, context) {
         index: comment.source.start.offset + 2 + extraSlashes,
         endIndex: comment.source.start.offset + 2 + extraSlashes,
         result,
-        ruleName
+        ruleName,
+        fix
       });
     });
   };

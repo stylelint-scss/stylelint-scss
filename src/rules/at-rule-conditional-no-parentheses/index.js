@@ -11,36 +11,25 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 // postcss picks up else-if as else.
 const conditional_rules = ["if", "while", "else"];
 
-function report(atrule, result) {
+function report(atrule, result, fix) {
   utils.report({
     message: messages.rejected,
     node: atrule,
     result,
     ruleName,
-    word: atrule.params.replace(/\bif\b/, "") // Remove 'if' from '@else if'.
+    word: atrule.params.replace(/\bif\b/, ""), // Remove 'if' from '@else if'.
+    fix
   });
 }
 
-function fix(atrule) {
-  const regex = /(if)? ?\((.*)\)/;
-
-  // 2 regex groups: 'if ' and cond.
-  const groups = atrule.params.match(regex).slice(1);
-
-  if (atrule.name !== "else") {
-    atrule.raws.afterName = "";
-  }
-
-  atrule.params = [...new Set(groups)].join(" ");
-}
-
-function rule(primary, _unused, context) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -56,24 +45,29 @@ function rule(primary, _unused, context) {
         return;
       }
 
+      const fix = () => {
+        const regex = /(if)? ?\((.*)\)/;
+
+        // 2 regex groups: 'if ' and cond.
+        const groups = atrule.params.match(regex).slice(1);
+
+        if (atrule.name !== "else") {
+          atrule.raws.afterName = "";
+        }
+
+        atrule.params = [...new Set(groups)].join(" ");
+      };
+
       // Else uses a different regex
       // params are of format "`if (cond)` or `if cond`
       // instead of `(cond)` or `cond`"
       if (atrule.name === "else") {
         if (atrule.params.match(/ ?if ?\(.*\) ?$/)) {
-          if (context.fix) {
-            fix(atrule);
-          } else {
-            report(atrule, result);
-          }
+          report(atrule, result, fix);
         }
       } else {
         if (atrule.params.trim().match(/^\(.*\)$/)) {
-          if (context.fix) {
-            fix(atrule);
-          } else {
-            report(atrule, result);
-          }
+          report(atrule, result, fix);
         }
       }
     });

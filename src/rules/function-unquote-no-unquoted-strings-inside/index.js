@@ -14,10 +14,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(primary, _, context) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -62,19 +63,20 @@ function rule(primary, _, context) {
           (!node.nodes[0].quote && node.nodes[0].value[0] !== "$") ||
           vars[node.nodes[0].value] === "word"
         ) {
-          if (context.fix) {
+          const fix = () => {
             decl.value = decl.value.replace(/unquote\((.*)\)/, "$1");
-          } else {
-            const index = declarationValueIndex(decl) + node.sourceIndex;
-            utils.report({
-              message: messages.rejected,
-              node: decl,
-              index,
-              endIndex: index + node.value.length,
-              result,
-              ruleName
-            });
-          }
+          };
+
+          const index = declarationValueIndex(decl) + node.sourceIndex;
+          utils.report({
+            message: messages.rejected,
+            node: decl,
+            index,
+            endIndex: index + node.value.length,
+            result,
+            ruleName,
+            fix
+          });
         }
       });
     });

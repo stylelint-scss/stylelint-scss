@@ -18,10 +18,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(expectation, _, context) {
+function rule(expectation) {
   const checker = whitespaceChecker("space", expectation, messages);
 
   return (root, result) => {
@@ -40,8 +41,7 @@ function rule(expectation, _, context) {
       locationChecker: checker.after,
       checkedRuleName: ruleName,
       position: "after",
-      expectation,
-      context
+      expectation
     });
   };
 }
@@ -56,15 +56,14 @@ function variableColonSpaceChecker({
   result,
   checkedRuleName,
   position,
-  expectation,
-  context
+  expectation
 }) {
   root.walkDecls(decl => {
     if (decl.prop === undefined || decl.prop[0] !== "$") {
       return;
     }
 
-    if (context && context.fix) {
+    const fix = () => {
       if (
         expectation === "always-single-line" &&
         !isSingleLineString(decl.value)
@@ -84,9 +83,7 @@ function variableColonSpaceChecker({
 
         decl.raws.between = decl.raws.between.replace(match, replacement);
       }
-
-      return;
-    }
+    };
 
     // Get the raw $var, and only that
     const endOfPropIndex =
@@ -110,7 +107,8 @@ function variableColonSpaceChecker({
             index: i,
             endIndex: i,
             result,
-            ruleName: checkedRuleName
+            ruleName: checkedRuleName,
+            fix
           });
         }
       });

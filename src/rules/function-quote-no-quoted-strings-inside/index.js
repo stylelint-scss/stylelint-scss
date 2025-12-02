@@ -14,10 +14,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(primary, _, context) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary
@@ -59,19 +60,20 @@ function rule(primary, _, context) {
         // Report error if first character is a quote.
         // postcss-value-parser represents quoted strings as type 'string' (as opposed to word)
         if (node.nodes[0].quote || vars[node.nodes[0].value] === "string") {
-          if (context.fix) {
+          const fix = () => {
             decl.value = decl.value.replace(/quote\((.*)\)/, "$1");
-          } else {
-            const index = declarationValueIndex(decl) + node.sourceIndex;
-            utils.report({
-              message: messages.rejected,
-              node: decl,
-              index,
-              endIndex: index + node.value.length,
-              result,
-              ruleName
-            });
-          }
+          };
+
+          const index = declarationValueIndex(decl) + node.sourceIndex;
+          utils.report({
+            message: messages.rejected,
+            node: decl,
+            index,
+            endIndex: index + node.value.length,
+            result,
+            ruleName,
+            fix
+          });
         }
       });
     });

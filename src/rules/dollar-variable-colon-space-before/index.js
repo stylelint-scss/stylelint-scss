@@ -16,10 +16,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(expectation, _, context) {
+function rule(expectation) {
   const checker = whitespaceChecker("space", expectation, messages);
 
   return (root, result) => {
@@ -38,8 +39,7 @@ function rule(expectation, _, context) {
       locationChecker: checker.before,
       checkedRuleName: ruleName,
       position: "before",
-      expectation,
-      context
+      expectation
     });
   };
 }

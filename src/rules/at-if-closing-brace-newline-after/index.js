@@ -14,7 +14,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 function rule(expectation, options, context) {
@@ -74,14 +75,12 @@ function sassConditionalBraceNLAfterChecker({
   context,
   options
 }) {
-  const shouldFix = context.fix && (!options || options.disableFix !== true);
+  const shouldFix = options?.disableFix !== true;
 
   function complain(node, message, index, fixValue) {
-    if (shouldFix) {
+    const fix = () => {
       node.next().raws.before = fixValue;
-
-      return;
-    }
+    };
 
     utils.report({
       result,
@@ -89,7 +88,8 @@ function sassConditionalBraceNLAfterChecker({
       node,
       message,
       index,
-      endIndex: index
+      endIndex: index,
+      fix: shouldFix ? fix : undefined
     });
   }
 
