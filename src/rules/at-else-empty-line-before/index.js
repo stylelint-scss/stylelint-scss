@@ -12,10 +12,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(expectation, _, context) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -34,18 +35,17 @@ function rule(expectation, _, context) {
         return;
       }
 
-      if (context.fix) {
+      const fix = () => {
         atrule.raws.before = " ";
-
-        return;
-      }
+      };
 
       utils.report({
         message: messages.rejected,
         node: atrule,
         result,
         ruleName,
-        word: `@${atrule.name}`
+        word: `@${atrule.name}`,
+        fix
       });
     });
   };

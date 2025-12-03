@@ -13,10 +13,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(value, _, context) {
+function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -49,7 +50,7 @@ function rule(value, _, context) {
         return;
       }
 
-      if (context.fix) {
+      const fix = () => {
         if (value === "always") {
           mixinCall.params = `${mixinCallParams}()`;
         } else {
@@ -58,9 +59,7 @@ function rule(value, _, context) {
 
         // Restore the "using (...)" part if it was present.
         mixinCall.params += usingClause ? ` ${usingClause}` : "";
-
-        return;
-      }
+      };
 
       const mixinName = /\s*(\S*?)\s*(?:\(|$)/.exec(mixinCallParams)[1];
 
@@ -70,7 +69,8 @@ function rule(value, _, context) {
         node: mixinCall,
         result,
         ruleName,
-        word: mixinName
+        word: mixinName,
+        fix
       });
     });
   };

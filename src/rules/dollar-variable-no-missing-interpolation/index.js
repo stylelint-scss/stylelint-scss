@@ -182,9 +182,18 @@ function shouldReportVariable(node, variableName, stringValuedVars, allVars) {
   return false;
 }
 
-function reportViolation(node, variableName, result, context) {
+function reportViolation(node, variableName, result) {
   const { name, prop, type } = node;
   const nodeName = isAtRule(type) ? `@${name}` : prop;
+
+  const fix = () => {
+    // Apply the fix by wrapping all variables in the value
+    if (type === "atrule") {
+      node.params = wrapVariablesWithInterpolation(node.params);
+    } else {
+      node.value = wrapVariablesWithInterpolation(node.value);
+    }
+  };
 
   utils.report({
     ruleName,
@@ -192,17 +201,7 @@ function reportViolation(node, variableName, result, context) {
     node,
     message: messages.rejected(nodeName, variableName),
     word: variableName,
-    fix:
-      context.fix || context.newline
-        ? () => {
-            // Apply the fix by wrapping all variables in the value
-            if (type === "atrule") {
-              node.params = wrapVariablesWithInterpolation(node.params);
-            } else {
-              node.value = wrapVariablesWithInterpolation(node.value);
-            }
-          }
-        : null
+    fix
   });
 }
 
@@ -216,8 +215,7 @@ function checkValueForVariables(
   reportedNodes,
   stringValuedVars,
   allVars,
-  result,
-  context
+  result
 ) {
   // Skip if we've already reported this node
   if (reportedNodes.has(node)) {
@@ -246,7 +244,7 @@ function checkValueForVariables(
   // Only report once per node, using the first variable found
   if (firstViolatingVariable) {
     reportedNodes.add(node);
-    reportViolation(node, firstViolatingVariable, result, context);
+    reportViolation(node, firstViolatingVariable, result);
   }
 }
 
@@ -257,7 +255,7 @@ function checkValueForVariables(
  * 3. String-valued variables in @supports with custom identifier properties
  * 4. All variables in CSS custom properties (--*)
  */
-function rule(actual, secondaryOptions, context) {
+function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, { actual });
 
@@ -284,8 +282,7 @@ function rule(actual, secondaryOptions, context) {
         reportedNodes,
         stringValuedVars,
         allVars,
-        result,
-        context
+        result
       );
     });
 
@@ -297,8 +294,7 @@ function rule(actual, secondaryOptions, context) {
         reportedNodes,
         stringValuedVars,
         allVars,
-        result,
-        context
+        result
       );
     });
 
@@ -311,8 +307,7 @@ function rule(actual, secondaryOptions, context) {
           reportedNodes,
           stringValuedVars,
           allVars,
-          result,
-          context
+          result
         );
       }
     });

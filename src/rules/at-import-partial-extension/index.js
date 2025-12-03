@@ -15,7 +15,8 @@ const messages = utils.ruleMessages(ruleName, {
 
 const meta = {
   url: ruleUrl(ruleName),
-  deprecated: true
+  deprecated: true,
+  fixable: true
 };
 
 // https://drafts.csswg.org/mediaqueries/#media-types
@@ -37,7 +38,7 @@ const mediaQueryTypesRE = new RegExp(`(${mediaQueryTypes.join("|")})$`, "i");
 const stripPath = path =>
   path.replace(/^\s*(["'])\s*/, "").replace(/\s*(["'])\s*$/, "");
 
-function rule(expectation, _, context) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -93,12 +94,10 @@ function rule(expectation, _, context) {
 
         const isScssPartial = extension === "scss";
         if (extension && isScssPartial && expectation === "never") {
-          if (context.fix) {
+          const fix = () => {
             const extPattern = new RegExp(`\\.${extension}(['" ]*)$`, "g");
             atRule.params = atRule.params.replace(extPattern, "$1");
-
-            return;
-          }
+          };
 
           const dotExt = `.${extension}`;
           const index =
@@ -110,7 +109,8 @@ function rule(expectation, _, context) {
             index,
             endIndex: index + dotExt.length,
             result,
-            ruleName
+            ruleName,
+            fix
           });
         }
       });

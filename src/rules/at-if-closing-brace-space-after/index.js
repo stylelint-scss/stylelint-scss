@@ -12,10 +12,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(expectation, _, context) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -32,8 +33,7 @@ function rule(expectation, _, context) {
       ruleName,
       atRuleName: "if",
       expectation,
-      messages,
-      context
+      messages
     });
   };
 }
@@ -56,15 +56,12 @@ function sassConditionalBraceSpaceAfterChecker({
   ruleName,
   atRuleName,
   expectation,
-  messages,
-  context
+  messages
 }) {
   function complain(node, message, index, fixValue) {
-    if (context.fix) {
+    const fix = () => {
       node.next().raws.before = fixValue;
-
-      return;
-    }
+    };
 
     utils.report({
       result,
@@ -72,7 +69,8 @@ function sassConditionalBraceSpaceAfterChecker({
       node,
       message,
       index,
-      endIndex: index
+      endIndex: index,
+      fix
     });
   }
 

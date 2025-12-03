@@ -16,10 +16,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(value, _, context) {
+function rule(value) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: value,
@@ -41,9 +42,9 @@ function rule(value, _, context) {
         return;
       }
 
-      if (context.fix) {
+      const fix = () => {
         atRule.params = atRule.params.replace(match, replacement);
-      }
+      };
 
       const index = atRule.params.indexOf("(");
       const paramIndex = atRuleParamIndex(atRule);
@@ -58,7 +59,8 @@ function rule(value, _, context) {
             result,
             ruleName,
             index: paramIndex + index,
-            endIndex: paramIndex + index
+            endIndex: paramIndex + index,
+            fix
           })
       });
     });
