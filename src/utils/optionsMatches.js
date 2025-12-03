@@ -15,8 +15,8 @@ const matchesStringOrRegExp = require("./matchesStringOrRegExp");
 module.exports = function optionsMatches(options, propertyName, input) {
   return Boolean(
     options &&
-      options[propertyName] &&
-      typeof input === "string" &&
-      matchesStringOrRegExp(input, options[propertyName])
+    options[propertyName] &&
+    typeof input === "string" &&
+    matchesStringOrRegExp(input, options[propertyName])
   );
 };

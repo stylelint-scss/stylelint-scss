@@ -110,7 +110,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`dollar-variable-empty-line-after`](./src/rules/dollar-variable-empty-line-after/README.md): Require a single empty line or disallow empty lines after `$`-variable declarations (Autofixable).
 - [`dollar-variable-empty-line-before`](./src/rules/dollar-variable-empty-line-before/README.md): Require a single empty line or disallow empty lines before `$`-variable declarations (Autofixable).
 - [`dollar-variable-first-in-block`](./src/rules/dollar-variable-first-in-block/README.md): Require for variables to be put first in a block (a rule or in root).
-- [`dollar-variable-no-missing-interpolation`](./src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that use custom identifiers.
+- [`dollar-variable-no-missing-interpolation`](./src/rules/dollar-variable-no-missing-interpolation/README.md): Disallow Sass variables that are used without interpolation with CSS features that require interpolation (Autofixable).
 - [`dollar-variable-no-namespaced-assignment`](./src/rules/dollar-variable-no-namespaced-assignment/README.md): Disallow assignment to namespaced Sass variables.
 - [`dollar-variable-pattern`](./src/rules/dollar-variable-pattern/README.md): Specify a pattern for Sass-like variables.
 
@@ -197,7 +197,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ## Deprecated
 
-These rules are deprecated — we won't fix bugs nor add options, and we will remove them in the next major release. We recommend you use a pretty printer (like Prettier) alongside Stylelint rather than these rules.
+These rules are deprecated — we won't fix bugs nor add options, and we will remove them in the next major release.
 
 - [`at-import-no-partial-leading-underscore`](https://github.com/stylelint-scss/stylelint-scss/blob/v5.2.1/src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
 - [`at-import-partial-extension`](https://github.com/stylelint-scss/stylelint-scss/blob/v6.3.0/src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands.
