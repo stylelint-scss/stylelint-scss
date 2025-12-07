@@ -195,6 +195,18 @@ testRule({
     `,
       description:
         "when non-string variable is interpolated in CSS custom property"
+
+    },
+    {
+      code: `
+      $foo: 5;
+
+      a {
+        --scale: #{calculate-scale($foo)};
+      }
+    `,
+      description:
+        "when variable is already inside interpolation"
     }
   ],
 

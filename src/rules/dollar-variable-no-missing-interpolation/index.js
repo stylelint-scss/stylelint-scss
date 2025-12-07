@@ -226,12 +226,17 @@ function checkValueForVariables(
 
   // Parse the value and check each word token
   valueParser(value).walk(valueNode => {
-    const { value: tokenValue } = valueNode;
+    const { value: tokenValue, sourceIndex } = valueNode;
 
     if (
       shouldSkipValueNode(valueNode) ||
       !shouldReportVariable(node, tokenValue, stringValuedVars, allVars)
     ) {
+      return;
+    }
+
+    // Skip variables that are already inside interpolation blocks
+    if (isInsideInterpolationBlock(value, sourceIndex)) {
       return;
     }
 
