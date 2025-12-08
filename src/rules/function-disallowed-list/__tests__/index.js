@@ -94,3 +94,24 @@ testRule({
     }
   ]
 });
+
+// Testing @return expression
+testRule({
+  ruleName,
+  config: ["random"],
+  customSyntax: "postcss-scss",
+
+  reject: [
+    {
+      code: `
+        @use "sass:math"
+        @function get-random-value() {
+          @return math.random(100.5);
+        }
+        .a { margin-left: get-random-value(); }
+      `,
+      message: messages.rejected("random"),
+      description: "Math library function in @return expression, not allowed."
+    }
+  ]
+});
