@@ -117,11 +117,11 @@ testRule({
     },
     {
       code: `
-      @Function foo () { @return 1; }
+      @Funciton foo () { @return 1; }
     `,
       line: 2,
       description: "",
-      message: messages.rejected("@Function")
+      message: messages.rejected("@Funciton")
     },
     {
       code: `
