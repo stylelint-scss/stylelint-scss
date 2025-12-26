@@ -10,14 +10,10 @@ import atFunctionPattern from "./at-function-pattern/index.js";
 import atIfClosingBraceNewlineAfter from "./at-if-closing-brace-newline-after/index.js";
 import atIfClosingBraceSpaceAfter from "./at-if-closing-brace-space-after/index.js";
 import atIfNoNull from "./at-if-no-null/index.js";
-import atImportNoPartialLeadingUnderscore from "./at-import-no-partial-leading-underscore/index.js";
 import loadNoPartialLeadingUnderscore from "./load-no-partial-leading-underscore/index.js";
 import loadPartialExtension from "./load-partial-extension/index.js";
 import atImportPartialExtensionAllowedList from "./at-import-partial-extension-allowed-list/index.js";
-import atImportPartialExtensionBlacklist from "./at-import-partial-extension-blacklist/index.js";
 import atImportPartialExtensionDisallowedList from "./at-import-partial-extension-disallowed-list/index.js";
-import atImportPartialExtensionWhitelist from "./at-import-partial-extension-whitelist/index.js";
-import atImportPartialExtension from "./at-import-partial-extension/index.js";
 import atMixinArgumentlessCallParentheses from "./at-mixin-argumentless-call-parentheses/index.js";
 import atMixinNamedArguments from "./at-mixin-named-arguments/index.js";
 import atMixinParenthesesSpaceBefore from "./at-mixin-parentheses-space-before/index.js";
@@ -87,16 +83,12 @@ const rules = {
   "at-if-closing-brace-newline-after": atIfClosingBraceNewlineAfter,
   "at-if-closing-brace-space-after": atIfClosingBraceSpaceAfter,
   "at-if-no-null": atIfNoNull,
-  "at-import-no-partial-leading-underscore": atImportNoPartialLeadingUnderscore,
   "load-no-partial-leading-underscore": loadNoPartialLeadingUnderscore,
   "load-partial-extension": loadPartialExtension,
   "at-import-partial-extension-allowed-list":
     atImportPartialExtensionAllowedList,
-  "at-import-partial-extension-blacklist": atImportPartialExtensionBlacklist,
   "at-import-partial-extension-disallowed-list":
     atImportPartialExtensionDisallowedList,
-  "at-import-partial-extension-whitelist": atImportPartialExtensionWhitelist,
-  "at-import-partial-extension": atImportPartialExtension,
   "at-mixin-argumentless-call-parentheses": atMixinArgumentlessCallParentheses,
   "at-mixin-named-arguments": atMixinNamedArguments,
   "at-mixin-parentheses-space-before": atMixinParenthesesSpaceBefore,
