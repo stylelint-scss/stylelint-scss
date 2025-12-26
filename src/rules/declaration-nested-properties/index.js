@@ -1,11 +1,11 @@
-"use strict";
+import stylelint from "stylelint";
+import isStandardSyntaxProperty from "../../utils/isStandardSyntaxProperty.js";
+import optionsHaveException from "../../utils/optionsHaveException.js";
+import namespace from "../../utils/namespace.js";
+import parseNestedPropRoot from "../../utils/parseNestedPropRoot.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const isStandardSyntaxProperty = require("../../utils/isStandardSyntaxProperty");
-const optionsHaveException = require("../../utils/optionsHaveException");
-const namespace = require("../../utils/namespace");
-const parseNestedPropRoot = require("../../utils/parseNestedPropRoot");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const hasOwnProp = Object.prototype.hasOwnProperty;
 
@@ -165,4 +165,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

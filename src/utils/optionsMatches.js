@@ -1,6 +1,4 @@
-"use strict";
-
-const matchesStringOrRegExp = require("./matchesStringOrRegExp");
+import matchesStringOrRegExp from "./matchesStringOrRegExp.js";
 
 /**
  * Check if an options object's propertyName contains a user-defined string or
@@ -12,11 +10,11 @@ const matchesStringOrRegExp = require("./matchesStringOrRegExp");
  *
  * @returns {boolean}
  */
-module.exports = function optionsMatches(options, propertyName, input) {
+export default function optionsMatches(options, propertyName, input) {
   return Boolean(
     options &&
     options[propertyName] &&
     typeof input === "string" &&
     matchesStringOrRegExp(input, options[propertyName])
   );
-};
+}

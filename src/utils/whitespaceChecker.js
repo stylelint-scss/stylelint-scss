@@ -1,8 +1,6 @@
-"use strict";
-
-const configurationError = require("./configurationError");
-const isSingleLineString = require("./isSingleLineString");
-const isWhitespace = require("./isWhitespace");
+import configurationError from "./configurationError.js";
+import isSingleLineString from "./isSingleLineString.js";
+import isWhitespace from "./isWhitespace.js";
 
 /**
  * Create a whitespaceChecker, which exposes the following functions:
@@ -32,7 +30,11 @@ const isWhitespace = require("./isWhitespace");
  * @param {function} [messages.rejectedBeforeMultiLine]
  * @return {object} The checker, with its exposed checking functions
  */
-module.exports = function (targetWhitespace, expectation, messages) {
+export default function whitespaceChecker(
+  targetWhitespace,
+  expectation,
+  messages
+) {
   // Keep track of active arguments in order to avoid passing
   // too much stuff around, making signatures long and confusing.
   // This variable gets reset anytime a checking function is called.
@@ -331,7 +333,7 @@ module.exports = function (targetWhitespace, expectation, messages) {
     after,
     afterOneOnly
   };
-};
+}
 
 function isValue(x) {
   return x !== undefined && x !== null;
