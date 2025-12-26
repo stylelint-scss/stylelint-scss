@@ -177,6 +177,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### Selector
 
+- [`selector-class-pattern`](./src/rules/selector-class-pattern/README.md): Specify a pattern for class selectors. Should be used instead of Stylelint's [selector-class-pattern](https://stylelint.io/user-guide/rules/selector-class-pattern).
 - [`selector-nest-combinators`](./src/rules/selector-nest-combinators/README.md): Require or disallow nesting of combinators in selectors.
 - [`selector-no-redundant-nesting-selector`](./src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
 - [`selector-no-union-class-name`](./src/rules/selector-no-union-class-name/README.md): Disallow union class names with the parent selector (`&`).
