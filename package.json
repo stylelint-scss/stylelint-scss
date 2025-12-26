@@ -11,7 +11,7 @@
   "type": "module",
   "exports": "./src/index.js",
   "engines": {
-    "node": ">=18.12.0"
+    "node": ">=20.19.0"
   },
   "peerDependencies": {
     "stylelint": "^16.8.2 || ^17.0.0"
