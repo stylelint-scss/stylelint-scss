@@ -1,6 +1,4 @@
 import stylelint from "stylelint";
-import eachRoot from "../../utils/eachRoot.js";
-import findCommentsInRaws from "../../utils/findCommentsInRaws.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 
