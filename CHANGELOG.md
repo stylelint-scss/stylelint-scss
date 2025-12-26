@@ -1,3 +1,17 @@
+# 7.0.0
+
+- Removed: support for Node.js less than 20.19.0 (#1221)
+- Removed: deprecated rules (#1220):
+  - `at-import-no-partial-leading-underscore`
+  - `at-import-partial-extension-blacklist`
+  - `at-import-partial-extension-whitelist`
+  - `at-import-partial-extension`
+- Changed: to ES Modules (#931)
+- Added: `stylelint@^17.0.0` to peer dependency (#1222)
+- Added: `selector-class-pattern` rule (#1219)
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.13.0...v7.0.0
+
 # 6.13.0
 
 - Added: `at-mixin-argumentless-call-parentheses` handle mixin calls with content block arguments (#1185).
