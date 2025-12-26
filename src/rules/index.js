@@ -69,6 +69,7 @@ import operatorNoUnspaced from "./operator-no-unspaced/index.js";
 import partialNoImport from "./partial-no-import/index.js";
 import percentPlaceholderPattern from "./percent-placeholder-pattern/index.js";
 import propertyNoUnknown from "./property-no-unknown/index.js";
+import selectorClassPattern from "./selector-class-pattern/index.js";
 import selectorNestCombinators from "./selector-nest-combinators/index.js";
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector/index.js";
 import selectorNoUnionClassName from "./selector-no-union-class-name/index.js";
@@ -151,6 +152,7 @@ const rules = {
   "partial-no-import": partialNoImport,
   "percent-placeholder-pattern": percentPlaceholderPattern,
   "property-no-unknown": propertyNoUnknown,
+  "selector-class-pattern": selectorClassPattern,
   "selector-nest-combinators": selectorNestCombinators,
   "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,
   "selector-no-union-class-name": selectorNoUnionClassName
