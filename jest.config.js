@@ -15,7 +15,6 @@ const config = {
     }
   },
   setupFiles: ["<rootDir>/jest-setup.js"],
-  runner: "jest-light-runner",
   testEnvironment: "node",
   roots: ["src"],
   testRegex: ".*\\.test\\.js$|src/.*/__tests__/.*\\.js$"
