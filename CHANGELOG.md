@@ -1,3 +1,65 @@
+# 6.13.0
+
+- Added: `at-mixin-argumentless-call-parentheses` handle mixin calls with content block arguments (#1185).
+- Added: `at-function-pattern`, `at-mixin-pattern`, `dollar-variable-pattern`, `percent-placeholder-pattern` add support for arguments in custom messages (#1187).
+- Added: `dollar-variable-no-missing-interpolation` check for CSS custom properties, add autofix, rule documentation improvements (#1195).
+- Fixed: `dollar-variable-colon-space-after` prevent TypeError for dynamically created nodes (#1159).
+- Fixed: `load-partial-extension` add missing link to docs (#1202).
+- Fixed: migrate rules to use autofix callback instead of deprecated `context.fix` (#1206).
+- Updated: `stylelint` peer dependency version to `^16.8.2` (required by autofix callback) (#1206).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.12.1...v6.13.0
+
+# 6.12.1
+
+- Fixed: `stylelint` deprecation warnings by adding `endIndex` to report objects in multiple rules (#1150).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.12.0...v6.12.1
+
+# 6.12.0
+
+- Added: `double-slash-comment-whitespace-inside` add autofix and fix incorrect error locations (#1146).
+- Added: `declaration-property-value-no-unknown` add support for nested properties with shorthand values (#1142).
+- Fixed: `operator-no-unspaced` don't check Tailwind Directives (#1147).
+- Fixed: `at-use-no-redundant-alias` fix false negative for single quotes (#1130).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.11.1...v6.12.0
+
+# 6.11.1
+
+- Fixed: `no-duplicate-load-rules` fix false positive when using `@use` and `@forward` for the same stylesheet (#1124).
+- Fixed: `declaration-property-value-no-unknown` add support for Sass' `rgba()` function with a hex value (#1123).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.11.0...v6.11.1
+
+# 6.11.0
+
+- Added: `no-duplicate-load-rules` rule (#1103).
+- Fixed: `declaration-property-value-no-unknown` allow functions from explicit namespaces (#1113).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.10.1...v6.11.0
+
+# 6.10.1
+
+- Fixed: `declaration-property-value-no-unknown` fix trailing whitespace in value parsing (#1089).
+- Fixed: `no-global-function-names` allow CSS round function (#1097).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.10.0...v6.10.1
+
+# 6.10.0
+
+- Added: `declaration-property-value-no-unknown` support nested properties with shorthand values (#1071).
+- Fixed: `declaration-property-value-no-unknown` fix multiline values parsing (#1085).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.9.0...v6.10.0
+
+# 6.9.0
+
+- Added: missing native functions (#1070).
+- Fixed: unify rule messages (#1072).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.8.1...v6.9.0
+
 # 6.8.1
 
 - Fixed: `declaration-property-value-no-unknown` fix false positives for nested properties in nested declarations (#1068).

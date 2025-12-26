@@ -30,19 +30,24 @@ function rule(disallowedOption) {
       return;
     }
 
-    root.walkDecls(decl => {
-      valueParser(decl.value).walk(node => {
+    // Shared check logic: find disallowed functions in a value string
+    function checkValue(value, reportNode) {
+      if (!value) return;
+
+      valueParser(value).walk(valueNode => {
         if (
-          node.type !== "function" ||
-          isNativeCssFunction(node.value) ||
-          node.value === ""
+          valueNode.type !== "function" ||
+          isNativeCssFunction(valueNode.value) ||
+          valueNode.value === ""
         ) {
           return;
         }
 
-        const hasNamespace = node.value.indexOf(".");
+        const hasNamespace = valueNode.value.indexOf(".");
         const nameWithoutNamespace =
-          hasNamespace > -1 ? node.value.slice(hasNamespace + 1) : node.value;
+          hasNamespace > -1
+            ? valueNode.value.slice(hasNamespace + 1)
+            : valueNode.value;
         disallowedFunctions.forEach(functionName => {
           if (
             (isString(functionName) && nameWithoutNamespace === functionName) ||
@@ -50,7 +55,7 @@ function rule(disallowedOption) {
           ) {
             utils.report({
               message: messages.rejected(nameWithoutNamespace),
-              node: decl,
+              node: reportNode,
               word: nameWithoutNamespace,
               result,
               ruleName
@@ -58,6 +63,16 @@ function rule(disallowedOption) {
           }
         });
       });
+    }
+
+    // Original logic: check in declaration values
+    root.walkDecls(decl => {
+      checkValue(decl.value, decl);
+    });
+
+    // New: check in @return expressions
+    root.walkAtRules("return", atRule => {
+      checkValue(atRule.params, atRule);
     });
   };
 }

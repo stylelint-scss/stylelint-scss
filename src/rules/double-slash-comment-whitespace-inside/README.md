@@ -9,6 +9,8 @@ a {
  * Such whitespace */
 ```
 
+The [`fix` option](https://stylelint.io/user-guide/usage/options#fix) can automatically fix all of the problems reported by this rule.
+
 This rule only works with SCSS-like [single-line comments](https://sass-lang.com/documentation/syntax/comments) and ignores CSS comments (`/* */`).
 
 Any number of slashes are allowed at the beginning of the comment. So `/// comment` is treated the same way as `// comment`.
@@ -21,7 +23,7 @@ Note that a newline is not possible as a whitespace in terms of this rule as `//
 
 ### `"always"`
 
-There *must always* be whitespace after the `//` inside `//`-comments.
+There _must always_ be whitespace after the `//` inside `//`-comments.
 
 The following patterns are considered warnings:
 
@@ -29,7 +31,7 @@ The following patterns are considered warnings:
 //comment
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 // comment
@@ -41,7 +43,7 @@ The following patterns are *not* considered warnings:
 
 ### `"never"`
 
-There *must never* be whitespace after the `//` inside `//`-comments.
+There _must never_ be whitespace after the `//` inside `//`-comments.
 
 The following patterns are considered warnings:
 
@@ -49,7 +51,7 @@ The following patterns are considered warnings:
 // comment
 ```
 
-The following patterns are *not* considered warnings:
+The following patterns are _not_ considered warnings:
 
 ```scss
 //comment

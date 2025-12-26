@@ -8,7 +8,7 @@ const ruleName = namespace("no-unused-private-members");
 
 const messages = utils.ruleMessages(ruleName, {
   expected: privateMember =>
-    `Expected usage of private member "${privateMember}" within the stylesheet.`
+    `Expected usage of private member "${privateMember}" within the stylesheet`
 });
 
 const meta = {

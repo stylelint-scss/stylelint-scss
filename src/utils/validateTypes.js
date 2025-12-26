@@ -51,7 +51,7 @@ export function isIfStatement(value) {
  * @returns {value is variable}
  */
 export const isDollarVar = value =>
-  (value.length > 0 && value[0] === "$") || value.includes(".$");
+  (value.length > 1 && value[0] === "$") || value.includes(".$");
 
 /**
  * Checks if the selector is nested property.
@@ -59,4 +59,4 @@ export const isDollarVar = value =>
  * @returns {selector is variable}
  */
 export const isNestedProperty = selector =>
-  selector[selector.length - 1] === ":";
+  selector.split(" ").some(selector => selector[selector.length - 1] === ":");

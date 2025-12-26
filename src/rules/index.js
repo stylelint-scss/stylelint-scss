@@ -262,6 +262,9 @@ const rules = {
       m => m.default
     );
   },
+  get "no-duplicate-load-rules"() {
+    return import("./no-duplicate-load-rules/index.js").then(m => m.default);
+  }
   get "no-duplicate-mixins"() {
     return import("./no-duplicate-mixins/index.js").then(m => m.default);
   },

@@ -171,7 +171,7 @@ testRule({
     `,
       description: "Parent selector nested in selector within a mixin",
       message:
-        "Unexpected nested parent selector in @mixin rule. (scss/at-mixin-no-risky-nesting-selector)",
+        "Unexpected nested parent selector in @mixin rule (scss/at-mixin-no-risky-nesting-selector)",
       column: 11,
       endColumn: 12,
       endLine: 7,
@@ -190,7 +190,7 @@ testRule({
     `,
       description: "Parent selector nested in complex selector within mixin",
       message:
-        "Unexpected nested parent selector in @mixin rule. (scss/at-mixin-no-risky-nesting-selector)",
+        "Unexpected nested parent selector in @mixin rule (scss/at-mixin-no-risky-nesting-selector)",
       column: 11,
       endColumn: 12,
       endLine: 7,
@@ -209,7 +209,7 @@ testRule({
     `,
       description: "Parent selector nested in complex selector within mixin",
       message:
-        "Unexpected nested parent selector in @mixin rule. (scss/at-mixin-no-risky-nesting-selector)",
+        "Unexpected nested parent selector in @mixin rule (scss/at-mixin-no-risky-nesting-selector)",
       column: 11,
       endColumn: 12,
       endLine: 7,

@@ -7,7 +7,7 @@ const { utils } = stylelint;
 const ruleName = namespace("at-mixin-no-risky-nesting-selector");
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: `Unexpected nested parent selector in @mixin rule.`
+  rejected: `Unexpected nested parent selector in @mixin rule`
 });
 
 const meta = {

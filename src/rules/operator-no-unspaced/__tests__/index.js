@@ -1207,6 +1207,16 @@ testRule({
       `,
       description:
         "Op /: background-image with absolute path inside url function and interpolation."
+    },
+    {
+      code: `
+      .p-toast-message-info {
+        @apply bg-blue-50/95 border-blue-200 text-blue-600
+          dark:bg-blue-500/15 dark:border-blue-700/35 dark:text-blue-500
+          shadow-[0px_4px_8px_0px_theme(colors.blue.500/0.04)];
+      }
+      `,
+      description: "Tailwind-specific at-rules (Directives). issue #1135"
     }
   ],
 

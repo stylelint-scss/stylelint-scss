@@ -10,7 +10,7 @@ on:
 
 env:
   FORCE_COLOR: 2
-  NODE_COV: 20 # The Node.js version to run coverage on
+  NODE_COV: 24 # The Node.js version to run coverage on
 
 permissions:
   contents: read
@@ -23,17 +23,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [20]
+        node: [24]
         os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
           cache: npm

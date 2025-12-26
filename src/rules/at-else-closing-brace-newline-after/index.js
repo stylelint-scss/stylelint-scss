@@ -15,7 +15,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 function rule(expectation, options, context) {

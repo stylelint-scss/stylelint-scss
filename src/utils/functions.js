@@ -26,6 +26,7 @@ const COLOR_FUNCTIONS = Object.freeze([
   "lighten",
   "lightness",
   "mix",
+  "opacify",
   "opacity",
   "red",
   "saturate",
@@ -47,11 +48,18 @@ const COLOR_FUNCTIONS = Object.freeze([
   "color.hwb",
   "color.ie-hex-str",
   "color.invert",
+  "color.is-legacy",
+  "color.is-missing",
+  "color.is-powerless",
   "color.lightness",
   "color.mix",
   "color.red",
+  "color.same",
   "color.saturation",
   "color.scale",
+  "color.space",
+  "color.to-gamut",
+  "color.to-space",
   "color.whiteness"
 ]);
 
@@ -165,6 +173,8 @@ const META_FUNCTIONS = Object.freeze([
   "variable-exists",
 
   // with namespace
+  "meta.accepts-content",
+  "meta.apply",
   "meta.calc-args",
   "meta.calc-name",
   "meta.call",
@@ -172,11 +182,14 @@ const META_FUNCTIONS = Object.freeze([
   "meta.feature-exists",
   "meta.function-exists",
   "meta.get-function",
+  "meta.get-mixin",
   "meta.global-variable-exists",
   "meta.inspect",
   "meta.keywords",
+  "meta.load-css",
   "meta.mixin-exists",
   "meta.module-functions",
+  "meta.module-mixins",
   "meta.module-variables",
   "meta.type-of",
   "meta.variable-exists"
@@ -226,6 +239,7 @@ const STRING_FUNCTIONS = Object.freeze([
   "string.length",
   "string.quote",
   "string.slice",
+  "string.split",
   "string.to-lower-case",
   "string.to-upper-case",
   "string.unique-id",

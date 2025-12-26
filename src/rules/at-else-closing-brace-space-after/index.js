@@ -13,10 +13,11 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
-function rule(expectation, _, context) {
+function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: expectation,
@@ -33,8 +34,7 @@ function rule(expectation, _, context) {
       ruleName,
       atRuleName: "else",
       expectation,
-      messages,
-      context
+      messages
     });
   };
 }

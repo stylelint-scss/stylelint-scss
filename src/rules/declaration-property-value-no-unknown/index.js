@@ -101,7 +101,12 @@ function rule(primary, secondaryOptions) {
         "[ <'view-timeline-name'> [ <'view-timeline-axis'> || <'view-timeline-inset'> ]? ]#",
       ...secondaryOptions?.propertiesSyntax
     };
-    const typesSyntax = { ...secondaryOptions?.typesSyntax };
+    const typesSyntax = {
+      // Sass supports rgba(color, alpha).
+      // https://sass-lang.com/documentation/modules/#rgb
+      "rgba()": "| rgba( <hex-color> , <alpha-value>? )",
+      ...secondaryOptions?.typesSyntax
+    };
 
     /** @type {Map<string, string>} */
     const typedCustomPropertyNames = new Map();
@@ -155,20 +160,28 @@ function rule(primary, secondaryOptions) {
     root.walkDecls(decl => {
       let { prop } = decl;
       const { parent } = decl;
-      const value = getDeclarationValue(decl);
+      const value = getDeclarationValue(decl).replace(/\n+\s+/, " "); // Strip multiline values.
 
       // Handle nested properties by reasigning `prop` to the compound property.
-      if (parent.selector && isNestedProperty(parent.selector)) {
+      if (
+        (parent.selector && isNestedProperty(parent.selector)) ||
+        parent.type === "decl"
+      ) {
         let pointer = parent;
+        let parentSelector = pointer.selector
+          ? pointer.selector
+              .split(" ")
+              ?.filter(sel => sel[sel.length - 1] === ":")[0]
+          : parent.prop;
         prop = String(decl.prop);
-        while (
-          pointer &&
-          pointer.selector &&
-          pointer.selector[pointer.selector.length - 1] === ":" &&
-          pointer.selector.substring(0, 2) !== "--"
-        ) {
-          prop = pointer.selector.replace(":", "") + "-" + prop;
+        while (parentSelector && parentSelector.substring(0, 2) !== "--") {
+          prop = parentSelector.replace(":", "") + "-" + prop;
           pointer = pointer.parent;
+          parentSelector = pointer.selector
+            ? pointer.selector
+                .split(" ")
+                .filter(sel => sel[sel.length - 1] === ":")[0]
+            : pointer.prop;
         }
       }
 
@@ -187,7 +200,7 @@ function rule(primary, secondaryOptions) {
       if (isPropIgnored(prop, value)) return;
 
       // Unless we tracked values of variables, they're all valid.
-      if (value.split(" ").some(val => isDollarVar(val))) return;
+      if (value.match(/\$[A-Za-z0-9_-]+/)?.some(isDollarVar)) return;
       if (value.split(" ").some(val => hasDollarVarArg(val))) return;
       if (value.split(" ").some(val => containsCustomFunction(val))) return;
 
@@ -296,6 +309,7 @@ function containsUnsupportedFunction(cssTreeNode) {
 
 function containsCustomFunction(cssTreeNode) {
   return Boolean(
+    /[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\(.*\)/g.test(cssTreeNode) ||
     cssTree.find(
       cssTreeNode,
       node =>

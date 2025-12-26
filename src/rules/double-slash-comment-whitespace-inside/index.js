@@ -14,7 +14,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 function rule(expectation) {
@@ -28,48 +29,54 @@ function rule(expectation) {
       return;
     }
 
-    eachRoot(root, checkRoot);
-
-    function checkRoot(root) {
-      const rootString = root.source.input.css;
-
-      if (rootString.trim() === "") {
+    root.walkComments(comment => {
+      if (comment.text.trim() === "") {
         return;
       }
 
-      const comments = findCommentsInRaws(rootString);
+      // Only process // comments
+      if (!comment.raws.inline && !comment.inline) {
+        return;
+      }
 
-      comments.forEach(comment => {
-        // Only process // comments
-        if (comment.type !== "double-slash") {
-          return;
-        }
+      let message;
 
-        // if it's `//` - no warning whatsoever; if `// ` - then trailing
-        // whitespace rule will govern this
-        if (comment.text === "") {
-          return;
-        }
+      if (
+        expectation === "never" &&
+        (comment.raws.left !== "" || /^\/+\s/.test(comment.raws.text))
+      ) {
+        message = messages.rejected;
+      } else if (
+        expectation === "always" &&
+        comment.raws.left === "" &&
+        !/^(\/)*(\s|$)/.test(comment.raws.text)
+      ) {
+        message = messages.expected;
+      } else {
+        return;
+      }
 
-        let message;
-
-        if (expectation === "never" && comment.raws.left !== "") {
-          message = messages.rejected;
-        } else if (comment.raws.left === "" && expectation === "always") {
-          message = messages.expected;
+      const fix = () => {
+        if (expectation === "always") {
+          comment.raws.text = comment.raws.text.replace(/^(\/*)/, "$1 ");
         } else {
-          return;
+          comment.raws.left = "";
+          comment.raws.text = comment.raws.text.replace(/^(\/*)\s+/, "$1");
         }
+      };
 
-        utils.report({
-          message,
-          node: root,
-          index: comment.source.start + comment.raws.startToken.length,
-          result,
-          ruleName
-        });
+      const extraSlashes = comment.raws.text.match(/^\/+/)?.[0]?.length || 0;
+
+      utils.report({
+        message,
+        node: root,
+        index: comment.source.start.offset + 2 + extraSlashes,
+        endIndex: comment.source.start.offset + 2 + extraSlashes,
+        result,
+        ruleName,
+        fix
       });
-    }
+    });
   };
 }
 

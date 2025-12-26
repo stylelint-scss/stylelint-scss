@@ -310,6 +310,10 @@ testRule({
       }
       `,
       description: "Allowed non-global function in @if and @error"
+    },
+    {
+      code: "margin: round(to-zero, -105px, 10px);",
+      description: "accepts CSS round. Issue #1080"
     }
   ],
 

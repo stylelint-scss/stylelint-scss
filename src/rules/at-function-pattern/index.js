@@ -8,7 +8,8 @@ const { utils } = stylelint;
 const ruleName = namespace("at-function-pattern");
 
 const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected @function name to match specified pattern"
+  expected: (functionName, pattern) =>
+    `Expected "${functionName}" to match pattern "${pattern}"`
 });
 
 const meta = {
@@ -30,18 +31,19 @@ function rule(pattern) {
 
     root.walkAtRules("function", atRule => {
       // Stripping the function of its arguments
-      const funcName = atRule.params.replace(/(\s*)\([\s\S]*\)/g, "");
+      const functionName = atRule.params.replace(/(\s*)\([\s\S]*\)/g, "");
 
-      if (regexpPattern.test(funcName)) {
+      if (regexpPattern.test(functionName)) {
         return;
       }
 
       utils.report({
         message: messages.expected,
+        messageArgs: [functionName, pattern],
         node: atRule,
         result,
         ruleName,
-        word: funcName
+        word: functionName
       });
     });
   };

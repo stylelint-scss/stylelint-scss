@@ -8,7 +8,8 @@ const { utils } = stylelint;
 const ruleName = namespace("at-mixin-pattern");
 
 const messages = utils.ruleMessages(ruleName, {
-  expected: "Expected @mixin name to match specified pattern"
+  expected: (mixinName, pattern) =>
+    `Expected "${mixinName}" to match pattern "${pattern}"`
 });
 
 const meta = {
@@ -38,6 +39,7 @@ function rule(pattern) {
 
       utils.report({
         message: messages.expected,
+        messageArgs: [mixinName, pattern],
         node: atRule,
         result,
         ruleName,

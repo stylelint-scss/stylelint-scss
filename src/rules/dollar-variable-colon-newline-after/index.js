@@ -17,7 +17,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 function rule(expectation, options, context) {
@@ -44,7 +45,7 @@ function rule(expectation, options, context) {
       return;
     }
 
-    const shouldFix = context.fix && (!options || options.disableFix !== true);
+    const shouldFix = options?.disableFix !== true;
 
     root.walkDecls(decl => {
       if (!decl.prop || decl.prop[0] !== "$") {
@@ -85,7 +86,7 @@ function rule(expectation, options, context) {
           index: indexToCheck,
           lineCheckStr: decl.value,
           err: m => {
-            if (shouldFix) {
+            const fix = () => {
               const nextLinePrefix =
                 expectation === "always"
                   ? decl.raws.before.replace(context.newline, "")
@@ -97,16 +98,16 @@ function rule(expectation, options, context) {
                 /:(.*)$/,
                 `:${context.newline}${nextLinePrefix}`
               );
-
-              return;
-            }
+            };
 
             utils.report({
               message: m,
               node: decl,
               index: indexToCheck,
+              endIndex: indexToCheck,
               result,
-              ruleName
+              ruleName,
+              fix: shouldFix ? fix : undefined
             });
           }
         });

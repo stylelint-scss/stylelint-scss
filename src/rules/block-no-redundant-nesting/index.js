@@ -11,7 +11,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 function resolveNestedSelector(parentSelector, nestedSelector) {
@@ -21,7 +22,7 @@ function resolveNestedSelector(parentSelector, nestedSelector) {
   return [parentSelector, nestedSelector].join(" ");
 }
 
-function processRuleNode(ruleNode, result, context) {
+function processRuleNode(ruleNode, result) {
   if (ruleNode.nodes.length !== 1) {
     return;
   }
@@ -36,7 +37,7 @@ function processRuleNode(ruleNode, result, context) {
     return;
   }
 
-  if (context.fix) {
+  const fix = () => {
     ruleNode.selector = resolveNestedSelector(
       ruleNode.selector,
       nestedRuleNode.selector
@@ -48,20 +49,20 @@ function processRuleNode(ruleNode, result, context) {
       for (const rule of ruleNode.nodes) {
         rule.parent = ruleNode;
       }
-      processRuleNode(ruleNode, result, context);
+      processRuleNode(ruleNode, result);
     }
-    return;
-  }
+  };
 
   utils.report({
     message: messages.rejected,
     node: nestedRuleNode,
     result,
-    ruleName
+    ruleName,
+    fix
   });
 }
 
-function rule(actual, _, context) {
+function rule(actual) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual
@@ -71,7 +72,7 @@ function rule(actual, _, context) {
       return;
     }
 
-    root.walkRules(ruleNode => processRuleNode(ruleNode, result, context));
+    root.walkRules(ruleNode => processRuleNode(ruleNode, result));
   };
 }
 

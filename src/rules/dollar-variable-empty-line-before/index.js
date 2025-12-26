@@ -18,7 +18,8 @@ const messages = utils.ruleMessages(ruleName, {
 });
 
 const meta = {
-  url: ruleUrl(ruleName)
+  url: ruleUrl(ruleName),
+  fixable: true
 };
 
 function rule(expectation, options, context) {
@@ -131,7 +132,7 @@ function rule(expectation, options, context) {
 
       const isFixDisabled = options && options.disableFix === true;
 
-      if (context.fix && !isFixDisabled) {
+      const fixCallback = () => {
         if (expectHasEmptyLineBefore && !hasEmptyLine(before)) {
           fix(decl, context.newline, context.newline + context.newline);
 
@@ -151,7 +152,7 @@ function rule(expectation, options, context) {
 
           return;
         }
-      }
+      };
 
       utils.report({
         message: expectHasEmptyLineBefore
@@ -159,7 +160,8 @@ function rule(expectation, options, context) {
           : messages.rejected,
         node: decl,
         result,
-        ruleName
+        ruleName,
+        fix: isFixDisabled ? undefined : fixCallback
       });
     });
   };
