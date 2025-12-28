@@ -112,7 +112,9 @@ const rule = (primary, secondaryOptions) => {
         // For example, given ".abc { &_x {} }".
         // Then, an expected raw `selector` is "&_x",
         // but, an actual `selector` is ".abc_x".
-        // see #6234 and #7482
+        // See:
+        // - https://github.com/stylelint/stylelint/issues/6234
+        // - https://github.com/stylelint/stylelint/issues/7482
         const endIndex = index + selector.length;
 
         utils.report({
