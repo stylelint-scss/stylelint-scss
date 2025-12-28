@@ -1,3 +1,11 @@
+# 6.14.0
+
+- Added: `dollar-variable-no-missing-interpolation` report namespaced variables in custom properties (#1225).
+- Added: `function-disallowed-list` check disallowed functions inside `@return` expressions (#1214).
+- Fixed: `dollar-variable-no-missing-interpolation` fix false positive for variables already inside interpolation (#1213).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v6.13.0...v6.14.0
+
 # 6.13.0
 
 - Added: `at-mixin-argumentless-call-parentheses` handle mixin calls with content block arguments (#1185).

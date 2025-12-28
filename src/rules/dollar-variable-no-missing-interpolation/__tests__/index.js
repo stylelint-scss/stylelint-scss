@@ -195,7 +195,6 @@ testRule({
     `,
       description:
         "when non-string variable is interpolated in CSS custom property"
-
     },
     {
       code: `
@@ -205,8 +204,18 @@ testRule({
         --scale: #{calculate-scale($foo)};
       }
     `,
+      description: "when variable is already inside interpolation"
+    },
+    {
+      code: `
+      @use 'variables';
+
+      a {
+        --foo: #{variables.$someVariable};
+      }
+      `,
       description:
-        "when variable is already inside interpolation"
+        "when namespaced variable is interpolated in CSS custom property"
     }
   ],
 
@@ -235,6 +244,9 @@ testRule({
       }
     `,
       line: 5,
+      column: 25,
+      endLine: 5,
+      endColumn: 29,
       message: messages.rejected("animation-name", "$var"),
       description:
         "when variable is a string and it is not interpolated in animation-name property"
@@ -248,6 +260,9 @@ testRule({
       }
     `,
       line: 5,
+      endLine: 5,
+      column: 24,
+      endColumn: 28,
       message: messages.rejected("counter-reset", "$var"),
       description:
         "when variable is a string and it is not interpolated in counter-reset"
@@ -272,6 +287,9 @@ testRule({
       @keyframes $var {}
     `,
       line: 4,
+      endLine: 4,
+      column: 18,
+      endColumn: 22,
       message: messages.rejected("@keyframes", "$var"),
       description:
         "when variable is a string and it is not interpolated in @keyframes"
@@ -283,6 +301,9 @@ testRule({
       @keyframes $var {}
     `,
       line: 4,
+      endLine: 4,
+      column: 18,
+      endColumn: 22,
       message: messages.rejected("@keyframes", "$var"),
       description:
         "when variable is a string and it is not interpolated in @keyframes"
@@ -317,6 +338,9 @@ testRule({
       }
     `,
       line: 4,
+      endLine: 4,
+      column: 22,
+      endColumn: 26,
       message: messages.rejected("@counter-style", "$var"),
       description:
         "when variable is not a string and it is used in @counter-style"
@@ -345,6 +369,9 @@ testRule({
       }
     `,
       line: 4,
+      endLine: 4,
+      column: 36,
+      endColumn: 40,
       message: messages.rejected("@supports", "$var"),
       description:
         "when variable is a string and it is used in @supports and there is whitespace"
@@ -358,6 +385,9 @@ testRule({
       }
     `,
       line: 5,
+      endLine: 5,
+      column: 20,
+      endColumn: 24,
       message: messages.rejected("@keyframes", "$var"),
       description:
         "when variable is a string and it is not interpolated in @keyframes inside a mixin"
@@ -371,6 +401,9 @@ testRule({
       }
     `,
       line: 5,
+      endLine: 5,
+      column: 25,
+      endColumn: 31,
       message: messages.rejected("--custom-color", "$color"),
       description:
         "when variable is used in CSS custom property without interpolation"
@@ -384,9 +417,28 @@ testRule({
       }
     `,
       line: 5,
+      endLine: 5,
+      column: 24,
+      endColumn: 29,
       message: messages.rejected("--custom-size", "$size"),
       description:
         "when non-string variable is used in CSS custom property without interpolation"
+    },
+    {
+      code: `
+      @use 'variables';
+
+      a {
+        --foo: variables.$someVariable;
+      }  
+      `,
+      line: 5,
+      endLine: 5,
+      colum: 15,
+      endColumn: 39,
+      message: messages.rejected("--foo", "variables.$someVariable"),
+      description:
+        "when namespaced variable is used in CSS custom property without interpolation"
     }
   ]
 });
@@ -685,6 +737,24 @@ testRule({
     `,
       message: messages.rejected("--custom-size", "$size"),
       description: "should fix non-string variable in CSS custom property"
+    },
+    {
+      code: `
+      @use 'variables';
+
+      a {
+        --foo: variables.$someVariable;
+      }
+      `,
+      fixed: `
+      @use 'variables';
+
+      a {
+        --foo: #{variables.$someVariable};
+      }
+      `,
+      message: messages.rejected("--foo", "variables.$someVariable"),
+      description: "should fix namespaced variable in CSS custom property"
     },
     {
       code: `
