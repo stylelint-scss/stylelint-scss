@@ -4,6 +4,7 @@ const valueParser = require("postcss-value-parser");
 const { utils } = require("stylelint");
 const namespace = require("../../utils/namespace");
 const ruleUrl = require("../../utils/ruleUrl");
+const validateTypes = require("../../utils/validateTypes");
 
 const ruleName = namespace("dollar-variable-no-missing-interpolation");
 
@@ -17,7 +18,7 @@ const meta = {
   fixable: true
 };
 
-const SCSS_VARIABLE_PATTERN = /\$[a-zA-Z0-9_-]+/g;
+const SCSS_VARIABLE_PATTERN = /([a-zA-Z0-9_-]+\.)?\$[a-zA-Z0-9_-]+/g;
 
 const CUSTOM_IDENT_PROPERTIES = [
   "animation",
@@ -89,6 +90,7 @@ function isStringValue(value) {
  * Examples:
  *   "animation-name: $bar" → "animation-name: #{$bar}"
  *   "animation: $a 5s, $b 3s" → "animation: #{$a} 5s, #{$b} 3s"
+ *   "--foo: variables.$someVariable" → "--foo: #{variables.$someVariable}"
  */
 function wrapVariablesWithInterpolation(value) {
   let fixed = value;
@@ -131,6 +133,17 @@ function collectVariables(root) {
   function findVariablesInNode(node) {
     node.walkDecls(decl => {
       const { prop, value } = decl;
+
+      // Handle dollar variables inside custom properties separately
+      // since they need to always be interpolated (unlike plain dollar variables).
+      if (
+        !allVars.includes(value) &&
+        isCustomProperty(decl) &&
+        validateTypes.isDollarVar(value)
+      ) {
+        allVars.push(value);
+        return;
+      }
 
       // Skip if not a SCSS variable or already collected
       if (!isSassVariable(prop) || allVars.includes(prop)) {
@@ -226,7 +239,7 @@ function checkValueForVariables(
 
   // Parse the value and check each word token
   valueParser(value).walk(valueNode => {
-    const { value: tokenValue, sourceIndex } = valueNode;
+    const { value: tokenValue } = valueNode;
 
     if (
       shouldSkipValueNode(valueNode) ||
@@ -236,7 +249,7 @@ function checkValueForVariables(
     }
 
     // Skip variables that are already inside interpolation blocks
-    if (isInsideInterpolationBlock(value, sourceIndex)) {
+    if (isInsideInterpolationBlock(value, value.indexOf("$"))) {
       return;
     }
 
