@@ -2,7 +2,7 @@ import valueParser from "postcss-value-parser";
 import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
-import validateTypes from "../../utils/validateTypes.js";
+import { isDollarVar } from "../../utils/validateTypes.js";
 
 const { utils } = stylelint;
 
@@ -139,7 +139,7 @@ function collectVariables(root) {
       if (
         !allVars.includes(value) &&
         isCustomProperty(decl) &&
-        validateTypes.isDollarVar(value)
+        isDollarVar(value)
       ) {
         allVars.push(value);
         return;
