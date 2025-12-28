@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Finds comments, both CSS comments and double slash ones, in a CSS string
  * This helper exists because PostCSS drops some inline comments (those
@@ -26,7 +24,7 @@
  *      the same line
  */
 
-module.exports = function findCommentsInRaws(rawString) {
+export default function findCommentsInRaws(rawString) {
   const result = [];
   let comment = {};
   // Keeps track of which structure the parser is inside (string, comment,
@@ -238,4 +236,4 @@ module.exports = function findCommentsInRaws(rawString) {
   }
 
   return result;
-};
+}

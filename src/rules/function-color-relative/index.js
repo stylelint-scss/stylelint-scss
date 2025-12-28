@@ -1,10 +1,10 @@
-"use strict";
+import valueParser from "postcss-value-parser";
+import stylelint from "stylelint";
+import declarationValueIndex from "../../utils/declarationValueIndex.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const valueParser = require("postcss-value-parser");
-const { utils } = require("stylelint");
-const declarationValueIndex = require("../../utils/declarationValueIndex");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("function-color-relative");
 
@@ -83,4 +83,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

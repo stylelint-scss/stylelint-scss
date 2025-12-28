@@ -1,7 +1,5 @@
-"use strict";
-
-const isCustomPropertySet = require("../isCustomPropertySet");
-const postcss = require("postcss");
+import isCustomPropertySet from "../isCustomPropertySet.js";
+import postcss from "postcss";
 
 describe("isCustomPropertySet", () => {
   it("accepts custom property set", () => {

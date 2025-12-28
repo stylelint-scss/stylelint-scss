@@ -1,10 +1,10 @@
-"use strict";
+import stylelint from "stylelint";
+import valueParser from "postcss-value-parser";
+import getAtRuleParams from "../../utils/getAtRuleParams.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const valueParser = require("postcss-value-parser");
-const getAtRuleParams = require("../../utils/getAtRuleParams");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("no-duplicate-load-rules");
 const messages = utils.ruleMessages(ruleName, {
@@ -162,4 +162,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

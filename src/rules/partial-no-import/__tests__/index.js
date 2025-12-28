@@ -1,8 +1,10 @@
-"use strict";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
+import rule from "../index.js";
 
-const path = require("path");
-const rule = require("..");
-const { messages, ruleName } = rule;
+const { ruleName, messages } = rule;
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 testRule({
   ruleName,

@@ -1,6 +1,4 @@
-"use strict";
-
-const hasInterpolation = require("./hasInterpolation.js");
+import hasInterpolation from "./hasInterpolation.js";
 
 /**
  * Check whether a value is standard
@@ -8,7 +6,7 @@ const hasInterpolation = require("./hasInterpolation.js");
  * @param {string} value
  * @returns {boolean}
  */
-function isStandardSyntaxValue(value) {
+export default function isStandardSyntaxValue(value) {
   let normalizedValue = value;
 
   // Ignore operators before variables (example -$variable)
@@ -50,5 +48,3 @@ function isStandardSyntaxValue(value) {
 
   return true;
 }
-
-module.exports = isStandardSyntaxValue;

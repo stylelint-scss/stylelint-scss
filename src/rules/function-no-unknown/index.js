@@ -1,11 +1,11 @@
-"use strict";
+import valueParser from "postcss-value-parser";
+import stylelint from "stylelint";
+import { ALL_FUNCTIONS } from "../../utils/functions.js";
+import namespace from "../../utils/namespace.js";
+import { isRegExp, isString } from "../../utils/validateTypes.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const valueParser = require("postcss-value-parser");
-const { utils } = require("stylelint");
-const { ALL_FUNCTIONS } = require("../../utils/functions");
-const namespace = require("../../utils/namespace");
-const { isRegExp, isString } = require("../../utils/validateTypes");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleToCheckAgainst = "function-no-unknown";
 
@@ -155,4 +155,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

@@ -1,11 +1,11 @@
-"use strict";
+import stylelint from "stylelint";
+import eachRoot from "../../utils/eachRoot.js";
+import findCommentsInRaws from "../../utils/findCommentsInRaws.js";
+import namespace from "../../utils/namespace.js";
+import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const eachRoot = require("../../utils/eachRoot");
-const findCommentsInRaws = require("../../utils/findCommentsInRaws");
-const namespace = require("../../utils/namespace");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("double-slash-comment-inline");
 
@@ -95,4 +95,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

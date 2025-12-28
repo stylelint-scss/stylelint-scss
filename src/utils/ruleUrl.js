@@ -1,5 +1,3 @@
-"use strict";
-
 const revision = "master";
 
 /**
@@ -8,10 +6,10 @@ const revision = "master";
  * @param {string} ruleName
  * @return {string}
  */
-module.exports = function ruleUrl(ruleName) {
+export default function ruleUrl(ruleName) {
   let name = ruleName;
   if (name.includes("/")) {
     [, name] = name.split("/", 2);
   }
   return `https://github.com/stylelint-scss/stylelint-scss/blob/${revision}/src/rules/${name}`;
-};
+}
