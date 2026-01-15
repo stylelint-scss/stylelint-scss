@@ -1,10 +1,10 @@
-"use strict";
+import stylelint from "stylelint";
+import { isBoolean } from "../../utils/validateTypes.js";
+import { isString } from "../../utils/validateTypes.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const { isBoolean } = require("../../utils/validateTypes");
-const { isString } = require("../../utils/validateTypes");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("no-duplicate-dollar-variables");
 
@@ -192,4 +192,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

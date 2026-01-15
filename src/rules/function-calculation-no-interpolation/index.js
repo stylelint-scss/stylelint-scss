@@ -1,9 +1,9 @@
-"use strict";
+import stylelint from "stylelint";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import valueParser from "postcss-value-parser";
 
-const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const valueParser = require("postcss-value-parser");
+const { utils } = stylelint;
 
 const ruleName = namespace("function-calculation-no-interpolation");
 
@@ -55,4 +55,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

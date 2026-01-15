@@ -1,10 +1,10 @@
-"use strict";
+import valueParser from "postcss-value-parser";
+import stylelint from "stylelint";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
+import { isDollarVar } from "../../utils/validateTypes.js";
 
-const valueParser = require("postcss-value-parser");
-const { utils } = require("stylelint");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
-const validateTypes = require("../../utils/validateTypes");
+const { utils } = stylelint;
 
 const ruleName = namespace("dollar-variable-no-missing-interpolation");
 
@@ -139,7 +139,7 @@ function collectVariables(root) {
       if (
         !allVars.includes(value) &&
         isCustomProperty(decl) &&
-        validateTypes.isDollarVar(value)
+        isDollarVar(value)
       ) {
         allVars.push(value);
         return;
@@ -336,4 +336,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

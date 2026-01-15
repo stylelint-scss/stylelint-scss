@@ -1,6 +1,4 @@
-"use strict";
-
-const rules = require("../index");
+import rules from "../index.js";
 
 const ruleEntries = Object.entries(rules);
 
@@ -8,7 +6,9 @@ test("not empty", () => {
   expect(ruleEntries.length).toBeGreaterThan(0);
 });
 
-for (const [ruleName, rule] of ruleEntries) {
+for (const [ruleName, rulePromise] of ruleEntries) {
+  const rule = await rulePromise;
+
   test(`"${ruleName}" is a function`, () => {
     expect(rule).toBeInstanceOf(Function);
   });

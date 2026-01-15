@@ -177,6 +177,7 @@ Please also see the [example configs](./docs/examples/) for special cases.
 
 ### Selector
 
+- [`selector-class-pattern`](./src/rules/selector-class-pattern/README.md): Specify a pattern for class selectors. Should be used instead of Stylelint's [selector-class-pattern](https://stylelint.io/user-guide/rules/selector-class-pattern).
 - [`selector-nest-combinators`](./src/rules/selector-nest-combinators/README.md): Require or disallow nesting of combinators in selectors.
 - [`selector-no-redundant-nesting-selector`](./src/rules/selector-no-redundant-nesting-selector/README.md): Disallow redundant nesting selectors (`&`).
 - [`selector-no-union-class-name`](./src/rules/selector-no-union-class-name/README.md): Disallow union class names with the parent selector (`&`).
@@ -194,15 +195,6 @@ Please also see the [example configs](./docs/examples/) for special cases.
 - [`no-duplicate-mixins`](./src/rules/no-duplicate-mixins/README.md): Disallow duplicate mixins within a stylesheet.
 - [`no-global-function-names`](./src/rules/no-global-function-names/README.md): Disallows the use of global function names, as these global functions are now located inside built-in Sass modules.
 - [`no-unused-private-members`](./src/rules/no-unused-private-members/README.md): Disallow unused private members such as functions, mixins, variables or placeholder selectors.
-
-## Deprecated
-
-These rules are deprecated — we won't fix bugs nor add options, and we will remove them in the next major release.
-
-- [`at-import-no-partial-leading-underscore`](https://github.com/stylelint-scss/stylelint-scss/blob/v5.2.1/src/rules/at-import-no-partial-leading-underscore/README.md): Disallow leading underscore in partial names in `@import`.
-- [`at-import-partial-extension`](https://github.com/stylelint-scss/stylelint-scss/blob/v6.3.0/src/rules/at-import-partial-extension/README.md): Require or disallow extension in `@import` commands.
-- [`at-import-partial-extension-blacklist`](https://github.com/stylelint-scss/stylelint-scss/blob/v6.1.0/src/rules/at-import-partial-extension-blacklist/README.md): Specify a blacklist of disallowed file extensions for partial names in `@import` commands.
-- [`at-import-partial-extension-whitelist`](https://github.com/stylelint-scss/stylelint-scss/blob/v6.1.0/src/rules/at-import-partial-extension-whitelist/README.md): Specify a whitelist of allowed file extensions for partial names in `@import` commands.
 
 ## Help out
 

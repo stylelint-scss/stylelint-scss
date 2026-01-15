@@ -1,10 +1,10 @@
-"use strict";
+import stylelint from "stylelint";
+import optionsHaveException from "../../utils/optionsHaveException.js";
+import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
+import namespace from "../../utils/namespace.js";
+import ruleUrl from "../../utils/ruleUrl.js";
 
-const { utils } = require("stylelint");
-const optionsHaveException = require("../../utils/optionsHaveException");
-const optionsHaveIgnored = require("../../utils/optionsHaveIgnored");
-const namespace = require("../../utils/namespace");
-const ruleUrl = require("../../utils/ruleUrl");
+const { utils } = stylelint;
 
 const ruleName = namespace("dollar-variable-first-in-block");
 
@@ -122,4 +122,4 @@ rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-module.exports = rule;
+export default rule;

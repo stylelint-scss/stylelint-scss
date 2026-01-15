@@ -1,6 +1,7 @@
-"use strict";
+import rule from "../index.js";
 
-const { messages, ruleName } = require("..");
+const { ruleName, messages } = rule;
+
 // Required ("always")
 testRule({
   ruleName,
@@ -63,8 +64,8 @@ testRule({
       code: `
       @use "./variables";
 
-      @media (max-width: variables.$val) { 
-        a { color: red; } 
+      @media (max-width: variables.$val) {
+        a { color: red; }
       }
       `,
       description: "Always. Example: using @use."
@@ -73,8 +74,8 @@ testRule({
       code: `
       @use "./variables" as v;
 
-      @media (max-width: v.$val) { 
-        a { color: red; } 
+      @media (max-width: v.$val) {
+        a { color: red; }
       }
       `,
       description: "Always. Example: using @use with 'as'."
@@ -83,8 +84,8 @@ testRule({
       code: `
       @use "./variables";
 
-      @media (max-width: #{variables.$val}) { 
-        a { color: red; } 
+      @media (max-width: #{variables.$val}) {
+        a { color: red; }
       }
       `,
       description: "Always. Example: using @use with interpolation."
@@ -93,8 +94,8 @@ testRule({
       code: `
       @use "./variables";
 
-      @media (max-width: #{ variables.$val }) { 
-        a { color: red; } 
+      @media (max-width: #{ variables.$val }) {
+        a { color: red; }
       }
       `,
       description:

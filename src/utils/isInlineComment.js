@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Check if a comment is inline one (i.e. on the same line as some non-comment
  * code). Only works with comments that are not ignored by PostCSS. To work
@@ -8,7 +6,7 @@
  * @param {Comment} comment - PostCSS comment node
  * @return {boolean} true, if the comment is an inline one
  */
-module.exports = function isInlineComment(comment) {
+export default function isInlineComment(comment) {
   const nextNode = comment.next();
   const isBeforeSomething =
     !!nextNode &&
@@ -17,4 +15,4 @@ module.exports = function isInlineComment(comment) {
   const isAfterSomething = comment.raws.before.search(/\n/) === -1;
 
   return isAfterSomething || isBeforeSomething;
-};
+}

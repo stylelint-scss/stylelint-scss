@@ -1,5 +1,3 @@
-"use strict";
-
 /** @typedef {import('postcss').Node} Node */
 /** @typedef {import('postcss').Source} NodeSource */
 
@@ -7,7 +5,7 @@
  * @param {Node} node
  * @returns {node is import('postcss').Root}
  */
-function isRoot(node) {
+export function isRoot(node) {
   return node.type === "root";
 }
 
@@ -15,7 +13,7 @@ function isRoot(node) {
  * @param {Node} node
  * @returns {node is import('postcss').Rule}
  */
-function isRule(node) {
+export function isRule(node) {
   return node.type === "rule";
 }
 
@@ -23,7 +21,7 @@ function isRule(node) {
  * @param {Node} node
  * @returns {node is import('postcss').AtRule}
  */
-function isAtRule(node) {
+export function isAtRule(node) {
   return node.type === "atrule";
 }
 
@@ -31,7 +29,7 @@ function isAtRule(node) {
  * @param {Node} node
  * @returns {node is import('postcss').Comment}
  */
-function isComment(node) {
+export function isComment(node) {
   return node.type === "comment";
 }
 
@@ -39,7 +37,7 @@ function isComment(node) {
  * @param {Node} node
  * @returns {node is import('postcss').Declaration}
  */
-function isDeclaration(node) {
+export function isDeclaration(node) {
   return node.type === "decl";
 }
 
@@ -47,7 +45,7 @@ function isDeclaration(node) {
  * @param {Node} node
  * @returns {node is import('postcss').Document}
  */
-function isDocument(node) {
+export function isDocument(node) {
   return node.type === "document";
 }
 
@@ -55,7 +53,7 @@ function isDocument(node) {
  * @param {import('postcss-value-parser').Node} node
  * @returns {node is import('postcss-value-parser').DivNode}
  */
-function isValueDiv(node) {
+export function isValueDiv(node) {
   return node.type === "div";
 }
 
@@ -63,7 +61,7 @@ function isValueDiv(node) {
  * @param {import('postcss-value-parser').Node} node
  * @returns {node is import('postcss-value-parser').FunctionNode}
  */
-function isValueFunction(node) {
+export function isValueFunction(node) {
   return node.type === "function";
 }
 
@@ -71,7 +69,7 @@ function isValueFunction(node) {
  * @param {import('postcss-value-parser').Node} node
  * @returns {node is import('postcss-value-parser').SpaceNode}
  */
-function isValueSpace(node) {
+export function isValueSpace(node) {
   return node.type === "space";
 }
 
@@ -79,7 +77,7 @@ function isValueSpace(node) {
  * @param {import('postcss-value-parser').Node} node
  * @returns {node is import('postcss-value-parser').WordNode}
  */
-function isValueWord({ type }) {
+export function isValueWord({ type }) {
   return type === "word";
 }
 
@@ -87,18 +85,6 @@ function isValueWord({ type }) {
  * @param {Node} node
  * @returns {node is (Node & {source: NodeSource})}
  */
-function hasSource(node) {
+export function hasSource(node) {
   return Boolean(node.source);
 }
-
-exports.hasSource = hasSource;
-exports.isAtRule = isAtRule;
-exports.isComment = isComment;
-exports.isDeclaration = isDeclaration;
-exports.isDocument = isDocument;
-exports.isRoot = isRoot;
-exports.isRule = isRule;
-exports.isValueDiv = isValueDiv;
-exports.isValueFunction = isValueFunction;
-exports.isValueSpace = isValueSpace;
-exports.isValueWord = isValueWord;
