@@ -29,7 +29,7 @@
   "devDependencies": {
     "common-tags": "^1.8.2",
     "cross-env": "^10.1.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.39.2",
     "github-contributors-list": "^1.2.5",
     "husky": "^9.1.7",
     "jest": "^30.2.0",
