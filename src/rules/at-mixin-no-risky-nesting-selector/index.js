@@ -1,13 +1,13 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
 const ruleName = namespace("at-mixin-no-risky-nesting-selector");
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: `Unexpected nested parent selector in @mixin rule`
+  rejected: "Unexpected nested parent selector in @mixin rule"
 });
 
 const meta = {
@@ -16,12 +16,15 @@ const meta = {
 
 function isWithinMixin(node) {
   let parent = node.parent;
+
   while (parent) {
     if (parent.type === "atrule" && parent.name === "mixin") {
       return true;
     }
+
     parent = parent.parent;
   }
+
   return false;
 }
 
@@ -30,8 +33,7 @@ function hasNestedParentSelector(selectors) {
     .split(",")
     .some(
       selector =>
-        selector.includes("&") &&
-        /\s*[^\s]+\s*&/.test(selector.replace(" ", ""))
+        selector.includes("&") && /\s*\S+\s*&/.test(selector.replace(" ", ""))
     );
 }
 

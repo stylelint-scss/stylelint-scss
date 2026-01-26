@@ -1,8 +1,7 @@
-import stylelint from "stylelint";
 import moduleNamespace from "../../utils/moduleNamespace.js";
-
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -29,8 +28,8 @@ function rule(primary) {
 
     const mapNamespace = moduleNamespace(root, "sass:map");
 
-    root.walkAtRules("each", rule => {
-      const parts = separateEachParams(rule.params);
+    root.walkAtRules("each", _rule => {
+      const parts = separateEachParams(_rule.params);
 
       // If loop is fetching both key + value, return
       if (parts[0].length === 2) {
@@ -43,7 +42,7 @@ function rule(primary) {
       }
 
       // Loop over decls inside of each statement and loop for variable assignments.
-      rule.walkDecls(innerDecl => {
+      _rule.walkDecls(innerDecl => {
         // Check that this decl is a map-get call
         if (innerDecl.prop[0] !== "$") {
           return;
@@ -68,10 +67,10 @@ function rule(primary) {
 
         utils.report({
           message: messages.expected,
-          node: rule,
+          node: _rule,
           result,
           ruleName,
-          word: rule.params
+          word: _rule.params
         });
       });
     });
@@ -122,8 +121,8 @@ function mapGetParameters(mapGetDecl, mapNamespace) {
   return [parts[1], parts[2]];
 }
 
-function getNamespacedPattern(pattern, namespace) {
-  return namespace !== null ? `(?:${namespace}\\.|map-)${pattern}` : pattern;
+function getNamespacedPattern(pattern, _namespace) {
+  return _namespace !== null ? `(?:${_namespace}\\.|map-)${pattern}` : pattern;
 }
 
 export default rule;

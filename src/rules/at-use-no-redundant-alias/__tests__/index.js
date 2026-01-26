@@ -140,8 +140,8 @@ testRule({
   ],
   reject: [
     {
-      code: `@use "foo" as foo;`,
-      fixed: `@use "foo";`,
+      code: '@use "foo" as foo;',
+      fixed: '@use "foo";',
       line: 1,
       column: 12,
       endLine: 1,
@@ -150,8 +150,8 @@ testRule({
       description: "Without url"
     },
     {
-      code: `@use 'foo' as foo;`,
-      fixed: `@use 'foo';`,
+      code: "@use 'foo' as foo;",
+      fixed: "@use 'foo';",
       line: 1,
       column: 12,
       endLine: 1,
@@ -160,8 +160,8 @@ testRule({
       description: "Without url, single quotes."
     },
     {
-      code: `@use "src/corners" as corners;`,
-      fixed: `@use "src/corners";`,
+      code: '@use "src/corners" as corners;',
+      fixed: '@use "src/corners";',
       line: 1,
       column: 20,
       endLine: 1,
@@ -170,8 +170,8 @@ testRule({
       description: "With url"
     },
     {
-      code: `@use "sass:math" as math;`,
-      fixed: `@use "sass:math";`,
+      code: '@use "sass:math" as math;',
+      fixed: '@use "sass:math";',
       line: 1,
       column: 18,
       endLine: 1,
@@ -180,8 +180,8 @@ testRule({
       description: "Built-in module"
     },
     {
-      code: `@use "foo"   as   foo;`,
-      fixed: `@use "foo";`,
+      code: '@use "foo"   as   foo;',
+      fixed: '@use "foo";',
       line: 1,
       column: 14,
       endLine: 1,
@@ -190,8 +190,8 @@ testRule({
       description: "Without space"
     },
     {
-      code: `@use "foo" as foo with ($baz: 1px);`,
-      fixed: `@use "foo" with ($baz: 1px);`,
+      code: '@use "foo" as foo with ($baz: 1px);',
+      fixed: '@use "foo" with ($baz: 1px);',
       line: 1,
       column: 12,
       endLine: 1,

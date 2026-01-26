@@ -1,7 +1,7 @@
 import * as nodeJsPath from "node:path";
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 

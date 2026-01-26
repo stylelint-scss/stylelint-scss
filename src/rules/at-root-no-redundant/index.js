@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -8,12 +8,15 @@ const ruleName = namespace("at-root-no-redundant");
 
 function isWithinKeyframes(node) {
   let parent = node.parent;
+
   while (parent) {
     if (parent.type === "atrule" && parent.name === "keyframes") {
       return true;
     }
+
     parent = parent.parent;
   }
+
   return false;
 }
 
@@ -41,7 +44,7 @@ function rule(actual) {
         node.parent.type === "root" ||
         node.params
           .split(",")
-          .every(elem => elem.replace(/#{.*}/g, "").includes("&")) ||
+          .every(elem => elem.replace(/#\{.*\}/g, "").includes("&")) ||
         isWithinKeyframes(node)
       ) {
         const fix = () => {

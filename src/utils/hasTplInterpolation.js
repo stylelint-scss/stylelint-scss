@@ -5,5 +5,5 @@
  * @return {boolean} If `true`, a string has template literal interpolation
  */
 export default function hasTplInterpolation(string) {
-  return /{.+?}/.test(string);
+  return /\{.+?\}/.test(string);
 }

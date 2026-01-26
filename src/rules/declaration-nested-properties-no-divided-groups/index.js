@@ -1,7 +1,7 @@
-import stylelint from "stylelint";
-import parseNestedPropRoot from "../../utils/parseNestedPropRoot.js";
 import namespace from "../../utils/namespace.js";
+import parseNestedPropRoot from "../../utils/parseNestedPropRoot.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -54,7 +54,7 @@ function rule(expectation) {
         }
       });
 
-      Object.entries(nestedGroups).forEach(([namespace, groups]) => {
+      Object.entries(nestedGroups).forEach(([namespaceName, groups]) => {
         // Only warn if there are more than one nested groups with equal namespaces
         if (groups.length === 1) {
           return;
@@ -62,11 +62,11 @@ function rule(expectation) {
 
         groups.forEach(group => {
           utils.report({
-            message: messages.expected(namespace),
+            message: messages.expected(namespaceName),
             node: group,
             result,
             ruleName,
-            word: namespace
+            word: namespaceName
           });
         });
       });

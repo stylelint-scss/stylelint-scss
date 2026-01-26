@@ -1,8 +1,8 @@
-import valueParser from "postcss-value-parser";
-import stylelint from "stylelint";
+import { isDollarVar } from "../../utils/validateTypes.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
-import { isDollarVar } from "../../utils/validateTypes.js";
+import stylelint from "stylelint";
+import valueParser from "postcss-value-parser";
 
 const { utils } = stylelint;
 
@@ -18,7 +18,7 @@ const meta = {
   fixable: true
 };
 
-const SCSS_VARIABLE_PATTERN = /([a-zA-Z0-9_-]+\.)?\$[a-zA-Z0-9_-]+/g;
+const SCSS_VARIABLE_PATTERN = /([\w-]+\.)?\$[\w-]+/g;
 
 const CUSTOM_IDENT_PROPERTIES = [
   "animation",
@@ -68,6 +68,7 @@ function isInsideInterpolationBlock(value, variableIndex) {
       i++; // Skip the '{' to avoid double-counting
     } else if (value[i] === "}") {
       depth--;
+
       if (depth === 0) {
         insideBlock = false;
       }
@@ -82,7 +83,7 @@ function isSassVariable(value) {
 }
 
 function isStringValue(value) {
-  return /^(["']).*(["'])$/.test(value);
+  return /^["'].*["']$/.test(value);
 }
 
 /**
@@ -110,10 +111,9 @@ function wrapVariablesWithInterpolation(value) {
     }
 
     // Wrap the variable with interpolation syntax: $var → #{$var}
-    fixed =
-      fixed.slice(0, varIndex) +
-      `#{${variable}}` +
-      fixed.slice(varIndex + variable.length);
+    fixed = `${fixed.slice(0, varIndex)}#{${variable}}${fixed.slice(
+      varIndex + variable.length
+    )}`;
   }
 
   return fixed;
@@ -142,6 +142,7 @@ function collectVariables(root) {
         isDollarVar(value)
       ) {
         allVars.push(value);
+
         return;
       }
 

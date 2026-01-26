@@ -1,11 +1,11 @@
-import stylelint from "stylelint";
-import optionsMatches from "../../utils/optionsMatches.js";
+import { isRegExp, isString } from "../../utils/validateTypes.js";
 import hasNestedSibling from "../../utils/hasNestedSibling.js";
 import isType from "../../utils/isType.js";
-import parseSelector from "../../utils/parseSelector.js";
-import { isRegExp, isString } from "../../utils/validateTypes.js";
 import namespace from "../../utils/namespace.js";
+import optionsMatches from "../../utils/optionsMatches.js";
+import parseSelector from "../../utils/parseSelector.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -38,12 +38,12 @@ function rule(actual, options) {
       return;
     }
 
-    root.walkRules(/&/, rule => {
-      if (rule.selector === "&") {
+    root.walkRules(/&/, ruleNode => {
+      if (ruleNode.selector === "&") {
         return;
       }
 
-      parseSelector(rule.selector, result, rule, fullSelector => {
+      parseSelector(ruleNode.selector, result, ruleNode, fullSelector => {
         // "Ampersand followed by a combinator followed by non-combinator non-ampersand and not the selector end"
         fullSelector.walkNesting(node => {
           const prev = node.prev();
@@ -83,7 +83,7 @@ function rule(actual, options) {
           utils.report({
             ruleName,
             result,
-            node: rule,
+            node: ruleNode,
             message: messages.rejected,
             index: node.sourceIndex,
             endIndex: node.sourceIndex + node.value.length

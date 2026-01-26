@@ -29,7 +29,9 @@
   "devDependencies": {
     "common-tags": "^1.8.2",
     "cross-env": "^10.1.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.39.2",
+    "eslint-config-stylelint": "^26.1.0",
+    "eslint-plugin-jest": "^29.12.1",
     "github-contributors-list": "^1.2.5",
     "husky": "^9.1.7",
     "jest": "^30.2.0",
@@ -57,7 +59,7 @@
     "stylelint-plugin"
   ],
   "scripts": {
-    "lint": "eslint . --ignore-path .gitignore",
+    "lint": "eslint .",
     "prettify": "prettier --write \"src/**/*.js\" --ignore-path=.prettierignore",
     "pretest": "npm run lint",
     "release": "np",

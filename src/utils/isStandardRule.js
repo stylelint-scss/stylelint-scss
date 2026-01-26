@@ -50,7 +50,7 @@ export default function isStandardRule(rule) {
   }
 
   // Less guards
-  if (/when\s+(not\s+)*\(/.test(selector)) {
+  if (/when\s+(?:not\s+)*\(/.test(selector)) {
     return false;
   }
 

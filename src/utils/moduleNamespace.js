@@ -20,7 +20,7 @@
  * Have a look at the tests for more examples.
  */
 export default function moduleNamespace(root, module) {
-  let moduleNamespace = getDefaultNamespace(module);
+  let namespace = getDefaultNamespace(module);
 
   root.walkAtRules("use", rule => {
     const customNamespace = getCustomNamespace(module, rule);
@@ -29,14 +29,15 @@ export default function moduleNamespace(root, module) {
       case null:
         return;
       case "*":
-        moduleNamespace = null;
+        namespace = null;
+
         return;
       default:
-        moduleNamespace = customNamespace;
+        namespace = customNamespace;
     }
   });
 
-  return moduleNamespace;
+  return namespace;
 }
 
 function getDefaultNamespace(module) {

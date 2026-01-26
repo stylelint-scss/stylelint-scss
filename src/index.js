@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
-import rules from "./rules/index.js";
 import namespace from "./utils/namespace.js";
+import rules from "./rules/index.js";
+import stylelint from "stylelint";
 
 const { createPlugin } = stylelint;
 

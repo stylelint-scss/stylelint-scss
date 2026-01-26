@@ -201,10 +201,11 @@ function checkMultiplication(string, index) {
   }
 
   if (insideFn.is && insideFn.fn) {
-    const fnArgsReg = new RegExp(insideFn.fn + "\\(([^)]+)\\)");
+    const fnArgsReg = new RegExp(`${insideFn.fn}\\(([^)]+)\\)`);
     const fnArgs = string.match(fnArgsReg);
     const isSingleMultiplicationChar =
       Array.isArray(fnArgs) && fnArgs[1] === "*";
+
     // e.g. selector(:has(*))
     if (isSingleMultiplicationChar) {
       return "char";
@@ -575,6 +576,7 @@ function checkSlash(string, index, isAfterColon) {
     if (isInsideInterpolation(string, index)) {
       return "op";
     }
+
     return "char";
   }
 
@@ -623,13 +625,13 @@ function checkSlash(string, index, isAfterColon) {
     // `10px/2px+1`, `10px/2px+ 1`
     after.search(/^[^(){},\s]+\+/) !== -1 ||
     // Anything but `10px/2px +1`, `10px/2px +1px`
-    after.search(/^[^(){},\s]+\s+(\+\D)/) !== -1 ||
+    after.search(/^[^(){},\s]+\s+\+\D/) !== -1 ||
     // Following ` -`: only if `$var` after (`10/10 -$var`)
-    after.search(/^[^(){},\s]+\s+-(\$|\s)/) !== -1 ||
+    after.search(/^[^(){},\s]+\s+-(?:\$|\s)/) !== -1 ||
     // Following `-`: only if number after (`10s/10s-10`, `10s/10s-.1`)
-    after.search(/^[^(){},\s]+-(\.)?\d/) !== -1 ||
+    after.search(/^[^(){},\s]+-\.?\d/) !== -1 ||
     // Or if there is a number before anything but string after (not `10s/1-str`,)
-    after.search(/^(\d*\.)?\d+-\s*[^#a-zA-Z_\s]/) !== -1
+    after.search(/^(?:\d*\.)?\d+-\s*[^#a-z_\s]/i) !== -1
   ) {
     // console.log("/, math op around")
     return "op";
@@ -737,7 +739,7 @@ function isInsideParens(string, index) {
 function isInsideInterpolation(string, index) {
   const before = string.substring(0, index).trim();
 
-  return before.search(/#{[^}]*$/) !== -1;
+  return before.search(/#\{[^}]*$/) !== -1;
 }
 
 /**
@@ -753,9 +755,7 @@ export function isInsideFunctionCall(string, index) {
   const result = { is: false, fn: null };
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
-  const beforeMatch = before.match(
-    /(?:[a-zA-Z_-][\w-]*\()?(:?[a-zA-Z_-][\w-]*)\(/
-  );
+  const beforeMatch = before.match(/(?:[a-z_-][\w-]*\()?(:?[a-z_-][\w-]*)\(/i);
 
   if (beforeMatch && beforeMatch[0] && after.search(/^[^(]+\)/g) !== -1) {
     result.is = true;
@@ -776,7 +776,7 @@ export function isInsideFunctionCall(string, index) {
  */
 function isStringBefore(before) {
   const result = { is: false, opsBetween: false };
-  const stringOpsClipped = before.replace(/(\s*[+/*%]|\s+-)+$/, "");
+  const stringOpsClipped = before.replace(/(?:\s*[+/*%]|\s+-)+$/, "");
 
   if (stringOpsClipped !== before) {
     result.opsBetween = true;
@@ -790,7 +790,7 @@ function isStringBefore(before) {
     result.is = true;
   } else if (
     stringOpsClipped.search(
-      /(?:^|[/(){},: ])([a-zA-Z_][\w-]*|-+[a-zA-Z_][\w-]*)$/
+      /(?:^|[/(){},: ])(?:[a-z_][\w-]*|-+[a-z_][\w-]*)$/i
     ) !== -1
   ) {
     // First pattern: a1, a1a, a-1,
@@ -808,14 +808,13 @@ function isStringAfter(after) {
 
   // e.g. `a1`, `a1a`, `a-1`, and even `--s323`
   return (
-    stringTrimmed.search(/^([a-zA-Z_][\w-]*|-+[a-zA-Z_][\w-]*)(?:$|[)}, ])/) !==
-    -1
+    stringTrimmed.search(/^([a-z_][\w-]*|-+[a-z_][\w-]*)(?:$|[)}, ])/i) !== -1
   );
 }
 
 function isInterpolationAfter(after) {
   const result = { is: false, opsBetween: false };
-  const matches = after.match(/^\s*([+/*%-]\s*)*#{/);
+  const matches = after.match(/^\s*([+/*%-]\s*)*#\{/);
 
   if (matches) {
     if (matches[0]) {
@@ -863,7 +862,7 @@ function isParensBefore(before) {
 function isInterpolationBefore(before) {
   const result = { is: false, opsBetween: false };
   // Removing preceding operators if any
-  const beforeOpsClipped = before.replace(/(\s*[+/*%-])+$/, "");
+  const beforeOpsClipped = before.replace(/(?:\s*[+/*%-])+$/, "");
 
   if (beforeOpsClipped !== before) {
     result.opsBetween = true;
@@ -889,7 +888,7 @@ function isValueWithUnitAfter(after) {
   // Again, ` d.10px` - .10px is separated from a sequence
   // and is considered a value with a unit
   const matches = after.match(
-    /^\s*([+/*%-]\s*)*(\d+(\.\d+)?|\.\d+)[\w-%]+(?:$|[)}, ])/
+    /^\s*([+/*%-]\s*)*(?:\d+(?:\.\d+)?|\.\d+)[a-z_-]+(?:$|[)}, ])/i
   );
 
   if (matches) {
@@ -961,7 +960,7 @@ function isFunctionAfter(after) {
   const result = { is: false, opsBetween: false };
   // `-fn()` is a valid function name, so if a - should be a sign/operator,
   // it must have a space after
-  const matches = after.match(/^\s*(-\s+|[+/*%]\s*)*[a-zA-Z_-][\w-]*\(/);
+  const matches = after.match(/^\s*(-\s+|[+/*%]\s*)*[a-z_-][\w-]*\(/i);
 
   if (matches) {
     if (matches[0]) {
@@ -987,7 +986,7 @@ function isComparisonOperatorBefore(before) {
  * @return {Boolean} true, if the input is a hex color
  */
 function isHexColor(string) {
-  return string.trim().search(/^#([\da-fA-F]{3}|[\da-fA-F]{6})$/) !== -1;
+  return string.trim().search(/^#(?:[\da-f]{3}|[\da-f]{6})$/i) !== -1;
 }
 
 function isHexColorAfter(after) {
@@ -998,7 +997,7 @@ function isHexColorAfter(after) {
 
 function isHexColorBefore(before) {
   return (
-    before.search(/(?:[/(){},+*%-\s]|^)#([\da-fA-F]{3}|[\da-fA-F]{6})$/) !== -1
+    before.search(/(?:[/(){},+*%\-s]|^)#(?:[\da-f]{3}|[\da-f]{6})$/i) !== -1
   );
 }
 

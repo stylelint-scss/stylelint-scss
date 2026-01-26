@@ -1,8 +1,7 @@
-import stylelint from "stylelint";
-import { isBoolean } from "../../utils/validateTypes.js";
-import { isString } from "../../utils/validateTypes.js";
+import { isBoolean, isString } from "../../utils/validateTypes.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -96,7 +95,9 @@ function rule(value, secondaryOptions) {
       if (isDefault) {
         if (Number.isFinite(ignoreDefaults)) {
           return variableData.defaultCount >= ignoreDefaults;
-        } else if (ignoreDefaults) {
+        }
+
+        if (ignoreDefaults) {
           return false;
         }
       }

@@ -1,13 +1,13 @@
-import mediaQueryParserModule from "postcss-media-query-parser";
-import stylelint from "stylelint";
 import atRuleParamIndex from "../../utils/atRuleParamIndex.js";
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
 import eachRoot from "../../utils/eachRoot.js";
 import findCommentsInRaws from "../../utils/findCommentsInRaws.js";
 import findOperators from "../../utils/sassValueParser/index.js";
 import isWhitespace from "../../utils/isWhitespace.js";
+import mediaQueryParserModule from "postcss-media-query-parser";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 const mediaQueryParser = mediaQueryParserModule.default;
@@ -41,14 +41,15 @@ function checkSpaces({
     newlineBefore(string, startIndex - 1);
 
   if (!beforeOk) {
-    const index = globalIndex + startIndex;
+    const reportIndex = globalIndex + startIndex;
+
     utils.report({
       ruleName,
       result,
       node,
       message: messages.expectedBefore(symbol),
-      index,
-      endIndex: index + symbol.length
+      index: reportIndex,
+      endIndex: reportIndex + symbol.length
     });
   }
 
@@ -59,6 +60,7 @@ function checkSpaces({
 
   if (!afterOk) {
     const index = globalIndex + startIndex;
+
     utils.report({
       ruleName,
       result,
@@ -94,15 +96,15 @@ function rule(expectation) {
 
     eachRoot(root, checkRoot);
 
-    function checkRoot(root) {
-      const rootString = root.source.input.css;
+    function checkRoot(rootNode) {
+      const rootString = rootNode.source.input.css;
 
       if (rootString.trim() === "") {
         return;
       }
 
       calculationOperatorSpaceChecker({
-        root,
+        root: rootNode,
         result,
         checker: checkSpaces
       });
@@ -141,7 +143,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
    *    a list of operators for each Sass interpolation occurrence
    */
   function findInterpolation(string, startIndex) {
-    const interpolationRegex = /#{(.*?)}/g;
+    const interpolationRegex = /#\{(.*?)\}/g;
     const results = [];
     // Searching for interpolation
     let match = interpolationRegex.exec(string);
@@ -161,7 +163,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     return results;
   }
 
-  const dataURIRegex = /url\(\s*['"]?data:.+['"]?\s*\)/;
+  const dataURIRegex = /url\(\s*['"]?data:/;
 
   root.walk(item => {
     if (item.prop === "unicode-range") {
@@ -175,6 +177,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
       if (dataURIRegex.test(item.value)) {
         return results;
       }
+
       results.push({
         source: item.value,
         operators: findOperators({

@@ -280,7 +280,7 @@ describe("parseFunctionArguments", () => {
         endIndex: 12
       },
       {
-        key: `$foo`,
+        key: "$foo",
         value: "bar",
         index: 14,
         endIndex: 23

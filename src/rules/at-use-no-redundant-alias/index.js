@@ -1,7 +1,7 @@
-import stylelint from "stylelint";
 import atRuleParamIndex from "../../utils/atRuleParamIndex.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -17,13 +17,16 @@ const meta = {
 };
 
 function getDefaultNamespace(module) {
-  const namespace = module.match(/([^/:]+)$/)?.[1];
-  return namespace ? namespace.replace(/\.[^.]|["]+$/, "") : "";
+  const namespaceName = module.match(/([^/:]+)$/)?.[1];
+
+  return namespaceName ? namespaceName.replace(/\.[^.]|"+$/, "") : "";
 }
 
 function separateEachParams(paramString) {
   const parts = paramString.replace(/"|'/g, "").split(/\s+as\s+|\s+with\s+/);
+
   if (parts.length < 2) return;
+
   return parts;
 }
 
@@ -37,6 +40,7 @@ function rule(actual) {
 
     root.walkAtRules("use", atRule => {
       const parts = separateEachParams(atRule.params);
+
       if (parts && getDefaultNamespace(parts[0]) === parts[1]) {
         const fix = () => {
           atRule.after(atRule.toString().replace(/\s*as\s* [^\s*]+\s*/, " "));
@@ -45,9 +49,11 @@ function rule(actual) {
         };
 
         const matchedAlias = atRule.params.match(/as\s+\S+/);
+
         if (!matchedAlias) return;
 
         const index = atRuleParamIndex(atRule) + matchedAlias.index;
+
         utils.report({
           message: messages.rejected,
           node: atRule,

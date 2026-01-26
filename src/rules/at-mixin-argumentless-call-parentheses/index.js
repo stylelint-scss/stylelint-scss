@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -32,7 +32,7 @@ function rule(value) {
       // Remove the "using (...)" part of the mixin call if present and save it for later.
       // We only care about whether there are parentheses after the mixin name and before any "using" clause.
       // Note that the mixin name itself can be "using" or contain "using".
-      const usingClauseRegex = /([) ]+)(\busing\s*\([^)]+\)+\s*)$/;
+      const usingClauseRegex = /([) ]+)(using\s*\([^)]+\)+\s*)$/;
       const usingClauseMatch = mixinCall.params.match(usingClauseRegex);
       const usingClause = usingClauseMatch?.[2] ?? "";
 
@@ -61,7 +61,8 @@ function rule(value) {
         mixinCall.params += usingClause ? ` ${usingClause}` : "";
       };
 
-      const mixinName = /\s*(\S*?)\s*(?:\(|$)/.exec(mixinCallParams)[1];
+      const mixinName =
+        /^\s*(\S+?)(?=\s*\(|$)/.exec(mixinCallParams)?.[1] || "";
 
       utils.report({
         message:

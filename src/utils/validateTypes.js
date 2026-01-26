@@ -31,7 +31,8 @@ export function isString(value) {
  * @returns {value is Function}
  */
 export function isFunctionCall(value) {
-  const functionCallPattern = /[a-zA-Z0-9_-]+\s*\(\s*(.*)\s*\)/g;
+  const functionCallPattern = /\w[\w-]*\s*\([^)]*\)/;
+
   return functionCallPattern.test(value);
 }
 
@@ -41,7 +42,8 @@ export function isFunctionCall(value) {
  * @returns {value is IfStatement}
  */
 export function isIfStatement(value) {
-  const ifStatementPattern = /if\s*\(\s*(.*)\s*\)/g;
+  const ifStatementPattern = /if\s*\([^)]*\)/;
+
   return ifStatementPattern.test(value);
 }
 
@@ -59,4 +61,4 @@ export const isDollarVar = value =>
  * @returns {selector is variable}
  */
 export const isNestedProperty = selector =>
-  selector.split(" ").some(selector => selector[selector.length - 1] === ":");
+  selector.split(" ").some(part => part[part.length - 1] === ":");

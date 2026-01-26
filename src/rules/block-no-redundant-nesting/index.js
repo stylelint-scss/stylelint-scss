@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -19,6 +19,7 @@ function resolveNestedSelector(parentSelector, nestedSelector) {
   if (nestedSelector.includes("&")) {
     return nestedSelector.replace(/&/g, parentSelector);
   }
+
   return [parentSelector, nestedSelector].join(" ");
 }
 
@@ -28,6 +29,7 @@ function processRuleNode(ruleNode, result) {
   }
 
   const nestedRuleNode = ruleNode.nodes[0];
+
   if (
     nestedRuleNode.type !== "rule" ||
     nestedRuleNode.selector.endsWith(":") ||
@@ -46,9 +48,10 @@ function processRuleNode(ruleNode, result) {
     ruleNode.raws.semicolon = nestedRuleNode.raws.semicolon;
 
     if (ruleNode.nodes.length === 1) {
-      for (const rule of ruleNode.nodes) {
-        rule.parent = ruleNode;
+      for (const node of ruleNode.nodes) {
+        node.parent = ruleNode;
       }
+
       processRuleNode(ruleNode, result);
     }
   };

@@ -1,10 +1,10 @@
-import stylelint from "stylelint";
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
-import isSingleLineString from "../../utils/isSingleLineString.js";
-import whitespaceChecker from "../../utils/whitespaceChecker.js";
 import { isBoolean } from "../../utils/validateTypes.js";
+import isSingleLineString from "../../utils/isSingleLineString.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
+import whitespaceChecker from "../../utils/whitespaceChecker.js";
 
 const { utils } = stylelint;
 
@@ -92,7 +92,7 @@ function rule(expectation, options, context) {
                   ? decl.raws.before.replace(context.newline, "")
                   : decl.value
                       .split(context.newline)[1]
-                      .replace(/^(\s+).*$/, (_, whitespace) => whitespace);
+                      .replace(/^(\s+).*/, (_, whitespace) => whitespace);
 
               decl.raws.between = decl.raws.between.replace(
                 /:(.*)$/,

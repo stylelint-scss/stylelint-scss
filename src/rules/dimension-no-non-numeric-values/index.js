@@ -1,7 +1,7 @@
-import valueParser from "postcss-value-parser";
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
+import valueParser from "postcss-value-parser";
 
 const { utils } = stylelint;
 
@@ -98,7 +98,10 @@ function rule(primary) {
           return;
         }
 
-        const regex = new RegExp(`#{[$a-z_0-9 +-]*}(${units.join("|")});?`);
+        const regex = new RegExp(
+          // eslint-disable-next-line regexp/prefer-character-class
+          `#\\{[$a-z_0-9 +\\-]*\\}(${units.join("|")});?`
+        );
         const matchUnit = decl.value.match(regex);
 
         if (!matchUnit) {
@@ -106,6 +109,7 @@ function rule(primary) {
         }
 
         const unit = matchUnit[1];
+
         utils.report({
           ruleName,
           result,
@@ -128,7 +132,7 @@ function isInterpolated(value) {
   // ValueParser breaks up interpolation with math into multiple, fragmented
   // segments (#{$value, +, 2}px). The easiest way to detect this is to look for a fragmented
   // interpolated section.
-  if (value.match(/^#{\$[a-z]*$/)) {
+  if (value.match(/^#\{\$[a-z]*$/)) {
     return true;
   }
 

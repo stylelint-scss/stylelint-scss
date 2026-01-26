@@ -1,4 +1,3 @@
-import stylelint from "stylelint";
 import addEmptyLineBefore from "../../utils/addEmptyLineBefore.js";
 import isInlineComment from "../../utils/isInlineComment.js";
 import namespace from "../../utils/namespace.js";
@@ -6,6 +5,7 @@ import optionsHaveException from "../../utils/optionsHaveException.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
 import removeEmptyLinesBefore from "../../utils/removeEmptyLinesBefore.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -126,8 +126,6 @@ function rule(expectation, options, context) {
 
         if (!expectEmptyLineBefore && hasEmptyLineBefore) {
           removeEmptyLinesBefore(comment, context.newline);
-
-          return;
         }
       };
 

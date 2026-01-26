@@ -1,9 +1,9 @@
-import stylelint from "stylelint";
 import isStandardSyntaxProperty from "../../utils/isStandardSyntaxProperty.js";
-import optionsHaveException from "../../utils/optionsHaveException.js";
 import namespace from "../../utils/namespace.js";
+import optionsHaveException from "../../utils/optionsHaveException.js";
 import parseNestedPropRoot from "../../utils/parseNestedPropRoot.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -62,7 +62,7 @@ function rule(expectation, options) {
 
             // Add simple namespaced prop decls to warningCandidates.ns
             // (prop names with browser prefixes are ignored)
-            const seekNamespace = /^([a-zA-Z\d]+)-/.exec(prop);
+            const seekNamespace = /^([a-z\d]+)-/i.exec(prop);
 
             if (seekNamespace && seekNamespace[1]) {
               const ns = seekNamespace[1];
@@ -99,14 +99,14 @@ function rule(expectation, options) {
         });
 
         // Now check if the found properties deserve warnings
-        Object.keys(warningCandidates).forEach(namespace => {
+        Object.keys(warningCandidates).forEach(namespaceName => {
           const exceptIfOnlyOfNs = optionsHaveException(
             options,
             "only-of-namespace"
           );
-          const moreThanOneProp = warningCandidates[namespace].length > 1;
+          const moreThanOneProp = warningCandidates[namespaceName].length > 1;
 
-          warningCandidates[namespace].forEach(candidate => {
+          warningCandidates[namespaceName].forEach(candidate => {
             if (candidate.nested === true) {
               if (exceptIfOnlyOfNs) {
                 // If there is only one prop inside a nested prop - warn (reverse "always")
@@ -115,7 +115,7 @@ function rule(expectation, options) {
                   candidate.node.nodes.length === 1
                 ) {
                   utils.report({
-                    message: messages.rejected(namespace),
+                    message: messages.rejected(namespaceName),
                     node: candidate.node,
                     result,
                     ruleName

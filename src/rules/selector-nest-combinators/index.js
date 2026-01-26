@@ -1,17 +1,17 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import parseSelector from "../../utils/parseSelector.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
 const ruleName = namespace("selector-nest-combinators");
 
 const messages = utils.ruleMessages(ruleName, {
-  expectedInterpolation: `Expected interpolation to be in a nested form`,
+  expectedInterpolation: "Expected interpolation to be in a nested form",
   expected: (combinator, type) =>
     `Expected combinator "${combinator}" of type "${type}" to be in a nested form`,
-  rejected: `Unexpected nesting found in selector`
+  rejected: "Unexpected nesting found in selector"
 });
 
 const meta = {
@@ -51,26 +51,26 @@ function rule(expectation) {
       "universal"
     ];
 
-    const interpolationRe = /#{.+?}$/;
+    const interpolationRe = /#\{.+?\}$/;
 
-    root.walkRules(rule => {
+    root.walkRules(ruleNode => {
       if (
-        rule.parent &&
-        rule.parent.type === "atrule" &&
-        rule.parent.name === "keyframes"
+        ruleNode.parent &&
+        ruleNode.parent.type === "atrule" &&
+        ruleNode.parent.name === "keyframes"
       ) {
         return;
       }
 
-      if (typeof rule.selector === "string") {
-        const isNestedProperty = rule.selector.slice(-1) === ":";
+      if (typeof ruleNode.selector === "string") {
+        const isNestedProperty = ruleNode.selector.slice(-1) === ":";
 
         if (isNestedProperty) {
           return;
         }
       }
 
-      parseSelector(rule.selector, result, rule, fullSelector => {
+      parseSelector(ruleNode.selector, result, ruleNode, fullSelector => {
         fullSelector.walk(node => {
           if (node.value === "}") {
             return;
@@ -122,13 +122,14 @@ function rule(expectation) {
               return;
             }
 
-            const hasInterpolation = interpolationRe.test(rule.selector);
+            const hasInterpolation = interpolationRe.test(ruleNode.selector);
 
             if (node.type !== "combinator" && hasInterpolation) {
               return;
             }
 
             let message;
+
             if (hasInterpolation) {
               message = messages.expectedInterpolation;
             } else {
@@ -138,15 +139,19 @@ function rule(expectation) {
             utils.report({
               ruleName,
               result,
-              node: rule,
+              node: ruleNode,
               message,
               word: node.toString()
             });
+
             return;
           }
 
           if (expectation === "never") {
-            if (rule.parent.type === "root" || rule.parent.type === "atrule") {
+            if (
+              ruleNode.parent.type === "root" ||
+              ruleNode.parent.type === "atrule"
+            ) {
               return;
             }
 
@@ -155,11 +160,10 @@ function rule(expectation) {
             utils.report({
               ruleName,
               result,
-              node: rule,
+              node: ruleNode,
               message: messages.rejected,
               word: node.toString()
             });
-            return;
           }
         });
       });

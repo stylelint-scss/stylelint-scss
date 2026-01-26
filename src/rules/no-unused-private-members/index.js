@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -17,11 +17,13 @@ const meta = {
 
 function extractFunctionName(inputString) {
   const matches = [...inputString.matchAll(/(?:\s*([\w\-$]+)\s*)?\(/g)].flat();
+
   return matches;
 }
 
 function getPrivateMembers(inputString) {
-  const matches = inputString.match(/([$%]*[-_]+[\w\d-_]+)/g);
+  const matches = inputString.match(/([$%]*[-_][\w-]+)/g);
+
   return matches;
 }
 
@@ -31,12 +33,15 @@ function matchUnderscores(inputString) {
 
 function isWithinMixin(node) {
   let parent = node.parent;
+
   while (parent) {
     if (parent.type === "atrule" && parent.name === "mixin") {
       return true;
     }
+
     parent = parent.parent;
   }
+
   return false;
 }
 
@@ -59,7 +64,9 @@ function rule(primaryOption) {
 
     // Skip for files using @import.
     let hasImport = false;
+
     root.walkAtRules("import", () => (hasImport = true));
+
     if (hasImport) return;
 
     root.walk(node => {
@@ -67,12 +74,14 @@ function rule(primaryOption) {
       const isPrivatePlaceholderSelector =
         node.type === "rule" &&
         (node.selector.includes("%-") || node.selector.includes("%_"));
+
       if (isPrivatePlaceholderSelector) {
         const selectors = node.selector
           .split(/:|\./g)
           .filter(
             selector => selector.startsWith("%-") | selector.includes("%_")
           );
+
         selectors.forEach(selector => {
           if (!privateMembers.selectors.has(selector)) {
             privateMembers.selectors.set(matchUnderscores(selector), node);
@@ -85,6 +94,7 @@ function rule(primaryOption) {
         node.type === "decl" &&
         (node.prop.startsWith("$-") || node.prop.startsWith("$_")) &&
         !isWithinMixin(node);
+
       if (isPrivateVariable) {
         privateMembers.variables.set(matchUnderscores(node.prop), node);
       }
@@ -94,9 +104,12 @@ function rule(primaryOption) {
         node.type === "atrule" &&
         node.name === "function" &&
         (node.params.startsWith("-") || node.params.startsWith("_"));
+
       if (isPrivateFunction) {
         const match = extractFunctionName(node.params);
+
         if (match.length < 2) return;
+
         privateMembers.functions.set(matchUnderscores(match[1]), node);
       }
 
@@ -105,8 +118,10 @@ function rule(primaryOption) {
         node.type === "atrule" &&
         node.name === "mixin" &&
         (node.params.startsWith("-") || node.params.startsWith("_"));
+
       if (isPrivateMixin) {
         const match = extractFunctionName(node.params);
+
         privateMembers.mixins.set(
           matchUnderscores(match.length < 2 ? node.params : match[1]),
           node
@@ -118,18 +133,23 @@ function rule(primaryOption) {
       if (node.type === "atrule" || node.type === "rule") {
         const value = node.type === "rule" ? node.selector : node.params;
         const valuePrivateMembers = getPrivateMembers(value);
+
         if (valuePrivateMembers) {
           valuePrivateMembers.forEach(privateMember => {
             privateMember = matchUnderscores(privateMember);
+
             if (privateMembers.mixins.get(privateMember) !== node)
               privateMembers.mixins.delete(privateMember);
+
             if (
               privateMembers.selectors.get(privateMember) !== node &&
               node.type === "atrule"
             )
               privateMembers.selectors.delete(privateMember);
+
             if (privateMembers.variables.get(privateMember) !== node)
               privateMembers.variables.delete(privateMember);
+
             if (privateMembers.functions.get(privateMember) !== node)
               privateMembers.functions.delete(privateMember);
           });
@@ -139,11 +159,14 @@ function rule(primaryOption) {
 
     root.walkDecls(decls => {
       const valuePrivateMembers = getPrivateMembers(decls.value);
+
       if (valuePrivateMembers) {
         valuePrivateMembers.forEach(privateMember => {
           privateMember = matchUnderscores(privateMember);
+
           if (privateMembers.variables.get(privateMember) !== decls)
             privateMembers.variables.delete(privateMember);
+
           if (privateMembers.functions.get(privateMember) !== decls)
             privateMembers.functions.delete(privateMember);
         });
@@ -151,13 +174,15 @@ function rule(primaryOption) {
     });
 
     for (const types in privateMembers) {
-      for (const [key, node] of privateMembers[types].entries()) {
-        utils.report({
-          message: messages.expected(node.type === "decl" ? node.prop : key),
-          node,
-          result,
-          ruleName
-        });
+      if (Object.prototype.hasOwnProperty.call(privateMembers, types)) {
+        for (const [key, node] of privateMembers[types].entries()) {
+          utils.report({
+            message: messages.expected(node.type === "decl" ? node.prop : key),
+            node,
+            result,
+            ruleName
+          });
+        }
       }
     }
   };

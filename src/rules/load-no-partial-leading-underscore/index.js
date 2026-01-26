@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -22,7 +22,7 @@ function rule(actual) {
       return;
     }
 
-    const hasArgumentsRegExp = /\(\s*([^)]+?)\s*\)/;
+    const hasArgumentsRegExp = /\([^)]+\)/;
 
     function checkPathForUnderscore(path, atrule) {
       // Stripping trailing quotes and whitespaces, if any
@@ -65,12 +65,15 @@ function rule(actual) {
           checkPathForUnderscore(path, atrule);
         });
       }
+
       if (atrule.name === "include") {
         // Processing meta.load-css url
         if (atrule.params.match(/load-css/)) {
           const args = hasArgumentsRegExp.exec(atrule.params);
+
           if (args) {
             const arg = args[0].split(",");
+
             checkPathForUnderscore(arg[0].replace(/[()]/g, ""), atrule);
           }
         }
