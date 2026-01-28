@@ -1,7 +1,7 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -39,15 +39,15 @@ function rule(expectation, options) {
       return;
     }
 
-    const valueRegex = /:\s*(\S.+?)(:?\s*)\)/;
+    const valueRegex = /:([^)]+)\)/;
     // In `(max-width: 10px )` find `: 10px )`.
     // Got to go with that (the global search doesn't remember parens' insides)
     // and parse it again afterwards to remove trailing junk
-    const valueRegexGlobal = new RegExp(valueRegex.source, "g");
+    const valueRegexGlobal = /:([^)]+)\)/g;
     // `$var-name_sth`
-    const variableRegex = /^(\w+\.)?\$[\w-]+$/;
+    const variableRegex = /^(?:\w+\.)?\$[\w-]+$/;
     // `#{$var-name_sth}`
-    const interpolationVarRegex = /^#{\s*(\w+\.)?\$\w+\s*}$/;
+    const interpolationVarRegex = /^#\{\s*(?:\w+\.)?\$\w+\s*\}$/;
     // `none`, `dark`
     const keywordValueRegex = /^[a-z][a-z\d-]*$/;
 
@@ -59,9 +59,9 @@ function rule(expectation, options) {
         return;
       }
 
-      found.forEach(found => {
-        // ... parse `: 10px )` to `10px`
-        const valueParsed = found.match(valueRegex)[1];
+      found.forEach(match => {
+        // ... parse `: 10px)` to `10px`
+        const valueParsed = match.match(valueRegex)[1].trim();
 
         // Just a shorthand to stylelint.utils.report()
         function complain(message) {

@@ -1,9 +1,9 @@
-import valueParser from "postcss-value-parser";
-import stylelint from "stylelint";
+import { isRegExp, isString } from "../../utils/validateTypes.js";
 import { ALL_FUNCTIONS } from "../../utils/functions.js";
 import namespace from "../../utils/namespace.js";
-import { isRegExp, isString } from "../../utils/validateTypes.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
+import valueParser from "postcss-value-parser";
 
 const { utils } = stylelint;
 
@@ -21,11 +21,13 @@ const meta = {
 
 function extractNamespaceFromFunction(fn) {
   const matched = fn.match(/^(\w+)\.\w+$/);
+
   return matched ? matched[1] : undefined;
 }
 
 function isAtUseAsSyntax(nodes) {
   const [first, second, third] = nodes.slice(-3);
+
   return (
     first.type === "word" &&
     first.value === "as" &&
@@ -37,11 +39,14 @@ function isAtUseAsSyntax(nodes) {
 function getAtUseNamespace(nodes) {
   if (isAtUseAsSyntax(nodes)) {
     const [last] = nodes.slice(-1);
+
     return last.value;
   }
+
   const [first] = nodes;
   const parts = first.value.split("/");
   const [last] = parts.slice(-1);
+
   return last;
 }
 
@@ -70,13 +75,13 @@ function rule(primaryOption, secondaryOptions) {
       (secondaryOptions && secondaryOptions.ignoreFunctions) || [];
     const ignoreFunctions = ALL_FUNCTIONS.concat(optionsFunctions);
     const ignoreFunctionsAsSet = new Set(ignoreFunctions);
-    const newSecondaryOptions = Object.assign({}, secondaryOptions, {
-      ignoreFunctions
-    });
+    const newSecondaryOptions = { ...secondaryOptions, ignoreFunctions };
 
     const atUseNamespaces = new Set();
+
     root.walkAtRules(/^use$/i, atRule => {
       const { nodes } = valueParser(atRule.params);
+
       atUseNamespaces.add(getAtUseNamespace(nodes));
     });
 
@@ -99,8 +104,9 @@ function rule(primaryOption, secondaryOptions) {
 
           // TODO: For backward compatibility with Stylelint 15.7.0 or less.
           // We can remove this code when dropping support for old version.
-          const namespace = extractNamespaceFromFunction(funcName);
-          if (namespace && atUseNamespaces.has(namespace)) return;
+          const funcNamespace = extractNamespaceFromFunction(funcName);
+
+          if (funcNamespace && atUseNamespaces.has(funcNamespace)) return;
 
           if (ignoreFunctionsAsSet.has(funcName)) return;
 
@@ -127,14 +133,14 @@ function rule(primaryOption, secondaryOptions) {
 
           if (type !== "function" || value.trim() === "") return;
 
-          const interpolationRegex = /^#{/;
+          const interpolationRegex = /^#\{/;
           const funcName = value.replace(interpolationRegex, "");
 
-          const namespace = extractNamespaceFromFunction(funcName);
+          const funcNamespace = extractNamespaceFromFunction(funcName);
 
-          if (!namespace) return;
+          if (!funcNamespace) return;
 
-          if (atUseNamespaces.has(namespace)) return;
+          if (atUseNamespaces.has(funcNamespace)) return;
 
           if (ignoreFunctionsAsSet.has(funcName)) return;
 

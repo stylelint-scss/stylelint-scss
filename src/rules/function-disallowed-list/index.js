@@ -1,9 +1,9 @@
-import stylelint from "stylelint";
 import { isRegExp, isString } from "../../utils/validateTypes.js";
+import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 import valueParser from "postcss-value-parser";
-import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
 
 const { utils } = stylelint;
 
@@ -48,6 +48,7 @@ function rule(disallowedOption) {
           hasNamespace > -1
             ? valueNode.value.slice(hasNamespace + 1)
             : valueNode.value;
+
         disallowedFunctions.forEach(functionName => {
           if (
             (isString(functionName) && nameWithoutNamespace === functionName) ||

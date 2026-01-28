@@ -1,9 +1,9 @@
-import stylelint from "stylelint";
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
 import isSingleLineString from "../../utils/isSingleLineString.js";
-import whitespaceChecker from "../../utils/whitespaceChecker.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
+import whitespaceChecker from "../../utils/whitespaceChecker.js";
 
 const { utils } = stylelint;
 

@@ -1,9 +1,9 @@
-import stylelint from "stylelint";
 import eachRoot from "../../utils/eachRoot.js";
 import findCommentsInRaws from "../../utils/findCommentsInRaws.js";
 import namespace from "../../utils/namespace.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -44,8 +44,8 @@ function rule(expectation, options) {
 
     eachRoot(root, checkRoot);
 
-    function checkRoot(root) {
-      const rootString = root.source.input.css;
+    function checkRoot(innerRoot) {
+      const rootString = innerRoot.source.input.css;
 
       if (rootString.trim() === "") {
         return;
@@ -80,7 +80,7 @@ function rule(expectation, options) {
 
         utils.report({
           message,
-          node: root,
+          node: innerRoot,
           index: comment.source.start,
           endIndex: comment.source.end + 1,
           result,

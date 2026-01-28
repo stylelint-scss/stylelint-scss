@@ -1,6 +1,8 @@
-import postcss from "postcss";
 import * as scss from "postcss-scss";
 import findCommentsInRaws from "../findCommentsInRaws.js";
+import postcss from "postcss";
+
+/* eslint-disable jest/no-conditional-expect */
 
 function logError(err) {
   console.log(err.stack); // eslint-disable-line no-console

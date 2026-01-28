@@ -11,7 +11,7 @@ import hasTplInterpolation from "./hasTplInterpolation.js";
  */
 export default function hasInterpolation(string) {
   // SCSS or Less interpolation
-  return !!(
+  return Boolean(
     hasLessInterpolation(string) ||
     hasScssInterpolation(string) ||
     hasTplInterpolation(string) ||

@@ -1,12 +1,12 @@
-import resolveNestedSelector from "postcss-resolve-nested-selector";
-import stylelint from "stylelint";
 import { isRegExp, isString } from "../../utils/validateTypes.js";
 import hasInterpolatingAmpersand from "../../utils/hasInterpolatingAmpersand.js";
 import isStandardRule from "../../utils/isStandardRule.js";
 import isStandardSelector from "../../utils/isStandardSelector.js";
-import parseSelector from "../../utils/parseSelector.js";
 import namespace from "../../utils/namespace.js";
+import parseSelector from "../../utils/parseSelector.js";
+import resolveNestedSelector from "postcss-resolve-nested-selector";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -35,16 +35,18 @@ function rule(pattern) {
     const regexpPattern = isString(pattern) ? new RegExp(pattern) : pattern;
 
     // Checking placeholder definitions (looking among regular rules)
-    root.walkRules(rule => {
-      const { selector } = rule;
+    root.walkRules(ruleNode => {
+      const { selector } = ruleNode;
 
       // Just a shorthand for calling `parseSelector`
-      function parse(selector) {
-        parseSelector(selector, result, rule, s => checkSelector(s, rule));
+      function parse(selectorToParse) {
+        parseSelector(selectorToParse, result, ruleNode, s =>
+          checkSelector(s, ruleNode)
+        );
       }
 
       // If it's a custom prop or a less mixin
-      if (!isStandardRule(rule)) {
+      if (!isStandardRule(ruleNode)) {
         return;
       }
 
@@ -59,13 +61,13 @@ function rule(pattern) {
 
       // Only resolve selectors that have an interpolating "&"
       if (hasInterpolatingAmpersand(selector)) {
-        resolveNestedSelector(selector, rule).forEach(parse);
+        resolveNestedSelector(selector, ruleNode).forEach(parse);
       } else {
         parse(selector);
       }
     });
 
-    function checkSelector(fullSelector, rule) {
+    function checkSelector(fullSelector, ruleNode) {
       // postcss-selector-parser gives %placeholders' nodes a "tag" type
       fullSelector.walkTags(compoundSelector => {
         const { value } = compoundSelector;
@@ -85,7 +87,7 @@ function rule(pattern) {
           ruleName,
           message: messages.expected,
           messageArgs: [placeholderName, pattern],
-          node: rule,
+          node: ruleNode,
           word: value
         });
       });

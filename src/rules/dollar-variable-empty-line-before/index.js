@@ -1,12 +1,12 @@
-import stylelint from "stylelint";
 import blockString from "../../utils/blockString.js";
 import hasEmptyLine from "../../utils/hasEmptyLine.js";
+import { isBoolean } from "../../utils/validateTypes.js";
 import isSingleLineString from "../../utils/isSingleLineString.js";
 import namespace from "../../utils/namespace.js";
 import optionsHaveException from "../../utils/optionsHaveException.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
 import ruleUrl from "../../utils/ruleUrl.js";
-import { isBoolean } from "../../utils/validateTypes.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -149,8 +149,6 @@ function rule(expectation, options, context) {
         if (!expectHasEmptyLineBefore && hasEmptyLine(before)) {
           fix(decl, "\\n\\r\\n", "\r\n");
           fix(decl, context.newline + context.newline, context.newline);
-
-          return;
         }
       };
 

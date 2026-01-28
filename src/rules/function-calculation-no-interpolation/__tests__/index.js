@@ -9,7 +9,7 @@ testRule({
 
   accept: [
     {
-      code: `.a { .b: calc(1 + 1); }`,
+      code: ".a { .b: calc(1 + 1); }",
       description: "`calc` function, no interpolation"
     },
     {

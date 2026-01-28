@@ -1,12 +1,12 @@
-import stylelint from "stylelint";
-import resolveNestedSelector from "postcss-resolve-nested-selector";
 import { isBoolean, isRegExp, isString } from "../../utils/validateTypes.js";
-import namespace from "../../utils/namespace.js";
-import ruleUrl from "../../utils/ruleUrl.js";
 import hasInterpolatingAmpersand from "../../utils/hasInterpolatingAmpersand.js";
 import isStandardRule from "../../utils/isStandardRule.js";
 import isStandardSyntaxSelector from "../../utils/isStandardSyntaxSelector.js";
+import namespace from "../../utils/namespace.js";
 import parseSelector from "../../utils/parseSelector.js";
+import resolveNestedSelector from "postcss-resolve-nested-selector";
+import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 

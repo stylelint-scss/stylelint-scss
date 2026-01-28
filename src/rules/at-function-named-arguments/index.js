@@ -1,5 +1,3 @@
-import valueParser from "postcss-value-parser";
-import stylelint from "stylelint";
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
 import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
 import { isString } from "../../utils/validateTypes.js";
@@ -7,6 +5,8 @@ import namespace from "../../utils/namespace.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
 import { parseFunctionArguments } from "../../utils/parseFunctionArguments.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
+import valueParser from "postcss-value-parser";
 
 const { utils } = stylelint;
 
@@ -67,7 +67,7 @@ function rule(expectation, options) {
           options &&
           options.ignoreFunctions &&
           options.ignoreFunctions.some(f => {
-            const interpolationRegex = /^#{/;
+            const interpolationRegex = /^#\{/;
             const funcName = node.value.replace(interpolationRegex, "");
             const isRegex = /^\/.*\//.test(f);
 

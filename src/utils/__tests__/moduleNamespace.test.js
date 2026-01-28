@@ -1,5 +1,5 @@
-import postcss from "postcss";
 import moduleNamespace from "../moduleNamespace.js";
+import postcss from "postcss";
 
 describe("moduleNamespace", () => {
   it("should return 'map' when module import was not found", () => {

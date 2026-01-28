@@ -18,7 +18,7 @@ export default function isStandardSyntaxSelector(selector) {
   }
 
   // Less :extend()
-  if (/:extend(\(.*?\))?/.test(selector)) {
+  if (/:extend\(.*?\)?/.test(selector)) {
     return false;
   }
 

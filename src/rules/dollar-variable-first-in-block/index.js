@@ -1,8 +1,8 @@
-import stylelint from "stylelint";
+import namespace from "../../utils/namespace.js";
 import optionsHaveException from "../../utils/optionsHaveException.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
-import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 

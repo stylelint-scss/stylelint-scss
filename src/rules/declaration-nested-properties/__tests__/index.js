@@ -352,7 +352,7 @@ testRule({
       description: "{ never } `.class { &:not() { ... } }` -- selector."
     },
     {
-      code: `.test4\\:3 {}`,
+      code: ".test4\\:3 {}",
       description: "{ never } selector with escaping"
     }
   ],

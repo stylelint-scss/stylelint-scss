@@ -1,15 +1,14 @@
-import isCustomPropertySet from "../../utils/isCustomPropertySet.js";
-import isStandardSyntaxProperty from "../../utils/isStandardSyntaxProperty.js";
-import isStandardSyntaxDeclaration from "../../utils/isStandardSyntaxDeclaration.js";
-import isType from "../../utils/isType.js";
-import optionsMatches from "../../utils/optionsMatches.js";
-import namespace from "../../utils/namespace.js";
-import ruleUrl from "../../utils/ruleUrl.js";
-import hasInterpolation from "../../utils/hasInterpolation.js";
-import { all as properties } from "known-css-properties";
-
-import stylelint from "stylelint";
 import { isBoolean, isRegExp, isString } from "../../utils/validateTypes.js";
+import hasInterpolation from "../../utils/hasInterpolation.js";
+import isCustomPropertySet from "../../utils/isCustomPropertySet.js";
+import isStandardSyntaxDeclaration from "../../utils/isStandardSyntaxDeclaration.js";
+import isStandardSyntaxProperty from "../../utils/isStandardSyntaxProperty.js";
+import isType from "../../utils/isType.js";
+import namespace from "../../utils/namespace.js";
+import optionsMatches from "../../utils/optionsMatches.js";
+import { all as properties } from "known-css-properties";
+import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -17,9 +16,11 @@ const ruleName = namespace("property-no-unknown");
 
 function vendorPrefix(node) {
   const match = node.match(/^(-\w+-)/);
+
   if (match) {
     return match[0] || "";
   }
+
   return "";
 }
 
@@ -100,6 +101,7 @@ function rule(primary, secondaryOptions) {
 
       // Nested properties
       let pointer = parent;
+
       while (
         pointer &&
         isType(pointer, "rule") &&
@@ -107,7 +109,7 @@ function rule(primary, secondaryOptions) {
         pointer.selector[pointer.selector.length - 1] === ":" &&
         pointer.selector.substring(0, 2) !== "--"
       ) {
-        prop = pointer.selector.replace(":", "") + "-" + prop;
+        prop = `${pointer.selector.replace(":", "")}-${prop}`;
         pointer = pointer.parent;
       }
 
@@ -118,7 +120,7 @@ function rule(primary, secondaryOptions) {
         pointer.isNested &&
         pointer.prop
       ) {
-        prop = pointer.prop + "-" + prop;
+        prop = `${pointer.prop}-${prop}`;
         pointer = pointer.parent;
       }
 

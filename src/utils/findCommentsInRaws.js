@@ -172,9 +172,27 @@ export default function findCommentsInRaws(rawString) {
           comment.source.end = i + 1 + offset;
 
           const commentRaw = rawString.substring(commentStart, i + 2);
-          const matches = /^(\/\*+[!#]?)(\s*)([\s\S]*?)(\s*)(\*+\/)$/.exec(
-            commentRaw
+          const startMatch = commentRaw.match(/^(\/\*+[!#]?)/);
+          const endMatch = commentRaw.match(/(\*+\/)$/);
+          const middleContent = commentRaw.slice(
+            startMatch[0].length,
+            -endMatch[0].length
           );
+          const leftMatch = middleContent.match(/^(\s*)/);
+          const rightMatch = middleContent.match(/(\s*)$/);
+          const textContent = middleContent.slice(
+            leftMatch[0].length,
+            -rightMatch[0].length
+          );
+
+          const matches = [
+            commentRaw,
+            startMatch[1],
+            leftMatch[1],
+            textContent,
+            rightMatch[1],
+            endMatch[1]
+          ];
 
           modesEntered.pop();
           comment.raws = {
@@ -187,7 +205,7 @@ export default function findCommentsInRaws(rawString) {
           comment.text = matches[3];
           comment.inlineBefore =
             rawString.substring(i + 2).search(/^\s*\S+\s*?\n/) !== -1;
-          result.push(Object.assign({}, comment));
+          result.push({ ...comment });
           comment = {};
           // Skip the next loop as the / in */ is already checked
           i++;
@@ -212,7 +230,23 @@ export default function findCommentsInRaws(rawString) {
               commentStart,
               isNewline ? i : i + 1
             );
-            const matches = /^(\/+)(\s*)(.*?)(\s*)$/.exec(commentRaw);
+            const startMatch = commentRaw.match(/^(\/{2,})/);
+            const afterStart = commentRaw.slice(startMatch[0].length);
+            const leftMatch = afterStart.match(/^(\s*)/);
+            const afterLeft = afterStart.slice(leftMatch[0].length);
+            const rightMatch = afterLeft.match(/(\s*)$/);
+            const textContent = afterLeft.slice(
+              0,
+              afterLeft.length - rightMatch[0].length
+            );
+
+            const matches = [
+              commentRaw,
+              startMatch[1],
+              leftMatch[1],
+              textContent,
+              rightMatch[1]
+            ];
 
             modesEntered.pop();
             comment.raws = {
@@ -223,7 +257,7 @@ export default function findCommentsInRaws(rawString) {
             };
             comment.text = matches[3];
             comment.inlineBefore = false;
-            result.push(Object.assign({}, comment));
+            result.push({ ...comment });
             comment = {};
             // Compensate for the `*/` added by postcss-scss
             offset += 2;

@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -47,7 +47,7 @@ function rule(expectation) {
       } else if (
         expectation === "always" &&
         comment.raws.left === "" &&
-        !/^(\/)*(\s|$)/.test(comment.raws.text)
+        !/^\/*(?:\s|$)/.test(comment.raws.text)
       ) {
         message = messages.expected;
       } else {

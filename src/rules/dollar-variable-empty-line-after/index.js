@@ -1,12 +1,12 @@
-import stylelint from "stylelint";
 import blockString from "../../utils/blockString.js";
 import hasEmptyLine from "../../utils/hasEmptyLine.js";
+import { isBoolean } from "../../utils/validateTypes.js";
 import isSingleLineString from "../../utils/isSingleLineString.js";
 import namespace from "../../utils/namespace.js";
 import optionsHaveException from "../../utils/optionsHaveException.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
 import ruleUrl from "../../utils/ruleUrl.js";
-import { isBoolean } from "../../utils/validateTypes.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -184,8 +184,6 @@ function rule(expectation, options, context) {
             if (exceptLastNested && !hasNewline(nextBefore)) {
               fixNext(next, "\\s+", context.newline + context.newline);
             }
-
-            return;
           } else if (
             (expectEmptyLineAfter &&
               exceptBeforeComment &&
@@ -199,8 +197,6 @@ function rule(expectation, options, context) {
           ) {
             fixNext(decl, "\\n\\r\\n", "\r\n");
             fixNext(next, context.newline + context.newline, context.newline);
-
-            return;
           } else if (
             (!expectEmptyLineAfter &&
               exceptBeforeComment &&
@@ -212,8 +208,6 @@ function rule(expectation, options, context) {
               !hasEmptyLineAfter)
           ) {
             fixNext(next, context.newline, context.newline + context.newline);
-
-            return;
           }
         } else {
           const hasEmptyLineAfter = hasEmptyLine(decl.parent.raws.after);
@@ -224,13 +218,9 @@ function rule(expectation, options, context) {
 
           if (expectEmptyLineAfter && !hasEmptyLineAfter) {
             fixParent(decl, context.newline, context.newline + context.newline);
-
-            return;
           } else if (!expectEmptyLineAfter && hasEmptyLineAfter) {
             fixParent(decl, "\\n\\r\\n", "\r\n");
             fixParent(decl, context.newline + context.newline, context.newline);
-
-            return;
           }
         }
       };

@@ -1,17 +1,18 @@
 import * as nodeJsPath from "node:path";
-import stylelint from "stylelint";
 import atRuleParamIndex from "../../utils/atRuleParamIndex.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
 const ruleName = namespace("load-partial-extension");
 
 const messages = utils.ruleMessages(ruleName, {
-  expected: (rule = "import") => `Expected @${rule} to have an extension`,
-  rejected: (ext, rule = "import") =>
-    `Unexpected extension ".${ext}" in @${rule}`
+  expected: (atRuleName = "import") =>
+    `Expected @${atRuleName} to have an extension`,
+  rejected: (ext, atRuleName = "import") =>
+    `Unexpected extension ".${ext}" in @${atRuleName}`
 });
 
 const meta = {
@@ -34,8 +35,8 @@ const mediaQueryTypes = [
   "aural"
 ];
 
-const mediaQueryTypesRE = new RegExp(`(${mediaQueryTypes.join("|")})$`, "i");
-const hasArgumentsRegExp = /\(\s*([^)]+?)\s*\)/;
+const mediaQueryTypesRE = new RegExp(`(?:${mediaQueryTypes.join("|")})$`, "i");
+const hasArgumentsRegExp = /\([^)]+\)/;
 const loadAtRules = ["import", "use", "forward", "include"];
 const stripPath = path =>
   path.replace(/^\s*(["'])\s*/, "").replace(/\s*(["'])\s*$/, "");
@@ -58,7 +59,8 @@ function rule(expectation) {
           .split(/["']\s*,/)
           .filter(path => !mediaQueryTypesRE.test(path.trim()));
 
-        const isLoadCss = !!atRule.params.match(/load-css/);
+        const isLoadCss = Boolean(atRule.params.match(/load-css/));
+
         if (isLoadCss) {
           name = "meta.load-css";
           paths = [
@@ -72,9 +74,9 @@ function rule(expectation) {
         }
 
         // Processing comma-separated lists of import paths
-        paths.forEach(path => {
+        paths.forEach(pathItem => {
           // Stripping trailing quotes and whitespaces, if any
-          const pathStripped = stripPath(path);
+          const pathStripped = stripPath(pathItem);
 
           // Skipping importing CSS: url(), ".css", URI with a protocol
           if (
@@ -101,15 +103,18 @@ function rule(expectation) {
           }
 
           const isScssPartial = extension === "scss";
+
           if (extension && isScssPartial && expectation === "never") {
             const fix = () => {
               const extPattern = new RegExp(`\\.${extension}(['" ]*)$`, "g");
+
               if (isLoadCss) {
                 atRule.params = atRule.params.replace(
-                  path,
-                  path.replace(extPattern, "$1")
+                  pathItem,
+                  pathItem.replace(extPattern, "$1")
                 );
               }
+
               atRule.params = atRule.params.replace(extPattern, "$1");
             };
 

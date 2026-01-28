@@ -1,9 +1,9 @@
-import stylelint from "stylelint";
+import { calculationOperatorSpaceChecker } from "../operator-no-unspaced/index.js";
 import eachRoot from "../../utils/eachRoot.js";
 import isWhitespace from "../../utils/isWhitespace.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
-import { calculationOperatorSpaceChecker } from "../operator-no-unspaced/index.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -43,14 +43,15 @@ function checkNewlineBefore({
   }
 
   if (newLineBefore) {
-    const index = globalIndex + startIndex;
+    const reportIndex = globalIndex + startIndex;
+
     utils.report({
       ruleName,
       result,
       node,
       message: messages.rejected(symbol),
-      index,
-      endIndex: index + symbol.length
+      index: reportIndex,
+      endIndex: reportIndex + symbol.length
     });
   }
 }
@@ -67,9 +68,9 @@ function rule(expectation) {
 
     eachRoot(root, checkRoot);
 
-    function checkRoot(root) {
+    function checkRoot(innerRoot) {
       calculationOperatorSpaceChecker({
-        root,
+        root: innerRoot,
         result,
         checker: checkNewlineBefore
       });

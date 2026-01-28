@@ -4,5 +4,5 @@
  * @param {string} string
  */
 export default function hasScssInterpolation(string) {
-  return /#{[\s\S]*?}/.test(string);
+  return /#\{[\s\S]*?\}/.test(string);
 }

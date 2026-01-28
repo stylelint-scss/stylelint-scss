@@ -1,8 +1,8 @@
-import selectorParser from "postcss-selector-parser";
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import parseSelector from "../../utils/parseSelector.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import selectorParser from "postcss-selector-parser";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 const {
@@ -41,13 +41,13 @@ function rule(actual) {
       return;
     }
 
-    root.walkRules(/&/, rule => {
+    root.walkRules(/&/, ruleNode => {
       const parentNodes = [];
 
-      const selector = getSelectorFromRule(rule.parent);
+      const selector = getSelectorFromRule(ruleNode.parent);
 
       if (selector) {
-        parseSelector(selector, result, rule, fullSelector => {
+        parseSelector(selector, result, ruleNode, fullSelector => {
           fullSelector.walk(node => parentNodes.push(node));
         });
       }
@@ -58,7 +58,7 @@ function rule(actual) {
 
       if (!isClassName(lastParentNode)) return;
 
-      parseSelector(rule.selector, result, rule, fullSelector => {
+      parseSelector(ruleNode.selector, result, ruleNode, fullSelector => {
         fullSelector.walkNesting(node => {
           const next = node.next();
 
@@ -69,10 +69,10 @@ function rule(actual) {
           utils.report({
             ruleName,
             result,
-            node: rule,
+            node: ruleNode,
             message: messages.rejected,
             index: node.sourceIndex,
-            endIndex: node.sourceIndex + rule.selector.length
+            endIndex: node.sourceIndex + ruleNode.selector.length
           });
         });
       });
@@ -89,16 +89,16 @@ rule.meta = meta;
  * has a selector and returns the selector
  * @returns {string|undefined}
  */
-function getSelectorFromRule(rule) {
+function getSelectorFromRule(node) {
   // All non at-rules have their own selector
-  if (rule.selector !== undefined) {
-    return rule.selector;
+  if (node.selector !== undefined) {
+    return node.selector;
   }
 
   // At-rules like @mixin don't have a selector themself
   // but their parents might have one
-  if (rule.parent) {
-    return getSelectorFromRule(rule.parent);
+  if (node.parent) {
+    return getSelectorFromRule(node.parent);
   }
 }
 

@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -65,10 +65,8 @@ function rule(primary) {
         if (atrule.params.match(/ ?if ?\(.*\) ?$/)) {
           report(atrule, result, fix);
         }
-      } else {
-        if (atrule.params.trim().match(/^\(.*\)$/)) {
-          report(atrule, result, fix);
-        }
+      } else if (atrule.params.trim().match(/^\(.*\)$/)) {
+        report(atrule, result, fix);
       }
     });
   };

@@ -1,9 +1,9 @@
-import valueParser from "postcss-value-parser";
-import stylelint from "stylelint";
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
 import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
+import valueParser from "postcss-value-parser";
 
 const { utils } = stylelint;
 
@@ -65,6 +65,7 @@ function rule(primary) {
           };
 
           const index = declarationValueIndex(decl) + node.sourceIndex;
+
           utils.report({
             message: messages.rejected,
             node: decl,

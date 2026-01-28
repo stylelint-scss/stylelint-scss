@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -53,10 +53,10 @@ function rule(expectation) {
 export function sassConditionalBraceSpaceAfterChecker({
   root,
   result,
-  ruleName,
+  ruleName: checkerRuleName,
   atRuleName,
   expectation,
-  messages
+  messages: checkerMessages
 }) {
   function complain(node, message, index, fixValue) {
     const fix = () => {
@@ -65,7 +65,7 @@ export function sassConditionalBraceSpaceAfterChecker({
 
     utils.report({
       result,
-      ruleName,
+      ruleName: checkerRuleName,
       node,
       message,
       index,
@@ -89,10 +89,10 @@ export function sassConditionalBraceSpaceAfterChecker({
     if (nextNode && nextNode.type === "atrule" && nextNode.name === "else") {
       // A single space is needed
       if (expectation === "always-intermediate" && !hasSpaceAfter) {
-        complain(atrule, messages.expected, reportIndex, " ");
+        complain(atrule, checkerMessages.expected, reportIndex, " ");
       } else if (expectation === "never-intermediate" && hasWhiteSpaceAfter) {
         // No whitespace is needed
-        complain(atrule, messages.rejected, reportIndex, "");
+        complain(atrule, checkerMessages.rejected, reportIndex, "");
       }
     }
   });

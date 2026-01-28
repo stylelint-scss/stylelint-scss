@@ -1,9 +1,9 @@
-import stylelint from "stylelint";
 import atRuleParamIndex from "../../utils/atRuleParamIndex.js";
+import namespace from "../../utils/namespace.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
 import { parseFunctionArguments } from "../../utils/parseFunctionArguments.js";
-import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -65,6 +65,7 @@ function rule(expectation, options) {
       const mixinArgs = parseFunctionArguments(atRule.params);
 
       if (mixinArgs.length === 0) return;
+
       if (mixinArgs.length === 1 && shouldIgnoreSingleArgument) return;
 
       const baseIndex = atRuleParamIndex(atRule);

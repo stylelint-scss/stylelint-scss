@@ -1,7 +1,7 @@
-import stylelint from "stylelint";
 import { isBoolean } from "../../utils/validateTypes.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 import { sassConditionalBraceNLAfterChecker } from "../at-if-closing-brace-newline-after/index.js";
 

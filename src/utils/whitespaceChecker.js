@@ -183,7 +183,7 @@ export default function whitespaceChecker(
   }
 
   function beforeAllowingIndentation(obj) {
-    before(Object.assign({}, obj, { allowIndentation: true }));
+    before({ ...obj, allowIndentation: true });
   }
 
   function expectBefore(messageFunc = messages.expectedBefore) {
@@ -269,7 +269,7 @@ export default function whitespaceChecker(
   }
 
   function afterOneOnly(obj) {
-    after(Object.assign({}, obj, { onlyOneChar: true }));
+    after({ ...obj, onlyOneChar: true });
   }
 
   function expectAfter(messageFunc = messages.expectedAfter) {

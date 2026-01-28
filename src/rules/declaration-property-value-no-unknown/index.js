@@ -1,27 +1,27 @@
+import * as atKeywords from "../../utils/atKeywords.js";
 import * as cssTree from "css-tree";
-import mdnData from "mdn-data";
 import * as isPlainObject from "is-plain-object";
 import * as typeGuards from "../../utils/typeGuards.js";
+import {
+  isDollarVar,
+  isFunctionCall,
+  isIfStatement,
+  isNestedProperty
+} from "../../utils/validateTypes.js";
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
+import findOperators from "../../utils/sassValueParser/index.js";
 import getDeclarationValue from "../../utils/getDeclarationValue.js";
 import isCustomProperty from "../../utils/isCustomPropertySet.js";
 import isStandardSyntaxDeclaration from "../../utils/isStandardSyntaxDeclaration.js";
 import isStandardSyntaxProperty from "../../utils/isStandardSyntaxProperty.js";
 import isStandardSyntaxValue from "../../utils/isStandardSyntaxValue.js";
 import matchesStringOrRegExp from "../../utils/matchesStringOrRegExp.js";
-import * as atKeywords from "../../utils/atKeywords.js";
-import validateObjectWithArrayProps from "../../utils/validateObjectWithArrayProps.js";
-import stylelint from "stylelint";
-import { isFunctionCall } from "../../utils/validateTypes.js";
-import findOperators from "../../utils/sassValueParser/index.js";
-import { parseFunctionArguments } from "../../utils/parseFunctionArguments.js";
-import {
-  isDollarVar,
-  isIfStatement,
-  isNestedProperty
-} from "../../utils/validateTypes.js";
+import mdnData from "mdn-data";
 import namespace from "../../utils/namespace.js";
+import { parseFunctionArguments } from "../../utils/parseFunctionArguments.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
+import validateObjectWithArrayProps from "../../utils/validateObjectWithArrayProps.js";
 
 const syntaxes = mdnData.css.syntaxes;
 
@@ -44,14 +44,17 @@ const SYNTAX_DESCRIPTOR = /^syntax$/i;
 
 function extractFunctionName(inputString) {
   const matches = [...inputString.matchAll(/(?:\s*([\w\-$]+)\s*)?\(/g)].flat();
+
   return matches;
 }
 
 function hasDollarVarArg(functionCall) {
   for (const i of parseFunctionArguments(functionCall)) {
     if (isFunctionCall(i.value)) return hasDollarVarArg(i.value);
+
     if (isDollarVar(i.value)) return true;
   }
+
   return false;
 }
 
@@ -160,7 +163,7 @@ function rule(primary, secondaryOptions) {
     root.walkDecls(decl => {
       let { prop } = decl;
       const { parent } = decl;
-      const value = getDeclarationValue(decl).replace(/\n+\s+/, " "); // Strip multiline values.
+      const value = getDeclarationValue(decl).replace(/\n\s+/, " "); // Strip multiline values.
 
       // Handle nested properties by reasigning `prop` to the compound property.
       if (
@@ -173,9 +176,10 @@ function rule(primary, secondaryOptions) {
               .split(" ")
               ?.filter(sel => sel[sel.length - 1] === ":")[0]
           : parent.prop;
+
         prop = String(decl.prop);
         while (parentSelector && parentSelector.substring(0, 2) !== "--") {
-          prop = parentSelector.replace(":", "") + "-" + prop;
+          prop = `${parentSelector.replace(":", "")}-${prop}`;
           pointer = pointer.parent;
           parentSelector = pointer.selector
             ? pointer.selector
@@ -200,8 +204,10 @@ function rule(primary, secondaryOptions) {
       if (isPropIgnored(prop, value)) return;
 
       // Unless we tracked values of variables, they're all valid.
-      if (value.match(/\$[A-Za-z0-9_-]+/)?.some(isDollarVar)) return;
+      if (value.match(/\$[\w-]+/)?.some(isDollarVar)) return;
+
       if (value.split(" ").some(val => hasDollarVarArg(val))) return;
+
       if (value.split(" ").some(val => containsCustomFunction(val))) return;
 
       /** @type {import('css-tree').CssNode} */
@@ -214,14 +220,17 @@ function rule(primary, secondaryOptions) {
         });
 
         if (containsCustomFunction(cssTreeValueNode)) return;
+
         if (containsUnsupportedFunction(cssTreeValueNode)) return;
-      } catch (e) {
+      } catch {
         const index = declarationValueIndex(decl);
         const endIndex = index + value.length;
 
         // Hidden declarations
         if (isIfStatement(value)) return;
+
         if (hasDollarVarArg(value)) return;
+
         const operators = findOperators({ string: value }).map(o => o.symbol);
 
         for (const operator of operators) {
@@ -309,13 +318,13 @@ function containsUnsupportedFunction(cssTreeNode) {
 
 function containsCustomFunction(cssTreeNode) {
   return Boolean(
-    /[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+\(.*\)/g.test(cssTreeNode) ||
+    /[\w-]+\.[\w-]+\(.*\)/.test(cssTreeNode) ||
     cssTree.find(
       cssTreeNode,
       node =>
         node.type === "Function" &&
         (unsupportedFunctions.includes(node.name) ||
-          !syntaxes[node.name + "()"])
+          !syntaxes[`${node.name}()`])
     )
   );
 }

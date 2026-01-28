@@ -1,12 +1,12 @@
-import valueParser from "postcss-value-parser";
-import stylelint from "stylelint";
 import getAtRuleParams from "../../utils/getAtRuleParams.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
+import valueParser from "postcss-value-parser";
 
 const { utils } = stylelint;
 
-const interpolationPrefix = /^#{\s*/m;
+const interpolationPrefix = /^#\{\s*/m;
 
 const rules = {
   red: "color",
@@ -157,9 +157,9 @@ function errorMessage(name) {
     }
 
     return `Expected ${sass_package}.${rename} instead of ${name}`;
-  } else {
-    return `Expected ${sass_package}.${name} instead of ${name}`;
   }
+
+  return `Expected ${sass_package}.${name} instead of ${name}`;
 }
 
 function rule(value) {
@@ -177,23 +177,24 @@ function rule(value) {
     });
     root.walkAtRules(atRule => {
       const params = getAtRuleParams(atRule);
+
       checkValue(atRule, params);
     });
 
-    function checkValue(parentNode, value) {
-      valueParser(value).walk(node => {
-        const cleanValue = node.value.replace(interpolationPrefix, "");
+    function checkValue(parentNode, nodeValue) {
+      valueParser(nodeValue).walk(node => {
+        const cleanNodeValue = node.value.replace(interpolationPrefix, "");
 
         // Verify that we're only looking at functions.
-        if (node.type !== "function" || cleanValue === "") {
+        if (node.type !== "function" || cleanNodeValue === "") {
           return;
         }
 
-        if (rules[cleanValue]) {
+        if (rules[cleanNodeValue]) {
           utils.report({
-            message: messages.rejected(cleanValue),
+            message: messages.rejected(cleanNodeValue),
             node: parentNode,
-            word: cleanValue,
+            word: cleanNodeValue,
             result,
             ruleName
           });

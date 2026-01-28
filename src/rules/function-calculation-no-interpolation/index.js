@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 import valueParser from "postcss-value-parser";
 
 const { utils } = stylelint;
@@ -35,8 +35,9 @@ function rule(actual) {
         if (decl.type === "decl" && decl.prop.startsWith("--")) return;
 
         const interpolation = node.nodes.find(
-          ({ type, value }) => type === "word" && /^#{.*|\s*}/.test(value)
+          ({ type, value }) => type === "word" && /^#\{.*|\s*\}/.test(value)
         );
+
         if (!interpolation) return;
 
         utils.report({

@@ -1,8 +1,8 @@
-import stylelint from "stylelint";
+import { isBoolean } from "../../utils/validateTypes.js";
 import isSingleLineString from "../../utils/isSingleLineString.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
-import { isBoolean } from "../../utils/validateTypes.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -68,10 +68,10 @@ function rule(expectation, options, context) {
 export function sassConditionalBraceNLAfterChecker({
   root,
   result,
-  ruleName,
+  ruleName: checkerRuleName,
   atRuleName,
   expectation,
-  messages,
+  messages: checkerMessages,
   context,
   options
 }) {
@@ -84,7 +84,7 @@ export function sassConditionalBraceNLAfterChecker({
 
     utils.report({
       result,
-      ruleName,
+      ruleName: checkerRuleName,
       node,
       message,
       index,
@@ -116,12 +116,15 @@ export function sassConditionalBraceNLAfterChecker({
         (nextNode.name === "else" || nextNode.name === "elseif")
       ) {
         if (hasNewLinesBeforeNext) {
-          complain(atrule, messages.rejected, reportIndex, " ");
+          complain(atrule, checkerMessages.rejected, reportIndex, " ");
         }
-      } else {
-        if (!hasNewLinesBeforeNext) {
-          complain(atrule, messages.expected, reportIndex, context.newline);
-        }
+      } else if (!hasNewLinesBeforeNext) {
+        complain(
+          atrule,
+          checkerMessages.expected,
+          reportIndex,
+          context.newline
+        );
       }
     }
   });

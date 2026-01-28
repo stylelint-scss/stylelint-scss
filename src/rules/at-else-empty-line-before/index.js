@@ -1,7 +1,7 @@
-import stylelint from "stylelint";
 import hasEmptyLine from "../../utils/hasEmptyLine.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 

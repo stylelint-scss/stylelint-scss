@@ -1,6 +1,6 @@
-import stylelint from "stylelint";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
+import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
@@ -24,6 +24,7 @@ function rule(actual) {
 
     root.walkAtRules("use", atRule => {
       const matched = atRule.params.match(/(as\s*\*)\s*(?:$|with\s*\()/);
+
       if (!matched) return;
 
       utils.report({
