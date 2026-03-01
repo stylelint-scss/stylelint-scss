@@ -29,7 +29,7 @@
   "devDependencies": {
     "common-tags": "^1.8.2",
     "cross-env": "^10.1.0",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.2",
     "eslint-config-stylelint": "^26.1.0",
     "eslint-plugin-jest": "^29.12.1",
     "github-contributors-list": "^1.2.5",
