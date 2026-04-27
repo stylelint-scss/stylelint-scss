@@ -37,11 +37,15 @@ function rule(expectation) {
 
       // Find all nested property groups
       item.each(decl => {
-        if (decl.type !== "rule") {
+        const { type, prop, value, selector } = decl;
+
+        if (type !== "rule" && !(type === "decl" && decl.isNested)) {
           return;
         }
 
-        const testForProp = parseNestedPropRoot(decl.selector);
+        const testForProp = parseNestedPropRoot(
+          selector || `${prop}: ${value}`
+        );
 
         if (testForProp && testForProp.propName !== undefined) {
           const ns = testForProp.propName.value;
