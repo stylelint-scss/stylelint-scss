@@ -141,6 +141,19 @@ function rule(expectation, options) {
       });
     } else if (expectation === "never") {
       root.walk(item => {
+        // postcss-scss parses `prop: value { nested }` as a Declaration with isNested: true
+        if (item.type === "decl" && item.isNested) {
+          utils.report({
+            message: messages.rejected(item.prop),
+            result,
+            ruleName,
+            item,
+            word: item.prop
+          });
+
+          return;
+        }
+
         // Just check if there are ANY nested props
         if (item.type === "rule") {
           // `background:red {` - selector;
