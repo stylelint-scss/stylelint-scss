@@ -7,8 +7,6 @@ import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
-const hasOwnProp = Object.prototype.hasOwnProperty;
-
 const ruleName = namespace("declaration-nested-properties");
 
 const messages = utils.ruleMessages(ruleName, {
@@ -20,17 +18,17 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-function rule(expectation, options) {
+function rule(primary, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
       result,
       ruleName,
       {
-        actual: expectation,
+        actual: primary,
         possible: ["always", "never"]
       },
       {
-        actual: options,
+        actual: secondaryOptions,
         possible: {
           except: ["only-of-namespace"]
         },
@@ -42,133 +40,143 @@ function rule(expectation, options) {
       return;
     }
 
-    if (expectation === "always") {
-      root.walk(item => {
-        if (item.type !== "rule" && item.type !== "atrule") {
+    const exceptIfOnlyOfNamespace = optionsHaveException(
+      secondaryOptions,
+      "only-of-namespace"
+    );
+
+    if (primary === "always") {
+      root.walk(node => {
+        if (node.type !== "rule" && node.type !== "atrule") {
           return;
         }
 
-        const warningCandidates = {};
+        /** @type {Map<string, Array<{ node: import('postcss').Declaration | import('postcss').Rule, nested?: true }>>} */
+        const warningCandidates = new Map();
 
-        item.each(decl => {
-          const { prop, type, selector } = decl;
+        node.each(child => {
+          const { type, prop, value, selector } = child;
 
-          // Looking for namespaced non-nested properties
-          // Namespaced prop is basically a prop with a `-` in a name, e.g. `margin-top`
-          if (type === "decl") {
+          if (type !== "decl" && type !== "rule") {
+            return;
+          }
+
+          // Non-nested namespaced properties (browser-prefixed props are ignored)
+          if (type === "decl" && !child.isNested) {
             if (!isStandardSyntaxProperty(prop)) {
               return;
             }
 
-            // Add simple namespaced prop decls to warningCandidates.ns
-            // (prop names with browser prefixes are ignored)
-            const seekNamespace = /^([a-z\d]+)-/i.exec(prop);
+            const namespaceMatch = /^([a-z\d]+)-/i.exec(prop);
 
-            if (seekNamespace && seekNamespace[1]) {
-              const ns = seekNamespace[1];
-
-              if (!hasOwnProp.call(warningCandidates, ns)) {
-                warningCandidates[ns] = [];
-              }
-
-              warningCandidates[ns].push({ node: decl });
+            if (!namespaceMatch?.[1]) {
+              return;
             }
+
+            const propNamespace = namespaceMatch[1];
+
+            if (!warningCandidates.has(propNamespace)) {
+              warningCandidates.set(propNamespace, []);
+            }
+
+            warningCandidates.get(propNamespace).push({ node: child });
+
+            return;
           }
 
           // Nested props, `prop: [value] { <nested decls> }`
-          if (type === "rule" || (type === "decl" && decl.isNested)) {
-            // `background:red {` - selector;
-            // `background: red {` - nested prop; space is decisive here
-            const testForProp = parseNestedPropRoot(
-              selector || decl.toString()
-            );
+          const parsedProp = parseNestedPropRoot(
+            selector || `${prop}: ${value}`
+          );
 
-            if (testForProp && testForProp.propName !== undefined) {
-              const ns = testForProp.propName.value;
-
-              if (!hasOwnProp.call(warningCandidates, ns)) {
-                warningCandidates[ns] = [];
-              }
-
-              warningCandidates[ns].push({
-                node: decl,
-                nested: true
-              });
-            }
+          if (parsedProp?.propName === undefined) {
+            return;
           }
+
+          const propNamespace = parsedProp.propName.value;
+
+          if (!warningCandidates.has(propNamespace)) {
+            warningCandidates.set(propNamespace, []);
+          }
+
+          warningCandidates.get(propNamespace).push({
+            node: child,
+            nested: true
+          });
         });
 
-        // Now check if the found properties deserve warnings
-        Object.keys(warningCandidates).forEach(namespaceName => {
-          const exceptIfOnlyOfNs = optionsHaveException(
-            options,
-            "only-of-namespace"
-          );
-          const moreThanOneProp = warningCandidates[namespaceName].length > 1;
+        for (const [namespaceName, candidates] of warningCandidates) {
+          const hasMultipleProps = candidates.length > 1;
 
-          warningCandidates[namespaceName].forEach(candidate => {
-            if (candidate.nested === true) {
-              if (exceptIfOnlyOfNs) {
-                // If there is only one prop inside a nested prop - warn (reverse "always")
-                if (
-                  candidate.nested === true &&
-                  candidate.node.nodes.length === 1
-                ) {
-                  utils.report({
-                    message: messages.rejected(namespaceName),
-                    node: candidate.node,
-                    result,
-                    ruleName
-                  });
-                }
-              }
-            } else {
-              // Don't warn on non-nested namespaced props if there are
-              // less than 2 of them, and except: "only-of-namespace" is set
-              if (exceptIfOnlyOfNs && !moreThanOneProp) {
-                return;
+          for (const candidate of candidates) {
+            if (candidate.nested) {
+              // If except: "only-of-namespace" and only one child inside nested prop - warn (reverse "always")
+              if (
+                !exceptIfOnlyOfNamespace ||
+                candidate.node.nodes?.length !== 1
+              ) {
+                continue;
               }
 
               utils.report({
-                message: messages.expected(candidate.node.prop),
+                message: messages.rejected(namespaceName),
                 node: candidate.node,
                 result,
-                ruleName
+                ruleName,
+                word: namespaceName
               });
+
+              continue;
             }
-          });
-        });
+
+            // Don't warn on non-nested namespaced props if there are
+            // less than 2 of them and except: "only-of-namespace" is set
+            if (exceptIfOnlyOfNamespace && !hasMultipleProps) {
+              continue;
+            }
+
+            utils.report({
+              message: messages.expected(candidate.node.prop),
+              node: candidate.node,
+              result,
+              ruleName,
+              word: candidate.node.prop
+            });
+          }
+        }
       });
-    } else if (expectation === "never") {
-      root.walk(item => {
+    } else if (primary === "never") {
+      root.walk(node => {
         // postcss-scss parses `prop: value { nested }` as a Declaration with isNested: true
-        if (item.type === "decl" && item.isNested) {
+        if (node.type === "decl" && node.isNested) {
           utils.report({
-            message: messages.rejected(item.prop),
+            message: messages.rejected(node.prop),
             result,
             ruleName,
-            item,
-            word: item.prop
+            node,
+            word: node.prop
           });
 
           return;
         }
 
-        // Just check if there are ANY nested props
-        if (item.type === "rule") {
-          // `background:red {` - selector;
-          // `background: red {` - nested prop; space is decisive here
-          const testForProp = parseNestedPropRoot(item.selector);
-
-          if (testForProp && testForProp.propName !== undefined) {
-            utils.report({
-              message: messages.rejected(testForProp.propName.value),
-              result,
-              ruleName,
-              node: item
-            });
-          }
+        if (node.type !== "rule") {
+          return;
         }
+
+        const parsedProp = parseNestedPropRoot(node.selector);
+
+        if (parsedProp?.propName === undefined) {
+          return;
+        }
+
+        utils.report({
+          message: messages.rejected(parsedProp.propName.value),
+          result,
+          ruleName,
+          node,
+          word: parsedProp.propName.value
+        });
       });
     }
   };
