@@ -1,7 +1,7 @@
 import parseNestedPropRoot from "../parseNestedPropRoot.js";
 
 // --------------------------------------------------------------------------
-// nested props
+// nested property roots
 // --------------------------------------------------------------------------
 
 test("`background:`", () => {
@@ -133,7 +133,7 @@ test("Edge case: function with param `#{fn($a: 1)}:`.", () => {
   });
 });
 
-test('`input:"prop: value"` (value is a string).', () => {
+test('`input:"prop: value"` (value is a double-quoted string).', () => {
   expect.assertions(1);
 
   const result = parseNestedPropRoot('input:"prop: value"');
@@ -147,6 +147,86 @@ test('`input:"prop: value"` (value is a string).', () => {
       value: '"prop: value"',
       before: "",
       sourceIndex: 6
+    }
+  });
+});
+
+test("``input:'prop: value'`` (value is a single-quoted string).", () => {
+  expect.assertions(1);
+
+  const result = parseNestedPropRoot("input:'prop: value'");
+
+  expect(result).toEqual({
+    propName: {
+      value: "input",
+      after: ""
+    },
+    propValue: {
+      value: "'prop: value'",
+      before: "",
+      sourceIndex: 6
+    }
+  });
+});
+
+test('`input: "it\'s a value"` (double-quoted string containing a single quote).', () => {
+  expect.assertions(1);
+
+  const result = parseNestedPropRoot('input: "it\'s a value"');
+
+  expect(result).toEqual({
+    propName: {
+      value: "input",
+      after: ""
+    },
+    propValue: {
+      value: '"it\'s a value"',
+      before: " ",
+      sourceIndex: 7
+    }
+  });
+});
+
+test("``input: 'prop: \"value\"'`` (single-quoted string containing a double quote).", () => {
+  expect.assertions(1);
+
+  const result = parseNestedPropRoot("input: 'prop: \"value\"'");
+
+  expect(result).toEqual({
+    propName: {
+      value: "input",
+      after: ""
+    },
+    propValue: {
+      value: "'prop: \"value\"'",
+      before: " ",
+      sourceIndex: 7
+    }
+  });
+});
+
+test('`#{fn("prop: \\"value\\"")}:` (interpolation containing a string with an escaped double quote).', () => {
+  expect.assertions(1);
+
+  const result = parseNestedPropRoot('#{fn("prop: \\"value\\"")}:');
+
+  expect(result).toEqual({
+    propName: {
+      value: '#{fn("prop: \\"value\\"")}',
+      after: ""
+    }
+  });
+});
+
+test("``#{fn('prop: \\'value\\'')}:`` (interpolation containing a string with an escaped single quote).", () => {
+  expect.assertions(1);
+
+  const result = parseNestedPropRoot("#{fn('prop: \\'value\\'')}:");
+
+  expect(result).toEqual({
+    propName: {
+      value: "#{fn('prop: \\'value\\'')}",
+      after: ""
     }
   });
 });
@@ -204,7 +284,7 @@ test("`&:pseudo`", () => {
 });
 
 // --------------------------------------------------------------------------
-// other something
+// quoted strings
 // --------------------------------------------------------------------------
 
 test('`"input: prop"` (a "-string)', () => {
