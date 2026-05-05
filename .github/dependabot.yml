@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: monthly
   - package-ecosystem: "npm"
+    cooldown:
+      default-days: 7
+      semver-minor-days: 7
+      semver-patch-days: 7
     directory: "/"
     schedule:
       interval: monthly
