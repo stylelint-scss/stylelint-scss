@@ -1,93 +1,103 @@
+/** @type {RegExp} Matches leading whitespace */
+const LEADING_WHITESPACE = /^\s*/;
+
+/** @type {RegExp} Matches trailing whitespace */
+const TRAILING_WHITESPACE = /\s*$/;
+
+/** @type {RegExp} Matches characters that indicate a declaration value (number, dot, $, or quote) */
+const DECLARATION_VALUE_START = /^[\d.$'"]/;
+
 /**
- * Attempts to parse a selector as if it"s a root for a group of nested props
- * E.g.: `margin: {`, `font: 10px/1.1 Arial {` ("{" excluded)
+ * Attempts to parse a CSS property string as a root for a group of nested
+ * properties, e.g. `margin: {`, `font: 10px/1.1 Arial {` ("{" excluded).
+ *
+ * @param {string} propertyString - The property string to parse
+ * @returns {{
+ *   propName: { value: string, after: string },
+ *   propValue?: { value: string, before: string, sourceIndex: number }
+ * } | null} - The parsed result, or null if the property string is not a nested property root
  */
+export default function parseNestedPropRoot(propertyString) {
+  // Stack of mode strings: "normal" | "interpolation" | "string:'" | 'string:"'
+  const stack = ["normal"];
 
-export default function parseNestedPropRoot(propString) {
-  const modesEntered = [
-    {
-      mode: "normal",
-      character: null,
-      isCalculationEnabled: true
-    }
-  ];
-  const result = {};
-  let lastModeIndex = 0;
-  let propName = "";
+  for (let i = 0; i < propertyString.length; i++) {
+    const character = propertyString[i];
+    const prevCharacter = propertyString[i - 1];
 
-  for (let i = 0; i < propString.length; i++) {
-    const character = propString[i];
-    const prevCharacter = propString[i - 1];
-
-    // If entering/exiting a string
+    // Entering/exiting a string
     if (character === '"' || character === "'") {
-      if (modesEntered[lastModeIndex].isCalculationEnabled === true) {
-        modesEntered.push({
-          mode: "string",
-          isCalculationEnabled: false,
-          character
-        });
-        lastModeIndex++;
-      } else if (
-        modesEntered[lastModeIndex].mode === "string" &&
-        modesEntered[lastModeIndex].character === character &&
-        prevCharacter !== "\\"
-      ) {
-        modesEntered.pop();
-        lastModeIndex--;
+      const currentMode = stack.at(-1);
+      const stringMode = `string:${character}`;
+
+      if (!currentMode.startsWith("string:")) {
+        stack.push(stringMode);
+        continue;
       }
+
+      if (currentMode === stringMode && prevCharacter !== "\\") {
+        stack.pop();
+      }
+
+      continue;
     }
 
-    // If entering/exiting interpolation
+    // Entering/exiting interpolation
     if (character === "{") {
-      modesEntered.push({
-        mode: "interpolation",
-        isCalculationEnabled: true
-      });
-      lastModeIndex++;
-    } else if (character === "}") {
-      modesEntered.pop();
-      lastModeIndex--;
+      stack.push("interpolation");
+      continue;
     }
 
-    // Check for : outside fn call, string or interpolation. It must be at the
-    // end of a string or have a whitespace between it and following value
+    if (character === "}") {
+      stack.pop();
+      continue;
+    }
+
+    // Check for ":" outside string or interpolation. It must either end the
+    // property name (no value follows) or have whitespace before the value.
     if (
-      modesEntered[lastModeIndex].mode === "normal" &&
-      character === ":" &&
-      prevCharacter !== "\\"
+      stack.at(-1) !== "normal" ||
+      character !== ":" ||
+      prevCharacter === "\\"
     ) {
-      const propValueStr = propString.substring(i + 1);
+      continue;
+    }
 
-      if (propValueStr.length) {
-        const propValue = {
-          before: /^(\s*)/.exec(propValueStr)[1],
-          value: propValueStr.trim()
-        };
+    const propertyName = propertyString.slice(0, i);
+    const rawPropertyValue = propertyString.slice(i + 1);
+    const propName = {
+      value: propertyName.trim(),
+      after: TRAILING_WHITESPACE.exec(propertyName)[0]
+    };
 
-        // It's a declaration if 1) there is a whitespace after :, or
-        // 2) the value is a number with/without a unit (starts with a number
-        // or a dot), or
-        // 3) the value is a variable (starts with $), or
-        // 4) the value a string, surprisingly
-        if (propValue.before === "" && !/^[\d.$'"]/.test(propValue.value)) {
-          return null;
-        }
+    if (rawPropertyValue) {
+      const propertyValue = rawPropertyValue.trim();
+      const whitespaceBeforeValue =
+        LEADING_WHITESPACE.exec(rawPropertyValue)[0];
 
-        // +1 for the colon
-        propValue.sourceIndex = propValue.before.length + i + 1;
-        result.propValue = propValue;
+      // It's a declaration if
+      // 1) there is whitespace after ":", or
+      // 2) the property value is a number with/without a unit (starts with a number or a dot), or
+      // 3) the property value is a variable (starts with "$"), or
+      // 4) the property value is a string, surprisingly
+      if (
+        whitespaceBeforeValue === "" &&
+        !DECLARATION_VALUE_START.test(propertyValue)
+      ) {
+        return null;
       }
 
-      result.propName = {
-        after: /(\s*)$/.exec(propName)[1],
-        value: propName.trim()
+      return {
+        propName,
+        propValue: {
+          value: propertyValue,
+          before: whitespaceBeforeValue,
+          sourceIndex: whitespaceBeforeValue.length + i + 1 // +1 for the colon
+        }
       };
-
-      return result;
     }
 
-    propName += character;
+    return { propName };
   }
 
   return null;
