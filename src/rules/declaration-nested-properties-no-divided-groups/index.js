@@ -5,8 +5,6 @@ import stylelint from "stylelint";
 
 const { utils } = stylelint;
 
-const hasOwnProp = Object.prototype.hasOwnProperty;
-
 const ruleName = namespace("declaration-nested-properties-no-divided-groups");
 
 const messages = utils.ruleMessages(ruleName, {
@@ -18,58 +16,62 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-function rule(expectation) {
+function rule(primary) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
-      actual: expectation
+      actual: primary
     });
 
     if (!validOptions) {
       return;
     }
 
-    root.walk(item => {
-      if (item.type !== "rule" && item.type !== "atrule") {
+    root.walk(node => {
+      if (node.type !== "rule" && node.type !== "atrule") {
         return;
       }
 
-      const nestedGroups = {};
+      /** @type {Map<string, Array<import('postcss').Declaration | import('postcss').Rule>>} */
+      const nestedGroups = new Map();
 
       // Find all nested property groups
-      item.each(decl => {
-        if (decl.type !== "rule") {
+      node.each(child => {
+        const { type, prop, value, selector } = child;
+
+        if (type !== "rule" && !(type === "decl" && child.isNested)) {
           return;
         }
 
-        const testForProp = parseNestedPropRoot(decl.selector);
+        const parsedProp = parseNestedPropRoot(selector || `${prop}: ${value}`);
 
-        if (testForProp && testForProp.propName !== undefined) {
-          const ns = testForProp.propName.value;
-
-          if (!hasOwnProp.call(nestedGroups, ns)) {
-            nestedGroups[ns] = [];
-          }
-
-          nestedGroups[ns].push(decl);
+        if (parsedProp?.propName === undefined) {
+          return;
         }
+
+        const propNamespace = parsedProp.propName.value;
+
+        if (!nestedGroups.has(propNamespace)) {
+          nestedGroups.set(propNamespace, []);
+        }
+
+        nestedGroups.get(propNamespace).push(child);
       });
 
-      Object.entries(nestedGroups).forEach(([namespaceName, groups]) => {
-        // Only warn if there are more than one nested groups with equal namespaces
-        if (groups.length === 1) {
-          return;
+      for (const [namespaceName, groupNodes] of nestedGroups) {
+        if (groupNodes.length === 1) {
+          continue;
         }
 
-        groups.forEach(group => {
+        for (const groupNode of groupNodes) {
           utils.report({
             message: messages.expected(namespaceName),
-            node: group,
+            node: groupNode,
             result,
             ruleName,
             word: namespaceName
           });
-        });
-      });
+        }
+      }
     });
   };
 }
