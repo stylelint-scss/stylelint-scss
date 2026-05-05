@@ -27,6 +27,8 @@
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
+    "@lavamoat/allow-scripts": "^5.0.1",
+    "@lavamoat/preinstall-always-fail": "^3.0.0",
     "common-tags": "^1.8.2",
     "cross-env": "^10.1.0",
     "eslint": "^10.0.3",
@@ -59,6 +61,7 @@
     "stylelint-plugin"
   ],
   "scripts": {
+    "ci": "npm ci && allow-scripts run",
     "lint": "eslint .",
     "prettify": "prettier --write \"src/**/*.js\" --ignore-path=.prettierignore",
     "pretest": "npm run lint",
@@ -70,5 +73,11 @@
     "test-util": "npm run jest",
     "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html",
     "prepare": "husky install"
+  },
+  "lavamoat": {
+    "allowScripts": {
+      "@lavamoat/preinstall-always-fail#3.0.0": false,
+      "jest>@jest/core>jest-resolve>unrs-resolver#1.11.1": true
+    }
   }
 }
