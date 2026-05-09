@@ -42,6 +42,9 @@ testRule({
       code: "a { color: lightgray; }"
     },
     {
+      code: "a { color: oklch(from red l c calc(h / 2) / alpha); }"
+    },
+    {
       code: "a { display: -moz-inline-stack; }"
     },
     {
@@ -55,6 +58,21 @@ testRule({
     },
     {
       code: "a { font-size: max(1rem, 3rem); }"
+    },
+    {
+      code: "a { font-size: larger; }"
+    },
+    {
+      code: "a { font-size: math; }"
+    },
+    {
+      code: "a { font-family: math; }"
+    },
+    {
+      code: "a { font: math math; }"
+    },
+    {
+      code: "a { font: math math, math; }"
     },
     {
       code: "a { word-break: auto-phrase; }"
@@ -75,6 +93,18 @@ testRule({
       code: "a { anchor-name: --bar, --qux; }"
     },
     {
+      code: "@font-face { font-weight: bolder; }",
+      description: "ignore descriptors with unknown values"
+    },
+    {
+      code: "a { color: if(media(all): red;); }",
+      description: "ignore csstree parse errors for `if()` function"
+    },
+    {
+      code: "a { content: attr(data-foo type(<string>)) }",
+      description: "ignore csstree parse errors for `attr()` function"
+    },
+    {
       code: stripIndent`
 				a { font-weight: bolder; }
 				@font-face { font-weight: 100 200; }
@@ -82,6 +112,19 @@ testRule({
       description:
         "at-rule descriptor and property with the same name but different syntaxes"
     },
+    /* Not supported.
+    {
+      code: stripIndent`
+				a { --foo: 10px; }
+				@property --foo {
+					syntax: not-a-string;
+					inherits: false;
+					initial-value: #c0ffee;
+				}
+			`,
+      description: "ignore descriptors with unknown values"
+    },
+    */
     {
       code: stripIndent`
 				a { --foo: red; }
@@ -156,6 +199,198 @@ testRule({
 				top: /* stylelint-disable-next-line scss/declaration-property-value-no-unknown */
 					red;
 			}`
+    },
+    {
+      code: "a { height: calc-size(auto, size); }"
+    },
+    {
+      code: "a { width: calc-size(auto, round(up, size, 1px)); }"
+    },
+    {
+      code: "a { height: calc-size(max-content, size + 2rem); }"
+    },
+    {
+      code: "a { height: calc-size(calc-size(max-content, size), size + 2rem); }"
+    },
+    {
+      code: "a { transition-timing-function: linear(0 0%, 0.999 44.8%, 0.866 58.4%, 0.998 77.2%, 1 100%) }"
+    },
+    {
+      code: "a { container-type: scroll-state }"
+    },
+    {
+      code: "a { inset: anchor(center) }"
+    },
+    {
+      code: stripIndent`a {
+				background: linear-gradient(in hsl longer hue, red, red);
+				background: radial-gradient(in hsl longer hue, red, red);
+				background: conic-gradient(in hsl longer hue, red, red);
+				background: repeating-linear-gradient(in hsl longer hue, red, red 50px);
+				background: repeating-radial-gradient(in hsl longer hue, red, red 50px);
+				background: repeating-conic-gradient(in hsl longer hue, red 0%, yellow 15%, red 33%);
+			}`
+    },
+    {
+      code: "a { appearance: base-select }"
+    },
+    {
+      code: "a { height: calc(2px * 2); }",
+      description: "calc with valid multiplication"
+    },
+    {
+      code: "a { height: calc(10px / 2); }",
+      description: "calc with valid division"
+    },
+    {
+      code: "a { height: calc(10px + 20px); }",
+      description: "calc with dimension + dimension"
+    },
+    {
+      code: "a { height: calc(100% - 10px); }",
+      description: "calc with percentage - dimension"
+    },
+    {
+      code: "a { height: calc(10px + 10%); }",
+      description: "calc with dimension + percentage"
+    },
+    {
+      code: "a { height: calc(2 * 3px); }",
+      description: "calc with number * dimension"
+    },
+    {
+      code: "a { height: calc(var(--foo) + 2); }",
+      description: "calc with var() is skipped"
+    },
+    {
+      code: "a { height: calc(var(--foo) * 2); }",
+      description: "calc with var() multiplication is skipped"
+    },
+    {
+      code: "a { z-index: calc(2); }",
+      description: "calc resulting in number for property that accepts number"
+    },
+    {
+      code: "a { z-index: calc(2 + 2); }",
+      description: "calc resulting in number for property that accepts number"
+    },
+    {
+      code: "a { opacity: calc(0.5 + 0.3); }",
+      description: "calc resulting in number for property that accepts number"
+    },
+    {
+      code: "a { width: min(10px, 20px); }",
+      description: "min function with valid dimensions"
+    },
+    {
+      code: "a { width: max(10px, 20px); }",
+      description: "max function with valid dimensions"
+    },
+    {
+      code: "a { width: clamp(10px, 50%, 100px); }",
+      description: "clamp function with valid dimensions"
+    },
+    {
+      code: "a { height: calc(env(--some-var) + 10px); }",
+      description: "calc with env() is skipped"
+    },
+    {
+      code: "a { width: round(nearest, 10px, 1px); }",
+      description: "round function with valid dimensions"
+    },
+    {
+      code: "a { width: mod(10px, 3px); }",
+      description: "mod function with valid dimensions"
+    },
+    {
+      code: "a { width: rem(10px, 3px); }",
+      description: "rem function with valid dimensions"
+    },
+    {
+      code: "a { width: abs(-10px); }",
+      description: "abs function with valid dimension"
+    },
+    {
+      code: "a { z-index: sign(-10); }",
+      description: "sign function with valid number"
+    },
+    {
+      code: "a { width: calc(abs(10px) + max(5px, 2px)); }",
+      description: "nested math functions without type mix"
+    },
+    {
+      code: "a { width: max(min(10px, 20px), 5px); }",
+      description: "nested min inside max function"
+    },
+    {
+      code: "a { width: calc(clamp(5px, 10px, 15px) + 5px); }",
+      description: "calc with nested clamp function"
+    },
+    {
+      code: "a { width: calc(10px * 2 / 2); }",
+      description: "calc with multiplication and division (no type mix)"
+    },
+    {
+      code: "a { font-size: calc(1em + 2px); }",
+      description: "calc with different length units (valid)"
+    },
+    {
+      code: "a { line-height: calc(1.5 * 1.2); }",
+      description: "calc with number multiplication for unitless property"
+    },
+    {
+      code: "a { flex-grow: calc(2 - 1); }",
+      description: "calc with number subtraction for number property"
+    },
+    {
+      code: "a { width: hypot(3px, 4px); }",
+      description: "hypot function with dimensions"
+    },
+    {
+      code: "a { rotate: atan2(1, 1); }",
+      description: "atan2 function with numbers"
+    },
+    {
+      code: "a { width: calc(sqrt(4) * 1px); }",
+      description: "sqrt function in calc"
+    },
+    {
+      code: "a { width: calc(); }",
+      description: "calc with no arguments (empty tokens)"
+    },
+    {
+      code: '@property { syntax: "<color>"; }',
+      description: "@property rule with empty params (no property name)"
+    },
+    {
+      code: '@property foo { syntax: "<color>"; }',
+      description: "@property rule with non-custom property name"
+    },
+    {
+      code: '@font-face { src: url("font.woff2"); }',
+      description: "descriptor declaration inside @font-face (standard syntax)"
+    },
+    {
+      code: "@counter-style thumbs { system: cyclic; }",
+      description: "descriptor declaration inside @counter-style"
+    },
+    {
+      code: "@page { margin: 1cm; }",
+      description: "descriptor declaration inside @page"
+    },
+    {
+      code: "a { top: calc(0.3 * 100% + 10px); }",
+      description:
+        "mixed units and percentages checking respects operator precedence"
+    },
+    {
+      code: "a { top: calc(0.3 * 100vh + 15px); }",
+      description:
+        "mixed units and percentages checking respects operator precedence"
+    },
+    {
+      code: "a { margin-inline: calc(10px)calc(20px); }",
+      description: "functions can be written without separating whitespace"
     },
     {
       code: `
@@ -459,6 +694,17 @@ testRule({
       endLine: 1,
       endColumn: 17
     },
+    /* Valid syntax in Sass, should not be rejected.
+    {
+      code: "a { height: calc-size(foo, 10px * 1.5); }",
+      message: messages.rejected("height", "calc-size(foo, 10px * 1.5)"),
+      line: 1,
+      column: 13,
+      endLine: 1,
+      endColumn: 39,
+      description: "calc-size without size keyword is still validated"
+    },
+    */
     {
       code: "a { @media screen { top: unknown; } }",
       message: messages.rejected("top", "unknown"),
@@ -519,14 +765,6 @@ testRule({
       endColumn: 19
     },
     {
-      code: "a { color: rgb(67 67 67 70%); }",
-      message: messages.rejected("color", "70%"),
-      line: 1,
-      column: 25,
-      endLine: 1,
-      endColumn: 28
-    },
-    {
       code: "a { transition: background-color 0.6s ease-in-out 0; }",
       message: messages.rejected("transition", "0"),
       line: 1,
@@ -573,36 +811,23 @@ testRule({
       endLine: 5,
       endColumn: 22
     },
-    // {
-    // 	code: stripIndent`
-    // 		a { --foo: 10px; }
-    // 		@property --foo {
-    // 			syntax: "<color>";
-    // 			inherits: false;
-    // 			initial-value: #c0ffee;
-    // 		}
-    // 	`,
-    // 	message: messages.rejected('--foo', '10px'),
-    // 	line: 1,
-    // 	column: 12,
-    // 	endLine: 1,
-    // 	endColumn: 16,
-    // },
+    /* Not supported.
     {
       code: stripIndent`
 				a { --foo: 10px; }
 				@property --foo {
-					syntax: not-a-string;
+					syntax: "<color>";
 					inherits: false;
 					initial-value: #c0ffee;
 				}
 			`,
-      message: messages.rejected("syntax", "not-a-string"),
-      line: 3,
-      column: 10,
-      endLine: 3,
-      endColumn: 22
+      message: messages.rejected("--foo", "10px"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 16
     },
+    */
     {
       code: 'a { font-family: "Foo" serif; }',
       message: messages.rejected("font-family", "serif"),
@@ -619,6 +844,308 @@ testRule({
       endLine: 1,
       endColumn: 30
     },
+    {
+      code: "a { font-family: serif sans-serif; }",
+      message: messages.rejected("font-family", "sans-serif"),
+      line: 1,
+      column: 24,
+      endLine: 1,
+      endColumn: 34
+    },
+    {
+      code: "a { font-family: math math; }",
+      message: messages.rejected("font-family", "math"),
+      line: 1,
+      column: 23,
+      endLine: 1,
+      endColumn: 27
+    },
+    {
+      code: "a { font: serif; }",
+      message: messages.rejected("font", "serif"),
+      line: 1,
+      column: 11,
+      endLine: 1,
+      endColumn: 16
+    },
+    {
+      code: "a { font: math; }",
+      message: messages.rejected("font", ""),
+      line: 1,
+      column: 15,
+      endLine: 1,
+      endColumn: 16
+    },
+    {
+      code: "a { color: rgb(67 67 67 70%); }",
+      message: messages.rejected("color", "rgb(67 67 67 70%)"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 29
+    },
+    /* Sass supports hex inside rgba(), should not be rejected.
+    {
+      code: "a { box-shadow: 0 4px 8px 0 rgba(#ff611d, 0.5); }",
+      message: messages.rejected("box-shadow", "rgba(#ff611d, 0.5)"),
+      line: 1,
+      column: 29,
+      endLine: 1,
+      endColumn: 47,
+      description: "a hex color inside rgba()"
+    },
+    */
+    {
+      code: "a { color: hsl(#ff611d, 50%, 50%); }",
+      message: messages.rejected("color", "hsl(#ff611d, 50%, 50%)"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 34,
+      description: "a hex color inside hsl()"
+    },
+    {
+      code: "a { background-color: color-mix(in unknown, red, blue); }",
+      message: messages.rejected(
+        "background-color",
+        "color-mix(in unknown, red, blue)"
+      ),
+      line: 1,
+      column: 23,
+      endLine: 1,
+      endColumn: 55,
+      description: "an unknown color space in color-mix()"
+    },
+    {
+      code: "a { background: rgba(255, 255); }",
+      message: messages.rejected("background", "rgba(255, 255)"),
+      line: 1,
+      column: 17,
+      endLine: 1,
+      endColumn: 31,
+      description: "too few arguments in rgba()"
+    },
+    {
+      code: "a { color: rgb(from red, r, g, b); }",
+      message: messages.rejected("color", "rgb(from red, r, g, b)"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 34,
+      description: "legacy syntax does not support relative colors"
+    },
+    {
+      code: "a { color: rgb(from red l c h); }",
+      message: messages.rejected("color", "rgb(from red l c h)"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 31,
+      description: "component keywords are specific to each color function"
+    },
+    {
+      code: "a { height: calc(2); }",
+      message: messages.rejectedMath("height", "2"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 19,
+      description: "calc resulting in number where length is expected"
+    },
+    {
+      code: "a { height: calc(2 + 2); }",
+      message: messages.rejectedMath("height", "2 + 2"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 23,
+      description: "calc resulting in number where length is expected"
+    },
+    {
+      code: "a { height: calc(2 * 2); }",
+      message: messages.rejectedMath("height", "2 * 2"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 23,
+      description: "calc resulting in number where length is expected"
+    },
+    {
+      code: "a { height: calc(2px + 2); }",
+      message: messages.rejectedMath("height", "2px + 2"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 25,
+      description: "calc with incompatible types: dimension + number"
+    },
+    {
+      code: "a { height: calc(2 + 2px); }",
+      message: messages.rejectedMath("height", "2 + 2px"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 25,
+      description: "calc with incompatible types: number + dimension"
+    },
+    {
+      code: "a { height: calc(2px - 2); }",
+      message: messages.rejectedMath("height", "2px - 2"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 25,
+      description: "calc with incompatible types: dimension - number"
+    },
+    {
+      code: "a { height: calc(2% + 2); }",
+      message: messages.rejectedMath("height", "2% + 2"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 24,
+      description: "calc with incompatible types: percentage + number"
+    },
+    {
+      code: "a { height: calc(min(1px + 1, 2px)); }",
+      message: messages.rejectedMath("height", "1px + 1"),
+      line: 1,
+      column: 22,
+      endLine: 1,
+      endColumn: 29,
+      description: "calc with nested math function type mix"
+    },
+    {
+      code: "a { height: min(calc(1px + 1), 2px); }",
+      message: messages.rejectedMath("height", "1px + 1"),
+      line: 1,
+      column: 22,
+      endLine: 1,
+      endColumn: 29,
+      description: "calc nested inside min function with type mix"
+    },
+    {
+      code: "a { height: max(calc(10px + 1), 5px); }",
+      message: messages.rejectedMath("height", "10px + 1"),
+      line: 1,
+      column: 22,
+      endLine: 1,
+      endColumn: 30,
+      description: "max function with nested calc that has invalid type mix"
+    },
+    {
+      code: "a { height: calc(max(10px, 5px) + 2 + 3px); }",
+      message: messages.rejectedMath("height", "max(10px, 5px) + 2"),
+      line: 1,
+      column: 18,
+      endLine: 1,
+      endColumn: 36,
+      description: "calc with nested function, number, and dimension operands"
+    },
+    {
+      code: "a { height: min(1px + 2, 5px); }",
+      message: messages.rejectedMath("height", "1px + 2"),
+      line: 1,
+      column: 17,
+      endLine: 1,
+      endColumn: 24,
+      description: "min function with type mix in first argument"
+    },
+    {
+      code: "a { height: clamp(1px, 2 + 3px, 10px); }",
+      message: messages.rejectedMath("height", "2 + 3px"),
+      line: 1,
+      column: 24,
+      endLine: 1,
+      endColumn: 31,
+      description: "clamp function with type mix"
+    },
+    {
+      code: "a { width: calc(10% - 5); }",
+      message: messages.rejectedMath("width", "10% - 5"),
+      line: 1,
+      column: 17,
+      endLine: 1,
+      endColumn: 24,
+      description: "calc with percentage minus number"
+    },
+    {
+      code: "a { background: url(foo.png) calc(10px + 1); }",
+      message: messages.rejectedMath("background", "10px + 1"),
+      line: 1,
+      column: 35,
+      endLine: 1,
+      endColumn: 43,
+      description: "value with non-math function before invalid calc"
+    },
+    {
+      code: "a { background: image-set(calc(1px + 1) 1x) calc(2px + 3); }",
+      message: messages.rejectedMath("background", "1px + 1"),
+      line: 1,
+      column: 32,
+      endLine: 1,
+      endColumn: 39,
+      description: "nested calc inside non-math function found first"
+    },
+    {
+      code: "a { background: image-set(calc(1px + 1) 1x); }",
+      message: messages.rejectedMath("background", "1px + 1"),
+      line: 1,
+      column: 32,
+      endLine: 1,
+      endColumn: 39,
+      description: "nested calc can be found"
+    },
+    {
+      code: "a { width: linear-gradient(red, blue) calc(3 - 1px); }",
+      message: messages.rejectedMath("width", "3 - 1px"),
+      line: 1,
+      column: 44,
+      endLine: 1,
+      endColumn: 51,
+      description: "non-math function without nested math before invalid calc"
+    },
+    {
+      code: "a { margin-inline: calc(3px - 1px) calc(3 - 1px); }",
+      message: messages.rejectedMath("margin-inline", "3 - 1px"),
+      line: 1,
+      column: 41,
+      endLine: 1,
+      endColumn: 48,
+      description: "multiple values in a declaration"
+    },
+    {
+      code: "a { margin-inline: calc(3px - 1px) calc(3 - 1); }",
+      message: messages.rejectedMath("margin-inline", "3 - 1"),
+      line: 1,
+      column: 41,
+      endLine: 1,
+      endColumn: 46,
+      description: "multiple values in a declaration"
+    },
+    {
+      code: "a { margin-inline: calc((3px + 2px) - (1)); }",
+      message: messages.rejectedMath("margin-inline", "3px + 2px) - (1"),
+      line: 1,
+      column: 26,
+      endLine: 1,
+      endColumn: 41,
+      description: "type mix between expressions wrapped in parenthesis"
+    },
+    /* Valid syntax in Sass, should not be rejected.
+    {
+      code: "a { filter: alpha(opacity=calc(20 + 10)); }",
+      message: messages.rejectedParseError(
+        "filter",
+        "alpha(opacity=calc(20 + 10))"
+      ),
+      line: 1,
+      column: 13,
+      endLine: 1,
+      endColumn: 41,
+      description: "parse error after math expression"
+    },
+    */
     {
       code: `
       $var1: 1px;
@@ -761,6 +1288,65 @@ testRule({
 					};
 				}
 			`
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: true,
+  languageOptions: {
+    syntax: {
+      properties: { top: "| <--foo()>" },
+      types: { "--foo()": "--foo( <length-percentage> )" }
+    }
+  },
+
+  accept: [
+    {
+      code: "a { top: 10px; }"
+    },
+    {
+      code: "a { top: --foo(5px); }"
+    }
+  ],
+
+  reject: [
+    {
+      code: "a { top: unknown; }",
+      message: messages.rejected("top", "unknown"),
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 17
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: true,
+  languageOptions: {
+    syntax: {}
+  },
+
+  accept: [
+    {
+      code: "a { top: 0; }",
+      description: "languageOptions with empty syntax object"
+    }
+  ],
+
+  reject: [
+    {
+      code: "a { top: unknown; }",
+      message: messages.rejected("top", "unknown"),
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 17,
+      description:
+        "languageOptions with empty syntax object - rejects unknown value"
     }
   ]
 });
