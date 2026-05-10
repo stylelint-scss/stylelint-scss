@@ -9,24 +9,34 @@ a { top: unknown; }
  * property and value pairs like these */
 ```
 
-This rule considers values for properties defined within the CSS specifications to be known. You can use the `propertiesSyntax` and `typesSyntax` secondary options to extend the syntax.
+This rule considers values for properties defined in the CSS Specifications, up to and including Editor's Drafts, to be known. You can use the `propertiesSyntax` and `typesSyntax` secondary options to extend the syntax.
 
-This rule is only appropriate for CSS. You should not turn it on for CSS-like languages, such as Sass or Less, as they have their own syntaxes.
+This rule checks property values. You can use [`at-rule-descriptor-value-no-unknown`](https://github.com/stylelint/stylelint/tree/main/lib/rules/at-rule-descriptor-value-no-unknown/README.md) to disallow unknown values for descriptors within at-rules.
 
-This rule is experimental with some false negatives that we'll patch in minor releases.
+> [!NOTE]
+> When using this rule, we recommend turning off these overlapping rules or configuring them to ignore the overlaps:
+>
+> - [`color-no-invalid-hex`](https://github.com/stylelint/stylelint/tree/main/lib/rules/color-no-invalid-hex/README.md)
+> - [`function-linear-gradient-no-nonstandard-direction`](https://github.com/stylelint/stylelint/tree/main/lib/rules/function-linear-gradient-no-nonstandard-direction/README.md)
+> - [`function-no-unknown`](https://github.com/stylelint/stylelint/tree/main/lib/rules/function-no-unknown/README.md)
+> - [`string-no-newline`](https://github.com/stylelint/stylelint/tree/main/lib/rules/string-no-newline/README.md)
+> - [`unit-no-unknown`](https://github.com/stylelint/stylelint/tree/main/lib/rules/unit-no-unknown/README.md)
 
-It sometimes overlaps with:
+This rule supports 2 [message arguments](https://github.com/stylelint/stylelint/tree/main/docs/user-guide/configure.md#message): the property name and the unknown value.
 
-- [`color-no-invalid-hex`](../color-no-invalid-hex/README.md)
-- [`function-no-unknown`](../function-no-unknown/README.md)
-- [`string-no-newline`](../string-no-newline/README.md)
-- [`unit-no-unknown`](../unit-no-unknown/README.md)
+Prior art:
 
-If duplicate problems are flagged, you can turn off the corresponding rule.
+- [stylelint-csstree-validator](https://www.npmjs.com/package/stylelint-csstree-validator)
 
 ## Options
 
 ### `true`
+
+```json
+{
+  "scss/declaration-property-value-no-unknown": true
+}
+```
 
 The following patterns are considered problems:
 
@@ -54,18 +64,33 @@ a { top: var(--foo); }
 
 ## Optional secondary options
 
-### `ignoreProperties: { "property": ["/regex/", /regex/, "non-regex"]|"/regex/"|/regex/|"non-regex" }`
+### `ignoreProperties`
 
-Ignore the specified property and value pairs. Keys in the object indicate property names. If a string in the object is surrounded with `"/"`, it's interpreted as a regular expression. For example, `"/.+/"` matches any strings.
+```json
+{
+  "ignoreProperties": { "property-name": ["array", "of", "values", "/regex/"] }
+}
+```
+
+Ignore the specified property and value pairs. Keys in the object indicate property names.
+
+You can specify a regex for a property name, such as `{ "/^margin/": [] }`.
 
 Given:
 
 ```json
 {
-  "top": ["unknown"],
-  "/^margin-/": "/^--foo/",
-  "padding": "/.+/",
-  "/.+/": "--unknown-value"
+  "scss/declaration-property-value-no-unknown": [
+    true,
+    {
+      "ignoreProperties": {
+        "top": ["unknown"],
+        "/^margin-/": ["/^--foo/"],
+        "padding": ["/.+/"],
+        "/.+/": ["--unknown-value"]
+      }
+    }
+  ]
 }
 ```
 
@@ -91,14 +116,23 @@ a { padding: invalid; }
 a { width: --unknown-value; }
 ```
 
-### `propertiesSyntax: { property: syntax }`
+### `propertiesSyntax`
+
+```json
+{ "propertiesSyntax": { "property": "syntax" } }
+```
 
 Extend or alter the properties syntax dictionary. [CSS Value Definition Syntax](https://github.com/csstree/csstree/blob/master/docs/definition-syntax.md) is used to define a value's syntax. If a definition starts with `|` it is added to the [existing definition value](https://csstree.github.io/docs/syntax/) if any.
 
 Given:
 
 ```json
-{ "size": "<length-percentage>" }
+{
+  "scss/declaration-property-value-no-unknown": [
+    true,
+    { "propertiesSyntax": { "size": "<length-percentage>" } }
+  ]
+}
 ```
 
 The following patterns are _not_ considered problems:
@@ -113,7 +147,11 @@ a { size: 0; }
 a { size: 10px }
 ```
 
-### `typesSyntax: { type: syntax }`
+### `typesSyntax`
+
+```json
+{ "typesSyntax": { "type": "syntax" } }
+```
 
 Extend or alter the types syntax dictionary. [CSS Value Definition Syntax](https://github.com/csstree/csstree/blob/master/docs/definition-syntax.md) is used to define a value's syntax. If a definition starts with `|` it is added to the [existing definition value](https://csstree.github.io/docs/syntax/) if any.
 
@@ -123,8 +161,13 @@ Given:
 
 ```json
 {
-  "propertiesSyntax": { "top": "| <--foo()>" },
-  "typesSyntax": { "--foo()": "--foo( <length-percentage> )" }
+  "scss/declaration-property-value-no-unknown": [
+    true,
+    {
+      "propertiesSyntax": { "top": "| <--foo()>" },
+      "typesSyntax": { "--foo()": "--foo( <length-percentage> )" }
+    }
+  ]
 }
 ```
 
