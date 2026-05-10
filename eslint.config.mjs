@@ -7,7 +7,7 @@ export default [
   {
     files: ["**/*.js"],
     languageOptions: {
-      ecmaVersion: 2022,
+      ecmaVersion: "latest",
       globals: {
         dedent: "readonly",
         testRule: "readonly",

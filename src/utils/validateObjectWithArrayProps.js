@@ -1,4 +1,4 @@
-import * as isPlainObject from "is-plain-object";
+import { isPlainObject } from "is-plain-object";
 
 /**
  * Check whether the variable is an object and all its properties are one or more values
@@ -18,7 +18,7 @@ import * as isPlainObject from "is-plain-object";
  */
 export default function validateObjectWithArrayProps(...validators) {
   return value => {
-    if (isPlainObject.isPlainObject(value) || !value) {
+    if (!isPlainObject(value)) {
       return false;
     }
 
