@@ -1,3 +1,12 @@
+# 7.1.0
+
+- Added: support for `postcss-scss` in `declaration-nested-properties rule` (#1265).
+- Added: support for `postcss-scss` in `declaration-nested-properties-no-divided-groups` rule (#1263).
+- Updated: `declaration-property-value-no-unknown` rule to be in sync with the latest stylelint version (#1280).
+- Updated: refactor `parseNestedPropRoot` utility for performance and clarity (#1266).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v7.0.0...v7.1.0
+
 # 7.0.0
 
 - Removed: support for Node.js less than 20.19.0 (#1221)
