@@ -58,6 +58,14 @@ testRule({
       }
       `,
       description: "accepts function calls using @else if"
+    },
+    {
+      code: "@if meta.type-of($item) == 'number' or list.index($values, $item) {}",
+      description: "issue #578"
+    },
+    {
+      code: "@if $type == 'map' and list.nth($token) == '%value' {}",
+      description: "issue #578"
     }
   ],
 
@@ -136,6 +144,57 @@ testRule({
         }
       ],
       description: "fixes @else if correctly, issue #887"
+    },
+    {
+      code: "@if (meta.type-of($item) == 'number') or list.index($values, $item) {}",
+      fixed:
+        "@if meta.type-of($item) == 'number' or list.index($values, $item) {}",
+      message: messages.rejected,
+      line: 1,
+      column: 5,
+      endLine: 1,
+      endColumn: 68,
+      description: "issue #578"
+    },
+    {
+      code: "@if ($type == 'map') and (list.nth($token) == '%value') {}",
+      fixed: "@if $type == 'map' and list.nth($token) == '%value' {}",
+      message: messages.rejected,
+      line: 1,
+      column: 5,
+      endLine: 1,
+      endColumn: 56,
+      description: "issue #578"
+    },
+    {
+      code: "@if ($foo == 'x') or ($foo == 'y') {}",
+      fixed: "@if $foo == 'x' or $foo == 'y' {}",
+      line: 1,
+      column: 5,
+      endLine: 1,
+      endColumn: 35,
+      message: messages.rejected,
+      description: "issue #578"
+    },
+    {
+      code: "@if ($foo == 'x') and not ($foo == 'y') {}",
+      fixed: "@if $foo == 'x' and not $foo == 'y' {}",
+      line: 1,
+      column: 5,
+      endLine: 1,
+      endColumn: 40,
+      message: messages.rejected,
+      description: "issue #578"
+    },
+    {
+      code: "@if ($foo == 'x') or not ($foo == 'y') {}",
+      fixed: "@if $foo == 'x' or not $foo == 'y' {}",
+      line: 1,
+      column: 5,
+      endLine: 1,
+      endColumn: 39,
+      message: messages.rejected,
+      description: "issue #578"
     }
   ]
 });
