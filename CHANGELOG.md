@@ -1,3 +1,9 @@
+# 7.1.1
+
+- Fixed: `operator-no-unspaced` CJS/ESM interop for `postcss-media-query-parser` import for Bun compatibility (#1260).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v7.1.0...v7.1.1
+
 # 7.1.0
 
 - Added: support for `postcss-scss` in `declaration-nested-properties rule` (#1265).
