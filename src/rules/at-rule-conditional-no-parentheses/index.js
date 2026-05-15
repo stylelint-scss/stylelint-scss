@@ -18,6 +18,73 @@ const meta = {
 // postcss picks up else-if as else.
 const conditional_rules = ["if", "while", "else"];
 
+const regexes = {
+  outerParens: /^\(.*\)$/,
+  logicalKeyword: /^(and|or|not)\s+/i,
+  elseIf: /^if ?/
+};
+
+function hasOuterParens(params, startIndex = 0) {
+  const trimmed = params.substring(startIndex).trim();
+
+  return trimmed.startsWith("(") && regexes.outerParens.test(trimmed);
+}
+
+function stripOuterParens(str) {
+  return str.slice(1, -1).trim();
+}
+
+function processLogicalExpression(str) {
+  const keywordMatch = str.match(regexes.logicalKeyword);
+
+  if (!keywordMatch) {
+    return str;
+  }
+
+  const keyword = keywordMatch[0];
+  const afterKeyword = str.slice(keyword.length).trim();
+
+  // Keyword followed by outer parens - remove them
+  if (regexes.outerParens.test(afterKeyword)) {
+    return `${keyword}${stripOuterParens(afterKeyword)}`;
+  }
+
+  // Continue processing remaining content
+  return `${keyword}${processLogicalExpression(afterKeyword)}`;
+}
+
+function removeOuterParens(str) {
+  const trimmed = str.trim();
+
+  if (!regexes.outerParens.test(trimmed)) {
+    return str;
+  }
+
+  let depth = 0;
+  let endIndex = 0;
+
+  for (let i = 0; i < trimmed.length; i++) {
+    if (trimmed[i] === "(") depth++;
+    else if (trimmed[i] === ")") depth--;
+
+    if (depth === 0) {
+      endIndex = i;
+      break;
+    }
+  }
+
+  // Content inside the outer parens: "(contentInside) contentAfter"
+  const contentInside = trimmed.substring(1, endIndex).trim();
+  // Content after the closing paren
+  const contentAfter = trimmed.substring(endIndex + 1).trim();
+
+  if (!contentAfter) {
+    return contentInside;
+  }
+
+  return `${contentInside} ${processLogicalExpression(contentAfter)}`;
+}
+
 function report(atrule, result, fix) {
   utils.report({
     message: messages.rejected,
@@ -46,26 +113,33 @@ function rule(primary) {
       }
 
       const fix = () => {
-        const regex = /(if)? ?\((.*)\)/;
+        let startIndex = 0;
+        let prefix = "";
 
-        // 2 regex groups: 'if ' and cond.
-        const groups = atrule.params.match(regex).slice(1);
+        if (atrule.name === "else") {
+          const ifMatch = atrule.params.match(regexes.elseIf);
+
+          if (ifMatch) {
+            prefix = "if ";
+            startIndex = ifMatch[0].length;
+          }
+        }
 
         if (atrule.name !== "else") {
-          atrule.raws.afterName = "";
+          atrule.raws.afterName = " ";
         }
 
-        atrule.params = [...new Set(groups)].join(" ");
+        atrule.params =
+          prefix + removeOuterParens(atrule.params.substring(startIndex));
       };
 
-      // Else uses a different regex
-      // params are of format "`if (cond)` or `if cond`
-      // instead of `(cond)` or `cond`"
       if (atrule.name === "else") {
-        if (atrule.params.match(/ ?if ?\(.*\) ?$/)) {
+        const ifMatch = atrule.params.match(regexes.elseIf);
+
+        if (ifMatch && hasOuterParens(atrule.params, ifMatch[0].length)) {
           report(atrule, result, fix);
         }
-      } else if (atrule.params.trim().match(/^\(.*\)$/)) {
+      } else if (hasOuterParens(atrule.params, 0)) {
         report(atrule, result, fix);
       }
     });
