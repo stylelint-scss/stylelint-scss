@@ -758,6 +758,73 @@ testRule({
     },
     {
       code: `
+      @use 'svg';
+
+      $external-link-icon: "<svg></svg>";
+
+      :root {
+        --external-link-icon: svg.encode-svg($external-link-icon);
+      }
+      `,
+      fixed: `
+      @use 'svg';
+
+      $external-link-icon: "<svg></svg>";
+
+      :root {
+        --external-link-icon: #{svg.encode-svg($external-link-icon)};
+      }
+      `,
+      message: messages.rejected("--external-link-icon", "$external-link-icon"),
+      description:
+        "should fix Sass function calls in CSS custom properties by interpolating the function"
+    },
+    {
+      code: `
+      @use 'sass:map';
+      @use 'sass:meta';
+
+      $theme: (font: serif);
+
+      :root {
+        --font: meta.inspect(map.get($theme, font));
+      }
+      `,
+      fixed: `
+      @use 'sass:map';
+      @use 'sass:meta';
+
+      $theme: (font: serif);
+
+      :root {
+        --font: #{meta.inspect(map.get($theme, font))};
+      }
+      `,
+      message: messages.rejected("--font", "$theme"),
+      description:
+        "should fix nested Sass function calls in CSS custom properties by interpolating the outer function"
+    },
+    {
+      code: `
+      $size: 10px;
+
+      :root {
+        --custom-size: calc($size * 2);
+      }
+      `,
+      fixed: `
+      $size: 10px;
+
+      :root {
+        --custom-size: calc(#{$size} * 2);
+      }
+      `,
+      message: messages.rejected("--custom-size", "$size"),
+      description:
+        "should fix variables inside native CSS functions in CSS custom properties"
+    },
+    {
+      code: `
       $primary: "blue";
       $secondary: "green";
 
