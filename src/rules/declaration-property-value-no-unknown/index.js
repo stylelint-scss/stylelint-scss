@@ -313,6 +313,8 @@ const rule = (primary, secondaryOptions) => {
 
         if (hasDollarVarArg(value)) return;
 
+        if (containsNamespacedFunction(value)) return;
+
         const operators = findOperators({ string: value }).map(o => o.symbol);
 
         for (const operator of operators) {
@@ -444,6 +446,15 @@ function containsCustomFunction(cssTreeNode) {
           !cssTreelexer.types[`${node.name}()`])
     )
   );
+}
+
+/**
+ * Check if a value contains a namespaced function call.
+ * @param {string} value
+ * @returns {boolean}
+ */
+function containsNamespacedFunction(value) {
+  return /[\w-]+\.[\w-]+\(/.test(value);
 }
 
 /**
