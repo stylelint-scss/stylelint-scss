@@ -102,13 +102,6 @@ function findSassFunctionToInterpolate(functionStack) {
     .find(functionNode => !isNativeCssFunction(functionNode.value));
 }
 
-/**
- * Wrap uninterpolated SCSS variables with interpolation syntax.
- * Examples:
- *   "animation-name: $bar" → "animation-name: #{$bar}"
- *   "animation: $a 5s, $b 3s" → "animation: #{$a} 5s, #{$b} 3s"
- *   "--foo: variables.$someVariable" → "--foo: #{variables.$someVariable}"
- */
 function getInterpolationRanges(value, wrapFunctionCalls) {
   const ranges = [];
 
@@ -141,19 +134,19 @@ function getInterpolationRanges(value, wrapFunctionCalls) {
 
   walkNodes(valueParser(value).nodes);
 
-  return ranges
-    .sort((a, b) => a[0] - b[0] || b[1] - a[1])
-    .filter(
-      (range, index, sortedRanges) =>
-        !sortedRanges
-          .slice(0, index)
-          .some(
-            previousRange =>
-              previousRange[0] <= range[0] && previousRange[1] >= range[1]
-          )
-    );
+  return ranges;
 }
 
+/**
+ * Wrap uninterpolated SCSS variables with interpolation syntax.
+ * When fixing CSS custom properties, wrap Sass function calls around variables
+ * while leaving native CSS functions such as calc() in place.
+ * Examples:
+ *   "animation-name: $bar" → "animation-name: #{$bar}"
+ *   "--foo: variables.$someVariable" → "--foo: #{variables.$someVariable}"
+ *   "--icon: svg.encode-svg($icon)" → "--icon: #{svg.encode-svg($icon)}"
+ *   "--size: calc($size * 2)" → "--size: calc(#{$size} * 2)"
+ */
 function wrapVariablesWithInterpolation(value, wrapFunctionCalls = false) {
   let fixed = value;
   const ranges = getInterpolationRanges(value, wrapFunctionCalls);

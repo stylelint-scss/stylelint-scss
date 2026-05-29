@@ -216,6 +216,44 @@ testRule({
       `,
       description:
         "when namespaced variable is interpolated in CSS custom property"
+    },
+    {
+      code: `
+      @use 'svg';
+
+      $external-link-icon: "<svg></svg>";
+
+      :root {
+        --external-link-icon: #{svg.encode-svg($external-link-icon)};
+      }
+      `,
+      description:
+        "when Sass function call is interpolated in CSS custom property"
+    },
+    {
+      code: `
+      @use 'sass:map';
+      @use 'sass:meta';
+
+      $theme: (font: serif);
+
+      :root {
+        --font: #{meta.inspect(map.get($theme, font))};
+      }
+      `,
+      description:
+        "when nested Sass function call is interpolated in CSS custom property"
+    },
+    {
+      code: `
+      $size: 10px;
+
+      :root {
+        --custom-size: calc(#{$size} * 2);
+      }
+      `,
+      description:
+        "when variable inside native CSS function is interpolated in CSS custom property"
     }
   ],
 
