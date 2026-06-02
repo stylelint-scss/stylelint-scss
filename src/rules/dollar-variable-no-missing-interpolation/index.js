@@ -1,4 +1,5 @@
 import { isDollarVar } from "../../utils/validateTypes.js";
+import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
@@ -18,7 +19,7 @@ const meta = {
   fixable: true
 };
 
-const SCSS_VARIABLE_PATTERN = /([\w-]+\.)?\$[\w-]+/g;
+const SCSS_VARIABLE_REFERENCE_PATTERN = /^(?:[\w-]+\.)?\$[\w-]+$/;
 
 const CUSTOM_IDENT_PROPERTIES = [
   "animation",
@@ -86,34 +87,80 @@ function isStringValue(value) {
   return /^["'].*["']$/.test(value);
 }
 
+function findSassFunctionToInterpolate(functionStack) {
+  let nativeFunctionBoundaryIndex = -1;
+
+  for (let i = functionStack.length - 1; i >= 0; i--) {
+    if (isNativeCssFunction(functionStack[i].value)) {
+      nativeFunctionBoundaryIndex = i;
+      break;
+    }
+  }
+
+  return functionStack
+    .slice(nativeFunctionBoundaryIndex + 1)
+    .find(functionNode => !isNativeCssFunction(functionNode.value));
+}
+
+function getInterpolationRanges(value, wrapFunctionCalls) {
+  const ranges = [];
+
+  function walkNodes(nodes, functionStack = []) {
+    for (const node of nodes) {
+      const nextFunctionStack =
+        node.type === "function" ? [...functionStack, node] : functionStack;
+
+      if (
+        node.type === "word" &&
+        SCSS_VARIABLE_REFERENCE_PATTERN.test(node.value) &&
+        !isInsideInterpolationBlock(value, node.sourceIndex)
+      ) {
+        const sassFunction = wrapFunctionCalls
+          ? findSassFunctionToInterpolate(functionStack)
+          : undefined;
+
+        ranges.push(
+          sassFunction
+            ? [sassFunction.sourceIndex, sassFunction.sourceEndIndex]
+            : [node.sourceIndex, node.sourceEndIndex]
+        );
+      }
+
+      if (node.nodes) {
+        walkNodes(node.nodes, nextFunctionStack);
+      }
+    }
+  }
+
+  walkNodes(valueParser(value).nodes);
+
+  return ranges;
+}
+
 /**
  * Wrap uninterpolated SCSS variables with interpolation syntax.
+ * When fixing CSS custom properties, wrap Sass function calls around variables
+ * while leaving native CSS functions such as calc() in place.
  * Examples:
  *   "animation-name: $bar" → "animation-name: #{$bar}"
- *   "animation: $a 5s, $b 3s" → "animation: #{$a} 5s, #{$b} 3s"
  *   "--foo: variables.$someVariable" → "--foo: #{variables.$someVariable}"
+ *   "--icon: svg.encode-svg($icon)" → "--icon: #{svg.encode-svg($icon)}"
+ *   "--size: calc($size * 2)" → "--size: calc(#{$size} * 2)"
  */
-function wrapVariablesWithInterpolation(value) {
+function wrapVariablesWithInterpolation(value, wrapFunctionCalls = false) {
   let fixed = value;
-  const matches = [...value.matchAll(SCSS_VARIABLE_PATTERN)];
+  const ranges = getInterpolationRanges(value, wrapFunctionCalls);
 
-  // Process matches in reverse order to maintain correct string indices.
+  // Process ranges in reverse order to maintain correct string indices.
   // If we processed left-to-right, wrapping "$a" would shift the indices
   // for "$b" in a string like "animation: $a 5s, $b 3s".
-  for (let i = matches.length - 1; i >= 0; i--) {
-    const match = matches[i];
-    const variable = match[0];
-    const varIndex = match.index;
+  for (let i = ranges.length - 1; i >= 0; i--) {
+    const [startIndex, endIndex] = ranges[i];
 
-    // Skip variables that are already interpolated
-    if (isInsideInterpolationBlock(value, varIndex)) {
-      continue;
-    }
-
-    // Wrap the variable with interpolation syntax: $var → #{$var}
-    fixed = `${fixed.slice(0, varIndex)}#{${variable}}${fixed.slice(
-      varIndex + variable.length
-    )}`;
+    fixed = `${fixed.slice(0, startIndex)}#{${fixed.slice(
+      startIndex,
+      endIndex
+    )}}${fixed.slice(endIndex)}`;
   }
 
   return fixed;
@@ -205,7 +252,10 @@ function reportViolation(node, variableName, result) {
     if (type === "atrule") {
       node.params = wrapVariablesWithInterpolation(node.params);
     } else {
-      node.value = wrapVariablesWithInterpolation(node.value);
+      node.value = wrapVariablesWithInterpolation(
+        node.value,
+        isCustomProperty(node)
+      );
     }
   };
 
@@ -220,7 +270,7 @@ function reportViolation(node, variableName, result) {
 }
 
 function shouldSkipValueNode(node) {
-  return node.type !== "word" || !node.value;
+  return node.type !== "word" || !node.value || node.value.startsWith("#{");
 }
 
 function checkValueForVariables(
@@ -250,7 +300,7 @@ function checkValueForVariables(
     }
 
     // Skip variables that are already inside interpolation blocks
-    if (isInsideInterpolationBlock(value, value.indexOf("$"))) {
+    if (isInsideInterpolationBlock(value, valueNode.sourceIndex)) {
       return;
     }
 
