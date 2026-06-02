@@ -1,7 +1,7 @@
 {
   "name": "stylelint-scss",
   "description": "A collection of SCSS-specific rules for Stylelint",
-  "version": "7.1.1",
+  "version": "7.2.0",
   "author": "Krister Kari",
   "repository": {
     "type": "git",
