@@ -42,7 +42,7 @@
     "jest": "^30.3.0",
     "jest-preset-stylelint": "^9.1.0",
     "lint-staged": "^16.4.0",
-    "np": "^11.2.0",
+    "np": "^11.2.1",
     "postcss": "^8.5.8",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",
