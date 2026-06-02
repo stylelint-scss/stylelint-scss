@@ -30,7 +30,7 @@
     "postcss-value-parser": "^4.2.0"
   },
   "devDependencies": {
-    "@lavamoat/allow-scripts": "^5.0.1",
+    "@lavamoat/allow-scripts": "^5.0.2",
     "@lavamoat/preinstall-always-fail": "^3.0.0",
     "common-tags": "^1.8.2",
     "cross-env": "^10.1.0",
