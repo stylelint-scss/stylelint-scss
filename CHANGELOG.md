@@ -1,3 +1,11 @@
+# 7.2.0
+
+- Added: `dollar-variable-no-missing-interpolation` autofix for Sass functions in custom properties (#1287).
+- Added: `declaration-property-value-no-unknown` support for namespaced functions (#1289).
+- Updated: `at-rule-conditional-no-parentheses` improve autofix (#1286).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v7.1.1...v7.2.0
+
 # 7.1.1
 
 - Fixed: `operator-no-unspaced` CJS/ESM interop for `postcss-media-query-parser` import for Bun compatibility (#1260).
