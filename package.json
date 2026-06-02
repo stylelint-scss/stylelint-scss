@@ -40,7 +40,7 @@
     "github-contributors-list": "^1.2.5",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
-    "jest-preset-stylelint": "^9.1.0",
+    "jest-preset-stylelint": "^9.2.0",
     "lint-staged": "^16.4.0",
     "np": "^11.2.0",
     "postcss": "^8.5.8",
