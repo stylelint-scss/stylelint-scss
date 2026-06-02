@@ -618,6 +618,34 @@ testRule({
         }
       `,
       description: "Nested properties and shorthand values."
+    },
+    {
+      code: `
+        .element {
+          background-image: linear-gradient(
+            45deg,
+            css-vars.var(background, hover) 20%,
+            transparent 20%
+          );
+        }
+      `,
+      description: "Namespace function call nested in linear-gradient."
+    },
+    {
+      code: `
+        .element {
+          background-color: css-vars.var(background, hover);
+        }
+      `,
+      description: "Namespace function call as declaration value."
+    },
+    {
+      code: `
+        border: solid #000 {
+          width: 1px 1px 1px 7px;
+        }
+      `,
+      description: "Nested properties and shorthand values."
     }
   ],
 
