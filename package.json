@@ -39,7 +39,7 @@
     "eslint-plugin-jest": "^29.15.2",
     "github-contributors-list": "^1.2.5",
     "husky": "^9.1.7",
-    "jest": "^30.3.0",
+    "jest": "^30.4.2",
     "jest-preset-stylelint": "^9.2.0",
     "lint-staged": "^17.0.5",
     "np": "^11.2.1",
@@ -80,7 +80,7 @@
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail#3.0.0": false,
-      "jest>@jest/core>jest-resolve>unrs-resolver#1.11.1": true
+      "jest>@jest/core>jest-resolve>unrs-resolver#1.12.2": true
     }
   }
 }
