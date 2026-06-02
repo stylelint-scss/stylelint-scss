@@ -17,7 +17,7 @@
     "stylelint": "^16.8.2 || ^17.0.0"
   },
   "dependencies": {
-    "@csstools/css-calc": "^3.2.0",
+    "@csstools/css-calc": "^3.2.1",
     "@csstools/css-parser-algorithms": "^4.0.0",
     "@csstools/css-syntax-patches-for-csstree": "^1.1.4",
     "@csstools/css-tokenizer": "^4.0.0",
