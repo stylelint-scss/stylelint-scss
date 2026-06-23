@@ -63,6 +63,14 @@ testRule({
       .b { #{$custom-property-set}: blue; }
       `,
       description: "ignore custom property sets"
+    },
+    {
+      code: `
+      @view-transition {
+        navigation: auto;
+      }
+      `,
+      description: "Allows enabling a basic MPA view transition"
     }
   ],
 
