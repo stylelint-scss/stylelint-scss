@@ -2,14 +2,32 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
-    schedule:
-      interval: monthly
-  - package-ecosystem: "npm"
     cooldown:
       default-days: 7
-      semver-minor-days: 7
-      semver-patch-days: 7
-    directory: "/"
     schedule:
-      interval: monthly
-    versioning-strategy: increase
+      interval: "monthly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+  - package-ecosystem: "npm"
+    directory: "/"
+    cooldown:
+      default-days: 7
+    exclude-paths:
+      - "test/test-data/**"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    versioning-strategy: "increase"
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      development-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
