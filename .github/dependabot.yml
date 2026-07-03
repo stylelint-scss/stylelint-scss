@@ -14,8 +14,6 @@ updates:
     directory: "/"
     cooldown:
       default-days: 7
-    exclude-paths:
-      - "test/test-data/**"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
