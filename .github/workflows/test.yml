@@ -28,12 +28,12 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node }}
           cache: npm
@@ -50,7 +50,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu') && matrix.node == env.NODE_COV
 
       - name: Run Coveralls
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@v2.3.6
         if: startsWith(matrix.os, 'ubuntu') && matrix.node == env.NODE_COV
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
