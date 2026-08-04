@@ -88,7 +88,8 @@ export default function findOperators({
       (mathOperators.includes(character) &&
         mathOperatorCharType(string, i, isAfterColon) === "op") ||
       // or is "<" or ">"
-      substringStartingWithIndex.search(/^[<>]([^=]|$)/) !== -1
+      (substringStartingWithIndex.search(/^[<>]([^=]|$)/) !== -1 &&
+        !isInsideTypeFunction(string, i))
     ) {
       result.push({
         symbol: string[i],
@@ -740,6 +741,35 @@ function isInsideInterpolation(string, index) {
   const before = string.substring(0, index).trim();
 
   return before.search(/#\{[^}]*$/) !== -1;
+}
+
+/**
+ * Checks if the character is inside the arguments of a CSS `type()` function,
+ * e.g. `attr(data-color type(<color>))`. There `<` and `>` delimit a CSS type
+ * name instead of being comparison operators.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/type
+ *
+ * @param {String} string - the input string
+ * @param {Number} index - current character index
+ * @return {Boolean}
+ */
+function isInsideTypeFunction(string, index) {
+  let depth = 0;
+
+  // Looking for the opening paren of the innermost call the character is in
+  for (let i = index - 1; i >= 0; i--) {
+    if (string[i] === ")") {
+      depth++;
+    } else if (string[i] === "(") {
+      if (depth === 0) {
+        return /(?:^|[^\w-])type$/i.test(string.substring(0, i));
+      }
+
+      depth--;
+    }
+  }
+
+  return false;
 }
 
 /**

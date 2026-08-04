@@ -2963,6 +2963,51 @@ testRule({
 testRule({
   ruleName,
   config: [true],
+  customSyntax: "postcss-scss",
+  skipBasicChecks: true,
+
+  accept: [
+    {
+      code: "a { content: attr(data-color type(<color>)); }",
+      description: "CSS type() function: attr(data-color type(<color>))."
+    },
+    {
+      code: "a { width: attr(data-w type(<length> | <percentage>)); }",
+      description: "CSS type() function w/ several types."
+    },
+    {
+      code: "a { padding: attr(data-p type(<'padding'>)); }",
+      description: "CSS type() function w/ a property name."
+    },
+    {
+      code: "a { width: calc(attr(data-w type(<length>)) + 10px); }",
+      description: "CSS type() function nested in calc()."
+    }
+  ],
+
+  reject: [
+    {
+      code: "a { width: if($a<$b, 1px, 2px); }",
+      description: "Comparison outside of type(): if($a<$b, 1px, 2px).",
+      warnings: [
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedBefore("<")
+        },
+        {
+          line: 1,
+          column: 17,
+          message: messages.expectedAfter("<")
+        }
+      ]
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: [true],
   syntax: "html",
   skipBasicChecks: true,
   skip: true,
