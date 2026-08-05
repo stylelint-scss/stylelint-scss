@@ -1953,6 +1953,62 @@ testRule({
 });
 
 // ------------------------------------------------------------------------
+// CSS type() function arguments (issue #1310)
+// ------------------------------------------------------------------------
+
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
+  skipBasicChecks: true,
+
+  accept: [
+    {
+      code: "a { color: attr(data-color type(<color>)); }",
+      description: "CSS type() inside attr(): attr(data-color type(<color>))."
+    },
+    {
+      code: "a { width: attr(data-size type(<length>)); }",
+      description: "CSS type() inside attr(): attr(data-size type(<length>))."
+    },
+    {
+      code: "a { width: attr(data-size type(<length> | <percentage>)); }",
+      description:
+        "CSS type() with combined types: attr(data-size type(<length> | <percentage>))."
+    },
+    {
+      code: "a { color: attr(data-color type(<color>), red); }",
+      description:
+        "CSS type() inside attr() with a fallback: attr(data-color type(<color>), red)."
+    },
+    {
+      code: "a { color: attr(data-color type( <color> )); }",
+      description:
+        "CSS type() with spaces inside parens: attr(data-color type( <color> ))."
+    },
+    {
+      code: "a { color: attr(data-color TYPE(<COLOR>)); }",
+      description: "CSS type() in uppercase: attr(data-color TYPE(<COLOR>))."
+    }
+  ],
+
+  reject: [
+    {
+      code: "a { width: type($var)< 1; }",
+      description: "Op: type($var)< 1.",
+      message: messages.expectedBefore("<"),
+      column: 22
+    },
+    {
+      code: "a { width: type($var) <1; }",
+      description: "Op: type($var) <1.",
+      message: messages.expectedAfter("<"),
+      column: 23
+    }
+  ]
+});
+
+// ------------------------------------------------------------------------
 // Interpolation inside comments
 // ------------------------------------------------------------------------
 

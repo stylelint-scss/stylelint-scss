@@ -87,8 +87,10 @@ export default function findOperators({
     if (
       (mathOperators.includes(character) &&
         mathOperatorCharType(string, i, isAfterColon) === "op") ||
-      // or is "<" or ">"
-      substringStartingWithIndex.search(/^[<>]([^=]|$)/) !== -1
+      // or is "<" or ">" (except inside CSS type() function arguments,
+      // where angle brackets denote a data type, e.g. `type(<color>)`)
+      (substringStartingWithIndex.search(/^[<>]([^=]|$)/) !== -1 &&
+        !isInsideTypeFunctionCall(string, i))
     ) {
       result.push({
         symbol: string[i],
@@ -763,6 +765,24 @@ export function isInsideFunctionCall(string, index) {
   }
 
   return result;
+}
+
+/**
+ * Checks if the character is inside the argument list of the CSS `type()`
+ * function (https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/type),
+ * where angle brackets denote a CSS data type rather than comparison operators,
+ * e.g. the `<color>` in `attr(data-color type(<color>))`
+ *
+ * @param {String} string - the input string
+ * @param {Number} index - current character index
+ * @return {Boolean}
+ */
+function isInsideTypeFunctionCall(string, index) {
+  const before = string.substring(0, index);
+
+  // The character is inside `type(...)` if the nearest unclosed `(`
+  // before it belongs to a `type(` call
+  return /(?:^|[^\w-])type\([^()]*$/i.test(before);
 }
 
 /**
