@@ -44,6 +44,20 @@ a {
 }
 ```
 
+<!-- prettier-ignore -->
+```scss
+a {
+  @if math.random(100) > 50 { margin-left: 10px; }
+}
+```
+
+<!-- prettier-ignore -->
+```scss
+@include min-width(math.random(100)) {
+  a { margin-left: 10px; }
+}
+```
+
 The following patterns are _not_ considered warnings:
 
 <!-- prettier-ignore -->

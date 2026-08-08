@@ -115,3 +115,120 @@ testRule({
     }
   ]
 });
+
+// Testing at-rule params
+testRule({
+  ruleName,
+  config: ["random"],
+  customSyntax: "postcss-scss",
+
+  accept: [
+    {
+      code: `
+        @use "sass:math";
+        .a {
+          @if math.round(100.5) > 50 { margin-left: 10px; }
+        }
+      `,
+      description: "Math library function in @if condition, allowed."
+    }
+  ],
+  reject: [
+    {
+      code: `
+        @use "sass:math";
+        .a {
+          @if math.random(100) > 50 { margin-left: 10px; }
+        }
+      `,
+      message: messages.rejected("random"),
+      description: "Math library function in @if condition, not allowed."
+    },
+    {
+      code: `
+        @use "sass:math";
+        .a {
+          @if $a { margin-left: 10px; }
+          @else if math.random(100) > 50 { margin-left: 20px; }
+        }
+      `,
+      message: messages.rejected("random"),
+      description: "Math library function in @else if condition, not allowed."
+    },
+    {
+      code: `
+        @use "sass:math";
+        @media (width >= #{math.random(100)}) { .a { margin-left: 10px; } }
+      `,
+      message: messages.rejected("random"),
+      description: "Math library function in @media params, not allowed."
+    },
+    {
+      code: `
+        @use "sass:math";
+        @each $i in math.random(3) { .a { margin-left: 10px; } }
+      `,
+      message: messages.rejected("random"),
+      description: "Math library function in @each params, not allowed."
+    },
+    {
+      code: `
+        @use "sass:math";
+        @mixin min-width($value) { @media (width >= #{$value}) { @content; } }
+        @include min-width(math.random(100)) { .a { margin-left: 10px; } }
+      `,
+      message: messages.rejected("random"),
+      description: "Math library function in @include argument, not allowed."
+    },
+    {
+      code: `
+        @use "sass:math";
+        @mixin min-width($value: math.random(100)) { @content; }
+      `,
+      message: messages.rejected("random"),
+      description: "Math library function in @mixin default value, not allowed."
+    },
+    {
+      code: `
+        @use "sass:math";
+        @function min-width($value: math.random(100)) { @return $value; }
+      `,
+      message: messages.rejected("random"),
+      description:
+        "Math library function in @function default value, not allowed."
+    }
+  ]
+});
+
+// Testing that the name of a mixin or function is not treated as a call
+testRule({
+  ruleName,
+  config: ["min-width"],
+  customSyntax: "postcss-scss",
+
+  accept: [
+    {
+      code: `
+        @mixin min-width($value) { @media (width >= #{$value}) { @content; } }
+        @include min-width(100px) { .a { margin-left: 10px; } }
+      `,
+      description: "Mixin named like a disallowed function, allowed."
+    },
+    {
+      code: `
+        @function min-width($value) { @return $value; }
+      `,
+      description:
+        "Function declaration named like a disallowed function, allowed."
+    }
+  ],
+  reject: [
+    {
+      code: `
+        .a { margin-left: min-width(100px); }
+      `,
+      message: messages.rejected("min-width"),
+      description: "Calling the function is still not allowed."
+    }
+  ]
+});
