@@ -1,3 +1,10 @@
+# 7.3.0
+
+- Added: `function-disallowed-list` report disallowed functions in at-rule params (#1333).
+- Fixed: `operator-no-unspaced` fix false positive for CSS type() function arguments (#1329).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v7.2.0...v7.3.0
+
 # 7.2.0
 
 - Added: `dollar-variable-no-missing-interpolation` autofix for Sass functions in custom properties (#1287).
