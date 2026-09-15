@@ -17,6 +17,10 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
+// At-rules whose params start with the name of the mixin or function being
+// declared or included, rather than with a function call.
+const NAME_PREFIXED_AT_RULES = new Set(["function", "include", "mixin"]);
+
 function rule(disallowedOption) {
   const disallowedFunctions = [].concat(disallowedOption);
 
@@ -31,15 +35,25 @@ function rule(disallowedOption) {
     }
 
     // Shared check logic: find disallowed functions in a value string
-    function checkValue(value, reportNode) {
+    function checkValue(value, reportNode, skipFirstFunction) {
       if (!value) return;
 
+      let firstFunctionSkipped = !skipFirstFunction;
+
       valueParser(value).walk(valueNode => {
-        if (
-          valueNode.type !== "function" ||
-          isNativeCssFunction(valueNode.value) ||
-          valueNode.value === ""
-        ) {
+        if (valueNode.type !== "function") {
+          return;
+        }
+
+        // The name of the mixin or function being declared or included, not a
+        // call. Its arguments are still checked.
+        if (!firstFunctionSkipped) {
+          firstFunctionSkipped = true;
+
+          return;
+        }
+
+        if (isNativeCssFunction(valueNode.value) || valueNode.value === "") {
           return;
         }
 
@@ -66,14 +80,18 @@ function rule(disallowedOption) {
       });
     }
 
-    // Original logic: check in declaration values
     root.walkDecls(decl => {
       checkValue(decl.value, decl);
     });
 
-    // New: check in @return expressions
-    root.walkAtRules("return", atRule => {
-      checkValue(atRule.params, atRule);
+    // Functions can appear in the params of any at-rule, e.g. `@if`, `@media`,
+    // `@each`, `@return`, or as an argument to a mixin.
+    root.walkAtRules(atRule => {
+      checkValue(
+        atRule.params,
+        atRule,
+        NAME_PREFIXED_AT_RULES.has(atRule.name.toLowerCase())
+      );
     });
   };
 }
