@@ -80,7 +80,8 @@
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail#3.0.0": false,
-      "jest>@jest/core>jest-resolve>unrs-resolver#1.12.2": true
+      "jest>@jest/core>jest-resolve>unrs-resolver#1.12.2": true,
+      "jest>@jest/core>jest-haste-map>@parcel/watcher#2.6.0": true
     }
   }
 }
