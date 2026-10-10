@@ -1,6 +1,8 @@
 import { getTestRule } from "jest-preset-stylelint";
 
-global.testRule = getTestRule({ plugins: ["./src"] });
+import plugin from "./src/index.js";
+
+global.testRule = getTestRule({ plugins: [plugin] });
 
 // Inspired by https://www.npmjs.com/package/dedent-tag
 global.dedent = function dedent(strings) {
