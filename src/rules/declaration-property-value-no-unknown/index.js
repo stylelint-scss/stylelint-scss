@@ -64,6 +64,8 @@ const UNSUPPORTED_FUNCTIONS_IN_CSSTREE = new Set([
   "env"
 ]);
 
+/** @type {Map<string, import('css-tree').Lexer>} */
+const lexerCache = new Map();
 /** @type {WeakMap<object, Set<string>>} */
 const validMatchesCacheByLexer = new WeakMap();
 const MAX_CACHE_SIZE = 10000;
@@ -166,10 +168,17 @@ const rule = (primary, secondaryOptions) => {
       }
     });
 
-    const forkedLexer = fork({
+    const syntax = {
       properties: propertiesSyntax,
       types: typesSyntax
-    }).lexer;
+    };
+    const syntaxKey = JSON.stringify(syntax);
+    let forkedLexer = lexerCache.get(syntaxKey);
+
+    if (!forkedLexer) {
+      forkedLexer = fork(syntax).lexer;
+      lexerCache.set(syntaxKey, forkedLexer);
+    }
 
     let validMatchesCache = validMatchesCacheByLexer.get(forkedLexer);
 
