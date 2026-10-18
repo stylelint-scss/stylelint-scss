@@ -50,6 +50,30 @@ function getAtUseNamespace(nodes) {
   return last;
 }
 
+/**
+ * Collect the `sass()` conditions of CSS-style `if()` functions,
+ * e.g. `if(sass($a == b): c; else: d)`.
+ * @see https://sass-lang.com/documentation/syntax/special-functions#if
+ */
+function collectSassConditions(nodes, inIf = false, conditions = new Set()) {
+  for (const node of nodes) {
+    if (node.type !== "function") continue;
+
+    const name = node.value.toLowerCase();
+
+    if (inIf && name === "sass") conditions.add(node);
+
+    // Conditions can be grouped in parentheses, e.g. `if(not (sass($a)): b)`.
+    collectSassConditions(
+      node.nodes,
+      name === "if" || (inIf && name === ""),
+      conditions
+    );
+  }
+
+  return conditions;
+}
+
 function rule(primaryOption, secondaryOptions) {
   return async (root, result) => {
     const validOptions = utils.validateOptions(
@@ -97,10 +121,15 @@ function rule(primaryOption, secondaryOptions) {
         const { node: decl } = warning;
 
         // NOTE: Using `valueParser` is necessary for extracting a function name. This may be a performance waste.
-        valueParser(decl.value).walk(valueNode => {
+        const parsedValue = valueParser(decl.value);
+        const sassConditions = collectSassConditions(parsedValue.nodes);
+
+        parsedValue.walk(valueNode => {
           const { type, value: funcName } = valueNode;
 
           if (type !== "function" || funcName.trim() === "") return;
+
+          if (sassConditions.has(valueNode)) return;
 
           // TODO: For backward compatibility with Stylelint 15.7.0 or less.
           // We can remove this code when dropping support for old version.

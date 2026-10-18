@@ -39,6 +39,10 @@ a { color: hsl(240 100% 50%); }
 a { color: if(true, green, red); }
 ```
 
+```scss
+a { color: if(sass($dark): white; else: black); }
+```
+
 ## Optional secondary options
 
 ### `ignoreFunctions: ["/regex/", /regex/, "non-regex"]`

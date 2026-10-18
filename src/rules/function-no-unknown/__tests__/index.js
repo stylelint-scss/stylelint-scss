@@ -117,6 +117,22 @@ testRule({
       }
       `,
       description: "interpolation inside calc() function, issue #975"
+    },
+    {
+      code: "a { animation-name: if(sass($edge == start): show; else: hide); }",
+      description: "sass() condition in the CSS-style if() syntax"
+    },
+    {
+      code: "a { width: if(not sass($a) and sass(map.has-key($m, k)): 1px); }",
+      description: "several sass() conditions in one if() condition"
+    },
+    {
+      code: "a { width: if(not (sass($a)): 1px; sass($b): if(sass($c): 2px; else: 3px)); }",
+      description: "sass() conditions in parentheses and in a nested if()"
+    },
+    {
+      code: "$value: if(sass($condition): 10px; else: 15px);",
+      description: "sass() condition in a variable declaration"
     }
   ],
 
@@ -171,6 +187,20 @@ testRule({
       line: 5,
       column: 16,
       description: "@use without a namespace"
+    },
+    {
+      code: "a { width: sass($a); }",
+      message: messages.rejected("sass"),
+      line: 1,
+      column: 12,
+      description: "sass() outside of an if() condition"
+    },
+    {
+      code: "a { color: rgb(sass($a), 0, 0); }",
+      message: messages.rejected("sass"),
+      line: 1,
+      column: 16,
+      description: "sass() inside a function other than if()"
     }
     /* TODO: find a way to make this test fail
     {
