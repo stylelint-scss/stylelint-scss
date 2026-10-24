@@ -17,15 +17,15 @@
     "stylelint": "^16.8.2 || ^17.0.0"
   },
   "dependencies": {
-    "@csstools/css-calc": "^3.3.0",
+    "@csstools/css-calc": "^3.4.3",
     "@csstools/css-parser-algorithms": "^4.0.0",
-    "@csstools/css-syntax-patches-for-csstree": "^1.1.8",
+    "@csstools/css-syntax-patches-for-csstree": "^1.1.15",
     "@csstools/css-tokenizer": "^4.0.0",
     "css-tree": "^3.2.1",
     "is-plain-object": "^5.1.0",
     "known-css-properties": "^0.37.0",
     "postcss-media-query-parser": "^0.2.3",
-    "postcss-resolve-nested-selector": "^0.1.6",
+    "postcss-resolve-nested-selector": "^0.1.7",
     "postcss-selector-parser": "^7.1.6",
     "postcss-value-parser": "^4.2.0"
   },
