@@ -477,6 +477,52 @@ testRule({
       message: messages.rejected("--foo", "variables.$someVariable"),
       description:
         "when namespaced variable is used in CSS custom property without interpolation"
+    },
+    {
+      code: `
+      @use "config" as *;
+
+      $gap: 8px;
+
+      :root {
+        --a: calc($gap * 2);
+        --b: calc($radius * 2);
+      }
+    `,
+      warnings: [
+        {
+          message: messages.rejected("--a", "$gap"),
+          line: 7,
+          column: 19,
+          endLine: 7,
+          endColumn: 23
+        },
+        {
+          message: messages.rejected("--b", "$radius"),
+          line: 8,
+          column: 19,
+          endLine: 8,
+          endColumn: 26
+        }
+      ],
+      description:
+        "when local and undeclared/imported vars inside calc in CSS custom properties (issue #1361)"
+    },
+    {
+      code: `
+      @use "config" as *;
+
+      :root {
+        --b: calc($radius * 2);
+      }
+    `,
+      line: 5,
+      column: 19,
+      endLine: 5,
+      endColumn: 26,
+      message: messages.rejected("--b", "$radius"),
+      description:
+        "when @use-only stylesheet uses imported var inside calc in CSS custom property (no same-file allVars)"
     }
   ]
 });
