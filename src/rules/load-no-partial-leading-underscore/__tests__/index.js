@@ -134,6 +134,64 @@ testRule({
       }
     `,
       description: "meta.load-css, no parameters."
+    },
+    {
+      code: `
+      @use 'components/_' as my-components;
+    `,
+      description: "@use a bare underscore file, namespace with a hyphen."
+    },
+    {
+      code: `
+      @use 'components/_' as components;
+    `,
+      description: "@use a bare underscore file, namespace."
+    },
+    {
+      code: `
+      @use 'components/_' as *;
+    `,
+      description: "@use a bare underscore file, global namespace."
+    },
+    {
+      code: `
+      @use "fff" as alias;
+    `,
+      description: "@use one file, no underscore, namespace."
+    },
+    {
+      code: `
+      @use 'components/_' with ($primary: blue, $secondary: red);
+    `,
+      description: "@use a bare underscore file, configuration with commas."
+    },
+    {
+      code: `
+      @use 'components/_' as my-components with (
+        $primary: blue,
+        $secondary: red
+      );
+    `,
+      description:
+        "@use a bare underscore file, namespace and multiline configuration."
+    },
+    {
+      code: `
+      @forward 'components/_' as prefix-*;
+    `,
+      description: "@forward a bare underscore file, prefix."
+    },
+    {
+      code: `
+      @forward 'components/_' show my-mixin, $my-var;
+    `,
+      description: "@forward a bare underscore file, show list."
+    },
+    {
+      code: `
+      @forward 'components/_' hide my-mixin, $my-var;
+    `,
+      description: "@forward a bare underscore file, hide list."
     }
   ],
 
@@ -276,6 +334,52 @@ testRule({
     },
     {
       code: `
+      @use '_foo' as bar;
+    `,
+      line: 2,
+      column: 13,
+      endLine: 2,
+      endColumn: 17,
+      message: messages.expected,
+      description: "@use one file, underscore at the start, namespace."
+    },
+    {
+      code: `
+      @use '_foo' as my-alias;
+    `,
+      line: 2,
+      column: 13,
+      endLine: 2,
+      endColumn: 17,
+      message: messages.expected,
+      description:
+        "@use one file, underscore at the start, namespace with a hyphen."
+    },
+    {
+      code: `
+      @use '_foo' as *;
+    `,
+      line: 2,
+      column: 13,
+      endLine: 2,
+      endColumn: 17,
+      message: messages.expected,
+      description: "@use one file, underscore at the start, global namespace."
+    },
+    {
+      code: `
+      @use 'df/_foo' with ($primary: blue, $secondary: red);
+    `,
+      line: 2,
+      column: 13,
+      endLine: 2,
+      endColumn: 20,
+      message: messages.expected,
+      description:
+        "@use one file, path with dir, underscore at the start, configuration with commas."
+    },
+    {
+      code: `
       @forward "_fff";
     `,
       line: 2,
@@ -341,6 +445,28 @@ testRule({
       endColumn: 34,
       message: messages.expected,
       description: "@forward two files, path with dir, underscore at the start."
+    },
+    {
+      code: `
+      @forward '_foo' as prefix-*;
+    `,
+      line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 21,
+      message: messages.expected,
+      description: "@forward one file, underscore at the start, prefix."
+    },
+    {
+      code: `
+      @forward '_foo' show bar, baz;
+    `,
+      line: 2,
+      column: 17,
+      endLine: 2,
+      endColumn: 21,
+      message: messages.expected,
+      description: "@forward one file, underscore at the start, show list."
     },
     {
       code: `
