@@ -48,6 +48,16 @@ function rule(actual) {
         isWithinKeyframes(node)
       ) {
         const fix = () => {
+          if (!node.params.trim()) {
+            if (node.nodes && node.nodes.length) {
+              node.replaceWith(...node.nodes);
+            } else {
+              node.remove();
+            }
+
+            return;
+          }
+
           node.after(node.toString().replace(/@at-root\s/, ""));
           node.next().raws = node.raws;
           node.remove();
