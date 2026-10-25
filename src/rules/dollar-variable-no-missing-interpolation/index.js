@@ -235,9 +235,11 @@ function shouldReportVariable(node, variableName, stringValuedVars, allVars) {
     return allVars.includes(variableName);
   }
 
-  // CSS custom properties always require interpolation for all variables
+  // CSS custom properties always require interpolation for all variables,
+  // including ones imported via @use/@import (not only same-file decls in allVars).
+  // Gate on isDollarVar: bare `true` would false-positive on non-var words (e.g. `2` in calc).
   if (isCustomProperty(node)) {
-    return allVars.includes(variableName);
+    return isDollarVar(variableName);
   }
 
   return false;
@@ -335,13 +337,29 @@ function rule(actual) {
     // Collect all SCSS variables defined in the stylesheet
     const { stringValuedVars, allVars } = collectVariables(root);
 
-    // Early exit if no variables found
+    // Track nodes we've already reported to avoid duplicates
+    const reportedNodes = new Set();
+
+    // Check all CSS custom properties (--*) before the allVars early-exit.
+    // Imported vars (@use/@import) are absent from allVars; custom-prop reporting
+    // must still run for `@use`-only stylesheets (issue #1361).
+    root.walkDecls(decl => {
+      if (isCustomProperty(decl)) {
+        checkValueForVariables(
+          decl,
+          decl.value,
+          reportedNodes,
+          stringValuedVars,
+          allVars,
+          result
+        );
+      }
+    });
+
+    // Remaining walks need same-file collected vars; skip if none
     if (allVars.length === 0) {
       return;
     }
-
-    // Track nodes we've already reported to avoid duplicates
-    const reportedNodes = new Set();
 
     // Check custom identifier properties (animation-name, counter-reset, etc.)
     root.walkDecls(createMatchingRegex(CUSTOM_IDENT_PROPERTIES), decl => {
@@ -365,20 +383,6 @@ function rule(actual) {
         allVars,
         result
       );
-    });
-
-    // Check all CSS custom properties (--*)
-    root.walkDecls(decl => {
-      if (isCustomProperty(decl)) {
-        checkValueForVariables(
-          decl,
-          decl.value,
-          reportedNodes,
-          stringValuedVars,
-          allVars,
-          result
-        );
-      }
     });
   };
 }
