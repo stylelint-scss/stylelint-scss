@@ -10,7 +10,8 @@ import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
 
 const { utils } = stylelint;
-const mediaQueryParser = mediaQueryParserModule.default || mediaQueryParserModule;
+const mediaQueryParser =
+  mediaQueryParserModule.default || mediaQueryParserModule;
 
 const ruleName = namespace("operator-no-unspaced");
 
