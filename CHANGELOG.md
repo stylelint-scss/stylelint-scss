@@ -1,3 +1,12 @@
+# 7.4.0
+
+- Added: `function-no-unknown` allow sass() conditions in CSS-style if() (#1365).
+- Fixed: `dollar-variable-no-missing-interpolation` fix imported vars in custom properties (#1373).
+- Fixed: `at-root-no-redundant` autofix for bare `@at-root` blocks (#1375).
+- Fixed: `load-no-partial-leading-underscore` false positive on `@use` 'dir/_' as alias-with-hyphen (#1377).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v7.3.0...v7.4.0
+
 # 7.3.0
 
 - Added: `function-disallowed-list` report disallowed functions in at-rule params (#1333).
