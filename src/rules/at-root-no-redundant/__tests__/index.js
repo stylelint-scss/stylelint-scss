@@ -175,6 +175,21 @@ testRule({
       column: 12,
       message: messages.rejected,
       description: "selector list, all redundant"
+    },
+    {
+      code: `
+      @at-root {
+        .foo {
+          color: red;
+        }
+      }
+      `,
+      line: 2,
+      column: 7,
+      endLine: 2,
+      endColumn: 15,
+      message: messages.rejected,
+      description: "bare @at-root block already in the root."
     }
   ]
 });
@@ -265,6 +280,26 @@ testRule({
       message: messages.rejected,
       description:
         "@at-root is followed by selectors all containing `&` outside interpolation."
+    },
+    {
+      code: `
+      @at-root {
+        .foo {
+          color: red;
+        }
+      }
+      `,
+      fixed: `
+        .foo {
+          color: red;
+        }
+      `,
+      line: 2,
+      column: 7,
+      endLine: 2,
+      endColumn: 15,
+      message: messages.rejected,
+      description: "bare @at-root block already in the root unwraps children."
     }
   ]
 });
