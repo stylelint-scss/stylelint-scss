@@ -60,8 +60,19 @@ function rule(actual) {
         atrule.name === "use" ||
         atrule.name === "forward"
       ) {
+        // Stripping the namespace or prefix (`as ...`), the member lists
+        // (`show ...`, `hide ...`) and the configuration (`with (...)`), which
+        // may contain commas, of @use and @forward
+        const params =
+          atrule.name === "import"
+            ? atrule.params
+            : atrule.params.replace(
+                /(["'])\s+(?:as|show|hide|with)\b[\s\S]*$/,
+                "$1"
+              );
+
         // Processing comma-separated lists of import paths
-        atrule.params.split(",").forEach(path => {
+        params.split(",").forEach(path => {
           checkPathForUnderscore(path, atrule);
         });
       }
