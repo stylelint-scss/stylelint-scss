@@ -110,6 +110,34 @@ testRule({
       );
       `,
       description: "accepts parens inside a value"
+    },
+    {
+      code: `
+      $map: (
+        "a": 1px,
+        "b": 1px solid red,
+      );
+      `,
+      description: "accepts a multi-word value after the first entry"
+    },
+    {
+      code: `
+      $map: (
+        "b": 1px solid red,
+      );
+      `,
+      description: "accepts a multi-word value in the first entry"
+    },
+    {
+      code: `
+      $map: (
+        "a": (
+          "b": 1px,
+          "c": 0 0 $x $y $z,
+        ),
+      );
+      `,
+      description: "accepts a multi-word value in a nested map"
     }
   ],
 
@@ -136,6 +164,66 @@ testRule({
       ],
       description:
         "does not accept variables representing strings that are quoted."
+    },
+    {
+      code: `
+        $test: ("a": 1px solid red, b: 2px)
+      `,
+      warnings: [
+        {
+          line: 2,
+          column: 37,
+          endLine: 2,
+          endColumn: 38,
+          message: messages.expected
+        }
+      ],
+      description: "rejects an unquoted key after a multi-word value"
+    },
+    {
+      code: `
+        $test: ("a": $x * 2, b: 1)
+      `,
+      warnings: [
+        {
+          line: 2,
+          column: 30,
+          endLine: 2,
+          endColumn: 31,
+          message: messages.expected
+        }
+      ],
+      description: "rejects an unquoted key after an operator in a value"
+    },
+    {
+      code: `
+        $test: ("a": 1/2, b: 1)
+      `,
+      warnings: [
+        {
+          line: 2,
+          column: 27,
+          endLine: 2,
+          endColumn: 28,
+          message: messages.expected
+        }
+      ],
+      description: "rejects an unquoted key after a division in a value"
+    },
+    {
+      code: `
+        $test: ("a": 1, b c: 2)
+      `,
+      warnings: [
+        {
+          line: 2,
+          column: 25,
+          endLine: 2,
+          endColumn: 26,
+          message: messages.expected
+        }
+      ],
+      description: "rejects an unquoted space-separated key"
     }
   ]
 });
