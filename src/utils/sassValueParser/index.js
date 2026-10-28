@@ -3,11 +3,11 @@
  *
  * @param {Object} args - Named arguments object
  * @param {String} args.string - the input string
- * @param {Number} args.globalIndex - the position of args.string from the start of the line
- * @param {Boolean} args.isAfterColon - pass "true" if the string is
+ * @param {Number} [args.globalIndex] - the position of args.string from the start of the line
+ * @param {Boolean} [args.isAfterColon] - pass "true" if the string is
  *    a variable value, a mixin/function parameter default.
  *    In such cases + and / tend to be operations more often
- * @param {Function} args.callback - will be called on every instance of
+ * @param {Function} [args.callback] - will be called on every instance of
  *    an operator. Accepts parameters:
  *    • string - the default source string
  *    • globalIndex - the string's position in the outer input
@@ -26,6 +26,7 @@ export default function findOperators({
   const mathOperators = ["+", "/", "-", "*", "%"];
   // A stack of modes activated for the current char: string, interpolation
   // Calculations inside strings are not processed, so spaces are not linted
+  /** @type {{ mode: string, isCalculationEnabled: boolean, character?: string | null }[]} */
   const modesEntered = [
     {
       mode: "normal",
@@ -128,7 +129,7 @@ export default function findOperators({
  *
  * @param {String} string - the source string
  * @param {Number} index - the index of the character in string to check
- * @param {Boolean} isAfterColon - if the value string a variable
+ * @param {Boolean} [isAfterColon] - if the value string a variable
  *    value, a mixin/function parameter default. In such cases + and / tend
  *    to be operations more often
  * @return {String|false}

@@ -27,8 +27,8 @@ export function isString(value) {
 
 /**
  * Checks if the value is a function
- * @param {unknown} value
- * @returns {value is Function}
+ * @param {string} value
+ * @returns {boolean}
  */
 export function isFunctionCall(value) {
   const functionCallPattern = /\w[\w-]*\s*\([^)]*\)/;
@@ -38,8 +38,8 @@ export function isFunctionCall(value) {
 
 /**
  * Checks if the value is a if statement.
- * @param {unknown} value
- * @returns {value is IfStatement}
+ * @param {string} value
+ * @returns {boolean}
  */
 export function isIfStatement(value) {
   const ifStatementPattern = /if\s*\([^)]*\)/;
@@ -49,16 +49,16 @@ export function isIfStatement(value) {
 
 /**
  * Checks if the value is a ${var-name}.
- * @param {unknown} value
- * @returns {value is variable}
+ * @param {string} value
+ * @returns {boolean}
  */
 export const isDollarVar = value =>
   (value.length > 1 && value[0] === "$") || value.includes(".$");
 
 /**
  * Checks if the selector is nested property.
- * @param {unknown} selector
- * @returns {selector is variable}
+ * @param {string} selector
+ * @returns {boolean}
  */
 export const isNestedProperty = selector =>
   selector.split(" ").some(part => part[part.length - 1] === ":");

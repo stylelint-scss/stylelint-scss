@@ -3,7 +3,7 @@
  * code). Only works with comments that are not ignored by PostCSS. To work
  * with those that are ignored use `findCommentInRaws`
  *
- * @param {Comment} comment - PostCSS comment node
+ * @param {import('postcss').Comment} comment - PostCSS comment node
  * @return {boolean} true, if the comment is an inline one
  */
 export default function isInlineComment(comment) {

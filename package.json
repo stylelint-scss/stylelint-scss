@@ -47,7 +47,8 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.9.10",
-    "stylelint": "^17.16.0"
+    "stylelint": "^17.16.0",
+    "typescript": "^6.0.3"
   },
   "files": [
     "src/**/*.js",
@@ -75,7 +76,8 @@
     "test-rule": "npm run jest",
     "test-util": "npm run jest",
     "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "typecheck": "tsc"
   },
   "lavamoat": {
     "allowScripts": {

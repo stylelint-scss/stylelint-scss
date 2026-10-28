@@ -93,7 +93,7 @@ function rule(value, secondaryOptions) {
      */
     function isDeclared(variableData, isDefault, ignoreDefaults) {
       if (isDefault) {
-        if (Number.isFinite(ignoreDefaults)) {
+        if (typeof ignoreDefaults === "number") {
           return variableData.defaultCount >= ignoreDefaults;
         }
 

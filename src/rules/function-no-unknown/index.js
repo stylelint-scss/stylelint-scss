@@ -118,7 +118,9 @@ function rule(primaryOption, secondaryOptions) {
         root
       },
       warning => {
-        const { node: decl } = warning;
+        const decl = /** @type {import('postcss').Declaration} */ (
+          warning.node
+        );
 
         // NOTE: Using `valueParser` is necessary for extracting a function name. This may be a performance waste.
         const parsedValue = valueParser(decl.value);

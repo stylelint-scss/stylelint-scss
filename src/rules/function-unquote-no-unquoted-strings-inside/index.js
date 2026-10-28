@@ -59,9 +59,11 @@ function rule(primary) {
 
         // Report error if first character is a quote.
         // postcss-value-parser represents quoted strings as type 'string' (as opposed to word)
+        const [firstNode] = node.nodes;
+
         if (
-          (!node.nodes[0].quote && node.nodes[0].value[0] !== "$") ||
-          vars[node.nodes[0].value] === "word"
+          (firstNode.type !== "string" && firstNode.value[0] !== "$") ||
+          vars[firstNode.value] === "word"
         ) {
           const fix = () => {
             decl.value = decl.value.replace(/unquote\((.*)\)/, "$1");

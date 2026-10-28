@@ -5,6 +5,8 @@ import parseNestedPropRoot from "../../utils/parseNestedPropRoot.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
 
+/** @import { ChildNode, Declaration, Rule } from "postcss" */
+
 const { utils } = stylelint;
 
 const ruleName = namespace("declaration-nested-properties");
@@ -51,7 +53,7 @@ function rule(primary, secondaryOptions) {
           return;
         }
 
-        /** @type {Map<string, Array<{ node: import('postcss').Declaration | import('postcss').Rule, nested?: true }>>} */
+        /** @type {Map<string, Array<{ node: (Declaration | Rule) & { prop?: string, nodes?: ChildNode[] }, nested?: true }>>} */
         const warningCandidates = new Map();
 
         node.each(child => {
