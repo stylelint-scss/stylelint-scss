@@ -26,6 +26,7 @@
 
 export default function findCommentsInRaws(rawString) {
   const result = [];
+  /** @type {Record<string, any>} */
   let comment = {};
   // Keeps track of which structure the parser is inside (string, comment,
   // url function, parens). E.g., /* comment */ inside a string doesn't

@@ -12,11 +12,7 @@ import isWhitespace from "./isWhitespace.js";
  * @param {"space"|"newline"} targetWhitespace - This is a keyword instead
  *   of the actual character (e.g. " ") in order to accommodate
  *   different styles of newline ("\n" vs "\r\n")
- * @param {
- *     "always"|"never"
- *     |"always-single-line"|"always-multi-line"
- *     | "never-single-line"|"never-multi-line"
- *   } expectation
+ * @param {"always" | "never" | "always-single-line" | "always-multi-line" | "never-single-line" | "never-multi-line" | "at-least-one-space"} expectation
  * @param {object} messages - An object of message functions;
  *   calling `before*()` or `after*()` and the `expectation` that is passed
  *   determines which message functions are required
@@ -28,7 +24,12 @@ import isWhitespace from "./isWhitespace.js";
  * @param {function} [messages.rejectedBeforeSingleLine]
  * @param {function} [messages.expectedBeforeMultiLine]
  * @param {function} [messages.rejectedBeforeMultiLine]
- * @return {object} The checker, with its exposed checking functions
+ * @param {function} [messages.expectedAfterSingleLine]
+ * @param {function} [messages.rejectedAfterSingleLine]
+ * @param {function} [messages.expectedAfterMultiLine]
+ * @param {function} [messages.rejectedAfterMultiLine]
+ * @param {function} [messages.expectedAfterAtLeast]
+ * @return The checker, with its exposed checking functions
  */
 export default function whitespaceChecker(
   targetWhitespace,
@@ -49,7 +50,7 @@ export default function whitespaceChecker(
    * @param {function} args.err - If a violation is found, this callback
    *   will be invoked with the relevant warning message.
    *   Typically this callback will report() the violation.
-   * @param {function} args.errTarget - If a violation is found, this string
+   * @param {string} [args.errTarget] - If a violation is found, this string
    *   will be sent to the relevant warning message.
    * @param {string} [args.lineCheckStr] - Single- and multi-line checkers
    *   will use this string to determine whether they should proceed,

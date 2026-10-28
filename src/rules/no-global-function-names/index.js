@@ -136,7 +136,7 @@ const rule_mapping = {
 const ruleName = namespace("no-global-function-names");
 
 const messages = utils.ruleMessages(ruleName, {
-  rejectedFullMessage: string => string,
+  rejectedFullMessage: /** @param {string} string */ string => string,
   rejected: name => errorMessage(name)
 });
 

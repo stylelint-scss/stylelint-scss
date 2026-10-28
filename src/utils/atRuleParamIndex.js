@@ -1,8 +1,8 @@
 /**
  * Get the index of a media query's params
  *
- * @param {AtRule} atRule
- * @return {int} The index
+ * @param {import('postcss').AtRule} atRule
+ * @return {number} The index
  */
 export default function atRuleParamIndex(atRule) {
   // Initial 1 is for the `@`

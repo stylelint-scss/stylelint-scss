@@ -121,9 +121,9 @@ rule.meta = meta;
  * The core rule logic function. This one can be imported by some other rules
  * that work with Sass operators
  *
- * @param {Object} args -- Named arguments object
- * @param {PostCSS Root} args.root
- * @param {PostCSS Result} args.result
+ * @param {object} args -- Named arguments object
+ * @param {import('postcss').Root} args.root
+ * @param {import('stylelint').PostcssResult} args.result
  * @param {function} args.checker -- the function that is run against all the
  *    operators found in the input. Takes these arguments:
  *    {Object} cbArgs -- Named arguments object
@@ -166,7 +166,8 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
 
   const dataURIRegex = /url\(\s*['"]?data:/;
 
-  root.walk(item => {
+  // Walks every node type, so properties are checked by presence
+  root.walk((/** @type {any} */ item) => {
     if (item.prop === "unicode-range") {
       return;
     }
@@ -176,7 +177,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     // Check a value (`10px` in `width: 10px;`)
     if (item.value !== undefined) {
       if (dataURIRegex.test(item.value)) {
-        return results;
+        return;
       }
 
       results.push({

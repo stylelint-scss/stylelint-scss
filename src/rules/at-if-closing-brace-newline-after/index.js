@@ -30,7 +30,7 @@ function rule(expectation, options, context) {
       {
         actual: options,
         possible: {
-          disableFix: isBoolean
+          disableFix: [isBoolean]
         },
         optional: true
       }
@@ -57,12 +57,15 @@ function rule(expectation, options, context) {
  * The core logic for this rule. Can be imported by other rules with similar
  * logic, namely at-else-closing-brace-newline-after
  *
- * @param {Object} args -- Named arguments object
- * @param {PostCSS root} args.root
- * @param {PostCSS result} args.result
- * @param {String ruleName} args.ruleName - needed for `report` function
- * @param {String} args.atRuleName - the name of the at-rule to be checked, e.g. "if", "else"
- * @param {Object} args.messages - returned by stylelint.utils.ruleMessages
+ * @param {object} args -- Named arguments object
+ * @param {import('postcss').Root} args.root
+ * @param {import('stylelint').PostcssResult} args.result
+ * @param {string} args.ruleName - needed for `report` function
+ * @param {string} args.atRuleName - the name of the at-rule to be checked, e.g. "if", "else"
+ * @param {string} args.expectation - the rule's primary option
+ * @param {Record<string, any>} args.messages - returned by stylelint.utils.ruleMessages
+ * @param {import('stylelint').RuleContext} [args.context]
+ * @param {{ disableFix?: boolean }} [args.options]
  * @return {undefined}
  */
 export function sassConditionalBraceNLAfterChecker({

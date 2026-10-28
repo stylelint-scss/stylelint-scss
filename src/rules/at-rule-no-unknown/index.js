@@ -72,7 +72,8 @@ function rule(primaryOption, secondaryOptions) {
         root
       },
       warning => {
-        const name = warning.node.name;
+        const name = /** @type {import('postcss').AtRule} */ (warning.node)
+          .name;
 
         if (!ignoreAtRules.includes(name)) {
           utils.report({

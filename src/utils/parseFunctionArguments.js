@@ -70,5 +70,5 @@ export function parseFunctionArguments(value) {
     return [];
   }
 
-  return nodes.map(node => groupByKeyValue(node.nodes).map(mapToKeyValue))[0];
+  return groupByKeyValue(firstNode.nodes).map(mapToKeyValue);
 }

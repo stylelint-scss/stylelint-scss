@@ -1,8 +1,8 @@
 /**
  * Get the index of a declaration's value
  *
- * @param {Decl} decl
- * @return {int} The index
+ * @param {import('postcss').Declaration} decl
+ * @return {number} The index
  */
 export default function declarationValueIndex(decl) {
   const beforeColon = decl.toString().indexOf(":");

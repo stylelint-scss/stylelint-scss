@@ -1,7 +1,7 @@
 /**
  * Determine whether the given node is of the given type.
  *
- * @param  {import('postcss').Node} node
+ * @param  {{ type: string } | null | undefined} node
  * @param  {string} type
  * @return {boolean}
  */

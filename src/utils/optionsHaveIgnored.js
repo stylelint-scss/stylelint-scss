@@ -3,7 +3,7 @@
  * It will look for an `ignore` property whose value should
  * be an array of keywords.
  *
- * @param {object} options
+ * @param {{ ignore?: string[] }} options
  * @param {string} ignoredName
  * @return {boolean}
  */
