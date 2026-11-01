@@ -13,6 +13,14 @@ testRule({
     {
       code: `
         p {
+          font-family: unquote();
+        }
+      `,
+      description: "accepts an empty unquote()"
+    },
+    {
+      code: `
+        p {
           font-family: unquote("Helvetica");
         }
       `,

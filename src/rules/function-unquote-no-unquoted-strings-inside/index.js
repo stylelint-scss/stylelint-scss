@@ -52,8 +52,8 @@ function rule(primary) {
           return;
         }
 
-        // Verify we're only looking at unquote() calls.
-        if (node.value !== "unquote") {
+        // Verify we're only looking at unquote() calls with an argument.
+        if (node.value !== "unquote" || node.nodes.length === 0) {
           return;
         }
 

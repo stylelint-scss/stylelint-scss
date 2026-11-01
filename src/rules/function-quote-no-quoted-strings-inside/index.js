@@ -52,8 +52,8 @@ function rule(primary) {
           return;
         }
 
-        // Verify we're only looking at quote() calls.
-        if (node.value !== "quote") {
+        // Verify we're only looking at quote() calls with an argument.
+        if (node.value !== "quote" || node.nodes.length === 0) {
           return;
         }
 
