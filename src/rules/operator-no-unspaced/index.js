@@ -223,23 +223,26 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
         return;
       }
 
-      checkOperators(
-        [
-          // Value (`10px` in `width: 10px;`)
-          {
-            source: item.value,
-            operators: findOperators({
-              string: item.value,
-              globalIndex: declarationValueIndex(item),
-              // For Sass variable values some special rules apply
-              isAfterColon: item.prop[0] === "$"
-            })
-          },
-          // Property name
-          ...findInterpolation(item.prop)
-        ],
-        item
-      );
+      // Value (`10px` in `width: 10px;`)
+      if (item.value !== undefined) {
+        checkOperators(
+          [
+            {
+              source: item.value,
+              operators: findOperators({
+                string: item.value,
+                globalIndex: declarationValueIndex(item),
+                // For Sass variable values some special rules apply
+                isAfterColon: item.prop[0] === "$"
+              })
+            }
+          ],
+          item
+        );
+      }
+
+      // Property name
+      checkOperators(findInterpolation(item.prop), item);
 
       return;
     }
