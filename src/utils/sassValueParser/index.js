@@ -1,21 +1,23 @@
 /**
+ * @typedef {object} SassOperator
+ * @property {string} symbol - the operator's first character
+ * @property {number} globalIndex - the string's position in the outer input
+ * @property {number} startIndex - index in string, where the operator starts
+ * @property {number} endIndex - index in string, where the operator ends (for `==`, etc.)
+ */
+
+/**
  * Processes a string and finds Sass operators in it
  *
- * @param {Object} args - Named arguments object
- * @param {String} args.string - the input string
- * @param {Number} [args.globalIndex] - the position of args.string from the start of the line
- * @param {Boolean} [args.isAfterColon] - pass "true" if the string is
+ * @param {object} args - Named arguments object
+ * @param {string} args.string - the input string
+ * @param {number} [args.globalIndex] - the position of args.string from the start of the line
+ * @param {boolean} [args.isAfterColon] - pass "true" if the string is
  *    a variable value, a mixin/function parameter default.
  *    In such cases + and / tend to be operations more often
- * @param {Function} [args.callback] - will be called on every instance of
- *    an operator. Accepts parameters:
- *    • string - the default source string
- *    • globalIndex - the string's position in the outer input
- *    • startIndex - index in string, where the operator starts
- *    • endIndex - index in string, where the operator ends (for `==`, etc.)
- *
- * @return {Array} array of { symbol, globalIndex, startIndex, endIndex }
- *    for each operator found within a string
+ * @param {(string: string, globalIndex: number, startIndex: number, endIndex: number) => void} [args.callback] -
+ *    called on every operator found
+ * @return {Array<SassOperator>}
  */
 export default function findOperators({
   string,
@@ -34,6 +36,7 @@ export default function findOperators({
       character: null
     }
   ];
+  /** @type {Array<SassOperator>} */
   const result = [];
   let lastModeIndex = 0;
 
@@ -750,9 +753,7 @@ function isInsideInterpolation(string, index) {
  *
  * @param {String} string - the input string
  * @param {Number} index - current character index
- * @return {Object} return
- *    {Boolean} return.is - if inside a function arguments
- *    {String} return.fn - function name
+ * @return {{ is: boolean, fn: string | null }} `is`: inside function arguments; `fn`: the function name
  */
 export function isInsideFunctionCall(string, index) {
   const result = { is: false, fn: null };
@@ -791,9 +792,7 @@ function isInsideTypeFunctionCall(string, index) {
  * Also checks if there is a math operator in between
  *
  * @param {String} before - the input string that preceses the character
- * @return {Object} return
- *    {Boolean} return.is - if there is a string
- *    {String} return.opsBetween - if there are operators in between
+ * @return {{ is: boolean, opsBetween: boolean }} `is`: there is a string; `opsBetween`: there are operators in between
  */
 function isStringBefore(before) {
   const result = { is: false, opsBetween: false };
@@ -876,9 +875,7 @@ function isParensBefore(before) {
  * Also checks if there is a math operator in between
  *
  * @param {String} before - the input string that preceses the character
- * @return {Object} return
- *    {Boolean} return.is - if there is an interpolation
- *    {String} return.opsBetween - if there are operators in between
+ * @return {{ is: boolean, opsBetween: boolean }} `is`: there is an interpolation; `opsBetween`: there are operators in between
  */
 function isInterpolationBefore(before) {
   const result = { is: false, opsBetween: false };

@@ -15,6 +15,12 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
+/**
+ * @typedef {object} VariableData
+ * @property {number} defaultCount - how many times the variable was declared with `!default`
+ * @property {boolean} isDeclared - whether the variable is already declared
+ */
+
 function rule(value, secondaryOptions) {
   return (root, result) => {
     const validOptions = utils.validateOptions(
@@ -42,7 +48,7 @@ function rule(value, secondaryOptions) {
 
     /**
      * Traverse the [vars] tree through the path defined by [ancestors], creating nodes as needed.
-     * @param {*} ancestors
+     * @param {Array<string>} ancestors
      * @returns the tree of the node defined by the last of [ancestors].
      */
     function getScope(ancestors) {
@@ -62,9 +68,9 @@ function rule(value, secondaryOptions) {
     /**
      * Iterates through the ancestors while checking each scope until the [variable] is found.
      * If not found, an object with empty values is returned.
-     * @param {*} ancestors
+     * @param {Array<string>} ancestors
      * @param {string} variable the variable name.
-     * @returns The previously declared variable data or an object with empty values.
+     * @returns {VariableData} The previously declared variable data or an object with empty values.
      */
     function getVariableData(ancestors, variable) {
       let scope = vars;
@@ -85,8 +91,7 @@ function rule(value, secondaryOptions) {
 
     /**
      * Checks whether the given [variableData] is declared.
-     * @param {{ defaultCount: number; isDeclared: boolean; }} variableData the variable data
-     * containing default count and if the variable is declared.
+     * @param {VariableData} variableData
      * @param {boolean} isDefault if the variable contains the `!default` keyword.
      * @param {boolean | number} ignoreDefaults the ignore defaults options.
      * @returns true if declared.
@@ -107,11 +112,10 @@ function rule(value, secondaryOptions) {
 
     /**
      * Processes the variable data based on the given arguments.
-     * @param {{ defaultCount: number; isDeclared: boolean; }} variableData the variable data
-     * containing default count and if the variable is declared.
+     * @param {VariableData} variableData
      * @param {boolean} isDefault if the variable contains the `!default` keyword.
      * @param {boolean | number} ignoreDefaults the ignore defaults options.
-     * @returns the updated `variableData`.
+     * @returns {VariableData} the updated `variableData`.
      */
     function processVariableData(variableData, isDefault, ignoreDefaults) {
       return {

@@ -10,6 +10,25 @@ import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
 
 /** @import { Node, Root } from "postcss" */
+/** @import { PostcssResult } from "stylelint" */
+/** @import { SassOperator } from "../../utils/sassValueParser/index.js" */
+
+/**
+ * @typedef {object} OperatorSource
+ * @property {string} source - the string the operators were found in
+ * @property {Array<SassOperator>} operators
+ */
+
+/**
+ * @typedef {object} OperatorCheck
+ * @property {string} string - the input string (suspected operation)
+ * @property {number} globalIndex - the string's index in a global input
+ * @property {number} startIndex - the start index of a symbol to inspect
+ * @property {number} endIndex - the end index of a symbol to inspect
+ *   (two indexes needed to allow for `==`, `!=`, etc.)
+ * @property {Node} node - for stylelint.utils.report
+ * @property {PostcssResult} result - for stylelint.utils.report
+ */
 
 const { utils } = stylelint;
 const mediaQueryParser =
@@ -140,25 +159,18 @@ rule.meta = meta;
  *
  * @param {object} args -- Named arguments object
  * @param {Root} args.root
- * @param {import('stylelint').PostcssResult} args.result
- * @param {function} args.checker -- the function that is run against all the
- *    operators found in the input. Takes these arguments:
- *    {Object} cbArgs -- Named arguments object
- *    {string} cbArgs.string -- the input string (suspected operation)
- *    {number} cbArgs.globalIndex -- the string's index in a global input
- *    {number} cbArgs.startIndex -- the start index of a symbol to inspect
- *    {number} cbArgs.endIndex -- the end index of a symbol to inspect
- *      (two indexes needed to allow for `==`, `!=`, etc.)
- *    {PostCSS Node} cbArgs.node -- for stylelint.utils.report
- *    {PostCSS Result} cbArgs.result -- for stylelint.utils.report
+ * @param {PostcssResult} args.result
+ * @param {(check: OperatorCheck) => void} args.checker -- run against all the
+ *    operators found in the input
  */
 export function calculationOperatorSpaceChecker({ root, result, checker }) {
   /**
    * Takes a string, finds all occurrences of Sass interpolation in it, then
    * finds all operators inside that interpolation
    *
-   * @return {array} An array of objects { string, operators } - effectively,
-   *    a list of operators for each Sass interpolation occurrence
+   * @param {string} string
+   * @param {number} [startIndex]
+   * @return {Array<OperatorSource>} the operators of each Sass interpolation occurrence
    */
   function findInterpolation(string, startIndex) {
     const interpolationRegex = /#\{(.*?)\}/g;
@@ -184,7 +196,7 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
   /**
    * Runs the checker on every operator found in the strings
    *
-   * @param {Array<{ source: string, operators: Array<{ globalIndex: number, startIndex: number, endIndex: number }> }>} results
+   * @param {Array<OperatorSource>} results
    * @param {Node} node
    * @param {number} [offset]
    */
