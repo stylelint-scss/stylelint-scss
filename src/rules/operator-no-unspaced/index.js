@@ -9,6 +9,8 @@ import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
 
+/** @import { Node, Root } from "postcss" */
+
 const { utils } = stylelint;
 const mediaQueryParser =
   mediaQueryParserModule.default || mediaQueryParserModule;
@@ -23,6 +25,21 @@ const messages = utils.ruleMessages(ruleName, {
 const meta = {
   url: ruleUrl(ruleName)
 };
+
+const ignoredAtRules = new Set([
+  "forward",
+  "use",
+  "at-root",
+  "scope",
+  // Tailwind directives: https://tailwindcss.com/docs/functions-and-directives#directives
+  "apply",
+  "custom-variant",
+  "reference",
+  "source",
+  "theme",
+  "utility",
+  "variant"
+]);
 
 /**
  * The actual check for are there (un)necessary whitespaces
@@ -122,7 +139,7 @@ rule.meta = meta;
  * that work with Sass operators
  *
  * @param {object} args -- Named arguments object
- * @param {import('postcss').Root} args.root
+ * @param {Root} args.root
  * @param {import('stylelint').PostcssResult} args.result
  * @param {function} args.checker -- the function that is run against all the
  *    operators found in the input. Takes these arguments:
@@ -164,168 +181,139 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     return results;
   }
 
+  /**
+   * Runs the checker on every operator found in the strings
+   *
+   * @param {Array<{ source: string, operators: Array<{ globalIndex: number, startIndex: number, endIndex: number }> }>} results
+   * @param {Node} node
+   * @param {number} [offset]
+   */
+  function checkOperators(results, node, offset = 0) {
+    for (const { source, operators } of results) {
+      for (const operator of operators) {
+        checker({
+          string: source,
+          globalIndex: operator.globalIndex + offset,
+          startIndex: operator.startIndex,
+          endIndex: operator.endIndex,
+          node,
+          result
+        });
+      }
+    }
+  }
+
   const dataURIRegex = /url\(\s*['"]?data:/;
 
-  // Walks every node type, so properties are checked by presence
-  root.walk((/** @type {any} */ item) => {
-    if (item.prop === "unicode-range") {
+  root.walk(item => {
+    if (item.type === "decl") {
+      if (item.prop === "unicode-range" || dataURIRegex.test(item.value)) {
+        return;
+      }
+
+      checkOperators(
+        [
+          // Value (`10px` in `width: 10px;`)
+          {
+            source: item.value,
+            operators: findOperators({
+              string: item.value,
+              globalIndex: declarationValueIndex(item),
+              // For Sass variable values some special rules apply
+              isAfterColon: item.prop[0] === "$"
+            })
+          },
+          // Property name
+          ...findInterpolation(item.prop)
+        ],
+        item
+      );
+
       return;
     }
 
-    let results = [];
+    if (item.type === "rule") {
+      checkOperators(findInterpolation(item.selector), item);
 
-    // Check a value (`10px` in `width: 10px;`)
-    if (item.value !== undefined) {
-      if (dataURIRegex.test(item.value)) {
+      return;
+    }
+
+    if (item.type !== "atrule" || ignoredAtRules.has(item.name)) {
+      return;
+    }
+
+    if (item.name !== "media" && item.name !== "import") {
+      // Function and mixin definitions and other rules
+      checkOperators(
+        [
+          {
+            source: item.params,
+            operators: findOperators({
+              string: item.params,
+              globalIndex: atRuleParamIndex(item),
+              isAfterColon: true
+            })
+          }
+        ],
+        item
+      );
+
+      return;
+    }
+
+    const results = [];
+
+    mediaQueryParser(item.params).walk(node => {
+      const globalIndex = atRuleParamIndex(item) + node.sourceIndex;
+
+      if (["keyword", "media-type", "media-feature"].includes(node.type)) {
+        results.push(...findInterpolation(node.value, globalIndex));
+
+        return;
+      }
+
+      if (node.type === "url") {
+        // The argument to the url function is only parsed as SassScript if it is a quoted
+        // string, or a _valid_ unquoted URL [1].
+        //
+        // [1] https://sass-lang.com/documentation/syntax/special-functions#url
+        const isQuoted = node.value[0] === '"' || node.value[0] === "'";
+        const containsWhitespace = node.value.search(/\s/) > -1;
+
+        if (!isQuoted && !containsWhitespace) {
+          return;
+        }
+      } else if (node.type !== "value") {
         return;
       }
 
       results.push({
-        source: item.value,
+        source: node.value,
         operators: findOperators({
-          string: item.value,
-          globalIndex: declarationValueIndex(item),
-          // For Sass variable values some special rules apply
-          isAfterColon: item.prop[0] === "$"
+          string: node.value,
+          globalIndex,
+          isAfterColon: true
         })
       });
-    }
-
-    // Property name
-    if (item.prop !== undefined) {
-      results = results.concat(findInterpolation(item.prop));
-    }
-
-    // Selector
-    if (item.selector !== undefined) {
-      results = results.concat(findInterpolation(item.selector));
-    }
-
-    if (item.type === "atrule") {
-      // @forward, @use, @at-root, and @scope
-      if (
-        item.name === "forward" ||
-        item.name === "use" ||
-        item.name === "at-root" ||
-        item.name === "scope"
-      ) {
-        return;
-      }
-
-      // Tailwind-specific at-rules (Directives)
-      // https://tailwindcss.com/docs/functions-and-directives#directives
-      if (
-        item.name === "apply" ||
-        item.name === "custom-variant" ||
-        item.name === "reference" ||
-        item.name === "source" ||
-        item.name === "theme" ||
-        item.name === "utility" ||
-        item.name === "variant"
-      ) {
-        return;
-      }
-
-      // Media queries
-      if (item.name === "media" || item.name === "import") {
-        mediaQueryParser(item.params).walk(node => {
-          const type = node.type;
-
-          if (["keyword", "media-type", "media-feature"].includes(type)) {
-            results = results.concat(
-              findInterpolation(
-                node.value,
-                atRuleParamIndex(item) + node.sourceIndex
-              )
-            );
-          } else if (type === "value") {
-            results.push({
-              source: node.value,
-              operators: findOperators({
-                string: node.value,
-                globalIndex: atRuleParamIndex(item) + node.sourceIndex,
-                isAfterColon: true
-              })
-            });
-          } else if (type === "url") {
-            const isQuoted = node.value[0] === '"' || node.value[0] === "'";
-            const containsWhitespace = node.value.search(/\s/) > -1;
-
-            if (isQuoted || containsWhitespace) {
-              // The argument to the url function is only parsed as SassScript if it is a quoted
-              // string, or a _valid_ unquoted URL [1].
-              //
-              // [1] https://sass-lang.com/documentation/syntax/special-functions#url
-              results.push({
-                source: node.value,
-                operators: findOperators({
-                  string: node.value,
-                  globalIndex: atRuleParamIndex(item) + node.sourceIndex,
-                  isAfterColon: true
-                })
-              });
-            }
-          }
-        });
-      } else {
-        // Function and mixin definitions and other rules
-        results.push({
-          source: item.params,
-          operators: findOperators({
-            string: item.params,
-            globalIndex: atRuleParamIndex(item),
-            isAfterColon: true
-          })
-        });
-      }
-    }
-
-    // All the strings have been parsed, now run whitespace checking
-    results.forEach(el => {
-      // Only if there are operators within a string
-      if (el.operators && el.operators.length > 0) {
-        el.operators.forEach(operator => {
-          checker({
-            string: el.source,
-            globalIndex: operator.globalIndex,
-            startIndex: operator.startIndex,
-            endIndex: operator.endIndex,
-            node: item,
-            result
-          });
-        });
-      }
     });
+
+    checkOperators(results, item);
   });
 
   // Checking interpolation inside comments
   // We have to give up on PostCSS here because it skips some inline comments
-  findCommentsInRaws(root.source.input.css).forEach(comment => {
+  for (const comment of findCommentsInRaws(root.source.input.css)) {
+    if (comment.type !== "css") {
+      continue;
+    }
+
     const startIndex =
       comment.source.start +
       comment.raws.startToken.length +
       comment.raws.left.length;
 
-    if (comment.type !== "css") {
-      return;
-    }
-
-    findInterpolation(comment.text).forEach(el => {
-      // Only if there are operators within a string
-      if (el.operators && el.operators.length > 0) {
-        el.operators.forEach(operator => {
-          checker({
-            string: el.source,
-            globalIndex: operator.globalIndex + startIndex,
-            startIndex: operator.startIndex,
-            endIndex: operator.endIndex,
-            node: root,
-            result
-          });
-        });
-      }
-    });
-  });
+    checkOperators(findInterpolation(comment.text), root, startIndex);
+  }
 }
 
 export default rule;
