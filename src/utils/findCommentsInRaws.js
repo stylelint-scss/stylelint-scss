@@ -1,32 +1,39 @@
 /**
+ * @typedef {object} RawComment
+ * @property {"css" | "double-slash"} type
+ * @property {object} source
+ *   IMPORTANT: `\r` counts as a character for `start` and `end`, but PostCSS's
+ *   result.warn() counts "\r\n" as ONE char (newline)!
+ * @property {number} source.start
+ * @property {number} source.end
+ * @property {object} raws
+ * @property {string} raws.startToken - `/*`, `/**`, `/**!`, etc.
+ * @property {string} raws.left - whitespace after the comment opening marker
+ * @property {string} raws.text - the full comment, including markers (//, /*)
+ * @property {string} raws.right - whitespace before the comment closing marker
+ * @property {string} [raws.endToken] - `*\/`, `**\/` for CSS comments
+ * @property {string} text - the comment text only, excluding //, /*, trailing whitespaces
+ * @property {boolean} inlineAfter - true, if there is something before the comment on the same line
+ * @property {boolean} inlineBefore - true, if there is something after the comment on the same line
+ */
+
+/** @typedef {Pick<RawComment, "type" | "inlineAfter"> & { start: number }} PendingComment */
+
+/**
  * Finds comments, both CSS comments and double slash ones, in a CSS string
  * This helper exists because PostCSS drops some inline comments (those
  * between selectors, property values, etc.)
  * https://github.com/postcss/postcss/issues/845#issuecomment-232306259
  *
  * @param {string} rawString -- the source raw CSS string
- * @return {array} array of objects with these props:
- *    � type -- "css" or "double-slash"
- *    � source: { start, end }
- *      IMPORTANT: the function itself considers \r as a character, and counts
- *      it for `start` and `end`. But if their values are passed to PostCSS's
- *      result.warn(), than "\r\n" is consideren ONE CHAR (newline)!
- *    � raws
- *      raws.startToken -- `/*`, `/**`, `/**!`, etc.
- *      raws.left -- whitespace after the comment opening marker
- *      raws.text -- the full comment, including markers (//, /*)
- *      raws.right -- whitespace before the comment closing marker
- *      raws.endToken -- `*\/`, `**\/` for CSS comments
- *    � text -- the comment text only, excluding //, /*, trailing whitespaces
- *    � inlineAfter -- true, if there is something before the comment on
- *      the same line
- *    � inlineBefore -- true, if there is something after the comment on
- *      the same line
+ * @return {Array<RawComment>}
  */
 
 export default function findCommentsInRaws(rawString) {
+  /** @type {Array<RawComment>} */
   const result = [];
-  let comment = {};
+  /** @type {PendingComment} */
+  let comment;
   // Keeps track of which structure the parser is inside (string, comment,
   // url function, parens). E.g., /* comment */ inside a string doesn't
   // constitute a comment, so as url(//path)
@@ -130,7 +137,7 @@ export default function findCommentsInRaws(rawString) {
           });
           comment = {
             type: "css",
-            source: { start: i + offset },
+            start: i + offset,
             // If i is 0 then the file/the line starts with this comment
             inlineAfter:
               i > 0 && rawString.substring(0, i).search(/\n\s*$/) === -1
@@ -150,7 +157,7 @@ export default function findCommentsInRaws(rawString) {
           });
           comment = {
             type: "double-slash",
-            source: { start: i + offset },
+            start: i + offset,
             // If i is 0 then the file/the line starts with this comment
             inlineAfter:
               i > 0 && rawString.substring(0, i).search(/\n\s*$/) === -1
@@ -169,8 +176,6 @@ export default function findCommentsInRaws(rawString) {
           modesEntered[lastModeIndex].character === "/*" &&
           nextChar === "/"
         ) {
-          comment.source.end = i + 1 + offset;
-
           const commentRaw = rawString.substring(commentStart, i + 2);
           const startMatch = commentRaw.match(/^(\/\*+[!#]?)/);
           const endMatch = commentRaw.match(/(\*+\/)$/);
@@ -195,18 +200,21 @@ export default function findCommentsInRaws(rawString) {
           ];
 
           modesEntered.pop();
-          comment.raws = {
-            startToken: matches[1],
-            left: matches[2],
-            text: commentRaw,
-            right: matches[4],
-            endToken: matches[5]
-          };
-          comment.text = matches[3];
-          comment.inlineBefore =
-            rawString.substring(i + 2).search(/^\s*\S+\s*?\n/) !== -1;
-          result.push({ ...comment });
-          comment = {};
+          result.push({
+            type: comment.type,
+            source: { start: comment.start, end: i + 1 + offset },
+            inlineAfter: comment.inlineAfter,
+            raws: {
+              startToken: matches[1],
+              left: matches[2],
+              text: commentRaw,
+              right: matches[4],
+              endToken: matches[5]
+            },
+            text: matches[3],
+            inlineBefore:
+              rawString.substring(i + 2).search(/^\s*\S+\s*?\n/) !== -1
+          });
           // Skip the next loop as the / in */ is already checked
           i++;
         }
@@ -224,8 +232,6 @@ export default function findCommentsInRaws(rawString) {
             mode === "comment" &&
             modesEntered[lastModeIndex].character === "//"
           ) {
-            comment.source.end = (isNewline ? i - 1 : i) + offset;
-
             const commentRaw = rawString.substring(
               commentStart,
               isNewline ? i : i + 1
@@ -249,16 +255,22 @@ export default function findCommentsInRaws(rawString) {
             ];
 
             modesEntered.pop();
-            comment.raws = {
-              startToken: matches[1],
-              left: matches[2],
-              text: commentRaw,
-              right: matches[4]
-            };
-            comment.text = matches[3];
-            comment.inlineBefore = false;
-            result.push({ ...comment });
-            comment = {};
+            result.push({
+              type: comment.type,
+              source: {
+                start: comment.start,
+                end: (isNewline ? i - 1 : i) + offset
+              },
+              inlineAfter: comment.inlineAfter,
+              raws: {
+                startToken: matches[1],
+                left: matches[2],
+                text: commentRaw,
+                right: matches[4]
+              },
+              text: matches[3],
+              inlineBefore: false
+            });
             // Compensate for the `*/` added by postcss-scss
             offset += 2;
           }

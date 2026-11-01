@@ -48,7 +48,9 @@ function rule(actual) {
 
       if (selector) {
         parseSelector(selector, result, ruleNode, fullSelector => {
-          fullSelector.walk(node => parentNodes.push(node));
+          fullSelector.walk(node => {
+            parentNodes.push(node);
+          });
         });
       }
 

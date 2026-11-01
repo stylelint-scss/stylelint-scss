@@ -35,7 +35,7 @@ function rule(expectation, options, context) {
       {
         actual: options,
         possible: {
-          disableFix: isBoolean
+          disableFix: [isBoolean]
         },
         optional: true
       }

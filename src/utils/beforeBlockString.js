@@ -1,3 +1,5 @@
+/** @import { AtRule, Rule } from "postcss" */
+
 /**
  * Given a CSS statement, return the string before the block.
  * For rules, this is the selector list (and surrounding whitespace).
@@ -5,7 +7,7 @@
  *
  * If there is no block, return empty string.
  *
- * @param {Rule|AtRule} statement - postcss rule or at-rule node
+ * @param {Rule | AtRule} statement - postcss rule or at-rule node
  * @param {object} options
  * @param {boolean} [options.noRawBefore] - Leave out the `before` string
  * @return {string}

@@ -1,17 +1,20 @@
+import { isDeclaration } from "./typeGuards.js";
+
 /**
  * Check whether a Node is a custom property set
  *
- * @param {import('postcss').Rule} node
+ * @param {import('postcss').Node} node
  * @returns {boolean}
  */
 export default function isCustomPropertySet(node) {
-  const prop = node?.raws?.prop?.raw || node.prop;
-  const value = node?.raws?.value?.raw || node.value;
+  if (!isDeclaration(node)) {
+    return false;
+  }
 
-  return (
-    node.type === "decl" &&
-    prop.startsWith("--") &&
-    value.startsWith("{") &&
-    value.endsWith("}")
-  );
+  const prop =
+    /** @type {{ raw?: string } | undefined} */ (node.raws.prop)?.raw ||
+    node.prop;
+  const value = node.raws.value?.raw || node.value;
+
+  return prop.startsWith("--") && value.startsWith("{") && value.endsWith("}");
 }

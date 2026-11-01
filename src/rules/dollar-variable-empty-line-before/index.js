@@ -40,7 +40,7 @@ function rule(expectation, options, context) {
             "inside-single-line-block",
             "after-dollar-variable"
           ],
-          disableFix: isBoolean
+          disableFix: [isBoolean]
         },
         optional: true
       }

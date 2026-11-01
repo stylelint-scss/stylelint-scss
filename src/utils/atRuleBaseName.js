@@ -1,7 +1,7 @@
 /**
  * Get an at rule's base name
  *
- * @param {AtRule} atRule
+ * @param {import('postcss').AtRule} atRule
  * @return {string} The name
  */
 export default function atRuleBaseName(atRule) {

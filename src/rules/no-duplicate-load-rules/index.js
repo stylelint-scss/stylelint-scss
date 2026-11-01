@@ -100,7 +100,7 @@ function listImportConditions(params) {
   const sharedConditions = [];
   /** @type {Array<string>} */
   const media = [];
-  /** @type {Array<Node>} */
+  /** @type {Array<import('postcss-value-parser').Node>} */
   let lastMediaQuery = [];
 
   for (const param of params) {

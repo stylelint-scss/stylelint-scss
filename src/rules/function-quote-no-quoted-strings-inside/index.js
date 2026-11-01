@@ -52,14 +52,16 @@ function rule(primary) {
           return;
         }
 
-        // Verify we're only looking at quote() calls.
-        if (node.value !== "quote") {
+        // Verify we're only looking at quote() calls with an argument.
+        if (node.value !== "quote" || node.nodes.length === 0) {
           return;
         }
 
         // Report error if first character is a quote.
         // postcss-value-parser represents quoted strings as type 'string' (as opposed to word)
-        if (node.nodes[0].quote || vars[node.nodes[0].value] === "string") {
+        const [firstNode] = node.nodes;
+
+        if (firstNode.type === "string" || vars[firstNode.value] === "string") {
           const fix = () => {
             decl.value = decl.value.replace(/quote\((.*)\)/, "$1");
           };
