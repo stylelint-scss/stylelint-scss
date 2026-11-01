@@ -63,7 +63,7 @@ function rule(expectation, options, context) {
  * @param {string} args.ruleName - needed for `report` function
  * @param {string} args.atRuleName - the name of the at-rule to be checked, e.g. "if", "else"
  * @param {string} args.expectation - the rule's primary option
- * @param {Record<string, any>} args.messages - returned by stylelint.utils.ruleMessages
+ * @param {{ expected: string, rejected: string }} args.messages - returned by stylelint.utils.ruleMessages
  * @param {import('stylelint').RuleContext} [args.context]
  * @param {{ disableFix?: boolean }} [args.options]
  * @return {undefined}

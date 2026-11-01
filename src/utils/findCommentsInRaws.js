@@ -1,11 +1,23 @@
 /**
+ * @typedef {object} RawComment
+ * @property {"css" | "double-slash"} type
+ * @property {{ start: number, end: number }} source
+ * @property {{ startToken: string, left: string, text: string, right: string, endToken?: string }} raws
+ * @property {string} text
+ * @property {boolean} inlineAfter
+ * @property {boolean} inlineBefore
+ */
+
+/** @typedef {Omit<Partial<RawComment>, "source"> & { source?: Partial<RawComment["source"]> }} PendingComment */
+
+/**
  * Finds comments, both CSS comments and double slash ones, in a CSS string
  * This helper exists because PostCSS drops some inline comments (those
  * between selectors, property values, etc.)
  * https://github.com/postcss/postcss/issues/845#issuecomment-232306259
  *
  * @param {string} rawString -- the source raw CSS string
- * @return {array} array of objects with these props:
+ * @return {Array<RawComment>} array of objects with these props:
  *    � type -- "css" or "double-slash"
  *    � source: { start, end }
  *      IMPORTANT: the function itself considers \r as a character, and counts
@@ -25,8 +37,9 @@
  */
 
 export default function findCommentsInRaws(rawString) {
+  /** @type {Array<RawComment>} */
   const result = [];
-  /** @type {Record<string, any>} */
+  /** @type {PendingComment} */
   let comment = {};
   // Keeps track of which structure the parser is inside (string, comment,
   // url function, parens). E.g., /* comment */ inside a string doesn't
@@ -206,7 +219,7 @@ export default function findCommentsInRaws(rawString) {
           comment.text = matches[3];
           comment.inlineBefore =
             rawString.substring(i + 2).search(/^\s*\S+\s*?\n/) !== -1;
-          result.push({ ...comment });
+          result.push(/** @type {RawComment} */ ({ ...comment }));
           comment = {};
           // Skip the next loop as the / in */ is already checked
           i++;
@@ -258,7 +271,7 @@ export default function findCommentsInRaws(rawString) {
             };
             comment.text = matches[3];
             comment.inlineBefore = false;
-            result.push({ ...comment });
+            result.push(/** @type {RawComment} */ ({ ...comment }));
             comment = {};
             // Compensate for the `*/` added by postcss-scss
             offset += 2;
