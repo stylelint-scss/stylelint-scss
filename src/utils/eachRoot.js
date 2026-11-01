@@ -1,3 +1,5 @@
+import { isDocument } from "./typeGuards.js";
+
 /** @import { Document, Root } from "postcss" */
 
 /**
@@ -10,9 +12,9 @@ export default function eachRoot(root, cb) {
   // class `Document` is a part of `postcss-html`,
   // It is collection of roots in HTML File.
   // See: https://github.com/gucong3000/postcss-html/blob/master/lib/document.js
-  if (root.constructor.name === "Document") {
-    /** @type {Document} */ (root).nodes.forEach(cb);
+  if (isDocument(root)) {
+    root.nodes.forEach(cb);
   } else {
-    cb(/** @type {Root} */ (root));
+    cb(root);
   }
 }
