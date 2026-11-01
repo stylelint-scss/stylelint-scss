@@ -53,7 +53,7 @@ function rule(primary, secondaryOptions) {
           return;
         }
 
-        /** @type {Map<string, Array<{ node: (Declaration | Rule) & { prop?: string, nodes?: ChildNode[] }, nested?: true }>>} */
+        /** @type {Map<string, Array<{ node: (Declaration | Rule) & { prop?: string, nodes?: Array<ChildNode> }, nested?: true }>>} */
         const warningCandidates = new Map();
 
         node.each(child => {

@@ -3,7 +3,7 @@
  * It will look for an `except` property whose value should
  * be an array of keywords.
  *
- * @param {{ except?: string[] }} options
+ * @param {{ except?: Array<string> }} options
  * @param {string} exceptionName
  * @return {boolean}
  */

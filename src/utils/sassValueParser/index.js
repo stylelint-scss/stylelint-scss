@@ -26,7 +26,7 @@ export default function findOperators({
   const mathOperators = ["+", "/", "-", "*", "%"];
   // A stack of modes activated for the current char: string, interpolation
   // Calculations inside strings are not processed, so spaces are not linted
-  /** @type {{ mode: string, isCalculationEnabled: boolean, character?: string | null }[]} */
+  /** @type {Array<{ mode: string, isCalculationEnabled: boolean, character?: string | null }>} */
   const modesEntered = [
     {
       mode: "normal",
