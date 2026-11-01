@@ -1,11 +1,20 @@
 /**
  * @typedef {object} RawComment
  * @property {"css" | "double-slash"} type
- * @property {{ start: number, end: number }} source
- * @property {{ startToken: string, left: string, text: string, right: string, endToken?: string }} raws
- * @property {string} text
- * @property {boolean} inlineAfter
- * @property {boolean} inlineBefore
+ * @property {object} source
+ *   IMPORTANT: `\r` counts as a character for `start` and `end`, but PostCSS's
+ *   result.warn() counts "\r\n" as ONE char (newline)!
+ * @property {number} source.start
+ * @property {number} source.end
+ * @property {object} raws
+ * @property {string} raws.startToken - `/*`, `/**`, `/**!`, etc.
+ * @property {string} raws.left - whitespace after the comment opening marker
+ * @property {string} raws.text - the full comment, including markers (//, /*)
+ * @property {string} raws.right - whitespace before the comment closing marker
+ * @property {string} [raws.endToken] - `*\/`, `**\/` for CSS comments
+ * @property {string} text - the comment text only, excluding //, /*, trailing whitespaces
+ * @property {boolean} inlineAfter - true, if there is something before the comment on the same line
+ * @property {boolean} inlineBefore - true, if there is something after the comment on the same line
  */
 
 /** @typedef {Omit<Partial<RawComment>, "source"> & { source?: Partial<RawComment["source"]> }} PendingComment */
@@ -17,23 +26,7 @@
  * https://github.com/postcss/postcss/issues/845#issuecomment-232306259
  *
  * @param {string} rawString -- the source raw CSS string
- * @return {Array<RawComment>} array of objects with these props:
- *    � type -- "css" or "double-slash"
- *    � source: { start, end }
- *      IMPORTANT: the function itself considers \r as a character, and counts
- *      it for `start` and `end`. But if their values are passed to PostCSS's
- *      result.warn(), than "\r\n" is consideren ONE CHAR (newline)!
- *    � raws
- *      raws.startToken -- `/*`, `/**`, `/**!`, etc.
- *      raws.left -- whitespace after the comment opening marker
- *      raws.text -- the full comment, including markers (//, /*)
- *      raws.right -- whitespace before the comment closing marker
- *      raws.endToken -- `*\/`, `**\/` for CSS comments
- *    � text -- the comment text only, excluding //, /*, trailing whitespaces
- *    � inlineAfter -- true, if there is something before the comment on
- *      the same line
- *    � inlineBefore -- true, if there is something after the comment on
- *      the same line
+ * @return {Array<RawComment>}
  */
 
 export default function findCommentsInRaws(rawString) {
