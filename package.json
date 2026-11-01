@@ -32,6 +32,7 @@
   "devDependencies": {
     "@lavamoat/allow-scripts": "^5.1.0",
     "@lavamoat/preinstall-always-fail": "^3.0.1",
+    "@types/node": "^20.19.43",
     "common-tags": "^1.8.2",
     "cross-env": "^10.1.0",
     "eslint": "^10.13.0",
@@ -48,7 +49,7 @@
     "postcss-scss": "^4.0.9",
     "prettier": "^3.9.10",
     "stylelint": "^17.16.0",
-    "typescript": "^6.0.3"
+    "typescript": "~6.0.3"
   },
   "files": [
     "src/**/*.js",
