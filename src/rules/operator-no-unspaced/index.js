@@ -274,9 +274,10 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
     }
 
     const results = [];
+    const paramIndex = atRuleParamIndex(item);
 
     mediaQueryParser(item.params).walk(node => {
-      const globalIndex = atRuleParamIndex(item) + node.sourceIndex;
+      const globalIndex = paramIndex + node.sourceIndex;
 
       if (["keyword", "media-type", "media-feature"].includes(node.type)) {
         results.push(...findInterpolation(node.value, globalIndex));
