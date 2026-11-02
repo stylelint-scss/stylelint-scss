@@ -1298,6 +1298,64 @@ testRule({
 testRule({
   ruleName,
   config: true,
+  languageOptions: {
+    syntax: {
+      properties: { top: "| <foo>" },
+      types: { foo: "red" }
+    }
+  },
+
+  accept: [
+    {
+      code: "a { top: 10px; }"
+    },
+    {
+      code: "a { top: red; }"
+    }
+  ],
+
+  reject: [
+    {
+      code: "a { top: blue; }",
+      message: messages.rejected("top", "blue"),
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 14
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: [true, { propertiesSyntax: { top: "| blue" } }],
+  languageOptions: {
+    syntax: {
+      properties: { top: "| red" }
+    }
+  },
+
+  accept: [
+    {
+      code: "a { top: blue; }"
+    }
+  ],
+
+  reject: [
+    {
+      code: "a { top: red; }",
+      message: messages.rejected("top", "red"),
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 13
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: true,
   customSyntax: "postcss-scss",
 
   accept: [

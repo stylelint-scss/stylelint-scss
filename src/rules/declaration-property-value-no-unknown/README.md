@@ -9,7 +9,7 @@ a { top: unknown; }
  * property and value pairs like these */
 ```
 
-This rule considers values for properties defined in the CSS Specifications, up to and including Editor's Drafts, to be known. You can use the `propertiesSyntax` and `typesSyntax` secondary options to extend the syntax.
+This rule considers values for properties defined in the CSS Specifications, up to and including Editor's Drafts, to be known. You can extend the syntax with the `properties` and `types` of Stylelint's shared [`languageOptions.syntax`](https://stylelint.io/user-guide/configure#languageoptions) configuration property, or with the `propertiesSyntax` and `typesSyntax` secondary options, which take precedence.
 
 This rule checks property values. You can use [`at-rule-descriptor-value-no-unknown`](https://github.com/stylelint/stylelint/tree/main/lib/rules/at-rule-descriptor-value-no-unknown/README.md) to disallow unknown values for descriptors within at-rules.
 
