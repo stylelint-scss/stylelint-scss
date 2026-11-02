@@ -15,6 +15,12 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
+// `(?![\w-])` ends the keyword: `nullable` and `null-ish` are identifiers, not null
+const EQUALS_NULL = /==\s*null(?![\w-])/;
+const NOT_EQUALS_NULL = /!=\s*null(?![\w-])/;
+// `$x != null and $x > 1` guards the comparison that follows, so it is kept
+const NULL_GUARD = /!=\s*null\s+and(?![\w-])/;
+
 function rule(expectation) {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
@@ -25,31 +31,34 @@ function rule(expectation) {
       return;
     }
 
-    root.walkAtRules("if", atrule => {
-      const { params } = atrule;
+    root.walkAtRules(/^(if|else)$/, atrule => {
+      // postcss-scss parses `@else if $x` as at-rule `else` with params `if $x`
+      const condition =
+        atrule.name === "if"
+          ? atrule.params
+          : atrule.params.match(/^if(?![\w-])(.*)$/s)?.[1].trim();
 
-      // If rule != null and (expr), skip
-      if (params.match(/.* != null and .*/)) {
+      if (!condition || NULL_GUARD.test(condition)) {
         return;
       }
 
-      if (params.match(/.* == null[ \t]*\)?/)) {
-        utils.report({
-          message: messages.equals_null,
-          node: atrule,
-          result,
-          ruleName,
-          word: params
-        });
-      } else if (params.match(/.* != null[ \t]*\)?/)) {
-        utils.report({
-          message: messages.not_equals_null,
-          node: atrule,
-          result,
-          ruleName,
-          word: params
-        });
+      let message;
+
+      if (EQUALS_NULL.test(condition)) {
+        message = messages.equals_null;
+      } else if (NOT_EQUALS_NULL.test(condition)) {
+        message = messages.not_equals_null;
+      } else {
+        return;
       }
+
+      utils.report({
+        message,
+        node: atrule,
+        result,
+        ruleName,
+        word: condition
+      });
     });
   };
 }

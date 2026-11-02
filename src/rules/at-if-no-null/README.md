@@ -29,6 +29,19 @@ a {
 }
 ```
 
+```scss
+a {
+    @if $x==null {}
+}
+```
+
+```scss
+a {
+    @if $x {}
+    @else if $y == null {}
+}
+```
+
 The following patterns are *not* considered warnings:
 
 ```scss
@@ -40,5 +53,11 @@ a {
 ```scss
 a {
     @if not $x {}
+}
+```
+
+```scss
+a {
+    @if $x == nullable {}
 }
 ```
