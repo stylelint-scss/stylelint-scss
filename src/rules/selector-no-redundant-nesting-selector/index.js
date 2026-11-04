@@ -48,7 +48,7 @@ function rule(actual, options) {
         fullSelector.walkNesting(node => {
           const prev = node.prev();
 
-          if (prev || hasNestedSibling(node)) {
+          if (prev || hasNestedSibling(node) || hasOtherNesting(node)) {
             return;
           }
 
@@ -92,6 +92,30 @@ function rule(actual, options) {
       });
     });
   };
+}
+
+/**
+ * Whether the complex selector containing the node has another nesting
+ * selector, for example inside a pseudo-class: `& > .bar:not(&--1)`.
+ */
+function hasOtherNesting(node) {
+  let selector = node.parent;
+
+  while (selector.parent && selector.parent.type !== "root") {
+    selector = selector.parent;
+  }
+
+  let found = false;
+
+  selector.walkNesting(nesting => {
+    if (nesting !== node) {
+      found = true;
+
+      return false;
+    }
+  });
+
+  return found;
 }
 
 rule.ruleName = ruleName;
