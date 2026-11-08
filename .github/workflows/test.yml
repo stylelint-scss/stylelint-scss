@@ -63,8 +63,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Use "18" once 18.0.0 is released.
-        stylelint: ["16", "17", "18.0.0-next.0"]
+        stylelint: ["16", "17", "18"]
 
     steps:
       - name: Clone repository

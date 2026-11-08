@@ -40,14 +40,14 @@
     "github-contributors-list": "^1.2.5",
     "husky": "^9.1.7",
     "jest": "^30.5.2",
-    "jest-preset-stylelint": "^9.2.1",
+    "jest-preset-stylelint": "^10.0.0",
     "lint-staged": "^17.6.0",
     "np": "^12.1.1",
     "postcss": "^8.5.30",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.9.10",
-    "stylelint": "^17.16.0"
+    "stylelint": "^18.0.0"
   },
   "files": [
     "src/**/*.js",
