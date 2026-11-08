@@ -43,6 +43,11 @@ a { color: if(true, green, red); }
 a { color: if(sass($dark): white; else: black); }
 ```
 
+```scss
+@function double($value) { @return $value * 2; }
+a { width: double(10px); }
+```
+
 ## Optional secondary options
 
 ### `ignoreFunctions: ["/regex/", /regex/, "non-regex"]`
