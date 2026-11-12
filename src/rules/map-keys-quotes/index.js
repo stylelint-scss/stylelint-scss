@@ -15,9 +15,8 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-const mathOperators = ["+", "/", "-", "*", "%"];
-
-function rule(primary) {
+/** @type {import('stylelint').Rule<"always">} */
+const rule = primary => {
   return (root, result) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary,
@@ -34,69 +33,83 @@ function rule(primary) {
       }
 
       valueParser(decl.value).walk(node => {
-        if (
-          node.type === "function" &&
-          node.value === "" &&
-          isMap(node.nodes)
-        ) {
-          // Identify all of the map-keys and see if they're strings (not words).
-          const mapKeys = returnMapKeys(node.nodes);
+        if (node.type !== "function" || node.value !== "") {
+          return;
+        }
 
-          mapKeys.forEach(mapKey => {
-            if (mathOperators.includes(mapKey.value)) {
-              return;
-            }
-
-            if (mapKey.type === "word" && isNaN(mapKey.value)) {
-              utils.report({
-                message: messages.expected,
-                node: decl,
-                result,
-                ruleName,
-                word: mapKey.value
-              });
-            }
-          });
+        for (const mapKey of getMapKeys(node.nodes)) {
+          if (mapKey.type === "word" && isNaN(Number(mapKey.value))) {
+            utils.report({
+              message: messages.expected,
+              node: decl,
+              result,
+              ruleName,
+              word: mapKey.value
+            });
+          }
         }
       });
     });
   };
-}
+};
 
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
 
-// Takes in a list of map nodes and identifies if they are a map.
-// A map is identified by the pattern: [string/word colon(div) anything comma(div) ...]
-function isMap(nodes) {
-  if (nodes.length < 4) {
-    return false;
-  }
+/** @typedef {import('postcss-value-parser').Node} Node */
 
-  if (nodes[0].type !== "word" && nodes[0].type !== "string") {
-    return false;
-  }
-
-  if (nodes[1].value !== ":") {
-    return false;
-  }
-
-  if (nodes[3].value !== ",") {
-    return false;
-  }
-
-  return true;
+/**
+ * @param {Node} node
+ * @param {string} value
+ * @returns {boolean}
+ */
+function isDiv(node, value) {
+  return node.type === "div" && node.value === value;
 }
 
-function returnMapKeys(array) {
-  const new_array = [];
+/**
+ * @param {Array<Node>} nodes
+ * @returns {Array<Array<Node>>}
+ */
+function splitEntries(nodes) {
+  /** @type {Array<Array<Node>>} */
+  const entries = [[]];
 
-  for (let i = 0; i < array.length; i += 4) {
-    new_array.push(array[i]);
+  for (const node of nodes) {
+    if (isDiv(node, ",")) {
+      entries.push([]);
+    } else {
+      entries[entries.length - 1].push(node);
+    }
   }
 
-  return new_array;
+  return entries;
+}
+
+/**
+ * @param {Array<Node>} entry
+ * @returns {Node | undefined} The key's first node, when the entry is `key: value`
+ */
+function getEntryKey(entry) {
+  const [key] = entry;
+  const isKey = key?.type === "word" || key?.type === "string";
+
+  return isKey && entry.some(node => isDiv(node, ":")) ? key : undefined;
+}
+
+/**
+ * @param {Array<Node>} nodes
+ * @returns {Array<Node>} Empty when the nodes are not a map
+ */
+function getMapKeys(nodes) {
+  const keys = splitEntries(nodes).map(getEntryKey);
+
+  if (keys.length < 2 || !keys[0]) {
+    return [];
+  }
+
+  return keys.filter(key => key !== undefined);
 }
 
 export default rule;

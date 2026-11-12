@@ -1,3 +1,11 @@
+# 7.5.0
+
+- Added: `stylelint@^18.0.0` to peer dependency (#1386).
+- Added: `declaration-property-value-no-unknown` support for `languageOptions.syntax` (#1386).
+- Fixed: `map-keys-quotes` false positive on multi-word values (#1382).
+
+**Full Changelog**: https://github.com/stylelint-scss/stylelint-scss/compare/v7.4.0...v7.5.0
+
 # 7.4.0
 
 - Added: `function-no-unknown` allow sass() conditions in CSS-style if() (#1365).
