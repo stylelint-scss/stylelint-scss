@@ -42,12 +42,7 @@ rule.messages = messages;
 rule.meta = meta;
 
 function isLoudComment(comment) {
-  const regex = new RegExp(/^[ \t\n]*\/\*/);
-
-  const splitComment = comment.source.input.css.split("\n");
-  const commentFirstLine = splitComment[comment.source.start.line - 1];
-
-  return regex.test(commentFirstLine);
+  return !comment.raws.inline;
 }
 
 export default rule;
