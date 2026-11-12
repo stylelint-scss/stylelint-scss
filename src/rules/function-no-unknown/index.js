@@ -74,6 +74,31 @@ function collectSassConditions(nodes, inIf = false, conditions = new Set()) {
   return conditions;
 }
 
+/**
+ * Collect the functions defined with `@function` in the file, as patterns
+ * for the `ignoreFunctions` option. Sass treats hyphens and underscores in
+ * names as the same character, so `get_color()` calls `@function get-color`.
+ * @see https://sass-lang.com/documentation/at-rules/function
+ */
+function getLocalFunctions(root) {
+  const localFunctions = [];
+
+  root.walkAtRules(/^function$/i, atRule => {
+    const matched = atRule.params.match(/^\s*([^\s(]+)/);
+
+    if (!matched) return;
+
+    const pattern = matched[1]
+      .split(/[-_]/)
+      .map(part => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+      .join("[-_]");
+
+    localFunctions.push(new RegExp(`^${pattern}$`));
+  });
+
+  return localFunctions;
+}
+
 function rule(primaryOption, secondaryOptions) {
   return async (root, result) => {
     const validOptions = utils.validateOptions(
@@ -97,7 +122,10 @@ function rule(primaryOption, secondaryOptions) {
 
     const optionsFunctions =
       (secondaryOptions && secondaryOptions.ignoreFunctions) || [];
-    const ignoreFunctions = ALL_FUNCTIONS.concat(optionsFunctions);
+    const ignoreFunctions = ALL_FUNCTIONS.concat(
+      optionsFunctions,
+      getLocalFunctions(root)
+    );
     const ignoreFunctionsAsSet = new Set(ignoreFunctions);
     const newSecondaryOptions = { ...secondaryOptions, ignoreFunctions };
 

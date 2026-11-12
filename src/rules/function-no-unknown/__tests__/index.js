@@ -133,6 +133,50 @@ testRule({
     {
       code: "$value: if(sass($condition): 10px; else: 15px);",
       description: "sass() condition in a variable declaration"
+    },
+    {
+      code: `
+      @function get-color() {
+        @return #333ccc;
+      }
+
+      .element {
+        color: get-color();
+      }
+      `,
+      description:
+        "function defined with @function in the same file, issue #1177"
+    },
+    {
+      code: `
+      .element {
+        padding: double($base) half($base, $round: true);
+      }
+
+      @function double($value) {
+        @return $value * 2;
+      }
+
+      @function half ($value, $round: false) {
+        @return $value / 2;
+      }
+      `,
+      description:
+        "functions with arguments defined later in the same file, issue #1177"
+    },
+    {
+      code: `
+      @function get_color() {
+        @return #333ccc;
+      }
+
+      .element {
+        color: get-color();
+        background: #{get_color()};
+      }
+      `,
+      description:
+        "local function called with hyphens and underscores swapped, issue #1177"
     }
   ],
 
@@ -142,6 +186,21 @@ testRule({
       message: messages.rejected("unknown"),
       line: 1,
       column: 12
+    },
+    {
+      code: `
+      @function get-color() {
+        @return #333ccc;
+      }
+
+      .element {
+        color: get-colour();
+      }
+      `,
+      message: messages.rejected("get-colour"),
+      line: 7,
+      column: 16,
+      description: "unknown function in a file that defines other functions"
     },
     {
       code: "a { color: color.unknown(#6b717f, $red: 15); }",
