@@ -32,6 +32,7 @@
   "devDependencies": {
     "@lavamoat/allow-scripts": "^5.1.0",
     "@lavamoat/preinstall-always-fail": "^3.0.1",
+    "@types/node": "^20.19.43",
     "common-tags": "^1.8.2",
     "cross-env": "^10.1.0",
     "eslint": "^10.13.0",
@@ -47,7 +48,8 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.9.10",
-    "stylelint": "^18.0.0"
+    "stylelint": "^18.0.0",
+    "typescript": "~6.0.3"
   },
   "files": [
     "src/**/*.js",
@@ -67,15 +69,15 @@
     "ci": "npm ci && allow-scripts run",
     "lint": "eslint .",
     "prettify": "prettier --write \"src/**/*.js\" --ignore-path=.prettierignore",
-    "pretest": "npm run lint",
     "release": "np",
     "jest": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
-    "test": "npm run jest -- --coverage",
+    "test": "npm run lint && npm run typecheck && npm run jest -- --coverage",
     "watch": "npm run jest -- --watch",
     "test-rule": "npm run jest",
     "test-util": "npm run jest",
     "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "typecheck": "tsc"
   },
   "lavamoat": {
     "allowScripts": {

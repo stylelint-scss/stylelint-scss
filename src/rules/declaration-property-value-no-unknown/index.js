@@ -295,7 +295,7 @@ const rule = (primary, secondaryOptions) => {
         return;
       }
 
-      /** @type {CssNode} */
+      /** @type {import('css-tree').CssNode} */
       let cssTreeValueNode;
 
       try {

@@ -21,7 +21,7 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-/** @type {import('stylelint').CoreRules[ruleName]} */
+/** @type {import('stylelint').CoreRules['selector-class-pattern']} */
 const rule = (primary, secondaryOptions) => {
   return (root, result) => {
     const validOptions = utils.validateOptions(

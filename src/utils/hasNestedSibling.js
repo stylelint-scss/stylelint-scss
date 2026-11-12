@@ -1,7 +1,7 @@
 /**
  * Determines whether a given node has nested sibling.
  *
- * @param  {import('postcss').Node} node
+ * @param  {import('postcss-selector-parser').Node} node
  * @return {boolean}
  */
 export default function hasNestedSibling(node) {

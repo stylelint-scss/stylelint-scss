@@ -36,7 +36,7 @@ function rule(expectation, options, context) {
         possible: {
           except: ["last-nested", "before-comment", "before-dollar-variable"],
           ignore: ["before-comment", "inside-single-line-block"],
-          disableFix: isBoolean
+          disableFix: [isBoolean]
         },
         optional: true
       }

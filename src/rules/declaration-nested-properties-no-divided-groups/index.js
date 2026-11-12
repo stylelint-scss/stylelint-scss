@@ -3,6 +3,8 @@ import parseNestedPropRoot from "../../utils/parseNestedPropRoot.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
 
+/** @import { Declaration, Rule } from "postcss" */
+
 const { utils } = stylelint;
 
 const ruleName = namespace("declaration-nested-properties-no-divided-groups");
@@ -31,7 +33,7 @@ function rule(primary) {
         return;
       }
 
-      /** @type {Map<string, Array<import('postcss').Declaration | import('postcss').Rule>>} */
+      /** @type {Map<string, Array<Declaration | Rule>>} */
       const nestedGroups = new Map();
 
       // Find all nested property groups

@@ -1,4 +1,5 @@
-import rule from "../index.js";
+import rule, { calculationOperatorSpaceChecker } from "../index.js";
+import postcss from "postcss";
 
 const { ruleName, messages } = rule;
 
@@ -3055,4 +3056,22 @@ a {
       column: 12
     }
   ]
+});
+
+describe("calculationOperatorSpaceChecker", () => {
+  it("skips declarations without a value", () => {
+    const root = postcss.parse("a { width: 1 +1; }");
+
+    root.first.append(postcss.decl({ prop: "height" }));
+
+    const checks = [];
+
+    calculationOperatorSpaceChecker({
+      root,
+      result: undefined,
+      checker: check => checks.push(check)
+    });
+
+    expect(checks).toEqual([]);
+  });
 });

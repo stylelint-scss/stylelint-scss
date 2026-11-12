@@ -5,6 +5,8 @@ import parseNestedPropRoot from "../../utils/parseNestedPropRoot.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
 
+/** @import { ChildNode, Declaration, Rule } from "postcss" */
+
 const { utils } = stylelint;
 
 const ruleName = namespace("declaration-nested-properties");
@@ -51,7 +53,7 @@ function rule(primary, secondaryOptions) {
           return;
         }
 
-        /** @type {Map<string, Array<{ node: import('postcss').Declaration | import('postcss').Rule, nested?: true }>>} */
+        /** @type {Map<string, Array<{ node: Declaration, nested: false } | { node: Rule | (Declaration & { nodes?: Array<ChildNode> }), nested: true }>>} */
         const warningCandidates = new Map();
 
         node.each(child => {
@@ -79,7 +81,9 @@ function rule(primary, secondaryOptions) {
               warningCandidates.set(propNamespace, []);
             }
 
-            warningCandidates.get(propNamespace).push({ node: child });
+            warningCandidates
+              .get(propNamespace)
+              .push({ node: child, nested: false });
 
             return;
           }
@@ -109,7 +113,7 @@ function rule(primary, secondaryOptions) {
           const hasMultipleProps = candidates.length > 1;
 
           for (const candidate of candidates) {
-            if (candidate.nested) {
+            if (candidate.nested === true) {
               // If except: "only-of-namespace" and only one child inside nested prop - warn (reverse "always")
               if (
                 !exceptIfOnlyOfNamespace ||
