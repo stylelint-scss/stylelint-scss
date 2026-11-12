@@ -90,6 +90,23 @@ testRule({
     },
     {
       code: `
+      .foo {
+        & > .bar:not(&--1):not(&--2) {}
+      }
+    `,
+      description: "when another ampersand is used inside a pseudo-class"
+    },
+    {
+      code: `
+      .foo {
+        & .bar:is(&.baz) {}
+      }
+    `,
+      description:
+        "when another ampersand is used inside a pseudo-class after a descendant combinator"
+    },
+    {
+      code: `
       .icon {
         & &-small {}
       }
@@ -205,6 +222,35 @@ testRule({
   ],
 
   reject: [
+    {
+      code: `
+      .foo {
+        & > .bar:not(.baz) {}
+      }
+    `,
+      line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 10,
+      message: messages.rejected,
+      description:
+        "when an ampersand precedes a combinator and the pseudo-class has no ampersand"
+    },
+    {
+      code: `
+      .foo {
+        & > .bar,
+        .baz:not(&--1) {}
+      }
+    `,
+      line: 3,
+      column: 9,
+      endLine: 3,
+      endColumn: 10,
+      message: messages.rejected,
+      description:
+        "when the other ampersand is in another selector of the list"
+    },
     {
       code: `
       p {
