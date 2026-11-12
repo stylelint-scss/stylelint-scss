@@ -111,8 +111,11 @@ const rule = (primary, secondaryOptions) => {
     const isPropIgnored = (name, value) =>
       optionsMatchesEntry(secondaryOptions, "ignoreProperties", name, value);
 
+    const languageSyntax = result.stylelint.config?.languageOptions?.syntax;
+
     const propertiesSyntax = {
       ...syntaxPatches.properties,
+      ...languageSyntax?.properties,
       ...secondaryOptions?.propertiesSyntax
     };
     const typesSyntax = {
@@ -120,6 +123,7 @@ const rule = (primary, secondaryOptions) => {
       // Sass supports rgba(color, alpha).
       // https://sass-lang.com/documentation/modules/#rgb
       "rgba()": "| rgba( <hex-color> , <alpha-value>? )",
+      ...languageSyntax?.types,
       ...secondaryOptions?.typesSyntax
     };
 
