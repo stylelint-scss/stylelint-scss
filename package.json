@@ -49,7 +49,7 @@
     "postcss-scss": "^4.0.9",
     "prettier": "^3.9.10",
     "stylelint": "^18.0.0",
-    "typescript": "~6.0.3"
+    "typescript": "~7.0.2"
   },
   "files": [
     "src/**/*.js",
