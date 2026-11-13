@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [24]
+        node: [22, 24]
         os: [ubuntu-latest, windows-latest]
 
     steps:
@@ -57,13 +57,20 @@ jobs:
           path-to-lcov: "./.coverage/lcov.info"
 
   stylelint:
-    name: Stylelint ${{ matrix.stylelint }}
+    name: Stylelint ${{ matrix.stylelint }} on Node ${{ matrix.node }}
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        stylelint: ["16", "17", "18"]
+        # Oldest Node within engines that each major supports (18 needs 22.22+)
+        include:
+          - stylelint: 16
+            node: 20
+          - stylelint: 17
+            node: 20
+          - stylelint: 18
+            node: 22
 
     steps:
       - name: Clone repository
@@ -74,7 +81,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: ${{ matrix.node }}
           cache: npm
 
       - name: Install npm dependencies
