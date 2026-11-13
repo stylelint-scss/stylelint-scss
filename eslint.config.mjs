@@ -10,8 +10,7 @@ export default [
       ecmaVersion: "latest",
       globals: {
         dedent: "readonly",
-        testRule: "readonly",
-        testRuleConfigs: "readonly"
+        testRule: "readonly"
       },
       sourceType: "module"
     }
