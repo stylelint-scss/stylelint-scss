@@ -32,7 +32,7 @@
   "devDependencies": {
     "@lavamoat/allow-scripts": "^5.1.0",
     "@lavamoat/preinstall-always-fail": "^3.0.1",
-    "@types/node": "^20.19.43",
+    "@types/node": "^26.6.6",
     "common-tags": "^1.8.2",
     "cross-env": "^10.1.0",
     "eslint": "^10.14.0",
