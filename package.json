@@ -67,7 +67,7 @@
   ],
   "scripts": {
     "ci": "npm ci && allow-scripts run",
-    "lint": "eslint .",
+    "lint": "eslint . && prettier --check .",
     "prettify": "prettier --write \"src/**/*.js\" --ignore-path=.prettierignore",
     "release": "np",
     "jest": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",

@@ -248,8 +248,7 @@ testRule({
       endLine: 3,
       endColumn: 10,
       message: messages.rejected,
-      description:
-        "when the other ampersand is in another selector of the list"
+      description: "when the other ampersand is in another selector of the list"
     },
     {
       code: `
