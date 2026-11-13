@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - master
-      - "!dependabot/**"
   pull_request:
     branches:
       - master
-      - "!dependabot/**"
   schedule:
     - cron: "0 7 * * 1"
   workflow_dispatch:
