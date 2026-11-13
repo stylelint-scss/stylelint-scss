@@ -67,6 +67,7 @@ import percentPlaceholderPattern from "./percent-placeholder-pattern/index.js";
 import propertyNoUnknown from "./property-no-unknown/index.js";
 import selectorClassPattern from "./selector-class-pattern/index.js";
 import selectorNestCombinators from "./selector-nest-combinators/index.js";
+import selectorNoInvalid from "./selector-no-invalid/index.js";
 import selectorNoRedundantNestingSelector from "./selector-no-redundant-nesting-selector/index.js";
 import selectorNoUnionClassName from "./selector-no-union-class-name/index.js";
 
@@ -146,6 +147,7 @@ const rules = {
   "property-no-unknown": propertyNoUnknown,
   "selector-class-pattern": selectorClassPattern,
   "selector-nest-combinators": selectorNestCombinators,
+  "selector-no-invalid": selectorNoInvalid,
   "selector-no-redundant-nesting-selector": selectorNoRedundantNestingSelector,
   "selector-no-union-class-name": selectorNoUnionClassName
 };
