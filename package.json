@@ -73,8 +73,6 @@
     "jest": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
     "test": "npm run lint && npm run typecheck && npm run jest -- --coverage",
     "watch": "npm run jest -- --watch",
-    "test-rule": "npm run jest",
-    "test-util": "npm run jest",
     "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html",
     "prepare": "husky install",
     "typecheck": "tsc"
