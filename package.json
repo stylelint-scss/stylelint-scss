@@ -74,7 +74,7 @@
     "test": "npm run lint && npm run typecheck && npm run jest -- --coverage",
     "watch": "npm run jest -- --watch",
     "generate-contributors-list": "githubcontrib --owner stylelint-scss --repo stylelint-scss --cols 6 --sortOrder desc --filter greenkeeper[bot],dependabot[bot] --showlogin true --imagesize 80 --format html",
-    "prepare": "husky install",
+    "prepare": "husky",
     "typecheck": "tsc"
   },
   "lavamoat": {
