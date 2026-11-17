@@ -1,6 +1,7 @@
 import blockString from "../../utils/blockString.js";
 import hasEmptyLine from "../../utils/hasEmptyLine.js";
 import { isBoolean } from "../../utils/validateTypes.js";
+import { isDollarVarDeclaration } from "../../utils/isDollarVarDeclaration.js";
 import isSingleLineString from "../../utils/isSingleLineString.js";
 import namespace from "../../utils/namespace.js";
 import optionsHaveException from "../../utils/optionsHaveException.js";
@@ -61,7 +62,6 @@ function rule(expectation, options, context) {
     };
 
     const hasNewline = str => str.indexOf(context.newline) > -1;
-    const isDollarVar = node => node.prop && node.prop[0] === "$";
 
     root.walkDecls(decl => {
       let expectEmptyLineAfter = expectation === "always";
@@ -86,7 +86,7 @@ function rule(expectation, options, context) {
 
       // Ignore declarations that aren't variables.
       // ------------------------------------------
-      if (!isDollarVar(decl)) {
+      if (!isDollarVarDeclaration(decl)) {
         return;
       }
 
@@ -128,7 +128,7 @@ function rule(expectation, options, context) {
       else {
         const hasEmptyLineAfter = hasEmptyLine(next.raws.before);
         const nextIsComment = next.type === "comment";
-        const nextIsVariable = isDollarVar(next);
+        const nextIsVariable = isDollarVarDeclaration(next);
 
         if (nextIsComment) {
           if (
@@ -176,7 +176,7 @@ function rule(expectation, options, context) {
           const nextBefore = next.raws.before;
           const hasEmptyLineAfter = hasEmptyLine(nextBefore);
           const nextIsComment = next.type === "comment";
-          const nextIsVariable = isDollarVar(next);
+          const nextIsVariable = isDollarVarDeclaration(next);
 
           if (expectEmptyLineAfter && !hasEmptyLineAfter) {
             fixNext(next, context.newline, context.newline + context.newline);
