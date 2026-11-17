@@ -1,15 +1,31 @@
+import {
+  isAtRule,
+  isDeclaration,
+  isValueFunction,
+  isValueWord
+} from "../../utils/typeGuards.js";
 import { isDollarVar } from "../../utils/validateTypes.js";
 import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
+import moduleNamespace from "../../utils/moduleNamespace.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
 import valueParser from "postcss-value-parser";
+
+/** @typedef {import('postcss').Declaration | import('postcss').AtRule} CheckedNode */
+/** @typedef {import('stylelint').PostcssResult} PostcssResult */
+/** @typedef {{ name: string, start: number, end: number }} Variable */
 
 const { utils } = stylelint;
 
 const ruleName = namespace("dollar-variable-no-missing-interpolation");
 
 const messages = utils.ruleMessages(ruleName, {
+  /**
+   * @param {string} nodeName
+   * @param {string} variableName
+   * @returns {string}
+   */
   rejected: (nodeName, variableName) =>
     `Expected variable ${variableName} to be interpolated when using it with ${nodeName}`
 });
@@ -18,8 +34,6 @@ const meta = {
   url: ruleUrl(ruleName),
   fixable: true
 };
-
-const SCSS_VARIABLE_REFERENCE_PATTERN = /^(?:[\w-]+\.)?\$[\w-]+$/;
 
 const CUSTOM_IDENT_PROPERTIES = [
   "animation",
@@ -32,102 +46,172 @@ const CUSTOM_IDENT_PROPERTIES = [
 
 const CUSTOM_IDENT_AT_RULES = ["counter-style", "keyframes", "supports"];
 
-function isAtRule(type) {
-  return type === "atrule";
-}
-
+/**
+ * @param {CheckedNode} node
+ * @returns {boolean}
+ */
 function isCustomIdentAtRule(node) {
-  return isAtRule(node.type) && CUSTOM_IDENT_AT_RULES.includes(node.name);
+  return isAtRule(node) && CUSTOM_IDENT_AT_RULES.includes(node.name);
 }
 
+/**
+ * @param {CheckedNode} node
+ * @returns {boolean}
+ */
 function isCustomIdentProp(node) {
-  return CUSTOM_IDENT_PROPERTIES.includes(node.prop);
+  return isDeclaration(node) && CUSTOM_IDENT_PROPERTIES.includes(node.prop);
 }
 
+/**
+ * @param {CheckedNode} node
+ * @returns {boolean}
+ */
 function isAtSupports(node) {
-  return isAtRule(node.type) && node.name === "supports";
+  return isAtRule(node) && node.name === "supports";
 }
 
+/**
+ * @param {CheckedNode} node
+ * @returns {boolean}
+ */
 function isCustomProperty(node) {
-  return node.prop && node.prop.startsWith("--");
+  return isDeclaration(node) && node.prop.startsWith("--");
 }
 
 /**
  * Variables inside #{...} blocks are already interpolated and should not be flagged.
  * Example: "animation-name: #{$bar} $baz" - $bar is interpolated, $baz is not.
  * Handles nested blocks: #{outer(#{inner($var)})}
+ * @param {string} value
+ * @param {number} variableIndex
+ * @returns {boolean}
  */
 function isInsideInterpolationBlock(value, variableIndex) {
   let depth = 0;
-  let insideBlock = false;
 
   // Scan from the start of the value up to the variable position
   for (let i = 0; i < variableIndex; i++) {
     if (value[i] === "#" && value[i + 1] === "{") {
       depth++;
-      insideBlock = true;
       i++; // Skip the '{' to avoid double-counting
     } else if (value[i] === "}") {
       depth--;
-
-      if (depth === 0) {
-        insideBlock = false;
-      }
     }
   }
 
-  return insideBlock && depth > 0;
+  return depth > 0;
 }
 
+/**
+ * @param {string} value
+ * @returns {boolean}
+ */
 function isSassVariable(value) {
-  return value && value[0] === "$";
+  return value[0] === "$";
 }
 
+/**
+ * @param {string} value
+ * @returns {boolean}
+ */
 function isStringValue(value) {
   return /^["'].*["']$/.test(value);
 }
 
+/**
+ * @param {Array<import('postcss-value-parser').FunctionNode>} functionStack
+ * @returns {import('postcss-value-parser').FunctionNode | undefined}
+ */
 function findSassFunctionToInterpolate(functionStack) {
-  let nativeFunctionBoundaryIndex = -1;
+  const lastNativeIndex = functionStack.findLastIndex(functionNode =>
+    isNativeCssFunction(functionNode.value)
+  );
 
-  for (let i = functionStack.length - 1; i >= 0; i--) {
-    if (isNativeCssFunction(functionStack[i].value)) {
-      nativeFunctionBoundaryIndex = i;
-      break;
-    }
-  }
-
-  return functionStack
-    .slice(nativeFunctionBoundaryIndex + 1)
-    .find(functionNode => !isNativeCssFunction(functionNode.value));
+  // Every function after the last native one is a Sass function
+  return functionStack[lastNativeIndex + 1];
 }
 
-function getInterpolationRanges(value, wrapFunctionCalls) {
+/**
+ * Matches `$var` and `ns.$var` inside a word. Namespaces come from `@use`, since
+ * they may contain hyphens: `--c-ns.$b` yields `ns.$b`.
+ * @param {import('postcss').Root} root
+ * @returns {RegExp}
+ */
+function createVariablePattern(root) {
+  /** @type {Array<string>} */
+  const namespaces = [];
+
+  root.walkAtRules("use", atRule => {
+    const url = atRule.params.match(/^["'](.+?)["']/)?.[1];
+    const name = url && moduleNamespace(root, url);
+
+    if (name && /^[\p{L}\p{N}_-]+$/u.test(name)) {
+      namespaces.push(name);
+    }
+  });
+
+  const nameChar = "[\\p{L}\\p{N}_]";
+  const prefix = namespaces.length
+    ? `(?:(?<!${nameChar})(?:${namespaces.join("|")})\\.)?`
+    : "";
+
+  // A name never ends with `-`: `$a-$b` is `$a` and `$b`
+  return new RegExp(`${prefix}\\$[\\p{L}\\p{N}_-]*${nameChar}`, "gu");
+}
+
+/**
+ * Variables in a word that are outside `#{...}`, e.g. `ns.$b` in `--c-#{$a}-ns.$b`.
+ * @param {string} value
+ * @param {import('postcss-value-parser').Node} node
+ * @param {RegExp} variablePattern
+ * @returns {Array<Variable>}
+ */
+function findUninterpolatedVariables(value, node, variablePattern) {
+  return [...node.value.matchAll(variablePattern)]
+    .map(({ 0: name, index }) => {
+      const start = node.sourceIndex + index;
+
+      return { name, start, end: start + name.length };
+    })
+    .filter(({ start }) => !isInsideInterpolationBlock(value, start));
+}
+
+/**
+ * @param {string} value
+ * @param {RegExp} variablePattern
+ * @param {boolean} wrapFunctionCalls
+ * @returns {Array<[start: number, end: number]>}
+ */
+function getInterpolationRanges(value, variablePattern, wrapFunctionCalls) {
+  /** @type {Array<[start: number, end: number]>} */
   const ranges = [];
 
+  /**
+   * @param {Array<import('postcss-value-parser').Node>} nodes
+   * @param {Array<import('postcss-value-parser').FunctionNode>} [functionStack]
+   */
   function walkNodes(nodes, functionStack = []) {
     for (const node of nodes) {
-      const nextFunctionStack =
-        node.type === "function" ? [...functionStack, node] : functionStack;
+      if (isValueWord(node) && isDollarVar(node.value)) {
+        for (const { start, end } of findUninterpolatedVariables(
+          value,
+          node,
+          variablePattern
+        )) {
+          const sassFunction = wrapFunctionCalls
+            ? findSassFunctionToInterpolate(functionStack)
+            : undefined;
 
-      if (
-        node.type === "word" &&
-        SCSS_VARIABLE_REFERENCE_PATTERN.test(node.value) &&
-        !isInsideInterpolationBlock(value, node.sourceIndex)
-      ) {
-        const sassFunction = wrapFunctionCalls
-          ? findSassFunctionToInterpolate(functionStack)
-          : undefined;
-
-        ranges.push(
-          sassFunction
-            ? [sassFunction.sourceIndex, sassFunction.sourceEndIndex]
-            : [node.sourceIndex, node.sourceEndIndex]
-        );
+          ranges.push(
+            sassFunction
+              ? [sassFunction.sourceIndex, sassFunction.sourceEndIndex]
+              : [start, end]
+          );
+        }
       }
 
-      if (node.nodes) {
-        walkNodes(node.nodes, nextFunctionStack);
+      if (isValueFunction(node)) {
+        walkNodes(node.nodes, [...functionStack, node]);
       }
     }
   }
@@ -146,37 +230,54 @@ function getInterpolationRanges(value, wrapFunctionCalls) {
  *   "--foo: variables.$someVariable" → "--foo: #{variables.$someVariable}"
  *   "--icon: svg.encode-svg($icon)" → "--icon: #{svg.encode-svg($icon)}"
  *   "--size: calc($size * 2)" → "--size: calc(#{$size} * 2)"
+ * @param {string} value
+ * @param {RegExp} variablePattern
+ * @param {boolean} [wrapFunctionCalls]
+ * @returns {string}
  */
-function wrapVariablesWithInterpolation(value, wrapFunctionCalls = false) {
+function wrapVariablesWithInterpolation(
+  value,
+  variablePattern,
+  wrapFunctionCalls = false
+) {
   let fixed = value;
-  const ranges = getInterpolationRanges(value, wrapFunctionCalls);
 
   // Process ranges in reverse order to maintain correct string indices.
   // If we processed left-to-right, wrapping "$a" would shift the indices
   // for "$b" in a string like "animation: $a 5s, $b 3s".
-  for (let i = ranges.length - 1; i >= 0; i--) {
-    const [startIndex, endIndex] = ranges[i];
-
-    fixed = `${fixed.slice(0, startIndex)}#{${fixed.slice(
-      startIndex,
-      endIndex
-    )}}${fixed.slice(endIndex)}`;
+  for (const [start, end] of getInterpolationRanges(
+    value,
+    variablePattern,
+    wrapFunctionCalls
+  ).toReversed()) {
+    fixed = `${fixed.slice(0, start)}#{${fixed.slice(start, end)}}${fixed.slice(end)}`;
   }
 
   return fixed;
 }
 
+/**
+ * @param {Array<string>} arr
+ * @returns {RegExp}
+ */
 function createMatchingRegex(arr) {
   return new RegExp(`(${arr.join("|")})`);
 }
 
 /**
  * Collect all SCSS variables, separating string-valued ones for different reporting rules.
+ * @param {import('postcss').Root} root
+ * @returns {{ stringValuedVars: Array<string>, allVars: Array<string> }}
  */
 function collectVariables(root) {
+  /** @type {Array<string>} */
   const stringValuedVars = [];
+  /** @type {Array<string>} */
   const allVars = [];
 
+  /**
+   * @param {import('postcss').Root | import('postcss').Rule} node
+   */
   function findVariablesInNode(node) {
     node.walkDecls(decl => {
       const { prop, value } = decl;
@@ -207,9 +308,8 @@ function collectVariables(root) {
     });
   }
 
-  // Collect variables from root and all rules
+  // walkDecls already reaches declarations nested in rules
   findVariablesInNode(root);
-  root.walkRules(findVariablesInNode);
 
   return {
     stringValuedVars,
@@ -223,6 +323,11 @@ function collectVariables(root) {
  * 2. String-valued variables in @supports → report
  * 3. All variables in custom identifier at-rules → report
  * 4. All variables in CSS custom properties → report
+ * @param {CheckedNode} node
+ * @param {string} variableName
+ * @param {Array<string>} stringValuedVars
+ * @param {Array<string>} allVars
+ * @returns {boolean}
  */
 function shouldReportVariable(node, variableName, stringValuedVars, allVars) {
   // Custom identifier properties and @supports require string-valued variables
@@ -238,24 +343,29 @@ function shouldReportVariable(node, variableName, stringValuedVars, allVars) {
   // CSS custom properties always require interpolation for all variables,
   // including ones imported via @use/@import (not only same-file decls in allVars).
   // Gate on isDollarVar: bare `true` would false-positive on non-var words (e.g. `2` in calc).
-  if (isCustomProperty(node)) {
-    return isDollarVar(variableName);
-  }
-
-  return false;
+  return isCustomProperty(node) && isDollarVar(variableName);
 }
 
-function reportViolation(node, variableName, result) {
-  const { name, prop, type } = node;
-  const nodeName = isAtRule(type) ? `@${name}` : prop;
+/**
+ * @param {CheckedNode} node
+ * @param {Variable} variable
+ * @param {RegExp} variablePattern
+ * @param {PostcssResult} result
+ */
+function reportViolation(node, variable, variablePattern, result) {
+  const nodeName = isAtRule(node) ? `@${node.name}` : node.prop;
 
   const fix = () => {
     // Apply the fix by wrapping all variables in the value
-    if (type === "atrule") {
-      node.params = wrapVariablesWithInterpolation(node.params);
+    if (isAtRule(node)) {
+      node.params = wrapVariablesWithInterpolation(
+        node.params,
+        variablePattern
+      );
     } else {
       node.value = wrapVariablesWithInterpolation(
         node.value,
+        variablePattern,
         isCustomProperty(node)
       );
     }
@@ -265,22 +375,36 @@ function reportViolation(node, variableName, result) {
     ruleName,
     result,
     node,
-    message: messages.rejected(nodeName, variableName),
-    word: variableName,
+    message: messages.rejected(nodeName, variable.name),
+    word: variable.name,
     fix
   });
 }
 
+/**
+ * @param {import('postcss-value-parser').Node} node
+ * @returns {boolean}
+ */
 function shouldSkipValueNode(node) {
-  return node.type !== "word" || !node.value || node.value.startsWith("#{");
+  return !isValueWord(node) || !node.value;
 }
 
+/**
+ * @param {CheckedNode} node
+ * @param {string} value
+ * @param {Set<CheckedNode>} reportedNodes
+ * @param {Array<string>} stringValuedVars
+ * @param {Array<string>} allVars
+ * @param {RegExp} variablePattern
+ * @param {PostcssResult} result
+ */
 function checkValueForVariables(
   node,
   value,
   reportedNodes,
   stringValuedVars,
   allVars,
+  variablePattern,
   result
 ) {
   // Skip if we've already reported this node
@@ -288,7 +412,8 @@ function checkValueForVariables(
     return;
   }
 
-  let firstViolatingVariable = null;
+  /** @type {Variable | undefined} */
+  let firstViolatingVariable;
 
   // Parse the value and check each word token
   valueParser(value).walk(valueNode => {
@@ -301,21 +426,18 @@ function checkValueForVariables(
       return;
     }
 
-    // Skip variables that are already inside interpolation blocks
-    if (isInsideInterpolationBlock(value, valueNode.sourceIndex)) {
-      return;
-    }
-
-    // Store the first variable we find for reporting
-    if (!firstViolatingVariable) {
-      firstViolatingVariable = tokenValue;
-    }
+    // Check each variable, not the whole word: `--c-#{ns.$b}` is one word (#1403)
+    firstViolatingVariable ??= findUninterpolatedVariables(
+      value,
+      valueNode,
+      variablePattern
+    )[0];
   });
 
   // Only report once per node, using the first variable found
   if (firstViolatingVariable) {
     reportedNodes.add(node);
-    reportViolation(node, firstViolatingVariable, result);
+    reportViolation(node, firstViolatingVariable, variablePattern, result);
   }
 }
 
@@ -325,6 +447,8 @@ function checkValueForVariables(
  * 2. All variables in custom identifier at-rules (@keyframes, @counter-style)
  * 3. String-valued variables in @supports with custom identifier properties
  * 4. All variables in CSS custom properties (--*)
+ * @param {boolean} actual
+ * @returns {(root: import('postcss').Root, result: PostcssResult) => void}
  */
 function rule(actual) {
   return (root, result) => {
@@ -338,7 +462,9 @@ function rule(actual) {
     const { stringValuedVars, allVars } = collectVariables(root);
 
     // Track nodes we've already reported to avoid duplicates
+    /** @type {Set<CheckedNode>} */
     const reportedNodes = new Set();
+    const variablePattern = createVariablePattern(root);
 
     // Check all CSS custom properties (--*) before the allVars early-exit.
     // Imported vars (@use/@import) are absent from allVars; custom-prop reporting
@@ -351,6 +477,7 @@ function rule(actual) {
           reportedNodes,
           stringValuedVars,
           allVars,
+          variablePattern,
           result
         );
       }
@@ -369,6 +496,7 @@ function rule(actual) {
         reportedNodes,
         stringValuedVars,
         allVars,
+        variablePattern,
         result
       );
     });
@@ -381,6 +509,7 @@ function rule(actual) {
         reportedNodes,
         stringValuedVars,
         allVars,
+        variablePattern,
         result
       );
     });
