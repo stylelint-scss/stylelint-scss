@@ -1,6 +1,7 @@
 import blockString from "../../utils/blockString.js";
 import hasEmptyLine from "../../utils/hasEmptyLine.js";
 import { isBoolean } from "../../utils/validateTypes.js";
+import { isDollarVarDeclaration } from "../../utils/isDollarVarDeclaration.js";
 import isSingleLineString from "../../utils/isSingleLineString.js";
 import namespace from "../../utils/namespace.js";
 import optionsHaveException from "../../utils/optionsHaveException.js";
@@ -60,7 +61,7 @@ function rule(expectation, options, context) {
     const hasNewline = str => str.includes(context.newline);
 
     root.walkDecls(decl => {
-      if (!isDollarVar(decl)) {
+      if (!isDollarVarDeclaration(decl)) {
         return;
       }
 
@@ -91,7 +92,7 @@ function rule(expectation, options, context) {
       if (
         optionsHaveIgnored(options, "after-dollar-variable") &&
         decl.prev() &&
-        isDollarVar(decl.prev())
+        isDollarVarDeclaration(decl.prev())
       ) {
         return;
       }
@@ -119,7 +120,7 @@ function rule(expectation, options, context) {
       if (
         optionsHaveException(options, "after-dollar-variable") &&
         decl.prev() &&
-        isDollarVar(decl.prev())
+        isDollarVarDeclaration(decl.prev())
       ) {
         expectHasEmptyLineBefore = !expectHasEmptyLineBefore;
       }
@@ -168,9 +169,5 @@ function rule(expectation, options, context) {
 rule.ruleName = ruleName;
 rule.messages = messages;
 rule.meta = meta;
-
-function isDollarVar(node) {
-  return node.prop && node.prop[0] === "$";
-}
 
 export default rule;

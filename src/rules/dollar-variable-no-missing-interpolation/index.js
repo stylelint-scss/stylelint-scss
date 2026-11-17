@@ -4,7 +4,9 @@ import {
   isValueFunction,
   isValueWord
 } from "../../utils/typeGuards.js";
+import { isCustomProperty } from "../../utils/isCustomProperty.js";
 import { isDollarVar } from "../../utils/validateTypes.js";
+import { isDollarVarDeclaration } from "../../utils/isDollarVarDeclaration.js";
 import isNativeCssFunction from "../../utils/isNativeCssFunction.js";
 import moduleNamespace from "../../utils/moduleNamespace.js";
 import namespace from "../../utils/namespace.js";
@@ -71,14 +73,6 @@ function isAtSupports(node) {
 }
 
 /**
- * @param {CheckedNode} node
- * @returns {boolean}
- */
-function isCustomProperty(node) {
-  return isDeclaration(node) && node.prop.startsWith("--");
-}
-
-/**
  * Variables inside #{...} blocks are already interpolated and should not be flagged.
  * Example: "animation-name: #{$bar} $baz" - $bar is interpolated, $baz is not.
  * Handles nested blocks: #{outer(#{inner($var)})}
@@ -100,14 +94,6 @@ function isInsideInterpolationBlock(value, variableIndex) {
   }
 
   return depth > 0;
-}
-
-/**
- * @param {string} value
- * @returns {boolean}
- */
-function isSassVariable(value) {
-  return value[0] === "$";
 }
 
 /**
@@ -295,7 +281,7 @@ function collectVariables(root) {
       }
 
       // Skip if not a SCSS variable or already collected
-      if (!isSassVariable(prop) || allVars.includes(prop)) {
+      if (!isDollarVarDeclaration(decl) || allVars.includes(prop)) {
         return;
       }
 

@@ -1,3 +1,4 @@
+import { isCustomProperty } from "../../utils/isCustomProperty.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
@@ -32,7 +33,7 @@ function rule(actual) {
         if (!calculationFunctions.includes(node.value)) return;
 
         // Interpolation is valid in SassScript.
-        if (decl.type === "decl" && decl.prop.startsWith("--")) return;
+        if (isCustomProperty(decl)) return;
 
         const interpolation = node.nodes.find(
           ({ type, value }) => type === "word" && /^#\{.*|\s*\}/.test(value)
