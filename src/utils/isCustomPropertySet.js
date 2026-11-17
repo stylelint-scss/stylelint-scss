@@ -1,4 +1,4 @@
-import { isDeclaration } from "./typeGuards.js";
+import { isCustomProperty } from "./isCustomProperty.js";
 
 /**
  * Check whether a Node is a custom property set
@@ -7,14 +7,12 @@ import { isDeclaration } from "./typeGuards.js";
  * @returns {boolean}
  */
 export default function isCustomPropertySet(node) {
-  if (!isDeclaration(node)) {
+  if (!isCustomProperty(node)) {
     return false;
   }
 
-  const prop =
-    /** @type {{ raw?: string } | undefined} */ (node.raws.prop)?.raw ||
-    node.prop;
-  const value = node.raws.value?.raw || node.value;
+  const decl = /** @type {import('postcss').Declaration} */ (node);
+  const value = decl.raws.value?.raw || decl.value;
 
-  return prop.startsWith("--") && value.startsWith("{") && value.endsWith("}");
+  return value.startsWith("{") && value.endsWith("}");
 }
