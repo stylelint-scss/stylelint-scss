@@ -363,3 +363,26 @@ testRule({
     }
   ]
 });
+
+testRule({
+  ruleName,
+  config: [
+    /^[A-Z]+$/,
+    {
+      message: (selector, pattern) =>
+        `Custom: "${selector}" does not match ${pattern}`
+    }
+  ],
+
+  reject: [
+    {
+      code: ".foo {}",
+      description: "passes the selector and the pattern to a custom message",
+      message: `Custom: ".foo" does not match /^[A-Z]+$/ (${ruleName})`,
+      line: 1,
+      column: 1,
+      endLine: 1,
+      endColumn: 5
+    }
+  ]
+});

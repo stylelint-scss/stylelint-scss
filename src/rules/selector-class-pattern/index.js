@@ -121,7 +121,8 @@ const rule = (primary, secondaryOptions) => {
           ruleName,
           result,
           node: ruleNode,
-          message: messages.expected(selector, primary),
+          message: messages.expected,
+          messageArgs: [selector, primary],
           index,
           endIndex
         });
