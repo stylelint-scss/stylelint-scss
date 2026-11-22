@@ -15,6 +15,9 @@
  * @param {boolean} [args.isAfterColon] - pass "true" if the string is
  *    a variable value, a mixin/function parameter default.
  *    In such cases + and / tend to be operations more often
+ * @param {string} [args.property] - the name of the property the string is
+ *    a value of. Slashes in grid shorthands separate grid lines and are
+ *    treated as operators
  * @param {(string: string, globalIndex: number, startIndex: number, endIndex: number) => void} [args.callback] -
  *    called on every operator found
  * @return {Array<SassOperator>}
@@ -23,6 +26,7 @@ export default function findOperators({
   string,
   globalIndex,
   isAfterColon,
+  property,
   callback
 }) {
   const mathOperators = ["+", "/", "-", "*", "%"];
@@ -90,7 +94,7 @@ export default function findOperators({
     // If it's a math operator
     if (
       (mathOperators.includes(character) &&
-        mathOperatorCharType(string, i, isAfterColon) === "op") ||
+        mathOperatorCharType(string, i, isAfterColon, property) === "op") ||
       // or is "<" or ">" (except inside CSS type() function arguments,
       // where angle brackets denote a data type, e.g. `type(<color>)`)
       (substringStartingWithIndex.search(/^[<>]([^=]|$)/) !== -1 &&
@@ -135,13 +139,14 @@ export default function findOperators({
  * @param {Boolean} [isAfterColon] - if the value string a variable
  *    value, a mixin/function parameter default. In such cases + and / tend
  *    to be operations more often
+ * @param {String} [property] - the name of the property the string is a value of
  * @return {String|false}
  *    • "op", if the character is a operator in a math/string operation
  *    • "sign" if it is a + or - before a numeric,
  *    • "char" if it is a part of a string,
  *    • false - if it is none from above (most likely an error)
  */
-function mathOperatorCharType(string, index, isAfterColon) {
+function mathOperatorCharType(string, index, isAfterColon, property) {
   // !Checking here to prevent unnecessary calculations and deep recursion
   // when calling isPrecedingOperator()
   if (!["+", "/", "-", "*", "%"].includes(string[index])) {
@@ -175,7 +180,7 @@ function mathOperatorCharType(string, index, isAfterColon) {
     // ---- Processing / character
     // https://sass-lang.com/documentation/operators/numeric#slash-separated-values
     if (character === "/") {
-      return checkSlash(string, index, isAfterColon);
+      return checkSlash(string, index, isAfterColon, property);
     }
   }
 
@@ -545,12 +550,13 @@ function checkMinus(string, index) {
  * @param {Boolean} isAfterColon - if the value string a variable
  *    value, a mixin/function parameter default. In such cases / is always an
  *    operator if surrounded by numbers/values with units
+ * @param {String} [property] - the name of the property the string is a value of
  * @return {String|false}
  *    • "op", if the character is a operator in a math/string operation
  *    • "char" if it gets compiled as-is, e.g. `font: 10px/1.2;`,
  *    • false - if it is none from above (most likely an error)
  */
-function checkSlash(string, index, isAfterColon) {
+function checkSlash(string, index, isAfterColon, property) {
   // Trimming these, as spaces before/after a slash don't matter
   const before = string.substring(0, index).trim();
   const after = string.substring(index + 1).trim();
@@ -584,6 +590,14 @@ function checkSlash(string, index, isAfterColon) {
     }
 
     return "char";
+  }
+
+  // In grid shorthands a slash separates grid lines and is never a division,
+  // e.g. `grid-area: 1 / 2 / 1 / 2`. It is linted as an operator so that
+  // spacing around it is enforced
+  if (isGridShorthandProperty(property)) {
+    // console.log("/, grid shorthand")
+    return "op";
   }
 
   // e.g. `10px/normal`
@@ -653,6 +667,17 @@ function checkSlash(string, index, isAfterColon) {
 
   // console.log("/, default")
   return "char";
+}
+
+/**
+ * Checks if the property is a grid property, i.e. a property whose value
+ * may contain slash-separated grid lines, e.g. `grid-area: 1 / 2 / 1 / 2`
+ *
+ * @param {String} [property] - the name of the property
+ * @return {Boolean} true, if the property is a grid property
+ */
+function isGridShorthandProperty(property) {
+  return typeof property === "string" && /^grid(?:-|$)/i.test(property);
 }
 
 /**

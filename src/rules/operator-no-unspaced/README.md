@@ -17,6 +17,8 @@ Not all symbols that correspond to math operators are actually considered operat
 * `-` as part of [a string](https://sass-lang.com/documentation/operators/string) or [a Sass identifier](https://sass-lang.com/documentation/operators/numeric#unary-operators), e.g. a variable;
 * `/` as a CSS delimiter in property values like `font: 10px/1.2 Arial;` ([read more](https://sass-lang.com/documentation/operators/numeric#slash-separated-values)).
 
+The exception above does not apply to grid properties (`grid`, `grid-area`, `grid-column`, `grid-row` and `grid-template`), where a slash separates grid lines. The slash is checked like an operator there, so it has to be surrounded by single spaces.
+
 For more details refer to [Sass official documentation](https://sass-lang.com/documentation/file.SASS_REFERENCE.html). An online Sass compiler - [Sassmeister](https://www.sassmeister.com/) - could also come in handy.
 
 The following patterns are considered warnings:
@@ -60,6 +62,10 @@ p {
 }
 ```
 
+```scss
+a { grid-area: 1/1; } // A slash separating grid lines
+```
+
 The following patterns are *not* considered warnings:
 
 ```scss
@@ -77,6 +83,10 @@ a { width: 10px- 1; }
 
 ```scss
 a { width: 10px/1; } // Compiled as CSS, as in "font: 10px/1 ..."
+```
+
+```scss
+a { grid-area: 1 / 1 / -1 / -1; } // A space around each slash separating grid lines
 ```
 
 ```scss
