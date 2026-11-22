@@ -1,3 +1,5 @@
+import { extractFunctionName } from "../../utils/extractFunctionName.js";
+import { isWithinMixin } from "../../utils/isWithinMixin.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
@@ -15,12 +17,6 @@ const meta = {
   url: ruleUrl(ruleName)
 };
 
-function extractFunctionName(inputString) {
-  const matches = [...inputString.matchAll(/(?:\s*([\w\-$]+)\s*)?\(/g)].flat();
-
-  return matches;
-}
-
 function getPrivateMembers(inputString) {
   const matches = inputString.match(/([$%]*[-_][\w-]+)/g);
 
@@ -29,20 +25,6 @@ function getPrivateMembers(inputString) {
 
 function matchUnderscores(inputString) {
   return inputString.replaceAll("_", "-");
-}
-
-function isWithinMixin(node) {
-  let parent = node.parent;
-
-  while (parent) {
-    if (parent.type === "atrule" && parent.name === "mixin") {
-      return true;
-    }
-
-    parent = parent.parent;
-  }
-
-  return false;
 }
 
 function rule(primaryOption) {

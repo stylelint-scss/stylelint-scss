@@ -1,3 +1,4 @@
+import { isWithinMixin } from "../../utils/isWithinMixin.js";
 import namespace from "../../utils/namespace.js";
 import ruleUrl from "../../utils/ruleUrl.js";
 import stylelint from "stylelint";
@@ -13,20 +14,6 @@ const messages = utils.ruleMessages(ruleName, {
 const meta = {
   url: ruleUrl(ruleName)
 };
-
-function isWithinMixin(node) {
-  let parent = node.parent;
-
-  while (parent) {
-    if (parent.type === "atrule" && parent.name === "mixin") {
-      return true;
-    }
-
-    parent = parent.parent;
-  }
-
-  return false;
-}
 
 function hasNestedParentSelector(selectors) {
   return selectors

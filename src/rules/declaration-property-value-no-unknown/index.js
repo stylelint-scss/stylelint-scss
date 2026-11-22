@@ -20,6 +20,7 @@ import {
   isString
 } from "../../utils/validateTypes.js";
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
+import { extractFunctionName } from "../../utils/extractFunctionName.js";
 import findOperators from "../../utils/sassValueParser/index.js";
 import getDeclarationValue from "../../utils/getDeclarationValue.js";
 import isCustomProperty from "../../utils/isCustomPropertySet.js";
@@ -67,12 +68,6 @@ const UNSUPPORTED_FUNCTIONS_IN_CSSTREE = new Set([
 /** @type {WeakMap<object, Set<string>>} */
 const validMatchesCacheByLexer = new WeakMap();
 const MAX_CACHE_SIZE = 10000;
-
-function extractFunctionName(inputString) {
-  const matches = [...inputString.matchAll(/(?:\s*([\w\-$]+)\s*)?\(/g)].flat();
-
-  return matches;
-}
 
 function hasDollarVarArg(functionCall) {
   for (const i of parseFunctionArguments(functionCall)) {

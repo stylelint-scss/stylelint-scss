@@ -1,3 +1,4 @@
+import { isDollarVarDeclaration } from "../../utils/isDollarVarDeclaration.js";
 import namespace from "../../utils/namespace.js";
 import optionsHaveException from "../../utils/optionsHaveException.js";
 import optionsHaveIgnored from "../../utils/optionsHaveIgnored.js";
@@ -38,12 +39,10 @@ function rule(primary, options) {
       return;
     }
 
-    const isDollarVar = node => node.prop && node.prop[0] === "$";
-
     root.walkDecls(decl => {
       // Ignore declarations that aren't variables.
       // ------------------------------------------
-      if (!isDollarVar(decl)) {
+      if (!isDollarVarDeclaration(decl)) {
         return;
       }
 
@@ -77,7 +76,7 @@ function rule(primary, options) {
 
       // If first or preceded by another variable.
       // -----------------------------------------
-      if (!previous || isDollarVar(previous)) {
+      if (!previous || isDollarVarDeclaration(previous)) {
         return;
       }
 
@@ -92,7 +91,7 @@ function rule(primary, options) {
         if (sibling === decl) {
           break;
         } else if (
-          !isDollarVar(sibling) &&
+          !isDollarVarDeclaration(sibling) &&
           !(
             (allowComments && sibling.type === "comment") ||
             (allowImports &&

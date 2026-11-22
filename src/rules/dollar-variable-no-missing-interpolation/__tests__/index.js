@@ -219,6 +219,20 @@ testRule({
     },
     {
       code: `
+      @use "variables" as ns;
+
+      $a: primary;
+
+      a {
+        --x: var(--c-#{$a}-#{ns.$b});
+        --y: var(--c-#{ns.$b});
+      }
+      `,
+      description:
+        "when namespaced variable is interpolated inside a custom property name (issue #1403)"
+    },
+    {
+      code: `
       @use 'svg';
 
       $external-link-icon: "<svg></svg>";
@@ -556,6 +570,75 @@ testRule({
   ],
 
   reject: [
+    {
+      code: `
+      @use "variables" as ns;
+
+      $a: primary;
+
+      a {
+        --x: var(--c-#{$a}-ns.$b);
+      }
+    `,
+      fixed: `
+      @use "variables" as ns;
+
+      $a: primary;
+
+      a {
+        --x: var(--c-#{$a}-#{ns.$b});
+      }
+    `,
+      line: 7,
+      column: 28,
+      endLine: 7,
+      endColumn: 33,
+      message: messages.rejected("--x", "ns.$b"),
+      description:
+        "should fix only the bare variable next to an interpolated one in a custom property name"
+    },
+    {
+      code: `
+      @use "design-tokens";
+
+      a {
+        --x: var(--c-design-tokens.$b);
+      }
+    `,
+      fixed: `
+      @use "design-tokens";
+
+      a {
+        --x: var(--c-#{design-tokens.$b});
+      }
+    `,
+      message: messages.rejected("--x", "design-tokens.$b"),
+      description:
+        "should fix a hyphenated namespace inside a custom property name"
+    },
+    {
+      code: `
+      @use "variables" as ns;
+
+      $a: primary;
+
+      a {
+        --x: #{$a}-ns.$b;
+      }
+    `,
+      fixed: `
+      @use "variables" as ns;
+
+      $a: primary;
+
+      a {
+        --x: #{$a}-#{ns.$b};
+      }
+    `,
+      message: messages.rejected("--x", "ns.$b"),
+      description:
+        "should fix a variable after a leading interpolation in a custom property"
+    },
     {
       code: `
       .class {
