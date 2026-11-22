@@ -16,6 +16,10 @@ testRule({
         }
       }
       `
+    },
+    {
+      code: ":root { --foo: { colr: red; }; }",
+      description: "custom property set"
     }
   ]
 });

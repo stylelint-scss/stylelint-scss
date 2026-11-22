@@ -29,6 +29,10 @@ const basicAZTestsAccept = {
       description: "custom property in root"
     },
     {
+      code: ":root { --foo: { .bar {} }; }",
+      description: "custom property set in root"
+    },
+    {
       code: "html { --foo: 1px; }",
       description: "custom property in selector"
     },

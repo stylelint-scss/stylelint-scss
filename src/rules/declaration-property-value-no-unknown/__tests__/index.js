@@ -1,5 +1,7 @@
+import plugin from "../../../index.js";
 import rule from "../index.js";
 import { stripIndent } from "common-tags";
+import stylelint from "stylelint";
 
 const { ruleName, messages } = rule;
 
@@ -34,6 +36,34 @@ testRule({
     },
     {
       code: "a { --foo: 1px; }"
+    },
+    {
+      code: "a { --foo: { color: red; }; }",
+      description: "custom property set"
+    },
+    {
+      code: "a { color: calc(1px + 1s) + 1px; }",
+      description: "Sass operator outside a math function"
+    },
+    {
+      code: "a { width: (calc(100% - 10px)); }",
+      description: "a math function in Sass parentheses"
+    },
+    {
+      code: "a { margin: 0 (calc(100% - 10px)); }"
+    },
+    {
+      code: "a { transform: TRANSLATEX(10px); }",
+      description: "uppercase camelCase function"
+    },
+    {
+      code: "@function RGB($a) { @return $a; } a { color: RGB(1); }",
+      description: "declared function shadowing a CSS function"
+    },
+    {
+      code: "@function linear_gradient($a) { @return red; } a { background-image: linear-gradient(1); }",
+      description:
+        "declared function called with hyphens instead of underscores"
     },
     {
       code: "a { color: lightgrey; }"
@@ -125,6 +155,39 @@ testRule({
       description: "ignore descriptors with unknown values"
     },
     */
+    {
+      code: stripIndent`
+				a { --foo: red; }
+				@property --foo {
+					syntax: "<length";
+					inherits: false;
+					initial-value: 0;
+				}
+			`,
+      description: "unparseable @property syntax"
+    },
+    {
+      code: stripIndent`
+				a { --foo: red; }
+				@property --foo {
+					syntax: "<length> |";
+					inherits: false;
+					initial-value: 0;
+				}
+			`,
+      description: "@property syntax with a trailing combinator"
+    },
+    {
+      code: stripIndent`
+				a { --foo: red; }
+				@property --foo {
+					syntax: "<not-a-type>";
+					inherits: false;
+					initial-value: 0;
+				}
+			`,
+      description: "@property syntax with an unknown type"
+    },
     {
       code: stripIndent`
 				a { --foo: red; }
@@ -825,6 +888,15 @@ testRule({
       endColumn: 30
     },
     {
+      code: "a { width: calc(1px + 2px)); }",
+      description: "parse error next to a math function",
+      message: messages.rejectedParseError("width", "calc(1px + 2px))"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 28
+    },
+    {
       code: `
         a {
           color: red;
@@ -839,7 +911,6 @@ testRule({
       endLine: 5,
       endColumn: 22
     },
-    /* Not supported.
     {
       code: stripIndent`
 				a { --foo: 10px; }
@@ -849,13 +920,82 @@ testRule({
 					initial-value: #c0ffee;
 				}
 			`,
-      message: messages.rejected("--foo", "10px"),
+      message: messages.rejected("--foo", "10px", "<color>"),
       line: 1,
       column: 12,
       endLine: 1,
       endColumn: 16
     },
-    */
+    {
+      code: stripIndent`
+				a { --foo: calc(1px + 1s); }
+				@property --foo {
+					syntax: "<color>";
+					inherits: false;
+					initial-value: #c0ffee;
+				}
+			`,
+      description: "unsolvable math function for a typed custom property",
+      message: messages.rejected("--foo", "calc(1px + 1s)", "<color>"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 26
+    },
+    {
+      code: "a { color: calc(1px + 1s); }",
+      description: "unsolvable math function",
+      message: messages.rejected("color", "calc(1px + 1s)"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 26
+    },
+    {
+      code: "a { color: CALC(1px + 1s); }",
+      description: "uppercase math function",
+      message: messages.rejected("color", "CALC(1px + 1s)"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 26
+    },
+    {
+      code: "@function rgb($a) { @return $a; } a { color: RGB(1); }",
+      description: "declared function names are case-sensitive",
+      message: messages.rejected("color", "RGB(1)"),
+      line: 1,
+      column: 46,
+      endLine: 1,
+      endColumn: 52
+    },
+    {
+      code: "a { color: RGB(0 0 0 0 0); }",
+      description: "uppercase function",
+      message: messages.rejected("color", "RGB(0 0 0 0 0)"),
+      line: 1,
+      column: 12,
+      endLine: 1,
+      endColumn: 26
+    },
+    {
+      code: "a { transform: TRANSLATEX(red); }",
+      description: "uppercase camelCase function",
+      message: messages.rejected("transform", "TRANSLATEX(red)"),
+      line: 1,
+      column: 16,
+      endLine: 1,
+      endColumn: 31
+    },
+    {
+      code: "a { transform: translateX(red); }",
+      description: "camelCase function",
+      message: messages.rejected("transform", "translateX(red)"),
+      line: 1,
+      column: 16,
+      endLine: 1,
+      endColumn: 31
+    },
     {
       code: 'a { font-family: "Foo" serif; }',
       message: messages.rejected("font-family", "serif"),
@@ -1285,12 +1425,53 @@ testRule({
 
   reject: [
     {
+      code: "a { top: --foo(red); }",
+      description: "a function type declared in typesSyntax",
+      message: messages.rejected("top", "--foo(red)"),
+      line: 1,
+      column: 10,
+      endLine: 1,
+      endColumn: 20
+    },
+    {
       code: "a { top: red; }",
       message: messages.rejected("top", "red"),
       line: 1,
       column: 10,
       endLine: 1,
       endColumn: 13
+    }
+  ]
+});
+
+testRule({
+  ruleName,
+  config: [true, { typesSyntax: { foo: "<length" } }],
+
+  accept: [
+    {
+      code: stripIndent`
+				@property --foo {
+					syntax: "<color>";
+					inherits: false;
+					initial-value: red;
+				}
+				a { --foo: 10px; }
+			`,
+      description:
+        "registered syntaxes are not checked when a typesSyntax entry is unparseable"
+    },
+    {
+      code: stripIndent`
+				@property --foo {
+					syntax: "<not-a-type>";
+					inherits: false;
+					initial-value: red;
+				}
+				a { --foo: red; }
+			`,
+      description:
+        "an unknown type in a registered syntax doesn't throw when a typesSyntax entry is unparseable"
     }
   ]
 });
@@ -1435,4 +1616,18 @@ testRule({
         "languageOptions with empty syntax object - rejects unknown value"
     }
   ]
+});
+
+it("doesn't let an @function in one file turn off checks in another", async () => {
+  const lint = code =>
+    stylelint.lint({
+      code,
+      config: { plugins: [plugin], rules: { [ruleName]: true } }
+    });
+
+  await lint("@function rgb($a) { @return $a; }");
+
+  const { results } = await lint("a { color: rgb(1); }");
+
+  expect(results[0].warnings).toHaveLength(1);
 });

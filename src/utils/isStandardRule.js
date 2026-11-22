@@ -1,4 +1,3 @@
-import isCustomPropertySet from "./isCustomPropertySet.js";
 import isStandardSyntaxSelector from "./isStandardSelector.js";
 
 /**
@@ -12,11 +11,6 @@ export default function isStandardRule(rule) {
   const selector = rule?.raws?.selector?.raw || rule.selector;
 
   if (!isStandardSyntaxSelector(rule.selector)) {
-    return false;
-  }
-
-  // Custom property set (e.g. --custom-property-set: {})
-  if (isCustomPropertySet(rule)) {
     return false;
   }
 
