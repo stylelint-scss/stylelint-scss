@@ -1356,6 +1356,115 @@ testRule({
   ]
 });
 
+// - in grid properties, where a slash separates grid lines
+testRule({
+  ruleName,
+  config: [true],
+  customSyntax: "postcss-scss",
+  skipBasicChecks: true,
+
+  accept: [
+    {
+      code: "a { grid-area: 1 / 1 / -1 / -1; }",
+      description:
+        "Grid slash with spaces around it: grid-area: 1 / 1 / -1 / -1."
+    },
+    {
+      code: "a { grid-row: 1 / 3; }",
+      description: "Grid slash with spaces around it: grid-row: 1 / 3."
+    },
+    {
+      code: 'a { grid-template: "a" 1fr / 1fr; }',
+      description: "Grid slash with spaces around it: grid-template."
+    },
+    {
+      code: "a { font: 12px/1.2 sans-serif; }",
+      description: "Non-grid slash is ignored: font: 12px/1.2 sans-serif."
+    },
+    {
+      code: ":root { --grid-area: 1/1; }",
+      description: "Custom property slash is ignored: --grid-area: 1/1."
+    }
+  ],
+
+  reject: [
+    {
+      code: "a { grid-area: 1/1; }",
+      description: "Grid slash w/o spaces: grid-area: 1/1.",
+      warnings: [
+        {
+          message: messages.expectedBefore("/"),
+          line: 1,
+          column: 17
+        },
+        {
+          message: messages.expectedAfter("/"),
+          line: 1,
+          column: 17
+        }
+      ]
+    },
+    {
+      code: "a { grid-area: 1 /1 / -1/-1; }",
+      description: "Grid slashes w/o spaces: grid-area: 1 /1 / -1/-1.",
+      warnings: [
+        {
+          message: messages.expectedAfter("/"),
+          line: 1,
+          column: 18
+        },
+        {
+          message: messages.expectedBefore("/"),
+          line: 1,
+          column: 25
+        },
+        {
+          message: messages.expectedAfter("/"),
+          line: 1,
+          column: 25
+        }
+      ]
+    },
+    {
+      code: "a { grid-area: 1/1 / -1/-1; }",
+      description: "Grid slashes w/o spaces: grid-area: 1/1 / -1/-1.",
+      warnings: [
+        {
+          message: messages.expectedBefore("/"),
+          line: 1,
+          column: 17
+        },
+        {
+          message: messages.expectedAfter("/"),
+          line: 1,
+          column: 17
+        },
+        {
+          message: messages.expectedBefore("/"),
+          line: 1,
+          column: 24
+        },
+        {
+          message: messages.expectedAfter("/"),
+          line: 1,
+          column: 24
+        }
+      ]
+    },
+    {
+      code: "a { grid-area: 1 / 1 / -1 /-1; }",
+      description: "Grid slash w/o spaces: grid-area: 1 / 1 / -1 /-1.",
+      warnings: [
+        {
+          message: messages.expectedAfter("/"),
+          line: 1,
+          column: 27
+        }
+      ]
+    }
+  ]
+});
+
 // ------------------------------------------------------------------------
 // Testing *
 // ------------------------------------------------------------------------

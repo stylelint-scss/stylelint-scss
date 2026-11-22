@@ -233,7 +233,9 @@ export function calculationOperatorSpaceChecker({ root, result, checker }) {
                 string: item.value,
                 globalIndex: declarationValueIndex(item),
                 // For Sass variable values some special rules apply
-                isAfterColon: item.prop[0] === "$"
+                isAfterColon: item.prop[0] === "$",
+                // Slashes in grid shorthands separate grid lines
+                property: item.prop
               })
             }
           ],
