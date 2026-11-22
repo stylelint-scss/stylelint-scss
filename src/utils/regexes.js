@@ -12,7 +12,7 @@ const singleArgumentMathFunctions = new Set([
   "tan"
 ]);
 
-const mathFunctions = new Set([
+export const mathFunctions = new Set([
   ...singleArgumentMathFunctions,
   "atan2",
   "calc-size",

@@ -14,6 +14,10 @@ testRule({
       description: "Regexp: sequence part. Example: full match."
     },
     {
+      code: ":root { --bar: { %baz {} }; }",
+      description: "Regexp: sequence part. Example: custom property set."
+    },
+    {
       code: "%_foo { top: 1em; }",
       description: "Regexp: sequence part. Example: matches at the end."
     },

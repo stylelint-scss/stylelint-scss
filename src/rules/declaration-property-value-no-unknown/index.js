@@ -1,6 +1,13 @@
 import { ParseErrorMessage, calcFromComponentValues } from "@csstools/css-calc";
 import { TokenType, tokenize } from "@csstools/css-tokenizer";
-import { lexer as cssTreelexer, find, fork, parse, string } from "css-tree";
+import {
+  lexer as cssTreelexer,
+  definitionSyntax,
+  find,
+  fork,
+  parse,
+  string
+} from "css-tree";
 import {
   isFunctionNode,
   parseListOfComponentValues,
@@ -9,7 +16,11 @@ import {
 } from "@csstools/css-parser-algorithms";
 import stylelint from "stylelint";
 
-import { atRuleRegexes, mayIncludeRegexes } from "../../utils/regexes.js";
+import {
+  atRuleRegexes,
+  mathFunctions,
+  mayIncludeRegexes
+} from "../../utils/regexes.js";
 import { isAtRule, isDeclaration } from "../../utils/typeGuards.js";
 import {
   isDollarVar,
@@ -22,7 +33,7 @@ import {
 import declarationValueIndex from "../../utils/declarationValueIndex.js";
 import findOperators from "../../utils/sassValueParser/index.js";
 import getDeclarationValue from "../../utils/getDeclarationValue.js";
-import isCustomProperty from "../../utils/isCustomPropertySet.js";
+import { isCustomPropertyName } from "../../utils/isCustomPropertyName.js";
 import isDescriptorDeclaration from "../../utils/isDescriptorDeclaration.js";
 import isStandardSyntaxDeclaration from "../../utils/isStandardSyntaxDeclaration.js";
 import isStandardSyntaxProperty from "../../utils/isStandardSyntaxProperty.js";
@@ -43,8 +54,8 @@ const { utils } = stylelint;
 const ruleName = namespace("declaration-property-value-no-unknown");
 
 const messages = utils.ruleMessages(ruleName, {
-  rejected: (property, value) =>
-    `Unknown value "${value}" for property "${property}"`,
+  rejected: (property, value, syntax) =>
+    `Unknown value "${value}" for property "${property}"${syntax ? `, registered as "${syntax}"` : ""}`,
   rejectedParseError: (property, value) =>
     `Cannot parse property value "${value}" for property "${property}"`,
   rejectedMath: (property, expression) =>
@@ -63,6 +74,13 @@ const UNSUPPORTED_FUNCTIONS_IN_CSSTREE = new Set([
   "max",
   "env"
 ]);
+
+// Lowercased, as CSS function names are case-insensitive but css-tree has e.g. `translateX()`.
+const CSSTREE_FUNCTION_NAMES = new Set(
+  Object.keys(cssTreelexer.types)
+    .filter(name => name.endsWith("()"))
+    .map(name => name.toLowerCase())
+);
 
 /** @type {WeakMap<object, Set<string>>} */
 const validMatchesCacheByLexer = new WeakMap();
@@ -118,29 +136,47 @@ const rule = (primary, secondaryOptions) => {
       ...languageSyntax?.properties,
       ...secondaryOptions?.propertiesSyntax
     };
+    const userTypes = {
+      ...languageSyntax?.types,
+      ...secondaryOptions?.typesSyntax
+    };
     const typesSyntax = {
       ...syntaxPatches.types,
       // Sass supports rgba(color, alpha).
       // https://sass-lang.com/documentation/modules/#rgb
       "rgba()": "| rgba( <hex-color> , <alpha-value>? )",
-      ...languageSyntax?.types,
-      ...secondaryOptions?.typesSyntax
+      ...userTypes
     };
+
+    const userFunctionTypes = Object.keys(userTypes).filter(name =>
+      name.endsWith("()")
+    );
+    const knownFunctionNames = userFunctionTypes.length
+      ? new Set([
+          ...CSSTREE_FUNCTION_NAMES,
+          ...userFunctionTypes.map(name => name.toLowerCase())
+        ])
+      : CSSTREE_FUNCTION_NAMES;
 
     /** @type {Map<string, string>} */
     const typedCustomPropertyNames = new Map();
+    /** @type {Map<string, string>} */
+    const registeredSyntaxes = new Map();
+
+    /** @type {Set<string>} */
+    const declaredFunctions = new Set();
 
     // Unless we tracked return values of declared functions, they're all valid.
     root.walkAtRules("function", atRule => {
-      UNSUPPORTED_FUNCTIONS_IN_CSSTREE.add(
-        extractFunctionName(atRule.params)[1]
-      );
+      const name = extractFunctionName(atRule.params)[1];
+
+      if (name) declaredFunctions.add(name.replaceAll("_", "-"));
     });
 
     root.walkAtRules(atRuleRegexes.propertyName, atRule => {
       const propName = atRule.params.trim();
 
-      if (!propName || !atRule.nodes || !isCustomProperty(propName)) return;
+      if (!atRule.nodes || !isCustomPropertyName(propName)) return;
 
       for (const node of atRule.nodes) {
         if (isDeclaration(node) && SYNTAX_DESCRIPTOR.test(node.prop)) {
@@ -155,6 +191,12 @@ const rule = (primary, secondaryOptions) => {
           // We don't need to check this property.
           if (unquoted === "*") continue;
 
+          try {
+            definitionSyntax.parse(unquoted);
+          } catch {
+            continue;
+          }
+
           // https://github.com/csstree/csstree/pull/256
           // We can circumvent this issue by prefixing the property name,
           // making it a vendor-prefixed property instead of a custom property.
@@ -165,6 +207,7 @@ const rule = (primary, secondaryOptions) => {
           const prefixedPropName = `-stylelint${propName}`;
 
           typedCustomPropertyNames.set(propName, prefixedPropName);
+          registeredSyntaxes.set(propName, unquoted);
           propertiesSyntax[prefixedPropName] = unquoted;
         }
       }
@@ -174,6 +217,21 @@ const rule = (primary, secondaryOptions) => {
       properties: propertiesSyntax,
       types: typesSyntax
     }).lexer;
+
+    // A syntax referencing an unknown type throws when matched, so leave it untyped.
+    if (typedCustomPropertyNames.size > 0) {
+      try {
+        const brokenProperties = new Set(forkedLexer.validate()?.properties);
+
+        for (const [propName, prefixedPropName] of typedCustomPropertyNames) {
+          if (brokenProperties.has(prefixedPropName))
+            typedCustomPropertyNames.delete(propName);
+        }
+      } catch {
+        // An unparseable user syntax option stops validate(), so trust no registered syntax.
+        typedCustomPropertyNames.clear();
+      }
+    }
 
     let validMatchesCache = validMatchesCacheByLexer.get(forkedLexer);
 
@@ -223,7 +281,8 @@ const rule = (primary, secondaryOptions) => {
 
       if (!isStandardSyntaxValue(value)) return;
 
-      if (isCustomProperty(prop) && !typedCustomPropertyNames.has(prop)) return;
+      if (isCustomPropertyName(prop) && !typedCustomPropertyNames.has(prop))
+        return;
 
       if (isPropIgnored(prop, value)) return;
 
@@ -232,7 +291,7 @@ const rule = (primary, secondaryOptions) => {
       // skipping parsing by returning early until this is resolved upstream.
       if (/\bvar\s*\(/i.test(value)) return;
 
-      const cacheKey = isCustomProperty(prop) ? null : `${prop}:${value}`;
+      const cacheKey = isCustomPropertyName(prop) ? null : `${prop}:${value}`;
 
       if (cacheKey && validMatchesCache.has(cacheKey)) return;
 
@@ -241,7 +300,7 @@ const rule = (primary, secondaryOptions) => {
 
       if (value.split(" ").some(val => hasDollarVarArg(val))) return;
 
-      if (value.split(" ").some(val => containsCustomFunction(val))) return;
+      if (containsNamespacedFunction(value)) return;
 
       // Check if value contains math functions that need validation
       const [
@@ -252,7 +311,8 @@ const rule = (primary, secondaryOptions) => {
         value,
         prop,
         forkedLexer,
-        typedCustomPropertyNames
+        typedCustomPropertyNames,
+        declaredFunctions
       );
 
       if (mathFuncResult === "valid" || mathFuncResult === "skip-validation") {
@@ -301,9 +361,18 @@ const rule = (primary, secondaryOptions) => {
       try {
         cssTreeValueNode = parse(value, { context: "value", positions: true });
 
-        if (containsCustomFunction(cssTreeValueNode)) return;
+        if (
+          containsCustomFunction(
+            cssTreeValueNode,
+            declaredFunctions,
+            knownFunctionNames
+          )
+        )
+          return;
 
-        if (containsFunctionsNotSupportedInCSSTree(cssTreeValueNode)) return;
+        // Top-level parentheses are Sass grouping, e.g. `(calc(100% - 10px))`.
+        if (cssTreeValueNode.children.some(node => node.type === "Parentheses"))
+          return;
       } catch {
         const index = declarationValueIndex(decl);
         const endIndex = index + value.length;
@@ -317,15 +386,7 @@ const rule = (primary, secondaryOptions) => {
 
         if (hasDollarVarArg(value)) return;
 
-        if (containsNamespacedFunction(value)) return;
-
-        const operators = findOperators({ string: value }).map(o => o.symbol);
-
-        for (const operator of operators) {
-          if (mathOperators.includes(operator)) {
-            return;
-          }
-        }
+        if (hasSassMathOperator(value)) return;
 
         utils.report({
           message: messages.rejectedParseError,
@@ -371,13 +432,8 @@ const rule = (primary, secondaryOptions) => {
 
       const valueIndex = declarationValueIndex(decl);
       const mismatchValue = value.slice(loc.start.offset, loc.end.offset);
-      const operators = findOperators({ string: value }).map(o => o.symbol);
 
-      for (const operator of operators) {
-        if (mathOperators.includes(operator)) {
-          return;
-        }
-      }
+      if (hasSassMathOperator(value)) return;
 
       const functionNode = find(
         cssTreeValueNode,
@@ -399,7 +455,7 @@ const rule = (primary, secondaryOptions) => {
 
         utils.report({
           message: messages.rejected,
-          messageArgs: [prop, valueFunction],
+          messageArgs: [prop, valueFunction, registeredSyntaxes.get(prop)],
           node: decl,
           index,
           endIndex,
@@ -412,7 +468,7 @@ const rule = (primary, secondaryOptions) => {
 
       utils.report({
         message: messages.rejected,
-        messageArgs: [prop, mismatchValue],
+        messageArgs: [prop, mismatchValue, registeredSyntaxes.get(prop)],
         node: decl,
         index: valueIndex + loc.start.offset,
         endIndex: valueIndex + loc.end.offset,
@@ -424,31 +480,60 @@ const rule = (primary, secondaryOptions) => {
 };
 
 /**
- * @see csstree/csstree#245 env
- * @param {import('css-tree').CssNode} cssTreeNode
+ * @param {string} name
+ * @param {Set<string>} declaredFunctions
  * @returns {boolean}
  */
-function containsFunctionsNotSupportedInCSSTree(cssTreeNode) {
+function isUnsupportedFunction(name, declaredFunctions) {
+  // Sass function names are case-sensitive, and `-` and `_` are the same character.
+  return (
+    UNSUPPORTED_FUNCTIONS_IN_CSSTREE.has(name.toLowerCase()) ||
+    declaredFunctions.has(name.replaceAll("_", "-"))
+  );
+}
+
+/**
+ * @see csstree/csstree#245 env
+ * @param {import('css-tree').CssNode} cssTreeNode
+ * @param {Set<string>} declaredFunctions
+ * @returns {boolean}
+ */
+function containsFunctionsNotSupportedInCSSTree(
+  cssTreeNode,
+  declaredFunctions
+) {
   return Boolean(
     find(
       cssTreeNode,
       node =>
         node.type === "Function" &&
-        UNSUPPORTED_FUNCTIONS_IN_CSSTREE.has(node.name.toLowerCase())
+        isUnsupportedFunction(node.name, declaredFunctions)
     )
   );
 }
 
-function containsCustomFunction(cssTreeNode) {
+/**
+ * @param {import('css-tree').CssNode} cssTreeNode
+ * @param {Set<string>} declaredFunctions
+ * @param {Set<string>} knownFunctionNames - Lowercased, e.g. `rgb()`
+ * @returns {boolean}
+ */
+function containsCustomFunction(
+  cssTreeNode,
+  declaredFunctions,
+  knownFunctionNames
+) {
   return Boolean(
-    /[\w-]+\.[\w-]+\(.*\)/.test(cssTreeNode) ||
-    find(
-      cssTreeNode,
-      node =>
-        node.type === "Function" &&
-        (UNSUPPORTED_FUNCTIONS_IN_CSSTREE.has(node.name.toLowerCase()) ||
-          !cssTreelexer.types[`${node.name}()`])
-    )
+    find(cssTreeNode, node => {
+      if (node.type !== "Function") return false;
+
+      const name = node.name.toLowerCase();
+
+      return (
+        isUnsupportedFunction(node.name, declaredFunctions) ||
+        !knownFunctionNames.has(`${name}()`)
+      );
+    })
   );
 }
 
@@ -459,6 +544,39 @@ function containsCustomFunction(cssTreeNode) {
  */
 function containsNamespacedFunction(value) {
   return /[\w-]+\.[\w-]+\(/.test(value);
+}
+
+/**
+ * Check for Sass math operators, ignoring CSS math functions where they are CSS operators.
+ *
+ * @param {string} value
+ * @returns {boolean}
+ */
+function hasSassMathOperator(value) {
+  let outsideMathFunctions = value;
+
+  if (mayIncludeRegexes.mathFunction.test(value)) {
+    walk(parseListOfComponentValues(tokenize({ css: value })), ({ node }) => {
+      if (
+        !isFunctionNode(node) ||
+        !mathFunctions.has(node.getName().toLowerCase())
+      )
+        return;
+
+      const tokens = node.tokens();
+      const start = tokens[0][2];
+      const end = tokens[tokens.length - 1][3] + 1;
+
+      outsideMathFunctions =
+        outsideMathFunctions.slice(0, start) +
+        "0".repeat(end - start) +
+        outsideMathFunctions.slice(end);
+    });
+  }
+
+  return findOperators({ string: outsideMathFunctions }).some(o =>
+    mathOperators.includes(o.symbol)
+  );
 }
 
 /**
@@ -496,9 +614,16 @@ function containsCalcSizeWithSizeKeyword(componentValues) {
  * @param {string} prop - The property name
  * @param {ReturnType<import('css-tree')['fork']>['lexer']} lexer - The csstree lexer
  * @param {Map<string, string>} typedCustomPropertyNames - Map of typed custom property names
+ * @param {Set<string>} declaredFunctions - Names of `@function`s declared in the file
  * @returns {['undetermined' | 'valid' | 'invalid' | 'skip-validation', number, number]} - The validation result
  */
-function validateMathFunctions(value, prop, lexer, typedCustomPropertyNames) {
+function validateMathFunctions(
+  value,
+  prop,
+  lexer,
+  typedCustomPropertyNames,
+  declaredFunctions
+) {
   // If the value doesn't contain any math functions, continue with normal validation
   if (!mayIncludeRegexes.mathFunction.test(value))
     return ["undetermined", -1, -1];
@@ -551,7 +676,12 @@ function validateMathFunctions(value, prop, lexer, typedCustomPropertyNames) {
       positions: true
     });
 
-    if (containsFunctionsNotSupportedInCSSTree(solvedCssTreeNode)) {
+    if (
+      containsFunctionsNotSupportedInCSSTree(
+        solvedCssTreeNode,
+        declaredFunctions
+      )
+    ) {
       return ["skip-validation", -1, -1];
     }
 
