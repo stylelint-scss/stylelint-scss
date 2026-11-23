@@ -46,6 +46,7 @@ import functionCalculationNoInterpolation from "./function-calculation-no-interp
 import functionColorChannel from "./function-color-channel/index.js";
 import functionColorRelative from "./function-color-relative/index.js";
 import functionDisallowedList from "./function-disallowed-list/index.js";
+import functionNoMissingInterpolationInCustomProperty from "./function-no-missing-interpolation-in-custom-property/index.js";
 import functionNoUnknown from "./function-no-unknown/index.js";
 import functionQuoteNoQuotedStringsInside from "./function-quote-no-quoted-strings-inside/index.js";
 import functionUnquoteNoUnquotedStringsInside from "./function-unquote-no-unquoted-strings-inside/index.js";
@@ -126,6 +127,8 @@ const rules = {
   "function-calculation-no-interpolation": functionCalculationNoInterpolation,
   "function-color-channel": functionColorChannel,
   "function-color-relative": functionColorRelative,
+  "function-no-missing-interpolation-in-custom-property":
+    functionNoMissingInterpolationInCustomProperty,
   "function-no-unknown": functionNoUnknown,
   "function-quote-no-quoted-strings-inside": functionQuoteNoQuotedStringsInside,
   "function-unquote-no-unquoted-strings-inside":
